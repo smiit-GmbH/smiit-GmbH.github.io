@@ -1,17 +1,29 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
+import { motion, useReducedMotion } from "framer-motion"
 
 type Phase = "initial" | "zoom" | "text" | "exit"
 
-export function IntroOverlay({ onDone }: { onDone: () => void }) {
+const EXIT_MS = 650
+const ENTER_AT_MS = 100
+const TEXT_AT_MS = 1100
+const EXIT_AT_MS = 3200
+
+export function IntroOverlay({
+  onDone,
+  onExitStart,
+}: {
+  onDone: () => void
+  onExitStart?: () => void
+}) {
   const [phase, setPhase] = useState<Phase>("initial")
-  const [show, setShow] = useState(false)
   const pathname = usePathname() || "/"
   const lang = pathname.startsWith("/en") ? "en" : "de"
-  const base = `/${lang}`
+  const prefersReducedMotion = useReducedMotion()
+  const exitStartedRef = useRef(false)
 
   const L =
     lang === "de"
@@ -23,15 +35,30 @@ export function IntroOverlay({ onDone }: { onDone: () => void }) {
         }
 
   useEffect(() => {
-    setShow(true)
-
     const prevOverflow = document.body.style.overflow
     document.body.style.overflow = "hidden"
 
-    const timer1 = window.setTimeout(() => setPhase("zoom"), 100)
-    const timer2 = window.setTimeout(() => setPhase("text"), 1100)
-    const timer3 = window.setTimeout(() => setPhase("exit"), 3500)
-    const timer4 = window.setTimeout(() => onDone(), 3500)
+    const startExit = () => {
+      setPhase("exit")
+      if (!exitStartedRef.current) {
+        exitStartedRef.current = true
+        onExitStart?.()
+      }
+    }
+
+    if (prefersReducedMotion) {
+      startExit()
+      const timerDone = window.setTimeout(() => onDone(), 50)
+      return () => {
+        document.body.style.overflow = prevOverflow
+        clearTimeout(timerDone)
+      }
+    }
+
+    const timer1 = window.setTimeout(() => setPhase("zoom"), ENTER_AT_MS)
+    const timer2 = window.setTimeout(() => setPhase("text"), TEXT_AT_MS)
+    const timer3 = window.setTimeout(() => startExit(), EXIT_AT_MS)
+    const timer4 = window.setTimeout(() => onDone(), EXIT_AT_MS + EXIT_MS)
 
     return () => {
       document.body.style.overflow = prevOverflow
@@ -40,60 +67,65 @@ export function IntroOverlay({ onDone }: { onDone: () => void }) {
       clearTimeout(timer3)
       clearTimeout(timer4)
     }
-  }, [onDone])
-
-  if (!show) return null
+  }, [onDone, onExitStart, prefersReducedMotion])
 
   return (
-    <div
+    <motion.div
       className={[
         "fixed inset-0 z-[9999] flex flex-col items-center justify-center",
         "bg-gradient-to-b from-[#B9CAF4] via-[#C7D4F6] to-[#D9E1FA]",
-        "transition-opacity duration-500 ease-out",
-        phase === "exit" ? "opacity-0" : "opacity-100",
+        "will-change-[opacity]",
       ].join(" ")}
+      initial={{ opacity: 1 }}
+      animate={{ opacity: phase === "exit" ? 0 : 1 }}
+      transition={{ duration: EXIT_MS / 1000, ease: "easeOut" }}
     >
-      <div
-        className={`relative w-40 h-40 transition-all duration-1000 ease-out transform ${
+      <motion.div
+        className="relative w-40 h-40"
+        initial={{ scale: 0.5, opacity: 0 }}
+        animate={
           phase === "initial"
-            ? "scale-50 opacity-0"
-            : "scale-100 opacity-100"
-        }`}
+            ? { scale: 0.5, opacity: 0 }
+            : { scale: 1, opacity: 1 }
+        }
+        transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
       >
         <Image src="/icon.png" alt="smiit" fill className="object-contain" priority />
-      </div>
+      </motion.div>
 
       <div className="mt-4 flex flex-col items-center mt-8">
         <div className="h-8 overflow-hidden flex items-center justify-center">
-          <p
-            className={`font-serif ${
-              "text-black/70"
-            } font-light tracking-[0.3em] text-xs sm:text-sm uppercase transition-all duration-1000 ease-out transform ${
-              phase === "text"
-                ? "translate-y-0 opacity-100"
-                : "translate-y-full opacity-0"
-            }`}
+          <motion.p
+            className={[
+              "font-serif text-black/70 font-light tracking-[0.3em] text-xs sm:text-sm uppercase",
+              "will-change-[transform,opacity]",
+            ].join(" ")}
+            initial={{ y: 24, opacity: 0 }}
+            animate={
+              phase === "text" || phase === "exit"
+                ? { y: 0, opacity: 1 }
+                : { y: 24, opacity: 0 }
+            }
+            transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
           >
             {L.loading}
-          </p>
+          </motion.p>
         </div>
 
-        <div
-          className={`mt-8 w-32 h-[1px] ${
-            "bg-black/10"
-          } overflow-hidden rounded-full transition-opacity duration-500 ${
-            phase === "text" ? "opacity-100" : "opacity-0"
-          }`}
+        <motion.div
+          className="mt-8 w-32 h-[1px] bg-black/10 overflow-hidden rounded-full"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: phase === "text" || phase === "exit" ? 1 : 0 }}
+          transition={{ duration: 0.4, ease: "easeOut" }}
         >
-          <div
-            className={`h-full ${
-              "bg-black/40"
-            } transition-all duration-[2000ms] ease-out ${
-              phase === "text" ? "w-full" : "w-0"
-            }`}
+          <motion.div
+            className="h-full bg-black/40"
+            initial={{ width: "0%" }}
+            animate={{ width: phase === "text" || phase === "exit" ? "100%" : "0%" }}
+            transition={{ duration: 2.0, ease: "easeOut" }}
           />
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   )
 }

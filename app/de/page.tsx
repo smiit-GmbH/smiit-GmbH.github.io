@@ -4,6 +4,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { useEffect, useRef, useState } from "react"
+import { motion } from "framer-motion"
 import Footer from "@/components/footer"
 import Header from "@/components/header"
 import { IntroOverlay } from "@/components/custom/IntroOverlay"
@@ -11,7 +12,8 @@ import { IntroOverlay } from "@/components/custom/IntroOverlay"
 export default function Home() {
   const videoRef = useRef<HTMLVideoElement | null>(null)
   const [videoFailed, setVideoFailed] = useState(false)
-  const [introDone, setIntroDone] = useState(false)
+  const [introVisible, setIntroVisible] = useState(true)
+  const [contentVisible, setContentVisible] = useState(false)
 
   useEffect(() => {
     const el = videoRef.current
@@ -25,7 +27,13 @@ export default function Home() {
 
   return (
     <>
-      <main>
+      <motion.main
+        initial={false}
+        animate={contentVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        style={{ pointerEvents: contentVisible ? "auto" : "none" }}
+        aria-hidden={!contentVisible}
+      >
         <Header />
         <section className="relative isolate h-[105vh] overflow-hidden rounded-b-[1.75rem]">
           <div className="absolute inset-0 z-0">
@@ -85,9 +93,14 @@ export default function Home() {
           </div>
         </section>
         <Footer />
-      </main>
+      </motion.main>
 
-      {!introDone && <IntroOverlay onDone={() => setIntroDone(true)} />}
+      {introVisible && (
+        <IntroOverlay
+          onExitStart={() => setContentVisible(true)}
+          onDone={() => setIntroVisible(false)}
+        />
+      )}
     </>
   )
 }
