@@ -59,7 +59,7 @@ export default function NotFound() {
               </Link>
             </Button>
             <Button asChild variant="outline" size="lg" className="w-full sm:w-auto bg-transparent">
-              <Link href="/kontakt">
+              <Link href="/contact">
                 <Search className="w-5 h-5 mr-2" />
                 {L.contactButton}
               </Link>

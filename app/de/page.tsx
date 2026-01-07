@@ -38,8 +38,20 @@ export default function Home() {
         aria-hidden={!contentVisible}
       >
         <Header />
-        <section className="relative isolate h-[105vh] overflow-hidden rounded-b-[1.75rem]">
+        <section className="relative isolate h-[95vh] md:h-[105vh] overflow-hidden rounded-b-[1.75rem]">
           <div className="absolute inset-0 z-0">
+            {/* Mobile hero */}
+            <Image
+              src="/assets/hero_mobile.png"
+              alt=""
+              fill
+              priority
+              sizes="100vw"
+              aria-hidden="true"
+              className="h-full w-full object-cover md:hidden"
+            />
+
+            {/* Desktop fallback image */}
             <Image
               src="/assets/hero.png"
               alt=""
@@ -47,13 +59,15 @@ export default function Home() {
               priority
               sizes="100vw"
               aria-hidden="true"
-              className={`h-full w-full object-cover transition-opacity duration-300 ${
+              className={`hidden md:block h-full w-full object-cover transition-opacity duration-300 ${
                 videoFailed ? "opacity-100" : "opacity-0"
               }`}
             />
+
+            {/* Desktop video */}
             <video
               ref={videoRef}
-              className={`h-full w-full object-cover transition-opacity duration-300 ${
+              className={`hidden md:block h-full w-full object-cover transition-opacity duration-300 ${
                 videoFailed ? "opacity-0" : "opacity-100"
               }`}
               autoPlay
@@ -70,19 +84,19 @@ export default function Home() {
 
           <div className="pointer-events-none absolute inset-0 z-10" aria-hidden="true" />
 
-          <div className="relative z-20 min-h-screen flex items-start pt-36 md:pt-42 pb-16">
+          <div className="relative z-20 min-h-screen flex flex-col items-center text-center pt-24 sm:pt-28 pb-24 md:pb-16 md:items-start md:text-left md:pt-36">
             <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
-              <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+              <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
                 <div className="lg:col-span-8">
-                  <h1 className="font-serif text-2xl sm:text-3xl md:text-[2.75rem] lg:text-[3.5rem] xl:text-[4.0rem] leading-[1.06] text-black tracking-tight">
-                    Datengesteuerte Trans-formation, maßgeschneidert für den Mittelstand
+                  <h1 className="font-serif text-[2.8rem] sm:text-[2.75rem] md:text-[2.75rem] lg:text-[3.5rem] xl:text-[4.0rem] leading-[1.04] text-black tracking-tight max-w-[18ch] md:max-w-none mx-auto md:mx-0">
+                    Datengesteuerte Transformation, maßgeschneidert für den Mittelstand
                   </h1>
 
-                  <p className="mt-7 text-lg sm:text-lg md:text-[1.275rem] text-black/70 max-w-xl leading-relaxed">
+                  <p className="mt-10 md:mt-7 text-base sm:text-lg md:text-[1.275rem] text-black/80 max-w-[42ch] md:max-w-xl leading-relaxed mx-auto md:mx-0">
                     Digitale Lösungen für Automatisierung, Datenanalyse und Unternehmensberatung
                   </p>
 
-                  <Link href="/kontakt" scroll={false} className="inline-block mt-12">
+                  <Link href="/contact" scroll={false} className="hidden md:inline-block mt-12">
                     <button className="group flex items-center gap-3 bg-white/25 hover:bg-white/85 border border-black/20 text-black px-7 py-3.5 rounded-xl font-medium text-base transition-all duration-300 backdrop-blur-sm cursor-pointer">
                       Starten Sie Ihre Transformation
                       <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -92,6 +106,16 @@ export default function Home() {
 
                 <div className="hidden lg:block lg:col-span-4" aria-hidden="true" />
               </div>
+            </div>
+
+            {/* Mobile CTA */}
+            <div className="md:hidden absolute left-4 right-4 bottom-14 sm:bottom-6">
+              <Link href="/contact" scroll={false} className="block">
+                <button className="w-full flex items-center justify-between gap-3 bg-white/80 hover:bg-white/90 border border-black/10 text-black px-5 py-3 rounded-2xl font-semibold text-sm transition-colors backdrop-blur-md cursor-pointer">
+                  Starten Sie Ihre Transformation
+                  <ArrowRight className="w-5 h-5" />
+                </button>
+              </Link>
             </div>
           </div>
         </section>

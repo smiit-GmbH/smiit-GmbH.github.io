@@ -192,7 +192,7 @@ export default function Header() {
                   <button
                     type="button"
                     aria-label="Open menu"
-                    className="h-10 w-10 rounded-xl border border-black/20 bg-white/15 hover:bg-white/35 backdrop-blur-md flex items-center justify-center"
+                    className="h-10 w-10 rounded-xl border border-black/20 backdrop-blur-md flex items-center justify-center"
                   >
                     <AlignJustify className="h-5 w-5 text-black/80" />
                   </button>
