@@ -83,7 +83,7 @@ export default function Home() {
                   </p>
 
                   <Link href="/kontakt" scroll={false} className="inline-block mt-12">
-                    <button className="group flex items-center gap-3 bg-white/25 hover:bg-white/45 border border-black/20 text-black px-7 py-3.5 rounded-xl font-medium text-base transition-all duration-300 backdrop-blur-sm cursor-pointer">
+                    <button className="group flex items-center gap-3 bg-white/25 hover:bg-white/85 border border-black/20 text-black px-7 py-3.5 rounded-xl font-medium text-base transition-all duration-300 backdrop-blur-sm cursor-pointer">
                       Starten Sie Ihre Transformation
                       <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                     </button>

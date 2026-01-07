@@ -111,7 +111,7 @@ export function IntroOverlay({
             className={[
               "font-serif text-black/90 font-light uppercase",
               "tracking-[0.22em] sm:tracking-[0.3em]",
-              "text-[10px] sm:text-xs md:text-sm",
+              "text-[12px] sm:text-xs md:text-sm",
               "will-change-[transform,opacity]",
             ].join(" ")}
             initial={{ y: 24, opacity: 0 }}
