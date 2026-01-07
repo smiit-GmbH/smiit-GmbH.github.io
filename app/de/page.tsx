@@ -84,7 +84,7 @@ export default function Home() {
 
           <div className="pointer-events-none absolute inset-0 z-10" aria-hidden="true" />
 
-          <div className="relative z-20 min-h-screen flex flex-col items-center text-center pt-24 sm:pt-28 pb-24 md:pb-16 md:items-start md:text-left md:pt-36">
+          <div className="relative z-20 min-h-screen flex flex-col items-center text-center pt-20 sm:pt-28 pb-24 md:pb-16 md:items-start md:text-left md:pt-36">
             <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
               <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
                 <div className="lg:col-span-8">
@@ -108,15 +108,15 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Mobile CTA */}
-            <div className="md:hidden absolute left-4 right-4 bottom-14 sm:bottom-6">
-              <Link href="/contact" scroll={false} className="block">
-                <button className="w-full flex items-center justify-between gap-3 bg-white/80 hover:bg-white/90 border border-black/10 text-black px-5 py-3 rounded-2xl font-semibold text-sm transition-colors backdrop-blur-md cursor-pointer">
-                  Starten Sie Ihre Transformation
-                  <ArrowRight className="w-5 h-5" />
-                </button>
-              </Link>
-            </div>
+             {/* Mobile CTA */}
+             <div className="md:hidden absolute left-4 right-4 bottom-14 sm:bottom-6">
+               <Link href="/contact" scroll={false} className="block">
+                <button className="w-full flex items-center justify-center gap-3 bg-white/80 hover:bg-white/90 border border-black/10 text-black text-center px-5 py-3 rounded-2xl font-semibold text-sm transition-colors backdrop-blur-md cursor-pointer">
+                   Starten Sie Ihre Transformation
+                   <ArrowRight className="w-5 h-5" />
+                 </button>
+               </Link>
+             </div>
           </div>
         </section>
         <Footer />
