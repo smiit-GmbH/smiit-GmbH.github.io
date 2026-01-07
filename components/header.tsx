@@ -4,7 +4,7 @@ import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { AlignJustify, ChevronDown } from "lucide-react"
+import { AlignJustify, ChevronDown, Globe } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   Sheet,
@@ -202,25 +202,38 @@ export default function Header() {
                   <SheetHeader>
                     <SheetTitle>{lang === "de" ? "Menü" : "Menu"}</SheetTitle>
 
-                    <div className="mt-2 flex items-center gap-2">
-                      {([
-                        { code: "de" as const, label: "DE" },
-                        { code: "en" as const, label: "EN" },
-                      ] as const).map((l) => (
-                        <SheetClose asChild key={l.code}>
-                          <Link
-                            href={buildPathForLang(pathname, l.code)}
-                            scroll={false}
-                            className={`inline-flex h-8 items-center justify-center rounded-lg border px-3 text-xs font-medium transition-colors ${
-                              l.code === lang
-                                ? "border-black/20 bg-black/5 text-black"
-                                : "border-black/10 bg-white/60 text-black/80"
-                            }`}
-                          >
-                            {l.label}
-                          </Link>
-                        </SheetClose>
-                      ))}
+                    <div className="mt-3 flex items-center justify-between">
+                      <div className="flex items-center gap-2 text-xs text-black/50">
+                        <Globe className="h-4 w-4" />
+                        <span>{lang === "de" ? "Sprache" : "Language"}</span>
+                      </div>
+
+                      <div className="inline-flex items-center rounded-full border border-black/10 bg-black/[0.04] p-1">
+                        {([
+                          { code: "de" as const, label: "DE" },
+                          { code: "en" as const, label: "EN" },
+                        ] as const).map((l) => {
+                          const active = l.code === lang
+
+                          return (
+                            <SheetClose asChild key={l.code}>
+                              <Link
+                                href={buildPathForLang(pathname, l.code)}
+                                scroll={false}
+                                aria-current={active ? "page" : undefined}
+                                className={[
+                                  "inline-flex h-8 min-w-12 items-center justify-center rounded-full px-3 text-xs font-semibold transition-all duration-200",
+                                  active
+                                    ? "bg-white text-black shadow-sm ring-1 ring-black/5"
+                                    : "text-black/60 hover:text-black hover:bg-white/50",
+                                ].join(" ")}
+                              >
+                                {l.label}
+                              </Link>
+                            </SheetClose>
+                          )
+                        })}
+                      </div>
                     </div>
                   </SheetHeader>
 
