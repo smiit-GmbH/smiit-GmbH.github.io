@@ -3,7 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
-import { useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import { motion } from "framer-motion"
 import Footer from "@/components/footer"
 import Header from "@/components/header"
@@ -14,6 +14,9 @@ export default function Home() {
   const [videoFailed, setVideoFailed] = useState(false)
   const [introVisible, setIntroVisible] = useState(true)
   const [contentVisible, setContentVisible] = useState(false)
+
+  const handleIntroExitStart = useCallback(() => setContentVisible(true), [])
+  const handleIntroDone = useCallback(() => setIntroVisible(false), [])
 
   useEffect(() => {
     const el = videoRef.current
@@ -97,8 +100,8 @@ export default function Home() {
 
       {introVisible && (
         <IntroOverlay
-          onExitStart={() => setContentVisible(true)}
-          onDone={() => setIntroVisible(false)}
+          onExitStart={handleIntroExitStart}
+          onDone={handleIntroDone}
         />
       )}
     </>

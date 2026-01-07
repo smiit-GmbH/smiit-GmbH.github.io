@@ -24,6 +24,8 @@ export function IntroOverlay({
   const lang = pathname.startsWith("/en") ? "en" : "de"
   const prefersReducedMotion = useReducedMotion()
   const exitStartedRef = useRef(false)
+  const onDoneRef = useRef(onDone)
+  const onExitStartRef = useRef(onExitStart)
 
   const L =
     lang === "de"
@@ -35,6 +37,14 @@ export function IntroOverlay({
         }
 
   useEffect(() => {
+    onDoneRef.current = onDone
+  }, [onDone])
+
+  useEffect(() => {
+    onExitStartRef.current = onExitStart
+  }, [onExitStart])
+
+  useEffect(() => {
     const prevOverflow = document.body.style.overflow
     document.body.style.overflow = "hidden"
 
@@ -42,13 +52,13 @@ export function IntroOverlay({
       setPhase("exit")
       if (!exitStartedRef.current) {
         exitStartedRef.current = true
-        onExitStart?.()
+        onExitStartRef.current?.()
       }
     }
 
     if (prefersReducedMotion) {
       startExit()
-      const timerDone = window.setTimeout(() => onDone(), 50)
+      const timerDone = window.setTimeout(() => onDoneRef.current(), 50)
       return () => {
         document.body.style.overflow = prevOverflow
         clearTimeout(timerDone)
@@ -58,7 +68,7 @@ export function IntroOverlay({
     const timer1 = window.setTimeout(() => setPhase("zoom"), ENTER_AT_MS)
     const timer2 = window.setTimeout(() => setPhase("text"), TEXT_AT_MS)
     const timer3 = window.setTimeout(() => startExit(), EXIT_AT_MS)
-    const timer4 = window.setTimeout(() => onDone(), EXIT_AT_MS + EXIT_MS)
+    const timer4 = window.setTimeout(() => onDoneRef.current(), EXIT_AT_MS + EXIT_MS)
 
     return () => {
       document.body.style.overflow = prevOverflow
@@ -67,12 +77,14 @@ export function IntroOverlay({
       clearTimeout(timer3)
       clearTimeout(timer4)
     }
-  }, [onDone, onExitStart, prefersReducedMotion])
+  }, [prefersReducedMotion])
 
   return (
     <motion.div
       className={[
         "fixed inset-0 z-[9999] flex flex-col items-center justify-center",
+        "px-6 sm:px-8",
+        "text-center",
         "bg-gradient-to-b from-[#B9CAF4] via-[#C7D4F6] to-[#D9E1FA]",
         "will-change-[opacity]",
       ].join(" ")}
@@ -81,7 +93,7 @@ export function IntroOverlay({
       transition={{ duration: EXIT_MS / 1000, ease: "easeOut" }}
     >
       <motion.div
-        className="relative w-40 h-40"
+        className="relative w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40"
         initial={{ scale: 0.5, opacity: 0 }}
         animate={
           phase === "initial"
@@ -93,11 +105,13 @@ export function IntroOverlay({
         <Image src="/icon.png" alt="smiit" fill className="object-contain" priority />
       </motion.div>
 
-      <div className="mt-4 flex flex-col items-center mt-8">
+      <div className="mt-6 sm:mt-8 flex flex-col items-center">
         <div className="h-8 overflow-hidden flex items-center justify-center">
           <motion.p
             className={[
-              "font-serif text-black/70 font-light tracking-[0.3em] text-xs sm:text-sm uppercase",
+              "font-serif text-black/90 font-light uppercase",
+              "tracking-[0.22em] sm:tracking-[0.3em]",
+              "text-[10px] sm:text-xs md:text-sm",
               "will-change-[transform,opacity]",
             ].join(" ")}
             initial={{ y: 24, opacity: 0 }}
@@ -113,7 +127,7 @@ export function IntroOverlay({
         </div>
 
         <motion.div
-          className="mt-8 w-32 h-[1px] bg-black/10 overflow-hidden rounded-full"
+          className="mt-6 sm:mt-8 w-24 sm:w-28 md:w-32 h-[1px] bg-black/10 overflow-hidden rounded-full"
           initial={{ opacity: 0 }}
           animate={{ opacity: phase === "text" || phase === "exit" ? 1 : 0 }}
           transition={{ duration: 0.4, ease: "easeOut" }}
