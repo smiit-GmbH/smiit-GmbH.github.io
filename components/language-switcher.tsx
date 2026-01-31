@@ -5,11 +5,11 @@ import { usePathname, useRouter } from "next/navigation"
 import { ChevronDown } from "lucide-react"
 import ReactCountryFlag from "react-country-flag"
 
-type Lang = "de" | "en" | "fr"
+type Lang = "de" | "en"
 
-const languages: Array<{ code: Lang; label: string; country: string }> = [
-  { code: "de", label: "Deutsch", country: "DE" },
-  { code: "en", label: "English", country: "GB" },
+const languages: Array<{ code: Lang; label: string; country: string, countryShort?: string }> = [
+  { code: "de", label: "Deutsch", country: "DE", countryShort: "DE" },
+  { code: "en", label: "English", country: "GB", countryShort: "EN" },
 ]
 
 function computeLangFromPath(pathname: string | null | undefined): Lang {
@@ -70,7 +70,7 @@ export function LanguageSwitcher() {
         aria-label="Language selection"
       >
         {/* <Flag country={currentLang.country} /> */}
-        {currentLang.country}
+        {currentLang.countryShort}
         <ChevronDown className="w-4 h-4 opacity-60" />
       </button>
       

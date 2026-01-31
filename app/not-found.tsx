@@ -5,10 +5,11 @@ import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Home, Search } from "lucide-react"
 import Footer from "@/components/footer"
+import Header from "@/components/header"
 
 export default function NotFound() {
   const pathname = usePathname() || "/"
-  const lang = pathname.startsWith("/en") ? "en" : pathname.startsWith("/fr") ? "fr" : "de"
+  const lang = pathname.startsWith("/en") ? "en" : "de"
   const base = `/${lang}`
 
   const L =
@@ -16,7 +17,6 @@ export default function NotFound() {
       ? {
           title: "Seite nicht gefunden",
           description: "Die von Ihnen gesuchte Seite existiert leider nicht.",
-          suggestion: "Möglicherweise wurde sie verschoben oder die URL ist nicht korrekt.",
           homeButton: "Zur Startseite",
           contactButton: "Kontakt aufnehmen",
           popularPages: "Beliebte Seiten:",
@@ -26,7 +26,6 @@ export default function NotFound() {
       : {
           title: "Page Not Found",
           description: "The page you are looking for does not exist.",
-          suggestion: "It may have been moved or the URL might be incorrect.",
           homeButton: "Go to Homepage",
           contactButton: "Contact Us",
           popularPages: "Popular pages:",
@@ -36,71 +35,30 @@ export default function NotFound() {
 
   return (
     <main className="min-h-screen flex flex-col">
-      <div className="flex-grow flex items-center justify-center px-4 py-20">
-        <div className="max-w-2xl mx-auto text-center">
-          {/* 404 Number */}
-          <div className="mb-8">
-            <h1 className="text-[150px] md:text-[200px] font-bold text-primary/20 leading-none">404</h1>
-          </div>
+      <section className="relative w-full h-[95vh] md:h-[105vh] rounded-b-[1.75rem] overflow-hidden bg-[url('/assets/not_found_mobile.png')] md:bg-[url('/assets/not_found.png')] bg-cover bg-center bg-no-repeat flex flex-col">
+        <Header />
+        <div className="flex-grow flex items-start justify-center px-4 pt-20 mt-12 md:mt-0 md:pt-14">
+            <div className="max-w-sm mx-auto text-center font-serif">
+              <div className="mb-8">
+                <h1 className="text-[100px] md:text-[150px] font-bold text-primary/20 leading-none">404</h1>
+              </div>
 
-          {/* Error Message */}
-          <div className="mb-8">
-            <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">{L.title}</h2>
-            <p className="text-xl text-muted-foreground mb-2">{L.description}</p>
-            <p className="text-muted-foreground">{L.suggestion}</p>
-          </div>
+              <div className="mt-12 mb-8">
+                <h2 className="text-3xl md:text-4xl mb-4 text-foreground">{L.title}</h2>
+                <p className="text-xl text-black/80 mb-2">{L.description}</p>
+              </div>
 
-          {/* Action Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <Button asChild size="lg" className="w-full sm:w-auto">
-              <Link href="/">
-                <Home className="w-5 h-5 mr-2" />
-                {L.homeButton}
-              </Link>
-            </Button>
-            <Button asChild variant="outline" size="lg" className="w-full sm:w-auto bg-transparent">
-              <Link href="/contact">
-                <Search className="w-5 h-5 mr-2" />
-                {L.contactButton}
-              </Link>
-            </Button>
-          </div>
-
-          {/* Popular Links */}
-          <div className="mt-16 pt-8 border-t border-border">
-            <p className="text-sm text-muted-foreground mb-4">{L.popularPages}</p>
-            <div className="flex flex-wrap gap-3 justify-center">
-              <Link
-                href="/products/smiit-analytics"
-                className="text-sm text-primary hover:underline hover:text-primary/80 transition-colors"
-              >
-                smiit Analytics
-              </Link>
-              <span className="text-muted-foreground">•</span>
-              <Link
-                href="/products/product-scout"
-                className="text-sm text-primary hover:underline hover:text-primary/80 transition-colors"
-              >
-                Product Scout
-              </Link>
-              <span className="text-muted-foreground">•</span>
-              <Link
-                href="/services"
-                className="text-sm text-primary hover:underline hover:text-primary/80 transition-colors"
-              >
-                {L.services}
-              </Link>
-              <span className="text-muted-foreground">•</span>
-              <Link
-                href="/about"
-                className="text-sm text-primary hover:underline hover:text-primary/80 transition-colors"
-              >
-                {L.about}
-              </Link>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-10">
+                <Button asChild size="lg" className="w-full sm:w-auto">
+                  <Link href={base}>
+                    <Home className="w-5 h-5 mr-2" />
+                    {L.homeButton}
+                  </Link>
+                </Button>
+              </div>
             </div>
-          </div>
         </div>
-      </div>
+      </section>
       <Footer />
     </main>
   )

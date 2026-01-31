@@ -8,6 +8,7 @@ import { motion } from "framer-motion"
 import Footer from "@/components/footer"
 import Header from "@/components/header"
 import { IntroOverlay } from "@/components/custom/IntroOverlay"
+import { usePathname } from "next/navigation"
 
 export default function Home() {
   const videoRef = useRef<HTMLVideoElement | null>(null)
@@ -96,7 +97,7 @@ export default function Home() {
                     Digitale Lösungen für Automatisierung, Datenanalyse und Unternehmensberatung
                   </p>
 
-                  <Link href="/contact" scroll={false} className="hidden md:inline-block mt-12">
+                  <Link href="/de/contact" scroll={false} className="hidden md:inline-block mt-12">
                     <button className="group flex items-center gap-3 bg-white/25 hover:bg-white/85 border border-black/20 text-black px-7 py-3.5 rounded-xl font-medium text-base transition-all duration-300 backdrop-blur-sm cursor-pointer">
                       Starten Sie Ihre Transformation
                       <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
@@ -110,7 +111,7 @@ export default function Home() {
 
              {/* Mobile CTA */}
              <div className="md:hidden absolute left-4 right-4 bottom-14 sm:bottom-6">
-               <Link href="/contact" scroll={false} className="block">
+               <Link href="/de/contact" scroll={false} className="block">
                 <button className="w-full flex items-center justify-center gap-3 bg-white/80 hover:bg-white/90 border border-black/10 text-black text-center px-5 py-3 rounded-2xl font-semibold text-sm transition-colors backdrop-blur-md cursor-pointer">
                    Starten Sie Ihre Transformation
                    <ArrowRight className="w-5 h-5" />

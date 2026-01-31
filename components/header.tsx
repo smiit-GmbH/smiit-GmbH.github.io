@@ -136,7 +136,7 @@ export default function Header() {
 
             <div className="relative group" onMouseEnter={() => setIsProductsOpen(true)} onMouseLeave={() => setIsProductsOpen(false)}>
               <button
-                className="flex items-center gap-2 px-2 py-2 text-sm font-medium text-black hover:text-black/70 transition-colors cursor-pointer"
+                className="flex items-center gap-2 rounded-xl bg-transparent px-5 py-2.5 text-sm font-medium text-black hover:bg-black/5 transition-colors cursor-pointer"
               >
                 {L.products}
                 <ChevronDown className="w-4 h-4 opacity-60" />
