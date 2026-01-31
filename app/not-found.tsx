@@ -43,6 +43,12 @@ export default function NotFound() {
 
   return (
     <html lang={lang}>
+      <head>
+        <title>{L.title}</title>
+        <meta name="description" content={L.description} />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+      </head>
       <body className={`${geist.variable} ${geistMono.variable} ${playfair.variable} font-sans antialiased`}>
         <main className="min-h-screen flex flex-col">
           <section className="relative w-full h-[95vh] md:h-[105vh] rounded-b-[1.75rem] overflow-hidden bg-[url('/assets/not_found_mobile.png')] md:bg-[url('/assets/not_found.png')] bg-cover bg-center bg-no-repeat flex flex-col">
