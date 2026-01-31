@@ -8,6 +8,7 @@ import { motion } from "framer-motion"
 import Footer from "@/components/footer"
 import Header from "@/components/header"
 import { IntroOverlay } from "@/components/custom/IntroOverlay"
+import CustomerCards from "@/components/pages/home/customer-cards"
 import type { Locale } from "@/lib/dictionary"
 
 interface HomeClientProps {
@@ -125,6 +126,11 @@ export default function HomeClient({ lang, dict }: HomeClientProps) {
              </div>
           </div>
         </section>
+        
+        <div className="relative z-30 -mt-24 md:-mt-32">
+          <CustomerCards />
+        </div>
+
         <Footer />
       </motion.main>
 
