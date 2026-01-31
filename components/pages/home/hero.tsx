@@ -74,7 +74,7 @@ export default function HomeClient({ lang, dict }: HomeClientProps) {
             {/* Desktop video */}
             <video
               ref={videoRef}
-              className={`hidden md:block h-full w-full object-cover transition-opacity duration-300 ${
+              className={`hidden md:block h-full w-full object-cover transition-opacity duration-300 object-cover blur-[1.2px] scale-[1.03] saturate-100 contrast-110 ${
                 videoFailed ? "opacity-0" : "opacity-100"
               }`}
               autoPlay
