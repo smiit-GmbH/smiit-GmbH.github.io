@@ -17,11 +17,12 @@ import {
 } from "@/components/ui/sheet"
 import { LanguageSwitcher } from "@/components/language-switcher"
 
-export default function Header() {
+export default function Header({ forceLang }: { forceLang?: string }) {
   const [isProductsOpen, setIsProductsOpen] = useState(false)
   const [isServicesOpen, setIsServicesOpen] = useState(false)
   const pathname = usePathname() || "/"
-  const lang = pathname.startsWith("/en") ? "en" : pathname.startsWith("/fr") ? "fr" : "de"
+  const detectedLang = pathname.startsWith("/en") ? "en" : pathname.startsWith("/fr") ? "fr" : "de"
+  const lang = forceLang || detectedLang
   const base = `/${lang}`
 
   function buildPathForLang(currentPathname: string, target: "de" | "en"): string {

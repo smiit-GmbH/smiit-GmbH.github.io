@@ -3,9 +3,10 @@ import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { Mail, MapPin, Phone } from "lucide-react"
 
-export default function Footer() {
+export default function Footer({ forceLang }: { forceLang?: string }) {
   const pathname = usePathname() || "/"
-  const lang = pathname.startsWith("/en") ? "en" : "de"
+  const detectedLang = pathname.startsWith("/en") ? "en" : "de"
+  const lang = forceLang || detectedLang
   const base = `/${lang}`
 
   const L =
