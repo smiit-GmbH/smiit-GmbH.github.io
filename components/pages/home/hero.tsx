@@ -135,7 +135,7 @@ export default function HomeClient({ lang, dict }: HomeClientProps) {
           </div>
         </section>
         
-        <div className="relative z-30 mt-16 md:-mt-32">
+        <div className="relative z-30 mt-10 md:-mt-32">
           <CustomerCards dict={dict} />
         </div>
 

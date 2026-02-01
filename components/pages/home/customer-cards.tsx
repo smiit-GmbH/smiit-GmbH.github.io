@@ -2,16 +2,16 @@
 
 import { Card, CardTitle } from "@/components/ui/card"
 import Image from "next/image"
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 
 // Temporär: alle Cards nutzen dasselbe Logo-Asset.
 // Später kann hier je `id` ein eigenes Asset gemappt werden.
 const LOGOS: Record<number, string> = {
-  1: "/assets/logos/gb-logistics.png",
+  1: "/assets/logos/dy-project.png",
   2: "/assets/logos/gb-logistics.png",
-  3: "/assets/logos/gb-logistics.png",
-  4: "/assets/logos/gb-logistics.png",
-  5: "/assets/logos/gb-logistics.png",
+  3: "/assets/logos/claimity.png",
+  4: "/assets/logos/rb-westkamp.png",
+  5: "/assets/logos/asw-engineering.png",
 }
 
 interface CustomerCardsProps {
@@ -26,6 +26,10 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
 
   const sectionRef = useRef<HTMLElement | null>(null)
   const scrollerRef = useRef<HTMLDivElement | null>(null)
+
+  // Mobile (< md): tiny scroll-progress indicator under the cards
+  const [mobileScrollProgress, setMobileScrollProgress] = useState(0)
+  const [showMobileIndicator, setShowMobileIndicator] = useState(false)
 
   // Desktop >= md: Scroll-jacking: while this section sits around the viewport midpoint, convert vertical wheel/trackpad
   // deltaY into horizontal scroll. IMPORTANT: do NOT lock the page via body styles (position:fixed/overflow:hidden),
@@ -118,38 +122,112 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
     }
   }, [])
 
+  // Mobile progress indicator (only < md)
+  useEffect(() => {
+    if (typeof window === "undefined") return
+
+    const mql = window.matchMedia("(min-width: 768px)")
+
+    let raf = 0
+    const update = () => {
+      raf = 0
+      const scrollerEl = scrollerRef.current
+      if (!scrollerEl) return
+
+      // Only show on mobile
+      if (mql.matches) {
+        setShowMobileIndicator(false)
+        return
+      }
+
+      const maxLeft = scrollerEl.scrollWidth - scrollerEl.clientWidth
+      const canScroll = maxLeft > 1
+      setShowMobileIndicator(canScroll)
+
+      const p = canScroll ? scrollerEl.scrollLeft / maxLeft : 0
+      // clamp for safety
+      const clamped = Math.max(0, Math.min(1, Number.isFinite(p) ? p : 0))
+      setMobileScrollProgress(clamped)
+    }
+
+    const schedule = () => {
+      if (raf) return
+      raf = window.requestAnimationFrame(update)
+    }
+
+    const scrollerEl = scrollerRef.current
+    if (!scrollerEl) return
+
+    // Initial
+    update()
+
+    scrollerEl.addEventListener("scroll", schedule, { passive: true })
+    window.addEventListener("resize", schedule)
+    mql.addEventListener("change", schedule)
+
+    return () => {
+      scrollerEl.removeEventListener("scroll", schedule)
+      window.removeEventListener("resize", schedule)
+      mql.removeEventListener("change", schedule)
+      if (raf) window.cancelAnimationFrame(raf)
+    }
+  }, [])
+
   return (
     <section ref={sectionRef} className="relative">
       {/* Background that starts below the overlap area */}
       <div className="absolute top-0 md:top-[128px] inset-x-0 bottom-0 bg-background -z-10" />
 
-      <div ref={scrollerRef} className="overflow-x-auto pb-8 no-scrollbar">
+      {/* Mobile layout like screenshot: tighter stack + progress indicator below */}
+      <div ref={scrollerRef} className="overflow-x-auto pb-2 md:pb-8 no-scrollbar">
         {/* Use padding (not margins) so the left/right edge spacing is symmetric and scrollable. */}
-        <div className="flex gap-4 md:gap-8 min-w-max pl-6 pr-[calc(1.5rem+(100vw-100%))] sm:pl-8 sm:pr-[calc(2rem+(100vw-100%))] md:pl-16 md:pr-[calc(4rem+(100vw-100%))] lg:pl-20 lg:pr-[calc(5rem+(100vw-100%))]">
+        <div
+          className={[
+            "flex min-w-max",
+            "gap-4 md:gap-8",
+            // Mobile: cards wider + smaller Abstand zum Bildschirmrand
+            "px-4 sm:px-6",
+            // Desktop: reset base padding and keep previous symmetric padding behavior
+            "md:px-0",
+            // Desktop: keep previous symmetric padding behavior
+            "md:pl-16 md:pr-[calc(4rem+(100vw-100%))]",
+            "lg:pl-20 lg:pr-[calc(5rem+(100vw-100%))]",
+          ].join(" ")}
+        >
           {customers.map((customer: any) => {
             return (
               <Card
                 key={customer.id}
-                className="w-[280px] sm:w-[350px] shrink-0 md:w-[450px] bg-white border-none shadow-sm rounded-[1.5rem] md:rounded-[2rem] p-1.5 md:p-2"
+                className={[
+                  // Mobile: nearly full width with small side padding
+                  "w-[calc(100vw-2rem)]",
+                  "max-w-[380px]",
+                  "sm:w-[350px]",
+                  "shrink-0 md:w-[450px]",
+                  "bg-white border-none shadow-sm",
+                  "rounded-[1.5rem] md:rounded-[2rem]",
+                  "p-1.5 md:p-2",
+                  "min-h-[220px] sm:min-h-[240px] md:min-h-0",
+                ].join(" ")}
               >
                 <div className="p-5 md:p-8 flex flex-col h-full justify-between">
                   <div>
-                    <CardTitle className="font-serif text-xl md:text-[1.75rem] font-normal text-black tracking-tight leading-[1.1]">
+                    <CardTitle className="font-serif text-[1.45rem] md:text-[1.75rem] font-normal text-black tracking-tight leading-[1.1]">
                       {customer.name}
                     </CardTitle>
-                    <p className="text-sm md:text-base text-black/90 mt-2 md:mt-4 leading-snug font-normal max-w-[80%] md:max-w-[60%]">
+                    <p className="text-base md:text-base text-black/90 mt-2 md:mt-4 leading-snug font-normal max-w-[85%] md:max-w-[60%]">
                       {customer.subtitle}
                     </p>
                   </div>
 
                   <div className="flex items-center gap-3 md:gap-4 mt-4 md:mt-4">
-                    <div className="rounded-xl bg-[#F2F0E9] h-10 w-14 md:h-14 md:w-20 flex items-center justify-center shrink-0">
-                      <div className="relative h-7 w-10 md:h-10 md:w-14">
+                    <div className="rounded-xl bg-[#F2F0E9] h-10 w-16 md:h-14 md:w-20 flex items-center justify-center shrink-0">
+                      <div className="relative h-8 w-12 md:h-10 md:w-14">
                         <Image
                           src={customer.logoSrc}
                           alt={`${customer.name} Logo`}
                           fill
-                          sizes="(min-width: 768px) 56px, 40px"
+                          sizes="(min-width: 768px) 56px, 48px"
                           className="object-contain"
                         />
                       </div>
@@ -163,6 +241,23 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
             )
           })}
         </div>
+      </div>
+
+      {/* Mobile-only scroll progress indicator */}
+      <div className="md:hidden flex justify-center pt-1 pb-2">
+        {showMobileIndicator && (
+          <div
+            className="relative h-[2px] w-8 rounded-full bg-black/10 overflow-hidden"
+            aria-hidden="true"
+          >
+            {/* thumb */}
+            <div
+              className="absolute top-0 left-0 h-full w-3 rounded-full bg-black/70"
+              // Track width: 32px (w-8), thumb width: 12px (w-3)
+              style={{ transform: `translateX(${Math.round(mobileScrollProgress * (32 - 12))}px)` }}
+            />
+          </div>
+        )}
       </div>
     </section>
   )
