@@ -25,14 +25,9 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
   const sectionRef = useRef<HTMLElement | null>(null)
   const scrollerRef = useRef<HTMLDivElement | null>(null)
 
-  // Mobile (< md): tiny scroll-progress indicator under the cards
   const [mobileScrollProgress, setMobileScrollProgress] = useState(0)
   const [showMobileIndicator, setShowMobileIndicator] = useState(false)
 
-  // Desktop >= md: Scroll-jacking: while this section sits around the viewport midpoint, convert vertical wheel/trackpad
-  // deltaY into horizontal scroll. IMPORTANT: do NOT lock the page via body styles (position:fixed/overflow:hidden),
-  // otherwise the page can get stuck after interacting.
-  // Mobile (< md): normal behavior (manual horizontal scroll), no wheel hijack.
   useEffect(() => {
     if (typeof window === "undefined") return
 
@@ -40,10 +35,8 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
     const reducedMotionMql = window.matchMedia("(prefers-reduced-motion: reduce)")
     const activeRef = { current: false }
 
-    // Inertia state (desktop/tablet only)
     const rafIdRef = { current: 0 }
     const lastTsRef = { current: 0 }
-    // velocity in px/ms
     const velocityRef = { current: 0 }
 
     const isScrollable = () => {
@@ -52,18 +45,13 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
       return scrollerEl.scrollWidth > scrollerEl.clientWidth
     }
 
-    // When reduced motion is requested, we fall back to direct scrollLeft updates (no inertia).
     const DIRECT_SPEED = 1.15
 
-    // Inertia tuning (aim: "native-ish" momentum, not overly snappy)
-    // impulse: deltaPx -> velocity (px/ms)
     const IMPULSE = 0.0025
-    // friction per ~16ms frame
     const FRICTION_16MS = 0.94
     const MIN_VELOCITY = 0.04
 
     const normalizeWheelDeltaY = (e: WheelEvent) => {
-      // deltaMode: 0=pixel, 1=line, 2=page
       if (e.deltaMode === 1) return e.deltaY * 16
       if (e.deltaMode === 2) return e.deltaY * window.innerHeight
       return e.deltaY
@@ -88,7 +76,6 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
           return
         }
 
-        // If the section is no longer active (e.g. user scrolled away), stop the inertia.
         computeActive()
         if (!activeRef.current) {
           stopInertia()
@@ -115,13 +102,11 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
         const nextLeft = Math.min(maxLeft, Math.max(0, nextLeftUnclamped))
         scrollerEl.scrollLeft = nextLeft
 
-        // If we hit a boundary, stop to avoid "stuck" feel.
         if (nextLeft !== nextLeftUnclamped) {
           stopInertia()
           return
         }
 
-        // Exponential decay normalized to ~16ms frame time.
         const decay = Math.pow(FRICTION_16MS, dt / 16)
         v *= decay
         velocityRef.current = v
@@ -140,7 +125,6 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
       }
       const rect = sectionEl.getBoundingClientRect()
       const mid = window.innerHeight / 2
-      // Active when the section intersects the viewport midpoint.
       activeRef.current = rect.top <= mid && rect.bottom >= mid
     }
 
@@ -157,15 +141,11 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
       const scrollerEl = scrollerRef.current
       if (!scrollerEl) return
 
-      // Only enabled on desktop/tablet and only if horizontal overflow exists.
       if (!mql.matches || !isScrollable()) return
 
-      // Keep active state fresh even when we prevent default (which can suppress scroll events).
       computeActive()
       if (!activeRef.current) return
 
-      // Only hijack vertical wheel/trackpad scroll.
-      // (We still allow horizontal gestures to behave naturally.)
       const deltaY = normalizeWheelDeltaY(e)
       if (deltaY === 0) return
 
@@ -174,22 +154,18 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
       const atStart = prevLeft <= 0.5
       const atEnd = prevLeft >= maxLeft - 0.5
 
-      // Only prevent native page scroll if we can actually move horizontally in that direction.
       if ((deltaY > 0 && atEnd) || (deltaY < 0 && atStart)) {
         return
       }
 
       e.preventDefault()
 
-      // Respect reduced-motion: no momentum animation.
       if (reducedMotionMql.matches) {
         const nextLeft = Math.min(maxLeft, Math.max(0, prevLeft + deltaY * DIRECT_SPEED))
         scrollerEl.scrollLeft = nextLeft
         return
       }
 
-      // Inertia: apply an impulse to velocity and let rAF animate.
-      // Stop any existing inertia if direction changes abruptly.
       if (velocityRef.current !== 0 && Math.sign(velocityRef.current) !== Math.sign(deltaY)) {
         velocityRef.current = 0
         lastTsRef.current = 0
@@ -198,16 +174,12 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
       startInertia()
     }
 
-    // Initial state
     computeActive()
 
-    // Keep the active flag updated as the page scrolls/resizes.
     window.addEventListener("scroll", scheduleComputeActive, { passive: true })
     window.addEventListener("resize", scheduleComputeActive)
     mql.addEventListener("change", scheduleComputeActive)
 
-    // Global wheel handler, but it only prevents default when the section is active AND
-    // horizontal scroll is still possible in the scroll direction.
     window.addEventListener("wheel", onWheel, { passive: false })
 
     return () => {
@@ -221,7 +193,6 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
     }
   }, [])
 
-  // Mobile progress indicator (only < md)
   useEffect(() => {
     if (typeof window === "undefined") return
 
@@ -233,7 +204,6 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
       const scrollerEl = scrollerRef.current
       if (!scrollerEl) return
 
-      // Only show on mobile
       if (mql.matches) {
         setShowMobileIndicator(false)
         return
@@ -244,7 +214,6 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
       setShowMobileIndicator(canScroll)
 
       const p = canScroll ? scrollerEl.scrollLeft / maxLeft : 0
-      // clamp for safety
       const clamped = Math.max(0, Math.min(1, Number.isFinite(p) ? p : 0))
       setMobileScrollProgress(clamped)
     }
@@ -257,7 +226,6 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
     const scrollerEl = scrollerRef.current
     if (!scrollerEl) return
 
-    // Initial
     update()
 
     scrollerEl.addEventListener("scroll", schedule, { passive: true })
@@ -274,22 +242,15 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
 
   return (
     <section ref={sectionRef} className="relative">
-      {/* Background that starts below the overlap area */}
       <div className="absolute top-0 md:top-[128px] inset-x-0 bottom-0 bg-background -z-10" />
 
-      {/* Mobile layout like screenshot: tighter stack + progress indicator below */}
       <div ref={scrollerRef} className="overflow-x-auto pb-2 md:pb-8 no-scrollbar">
-        {/* Use padding (not margins) so the left/right edge spacing is symmetric and scrollable. */}
         <div
           className={[
             "flex min-w-max",
-            // Desktop/Tablet: Cards näher zusammen
             "gap-4 md:gap-4",
-            // Mobile: cards wider + smaller Abstand zum Bildschirmrand
             "px-4 sm:px-6",
-            // Desktop: reset base padding and keep previous symmetric padding behavior
             "md:px-0",
-            // Desktop: keep previous symmetric padding behavior
             "md:pl-16 md:pr-[calc(4rem+(100vw-100%))]",
             "lg:pl-20 lg:pr-[calc(5rem+(100vw-100%))]",
           ].join(" ")}
@@ -299,12 +260,9 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
               <Card
                 key={customer.id}
                 className={[
-                  // Mobile: nearly full width with small side padding
-                  // Referenz: kleiner Rand links/rechts
                   "w-[calc(100vw-2rem)]",
                   "max-w-[420px]",
                   "sm:w-[350px]",
-                  // Desktop/Tablet: Cards breiter
                   "shrink-0 md:w-[720px]",
                   "bg-white border-none shadow-sm",
                   "rounded-[1.25rem] md:rounded-[1.5rem]",
@@ -352,10 +310,8 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
             className="relative h-[4px] w-8 rounded-full bg-black/10 overflow-hidden"
             aria-hidden="true"
           >
-            {/* thumb */}
             <div
               className="absolute top-0 left-0 h-full w-3 rounded-full bg-black/70"
-              // Track width: 32px (w-8), thumb width: 12px (w-3)
               style={{ transform: `translateX(${Math.round(mobileScrollProgress * (32 - 12))}px)` }}
             />
           </div>

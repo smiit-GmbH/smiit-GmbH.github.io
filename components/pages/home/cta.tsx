@@ -7,16 +7,12 @@ interface CtaProps {
 export default function Cta({ dict }: CtaProps) {
   return (
     <section className="relative py-8 md:py-16">
-      {/* Full-bleed CTA on mobile (no side padding) */}
       <div className="max-w-[1400px] mx-auto px-0 sm:px-6 lg:px-8">
         <div
           className={[
             "relative overflow-hidden",
             "rounded-[1.75rem]",
-            // subtle border like light background separation
             "border border-black/10",
-            // higher area like design; use min-height so content can grow if needed
-            // mobile was too tall; keep it higher than before but not oversized
             "min-h-[500px] sm:min-h-[620px] md:min-h-[580px] lg:min-h-[660px]",
           ].join(" ")}
         >
