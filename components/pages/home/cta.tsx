@@ -13,7 +13,7 @@ export default function Cta({ dict }: CtaProps) {
             "relative overflow-hidden",
             "rounded-[1.75rem]",
             "border border-black/10",
-            "min-h-[500px] sm:min-h-[620px] md:min-h-[580px] lg:min-h-[660px]",
+            "min-h-[520px] sm:min-h-[620px] md:min-h-[580px] lg:min-h-[660px]",
           ].join(" ")}
         >
           {/* Background image */}

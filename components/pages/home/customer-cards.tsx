@@ -28,12 +28,19 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
   const [mobileScrollProgress, setMobileScrollProgress] = useState(0)
   const [showMobileIndicator, setShowMobileIndicator] = useState(false)
 
+  // Desktop/Tablet horizontal scroll hijacking with Intersection Observer
   useEffect(() => {
     if (typeof window === "undefined") return
 
     const mql = window.matchMedia("(min-width: 768px)")
     const reducedMotionMql = window.matchMedia("(prefers-reduced-motion: reduce)")
-    const activeRef = { current: false }
+    
+    // Track if section is intersecting viewport
+    const isIntersectingRef = { current: false }
+    // Track if we're currently "locked" in horizontal scroll mode
+    const isLockedRef = { current: false }
+    // Track last scroll direction for edge detection
+    const lastScrollYRef = { current: 0 }
 
     const rafIdRef = { current: 0 }
     const lastTsRef = { current: 0 }
@@ -45,8 +52,20 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
       return scrollerEl.scrollWidth > scrollerEl.clientWidth
     }
 
-    const DIRECT_SPEED = 1.15
+    const getScrollState = () => {
+      const scrollerEl = scrollerRef.current
+      if (!scrollerEl) return { atStart: true, atEnd: true, maxLeft: 0 }
+      const maxLeft = scrollerEl.scrollWidth - scrollerEl.clientWidth
+      const prevLeft = scrollerEl.scrollLeft
+      return {
+        atStart: prevLeft <= 0.5,
+        atEnd: prevLeft >= maxLeft - 0.5,
+        maxLeft,
+        scrollLeft: prevLeft
+      }
+    }
 
+    const DIRECT_SPEED = 1.15
     const IMPULSE = 0.0025
     const FRICTION_16MS = 0.94
     const MIN_VELOCITY = 0.04
@@ -76,8 +95,7 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
           return
         }
 
-        computeActive()
-        if (!activeRef.current) {
+        if (!isLockedRef.current) {
           stopInertia()
           return
         }
@@ -117,24 +135,31 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
       rafIdRef.current = window.requestAnimationFrame(tick)
     }
 
-    const computeActive = () => {
+    // Scroll section into center view when entering
+    const scrollSectionToCenter = () => {
       const sectionEl = sectionRef.current
-      if (!sectionEl) {
-        activeRef.current = false
-        return
-      }
+      if (!sectionEl) return
+      
       const rect = sectionEl.getBoundingClientRect()
-      const mid = window.innerHeight / 2
-      activeRef.current = rect.top <= mid && rect.bottom >= mid
+      const sectionCenter = rect.top + rect.height / 2
+      const viewportCenter = window.innerHeight / 2
+      const scrollOffset = sectionCenter - viewportCenter
+      
+      window.scrollBy({
+        top: scrollOffset,
+        behavior: 'smooth'
+      })
     }
 
-    let raf = 0
-    const scheduleComputeActive = () => {
-      if (raf) return
-      raf = window.requestAnimationFrame(() => {
-        raf = 0
-        computeActive()
-      })
+    // Check if section center is in viewport
+    const isSectionCentered = () => {
+      const sectionEl = sectionRef.current
+      if (!sectionEl) return false
+      const rect = sectionEl.getBoundingClientRect()
+      const mid = window.innerHeight / 2
+      // More generous threshold for "centered" detection
+      const threshold = window.innerHeight * 0.3
+      return rect.top <= mid + threshold && rect.bottom >= mid - threshold
     }
 
     const onWheel = (e: WheelEvent) => {
@@ -143,53 +168,85 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
 
       if (!mql.matches || !isScrollable()) return
 
-      computeActive()
-      if (!activeRef.current) return
-
       const deltaY = normalizeWheelDeltaY(e)
       if (deltaY === 0) return
 
-      const maxLeft = scrollerEl.scrollWidth - scrollerEl.clientWidth
-      const prevLeft = scrollerEl.scrollLeft
-      const atStart = prevLeft <= 0.5
-      const atEnd = prevLeft >= maxLeft - 0.5
+      const { atStart, atEnd, maxLeft, scrollLeft } = getScrollState()
+      const scrollingDown = deltaY > 0
+      const scrollingUp = deltaY < 0
 
-      if ((deltaY > 0 && atEnd) || (deltaY < 0 && atStart)) {
-        return
+      // If section is intersecting and we're not at an edge that would release
+      if (isIntersectingRef.current) {
+        // Check if we should lock or stay locked
+        const shouldLock = 
+          (scrollingDown && !atEnd) || 
+          (scrollingUp && !atStart)
+
+        if (shouldLock) {
+          // Lock and prevent vertical scroll
+          isLockedRef.current = true
+          e.preventDefault()
+
+          // If not centered, scroll to center first
+          if (!isSectionCentered()) {
+            scrollSectionToCenter()
+          }
+
+          if (reducedMotionMql.matches) {
+            const currentLeft = scrollLeft ?? 0
+            const nextLeft = Math.min(maxLeft, Math.max(0, currentLeft + deltaY * DIRECT_SPEED))
+            scrollerEl.scrollLeft = nextLeft
+            return
+          }
+
+          if (velocityRef.current !== 0 && Math.sign(velocityRef.current) !== Math.sign(deltaY)) {
+            velocityRef.current = 0
+            lastTsRef.current = 0
+          }
+          velocityRef.current += deltaY * IMPULSE
+          startInertia()
+          return
+        } else {
+          // At edge, release lock
+          isLockedRef.current = false
+        }
       }
-
-      e.preventDefault()
-
-      if (reducedMotionMql.matches) {
-        const nextLeft = Math.min(maxLeft, Math.max(0, prevLeft + deltaY * DIRECT_SPEED))
-        scrollerEl.scrollLeft = nextLeft
-        return
-      }
-
-      if (velocityRef.current !== 0 && Math.sign(velocityRef.current) !== Math.sign(deltaY)) {
-        velocityRef.current = 0
-        lastTsRef.current = 0
-      }
-      velocityRef.current += deltaY * IMPULSE
-      startInertia()
     }
 
-    computeActive()
+    // Intersection Observer to detect when section enters viewport
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isIntersectingRef.current = entry.isIntersecting
+          
+          if (!entry.isIntersecting) {
+            // Section left viewport, release lock
+            isLockedRef.current = false
+            stopInertia()
+          }
+        })
+      },
+      {
+        // Trigger when any part of section is visible
+        threshold: [0, 0.1, 0.25, 0.5, 0.75, 1],
+        // Start detecting slightly before section enters viewport
+        rootMargin: '50px 0px 50px 0px'
+      }
+    )
 
-    window.addEventListener("scroll", scheduleComputeActive, { passive: true })
-    window.addEventListener("resize", scheduleComputeActive)
-    mql.addEventListener("change", scheduleComputeActive)
+    const sectionEl = sectionRef.current
+    if (sectionEl) {
+      observer.observe(sectionEl)
+    }
+
+    lastScrollYRef.current = window.scrollY
 
     window.addEventListener("wheel", onWheel, { passive: false })
 
     return () => {
-      window.removeEventListener("scroll", scheduleComputeActive)
-      window.removeEventListener("resize", scheduleComputeActive)
       window.removeEventListener("wheel", onWheel)
-      mql.removeEventListener("change", scheduleComputeActive)
-      reducedMotionMql.removeEventListener("change", scheduleComputeActive)
+      observer.disconnect()
       stopInertia()
-      if (raf) window.cancelAnimationFrame(raf)
     }
   }, [])
 
