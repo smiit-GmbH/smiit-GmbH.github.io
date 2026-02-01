@@ -1,5 +1,5 @@
 import { getDictionary, Locale } from "@/lib/dictionary"
-import HomeClient from "@/components/pages/home/hero"
+import Hero from "@/components/pages/home/hero"
 
 export async function generateStaticParams() {
   return [{ lang: "de" }, { lang: "en" }]
@@ -13,5 +13,5 @@ export default async function Page({
   const { lang } = await params
   const dict = getDictionary(lang)
 
-  return <HomeClient lang={lang} dict={dict} />
+  return <Hero lang={lang} dict={dict} />
 }

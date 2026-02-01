@@ -7,6 +7,10 @@ const dictionaries = {
       subtitle: "Digitale Lösungen für Anwendungen für Automatisierung, Datenanalyse und Unternehmensberatung",
       cta: "Starten Sie Ihre Transformation",
     },
+    cta: {
+      title: "Smiit hilft Unternehmen,\nDaten in Handlungen zu verwandeln",
+      text: "Wir stehen an Ihrer Seite.\nDurch Apps, Dashboards und Automatisierung — für mehr\nProduktivität und schnellere Entscheidungen.",
+    },
     customerCards: [
       {
         id: 1,
@@ -45,6 +49,10 @@ const dictionaries = {
       title: "Data-driven transformations, tailored for the backbone of enterprises",
       subtitle: "Digital solutions for applications for automation, data analytics, and business consulting",
       cta: "Start your transformation",
+    },
+    cta: {
+      title: "Smiit helps businesses\nturn data into action",
+      text: "We are by your side.\nThrough apps, dashboards, and automation — boosting\nproductivity and accelerating decisions.",
     },
     customerCards: [
       {

@@ -9,14 +9,15 @@ import Footer from "@/components/footer"
 import Header from "@/components/header"
 import { IntroOverlay } from "@/components/custom/IntroOverlay"
 import CustomerCards from "@/components/pages/home/customer-cards"
+import Cta from "@/components/pages/home/cta"
 import type { Locale } from "@/lib/dictionary"
 
-interface HomeClientProps {
+interface HeroProps {
   lang: Locale
   dict: any
 }
 
-export default function HomeClient({ lang, dict }: HomeClientProps) {
+export default function Hero({ lang, dict }: HeroProps) {
   const videoRef = useRef<HTMLVideoElement | null>(null)
   const [videoFailed, setVideoFailed] = useState(false)
   const [introVisible, setIntroVisible] = useState(true)
@@ -138,6 +139,8 @@ export default function HomeClient({ lang, dict }: HomeClientProps) {
         <div className="relative z-30 mt-10 md:-mt-21">
           <CustomerCards dict={dict} />
         </div>
+
+        <Cta dict={dict} />
 
         <Footer />
       </motion.main>
