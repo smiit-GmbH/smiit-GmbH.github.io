@@ -90,7 +90,7 @@ export default function HomeClient({ lang, dict }: HomeClientProps) {
           </div>
 
           <div
-            className="pointer-events-none absolute inset-0 z-10 opacity-[0.18]"
+            className="pointer-events-none absolute inset-0 z-10 opacity-[0.18] bg-black/10"
             style={{
               backgroundImage: "url(/assets/grain.png)",
               backgroundRepeat: "repeat",

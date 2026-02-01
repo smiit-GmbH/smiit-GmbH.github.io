@@ -109,9 +109,9 @@ export function IntroOverlay({
         <div className="h-8 overflow-hidden flex items-center justify-center">
           <motion.p
             className={[
-              "font-serif text-black/90 font-light uppercase",
+              "font-serif sm:font-sans text-black/90 font-light uppercase",
               "tracking-[0.22em] sm:tracking-[0.3em]",
-              "text-[12px] sm:text-xs md:text-sm",
+              "text-[12px] sm:text-xs md:text-[16px]",
               "will-change-[transform,opacity]",
             ].join(" ")}
             initial={{ y: 24, opacity: 0 }}
