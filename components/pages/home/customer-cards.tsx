@@ -4,8 +4,6 @@ import { Card, CardTitle } from "@/components/ui/card"
 import Image from "next/image"
 import { useEffect, useRef, useState } from "react"
 
-// Temporär: alle Cards nutzen dasselbe Logo-Asset.
-// Später kann hier je `id` ein eigenes Asset gemappt werden.
 const LOGOS: Record<number, string> = {
   1: "/assets/logos/dy-project.png",
   2: "/assets/logos/gb-logistics.png",
@@ -184,7 +182,8 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
         <div
           className={[
             "flex min-w-max",
-            "gap-4 md:gap-8",
+            // Desktop/Tablet: Cards näher zusammen
+            "gap-4 md:gap-4",
             // Mobile: cards wider + smaller Abstand zum Bildschirmrand
             "px-4 sm:px-6",
             // Desktop: reset base padding and keep previous symmetric padding behavior
@@ -200,12 +199,14 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
                 key={customer.id}
                 className={[
                   // Mobile: nearly full width with small side padding
+                  // Referenz: kleiner Rand links/rechts
                   "w-[calc(100vw-2rem)]",
-                  "max-w-[380px]",
+                  "max-w-[420px]",
                   "sm:w-[350px]",
-                  "shrink-0 md:w-[450px]",
+                  // Desktop/Tablet: Cards breiter
+                  "shrink-0 md:w-[720px]",
                   "bg-white border-none shadow-sm",
-                  "rounded-[1.5rem] md:rounded-[2rem]",
+                  "rounded-[1.25rem] md:rounded-[1.5rem]",
                   "p-1.5 md:p-2",
                   "min-h-[220px] sm:min-h-[240px] md:min-h-0",
                 ].join(" ")}
@@ -221,13 +222,13 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
                   </div>
 
                   <div className="flex items-center gap-3 md:gap-4 mt-4 md:mt-4">
-                    <div className="rounded-xl bg-[#F2F0E9] h-10 w-16 md:h-14 md:w-20 flex items-center justify-center shrink-0">
-                      <div className="relative h-8 w-12 md:h-10 md:w-14">
+                    <div className="rounded-xl bg-[#F2F0E9] h-12 w-24 md:h-14 md:w-20 flex items-center justify-center shrink-0">
+                      <div className="relative h-9 w-20 md:h-10 md:w-14">
                         <Image
                           src={customer.logoSrc}
                           alt={`${customer.name} Logo`}
                           fill
-                          sizes="(min-width: 768px) 56px, 48px"
+                          sizes="(min-width: 768px) 56px, 80px"
                           className="object-contain"
                         />
                       </div>
@@ -247,7 +248,7 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
       <div className="md:hidden flex justify-center pt-1 pb-2">
         {showMobileIndicator && (
           <div
-            className="relative h-[2px] w-8 rounded-full bg-black/10 overflow-hidden"
+            className="relative h-[4px] w-8 rounded-full bg-black/10 overflow-hidden"
             aria-hidden="true"
           >
             {/* thumb */}
