@@ -37,7 +37,14 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
     if (typeof window === "undefined") return
 
     const mql = window.matchMedia("(min-width: 768px)")
+    const reducedMotionMql = window.matchMedia("(prefers-reduced-motion: reduce)")
     const activeRef = { current: false }
+
+    // Inertia state (desktop/tablet only)
+    const rafIdRef = { current: 0 }
+    const lastTsRef = { current: 0 }
+    // velocity in px/ms
+    const velocityRef = { current: 0 }
 
     const isScrollable = () => {
       const scrollerEl = scrollerRef.current
@@ -45,7 +52,85 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
       return scrollerEl.scrollWidth > scrollerEl.clientWidth
     }
 
-    const SPEED = 1.15
+    // When reduced motion is requested, we fall back to direct scrollLeft updates (no inertia).
+    const DIRECT_SPEED = 1.15
+
+    // Inertia tuning (aim: "native-ish" momentum, not overly snappy)
+    // impulse: deltaPx -> velocity (px/ms)
+    const IMPULSE = 0.0025
+    // friction per ~16ms frame
+    const FRICTION_16MS = 0.94
+    const MIN_VELOCITY = 0.04
+
+    const normalizeWheelDeltaY = (e: WheelEvent) => {
+      // deltaMode: 0=pixel, 1=line, 2=page
+      if (e.deltaMode === 1) return e.deltaY * 16
+      if (e.deltaMode === 2) return e.deltaY * window.innerHeight
+      return e.deltaY
+    }
+
+    const stopInertia = () => {
+      if (rafIdRef.current) {
+        window.cancelAnimationFrame(rafIdRef.current)
+        rafIdRef.current = 0
+      }
+      lastTsRef.current = 0
+      velocityRef.current = 0
+    }
+
+    const startInertia = () => {
+      if (rafIdRef.current) return
+
+      const tick = (ts: number) => {
+        const scrollerEl = scrollerRef.current
+        if (!scrollerEl) {
+          stopInertia()
+          return
+        }
+
+        // If the section is no longer active (e.g. user scrolled away), stop the inertia.
+        computeActive()
+        if (!activeRef.current) {
+          stopInertia()
+          return
+        }
+
+        const maxLeft = scrollerEl.scrollWidth - scrollerEl.clientWidth
+        if (maxLeft <= 0) {
+          stopInertia()
+          return
+        }
+
+        const lastTs = lastTsRef.current || ts
+        const dt = Math.min(34, Math.max(0, ts - lastTs))
+        lastTsRef.current = ts
+
+        let v = velocityRef.current
+        if (Math.abs(v) < MIN_VELOCITY) {
+          stopInertia()
+          return
+        }
+
+        const nextLeftUnclamped = scrollerEl.scrollLeft + v * dt
+        const nextLeft = Math.min(maxLeft, Math.max(0, nextLeftUnclamped))
+        scrollerEl.scrollLeft = nextLeft
+
+        // If we hit a boundary, stop to avoid "stuck" feel.
+        if (nextLeft !== nextLeftUnclamped) {
+          stopInertia()
+          return
+        }
+
+        // Exponential decay normalized to ~16ms frame time.
+        const decay = Math.pow(FRICTION_16MS, dt / 16)
+        v *= decay
+        velocityRef.current = v
+
+        rafIdRef.current = window.requestAnimationFrame(tick)
+      }
+
+      rafIdRef.current = window.requestAnimationFrame(tick)
+    }
 
     const computeActive = () => {
       const sectionEl = sectionRef.current
@@ -81,7 +166,7 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
 
       // Only hijack vertical wheel/trackpad scroll.
       // (We still allow horizontal gestures to behave naturally.)
-      const deltaY = e.deltaY
+      const deltaY = normalizeWheelDeltaY(e)
       if (deltaY === 0) return
 
       const maxLeft = scrollerEl.scrollWidth - scrollerEl.clientWidth
@@ -95,8 +180,22 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
       }
 
       e.preventDefault()
-      const nextLeft = Math.min(maxLeft, Math.max(0, prevLeft + deltaY * SPEED))
-      scrollerEl.scrollLeft = nextLeft
+
+      // Respect reduced-motion: no momentum animation.
+      if (reducedMotionMql.matches) {
+        const nextLeft = Math.min(maxLeft, Math.max(0, prevLeft + deltaY * DIRECT_SPEED))
+        scrollerEl.scrollLeft = nextLeft
+        return
+      }
+
+      // Inertia: apply an impulse to velocity and let rAF animate.
+      // Stop any existing inertia if direction changes abruptly.
+      if (velocityRef.current !== 0 && Math.sign(velocityRef.current) !== Math.sign(deltaY)) {
+        velocityRef.current = 0
+        lastTsRef.current = 0
+      }
+      velocityRef.current += deltaY * IMPULSE
+      startInertia()
     }
 
     // Initial state
@@ -116,6 +215,8 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
       window.removeEventListener("resize", scheduleComputeActive)
       window.removeEventListener("wheel", onWheel)
       mql.removeEventListener("change", scheduleComputeActive)
+      reducedMotionMql.removeEventListener("change", scheduleComputeActive)
+      stopInertia()
       if (raf) window.cancelAnimationFrame(raf)
     }
   }, [])
@@ -228,7 +329,7 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
                           src={customer.logoSrc}
                           alt={`${customer.name} Logo`}
                           fill
-                          sizes="(min-width: 768px) 56px, 80px"
+                          sizes="(min-width: 768px) 56px, 56px"
                           className="object-contain"
                         />
                       </div>
