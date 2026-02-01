@@ -74,7 +74,7 @@ export default function HomeClient({ lang, dict }: HomeClientProps) {
             {/* Desktop video */}
             <video
               ref={videoRef}
-              className={`hidden md:block h-full w-full object-cover transition-opacity duration-300 object-cover blur-[1.2px] scale-[1.03] saturate-100 contrast-110 ${
+              className={`hidden md:block h-full w-full object-cover transition-opacity duration-300 ${
                 videoFailed ? "opacity-0" : "opacity-100"
               }`}
               autoPlay
@@ -89,7 +89,15 @@ export default function HomeClient({ lang, dict }: HomeClientProps) {
             </video>
           </div>
 
-          <div className="pointer-events-none absolute inset-0 z-10" aria-hidden="true" />
+          <div
+            className="pointer-events-none absolute inset-0 z-10 opacity-[0.18]"
+            style={{
+              backgroundImage: "url(/assets/grain.png)",
+              backgroundRepeat: "repeat",
+              backgroundSize: "150px 150px",
+              mixBlendMode: "soft-light",
+            }}
+          />
 
           <div className="relative z-20 min-h-screen flex flex-col items-center text-center pt-20 sm:pt-28 pb-24 md:pb-16 md:items-start md:text-left md:pt-36">
             <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
