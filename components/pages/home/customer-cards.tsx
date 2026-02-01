@@ -1,15 +1,17 @@
 "use client"
 
 import { Card, CardTitle } from "@/components/ui/card"
-import { Activity, BarChart3, Globe, ShieldCheck, Zap } from "lucide-react"
+import Image from "next/image"
 import { useEffect, useRef } from "react"
 
-const LOGOS = {
-  1: Activity,
-  2: BarChart3,
-  3: Globe,
-  4: ShieldCheck,
-  5: Zap,
+// Temporär: alle Cards nutzen dasselbe Logo-Asset.
+// Später kann hier je `id` ein eigenes Asset gemappt werden.
+const LOGOS: Record<number, string> = {
+  1: "/assets/logos/gb-logistics.png",
+  2: "/assets/logos/gb-logistics.png",
+  3: "/assets/logos/gb-logistics.png",
+  4: "/assets/logos/gb-logistics.png",
+  5: "/assets/logos/gb-logistics.png",
 }
 
 interface CustomerCardsProps {
@@ -19,7 +21,7 @@ interface CustomerCardsProps {
 export default function CustomerCards({ dict }: CustomerCardsProps) {
   const customers = dict.customerCards.map((c: any) => ({
     ...c,
-    logo: LOGOS[c.id as keyof typeof LOGOS],
+    logoSrc: LOGOS[c.id as keyof typeof LOGOS],
   }))
 
   const sectionRef = useRef<HTMLElement | null>(null)
@@ -125,7 +127,6 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
         {/* Use padding (not margins) so the left/right edge spacing is symmetric and scrollable. */}
         <div className="flex gap-4 md:gap-8 min-w-max pl-6 pr-[calc(1.5rem+(100vw-100%))] sm:pl-8 sm:pr-[calc(2rem+(100vw-100%))] md:pl-16 md:pr-[calc(4rem+(100vw-100%))] lg:pl-20 lg:pr-[calc(5rem+(100vw-100%))]">
           {customers.map((customer: any) => {
-            const Logo = customer.logo
             return (
               <Card
                 key={customer.id}
@@ -133,17 +134,25 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
               >
                 <div className="p-5 md:p-8 flex flex-col h-full justify-between">
                   <div>
-                    <CardTitle className="font-serif text-xl md:text-[2rem] font-normal text-black tracking-tight leading-[1.1]">
+                    <CardTitle className="font-serif text-xl md:text-[1.75rem] font-normal text-black tracking-tight leading-[1.1]">
                       {customer.name}
                     </CardTitle>
-                    <p className="text-sm md:text-lg text-black/90 mt-2 md:mt-4 leading-snug font-normal max-w-[80%] md:max-w-[60%]">
+                    <p className="text-sm md:text-base text-black/90 mt-2 md:mt-4 leading-snug font-normal max-w-[80%] md:max-w-[60%]">
                       {customer.subtitle}
                     </p>
                   </div>
 
-                  <div className="flex items-center gap-3 md:gap-4 mt-4 md:mt-0">
+                  <div className="flex items-center gap-3 md:gap-4 mt-4 md:mt-4">
                     <div className="rounded-xl bg-[#F2F0E9] h-10 w-14 md:h-14 md:w-20 flex items-center justify-center shrink-0">
-                      <Logo className="h-5 w-5 md:h-7 md:w-7 text-black" />
+                      <div className="relative h-7 w-10 md:h-10 md:w-14">
+                        <Image
+                          src={customer.logoSrc}
+                          alt={`${customer.name} Logo`}
+                          fill
+                          sizes="(min-width: 768px) 56px, 40px"
+                          className="object-contain"
+                        />
+                      </div>
                     </div>
                     <p className="text-xs md:text-sm font-medium text-gray-500 leading-relaxed">
                       {customer.feedback}
