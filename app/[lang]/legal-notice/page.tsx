@@ -70,7 +70,7 @@ export default async function LegalNoticePage({
   return (
     <main className="min-h-screen">
       {/* Hero-style header image */}
-      <section className="relative isolate z-0 h-[46vh] sm:h-[50vh] md:h-[58vh] overflow-hidden rounded-b-[1.75rem] bg-black/[0.02] mb-8">
+      <section className="relative isolate z-0 h-[46vh] sm:h-[50vh] md:h-[58vh] overflow-hidden rounded-b-[1.75rem] bg-black/[0.02] mb-8 sm:mb-12">
         <div className="absolute inset-0">
           <Image
             src="/assets/legal.png"
@@ -122,7 +122,7 @@ export default async function LegalNoticePage({
       {/* Content */}
       <section className="relative z-30 py-0 md:py-0">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="relative z-30 -mt-32 sm:-mt-44 md:-mt-56 rounded-[1.75rem] border border-black/10 bg-white shadow-xl ring-1 ring-black/5 p-6 sm:p-8 md:p-10">
+          <div className="relative z-30 -mt-32 sm:-mt-56 md:-mt-72 lg:-mt-80 rounded-[1.75rem] border border-black/10 bg-white shadow-xl ring-1 ring-black/5 p-6 sm:p-8 md:p-10">
             <div className="grid gap-10 md:grid-cols-2">
               <div>
                 <h2 className="font-serif text-2xl md:text-3xl text-black tracking-tight">smiit GmbH</h2>
@@ -194,9 +194,6 @@ export default async function LegalNoticePage({
           </div>
         </div>
       </section>
-
-      {/* Spacing after overlapped card */}
-      <div className="h-2 md:h-4" />
     </main>
   )
 }
