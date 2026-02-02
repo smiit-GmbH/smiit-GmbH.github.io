@@ -5,19 +5,15 @@ import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { useCallback, useEffect, useRef, useState } from "react"
 import { motion } from "framer-motion"
-import Footer from "@/components/footer"
-import Header from "@/components/header"
 import { IntroOverlay } from "@/components/custom/IntroOverlay"
-import CustomerCards from "@/components/pages/home/customer-cards"
-import Cta from "@/components/pages/home/cta"
 import type { Locale } from "@/lib/dictionary"
 
-interface HeroProps {
+interface HeroSectionClientProps {
   lang: Locale
   dict: any
 }
 
-export default function Hero({ lang, dict }: HeroProps) {
+export default function HeroSectionClient({ lang, dict }: HeroSectionClientProps) {
   const videoRef = useRef<HTMLVideoElement | null>(null)
   const [videoFailed, setVideoFailed] = useState(false)
   const [introVisible, setIntroVisible] = useState(true)
@@ -38,14 +34,13 @@ export default function Hero({ lang, dict }: HeroProps) {
 
   return (
     <>
-      <motion.main
+      <motion.section
         initial={false}
         animate={contentVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         style={{ pointerEvents: contentVisible ? "auto" : "none" }}
         aria-hidden={!contentVisible}
       >
-        <Header />
         <section className="relative isolate h-[95vh] md:h-[105vh] overflow-hidden rounded-b-[1.75rem]">
           <div className="absolute inset-0 z-0">
             {/* Mobile hero */}
@@ -132,18 +127,11 @@ export default function Hero({ lang, dict }: HeroProps) {
                    <ArrowRight className="w-5 h-5" />
                  </button>
                </Link>
-             </div>
-          </div>
-        </section>
-        
-        <div className="relative z-30 mt-10 md:-mt-21">
-          <CustomerCards dict={dict} />
-        </div>
+              </div>
+           </div>
+         </section>
 
-        <Cta dict={dict} />
-
-        <Footer />
-      </motion.main>
+      </motion.section>
 
       {introVisible && (
         <IntroOverlay

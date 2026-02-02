@@ -2,6 +2,8 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Geist, Geist_Mono, Playfair_Display } from "next/font/google"
 import "../globals.css"
+import Footer from "@/components/footer"
+import Header from "@/components/header"
 import { ScrollToTop } from "@/components/scroll-to-top"
 
 const geist = Geist({
@@ -73,8 +75,10 @@ export default async function RootLayout({
   return (
     <html lang={lang}>
       <body className={`${geist.variable} ${geistMono.variable} ${playfair.variable} font-sans antialiased`}>
-          <ScrollToTop />
-          {children}
+        <ScrollToTop />
+        <Header forceLang={lang} />
+        {children}
+        <Footer forceLang={lang} />
       </body>
     </html>
   )
