@@ -338,8 +338,8 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
                     </p>
                   </div>
 
-                  <div className="flex flex-col items-center text-center md:flex-row md:items-center md:text-left gap-3 md:gap-4 mt-4 md:mt-4">
-                    <div className="rounded-xl bg-[#F2F0E9] h-12 w-24 md:h-14 md:w-20 flex items-center justify-center shrink-0 mx-auto md:mx-0">
+                  <div className="flex flex-col items-center text-center md:flex-row md:items-center md:text-left gap-1 md:gap-4 mt-0 md:mt-4">
+                    <div className="rounded-xl bg-[#F2F0E9] h-12 w-24 md:h-14 md:w-20 flex items-center justify-center shrink-0 mx-auto md:mx-0 mb-5 md:mb-0">
                       <div className="relative h-9 w-20 md:h-10 md:w-14">
                         <Image
                           src={customer.logoSrc}
