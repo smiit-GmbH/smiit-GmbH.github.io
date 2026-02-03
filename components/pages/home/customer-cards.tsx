@@ -365,16 +365,16 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
       <div className="md:hidden flex justify-center pt-1 pb-2">
         {showMobileIndicator && (
           <div
-            className="relative h-[4px] w-8 rounded-full bg-black/10 overflow-hidden"
+            className="relative h-[6px] w-8 rounded-full bg-black/10 overflow-hidden"
             aria-hidden="true"
-          >
-            <div
-              className="absolute top-0 left-0 h-full w-3 rounded-full bg-black/70"
-              style={{ transform: `translateX(${Math.round(mobileScrollProgress * (32 - 12))}px)` }}
-            />
-          </div>
-        )}
-      </div>
+           >
+             <div
+              className="absolute top-0 left-0 h-full w-2 rounded-full bg-black/70"
+              style={{ transform: `translateX(${Math.round(mobileScrollProgress * (32 - 8))}px)` }}
+              />
+            </div>
+          )}
+        </div>
     </section>
   )
 }
