@@ -211,10 +211,10 @@ export default async function PrivacyPage({
           <div className="relative z-30 -mt-32 sm:-mt-56 md:-mt-72 lg:-mt-80 rounded-[1.75rem] border border-black/10 bg-white shadow-xl ring-1 ring-black/5 p-6 sm:p-8 md:p-10">
             <div className="space-y-10">
               <section>
-                <h2 className="font-serif text-2xl md:text-3xl text-black tracking-tight">
+                <h2 className="font-serif text-xl md:text-3xl text-black tracking-tight">
                   {L.hostingTitle}
                 </h2>
-                <div className="mt-4 space-y-3 text-black/80 leading-relaxed">
+                <div className="text-sm mt-4 space-y-3 text-black/80 leading-relaxed">
                   <p>{L.hostingText1}</p>
                   <p>{L.hostingText2}</p>
                   <p>{L.hostingText3}</p>
@@ -223,10 +223,10 @@ export default async function PrivacyPage({
               </section>
 
               <section>
-                <h2 className="font-serif text-2xl md:text-3xl text-black tracking-tight">
+                <h2 className="font-serif text-xl md:text-3xl text-black tracking-tight">
                   {L.contactFormTitle}
                 </h2>
-                <div className="mt-4 space-y-3 text-black/80 leading-relaxed">
+                <div className="text-sm mt-4 space-y-3 text-black/80 leading-relaxed">
                   <p>{L.contactFormText1}</p>
                   <p>{L.contactFormText2}</p>
                   <p>{L.contactFormText3}</p>
@@ -234,10 +234,10 @@ export default async function PrivacyPage({
               </section>
 
               <section>
-                <h2 className="font-serif text-2xl md:text-3xl text-black tracking-tight">
+                <h2 className="font-serif text-xl md:text-3xl text-black tracking-tight">
                   {L.emailJsTitle}
                 </h2>
-                <div className="mt-4 space-y-3 text-black/80 leading-relaxed">
+                <div className="text-sm mt-4 space-y-3 text-black/80 leading-relaxed">
                   <p>{L.emailJsText1}</p>
                   <p>
                     {L.emailJsText2} {" "}
@@ -253,10 +253,10 @@ export default async function PrivacyPage({
               </section>
 
               <section>
-                <h2 className="font-serif text-2xl md:text-3xl text-black tracking-tight">
+                <h2 className="font-serif text-xl md:text-3xl text-black tracking-tight">
                   {L.calendlyTitle}
                 </h2>
-                <div className="mt-4 space-y-3 text-black/80 leading-relaxed">
+                <div className="text-sm mt-4 space-y-3 text-black/80 leading-relaxed">
                   <p>{L.calendlyText1}</p>
                   <p>{L.calendlyText2}</p>
                   <p>{L.calendlyText3}</p>
@@ -265,29 +265,29 @@ export default async function PrivacyPage({
               </section>
 
               <section>
-                <h2 className="font-serif text-2xl md:text-3xl text-black tracking-tight">
+                <h2 className="font-serif text-xl md:text-3xl text-black tracking-tight">
                   {L.noCookiesTitle}
                 </h2>
-                <p className="mt-4 text-black/80 leading-relaxed">{L.noCookiesText}</p>
+                <p className="text-sm mt-4 text-black/80 leading-relaxed">{L.noCookiesText}</p>
               </section>
 
               <section>
-                <h2 className="font-serif text-2xl md:text-3xl text-black tracking-tight">
+                <h2 className="font-serif text-xl md:text-3xl text-black tracking-tight">
                   {L.rightsTitle}
                 </h2>
-                <div className="mt-4 space-y-3 text-black/80 leading-relaxed">
+                <div className="text-sm mt-4 space-y-3 text-black/80 leading-relaxed">
                   <p>{L.rightsText1}</p>
                   <p>{L.rightsText2}</p>
                 </div>
               </section>
 
               <section>
-                <h2 className="font-serif text-2xl md:text-3xl text-black tracking-tight">
+                <h2 className="font-serif text-xl md:text-3xl text-black tracking-tight">
                   {L.controllerTitle}
                 </h2>
-                <p className="mt-4 text-black/80 leading-relaxed">{L.controllerIntro}</p>
+                <p className="text-sm mt-4 text-black/80 leading-relaxed">{L.controllerIntro}</p>
 
-                <div className="mt-4 text-black/80 leading-relaxed">
+                <div className="text-sm mt-4 text-black/80 leading-relaxed">
                   <p className="font-medium text-black">{L.company}</p>
                   <p className="mt-2">
                     {L.addressLines.map((line) => (

@@ -13,7 +13,8 @@ export default function Cta({ dict }: CtaProps) {
             "relative overflow-hidden",
             "rounded-[1.75rem]",
             "border border-black/10",
-            "min-h-[520px] sm:min-h-[620px] md:min-h-[580px] lg:min-h-[660px]",
+            // Mobile (<md): increase overall CTA height
+            "min-h-[650px] sm:min-h-[775px] md:min-h-[580px] lg:min-h-[660px]",
           ].join(" ")}
         >
           {/* Background image */}
@@ -37,7 +38,7 @@ export default function Cta({ dict }: CtaProps) {
           />
 
           {/* Text overlay */}
-          <div className="relative z-10 h-full flex flex-col items-center justify-start text-center px-3 md:px-10 pt-14 sm:pt-14 md:pt-12 lg:pt-16">
+          <div className="relative z-10 h-full flex flex-col items-center justify-start text-center px-3 md:px-10 pt-26 sm:pt-20 md:pt-12 lg:pt-16">
             <h2 className="font-serif text-[2.05rem] sm:text-[2.6rem] md:text-[3.0rem] leading-[1.08] text-black tracking-tight max-w-[22ch] sm:max-w-[30ch] whitespace-normal sm:whitespace-pre-line text-balance">
               {dict.cta.title}
             </h2>

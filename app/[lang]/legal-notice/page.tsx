@@ -125,8 +125,8 @@ export default async function LegalNoticePage({
           <div className="relative z-30 -mt-32 sm:-mt-56 md:-mt-72 lg:-mt-80 rounded-[1.75rem] border border-black/10 bg-white shadow-xl ring-1 ring-black/5 p-6 sm:p-8 md:p-10">
             <div className="grid gap-10 md:grid-cols-2">
               <div>
-                <h2 className="font-serif text-2xl md:text-3xl text-black tracking-tight">smiit GmbH</h2>
-                <p className="mt-4 text-black/80 leading-relaxed">
+                <h2 className="font-serif text-xl md:text-3xl text-black tracking-tight">smiit GmbH</h2>
+                <p className="text-sm mt-4 text-black/80 leading-relaxed">
                   Reiherweg 96
                   <br />
                   89584 Ehingen
@@ -137,7 +137,7 @@ export default async function LegalNoticePage({
 
               <div>
                 <h3 className="text-sm font-semibold tracking-wide uppercase text-black/70">{L.contact}</h3>
-                <div className="mt-4 space-y-2 text-black/80">
+                <div className="text-sm mt-4 space-y-2 text-black/80">
                   <p>
                     Telefon: <a className="underline" href="tel:+491604073198">+49 160 4073198</a>
                   </p>
@@ -151,13 +151,13 @@ export default async function LegalNoticePage({
             <div className="mt-10 grid gap-10 md:grid-cols-2">
               <div>
                 <h3 className="text-sm font-semibold tracking-wide uppercase text-black/70">{L.representedBy}</h3>
-                <p className="mt-4 text-black/80 leading-relaxed">
+                <p className="text-sm mt-4 text-black/80 leading-relaxed">
                   {isDe ? "Geschäftsführer" : "Managing directors"}: Sebastian Grab, Noah Neßlauer
                 </p>
               </div>
               <div>
                 <h3 className="text-sm font-semibold tracking-wide uppercase text-black/70">{L.register}</h3>
-                <p className="mt-4 text-black/80 leading-relaxed">
+                <p className="text-sm mt-4 text-black/80 leading-relaxed">
                   {isDe ? "Amtsgericht Ulm, HRB 741965" : "Local Court (Amtsgericht) Ulm, HRB 741965"}
                 </p>
               </div>
@@ -167,12 +167,12 @@ export default async function LegalNoticePage({
               <div className="space-y-8">
                 <div>
                   <h3 className="text-sm font-semibold tracking-wide uppercase text-black/70">{L.vatId}</h3>
-                  <p className="mt-4 text-black/80 leading-relaxed">DE357299821</p>
+                  <p className="text-sm mt-4 text-black/80 leading-relaxed">DE357299821</p>
                 </div>
 
                 <div>
                   <h3 className="text-sm font-semibold tracking-wide uppercase text-black/70">{L.responsible}</h3>
-                  <p className="mt-4 text-black/80 leading-relaxed">
+                  <p className="text-sm mt-4 text-black/80 leading-relaxed">
                     Noah Neßlauer
                     <br />
                     Reiherweg 96
@@ -186,7 +186,7 @@ export default async function LegalNoticePage({
 
               <div>
                 <h3 className="text-sm font-semibold tracking-wide uppercase text-black/70">{L.dispute}</h3>
-                <div className="mt-4 space-y-3 text-black/80 leading-relaxed">
+                <div className="text-sm mt-4 space-y-3 text-black/80 leading-relaxed">
                   <p>{L.consumerDispute}</p>
                 </div>
               </div>

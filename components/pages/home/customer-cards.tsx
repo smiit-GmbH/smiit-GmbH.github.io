@@ -314,19 +314,20 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
         >
           {customers.map((customer: any) => {
             return (
-              <Card
-                key={customer.id}
-                className={[
-                  "w-[calc(100vw-2rem)]",
-                  "max-w-[420px]",
-                  "sm:w-[350px]",
-                  "shrink-0 md:w-[720px]",
-                  "bg-white border-none shadow-sm",
-                  "rounded-[1.25rem] md:rounded-[1.5rem]",
-                  "p-1.5 md:p-2",
-                  "min-h-[220px] sm:min-h-[240px] md:min-h-0",
-                ].join(" ")}
-              >
+                <Card
+                  key={customer.id}
+                  className={[
+                    "w-[calc(100vw-2rem)]",
+                    "max-w-[420px]",
+                    "sm:w-[350px]",
+                    "shrink-0 md:w-[720px]",
+                    "bg-white border-none shadow-sm",
+                    "rounded-[1.25rem] md:rounded-[1.5rem]",
+                    "p-1.5 md:p-2",
+                    // Mobile (<md): +~25% height for more breathing room
+                    "min-h-[275px] sm:min-h-[300px] md:min-h-0",
+                  ].join(" ")}
+                >
                 <div className="p-5 md:p-8 flex flex-col h-full justify-between">
                   <div>
                     <CardTitle className="font-serif text-[1.45rem] md:text-[1.75rem] font-normal text-black tracking-tight leading-[1.1]">
@@ -337,8 +338,8 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
                     </p>
                   </div>
 
-                  <div className="flex items-center gap-3 md:gap-4 mt-4 md:mt-4">
-                    <div className="rounded-xl bg-[#F2F0E9] h-12 w-24 md:h-14 md:w-20 flex items-center justify-center shrink-0">
+                  <div className="flex flex-col items-center text-center md:flex-row md:items-center md:text-left gap-3 md:gap-4 mt-4 md:mt-4">
+                    <div className="rounded-xl bg-[#F2F0E9] h-12 w-24 md:h-14 md:w-20 flex items-center justify-center shrink-0 mx-auto md:mx-0">
                       <div className="relative h-9 w-20 md:h-10 md:w-14">
                         <Image
                           src={customer.logoSrc}
