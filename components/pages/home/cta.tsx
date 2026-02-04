@@ -6,7 +6,7 @@ interface CtaProps {
 
 export default function Cta({ dict }: CtaProps) {
   return (
-    <section className="relative py-8 md:py-16">
+    <section className="relative pt-12 pb-0 md:pt-20 md:pb-8">
       <div className="max-w-[1400px] mx-auto px-0 sm:px-6 lg:px-8">
         <div
           className={[

@@ -52,7 +52,7 @@ export default function Header({ forceLang }: { forceLang?: string }) {
           productScout: "Product Scout",
           azaiElevate: "Azai Elevate",
           webappsWorkflows: "Apps & Workflows",
-          analysis: "Datenanalyse",
+          analytics: "Datenanalyse",
           consulting: "Unternehmensberatung",
         }
       : {
@@ -65,13 +65,13 @@ export default function Header({ forceLang }: { forceLang?: string }) {
           productScout: "Product Scout",
           azaiElevate: "Azai Elevate",
           webappsWorkflows: "Apps & Workflows",
-          analysis: "Data Analytics",
+          analytics: "Data Analytics",
           consulting: "Business Consulting",
         }
 
   const homeHref = `${base}/`
   const webappsWorkflowsHref = `${base}/webappsWorkflows`
-  const analysisHref = `${base}/analysis`
+  const analyticsHref = `${base}/analytics`
   const consultingHref = `${base}/consulting`
   const smiitAnalyticsHref = `${base}/smiit-analytics`
   const productScoutHref = `${base}/product-scout`
@@ -80,7 +80,7 @@ export default function Header({ forceLang }: { forceLang?: string }) {
 
   const servicesLinks = [
     { href: webappsWorkflowsHref, label: L.webappsWorkflows },
-    { href: analysisHref, label: L.analysis },
+    { href: analyticsHref, label: L.analytics },
     { href: consultingHref, label: L.consulting },
   ]
 

@@ -11,6 +11,28 @@ const dictionaries = {
       title: "Smiit hilft Unternehmen,\nDaten in Handlungen zu verwandeln",
       text: "Wir stehen an Ihrer Seite.\nDurch Apps, Dashboards und Automatisierung — für mehr\nProduktivität und schnellere Entscheidungen.",
     },
+    services: {
+      title: "Workflows für messbaren Impact",
+      subtitle:
+        "Bei smiit entwickeln wir Apps, Automatisierung und Analytics — damit Ihr Business schneller vorankommt.",
+      items: [
+        {
+          title: "Unternehmensberatung",
+          tags: ["Strategie", "Prozesse", "IT"],
+          text: "Wir unterstützen den Mittelstand mit IT-Beratung und digitaler Strategie — mit Fokus auf Apps, Automatisierung und Daten. Praktisch, pragmatisch und umsetzungsstark.",
+        },
+        {
+          title: "Datenanalyse",
+          tags: ["Power BI", "SQL & Python", "Azure"],
+          text: "Wir verwandeln Ihre Daten in klare Dashboards und KPIs — schnell, aussagekräftig und direkt handlungsorientiert.",
+        },
+        {
+          title: "Apps / Automatisierung",
+          tags: [".NET", "React", "Next.js"],
+          text: "Wir bauen intuitive Web-Apps, die Eingaben vereinfachen, Systeme über APIs verbinden und Workflows automatisieren — sicher, skalierbar und nahtlos.",
+        },
+      ],
+    },
     customerCards: [
       {
         id: 1,
@@ -53,6 +75,27 @@ const dictionaries = {
     cta: {
       title: "Smiit helps businesses\nturn data into action",
       text: "We are by your side.\nThrough apps, dashboards, and automation — boosting\nproductivity and accelerating decisions.",
+    },
+    services: {
+      title: "Workflows engineered for impact",
+      subtitle: "At smiit, we build apps, automation, and analytics that move your business forward.",
+      items: [
+        {
+          title: "Business consulting",
+          tags: ["Strategy", "Processes", "IT"],
+          text: "We guide SMEs with IT consulting and digital strategy focused on apps, automation, and data — practical and actionable.",
+        },
+        {
+          title: "Data analysis",
+          tags: ["Power BI", "SQL & Python", "Azure"],
+          text: "We turn your data into clear dashboards and KPIs — fast, insightful, and ready for action.",
+        },
+        {
+          title: "Apps / automation",
+          tags: [".NET", "React", "Next.js"],
+          text: "We create intuitive web apps that simplify inputs, connect systems via API, and automate workflows — secure, scalable, and seamless.",
+        },
+      ],
     },
     customerCards: [
       {

@@ -16,7 +16,7 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
       ? {
           services: "Dienstleistungen",
           apps: "Apps & Workflows",
-          analysis: "Datenanalyse",
+          analytics: "Datenanalyse",
           consulting: "Unternehmensberatung",
           company: "Unternehmen",
           about: "Über uns",
@@ -38,7 +38,7 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
       : {
           services: "Services",
           apps: "Apps & Workflows",
-          analysis: "Data Analytics",
+          analytics: "Data Analytics",
           consulting: "Consulting",
           company: "Company",
           about: "About",
@@ -60,7 +60,7 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
 
   const homeHref = `${base}/`
   const appsHref = `${base}/apps`
-  const analysisHref = `${base}/analysis`
+  const analyticsHref = `${base}/analytics`
   const consultingHref = `${base}/consulting`
   const aboutHref = `${base}/about`
   const productsHref = `${base}/products`
@@ -111,8 +111,8 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
                 </Link>
               </li>
               <li>
-                <Link href={analysisHref} className="text-sm text-gray-700 hover:text-black transition-colors">
-                  {L.analysis}
+                <Link href={analyticsHref} className="text-sm text-gray-700 hover:text-black transition-colors">
+                  {L.analytics}
                 </Link>
               </li>
               <li>
