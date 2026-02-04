@@ -63,7 +63,6 @@ function ServiceCard({
         "hover:scale-[1.02] hover:-translate-y-0.5",
         "focus:scale-[1.02] focus:-translate-y-0.5",
         "focus:outline-none focus-visible:ring-2 focus-visible:ring-black/15 dark:focus-visible:ring-white/20",
-        // Wenn wir im Link sind, wollen wir, dass der Link den Focus-Ring bekommt, nicht das Div
         href ? "focus:ring-0" : "",
         className ?? "",
       ].join(" ")}
@@ -74,11 +73,11 @@ function ServiceCard({
         ))}
       </div>
 
-      <h3 className="mt-4 font-serif text-[1.65rem] leading-[1.05] tracking-tight text-black dark:text-white">
+      <h3 className="mt-4 font-serif text-[1.75rem] leading-[1.05] tracking-tight text-black dark:text-white">
         {title}
       </h3>
 
-      <p className="mt-3 text-[0.82rem] leading-relaxed text-black/70 dark:text-white/70 max-w-[52ch]">
+      <p className="mt-3 text-[0.92rem] leading-relaxed text-black/70 dark:text-white/70 max-w-[52ch]">
         {text}
       </p>
     </motion.div>
@@ -156,7 +155,6 @@ function ConnectionLine({
 
   return (
     <>
-      {/* Basis Linie (Hintergrund) */}
       <motion.path
         d={path}
         fill="none"
@@ -171,7 +169,6 @@ function ConnectionLine({
         transition={{ duration: 0.4 }}
       />
 
-      {/* Wandernder Lichtimpuls */}
       {!reduceMotion && (
         <motion.path
           d={path}
@@ -181,9 +178,9 @@ function ConnectionLine({
           strokeLinecap="round"
           initial={{ pathLength: 0, pathOffset: 0, opacity: 0 }}
           animate={{
-            pathLength: [0, 0.2, 0], // Wird länger und dann wieder kürzer (Schweif)
-            pathOffset: [0, 0.8, 1], // Bewegt sich von Start zu Ende
-            opacity: [0, 1, 0], // Blendet ein und aus
+            pathLength: [0, 0.2, 0],
+            pathOffset: [0, 0.8, 1],
+            opacity: [0, 1, 0],
           }}
           transition={{
             duration: 2.5,
@@ -241,17 +238,14 @@ export default function Services({ dict }: ServicesProps) {
 
     if (leftRef.current) {
       const r = rectOf(leftRef.current, stage)
-      // rechter Rand, eher unten
       pA = { x: r.right - 6, y: r.top + r.height * 0.72 }
     }
     if (rightTopRef.current) {
       const r = rectOf(rightTopRef.current, stage)
-      // linker Rand, mittig-unten
       pB = { x: r.left + 6, y: r.top + r.height * 0.56 }
     }
     if (bottomRef.current) {
       const r = rectOf(bottomRef.current, stage)
-      // linker Rand, oben
       pC = { x: r.left + r.width * 0.18, y: r.top + 10 }
     }
 
@@ -259,7 +253,7 @@ export default function Services({ dict }: ServicesProps) {
     if (pA && pB && pC) {
       const cx = (pA.x + pB.x + pC.x) / 3
       const cy = (pA.y + pB.y + pC.y) / 3
-      const scale = 1.25 // 25% larger
+      const scale = 1.25
 
       const expand = (p: Pt) => ({
         x: cx + (p.x - cx) * scale,
@@ -297,7 +291,6 @@ export default function Services({ dict }: ServicesProps) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  // Berechne Zentrum für die Kurvenkrümmung
   const center = useMemo(() => {
     if (!anchors.a || !anchors.b || !anchors.c) return { x: 0, y: 0 }
     return {
@@ -306,7 +299,6 @@ export default function Services({ dict }: ServicesProps) {
     }
   }, [anchors])
 
-  // Berechne den geschlossenen Pfad für die Hintergrundfüllung
   const fillPath = useMemo(() => {
     if (!anchors.a || !anchors.b || !anchors.c) return ""
     const { a, b, c } = anchors
@@ -318,7 +310,7 @@ export default function Services({ dict }: ServicesProps) {
   }, [anchors, center])
 
   return (
-    <section className="relative pt-14 pb-4 md:pt-12 md:pb-10">
+    <section className="relative pt-14 pb-4 md:pt-12 md:pb-16">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h2 className="font-serif text-[2.6rem] sm:text-[3.15rem] md:text-[3.6rem] leading-[1.05] tracking-tight text-black dark:text-white whitespace-pre-line text-balance">

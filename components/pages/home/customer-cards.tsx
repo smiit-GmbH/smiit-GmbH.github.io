@@ -37,8 +37,12 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
     
     // Track if section is intersecting viewport
     const isIntersectingRef = { current: false }
+    // Track intersection ratio (0..1) for fine-grained visibility checks
+    const intersectionRatioRef = { current: 0 }
     // Track if we're currently "locked" in horizontal scroll mode
     const isLockedRef = { current: false }
+    // Ensure we only auto-center once per lock session (reset when leaving viewport)
+    const didCenterOnLockRef = { current: false }
     // Track last scroll direction for edge detection
     const lastScrollYRef = { current: 0 }
 
@@ -69,6 +73,9 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
     const IMPULSE = 0.0025
     const FRICTION_16MS = 0.94
     const MIN_VELOCITY = 0.04
+
+    const UP_CENTER_VISIBILITY = 0.45
+    const UP_HIJACK_MIN_PX = 10
 
     const normalizeWheelDeltaY = (e: WheelEvent) => {
       if (e.deltaMode === 1) return e.deltaY * 16
@@ -151,6 +158,30 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
       })
     }
 
+    const getHeaderHeight = () => {
+      // Header is rendered as a fixed <nav /> at the top.
+      const nav = document.querySelector("nav") as HTMLElement | null
+      return nav ? nav.getBoundingClientRect().height : 0
+    }
+
+    // Visible ratio of the section within the viewport, excluding the fixed header overlap.
+    const getVisibleRatioBelowHeader = () => {
+      const sectionEl = sectionRef.current
+      if (!sectionEl) return 0
+      const rect = sectionEl.getBoundingClientRect()
+      if (rect.height <= 0) return 0
+
+      const headerH = getHeaderHeight()
+      const viewportTop = headerH
+      const viewportBottom = window.innerHeight
+
+      const visibleTop = Math.max(rect.top, viewportTop)
+      const visibleBottom = Math.min(rect.bottom, viewportBottom)
+      const visible = Math.max(0, visibleBottom - visibleTop)
+
+      return visible / rect.height
+    }
+
     // Check if section center is in viewport
     const isSectionCentered = () => {
       const sectionEl = sectionRef.current
@@ -175,6 +206,21 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
       const scrollingDown = deltaY > 0
       const scrollingUp = deltaY < 0
 
+      // Gate: when approaching from below (scrolling up), only start hijacking once
+      // the section's bottom is visible below the fixed header.
+      if (scrollingUp) {
+        const sectionEl = sectionRef.current
+        if (sectionEl) {
+          const rect = sectionEl.getBoundingClientRect()
+          const headerH = getHeaderHeight()
+          const bottomVisibleBelowHeader = rect.bottom > headerH + UP_HIJACK_MIN_PX
+          if (!bottomVisibleBelowHeader) {
+            // Not visible yet -> let browser do normal vertical scroll.
+            return
+          }
+        }
+      }
+
       // If section is intersecting and we're not at an edge that would release
       if (isIntersectingRef.current) {
         // Check if we should lock or stay locked
@@ -187,9 +233,27 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
           isLockedRef.current = true
           e.preventDefault()
 
+          // When hijacking begins, ensure the section is centered once so the
+          // user always scrolls the card area while it's in the middle.
+          if (!didCenterOnLockRef.current) {
+            if (!isSectionCentered()) {
+              scrollSectionToCenter()
+            }
+            didCenterOnLockRef.current = true
+          }
+
           // If not centered, scroll to center first
           if (!isSectionCentered()) {
-            scrollSectionToCenter()
+            // On upward scroll, only snap once the section is sufficiently visible below the header.
+            if (!scrollingUp) {
+              scrollSectionToCenter()
+            } else {
+              const visibleRatio = getVisibleRatioBelowHeader()
+              const ratio = Math.max(visibleRatio, intersectionRatioRef.current)
+              if (ratio >= UP_CENTER_VISIBILITY) {
+                scrollSectionToCenter()
+              }
+            }
           }
 
           if (reducedMotionMql.matches) {
@@ -218,10 +282,12 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
       (entries) => {
         entries.forEach((entry) => {
           isIntersectingRef.current = entry.isIntersecting
-          
+          intersectionRatioRef.current = entry.intersectionRatio
+           
           if (!entry.isIntersecting) {
             // Section left viewport, release lock
             isLockedRef.current = false
+            didCenterOnLockRef.current = false
             stopInertia()
           }
         })
