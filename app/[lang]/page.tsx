@@ -1,5 +1,5 @@
 import { getDictionary, Locale } from "@/lib/dictionary"
-import HomePage from "@/components/pages/home/HomePage"
+import HomePage from "@/components/pages/HomePage"
 
 export async function generateStaticParams() {
   return [{ lang: "de" }, { lang: "en" }]
