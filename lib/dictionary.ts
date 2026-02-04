@@ -7,7 +7,7 @@ const dictionaries = {
       subtitle: "Digitale Lösungen für Anwendungen für Automatisierung, Datenanalyse und Unternehmensberatung",
       cta: "Starten Sie Ihre Transformation",
     },
-    cta: {
+    about: {
       title: "Smiit hilft Unternehmen,\nDaten in Handlungen zu verwandeln",
       text: "Wir stehen an Ihrer Seite.\nDurch Apps, Dashboards und Automatisierung — für mehr\nProduktivität und schnellere Entscheidungen.",
     },
@@ -72,7 +72,7 @@ const dictionaries = {
       subtitle: "Digital solutions for applications for automation, data analytics, and business consulting",
       cta: "Start your transformation",
     },
-    cta: {
+    about: {
       title: "Smiit helps businesses\nturn data into action",
       text: "We are by your side.\nThrough apps, dashboards, and automation — boosting\nproductivity and accelerating decisions.",
     },

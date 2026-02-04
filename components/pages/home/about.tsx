@@ -1,10 +1,10 @@
 import Image from "next/image"
 
-interface CtaProps {
+interface AboutProps {
   dict: any
 }
 
-export default function Cta({ dict }: CtaProps) {
+export default function About({ dict }: AboutProps) {
   return (
     <section className="relative pt-12 pb-0 md:pt-20 md:pb-8">
       <div className="max-w-[1400px] mx-auto px-0 sm:px-6 lg:px-8">
@@ -13,13 +13,13 @@ export default function Cta({ dict }: CtaProps) {
             "relative overflow-hidden",
             "rounded-[1.75rem]",
             "border border-black/10",
-            // Mobile (<md): increase overall CTA height
+            // Mobile (<md): increase overall About height
             "min-h-[570px] sm:min-h-[675px] md:min-h-[580px] lg:min-h-[660px]",
           ].join(" ")}
         >
           {/* Background image */}
           <Image
-            src="/assets/cta_mobile.png"
+            src="/assets/about_mobile.png"
             alt=""
             fill
             sizes="100vw"
@@ -28,7 +28,7 @@ export default function Cta({ dict }: CtaProps) {
             priority={false}
           />
           <Image
-            src="/assets/cta.png"
+            src="/assets/about.png"
             alt=""
             fill
             sizes="(min-width: 768px) 1200px, 100vw"
@@ -40,10 +40,10 @@ export default function Cta({ dict }: CtaProps) {
           {/* Text overlay */}
           <div className="relative z-10 h-full flex flex-col items-center justify-start text-center px-3 md:px-10 pt-16 sm:pt-14 md:pt-12 lg:pt-16">
             <h2 className="font-serif text-[2.05rem] sm:text-[2.6rem] md:text-[3.0rem] leading-[1.08] text-black tracking-tight max-w-[22ch] sm:max-w-[30ch] whitespace-normal sm:whitespace-pre-line text-balance">
-              {dict.cta.title}
+              {dict.about.title}
             </h2>
             <p className="mt-4 md:mt-5 text-[0.82rem] sm:text-xs md:text-[0.88rem] text-black/80 max-w-[40ch] sm:max-w-[52ch] whitespace-normal sm:whitespace-pre-line leading-relaxed text-pretty">
-              {dict.cta.text}
+              {dict.about.text}
             </p>
           </div>
         </div>

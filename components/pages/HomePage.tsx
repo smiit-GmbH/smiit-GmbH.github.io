@@ -1,4 +1,4 @@
-import Cta from "@/components/pages/home/cta"
+import About from "@/components/pages/home/about"
 import CustomerCards from "@/components/pages/home/customer-cards"
 import HeroSection from "@/components/pages/home/hero-section"
 import Services from "@/components/pages/home/services"
@@ -21,7 +21,7 @@ export default function HomePage({
 
       <Services dict={dict} />
 
-      <Cta dict={dict} />
+      <About dict={dict} />
     </>
   )
 }
