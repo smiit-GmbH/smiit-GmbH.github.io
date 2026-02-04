@@ -187,7 +187,7 @@ function ConnectionLine({
             repeat: Infinity,
             ease: "easeInOut",
             delay: delay,
-            repeatDelay: 1.5,
+            repeatDelay: 0,
           }}
         />
       )}

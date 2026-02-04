@@ -39,7 +39,7 @@ export default function About({ dict }: AboutProps) {
 
           {/* Text overlay */}
           <div className="relative z-10 h-full flex flex-col items-center justify-start text-center px-3 md:px-10 pt-16 sm:pt-14 md:pt-12 lg:pt-16">
-            <h2 className="font-serif text-[2.05rem] sm:text-[2.6rem] md:text-[3.0rem] leading-[1.08] text-black tracking-tight max-w-[22ch] sm:max-w-[30ch] whitespace-normal sm:whitespace-pre-line text-balance">
+            <h2 className="font-serif text-[2.05rem] sm:text-[2.6rem] md:text-[3.0rem] leading-[1.19] sm:leading-[1.08] text-black tracking-tight max-w-[22ch] sm:max-w-[30ch] whitespace-normal sm:whitespace-pre-line text-balance">
               {dict.about.title}
             </h2>
             <p className="mt-4 md:mt-5 text-[0.82rem] sm:text-xs md:text-[0.88rem] text-black/80 max-w-[40ch] sm:max-w-[52ch] whitespace-normal sm:whitespace-pre-line leading-relaxed text-pretty">
