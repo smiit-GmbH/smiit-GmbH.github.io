@@ -53,11 +53,13 @@ function ServiceCard({
       onFocus={!href ? onFocus : undefined}
       onBlur={!href ? onBlur : undefined}
       className={[
-        "rounded-[1.6rem]",
+        // Mobile cards in the design have a slightly larger radius
+        "rounded-[1.75rem] md:rounded-[1.6rem]",
         "bg-white dark:bg-[color:var(--color-card)]",
         "border border-black/0 dark:border-white/0",
         "shadow-[0_10px_30px_rgba(0,0,0,0.06)]",
-        "px-6 py-6",
+        // Mobile cards: a touch more breathing room like in the reference
+        "px-6 py-6 sm:px-7 sm:py-7",
         "transition-transform duration-300 ease-out",
         "will-change-transform",
         "hover:scale-[1.02] hover:-translate-y-0.5",
@@ -77,7 +79,7 @@ function ServiceCard({
         {title}
       </h3>
 
-      <p className="mt-3 text-[0.92rem] leading-relaxed text-black/70 dark:text-white/70 max-w-[52ch]">
+      <p className="mt-3 text-[0.84rem] sm:text-[0.92rem] leading-relaxed text-black/70 dark:text-white/70 max-w-[52ch]">
         {text}
       </p>
     </motion.div>
@@ -310,7 +312,7 @@ export default function Services({ dict }: ServicesProps) {
   }, [anchors, center])
 
   return (
-    <section className="relative pt-14 pb-4 md:pt-12 md:pb-16">
+    <section className="relative pt-14 pb-10 md:pt-12 md:pb-16">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h2 className="font-serif text-[2.6rem] sm:text-[3.15rem] md:text-[3.6rem] leading-[1.05] tracking-tight text-black dark:text-white whitespace-pre-line text-balance">
@@ -321,8 +323,8 @@ export default function Services({ dict }: ServicesProps) {
           </p>
         </div>
 
-        {/* Mobile: stacked cards */}
-        <div className="mt-6 flex flex-col gap-6 md:hidden">
+        {/* Mobile: stacked cards (layout/spacing aligned to reference) */}
+        <div className="mt-7 flex flex-col gap-4 md:hidden">
           {items.map((it) => (
             <ServiceCard
               key={it.title}
