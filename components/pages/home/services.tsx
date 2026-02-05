@@ -53,12 +53,10 @@ function ServiceCard({
       onFocus={!href ? onFocus : undefined}
       onBlur={!href ? onBlur : undefined}
       className={[
-        // Mobile cards in the design have a slightly larger radius
         "rounded-[1.75rem] md:rounded-[1.6rem]",
         "bg-white dark:bg-[color:var(--color-card)]",
         "border border-black/0 dark:border-white/0",
         "shadow-[0_10px_30px_rgba(0,0,0,0.06)]",
-        // Mobile cards: a touch more breathing room like in the reference
         "px-6 py-6 sm:px-7 sm:py-7",
         "transition-transform duration-300 ease-out",
         "will-change-transform",
@@ -323,7 +321,7 @@ export default function Services({ dict }: ServicesProps) {
           </p>
         </div>
 
-        {/* Mobile: stacked cards (layout/spacing aligned to reference) */}
+        {/* Mobile: stacked cards */}
         <div className="mt-7 flex flex-col gap-4 md:hidden">
           {items.map((it) => (
             <ServiceCard

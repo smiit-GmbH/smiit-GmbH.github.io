@@ -1,6 +1,7 @@
 import About from "@/components/pages/home/about"
 import CustomerCards from "@/components/pages/home/customer-cards"
 import HeroSection from "@/components/pages/home/hero-section"
+import Results from "@/components/pages/home/results"
 import Services from "@/components/pages/home/services"
 import type { Locale } from "@/lib/dictionary"
 
@@ -22,6 +23,8 @@ export default function HomePage({
       <Services dict={dict} />
 
       <About dict={dict} />
+
+      <Results dict={dict} />
     </>
   )
 }

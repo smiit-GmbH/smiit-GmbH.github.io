@@ -65,6 +65,18 @@ const dictionaries = {
         feedback: "Volle Transparenz über Betriebsauslastung und Gewinnerwartung.",
       },
     ],
+    results: {
+      titlePrefix: "Ergebnisse, die Ihr Team und Ihre Kunden ",
+      titleHighlight: "tatsächlich",
+      titleSuffix: " spüren",
+      items: [
+        { value: "+40%", label: "Mehr Zeit für strategisches Wachstum", text: "Automatisierung befreit Ihr Team von wiederkehrenden Aufgaben und schenkt ihnen 40% mehr Zeit für das Wesentliche." },
+        { value: "5x", label: "Reagieren in Echtzeit", text: "Automatisierung befreit Ihr Team von wiederkehrenden Aufgaben und schenkt ihnen 40% mehr Zeit für das Wesentliche." },
+        { value: "250+", label: "Erfolgreiche Projekte", text: "Automatisierung befreit Ihr Team von wiederkehrenden Aufgaben und schenkt ihnen 40% mehr Zeit für das Wesentliche." },
+        { value: "1000+", label: "Dashboards & Berichte", text: "Automatisierung befreit Ihr Team von wiederkehrenden Aufgaben und schenkt ihnen 40% mehr Zeit für das Wesentliche." }
+      ],
+      button: "Bringen Sie Ihr Business voran"
+    },
   },
   en: {
     hero: {
@@ -129,6 +141,18 @@ const dictionaries = {
         feedback: "Full transparency regarding operating capacity utilization and profit expectations.",
       },
     ],
+    results: {
+      titlePrefix: "Results your team and customers ",
+      titleHighlight: "actually",
+      titleSuffix: " feel",
+      items: [
+        { value: "+40%", label: "More time for strategic growth", text: "Automation frees your team from repetitive tasks, giving them 40% more time to focus on what really matters." },
+        { value: "5x", label: "React in real time", text: "Automation frees your team from repetitive tasks, giving them 40% more time to focus on what really matters." },
+        { value: "250+", label: "Successful projects", text: "Automation frees your team from repetitive tasks, giving them 40% more time to focus on what really matters." },
+        { value: "1000+", label: "Dashboards & reports", text: "Automation frees your team from repetitive tasks, giving them 40% more time to focus on what really matters." }
+      ],
+      button: "Boost your business"
+    },
   },
 }
 
