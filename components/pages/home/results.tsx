@@ -11,7 +11,7 @@ export default function Results({ dict }: ResultsProps) {
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Title */}
         <div className="text-center mb-12 md:mb-16">
-          <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl leading-tight text-black max-w-4xl mx-auto">
+          <h2 className="font-serif text-[2.6rem] sm:text-[3.15rem] md:text-[3.6rem] leading-tight text-black max-w-4xl mx-auto">
             {dict.results.titlePrefix}
             <span className="text-[#F703EB]">
               {dict.results.titleHighlight}
@@ -27,7 +27,7 @@ export default function Results({ dict }: ResultsProps) {
               key={index}
               className="bg-white rounded-[1.5rem] p-8 shadow-sm flex flex-col h-full"
             >
-              <div className="text-[#F703EB] text-5xl font-light mb-4">
+              <div className="text-[#F703EB] text-5xl font-medium mb-4">
                 {item.value}
               </div>
               <h3 className="text-lg font-medium text-black mb-4">
@@ -44,7 +44,7 @@ export default function Results({ dict }: ResultsProps) {
         <div className="flex justify-center">
           <Button
             variant="outline"
-            className="rounded-full px-8 py-6 text-base border-black text-black hover:bg-black hover:text-white transition-colors"
+            className="rounded-xl px-8 py-6 text-base border-black text-black hover:bg-black hover:text-white transition-colors"
           >
             {dict.results.button}
             <ChevronRight className="ml-2 h-4 w-4" />

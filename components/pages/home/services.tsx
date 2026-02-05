@@ -34,6 +34,7 @@ function ServiceCard({
   onFocus,
   onBlur,
   href,
+  imageSrc,
 }: {
   title: string
   text: string
@@ -44,6 +45,7 @@ function ServiceCard({
   onFocus?: () => void
   onBlur?: () => void
   href?: string
+  imageSrc?: string
 }) {
   const CardContent = (
     <motion.div
@@ -53,9 +55,9 @@ function ServiceCard({
       onFocus={!href ? onFocus : undefined}
       onBlur={!href ? onBlur : undefined}
       className={[
+        "relative overflow-hidden",
         "rounded-[1.75rem] md:rounded-[1.6rem]",
         "bg-white dark:bg-[color:var(--color-card)]",
-        "border border-black/0 dark:border-white/0",
         "shadow-[0_10px_30px_rgba(0,0,0,0.06)]",
         "px-6 py-6 sm:px-7 sm:py-7",
         "transition-transform duration-300 ease-out",
@@ -67,19 +69,36 @@ function ServiceCard({
         className ?? "",
       ].join(" ")}
     >
-      <div className="flex flex-wrap gap-2">
-        {tags.map((t) => (
-          <TagPill key={t} label={t} />
-        ))}
+      {imageSrc && (
+        <div className="absolute right-0 top-0 bottom-0 w-[60%] pointer-events-none select-none">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={imageSrc}
+            alt=""
+            className="h-full w-full object-cover object-right opacity-90"
+            style={{
+              maskImage: "linear-gradient(to left, black -50%, transparent 100%)",
+              WebkitMaskImage: "linear-gradient(to left, black -50%, transparent 100%)",
+            }}
+          />
+        </div>
+      )}
+
+      <div className="relative z-10">
+        <div className="flex flex-wrap gap-2">
+          {tags.map((t) => (
+            <TagPill key={t} label={t} />
+          ))}
+        </div>
+
+        <h3 className="mt-4 font-serif text-[1.75rem] leading-[1.05] tracking-tight text-black dark:text-white">
+          {title}
+        </h3>
+
+        <p className="mt-3 text-[0.84rem] sm:text-[0.92rem] leading-relaxed text-black/75 dark:text-white/70 max-w-[52ch] mr-18">
+          {text}
+        </p>
       </div>
-
-      <h3 className="mt-4 font-serif text-[1.75rem] leading-[1.05] tracking-tight text-black dark:text-white">
-        {title}
-      </h3>
-
-      <p className="mt-3 text-[0.84rem] sm:text-[0.92rem] leading-relaxed text-black/70 dark:text-white/70 max-w-[52ch]">
-        {text}
-      </p>
     </motion.div>
   )
 
@@ -136,42 +155,115 @@ function getCurvePath(start: Pt, end: Pt, center: Pt, curvature = 0.2) {
   return `M ${start.x},${start.y} Q ${cp.x},${cp.y} ${end.x},${end.y}`
 }
 
+function getPointOnBezier(t: number, p0: Pt, p1: Pt, p2: Pt) {
+  const mt = 1 - t
+  return {
+    x: mt * mt * p0.x + 2 * mt * t * p1.x + t * t * p2.x,
+    y: mt * mt * p0.y + 2 * mt * t * p1.y + t * t * p2.y,
+  }
+}
+
+function getTangentOnBezier(t: number, p0: Pt, p1: Pt, p2: Pt) {
+  const mt = 1 - t
+  // Derivative: 2(1-t)(p1-p0) + 2t(p2-p1)
+  const x = 2 * mt * (p1.x - p0.x) + 2 * t * (p2.x - p1.x)
+  const y = 2 * mt * (p1.y - p0.y) + 2 * t * (p2.y - p1.y)
+  const len = Math.sqrt(x * x + y * y)
+  if (len === 0) return { x: 0, y: 0 }
+  return { x: x / len, y: y / len }
+}
+
+function generateTaperedPath(p0: Pt, p1: Pt, p2: Pt, wStart: number, wEnd: number) {
+  const segments = 20
+  const leftSide: Pt[] = []
+  const rightSide: Pt[] = []
+
+  for (let i = 0; i <= segments; i++) {
+    const t = i / segments
+    const pt = getPointOnBezier(t, p0, p1, p2)
+    const tan = getTangentOnBezier(t, p0, p1, p2)
+    const normal = { x: -tan.y, y: tan.x }
+    const w = wStart + (wEnd - wStart) * t
+    const halfW = w / 2
+
+    leftSide.push({ x: pt.x + normal.x * halfW, y: pt.y + normal.y * halfW })
+    rightSide.push({ x: pt.x - normal.x * halfW, y: pt.y - normal.y * halfW })
+  }
+
+  let d = `M ${leftSide[0].x},${leftSide[0].y}`
+  for (let i = 1; i < leftSide.length; i++) {
+    d += ` L ${leftSide[i].x},${leftSide[i].y}`
+  }
+  for (let i = rightSide.length - 1; i >= 0; i--) {
+    d += ` L ${rightSide[i].x},${rightSide[i].y}`
+  }
+  d += " Z"
+  return d
+}
+
 function ConnectionLine({
   start,
   end,
   center,
   isActive,
+  hoveredNode,
   reduceMotion,
+  shouldPausePulse,
   delay = 0,
 }: {
   start: Pt
   end: Pt
   center: Pt
   isActive: boolean
+  hoveredNode: "start" | "end" | null
   reduceMotion: boolean | null
+  shouldPausePulse?: boolean
   delay?: number
 }) {
-  const path = useMemo(() => getCurvePath(start, end, center), [start, end, center])
+  const cp = useMemo(() => getControlPoint(start, end, center), [start, end, center])
+  const strokePath = useMemo(() => getCurvePath(start, end, center), [start, end, center])
+
+  const baseWidth = 1
+  const activeWidth = 2.5
+
+  let wStart = baseWidth
+  let wEnd = baseWidth
+
+  if (isActive) {
+    if (hoveredNode === "start") {
+      wStart = activeWidth
+      wEnd = baseWidth
+    } else if (hoveredNode === "end") {
+      wStart = baseWidth
+      wEnd = activeWidth
+    } else {
+      wStart = activeWidth
+      wEnd = activeWidth
+    }
+  }
+
+  const pathD = useMemo(
+    () => generateTaperedPath(start, cp, end, wStart, wEnd),
+    [start, cp, end, wStart, wEnd]
+  )
 
   return (
     <>
       <motion.path
-        d={path}
-        fill="none"
-        stroke="url(#lineGradient)"
-        strokeWidth={isActive ? 2.5 : 1.5}
-        strokeOpacity={isActive ? 0.5 : 0.15}
+        d={pathD}
+        fill="url(#lineGradient)"
+        opacity={isActive ? 0.5 : 0.3}
         initial={false}
         animate={{
-          strokeWidth: isActive ? 2.5 : 1.5,
-          strokeOpacity: isActive ? 0.5 : 0.15,
+          d: pathD,
+          opacity: isActive ? 0.5 : 0.3,
         }}
         transition={{ duration: 0.4 }}
       />
 
-      {!reduceMotion && (
+      {!reduceMotion && !shouldPausePulse && (
         <motion.path
-          d={path}
+          d={strokePath}
           fill="none"
           stroke="url(#pulseGradient)"
           strokeWidth={3}
@@ -200,6 +292,14 @@ function getLink(title: string) {
   if (t.includes("consulting") || t.includes("beratung")) return "/consulting"
   if (t.includes("analysis") || t.includes("analyse")) return "/analytics"
   if (t.includes("app") || t.includes("workflow")) return "/apps"
+  return undefined
+}
+
+function getImage(title: string) {
+  const t = title.toLowerCase()
+  if (t.includes("consulting") || t.includes("beratung")) return "/assets/services_consulting.png"
+  if (t.includes("analysis") || t.includes("analyse")) return "/assets/services_analytics.png"
+  if (t.includes("app") || t.includes("workflow")) return "/assets/services_apps.png"
   return undefined
 }
 
@@ -310,7 +410,7 @@ export default function Services({ dict }: ServicesProps) {
   }, [anchors, center])
 
   return (
-    <section className="relative pt-14 pb-10 md:pt-12 md:pb-16">
+    <section className="relative pt-14 pb-10 md:pt-16 md:pb-22">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h2 className="font-serif text-[2.6rem] sm:text-[3.15rem] md:text-[3.6rem] leading-[1.05] tracking-tight text-black dark:text-white whitespace-pre-line text-balance">
@@ -330,6 +430,7 @@ export default function Services({ dict }: ServicesProps) {
               text={it.text}
               tags={it.tags}
               href={getLink(it.title)}
+              imageSrc={getImage(it.title)}
             />
           ))}
         </div>
@@ -346,9 +447,9 @@ export default function Services({ dict }: ServicesProps) {
           <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0">
             <svg className="h-full w-full" viewBox={`0 0 ${stageSize.w} ${stageSize.h}`} preserveAspectRatio="none">
               <defs>
-                <linearGradient id="lineGradient" x1="0" y1="0" x2="1" y2="0">
-                  <stop offset="0%" stopColor="currentColor" className="text-blue-400 dark:text-blue-500" />
-                  <stop offset="100%" stopColor="currentColor" className="text-indigo-400 dark:text-indigo-500" />
+                <linearGradient id="lineGradient" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stopColor="currentColor" className="text-blue-500" />
+                  <stop offset="100%" stopColor="currentColor" className="text-purple-600" />
                 </linearGradient>
                 <linearGradient id="pulseGradient" x1="0" y1="0" x2="1" y2="0">
                   <stop offset="0%" stopColor="currentColor" stopOpacity="0" className="text-blue-500" />
@@ -380,6 +481,10 @@ export default function Services({ dict }: ServicesProps) {
                     end={anchors.b}
                     center={center}
                     isActive={hovered === "left" || hovered === "rightTop"}
+                    hoveredNode={
+                      hovered === "left" ? "start" : hovered === "rightTop" ? "end" : null
+                    }
+                    shouldPausePulse={hovered !== null}
                     reduceMotion={reduceMotion}
                     delay={0}
                   />
@@ -389,6 +494,10 @@ export default function Services({ dict }: ServicesProps) {
                     end={anchors.c}
                     center={center}
                     isActive={hovered === "rightTop" || hovered === "bottom"}
+                    hoveredNode={
+                      hovered === "rightTop" ? "start" : hovered === "bottom" ? "end" : null
+                    }
+                    shouldPausePulse={hovered !== null}
                     reduceMotion={reduceMotion}
                     delay={0.8}
                   />
@@ -398,6 +507,10 @@ export default function Services({ dict }: ServicesProps) {
                     end={anchors.a}
                     center={center}
                     isActive={hovered === "bottom" || hovered === "left"}
+                    hoveredNode={
+                      hovered === "bottom" ? "start" : hovered === "left" ? "end" : null
+                    }
+                    shouldPausePulse={hovered !== null}
                     reduceMotion={reduceMotion}
                     delay={1.6}
                   />
@@ -413,12 +526,13 @@ export default function Services({ dict }: ServicesProps) {
                 title={left.title}
                 text={left.text}
                 tags={left.tags}
-                className="w-[460px] lg:w-[520px]"
+                className="w-[460px] lg:w-[540px]"
                 onHoverStart={() => setHovered("left")}
                 onHoverEnd={() => setHovered(null)}
                 onFocus={() => setHovered("left")}
                 onBlur={() => setHovered(null)}
                 href={getLink(left.title)}
+                imageSrc={getImage(left.title)}
               />
             </div>
           )}
@@ -429,12 +543,13 @@ export default function Services({ dict }: ServicesProps) {
                 title={rightTop.title}
                 text={rightTop.text}
                 tags={rightTop.tags}
-                className="w-[420px] lg:w-[460px]"
+                className="w-[420px] lg:w-[490px]"
                 onHoverStart={() => setHovered("rightTop")}
                 onHoverEnd={() => setHovered(null)}
                 onFocus={() => setHovered("rightTop")}
                 onBlur={() => setHovered(null)}
                 href={getLink(rightTop.title)}
+                imageSrc={getImage(rightTop.title)}
               />
             </div>
           )}
@@ -445,12 +560,13 @@ export default function Services({ dict }: ServicesProps) {
                 title={bottom.title}
                 text={bottom.text}
                 tags={bottom.tags}
-                className="w-[420px] lg:w-[410px]"
+                className="w-[420px] lg:w-[500px]"
                 onHoverStart={() => setHovered("bottom")}
                 onHoverEnd={() => setHovered(null)}
                 onFocus={() => setHovered("bottom")}
                 onBlur={() => setHovered(null)}
                 href={getLink(bottom.title)}
+                imageSrc={getImage(bottom.title)}
               />
             </div>
           )}
@@ -459,3 +575,4 @@ export default function Services({ dict }: ServicesProps) {
     </section>
   )
 }
+
