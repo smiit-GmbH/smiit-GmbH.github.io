@@ -70,10 +70,10 @@ const dictionaries = {
       titleHighlight: "tatsächlich",
       titleSuffix: " spüren",
       items: [
-        { value: "+40%", label: "Mehr Zeit für strategisches Wachstum", text: "Automatisierung befreit Ihr Team von wiederkehrenden Aufgaben und schenkt ihnen 40% mehr Zeit für das Wesentliche." },
-        { value: "5x", label: "Reagieren in Echtzeit", text: "Automatisierung befreit Ihr Team von wiederkehrenden Aufgaben und schenkt ihnen 40% mehr Zeit für das Wesentliche." },
-        { value: "250+", label: "Erfolgreiche Projekte", text: "Automatisierung befreit Ihr Team von wiederkehrenden Aufgaben und schenkt ihnen 40% mehr Zeit für das Wesentliche." },
-        { value: "1000+", label: "Dashboards & Berichte", text: "Automatisierung befreit Ihr Team von wiederkehrenden Aufgaben und schenkt ihnen 40% mehr Zeit für das Wesentliche." }
+        { value: "5+", label: "Jahre Erfahrung", text: "Automatisierung befreit Ihr Team von wiederkehrenden Aufgaben und schenkt ihnen 40% mehr Zeit für das Wesentliche." },
+        { value: "+140 h", label: "Freisetzung von Arbeitszeit", text: "Automatisierung befreit Ihr Team von wiederkehrenden Aufgaben und schenkt ihnen 40% mehr Zeit für das Wesentliche." },
+        { value: "70+", label: "Erfolgreiche Projekte", text: "Automatisierung befreit Ihr Team von wiederkehrenden Aufgaben und schenkt ihnen 40% mehr Zeit für das Wesentliche." },
+        { value: "250+", label: "Dashboards & Berichte", text: "Automatisierung befreit Ihr Team von wiederkehrenden Aufgaben und schenkt ihnen 40% mehr Zeit für das Wesentliche." }
       ],
       button: "Bringen Sie Ihr Business voran"
     },

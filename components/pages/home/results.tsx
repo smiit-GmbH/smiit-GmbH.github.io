@@ -1,55 +1,128 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import { ChevronRight } from "lucide-react"
+import { motion, useInView, useSpring, useTransform } from "framer-motion"
+import { useEffect, useRef } from "react"
+import LocalizedLink from "../../localized-link"
 
 interface ResultsProps {
   dict: any
 }
 
+function CountUp({ value, className }: { value: string; className?: string }) {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: "-20px" })
+  
+  // Parse number and surrounding text
+  // Matches: prefix (optional), number, suffix (optional)
+  const match = value.match(/^([^\d]*)(\d+(?:\.\d+)?)([^\d]*)$/)
+  const prefix = match ? match[1] : ""
+  const number = match ? parseFloat(match[2]) : 0
+  const suffix = match ? match[3] : value // Fallback if no number found
+
+  const spring = useSpring(0, { mass: 1, stiffness: 50, damping: 20 })
+  const display = useTransform(spring, (current) => 
+    match ? `${prefix}${Math.round(current)}${suffix}` : value
+  )
+
+  useEffect(() => {
+    if (isInView && match) {
+      spring.set(number)
+    }
+  }, [isInView, number, spring, match])
+
+  return <motion.span ref={ref} className={className}>{display}</motion.span>
+}
+
+function ResultCard({ item, index }: { item: any; index: number }) {
+  return (
+    <motion.div
+      variants={{
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0 }
+      }}
+      transition={{ duration: 0.5, delay: index * 0.1 }}
+      className="bg-white rounded-[1.5rem] p-8 shadow-sm flex flex-col h-full hover:shadow-xl transition-shadow duration-300 border border-transparent hover:border-black/5"
+    >
+      <div className="text-[#F703EB] text-5xl font-medium mb-4">
+        <CountUp value={item.value} />
+      </div>
+      <h3 className="text-lg font-medium text-black mb-4">
+        {item.label}
+      </h3>
+      <p className="text-gray-600 text-sm leading-relaxed mt-auto">
+        {item.text}
+      </p>
+    </motion.div>
+  )
+}
+
 export default function Results({ dict }: ResultsProps) {
   return (
-    <section className="bg-background py-16 md:py-18">
+    <section className="bg-background py-16 md:py-16 overflow-hidden">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Title */}
-        <div className="text-center mb-12 md:mb-16">
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12 md:mb-20"
+        >
           <h2 className="font-serif text-[2.6rem] sm:text-[3.15rem] md:text-[3.6rem] leading-tight text-black max-w-4xl mx-auto">
             {dict.results.titlePrefix}
-            <span className="text-[#F703EB]">
+            <span className="text-[#F703EB] inline-block relative">
               {dict.results.titleHighlight}
+              <motion.svg
+                className="absolute w-full h-3 -bottom-1 left-0 text-[#F703EB]/20 -z-10"
+                viewBox="0 0 100 10"
+                preserveAspectRatio="none"
+                initial={{ pathLength: 0 }}
+                whileInView={{ pathLength: 1 }}
+                viewport={{ once: true }}
+                transition={{ duration: 1, delay: 0.5 }}
+              >
+                <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="8" fill="none" />
+              </motion.svg>
             </span>
             {dict.results.titleSuffix}
           </h2>
-        </div>
+        </motion.div>
 
         {/* Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12 md:mb-16">
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+          variants={{
+            visible: { transition: { staggerChildren: 0.1 } }
+          }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12 md:mb-20"
+        >
           {dict.results.items.map((item: any, index: number) => (
-            <div
-              key={index}
-              className="bg-white rounded-[1.5rem] p-8 shadow-sm flex flex-col h-full"
-            >
-              <div className="text-[#F703EB] text-5xl font-medium mb-4">
-                {item.value}
-              </div>
-              <h3 className="text-lg font-medium text-black mb-4">
-                {item.label}
-              </h3>
-              <p className="text-gray-600 text-sm leading-relaxed mt-auto">
-                {item.text}
-              </p>
-            </div>
+            <ResultCard key={index} item={item} index={index} />
           ))}
-        </div>
+        </motion.div>
 
         {/* Button */}
-        <div className="flex justify-center">
-          <Button
-            variant="outline"
-            className="rounded-xl px-8 py-6 text-base border-black text-black hover:bg-black hover:text-white transition-colors"
-          >
-            {dict.results.button}
-            <ChevronRight className="ml-2 h-4 w-4" />
-          </Button>
-        </div>
+        <motion.div 
+          initial={{ opacity: 0, y: 10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.6 }}
+          className="flex justify-center"
+        >
+          <LocalizedLink href="/contact">
+            <Button
+              variant="outline"
+              className="rounded-xl px-8 py-6 text-base border-black text-black hover:bg-black hover:text-white transition-all duration-300 hover:scale-105 cursor-pointer"
+            >
+              {dict.results.button}
+              <ChevronRight className="ml-2 h-4 w-4" />
+            </Button>
+          </LocalizedLink>
+        </motion.div>
       </div>
     </section>
   )
