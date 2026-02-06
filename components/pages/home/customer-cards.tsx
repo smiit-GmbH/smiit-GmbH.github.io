@@ -35,7 +35,7 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
 
     const mql = window.matchMedia("(min-width: 768px)")
     const reducedMotionMql = window.matchMedia("(prefers-reduced-motion: reduce)")
-    
+
     // Track if section is intersecting viewport
     const isIntersectingRef = { current: false }
     // Track intersection ratio (0..1) for fine-grained visibility checks
@@ -44,8 +44,9 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
     const isLockedRef = { current: false }
     // Ensure we only auto-center once per lock session (reset when leaving viewport)
     const didCenterOnLockRef = { current: false }
-    // Track last scroll direction for edge detection
-    const lastScrollYRef = { current: 0 }
+
+    // NEW: track if we're currently auto-centering to avoid horizontal movement in the same wheel tick
+    const isCenteringRef = { current: false }
 
     const rafIdRef = { current: 0 }
     const lastTsRef = { current: 0 }
@@ -59,14 +60,14 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
 
     const getScrollState = () => {
       const scrollerEl = scrollerRef.current
-      if (!scrollerEl) return { atStart: true, atEnd: true, maxLeft: 0 }
+      if (!scrollerEl) return { atStart: true, atEnd: true, maxLeft: 0, scrollLeft: 0 }
       const maxLeft = scrollerEl.scrollWidth - scrollerEl.clientWidth
       const prevLeft = scrollerEl.scrollLeft
       return {
         atStart: prevLeft <= 0.5,
         atEnd: prevLeft >= maxLeft - 0.5,
         maxLeft,
-        scrollLeft: prevLeft
+        scrollLeft: prevLeft,
       }
     }
 
@@ -143,26 +144,29 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
       rafIdRef.current = window.requestAnimationFrame(tick)
     }
 
-    // Scroll section into center view when entering
-    const scrollSectionToCenter = () => {
-      const sectionEl = sectionRef.current
-      if (!sectionEl) return
-      
-      const rect = sectionEl.getBoundingClientRect()
-      const sectionCenter = rect.top + rect.height / 2
-      const viewportCenter = window.innerHeight / 2
-      const scrollOffset = sectionCenter - viewportCenter
-      
-      window.scrollBy({
-        top: scrollOffset,
-        behavior: 'smooth'
-      })
-    }
-
     const getHeaderHeight = () => {
-      // Header is rendered as a fixed <nav /> at the top.
       const nav = document.querySelector("nav") as HTMLElement | null
       return nav ? nav.getBoundingClientRect().height : 0
+    }
+
+    // NEW: center scroll accounting for fixed header
+    const scrollSectionToCenter = (behavior: ScrollBehavior = "smooth") => {
+      const sectionEl = sectionRef.current
+      if (!sectionEl) return
+
+      const rect = sectionEl.getBoundingClientRect()
+      const headerH = getHeaderHeight()
+
+      const viewportHeight = window.innerHeight - headerH
+      const viewportCenter = headerH + viewportHeight / 2
+      const sectionCenter = rect.top + rect.height / 2
+
+      const scrollOffset = sectionCenter - viewportCenter
+
+      window.scrollBy({
+        top: scrollOffset,
+        behavior,
+      })
     }
 
     // Visible ratio of the section within the viewport, excluding the fixed header overlap.
@@ -183,15 +187,23 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
       return visible / rect.height
     }
 
-    // Check if section center is in viewport
-    const isSectionCentered = () => {
+    // NEW: stricter "centered" check that respects header and uses a tighter tolerance band
+    const isSectionCenteredStrict = () => {
       const sectionEl = sectionRef.current
       if (!sectionEl) return false
+
       const rect = sectionEl.getBoundingClientRect()
-      const mid = window.innerHeight / 2
-      // More generous threshold for "centered" detection
-      const threshold = window.innerHeight * 0.3
-      return rect.top <= mid + threshold && rect.bottom >= mid - threshold
+      const headerH = getHeaderHeight()
+
+      const viewportTop = headerH
+      const viewportHeight = window.innerHeight - headerH
+      const viewportCenter = viewportTop + viewportHeight / 2
+
+      const sectionCenter = rect.top + rect.height / 2
+
+      // Tight tolerance: 10% of usable viewport height
+      const tolerance = viewportHeight * 0.1
+      return Math.abs(sectionCenter - viewportCenter) <= tolerance
     }
 
     const onWheel = (e: WheelEvent) => {
@@ -222,39 +234,38 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
         }
       }
 
-      // If section is intersecting and we're not at an edge that would release
       if (isIntersectingRef.current) {
-        // Check if we should lock or stay locked
-        const shouldLock = 
-          (scrollingDown && !atEnd) || 
-          (scrollingUp && !atStart)
+        const shouldLock = (scrollingDown && !atEnd) || (scrollingUp && !atStart)
 
         if (shouldLock) {
-          // Lock and prevent vertical scroll
           isLockedRef.current = true
           e.preventDefault()
 
-          // When hijacking begins, ensure the section is centered once so the
-          // user always scrolls the card area while it's in the middle.
-          if (!didCenterOnLockRef.current) {
-            if (!isSectionCentered()) {
-              scrollSectionToCenter()
-            }
-            didCenterOnLockRef.current = true
-          }
-
-          // If not centered, scroll to center first
-          if (!isSectionCentered()) {
+          // NEW: enforce center-first, then horizontal. If not centered, we center and RETURN
+          // (no horizontal movement in this wheel event).
+          if (!isSectionCenteredStrict()) {
             // On upward scroll, only snap once the section is sufficiently visible below the header.
-            if (!scrollingUp) {
-              scrollSectionToCenter()
-            } else {
+            if (scrollingUp) {
               const visibleRatio = getVisibleRatioBelowHeader()
               const ratio = Math.max(visibleRatio, intersectionRatioRef.current)
-              if (ratio >= UP_CENTER_VISIBILITY) {
-                scrollSectionToCenter()
+              if (ratio < UP_CENTER_VISIBILITY) {
+                return
               }
             }
+
+            if (!isCenteringRef.current) {
+              isCenteringRef.current = true
+              scrollSectionToCenter("smooth")
+              window.setTimeout(() => {
+                isCenteringRef.current = false
+              }, 250)
+            }
+            return
+          }
+
+          // If we reach here, it's centered -> ok to hijack horizontally.
+          if (!didCenterOnLockRef.current) {
+            didCenterOnLockRef.current = true
           }
 
           if (reducedMotionMql.matches) {
@@ -272,41 +283,33 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
           startInertia()
           return
         } else {
-          // At edge, release lock
           isLockedRef.current = false
         }
       }
     }
 
-    // Intersection Observer to detect when section enters viewport
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           isIntersectingRef.current = entry.isIntersecting
           intersectionRatioRef.current = entry.intersectionRatio
-           
+
           if (!entry.isIntersecting) {
-            // Section left viewport, release lock
             isLockedRef.current = false
             didCenterOnLockRef.current = false
+            isCenteringRef.current = false
             stopInertia()
           }
         })
       },
       {
-        // Trigger when any part of section is visible
         threshold: [0, 0.1, 0.25, 0.5, 0.75, 1],
-        // Start detecting slightly before section enters viewport
-        rootMargin: '50px 0px 50px 0px'
+        rootMargin: "50px 0px 50px 0px",
       }
     )
 
     const sectionEl = sectionRef.current
-    if (sectionEl) {
-      observer.observe(sectionEl)
-    }
-
-    lastScrollYRef.current = window.scrollY
+    if (sectionEl) observer.observe(sectionEl)
 
     window.addEventListener("wheel", onWheel, { passive: false })
 
@@ -368,7 +371,10 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
     <section ref={sectionRef} className="relative">
       <div className="absolute top-0 md:top-[128px] inset-x-0 bottom-0 bg-background -z-10" />
 
-      <div ref={scrollerRef} className="overflow-x-auto pb-6 md:pb-8 no-scrollbar snap-x snap-mandatory md:snap-none">
+      <div
+        ref={scrollerRef}
+        className="overflow-x-auto pb-6 md:pb-8 no-scrollbar snap-x snap-mandatory md:snap-none"
+      >
         <div
           className={[
             "flex min-w-max",
@@ -405,34 +411,34 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
                     "min-h-[275px] sm:min-h-[300px] md:min-h-0",
                   ].join(" ")}
                 >
-                <div className="p-5 md:p-8 flex flex-col h-full justify-between">
-                  <div>
-                    <CardTitle className="font-serif text-[1.45rem] md:text-[1.75rem] font-normal text-black tracking-tight leading-[1.1]">
-                      {customer.name}
-                    </CardTitle>
-                    <p className="text-base md:text-base text-black/90 mt-2 md:mt-4 leading-snug font-normal max-w-[95%] md:max-w-[70%]">
-                      {customer.subtitle}
-                    </p>
-                  </div>
-
-                  <div className="flex flex-col items-start text-left md:flex-row md:items-center md:text-left gap-4 mt-6 md:mt-2">
-                    <div className="rounded-xl bg-[#F2F0E9] h-12 w-24 md:h-14 md:w-20 flex items-center justify-center shrink-0">
-                      <div className="relative h-9 w-20 md:h-10 md:w-14">
-                        <Image
-                          src={customer.logoSrc}
-                          alt={`${customer.name} Logo`}
-                          fill
-                          sizes="(min-width: 768px) 56px, 56px"
-                          className="object-contain"
-                        />
-                      </div>
+                  <div className="p-5 md:p-8 flex flex-col h-full justify-between">
+                    <div>
+                      <CardTitle className="font-serif text-[1.45rem] md:text-[1.75rem] font-normal text-black tracking-tight leading-[1.1]">
+                        {customer.name}
+                      </CardTitle>
+                      <p className="text-base md:text-base text-black/90 mt-2 md:mt-4 leading-snug font-normal max-w-[95%] md:max-w-[70%]">
+                        {customer.subtitle}
+                      </p>
                     </div>
-                    <p className="text-xs md:text-sm font-medium text-gray-500 leading-relaxed">
-                      {customer.feedback}
-                    </p>
+
+                    <div className="flex flex-col items-start text-left md:flex-row md:items-center md:text-left gap-4 mt-6 md:mt-2">
+                      <div className="rounded-xl bg-[#F2F0E9] h-12 w-24 md:h-14 md:w-20 flex items-center justify-center shrink-0">
+                        <div className="relative h-9 w-20 md:h-10 md:w-14">
+                          <Image
+                            src={customer.logoSrc}
+                            alt={`${customer.name} Logo`}
+                            fill
+                            sizes="(min-width: 768px) 56px, 56px"
+                            className="object-contain"
+                          />
+                        </div>
+                      </div>
+                      <p className="text-xs md:text-sm font-medium text-gray-500 leading-relaxed">
+                        {customer.feedback}
+                      </p>
+                    </div>
                   </div>
-                </div>
-              </Card>
+                </Card>
               </motion.div>
             )
           })}
@@ -445,14 +451,14 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
           <div
             className="relative h-1.5 w-24 rounded-full bg-black/5 overflow-hidden"
             aria-hidden="true"
-           >
-             <div
+          >
+            <div
               className="absolute top-0 left-0 h-full w-8 rounded-full bg-black"
               style={{ transform: `translateX(${mobileScrollProgress * (96 - 32)}px)` }}
-              />
-            </div>
-          )}
-        </div>
+            />
+          </div>
+        )}
+      </div>
     </section>
   )
 }

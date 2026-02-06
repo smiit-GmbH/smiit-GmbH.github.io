@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
-import { motion, useReducedMotion } from "framer-motion"
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion"
 import LocalizedLink from "../../localized-link"
 
 interface ServicesProps {
@@ -303,6 +303,27 @@ function getImage(title: string) {
   return undefined
 }
 
+function MobileServiceCardWrapper({ children }: { children: React.ReactNode }) {
+  const ref = useRef(null)
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  })
+
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.85, 1, 0.85])
+  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.6, 1, 0.6])
+
+  return (
+    <motion.div
+      ref={ref}
+      style={{ scale, opacity }}
+      className="origin-center"
+    >
+      {children}
+    </motion.div>
+  )
+}
+
 export default function Services({ dict }: ServicesProps) {
   const items = (dict?.services?.items ?? []) as Array<{
     title: string
@@ -427,16 +448,18 @@ export default function Services({ dict }: ServicesProps) {
         </div>
 
         {/* Mobile: stacked cards */}
-        <div className="mt-7 flex flex-col gap-4 md:hidden">
+        <div className="mt-7 flex flex-col gap-2 md:hidden">
           {items.map((it) => (
-            <ServiceCard
-              key={it.title}
-              title={it.title}
-              text={it.text}
-              tags={it.tags}
-              href={getLink(it.title)}
-              imageSrc={getImage(it.title)}
-            />
+            <MobileServiceCardWrapper key={it.title}>
+              <ServiceCard
+                title={it.title}
+                text={it.text}
+                tags={it.tags}
+                href={getLink(it.title)}
+                imageSrc={getImage(it.title)}
+                className="min-h-[28vh] flex flex-col justify-center"
+              />
+            </MobileServiceCardWrapper>
           ))}
         </div>
 
