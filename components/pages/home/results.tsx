@@ -7,7 +7,7 @@ interface ResultsProps {
 
 export default function Results({ dict }: ResultsProps) {
   return (
-    <section className="bg-background py-16 md:py-24">
+    <section className="bg-background py-16 md:py-18">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Title */}
         <div className="text-center mb-12 md:mb-16">

@@ -310,6 +310,11 @@ export default function Services({ dict }: ServicesProps) {
     tags: string[]
   }>
 
+  const title = dict?.services?.title || ""
+  const words = title.split(" ")
+  const lastWord = words.length > 0 ? words.pop() : ""
+  const firstPart = words.join(" ")
+
   const [left, rightTop, bottom] = items
 
   const stageRef = useRef<HTMLDivElement | null>(null)
@@ -410,11 +415,11 @@ export default function Services({ dict }: ServicesProps) {
   }, [anchors, center])
 
   return (
-    <section className="relative pt-14 pb-10 md:pt-16 md:pb-22">
+    <section className="relative pt-14 pb-8 md:pt-16 md:pb-22">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h2 className="font-serif text-[2.6rem] sm:text-[3.15rem] md:text-[3.6rem] leading-[1.05] tracking-tight text-black dark:text-white whitespace-pre-line text-balance">
-            {dict.services.title}
+            {firstPart} <span className="text-[#21569c]">{lastWord}</span>
           </h2>
           <p className="mt-4 text-sm sm:text-base leading-relaxed text-black/75 dark:text-white/75 max-w-[54ch] mx-auto">
             {dict.services.subtitle}
@@ -560,7 +565,7 @@ export default function Services({ dict }: ServicesProps) {
                 title={bottom.title}
                 text={bottom.text}
                 tags={bottom.tags}
-                className="w-[420px] lg:w-[500px]"
+                className="w-[420px] lg:w-[520px]"
                 onHoverStart={() => setHovered("bottom")}
                 onHoverEnd={() => setHovered(null)}
                 onFocus={() => setHovered("bottom")}

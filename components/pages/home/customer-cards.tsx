@@ -2,7 +2,7 @@
 
 import { Card, CardTitle } from "@/components/ui/card"
 import Image from "next/image"
-import { useEffect, useLayoutEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 const LOGOS: Record<number, string> = {
   1: "/assets/logos/dy-project.png",
@@ -28,107 +28,294 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
   const [mobileScrollProgress, setMobileScrollProgress] = useState(0)
   const [showMobileIndicator, setShowMobileIndicator] = useState(false)
 
-  // Vertical track length (desktop/tablet only) that drives the horizontal scroll
-  const [trackHeight, setTrackHeight] = useState<number>(0)
-
-  // Tuning: earlier start + longer end hold
-  const LEAD_IN = 0 // px: horizontal "mode" engages earlier (but stays at scrollLeft=0)
-  const TAIL_OUT = 420 // px: keep sticky longer after reaching end (last card fully visible longer)
-
-  const isDesktop = () =>
-    typeof window !== "undefined" && window.matchMedia("(min-width: 768px)").matches
-
-  const getHeaderHeight = () => {
-    const nav = document.querySelector("nav") as HTMLElement | null
-    return nav ? nav.getBoundingClientRect().height : 0
-  }
-
-  const isScrollable = () => {
-    const scrollerEl = scrollerRef.current
-    if (!scrollerEl) return false
-    return scrollerEl.scrollWidth > scrollerEl.clientWidth + 1
-  }
-
-  // --- Desktop: compute track height AFTER sticky content (so cards stay in place) ---
-  useLayoutEffect(() => {
-    if (typeof window === "undefined") return
-
-    const computeTrack = () => {
-      const scrollerEl = scrollerRef.current
-      if (!scrollerEl) return
-
-      if (!isDesktop()) {
-        setTrackHeight(0)
-        return
-      }
-
-      const maxLeft = scrollerEl.scrollWidth - scrollerEl.clientWidth
-      setTrackHeight(maxLeft > 0 ? Math.ceil(maxLeft + LEAD_IN + TAIL_OUT) : 0)
-    }
-
-    computeTrack()
-    window.addEventListener("resize", computeTrack)
-    return () => window.removeEventListener("resize", computeTrack)
-  }, [customers.length])
-
-  // --- Desktop: map vertical scroll progress (within the section) -> scrollLeft ---
+  // Desktop/Tablet horizontal scroll hijacking with Intersection Observer
   useEffect(() => {
     if (typeof window === "undefined") return
 
-    let raf = 0
+    const mql = window.matchMedia("(min-width: 768px)")
+    const reducedMotionMql = window.matchMedia("(prefers-reduced-motion: reduce)")
+    
+    // Track if section is intersecting viewport
+    const isIntersectingRef = { current: false }
+    // Track intersection ratio (0..1) for fine-grained visibility checks
+    const intersectionRatioRef = { current: 0 }
+    // Track if we're currently "locked" in horizontal scroll mode
+    const isLockedRef = { current: false }
+    // Ensure we only auto-center once per lock session (reset when leaving viewport)
+    const didCenterOnLockRef = { current: false }
+    // Track last scroll direction for edge detection
+    const lastScrollYRef = { current: 0 }
 
-    const onScroll = () => {
-      if (raf) return
-      raf = window.requestAnimationFrame(() => {
-        raf = 0
+    const rafIdRef = { current: 0 }
+    const lastTsRef = { current: 0 }
+    const velocityRef = { current: 0 }
 
-        const sectionEl = sectionRef.current
+    const isScrollable = () => {
+      const scrollerEl = scrollerRef.current
+      if (!scrollerEl) return false
+      return scrollerEl.scrollWidth > scrollerEl.clientWidth
+    }
+
+    const getScrollState = () => {
+      const scrollerEl = scrollerRef.current
+      if (!scrollerEl) return { atStart: true, atEnd: true, maxLeft: 0 }
+      const maxLeft = scrollerEl.scrollWidth - scrollerEl.clientWidth
+      const prevLeft = scrollerEl.scrollLeft
+      return {
+        atStart: prevLeft <= 0.5,
+        atEnd: prevLeft >= maxLeft - 0.5,
+        maxLeft,
+        scrollLeft: prevLeft
+      }
+    }
+
+    const DIRECT_SPEED = 1.15
+    const IMPULSE = 0.0025
+    const FRICTION_16MS = 0.94
+    const MIN_VELOCITY = 0.04
+
+    const UP_CENTER_VISIBILITY = 0.45
+    const UP_HIJACK_MIN_PX = 10
+
+    const normalizeWheelDeltaY = (e: WheelEvent) => {
+      if (e.deltaMode === 1) return e.deltaY * 16
+      if (e.deltaMode === 2) return e.deltaY * window.innerHeight
+      return e.deltaY
+    }
+
+    const stopInertia = () => {
+      if (rafIdRef.current) {
+        window.cancelAnimationFrame(rafIdRef.current)
+        rafIdRef.current = 0
+      }
+      lastTsRef.current = 0
+      velocityRef.current = 0
+    }
+
+    const startInertia = () => {
+      if (rafIdRef.current) return
+
+      const tick = (ts: number) => {
         const scrollerEl = scrollerRef.current
-        if (!sectionEl || !scrollerEl) return
-        if (!isDesktop()) return
-        if (!isScrollable()) return
+        if (!scrollerEl) {
+          stopInertia()
+          return
+        }
+
+        if (!isLockedRef.current) {
+          stopInertia()
+          return
+        }
 
         const maxLeft = scrollerEl.scrollWidth - scrollerEl.clientWidth
-        if (maxLeft <= 0) return
+        if (maxLeft <= 0) {
+          stopInertia()
+          return
+        }
 
-        // Start the horizontal-scroll phase when the section center aligns with the
-        // visible viewport center (below fixed header), but with lead-in/out buffers.
-        const rect = sectionEl.getBoundingClientRect()
-        const sectionTopDoc = window.scrollY + rect.top
+        const lastTs = lastTsRef.current || ts
+        const dt = Math.min(34, Math.max(0, ts - lastTs))
+        lastTsRef.current = ts
 
-        const headerH = getHeaderHeight()
-        const visibleHeight = Math.max(0, window.innerHeight - headerH)
-        const visibleCenter = headerH + visibleHeight / 2
+        let v = velocityRef.current
+        if (Math.abs(v) < MIN_VELOCITY) {
+          stopInertia()
+          return
+        }
 
-        const baseStartY = sectionTopDoc + rect.height / 2 - visibleCenter
+        const nextLeftUnclamped = scrollerEl.scrollLeft + v * dt
+        const nextLeft = Math.min(maxLeft, Math.max(0, nextLeftUnclamped))
+        scrollerEl.scrollLeft = nextLeft
 
-        // Active band extended:
-        // - start earlier by LEAD_IN
-        // - end later by TAIL_OUT
-        const startY = baseStartY - LEAD_IN
-        const endY = baseStartY + maxLeft + TAIL_OUT
+        if (nextLeft !== nextLeftUnclamped) {
+          stopInertia()
+          return
+        }
 
-        const y = window.scrollY
-        if (y < startY || y > endY) return
+        const decay = Math.pow(FRICTION_16MS, dt / 16)
+        v *= decay
+        velocityRef.current = v
 
-        // Padded progress:
-        // For y in [baseStartY-LEAD_IN, baseStartY] -> raw negative => clamp to 0 => stay at start
-        // For y in [baseStartY, baseStartY+maxLeft] -> normal 0..1 mapping
-        // For y in [baseStartY+maxLeft, baseStartY+maxLeft+TAIL_OUT] -> raw > 1 => clamp to 1 => stay at end
-        const raw = (y - baseStartY) / maxLeft
-        const clamped = Math.max(0, Math.min(1, raw))
-        scrollerEl.scrollLeft = clamped * maxLeft
+        rafIdRef.current = window.requestAnimationFrame(tick)
+      }
+
+      rafIdRef.current = window.requestAnimationFrame(tick)
+    }
+
+    // Scroll section into center view when entering
+    const scrollSectionToCenter = () => {
+      const sectionEl = sectionRef.current
+      if (!sectionEl) return
+      
+      const rect = sectionEl.getBoundingClientRect()
+      const sectionCenter = rect.top + rect.height / 2
+      const viewportCenter = window.innerHeight / 2
+      const scrollOffset = sectionCenter - viewportCenter
+      
+      window.scrollBy({
+        top: scrollOffset,
+        behavior: 'smooth'
       })
     }
 
-    window.addEventListener("scroll", onScroll, { passive: true })
+    const getHeaderHeight = () => {
+      // Header is rendered as a fixed <nav /> at the top.
+      const nav = document.querySelector("nav") as HTMLElement | null
+      return nav ? nav.getBoundingClientRect().height : 0
+    }
+
+    // Visible ratio of the section within the viewport, excluding the fixed header overlap.
+    const getVisibleRatioBelowHeader = () => {
+      const sectionEl = sectionRef.current
+      if (!sectionEl) return 0
+      const rect = sectionEl.getBoundingClientRect()
+      if (rect.height <= 0) return 0
+
+      const headerH = getHeaderHeight()
+      const viewportTop = headerH
+      const viewportBottom = window.innerHeight
+
+      const visibleTop = Math.max(rect.top, viewportTop)
+      const visibleBottom = Math.min(rect.bottom, viewportBottom)
+      const visible = Math.max(0, visibleBottom - visibleTop)
+
+      return visible / rect.height
+    }
+
+    // Check if section center is in viewport
+    const isSectionCentered = () => {
+      const sectionEl = sectionRef.current
+      if (!sectionEl) return false
+      const rect = sectionEl.getBoundingClientRect()
+      const mid = window.innerHeight / 2
+      // More generous threshold for "centered" detection
+      const threshold = window.innerHeight * 0.3
+      return rect.top <= mid + threshold && rect.bottom >= mid - threshold
+    }
+
+    const onWheel = (e: WheelEvent) => {
+      const scrollerEl = scrollerRef.current
+      if (!scrollerEl) return
+
+      if (!mql.matches || !isScrollable()) return
+
+      const deltaY = normalizeWheelDeltaY(e)
+      if (deltaY === 0) return
+
+      const { atStart, atEnd, maxLeft, scrollLeft } = getScrollState()
+      const scrollingDown = deltaY > 0
+      const scrollingUp = deltaY < 0
+
+      // Gate: when approaching from below (scrolling up), only start hijacking once
+      // the section's bottom is visible below the fixed header.
+      if (scrollingUp) {
+        const sectionEl = sectionRef.current
+        if (sectionEl) {
+          const rect = sectionEl.getBoundingClientRect()
+          const headerH = getHeaderHeight()
+          const bottomVisibleBelowHeader = rect.bottom > headerH + UP_HIJACK_MIN_PX
+          if (!bottomVisibleBelowHeader) {
+            // Not visible yet -> let browser do normal vertical scroll.
+            return
+          }
+        }
+      }
+
+      // If section is intersecting and we're not at an edge that would release
+      if (isIntersectingRef.current) {
+        // Check if we should lock or stay locked
+        const shouldLock = 
+          (scrollingDown && !atEnd) || 
+          (scrollingUp && !atStart)
+
+        if (shouldLock) {
+          // Lock and prevent vertical scroll
+          isLockedRef.current = true
+          e.preventDefault()
+
+          // When hijacking begins, ensure the section is centered once so the
+          // user always scrolls the card area while it's in the middle.
+          if (!didCenterOnLockRef.current) {
+            if (!isSectionCentered()) {
+              scrollSectionToCenter()
+            }
+            didCenterOnLockRef.current = true
+          }
+
+          // If not centered, scroll to center first
+          if (!isSectionCentered()) {
+            // On upward scroll, only snap once the section is sufficiently visible below the header.
+            if (!scrollingUp) {
+              scrollSectionToCenter()
+            } else {
+              const visibleRatio = getVisibleRatioBelowHeader()
+              const ratio = Math.max(visibleRatio, intersectionRatioRef.current)
+              if (ratio >= UP_CENTER_VISIBILITY) {
+                scrollSectionToCenter()
+              }
+            }
+          }
+
+          if (reducedMotionMql.matches) {
+            const currentLeft = scrollLeft ?? 0
+            const nextLeft = Math.min(maxLeft, Math.max(0, currentLeft + deltaY * DIRECT_SPEED))
+            scrollerEl.scrollLeft = nextLeft
+            return
+          }
+
+          if (velocityRef.current !== 0 && Math.sign(velocityRef.current) !== Math.sign(deltaY)) {
+            velocityRef.current = 0
+            lastTsRef.current = 0
+          }
+          velocityRef.current += deltaY * IMPULSE
+          startInertia()
+          return
+        } else {
+          // At edge, release lock
+          isLockedRef.current = false
+        }
+      }
+    }
+
+    // Intersection Observer to detect when section enters viewport
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isIntersectingRef.current = entry.isIntersecting
+          intersectionRatioRef.current = entry.intersectionRatio
+           
+          if (!entry.isIntersecting) {
+            // Section left viewport, release lock
+            isLockedRef.current = false
+            didCenterOnLockRef.current = false
+            stopInertia()
+          }
+        })
+      },
+      {
+        // Trigger when any part of section is visible
+        threshold: [0, 0.1, 0.25, 0.5, 0.75, 1],
+        // Start detecting slightly before section enters viewport
+        rootMargin: '50px 0px 50px 0px'
+      }
+    )
+
+    const sectionEl = sectionRef.current
+    if (sectionEl) {
+      observer.observe(sectionEl)
+    }
+
+    lastScrollYRef.current = window.scrollY
+
+    window.addEventListener("wheel", onWheel, { passive: false })
+
     return () => {
-      window.removeEventListener("scroll", onScroll)
-      if (raf) window.cancelAnimationFrame(raf)
+      window.removeEventListener("wheel", onWheel)
+      observer.disconnect()
+      stopInertia()
     }
   }, [])
 
-  // --- Mobile-only scroll progress indicator (unchanged) ---
   useEffect(() => {
     if (typeof window === "undefined") return
 
@@ -178,24 +365,21 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
 
   return (
     <section ref={sectionRef} className="relative">
-      {/* Background stays like before */}
       <div className="absolute top-0 md:top-[128px] inset-x-0 bottom-0 bg-background -z-10" />
 
-      {/* Sticky viewport for desktop/tablet (cards stay in the same place as before) */}
-      <div className="md:sticky md:top-[128px]">
-        <div ref={scrollerRef} className="overflow-x-auto pb-2 md:pb-8 no-scrollbar">
-          <div
-            className={[
-              "flex min-w-max",
-              "gap-4 md:gap-4",
-              "px-4 sm:px-6",
-              "md:px-0",
-              "md:pl-16 md:pr-[calc(4rem+(100vw-100%))]",
-              "lg:pl-20 lg:pr-[calc(5rem+(100vw-100%))]",
-            ].join(" ")}
-          >
-            {customers.map((customer: any) => {
-              return (
+      <div ref={scrollerRef} className="overflow-x-auto pb-2 md:pb-8 no-scrollbar">
+        <div
+          className={[
+            "flex min-w-max",
+            "gap-4 md:gap-4",
+            "px-4 sm:px-6",
+            "md:px-0",
+            "md:pl-16 md:pr-[calc(4rem+(100vw-100%))]",
+            "lg:pl-20 lg:pr-[calc(5rem+(100vw-100%))]",
+          ].join(" ")}
+        >
+          {customers.map((customer: any) => {
+            return (
                 <Card
                   key={customer.id}
                   className={[
@@ -206,57 +390,57 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
                     "bg-white border-none shadow-sm",
                     "rounded-[1.25rem] md:rounded-[1.5rem]",
                     "p-1.5 md:p-2",
+                    // Mobile (<md): +~25% height for more breathing room
                     "min-h-[275px] sm:min-h-[300px] md:min-h-0",
                   ].join(" ")}
                 >
-                  <div className="p-5 md:p-8 flex flex-col h-full justify-between">
-                    <div>
-                      <CardTitle className="font-serif text-[1.45rem] md:text-[1.75rem] font-normal text-black tracking-tight leading-[1.1]">
-                        {customer.name}
-                      </CardTitle>
-                      <p className="text-base md:text-base text-black/90 mt-2 md:mt-4 leading-snug font-normal max-w-[85%] md:max-w-[60%]">
-                        {customer.subtitle}
-                      </p>
-                    </div>
-
-                    <div className="flex flex-col items-center text-center md:flex-row md:items-center md:text-left gap-1 md:gap-4 mt-0 md:mt-4">
-                      <div className="rounded-xl bg-[#F2F0E9] h-12 w-24 md:h-14 md:w-20 flex items-center justify-center shrink-0 mx-auto md:mx-0 mb-5 md:mb-0">
-                        <div className="relative h-9 w-20 md:h-10 md:w-14">
-                          <Image
-                            src={customer.logoSrc}
-                            alt={`${customer.name} Logo`}
-                            fill
-                            sizes="(min-width: 768px) 56px, 56px"
-                            className="object-contain"
-                          />
-                        </div>
-                      </div>
-                      <p className="text-xs md:text-sm font-medium text-gray-500 leading-relaxed">
-                        {customer.feedback}
-                      </p>
-                    </div>
+                <div className="p-5 md:p-8 flex flex-col h-full justify-between">
+                  <div>
+                    <CardTitle className="font-serif text-[1.45rem] md:text-[1.75rem] font-normal text-black tracking-tight leading-[1.1]">
+                      {customer.name}
+                    </CardTitle>
+                    <p className="text-base md:text-base text-black/90 mt-2 md:mt-4 leading-snug font-normal max-w-[85%] md:max-w-[60%]">
+                      {customer.subtitle}
+                    </p>
                   </div>
-                </Card>
-              )
-            })}
-          </div>
-        </div>
 
-        {/* Mobile-only scroll progress indicator */}
-        <div className="md:hidden flex justify-center pt-1 pb-2">
-          {showMobileIndicator && (
-            <div className="relative h-[6px] w-8 rounded-full bg-black/10 overflow-hidden" aria-hidden="true">
-              <div
-                className="absolute top-0 left-0 h-full w-2 rounded-full bg-black/70"
-                style={{ transform: `translateX(${Math.round(mobileScrollProgress * (32 - 8))}px)` }}
+                  <div className="flex flex-col items-center text-center md:flex-row md:items-center md:text-left gap-1 md:gap-4 mt-0 md:mt-2">
+                    <div className="rounded-xl bg-[#F2F0E9] h-12 w-24 md:h-14 md:w-20 flex items-center justify-center shrink-0 mx-auto md:mx-0 mb-5 md:mb-0">
+                      <div className="relative h-9 w-20 md:h-10 md:w-14">
+                        <Image
+                          src={customer.logoSrc}
+                          alt={`${customer.name} Logo`}
+                          fill
+                          sizes="(min-width: 768px) 56px, 56px"
+                          className="object-contain"
+                        />
+                      </div>
+                    </div>
+                    <p className="text-xs md:text-sm font-medium text-gray-500 leading-relaxed">
+                      {customer.feedback}
+                    </p>
+                  </div>
+                </div>
+              </Card>
+            )
+          })}
+        </div>
+      </div>
+
+      {/* Mobile-only scroll progress indicator */}
+      <div className="md:hidden flex justify-center pt-1 pb-2">
+        {showMobileIndicator && (
+          <div
+            className="relative h-[6px] w-8 rounded-full bg-black/10 overflow-hidden"
+            aria-hidden="true"
+           >
+             <div
+              className="absolute top-0 left-0 h-full w-2 rounded-full bg-black/70"
+              style={{ transform: `translateX(${Math.round(mobileScrollProgress * (32 - 8))}px)` }}
               />
             </div>
           )}
         </div>
-      </div>
-
-      {/* Desktop-only track AFTER the sticky content: creates scroll distance without moving the cards down */}
-      <div className="hidden md:block" style={{ height: trackHeight || undefined }} aria-hidden="true" />
     </section>
   )
 }
