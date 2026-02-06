@@ -14,7 +14,7 @@ export default function About({ dict }: AboutProps) {
             "rounded-[1.75rem]",
             "border border-black/10",
             // Mobile (<md): increase overall About height
-            "min-h-[570px] sm:min-h-[675px] md:min-h-[580px] lg:min-h-[660px]",
+            "min-h-[600px] sm:min-h-[675px] md:min-h-[580px] lg:min-h-[660px]",
           ].join(" ")}
         >
           {/* Background image */}
@@ -38,7 +38,7 @@ export default function About({ dict }: AboutProps) {
           />
 
           {/* Text overlay */}
-          <div className="relative z-10 h-full flex flex-col items-center justify-start text-center px-3 md:px-10 pt-16 sm:pt-14 md:pt-12 lg:pt-16">
+          <div className="relative z-10 h-full flex flex-col items-center justify-start text-center px-3 md:px-10 pt-20 sm:pt-14 md:pt-12 lg:pt-16">
             <h2 className="font-serif text-[2.05rem] sm:text-[2.6rem] md:text-[3.0rem] leading-[1.19] sm:leading-[1.08] text-black tracking-tight max-w-[22ch] sm:max-w-[30ch] whitespace-normal sm:whitespace-pre-line text-balance">
               {dict.about.title}
             </h2>

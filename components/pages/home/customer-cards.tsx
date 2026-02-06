@@ -3,6 +3,7 @@
 import { Card, CardTitle } from "@/components/ui/card"
 import Image from "next/image"
 import { useEffect, useRef, useState } from "react"
+import { motion } from "framer-motion"
 
 const LOGOS: Record<number, string> = {
   1: "/assets/logos/dy-project.png",
@@ -367,7 +368,7 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
     <section ref={sectionRef} className="relative">
       <div className="absolute top-0 md:top-[128px] inset-x-0 bottom-0 bg-background -z-10" />
 
-      <div ref={scrollerRef} className="overflow-x-auto pb-2 md:pb-8 no-scrollbar">
+      <div ref={scrollerRef} className="overflow-x-auto pb-6 md:pb-8 no-scrollbar snap-x snap-mandatory md:snap-none">
         <div
           className={[
             "flex min-w-max",
@@ -378,19 +379,29 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
             "lg:pl-20 lg:pr-[calc(5rem+(100vw-100%))]",
           ].join(" ")}
         >
-          {customers.map((customer: any) => {
+          {customers.map((customer: any, index: number) => {
             return (
+              <motion.div
+                key={customer.id}
+                className={[
+                  "snap-center shrink-0 h-full",
+                  "flex flex-col",
+                  "w-[85vw]",
+                  "max-w-[420px]",
+                  "sm:w-[350px]",
+                  "md:w-[720px]",
+                ].join(" ")}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-50px" }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+              >
                 <Card
-                  key={customer.id}
                   className={[
-                    "w-[calc(100vw-2rem)]",
-                    "max-w-[420px]",
-                    "sm:w-[350px]",
-                    "shrink-0 md:w-[720px]",
-                    "bg-white border-none shadow-sm",
-                    "rounded-[1.25rem] md:rounded-[1.5rem]",
+                    "w-full flex-1",
+                    "bg-white border-none shadow-lg",
+                    "rounded-[1.5rem] md:rounded-[1.5rem]",
                     "p-1.5 md:p-2",
-                    // Mobile (<md): +~25% height for more breathing room
                     "min-h-[275px] sm:min-h-[300px] md:min-h-0",
                   ].join(" ")}
                 >
@@ -399,13 +410,13 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
                     <CardTitle className="font-serif text-[1.45rem] md:text-[1.75rem] font-normal text-black tracking-tight leading-[1.1]">
                       {customer.name}
                     </CardTitle>
-                    <p className="text-base md:text-base text-black/90 mt-2 md:mt-4 leading-snug font-normal max-w-[85%] md:max-w-[60%]">
+                    <p className="text-base md:text-base text-black/90 mt-2 md:mt-4 leading-snug font-normal max-w-[95%] md:max-w-[70%]">
                       {customer.subtitle}
                     </p>
                   </div>
 
-                  <div className="flex flex-col items-center text-center md:flex-row md:items-center md:text-left gap-1 md:gap-4 mt-0 md:mt-2">
-                    <div className="rounded-xl bg-[#F2F0E9] h-12 w-24 md:h-14 md:w-20 flex items-center justify-center shrink-0 mx-auto md:mx-0 mb-5 md:mb-0">
+                  <div className="flex flex-col items-start text-left md:flex-row md:items-center md:text-left gap-4 mt-6 md:mt-2">
+                    <div className="rounded-xl bg-[#F2F0E9] h-12 w-24 md:h-14 md:w-20 flex items-center justify-center shrink-0">
                       <div className="relative h-9 w-20 md:h-10 md:w-14">
                         <Image
                           src={customer.logoSrc}
@@ -422,21 +433,22 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
                   </div>
                 </div>
               </Card>
+              </motion.div>
             )
           })}
         </div>
       </div>
 
       {/* Mobile-only scroll progress indicator */}
-      <div className="md:hidden flex justify-center pt-1 pb-2">
+      <div className="md:hidden flex justify-center pt-2 pb-4">
         {showMobileIndicator && (
           <div
-            className="relative h-[6px] w-8 rounded-full bg-black/10 overflow-hidden"
+            className="relative h-1.5 w-24 rounded-full bg-black/5 overflow-hidden"
             aria-hidden="true"
            >
              <div
-              className="absolute top-0 left-0 h-full w-2 rounded-full bg-black/70"
-              style={{ transform: `translateX(${Math.round(mobileScrollProgress * (32 - 8))}px)` }}
+              className="absolute top-0 left-0 h-full w-8 rounded-full bg-black"
+              style={{ transform: `translateX(${mobileScrollProgress * (96 - 32)}px)` }}
               />
             </div>
           )}

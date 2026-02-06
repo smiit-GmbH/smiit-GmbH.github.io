@@ -56,13 +56,13 @@ const dictionaries = {
         id: 4,
         name: "RB Westkamp GmbH",
         subtitle: "Transformation der Mitarbeitererfahrung",
-        feedback: "Echtzeitanalysen zur Mitarbeiterperformance als individuelles Anreizsystem.",
+        feedback: "Echtzeitanalysen zur Vertriebs- und Mitarbeiterperformance.",
       },
       {
         id: 5,
         name: "ASW Engineering AG",
-        subtitle: "Automatisierung der Projektplanung",
-        feedback: "Volle Transparenz über Betriebsauslastung und Gewinnerwartung.",
+        subtitle: "Automatisierung der Projektplanung und -steuerung",
+        feedback: "Volle Transparenz über die Betriebsauslastung.",
       },
     ],
     results: {
@@ -85,7 +85,7 @@ const dictionaries = {
       cta: "Start your transformation",
     },
     about: {
-      title: "Smiit helps businesses\nturn data into action",
+      title: "Smiit helps businesses\nto turn data into action",
       text: "We are by your side.\nThrough apps, dashboards, and automation — boosting\nproductivity and accelerating decisions.",
     },
     services: {
@@ -132,13 +132,13 @@ const dictionaries = {
         id: 4,
         name: "RB Westkamp GmbH",
         subtitle: "Transformation of the employee experience",
-        feedback: "Real-time analyses of employee performance as an individual incentive system.",
+        feedback: "Real-time analyses of sales and employee performance.",
       },
       {
         id: 5,
         name: "ASW Engineering AG",
-        subtitle: "Automation of project planning",
-        feedback: "Full transparency regarding operating capacity utilization and profit expectations.",
+        subtitle: "Automation of project planning and control",
+        feedback: "Full transparency regarding operating capacity utilization.",
       },
     ],
     results: {
