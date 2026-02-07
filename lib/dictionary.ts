@@ -70,10 +70,10 @@ const dictionaries = {
       titleHighlight: "tatsächlich",
       titleSuffix: " spüren",
       items: [
-        { value: "5+", label: "Jahre Erfahrung", text: "Automatisierung befreit Ihr Team von wiederkehrenden Aufgaben und schenkt ihnen 40% mehr Zeit für das Wesentliche." },
-        { value: "+140 h", label: "Freisetzung von Arbeitszeit", text: "Automatisierung befreit Ihr Team von wiederkehrenden Aufgaben und schenkt ihnen 40% mehr Zeit für das Wesentliche." },
-        { value: "70+", label: "Erfolgreiche Projekte", text: "Automatisierung befreit Ihr Team von wiederkehrenden Aufgaben und schenkt ihnen 40% mehr Zeit für das Wesentliche." },
-        { value: "250+", label: "Dashboards & Berichte", text: "Automatisierung befreit Ihr Team von wiederkehrenden Aufgaben und schenkt ihnen 40% mehr Zeit für das Wesentliche." }
+        { value: "5+", label: "Jahre Erfahrung", text: "Mit über 5 Jahren Erfahrung arbeitet die smiit GmbH mit standardisierten Prozessen und klarer Strukturierung." },
+        { value: "70+", label: "Erfolgreiche Projekte", text: "Wir haben in den letzten Jahren mit mehr als 20 Kunden insgesamt über 70 Projekte erfolgreich umgesetzt." },
+        { value: "Ø 3,6", label: "Projekte je Kunde", text: "Über 3,6 Projekte je Kunde zeigen klar: Unsere Kunden vertrauen uns und sind sehr mit unseren Ergebnissen." },
+        { value: "3", label: "Service Bereiche", text: "Unsere breite fachliche Aufstellung ermöglicht eine integrierte Umsetzung: Von Datenanalyse zu Web Apps." }
       ],
       button: "Bringen Sie Ihr Business voran"
     },
@@ -146,10 +146,10 @@ const dictionaries = {
       titleHighlight: "actually",
       titleSuffix: " feel",
       items: [
-        { value: "+40%", label: "More time for strategic growth", text: "Automation frees your team from repetitive tasks, giving them 40% more time to focus on what really matters." },
-        { value: "5x", label: "React in real time", text: "Automation frees your team from repetitive tasks, giving them 40% more time to focus on what really matters." },
-        { value: "250+", label: "Successful projects", text: "Automation frees your team from repetitive tasks, giving them 40% more time to focus on what really matters." },
-        { value: "1000+", label: "Dashboards & reports", text: "Automation frees your team from repetitive tasks, giving them 40% more time to focus on what really matters." }
+        { value: "5+", label: "Years of experience", text: "With over 5 years of experience, smiit GmbH works with standardized processes and clear structuring." },
+        { value: "70+", label: "Successful projects", text: "We have successfully implemented a total of over 70 projects with more than 20 customers in recent years." },
+        { value: "Ø 3.6", label: "Projects per customer", text: "Over 3.6 projects per customer clearly show: our customers trust us and are very satisfied with our results." },
+        { value: "3", label: "Service areas", text: "Our broad range of expertise enables integrated implementation: From data analysis to app development." }
       ],
       button: "Boost your business"
     },

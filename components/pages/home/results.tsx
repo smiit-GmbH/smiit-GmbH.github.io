@@ -5,26 +5,51 @@ import { ChevronRight } from "lucide-react"
 import { motion, useInView, useSpring, useTransform } from "framer-motion"
 import { useEffect, useRef } from "react"
 import LocalizedLink from "../../localized-link"
+import type { Locale } from "@/lib/dictionary"
 
 interface ResultsProps {
   dict: any
+  locale: Locale
 }
 
-function CountUp({ value, className }: { value: string; className?: string }) {
+function CountUp({
+  value,
+  locale,
+  className,
+}: {
+  value: string
+  locale: Locale
+  className?: string
+}) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-20px" })
   
   // Parse number and surrounding text
   // Matches: prefix (optional), number, suffix (optional)
-  const match = value.match(/^([^\d]*)(\d+(?:\.\d+)?)([^\d]*)$/)
+  // Supports comma or dot as decimal separator
+  const match = value.match(/^([^\d]*)(\d+(?:[\.,]\d+)?)([^\d]*)$/)
   const prefix = match ? match[1] : ""
-  const number = match ? parseFloat(match[2]) : 0
+  const rawNumber = match ? match[2] : "0"
+  const normalizedNumber = rawNumber.replace(",", ".")
+  const number = match ? Number.parseFloat(normalizedNumber) : 0
   const suffix = match ? match[3] : value // Fallback if no number found
 
+  const fractionDigits = (() => {
+    const m = rawNumber.match(/[\.,](\d+)$/)
+    return m ? m[1].length : 0
+  })()
+
+  const formatter = new Intl.NumberFormat(locale, {
+    minimumFractionDigits: fractionDigits,
+    maximumFractionDigits: fractionDigits,
+  })
+
   const spring = useSpring(0, { mass: 1, stiffness: 50, damping: 20 })
-  const display = useTransform(spring, (current) => 
-    match ? `${prefix}${Math.round(current)}${suffix}` : value
-  )
+  const display = useTransform(spring, (current) => {
+    if (!match) return value
+    const formatted = formatter.format(current)
+    return `${prefix}${formatted}${suffix}`
+  })
 
   useEffect(() => {
     if (isInView && match) {
@@ -46,7 +71,7 @@ function ResultCard({ item, index }: { item: any; index: number }) {
       className="bg-white rounded-[1.5rem] p-8 shadow-sm flex flex-col h-full hover:shadow-xl transition-shadow duration-300 border border-transparent hover:border-black/5"
     >
       <div className="text-[#F703EB] text-5xl font-medium mb-4">
-        <CountUp value={item.value} />
+        <CountUp value={item.value} locale={item.locale} />
       </div>
       <h3 className="text-lg font-medium text-black mb-4">
         {item.label}
@@ -58,7 +83,7 @@ function ResultCard({ item, index }: { item: any; index: number }) {
   )
 }
 
-export default function Results({ dict }: ResultsProps) {
+export default function Results({ dict, locale }: ResultsProps) {
   return (
     <section className="bg-background py-16 md:py-16 overflow-hidden">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -101,7 +126,7 @@ export default function Results({ dict }: ResultsProps) {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12 md:mb-20"
         >
           {dict.results.items.map((item: any, index: number) => (
-            <ResultCard key={index} item={item} index={index} />
+            <ResultCard key={index} item={{ ...item, locale }} index={index} />
           ))}
         </motion.div>
 

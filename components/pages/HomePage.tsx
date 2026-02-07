@@ -24,7 +24,7 @@ export default function HomePage({
 
       <About dict={dict} />
 
-      <Results dict={dict} />
+      <Results dict={dict} locale={lang} />
     </>
   )
 }
