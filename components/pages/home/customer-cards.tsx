@@ -416,7 +416,7 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
                       <CardTitle className="font-serif text-[1.45rem] md:text-[1.75rem] font-normal text-black tracking-tight leading-[1.1]">
                         {customer.name}
                       </CardTitle>
-                      <p className="text-base md:text-base text-black/90 mt-2 md:mt-4 leading-snug font-normal max-w-[95%] md:max-w-[70%]">
+                      <p className="text-sm md:text-base text-black/90 mt-2 md:mt-4 leading-snug font-normal max-w-[95%] md:max-w-[70%]">
                         {customer.subtitle}
                       </p>
                     </div>

@@ -12,7 +12,7 @@ export default function About({ dict }: AboutProps) {
           className={[
             "relative overflow-hidden",
             "rounded-[1.75rem]",
-            "border border-black/10",
+            "border-none sm:border sm:border-black/10",
             // Mobile (<md): increase overall About height
             "min-h-[600px] sm:min-h-[675px] md:min-h-[580px] lg:min-h-[660px]",
           ].join(" ")}

@@ -310,8 +310,8 @@ function MobileServiceCardWrapper({ children }: { children: React.ReactNode }) {
     offset: ["start end", "end start"],
   })
 
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.85, 1, 0.85])
-  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.6, 1, 0.6])
+  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.85, 1, 1])
+  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.6, 1, 1])
 
   return (
     <motion.div
