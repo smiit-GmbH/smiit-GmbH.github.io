@@ -122,7 +122,7 @@ export default async function LegalNoticePage({
       {/* Content */}
       <section className="relative z-30 py-0 md:py-0">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="relative z-30 -mt-32 sm:-mt-56 md:-mt-72 lg:-mt-80 rounded-[1.75rem] border border-black/10 bg-white shadow-xl ring-1 ring-black/5 p-6 sm:p-8 md:p-10">
+          <div className="relative z-30 -mt-32 sm:-mt-46 md:-mt-62 lg:-mt-64 rounded-[1.75rem] border border-black/10 bg-white shadow-xl ring-1 ring-black/5 p-6 sm:p-8 md:p-10">
             <div className="grid gap-10 md:grid-cols-2">
               <div>
                 <h2 className="font-serif text-xl md:text-3xl text-black tracking-tight">smiit GmbH</h2>
