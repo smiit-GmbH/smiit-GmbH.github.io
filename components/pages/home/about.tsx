@@ -81,9 +81,9 @@ export default function About({ dict }: AboutProps) {
               "md:hidden",
               "pointer-events-none",
               "absolute left-1/2 -translate-x-1/2",
-              "top-[290px] sm:top-[330px]",
+              "top-[310px] sm:top-[350px]",
               "z-20",
-              "w-[110px] h-[110px]",
+              "w-[100px] h-[100px]",
             ].join(" ")}
             aria-hidden="true"
           >
