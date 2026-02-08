@@ -297,9 +297,9 @@ function getLink(title: string) {
 
 function getImage(title: string) {
   const t = title.toLowerCase()
-  if (t.includes("consulting") || t.includes("beratung")) return "/assets/services_consulting.png"
-  if (t.includes("analysis") || t.includes("analyse")) return "/assets/services_analytics.png"
-  if (t.includes("app") || t.includes("workflow")) return "/assets/services_apps.png"
+  if (t.includes("consulting") || t.includes("beratung")) return "/assets/home/services_consulting.png"
+  if (t.includes("analysis") || t.includes("analyse")) return "/assets/home/services_analytics.png"
+  if (t.includes("app") || t.includes("workflow")) return "/assets/home/services_apps.png"
   return undefined
 }
 

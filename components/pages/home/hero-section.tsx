@@ -45,7 +45,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
           <div className="absolute inset-0 z-0">
             {/* Mobile hero */}
             <Image
-              src="/assets/hero_mobile.png"
+              src="/assets/home/hero_mobile.png"
               alt=""
               fill
               priority
@@ -56,7 +56,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
 
             {/* Desktop fallback image */}
             <Image
-              src="/assets/hero.png"
+              src="/assets/home/hero.png"
               alt=""
               fill
               priority
@@ -78,7 +78,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
               loop
               playsInline
               preload="auto"
-              poster="/assets/hero.png"
+              poster="/assets/home/hero.png"
               onError={() => setVideoFailed(true)}
             >
               <source src="/assets/videos/hero.mp4" type="video/mp4" />

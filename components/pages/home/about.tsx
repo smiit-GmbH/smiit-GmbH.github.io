@@ -19,7 +19,7 @@ export default function About({ dict }: AboutProps) {
         >
           {/* Background image */}
           <Image
-            src="/assets/about_mobile.png"
+            src="/assets/home/about_mobile.png"
             alt=""
             fill
             sizes="100vw"
@@ -28,7 +28,7 @@ export default function About({ dict }: AboutProps) {
             priority={false}
           />
           <Image
-            src="/assets/about.png"
+            src="/assets/home/about.png"
             alt=""
             fill
             sizes="(min-width: 768px) 1200px, 100vw"
