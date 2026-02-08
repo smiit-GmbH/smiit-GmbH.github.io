@@ -80,10 +80,10 @@ export default function About({ dict }: AboutProps) {
             className={[
               "md:hidden",
               "pointer-events-none",
-              "absolute left-1/2 -translate-x-1/2",
-              "top-[310px] sm:top-[350px]",
+              "absolute left-[38%] sm:left-[37%] -translate-x-1/2",
+              "top-[300px] sm:top-[340px]",
               "z-20",
-              "w-[100px] h-[100px]",
+              "w-[80px] h-[80px]",
             ].join(" ")}
             aria-hidden="true"
           >
