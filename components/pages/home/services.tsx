@@ -77,8 +77,8 @@ function ServiceCard({
             alt=""
             className="h-full w-full object-cover object-right opacity-90"
             style={{
-              maskImage: "linear-gradient(to left, black -50%, transparent 100%)",
-              WebkitMaskImage: "linear-gradient(to left, black -50%, transparent 100%)",
+              maskImage: "linear-gradient(to left, black -60%, transparent 100%)",
+              WebkitMaskImage: "linear-gradient(to left, black -60%, transparent 100%)",
             }}
           />
         </div>

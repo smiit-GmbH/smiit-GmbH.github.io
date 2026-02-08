@@ -1,19 +1,48 @@
+"use client"
+
 import Image from "next/image"
+import { DotLottieReact } from "@lottiefiles/dotlottie-react"
+import { useEffect, useRef, useState } from "react"
 
 interface AboutProps {
   dict: any
 }
 
 export default function About({ dict }: AboutProps) {
+  const sectionRef = useRef<HTMLElement | null>(null)
+  const [play, setPlay] = useState(false)
+
+  useEffect(() => {
+    if (!sectionRef.current) return
+
+    // optional: reduced motion respektieren
+    const reduce =
+      typeof window !== "undefined" &&
+      window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches
+    if (reduce) {
+      setPlay(true) // oder false – je nachdem ob du dann statisch zeigen willst
+      return
+    }
+
+    const obs = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setPlay(true) // startet 1x
+      },
+      { threshold: 0.35 }
+    )
+
+    obs.observe(sectionRef.current)
+    return () => obs.disconnect()
+  }, [])
+
   return (
-    <section className="relative pt-12 pb-0 md:pt-20 md:pb-8">
+    <section ref={sectionRef} className="relative pt-12 pb-0 md:pt-20 md:pb-8">
       <div className="max-w-[1400px] mx-auto px-0 sm:px-6 lg:px-8">
         <div
           className={[
             "relative overflow-hidden",
             "rounded-[1.75rem]",
             "border-none sm:border sm:border-black/10",
-            // Mobile (<md): increase overall About height
             "min-h-[600px] sm:min-h-[675px] md:min-h-[580px] lg:min-h-[660px]",
           ].join(" ")}
         >
@@ -46,9 +75,30 @@ export default function About({ dict }: AboutProps) {
               {dict.about.text}
             </p>
           </div>
+
+          {/* Lottie – NUR Mobile, unter dem Text, über dem Himmel */}
+          <div
+            className={[
+              "md:hidden",
+              "pointer-events-none",
+              "absolute left-1/2 -translate-x-1/2",
+              // Position "unter Text" – hier feinjustieren:
+              "top-[270px] sm:top-[310px]",
+              "z-20",
+              "w-[110px] h-[110px]",
+            ].join(" ")}
+            aria-hidden="true"
+          >
+            {play && (
+              <DotLottieReact
+                src="/assets/lottie/satelite.lottie"
+                autoplay
+                loop
+              />
+            )}
+          </div>
         </div>
       </div>
     </section>
   )
 }
-
