@@ -76,13 +76,11 @@ export default function About({ dict }: AboutProps) {
             </p>
           </div>
 
-          {/* Lottie – NUR Mobile, unter dem Text, über dem Himmel */}
           <div
             className={[
               "md:hidden",
               "pointer-events-none",
               "absolute left-1/2 -translate-x-1/2",
-              // Position "unter Text" – hier feinjustieren:
               "top-[290px] sm:top-[330px]",
               "z-20",
               "w-[110px] h-[110px]",
