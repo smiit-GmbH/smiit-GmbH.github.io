@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"
 import { ChevronRight } from "lucide-react"
 import { motion, useInView, useSpring, useTransform } from "framer-motion"
-import { useEffect, useRef } from "react"
+import { useEffect, useRef, useState } from "react"
 import LocalizedLink from "../../localized-link"
 import type { Locale } from "@/lib/dictionary"
 
@@ -84,6 +84,58 @@ function ResultCard({ item, index }: { item: any; index: number }) {
 }
 
 export default function Results({ dict, locale }: ResultsProps) {
+  const scrollerRef = useRef<HTMLDivElement | null>(null)
+
+  const [mobileScrollProgress, setMobileScrollProgress] = useState(0)
+  const [showMobileIndicator, setShowMobileIndicator] = useState(false)
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+
+    const mql = window.matchMedia("(min-width: 768px)")
+
+    let raf = 0
+    const update = () => {
+      raf = 0
+      const scrollerEl = scrollerRef.current
+      if (!scrollerEl) return
+
+      if (mql.matches) {
+        setShowMobileIndicator(false)
+        return
+      }
+
+      const maxLeft = scrollerEl.scrollWidth - scrollerEl.clientWidth
+      const canScroll = maxLeft > 1
+      setShowMobileIndicator(canScroll)
+
+      const p = canScroll ? scrollerEl.scrollLeft / maxLeft : 0
+      const clamped = Math.max(0, Math.min(1, Number.isFinite(p) ? p : 0))
+      setMobileScrollProgress(clamped)
+    }
+
+    const schedule = () => {
+      if (raf) return
+      raf = window.requestAnimationFrame(update)
+    }
+
+    const scrollerEl = scrollerRef.current
+    if (!scrollerEl) return
+
+    update()
+
+    scrollerEl.addEventListener("scroll", schedule, { passive: true })
+    window.addEventListener("resize", schedule)
+    mql.addEventListener("change", schedule)
+
+    return () => {
+      scrollerEl.removeEventListener("scroll", schedule)
+      window.removeEventListener("resize", schedule)
+      mql.removeEventListener("change", schedule)
+      if (raf) window.cancelAnimationFrame(raf)
+    }
+  }, [])
+
   return (
     <section className="bg-background py-16 md:py-16 overflow-hidden">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -106,29 +158,74 @@ export default function Results({ dict, locale }: ResultsProps) {
                 initial={{ pathLength: 0 }}
                 whileInView={{ pathLength: 1 }}
                 viewport={{ once: true }}
-                transition={{ duration: 1, delay: 0.5 }}
+                transition={{ duration: 2.2, delay: 0.35, ease: "easeOut" }}
               >
-                <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="8" fill="none" />
+                <path
+                  d="M0 5 Q 50 10 100 5"
+                  stroke="currentColor"
+                  strokeWidth="8"
+                  strokeLinecap="round"
+                  fill="none"
+                />
               </motion.svg>
             </span>
             {dict.results.titleSuffix}
           </h2>
         </motion.div>
 
-        {/* Cards Grid */}
-        <motion.div 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          variants={{
-            visible: { transition: { staggerChildren: 0.1 } }
-          }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12 md:mb-20"
-        >
-          {dict.results.items.map((item: any, index: number) => (
-            <ResultCard key={index} item={{ ...item, locale }} index={index} />
-          ))}
-        </motion.div>
+        {/* Cards */}
+        <div className="mb-8 md:mb-20">
+          {/* Mobile: horizontal carousel */}
+          <div className="md:hidden">
+            <div
+              ref={scrollerRef}
+              className="overflow-x-auto pb-6 no-scrollbar snap-x snap-mandatory"
+            >
+              <div className="flex min-w-max gap-4 px-4 sm:px-6">
+                {dict.results.items.map((item: any, index: number) => (
+                  <div
+                    key={index}
+                    className="snap-center shrink-0 w-[72vw] max-w-[360px]"
+                  >
+                    <ResultCard item={{ ...item, locale }} index={index} />
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Mobile-only scroll progress indicator */}
+            <div className="flex justify-center pt-2 pb-4">
+              {showMobileIndicator && (
+                <div
+                  className="relative h-1.5 w-24 rounded-full bg-black/5 overflow-hidden"
+                  aria-hidden="true"
+                >
+                  <div
+                    className="absolute top-0 left-0 h-full w-8 rounded-full bg-black"
+                    style={{
+                      transform: `translateX(${mobileScrollProgress * (96 - 32)}px)`,
+                    }}
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Desktop/Tablet: grid */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            variants={{
+              visible: { transition: { staggerChildren: 0.1 } },
+            }}
+            className="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+          >
+            {dict.results.items.map((item: any, index: number) => (
+              <ResultCard key={index} item={{ ...item, locale }} index={index} />
+            ))}
+          </motion.div>
+        </div>
 
         {/* Button */}
         <motion.div 
