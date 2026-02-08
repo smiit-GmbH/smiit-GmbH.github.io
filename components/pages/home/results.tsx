@@ -24,9 +24,6 @@ function CountUp({
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-20px" })
   
-  // Parse number and surrounding text
-  // Matches: prefix (optional), number, suffix (optional)
-  // Supports comma or dot as decimal separator
   const match = value.match(/^([^\d]*)(\d+(?:[\.,]\d+)?)([^\d]*)$/)
   const prefix = match ? match[1] : ""
   const rawNumber = match ? match[2] : "0"
@@ -86,6 +83,15 @@ function ResultCard({ item, index }: { item: any; index: number }) {
 export default function Results({ dict, locale }: ResultsProps) {
   const scrollerRef = useRef<HTMLDivElement | null>(null)
 
+  const titleUnderlinePathRef = useRef<SVGPathElement | null>(null)
+  const titleUnderlineInView = useInView(titleUnderlinePathRef, {
+    // allow retrigger when user scrolls away and back
+    once: false,
+    margin: "-20px",
+  })
+  const underlineTimerRef = useRef<number | null>(null)
+  const [showTitleUnderline, setShowTitleUnderline] = useState(false)
+
   const [mobileScrollProgress, setMobileScrollProgress] = useState(0)
   const [showMobileIndicator, setShowMobileIndicator] = useState(false)
 
@@ -136,6 +142,26 @@ export default function Results({ dict, locale }: ResultsProps) {
     }
   }, [])
 
+  useEffect(() => {
+    if (!titleUnderlineInView) return
+
+    // Show underline for 5 seconds after entering view
+    setShowTitleUnderline(true)
+
+    if (underlineTimerRef.current) window.clearTimeout(underlineTimerRef.current)
+    underlineTimerRef.current = window.setTimeout(() => {
+      setShowTitleUnderline(false)
+      underlineTimerRef.current = null
+    }, 5000)
+
+    return () => {
+      if (underlineTimerRef.current) {
+        window.clearTimeout(underlineTimerRef.current)
+        underlineTimerRef.current = null
+      }
+    }
+  }, [titleUnderlineInView])
+
   return (
     <section className="bg-background py-16 md:py-16 overflow-hidden">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
@@ -149,23 +175,30 @@ export default function Results({ dict, locale }: ResultsProps) {
         >
           <h2 className="font-serif text-[2.6rem] sm:text-[3.15rem] md:text-[3.6rem] leading-tight text-black max-w-4xl mx-auto">
             {dict.results.titlePrefix}
-            <span className="text-[#F703EB] inline-block relative">
+            <span className="text-[#F703EB] inline-block relative isolate z-0">
               {dict.results.titleHighlight}
               <motion.svg
-                className="absolute w-full h-3 -bottom-1 left-0 text-[#F703EB]/20 -z-10"
+                className="pointer-events-none absolute w-full h-3 -bottom-1 left-0 text-[#F703EB]/45 z-[-1]"
                 viewBox="0 0 100 10"
                 preserveAspectRatio="none"
-                initial={{ pathLength: 0 }}
-                whileInView={{ pathLength: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 2.2, delay: 0.35, ease: "easeOut" }}
               >
-                <path
+                <motion.path
+                  ref={titleUnderlinePathRef}
                   d="M0 5 Q 50 10 100 5"
                   stroke="currentColor"
-                  strokeWidth="8"
+                  strokeWidth="4"
                   strokeLinecap="round"
                   fill="none"
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  animate={
+                    showTitleUnderline
+                      ? { pathLength: 1, opacity: 1 }
+                      : { pathLength: 0, opacity: 0 }
+                  }
+                  transition={{
+                    pathLength: { duration: 0.85, ease: "easeOut" },
+                    opacity: { duration: 0.2 },
+                  }}
                 />
               </motion.svg>
             </span>

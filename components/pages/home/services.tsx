@@ -436,7 +436,7 @@ export default function Services({ dict }: ServicesProps) {
   }, [anchors, center])
 
   return (
-    <section className="relative pt-14 pb-8 md:pt-16 md:pb-22">
+    <section className="relative pt-14 pb-8 md:pt-16 md:pb-18">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h2 className="font-serif text-[2.6rem] sm:text-[3.15rem] md:text-[3.6rem] leading-[1.05] tracking-tight text-black dark:text-white whitespace-pre-line text-balance">
