@@ -83,7 +83,7 @@ export default function About({ dict }: AboutProps) {
               "pointer-events-none",
               "absolute left-1/2 -translate-x-1/2",
               // Position "unter Text" – hier feinjustieren:
-              "top-[270px] sm:top-[310px]",
+              "top-[290px] sm:top-[330px]",
               "z-20",
               "w-[110px] h-[110px]",
             ].join(" ")}
