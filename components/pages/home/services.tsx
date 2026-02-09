@@ -590,7 +590,7 @@ function DesktopServices({ items }: { items: any[] }) {
       {/* Cards (wider + farther apart) */}
       {left && (
         <motion.div
-          className="absolute left-[1%] top-[5%] w-[36%] z-30"
+          className="absolute left-[1%] top-[15%] w-[36%] z-30"
           ref={(el) => {
             cardRefs.current[0] = el
           }}
@@ -640,7 +640,7 @@ function DesktopServices({ items }: { items: any[] }) {
 
       {bottom && (
         <motion.div
-          className="absolute left-1/2 bottom-[0%] -translate-x-1/2 w-[42%] z-30"
+          className="absolute right-[24%] bottom-[0%] w-[42%] z-30"
           ref={(el) => {
             cardRefs.current[2] = el
           }}
