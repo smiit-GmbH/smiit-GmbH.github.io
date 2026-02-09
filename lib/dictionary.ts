@@ -4,22 +4,22 @@ const dictionaries = {
   de: {
     hero: {
       title: "Datengesteuerte Transformation, maßgeschneidert für den Mittelstand",
-      subtitle: "Digitale Lösungen für Anwendungen für Automatisierung, Datenanalyse und Unternehmensberatung",
+      subtitle: "Digitale Lösungen für Anwendungen, Automatisierung, Datenanalyse und Unternehmensberatung",
       cta: "Starten Sie Ihre Transformation",
     },
     about: {
-      title: "Smiit hilft Unternehmen,\nDaten in Handlungen zu verwandeln",
-      text: "Wir stehen an Ihrer Seite.\nDurch Apps, Dashboards und Automatisierung — für mehr\nProduktivität und schnellere Entscheidungen.",
+      title: "smiit hilft Unternehmen,\nDaten in Handlungen zu verwandeln",
+      text: "Wir stehen an Ihrer Seite.\nDurch Apps, Dashboards und Automatisierungen — für mehr\nProduktivität und schnellere Entscheidungen.",
     },
     services: {
       title: "Workflows für messbaren Impact",
       subtitle:
-        "Bei smiit entwickeln wir Apps, Automatisierung und Analytics — damit Ihr Business schneller vorankommt.",
+        "Bei smiit entwickeln wir Apps, Automatisierungen und Analytics — damit Ihr Business schneller vorankommt.",
       items: [
         {
           title: "Unternehmensberatung",
           tags: ["Strategie", "Prozesse", "IT"],
-          text: "Wir unterstützen den Mittelstand mit IT-Beratung und digitaler Strategie — mit Fokus auf Apps, Automatisierung und Daten. Praktisch, pragmatisch und umsetzungsstark.",
+          text: "Wir unterstützen den Mittelstand mit IT-Beratung und digitaler Strategie — mit Fokus auf Apps, Automatisierungen und Daten. Praktisch, pragmatisch und umsetzungsstark.",
         },
         {
           title: "Datenanalyse",
@@ -27,7 +27,7 @@ const dictionaries = {
           text: "Wir verwandeln Ihre Daten in klare Dashboards und KPIs — schnell, aussagekräftig und direkt handlungsorientiert.",
         },
         {
-          title: "Apps / Automatisierung",
+          title: "Apps / Automatisierungen",
           tags: [".NET", "React", "Next.js"],
           text: "Wir bauen intuitive Web-Apps, die Eingaben vereinfachen, Systeme über APIs verbinden und Workflows automatisieren — sicher, skalierbar und nahtlos.",
         },
@@ -72,8 +72,8 @@ const dictionaries = {
       items: [
         { value: "5+", label: "Jahre Erfahrung", text: "Mit über 5 Jahren Erfahrung arbeitet die smiit GmbH mit standardisierten Prozessen und klarer Strukturierung." },
         { value: "70+", label: "Erfolgreiche Projekte", text: "Wir haben in den letzten Jahren mit mehr als 20 Kunden insgesamt über 70 Projekte erfolgreich umgesetzt." },
-        { value: "Ø 3,6", label: "Projekte je Kunde", text: "Über 3,6 Projekte je Kunde zeigen klar: Unsere Kunden vertrauen uns und sind sehr mit unseren Ergebnissen." },
-        { value: "3", label: "Service Bereiche", text: "Unsere breite fachliche Aufstellung ermöglicht eine integrierte Umsetzung: Von Datenanalyse zu Web Apps." }
+        { value: "Ø 3,6", label: "Projekte je Kunde", text: "Über 3,6 Projekte je Kunde zeigen klar: Unsere Kunden vertrauen uns und sind zufrieden mit unseren Ergebnissen." },
+        { value: "3", label: "Service Bereiche", text: "Unsere breite fachliche Aufstellung ermöglicht eine integrierte Umsetzung: Datenanalyse, Automatisierungen & Apps." }
       ],
       button: "Bringen Sie Ihr Business voran"
     },
@@ -81,11 +81,11 @@ const dictionaries = {
   en: {
     hero: {
       title: "Data-driven transformations, tailored for the backbone of enterprises",
-      subtitle: "Digital solutions for applications for automation, data analytics, and business consulting",
+      subtitle: "Digital solutions for applications, automation, data analytics, and business consulting",
       cta: "Start your transformation",
     },
     about: {
-      title: "Smiit helps businesses\nto turn data into action",
+      title: "smiit helps businesses\nto turn data into action",
       text: "We are by your side.\nThrough apps, dashboards, and automation — boosting\nproductivity and accelerating decisions.",
     },
     services: {
@@ -148,8 +148,8 @@ const dictionaries = {
       items: [
         { value: "5+", label: "Years of experience", text: "With over 5 years of experience, smiit GmbH works with standardized processes and clear structuring." },
         { value: "70+", label: "Successful projects", text: "We have successfully implemented a total of over 70 projects with more than 20 customers in recent years." },
-        { value: "Ø 3.6", label: "Projects per customer", text: "Over 3.6 projects per customer clearly show: our customers trust us and are very satisfied with our results." },
-        { value: "3", label: "Service areas", text: "Our broad range of expertise enables integrated implementation: From data analysis to app development." }
+        { value: "Ø 3.6", label: "Projects per customer", text: "Over 3.6 projects per customer clearly show: our customers trust us and are satisfied with our results." },
+        { value: "3", label: "Service areas", text: "Our broad range of expertise enables integrated implementation: data analysis, automation & apps." }
       ],
       button: "Boost your business"
     },
