@@ -29,7 +29,7 @@ const dictionaries = {
         {
           title: "Apps / Automatisierungen",
           tags: [".NET", "React", "Next.js"],
-          text: "Wir bauen intuitive Web-Apps, die Eingaben vereinfachen, Systeme über APIs verbinden und Workflows automatisieren — sicher, skalierbar und nahtlos.",
+          text: "Wir bauen intuitive Web-Apps, die Eingaben vereinfachen, Systeme über APIs verbinden und Workflows automatisieren — sicher und skalierbar.",
         },
       ],
     },
@@ -105,7 +105,7 @@ const dictionaries = {
         {
           title: "Apps / automation",
           tags: [".NET", "React", "Next.js"],
-          text: "We create intuitive web apps that simplify inputs, connect systems via API, and automate workflows — secure, scalable, and seamless.",
+          text: "We create intuitive web apps that simplify inputs, connect systems via API, and automate workflows — secure and scalable.",
         },
       ],
     },

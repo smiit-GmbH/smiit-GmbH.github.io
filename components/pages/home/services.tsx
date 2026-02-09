@@ -1,8 +1,9 @@
 "use client"
 
-import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react"
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion"
+import React, { useCallback, useEffect, useRef, useState } from "react"
+import { motion, useInView, useReducedMotion, useScroll, useTransform } from "framer-motion"
 import LocalizedLink from "../../localized-link"
+import { DotLottieReact } from "@lottiefiles/dotlottie-react"
 
 interface ServicesProps {
   dict: any
@@ -35,6 +36,7 @@ function ServiceCard({
   onBlur,
   href,
   imageSrc,
+  signalToken,
 }: {
   title: string
   text: string
@@ -46,6 +48,8 @@ function ServiceCard({
   onBlur?: () => void
   href?: string
   imageSrc?: string
+  /** changes whenever a pulse should (re)start */
+  signalToken?: number | null
 }) {
   const CardContent = (
     <motion.div
@@ -69,6 +73,27 @@ function ServiceCard({
         className ?? "",
       ].join(" ")}
     >
+      {/* card “signal ripple” overlay */}
+      {typeof signalToken === "number" && (
+        <motion.div
+          key={signalToken}
+          aria-hidden
+          className="pointer-events-none absolute inset-0 rounded-[1.75rem] md:rounded-[1.6rem]"
+          initial={{ opacity: 0, boxShadow: "0 0 0 0 rgba(0,0,0,0)" }}
+          animate={{
+            opacity: [0, 1, 1, 0],
+            boxShadow: [
+              "0 0 0 0 rgba(168,85,247,0.0)",
+              "0 0 0 8px rgba(168,85,247,0.16)",
+              "0 0 0 16px rgba(59,130,246,0.10)",
+              "0 0 0 26px rgba(99,102,241,0.0)",
+            ],
+          }}
+          transition={{ duration: 1.15, ease: "easeOut", times: [0, 0.25, 0.6, 1] }}
+          style={{ mixBlendMode: "screen" }}
+        />
+      )}
+
       {imageSrc && (
         <div className="absolute right-0 top-0 bottom-0 w-[60%] pointer-events-none select-none">
           {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -95,7 +120,7 @@ function ServiceCard({
           {title}
         </h3>
 
-        <p className="mt-3 text-[0.84rem] sm:text-[0.92rem] leading-relaxed text-black/75 dark:text-white/70 max-w-[52ch] mr-18">
+        <p className="mt-3 text-[0.84rem] sm:text-[0.92rem] leading-relaxed text-black/75 dark:text-white/70 max-w-[60ch]">
           {text}
         </p>
       </div>
@@ -118,173 +143,6 @@ function ServiceCard({
   }
 
   return CardContent
-}
-
-/** geometry helpers */
-type Pt = { x: number; y: number }
-type Box = { left: number; top: number; right: number; bottom: number; width: number; height: number }
-
-function rectOf(el: HTMLElement, root: HTMLElement): Box {
-  const r = el.getBoundingClientRect()
-  const rr = root.getBoundingClientRect()
-  const left = r.left - rr.left
-  const top = r.top - rr.top
-  return {
-    left,
-    top,
-    right: left + r.width,
-    bottom: top + r.height,
-    width: r.width,
-    height: r.height,
-  }
-}
-
-function getControlPoint(start: Pt, end: Pt, center: Pt, curvature = 0.2) {
-  const midX = (start.x + end.x) / 2
-  const midY = (start.y + end.y) / 2
-  const toCenterX = center.x - midX
-  const toCenterY = center.y - midY
-  return {
-    x: midX + toCenterX * curvature,
-    y: midY + toCenterY * curvature,
-  }
-}
-
-function getCurvePath(start: Pt, end: Pt, center: Pt, curvature = 0.2) {
-  const cp = getControlPoint(start, end, center, curvature)
-  return `M ${start.x},${start.y} Q ${cp.x},${cp.y} ${end.x},${end.y}`
-}
-
-function getPointOnBezier(t: number, p0: Pt, p1: Pt, p2: Pt) {
-  const mt = 1 - t
-  return {
-    x: mt * mt * p0.x + 2 * mt * t * p1.x + t * t * p2.x,
-    y: mt * mt * p0.y + 2 * mt * t * p1.y + t * t * p2.y,
-  }
-}
-
-function getTangentOnBezier(t: number, p0: Pt, p1: Pt, p2: Pt) {
-  const mt = 1 - t
-  // Derivative: 2(1-t)(p1-p0) + 2t(p2-p1)
-  const x = 2 * mt * (p1.x - p0.x) + 2 * t * (p2.x - p1.x)
-  const y = 2 * mt * (p1.y - p0.y) + 2 * t * (p2.y - p1.y)
-  const len = Math.sqrt(x * x + y * y)
-  if (len === 0) return { x: 0, y: 0 }
-  return { x: x / len, y: y / len }
-}
-
-function generateTaperedPath(p0: Pt, p1: Pt, p2: Pt, wStart: number, wEnd: number) {
-  const segments = 20
-  const leftSide: Pt[] = []
-  const rightSide: Pt[] = []
-
-  for (let i = 0; i <= segments; i++) {
-    const t = i / segments
-    const pt = getPointOnBezier(t, p0, p1, p2)
-    const tan = getTangentOnBezier(t, p0, p1, p2)
-    const normal = { x: -tan.y, y: tan.x }
-    const w = wStart + (wEnd - wStart) * t
-    const halfW = w / 2
-
-    leftSide.push({ x: pt.x + normal.x * halfW, y: pt.y + normal.y * halfW })
-    rightSide.push({ x: pt.x - normal.x * halfW, y: pt.y - normal.y * halfW })
-  }
-
-  let d = `M ${leftSide[0].x},${leftSide[0].y}`
-  for (let i = 1; i < leftSide.length; i++) {
-    d += ` L ${leftSide[i].x},${leftSide[i].y}`
-  }
-  for (let i = rightSide.length - 1; i >= 0; i--) {
-    d += ` L ${rightSide[i].x},${rightSide[i].y}`
-  }
-  d += " Z"
-  return d
-}
-
-function ConnectionLine({
-  start,
-  end,
-  center,
-  isActive,
-  hoveredNode,
-  reduceMotion,
-  shouldPausePulse,
-  delay = 0,
-}: {
-  start: Pt
-  end: Pt
-  center: Pt
-  isActive: boolean
-  hoveredNode: "start" | "end" | null
-  reduceMotion: boolean | null
-  shouldPausePulse?: boolean
-  delay?: number
-}) {
-  const cp = useMemo(() => getControlPoint(start, end, center), [start, end, center])
-  const strokePath = useMemo(() => getCurvePath(start, end, center), [start, end, center])
-
-  const baseWidth = 1
-  const activeWidth = 2.5
-
-  let wStart = baseWidth
-  let wEnd = baseWidth
-
-  if (isActive) {
-    if (hoveredNode === "start") {
-      wStart = activeWidth
-      wEnd = baseWidth
-    } else if (hoveredNode === "end") {
-      wStart = baseWidth
-      wEnd = activeWidth
-    } else {
-      wStart = activeWidth
-      wEnd = activeWidth
-    }
-  }
-
-  const pathD = useMemo(
-    () => generateTaperedPath(start, cp, end, wStart, wEnd),
-    [start, cp, end, wStart, wEnd]
-  )
-
-  return (
-    <>
-      <motion.path
-        d={pathD}
-        fill="url(#lineGradient)"
-        opacity={isActive ? 0.5 : 0.3}
-        initial={false}
-        animate={{
-          d: pathD,
-          opacity: isActive ? 0.5 : 0.3,
-        }}
-        transition={{ duration: 0.4 }}
-      />
-
-      {!reduceMotion && !shouldPausePulse && (
-        <motion.path
-          d={strokePath}
-          fill="none"
-          stroke="url(#pulseGradient)"
-          strokeWidth={3}
-          strokeLinecap="round"
-          initial={{ pathLength: 0, pathOffset: 0, opacity: 0 }}
-          animate={{
-            pathLength: [0, 0.2, 0],
-            pathOffset: [0, 0.8, 1],
-            opacity: [0, 1, 0],
-          }}
-          transition={{
-            duration: 2.5,
-            repeat: Infinity,
-            ease: "easeInOut",
-            delay: delay,
-            repeatDelay: 0,
-          }}
-        />
-      )}
-    </>
-  )
 }
 
 function getLink(title: string) {
@@ -319,8 +177,492 @@ function MobileServiceCardWrapper({ children }: { children: React.ReactNode }) {
       style={{ scale, opacity }}
       className="origin-center"
     >
-      {children}
+      {children}    
     </motion.div>
+  )
+}
+
+
+
+function DirectionalWaves({
+  id,
+  center,
+  target,
+  pulseToken,
+  delayMs = 0,
+}: {
+  id: string
+  center: { x: number; y: number }
+  target: { x: number; y: number }
+  /** changes whenever a burst should start; if null, nothing is rendered */
+  pulseToken: number | null
+  delayMs?: number
+}) {
+  const [instances, setInstances] = useState<number[]>([])
+
+  // Allow overlapping bursts (important for fast hover rhythm like 330ms)
+  useEffect(() => {
+    if (pulseToken === null) return
+    setInstances((prev) => [...prev, pulseToken])
+
+    // remove after the longest ring finishes (duration + max delay)
+    const t = setTimeout(() => {
+      setInstances((prev) => prev.filter((x) => x !== pulseToken))
+    }, 2400)
+
+    return () => clearTimeout(t)
+  }, [pulseToken])
+
+  if (instances.length === 0) return null
+
+  const dx = target.x - center.x
+  const dy = target.y - center.y
+  const dist = Math.sqrt(dx * dx + dy * dy)
+
+  // dynamic corridor: narrow enough to feel “directed”, wide enough to hit the card reliably
+  const corridor = Math.max(54, Math.min(120, dist * 0.14))
+
+  // NOTE: keep keyframe arrays mutable (not `as const`) to satisfy Framer Motion TS types
+  const ringCommon = {
+    initial: { r: 0, opacity: 0 },
+    animate: {
+      r: [0, dist * 1.03] as number[],
+      opacity: [0, 1, 0] as number[],
+    },
+    transition: { duration: 1.35, ease: "easeOut" as const, delay: delayMs / 1000 },
+  }
+
+  return (
+    <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+      <defs>
+        <mask id={`${id}-mask`}>
+          <rect width="100%" height="100%" fill="black" />
+          <line
+            x1={center.x}
+            y1={center.y}
+            x2={target.x}
+            y2={target.y}
+            stroke="white"
+            strokeWidth={corridor}
+            strokeLinecap="round"
+          />
+        </mask>
+
+        <linearGradient id={`${id}-grad`} gradientUnits="userSpaceOnUse" x1={center.x} y1={center.y} x2={target.x} y2={target.y}>
+          <stop offset="0%" stopColor="rgba(176, 101, 246, 0.52)" />
+          <stop offset="55%" stopColor="rgba(116, 71, 189, 0.48)" />
+          <stop offset="100%" stopColor="rgba(25, 28, 201, 0.4)" />
+        </linearGradient>
+
+        <filter id={`${id}-glow`} x="-50%" y="-50%" width="200%" height="200%">
+          <feGaussianBlur stdDeviation="3.5" result="coloredBlur" />
+          <feMerge>
+            <feMergeNode in="coloredBlur" />
+            <feMergeNode in="SourceGraphic" />
+          </feMerge>
+        </filter>
+      </defs>
+
+      {instances.map((token) => (
+        <g key={token}>
+          <g mask={`url(#${id}-mask)`} filter={`url(#${id}-glow)`} style={{ mixBlendMode: "screen" }}>
+            <motion.circle
+              cx={center.x}
+              cy={center.y}
+              fill="none"
+              stroke={`url(#${id}-grad)`}
+              strokeWidth="6"
+              strokeLinecap="round"
+              strokeDasharray="10 12"
+              {...ringCommon}
+            />
+            <motion.circle
+              cx={center.x}
+              cy={center.y}
+              fill="none"
+              stroke={`url(#${id}-grad)`}
+              strokeWidth="4"
+              strokeLinecap="round"
+              strokeDasharray="6 14"
+              {...ringCommon}
+              transition={{
+                ...(ringCommon.transition as any),
+                delay: (delayMs + 220) / 1000,
+              }}
+            />
+            <motion.circle
+              cx={center.x}
+              cy={center.y}
+              fill="none"
+              stroke={`url(#${id}-grad)`}
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeDasharray="3 16"
+              {...ringCommon}
+              transition={{
+                ...(ringCommon.transition as any),
+                delay: (delayMs + 440) / 1000,
+              }}
+            />
+          </g>
+
+          <motion.circle
+            cx={target.x}
+            cy={target.y}
+            r={6}
+            fill="none"
+            initial={{ opacity: 0, scale: 0.8 }}
+            animate={{ opacity: [0, 1, 0.4, 0], scale: [0.8, 1.2, 1.05, 0.95] }}
+            transition={{ duration: 0.9, ease: "easeOut", delay: delayMs / 1000 }}
+            style={{ filter: "drop-shadow(0 0 10px rgba(168,85,247,0.45)) drop-shadow(0 0 16px rgba(59,130,246,0.25))" }}
+          />
+        </g>
+      ))}
+    </svg>
+  )
+}
+
+function DesktopServices({ items }: { items: any[] }) {
+  const containerRef = useRef<HTMLDivElement | null>(null)
+  const isInView = useInView(containerRef, { once: false, amount: 0.35 })
+  const prefersReducedMotion = useReducedMotion()
+
+  // ensure the intro reveal animation only plays once per page load
+  const introPlayedRef = useRef(false)
+
+  const [step, setStep] = useState(0)
+  const [hovered, setHovered] = useState<number | null>(null)
+
+  /** wave + card pulse tokens per card; null = currently not rendered */
+  const [pulseTokens, setPulseTokens] = useState<Array<number | null>>([null, null, null])
+  const pulseSeq = useRef(1)
+  const clearPulseTimeouts = useRef<Array<any>>([null, null, null])
+
+  /** dynamic measurement in SVG viewBox space (1000 x 1000) */
+  const satelliteRef = useRef<HTMLDivElement | null>(null)
+  const cardRefs = useRef<Array<HTMLDivElement | null>>([null, null, null])
+  const measureRaf = useRef<number | null>(null)
+  const [geometry, setGeometry] = useState<{
+    center: { x: number; y: number }
+    targets: Array<{ x: number; y: number } | null>
+  }>(() => ({ center: { x: 500, y: 500 }, targets: [null, null, null] }))
+
+  const measure = useCallback(() => {
+    const container = containerRef.current
+    if (!container) return
+
+    const containerRect = container.getBoundingClientRect()
+    if (!containerRect.width || !containerRect.height) return
+
+    const scaleX = 1000 / containerRect.width
+    const scaleY = 1000 / containerRect.height
+
+    const toViewBox = (pt: { x: number; y: number }) => {
+      return {
+        x: (pt.x - containerRect.left) * scaleX,
+        y: (pt.y - containerRect.top) * scaleY,
+      }
+    }
+
+    const satRect = satelliteRef.current?.getBoundingClientRect()
+    const satCenterPx = satRect
+      ? { x: satRect.left + satRect.width / 2, y: satRect.top + satRect.height / 2 }
+      : { x: containerRect.left + containerRect.width / 2, y: containerRect.top + containerRect.height / 2 }
+    const center = toViewBox(satCenterPx)
+
+    const targets = cardRefs.current.map((el) => {
+      const r = el?.getBoundingClientRect()
+      if (!r || !r.width || !r.height) return null
+
+      const cardCenterPx = { x: r.left + r.width / 2, y: r.top + r.height / 2 }
+      const cardCenter = toViewBox(cardCenterPx)
+
+      const vx = cardCenter.x - center.x
+      const vy = cardCenter.y - center.y
+      const len = Math.sqrt(vx * vx + vy * vy) || 1
+
+      // place target on the card edge (towards the satellite), not the center
+      const approxRadius = 0.46 * Math.min(r.width * scaleX, r.height * scaleY)
+      const tx = cardCenter.x - (vx / len) * approxRadius
+      const ty = cardCenter.y - (vy / len) * approxRadius
+
+      return {
+        x: Math.max(0, Math.min(1000, tx)),
+        y: Math.max(0, Math.min(1000, ty)),
+      }
+    })
+
+    setGeometry({
+      center: { x: Math.max(0, Math.min(1000, center.x)), y: Math.max(0, Math.min(1000, center.y)) },
+      targets,
+    })
+  }, [])
+
+  const requestMeasure = useCallback(() => {
+    if (measureRaf.current != null) return
+    measureRaf.current = window.requestAnimationFrame(() => {
+      measureRaf.current = null
+      measure()
+    })
+  }, [measure])
+
+  const triggerPulse = useCallback((idx: number) => {
+    // clear any scheduled "turn off" for this card
+    if (clearPulseTimeouts.current[idx]) clearTimeout(clearPulseTimeouts.current[idx])
+
+    const token = pulseSeq.current++
+    setPulseTokens((prev) => {
+      const next = [...prev]
+      next[idx] = token
+      return next
+    })
+
+    // keep it mounted briefly; unmount after animation has faded out
+    clearPulseTimeouts.current[idx] = setTimeout(() => {
+      setPulseTokens((prev) => {
+        const next = [...prev]
+        if (next[idx] === token) next[idx] = null
+        return next
+      })
+    }, 1600)
+  }, [])
+
+  useEffect(() => {
+    if (!isInView || prefersReducedMotion) return
+    if (introPlayedRef.current) return
+    introPlayedRef.current = true
+
+    let cancelled = false
+    const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
+
+    const sequence = async () => {
+      setStep(1)
+      await sleep(750)
+      if (cancelled) return
+
+      setStep(2)
+      await sleep(700)
+      if (cancelled) return
+
+      setStep(3)
+      triggerPulse(0)
+
+      setStep(4)
+      await sleep(700)
+      if (cancelled) return
+
+      setStep(5)
+      triggerPulse(1)
+
+      setStep(6)
+      await sleep(700)
+      if (cancelled) return
+
+      setStep(7)
+      triggerPulse(2)
+    }
+
+    sequence()
+    return () => {
+      cancelled = true
+    }
+  }, [isInView, prefersReducedMotion, triggerPulse])
+
+  // (re)measure whenever we enter view, and react to resizes/layout changes
+  useEffect(() => {
+    if (!isInView) return
+    requestMeasure()
+
+    const container = containerRef.current
+    if (!container) return
+
+    const ro = new ResizeObserver(() => requestMeasure())
+    ro.observe(container)
+    if (satelliteRef.current) ro.observe(satelliteRef.current)
+    cardRefs.current.forEach((el) => el && ro.observe(el))
+
+    const onResize = () => requestMeasure()
+    window.addEventListener("resize", onResize)
+
+    return () => {
+      ro.disconnect()
+      window.removeEventListener("resize", onResize)
+    }
+  }, [isInView, requestMeasure])
+
+  useEffect(() => {
+    if (!isInView || prefersReducedMotion) return
+
+    const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
+    const randInt = (min: number, max: number) => Math.floor(min + Math.random() * (max - min + 1))
+
+    let cancelled = false
+
+    const scheduleIdle = (idx: number) => {
+      const scheduleNext = async () => {
+        while (!cancelled && hovered === null) {
+          await sleep(randInt(2000, 5000))
+          if (cancelled || hovered !== null) return
+          triggerPulse(idx)
+        }
+      }
+      scheduleNext()
+    }
+
+    const scheduleHover = (idx: number) => {
+      const loop = async () => {
+        triggerPulse(idx)
+        while (!cancelled && hovered === idx) {
+          await sleep(330)
+          if (cancelled || hovered !== idx) return
+          triggerPulse(idx)
+        }
+      }
+      loop()
+    }
+
+    // clear any pending off-timers (so hover feels "continuous")
+    clearPulseTimeouts.current.forEach((t, i) => {
+      if (t) {
+        clearTimeout(t)
+        clearPulseTimeouts.current[i] = null
+      }
+    })
+
+    if (hovered === null) {
+      scheduleIdle(0)
+      scheduleIdle(1)
+      scheduleIdle(2)
+    } else {
+      scheduleHover(hovered)
+    }
+
+    return () => {
+      cancelled = true
+    }
+  }, [hovered, isInView, prefersReducedMotion, triggerPulse])
+
+  const [left, rightTop, bottom] = items
+
+  const cardVisible = (idx: number) => {
+    if (idx === 0) return step >= 3
+    if (idx === 1) return step >= 5
+    return step >= 7
+  }
+
+  return (
+    <div
+      ref={containerRef}
+      className="relative w-full min-h-[500px] lg:min-h-[600px] hidden md:block overflow-visible"
+    >
+      {/* Waves */}
+      {geometry.targets[0] && <DirectionalWaves id="wave-left" center={geometry.center} target={geometry.targets[0]} pulseToken={pulseTokens[0]} delayMs={0} />}
+      {geometry.targets[1] && <DirectionalWaves id="wave-right" center={geometry.center} target={geometry.targets[1]} pulseToken={pulseTokens[1]} delayMs={90} />}
+      {geometry.targets[2] && <DirectionalWaves id="wave-bottom" center={geometry.center} target={geometry.targets[2]} pulseToken={pulseTokens[2]} delayMs={150} />}
+
+      {/* Center Satellite */}
+      <motion.div
+        className={[
+          "absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-20",
+          "w-[180px] h-[180px] lg:w-[230px] lg:h-[230px]",
+          "transform-gpu",
+        ].join(" ")}
+        ref={satelliteRef}
+        initial={{ scale: 0.88, opacity: 0, filter: "blur(6px)" }}
+        animate={step >= 1 ? { scale: 1, opacity: 1, filter: "blur(0px)" } : { scale: 0.88, opacity: 0, filter: "blur(6px)" }}
+        transition={{ type: "spring", stiffness: 240, damping: 22 }}
+      >
+        <div className="w-full h-full">
+          <DotLottieReact
+            src="/assets/lottie/satelite.lottie"
+            loop
+            autoplay
+            style={{
+              width: "100%",
+              height: "100%",
+              transform: "translateZ(0)",
+              backfaceVisibility: "hidden",
+            }}
+          />
+        </div>
+      </motion.div>
+
+      {/* Cards (wider + farther apart) */}
+      {left && (
+        <motion.div
+          className="absolute left-[1%] top-[5%] w-[36%] z-30"
+          ref={(el) => {
+            cardRefs.current[0] = el
+          }}
+          initial={{ opacity: 0, scale: 0.92, y: 18 }}
+          animate={cardVisible(0) ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.92, y: 18 }}
+          transition={{ duration: 0.55, ease: "easeOut" }}
+          onMouseEnter={() => setHovered(0)}
+          onMouseLeave={() => setHovered(null)}
+          onFocus={() => setHovered(0)}
+          onBlur={() => setHovered(null)}
+        >
+          <ServiceCard
+            title={left.title}
+            text={left.text}
+            tags={left.tags}
+            href={getLink(left.title)}
+            imageSrc={getImage(left.title)}
+            signalToken={pulseTokens[0]}
+          />
+        </motion.div>
+      )}
+
+      {rightTop && (
+        <motion.div
+          className="absolute right-[2%] top-[5%] w-[36%] z-30"
+          ref={(el) => {
+            cardRefs.current[1] = el
+          }}
+          initial={{ opacity: 0, scale: 0.92, y: 18 }}
+          animate={cardVisible(1) ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.92, y: 18 }}
+          transition={{ duration: 0.55, ease: "easeOut" }}
+          onMouseEnter={() => setHovered(1)}
+          onMouseLeave={() => setHovered(null)}
+          onFocus={() => setHovered(1)}
+          onBlur={() => setHovered(null)}
+        >
+          <ServiceCard
+            title={rightTop.title}
+            text={rightTop.text}
+            tags={rightTop.tags}
+            href={getLink(rightTop.title)}
+            imageSrc={getImage(rightTop.title)}
+            signalToken={pulseTokens[1]}
+          />
+        </motion.div>
+      )}
+
+      {bottom && (
+        <motion.div
+          className="absolute left-1/2 bottom-[0%] -translate-x-1/2 w-[42%] z-30"
+          ref={(el) => {
+            cardRefs.current[2] = el
+          }}
+          initial={{ opacity: 0, scale: 0.92, y: 18 }}
+          animate={cardVisible(2) ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.92, y: 18 }}
+          transition={{ duration: 0.55, ease: "easeOut" }}
+          onMouseEnter={() => setHovered(2)}
+          onMouseLeave={() => setHovered(null)}
+          onFocus={() => setHovered(2)}
+          onBlur={() => setHovered(null)}
+        >
+          <ServiceCard
+            title={bottom.title}
+            text={bottom.text}
+            tags={bottom.tags}
+            href={getLink(bottom.title)}
+            imageSrc={getImage(bottom.title)}
+            signalToken={pulseTokens[2]}
+          />
+        </motion.div>
+      )}
+    </div>
   )
 }
 
@@ -336,107 +678,8 @@ export default function Services({ dict }: ServicesProps) {
   const lastWord = words.length > 0 ? words.pop() : ""
   const firstPart = words.join(" ")
 
-  const [left, rightTop, bottom] = items
-
-  const stageRef = useRef<HTMLDivElement | null>(null)
-  const leftRef = useRef<HTMLDivElement | null>(null)
-  const rightTopRef = useRef<HTMLDivElement | null>(null)
-  const bottomRef = useRef<HTMLDivElement | null>(null)
-
-  const reduceMotion = useReducedMotion()
-  const [hovered, setHovered] = useState<"left" | "rightTop" | "bottom" | null>(null)
-
-  const [stageSize, setStageSize] = useState<{ w: number; h: number }>({ w: 1, h: 1 })
-  const [anchors, setAnchors] = useState<{ a?: Pt; b?: Pt; c?: Pt }>({})
-
-  const recompute = () => {
-    const stage = stageRef.current
-    if (!stage) return
-
-    const w = Math.max(1, stage.clientWidth)
-    const h = Math.max(1, stage.clientHeight)
-    setStageSize({ w, h })
-
-    // Raw points at card edges
-    let pA: Pt | undefined
-    let pB: Pt | undefined
-    let pC: Pt | undefined
-
-    if (leftRef.current) {
-      const r = rectOf(leftRef.current, stage)
-      pA = { x: r.right - 6, y: r.top + r.height * 0.72 }
-    }
-    if (rightTopRef.current) {
-      const r = rectOf(rightTopRef.current, stage)
-      pB = { x: r.left + 6, y: r.top + r.height * 0.56 }
-    }
-    if (bottomRef.current) {
-      const r = rectOf(bottomRef.current, stage)
-      pC = { x: r.left + r.width * 0.18, y: r.top + 10 }
-    }
-
-    // Apply scaling to make the triangle larger than the card layout
-    if (pA && pB && pC) {
-      const cx = (pA.x + pB.x + pC.x) / 3
-      const cy = (pA.y + pB.y + pC.y) / 3
-      const scale = 1.25
-
-      const expand = (p: Pt) => ({
-        x: cx + (p.x - cx) * scale,
-        y: cy + (p.y - cy) * scale,
-      })
-
-      setAnchors({
-        a: expand(pA),
-        b: expand(pB),
-        c: expand(pC),
-      })
-    } else {
-      setAnchors({ a: pA, b: pB, c: pC })
-    }
-  }
-
-  useLayoutEffect(() => {
-    recompute()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [items?.length])
-
-  useEffect(() => {
-    recompute()
-    const stage = stageRef.current
-    if (!stage) return
-
-    const ro = new ResizeObserver(() => recompute())
-    ro.observe(stage)
-
-    window.addEventListener("resize", recompute)
-    return () => {
-      ro.disconnect()
-      window.removeEventListener("resize", recompute)
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  const center = useMemo(() => {
-    if (!anchors.a || !anchors.b || !anchors.c) return { x: 0, y: 0 }
-    return {
-      x: (anchors.a.x + anchors.b.x + anchors.c.x) / 3,
-      y: (anchors.a.y + anchors.b.y + anchors.c.y) / 3,
-    }
-  }, [anchors])
-
-  const fillPath = useMemo(() => {
-    if (!anchors.a || !anchors.b || !anchors.c) return ""
-    const { a, b, c } = anchors
-    const cpAB = getControlPoint(a, b, center)
-    const cpBC = getControlPoint(b, c, center)
-    const cpCA = getControlPoint(c, a, center)
-
-    return `M ${a.x},${a.y} Q ${cpAB.x},${cpAB.y} ${b.x},${b.y} Q ${cpBC.x},${cpBC.y} ${c.x},${c.y} Q ${cpCA.x},${cpCA.y} ${a.x},${a.y} Z`
-  }, [anchors, center])
-
   return (
-    <section className="relative pt-14 pb-8 md:pt-16 md:pb-18">
+    <section className="relative pt-14 pb-8 md:pt-12 md:pb-6">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h2 className="font-serif text-[2.6rem] sm:text-[3.15rem] md:text-[3.6rem] leading-[1.05] tracking-tight text-black dark:text-white whitespace-pre-line text-balance">
@@ -447,9 +690,19 @@ export default function Services({ dict }: ServicesProps) {
           </p>
         </div>
 
-        {/* Mobile: stacked cards */}
+        {/* Mobile: stacked */}
         <div className="mt-7 flex flex-col gap-2 md:hidden">
           {items.map((it) => (
+            // <div key={it.title} className="origin-center">
+            //   <ServiceCard
+            //     title={it.title}
+            //     text={it.text}
+            //     tags={it.tags}
+            //     href={getLink(it.title)}
+            //     imageSrc={getImage(it.title)}
+            //     className="min-h-[28vh] flex flex-col justify-center"
+            //   />
+            // </div>
             <MobileServiceCardWrapper key={it.title}>
               <ServiceCard
                 title={it.title}
@@ -463,144 +716,8 @@ export default function Services({ dict }: ServicesProps) {
           ))}
         </div>
 
-        <div
-          ref={stageRef}
-          className={[
-            "relative -mt-20 hidden md:block",
-            "min-h-[560px] lg:min-h-[620px]",
-            "overflow-visible",
-          ].join(" ")}
-        >
-          {/* Animated Connections behind cards */}
-          <div aria-hidden="true" className="pointer-events-none absolute inset-0 z-0">
-            <svg className="h-full w-full" viewBox={`0 0 ${stageSize.w} ${stageSize.h}`} preserveAspectRatio="none">
-              <defs>
-                <linearGradient id="lineGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="currentColor" className="text-blue-500" />
-                  <stop offset="100%" stopColor="currentColor" className="text-purple-600" />
-                </linearGradient>
-                <linearGradient id="pulseGradient" x1="0" y1="0" x2="1" y2="0">
-                  <stop offset="0%" stopColor="currentColor" stopOpacity="0" className="text-blue-500" />
-                  <stop offset="50%" stopColor="currentColor" stopOpacity="1" className="text-indigo-400" />
-                  <stop offset="100%" stopColor="currentColor" stopOpacity="0" className="text-purple-500" />
-                </linearGradient>
-                <linearGradient id="fillGradient" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="0%" stopColor="rgba(59, 130, 246, 0.25)" />
-                  <stop offset="100%" stopColor="rgba(147, 51, 234, 0.25)" />
-                </linearGradient>
-              </defs>
-
-              {/* Background Fill */}
-              {fillPath && (
-                <motion.path
-                  d={fillPath}
-                  fill="url(#fillGradient)"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 1.5 }}
-                />
-              )}
-
-              {anchors.a && anchors.b && anchors.c && (
-                <>
-                  {/* Left -> RightTop */}
-                  <ConnectionLine
-                    start={anchors.a}
-                    end={anchors.b}
-                    center={center}
-                    isActive={hovered === "left" || hovered === "rightTop"}
-                    hoveredNode={
-                      hovered === "left" ? "start" : hovered === "rightTop" ? "end" : null
-                    }
-                    shouldPausePulse={hovered !== null}
-                    reduceMotion={reduceMotion}
-                    delay={0}
-                  />
-                  {/* RightTop -> Bottom */}
-                  <ConnectionLine
-                    start={anchors.b}
-                    end={anchors.c}
-                    center={center}
-                    isActive={hovered === "rightTop" || hovered === "bottom"}
-                    hoveredNode={
-                      hovered === "rightTop" ? "start" : hovered === "bottom" ? "end" : null
-                    }
-                    shouldPausePulse={hovered !== null}
-                    reduceMotion={reduceMotion}
-                    delay={0.8}
-                  />
-                  {/* Bottom -> Left */}
-                  <ConnectionLine
-                    start={anchors.c}
-                    end={anchors.a}
-                    center={center}
-                    isActive={hovered === "bottom" || hovered === "left"}
-                    hoveredNode={
-                      hovered === "bottom" ? "start" : hovered === "left" ? "end" : null
-                    }
-                    shouldPausePulse={hovered !== null}
-                    reduceMotion={reduceMotion}
-                    delay={1.6}
-                  />
-                </>
-              )}
-            </svg>
-          </div>
-
-          {/* Cards: absolute positions */}
-          {left && (
-            <div ref={leftRef} className="absolute left-6 lg:left-10 top-36 lg:top-40 z-10">
-              <ServiceCard
-                title={left.title}
-                text={left.text}
-                tags={left.tags}
-                className="w-[460px] lg:w-[540px]"
-                onHoverStart={() => setHovered("left")}
-                onHoverEnd={() => setHovered(null)}
-                onFocus={() => setHovered("left")}
-                onBlur={() => setHovered(null)}
-                href={getLink(left.title)}
-                imageSrc={getImage(left.title)}
-              />
-            </div>
-          )}
-
-          {rightTop && (
-            <div ref={rightTopRef} className="absolute right-8 lg:right-12 top-20 lg:top-24 z-10">
-              <ServiceCard
-                title={rightTop.title}
-                text={rightTop.text}
-                tags={rightTop.tags}
-                className="w-[420px] lg:w-[490px]"
-                onHoverStart={() => setHovered("rightTop")}
-                onHoverEnd={() => setHovered(null)}
-                onFocus={() => setHovered("rightTop")}
-                onBlur={() => setHovered(null)}
-                href={getLink(rightTop.title)}
-                imageSrc={getImage(rightTop.title)}
-              />
-            </div>
-          )}
-
-          {bottom && (
-            <div ref={bottomRef} className="absolute left-[54%] lg:left-[56%] top-[410px] lg:top-[455px] -translate-x-1/2 z-10">
-              <ServiceCard
-                title={bottom.title}
-                text={bottom.text}
-                tags={bottom.tags}
-                className="w-[420px] lg:w-[520px]"
-                onHoverStart={() => setHovered("bottom")}
-                onHoverEnd={() => setHovered(null)}
-                onFocus={() => setHovered("bottom")}
-                onBlur={() => setHovered(null)}
-                href={getLink(bottom.title)}
-                imageSrc={getImage(bottom.title)}
-              />
-            </div>
-          )}
-        </div>
+        <DesktopServices items={items} />
       </div>
     </section>
   )
 }
-
