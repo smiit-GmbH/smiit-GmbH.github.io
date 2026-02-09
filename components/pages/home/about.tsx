@@ -92,6 +92,7 @@ export default function About({ dict }: AboutProps) {
                 src="/assets/lottie/satelite.lottie"
                 autoplay
                 loop
+                speed={3}
               />
             )}
           </div>
