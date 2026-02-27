@@ -152,9 +152,9 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
     // Smooth center scroll with custom easing (gentler than native smooth)
     const centerRafRef = { current: 0 }
 
-    const scrollSectionToCenter = () => {
+    const scrollSectionToCenter = (onDone?: () => void) => {
       const sectionEl = sectionRef.current
-      if (!sectionEl) return
+      if (!sectionEl) { onDone?.(); return }
 
       const rect = sectionEl.getBoundingClientRect()
       const headerH = getHeaderHeight()
@@ -166,11 +166,11 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
       const totalOffset = sectionCenter - viewportCenter
 
       // Skip if already close enough
-      if (Math.abs(totalOffset) < 2) return
+      if (Math.abs(totalOffset) < 2) { onDone?.(); return }
 
       const startScrollY = window.scrollY
       const targetScrollY = startScrollY + totalOffset
-      const duration = Math.min(700, Math.max(350, Math.abs(totalOffset) * 1.2))
+      const duration = Math.min(600, Math.max(300, Math.abs(totalOffset) * 1.0))
       const startTime = performance.now()
 
       // ease-out cubic: decelerates smoothly
@@ -183,13 +183,14 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
         const progress = Math.min(1, elapsed / duration)
         const eased = easeOutCubic(progress)
 
-        window.scrollTo(0, startScrollY + totalOffset * eased)
+        window.scrollTo({ left: window.scrollX, top: startScrollY + totalOffset * eased, behavior: "instant" as ScrollBehavior })
 
         if (progress < 1) {
           centerRafRef.current = window.requestAnimationFrame(animate)
         } else {
           centerRafRef.current = 0
-          window.scrollTo(0, targetScrollY)
+          window.scrollTo({ left: window.scrollX, top: targetScrollY, behavior: "instant" as ScrollBehavior })
+          onDone?.()
         }
       }
 
@@ -282,10 +283,9 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
 
             if (!isCenteringRef.current) {
               isCenteringRef.current = true
-              scrollSectionToCenter()
-              window.setTimeout(() => {
+              scrollSectionToCenter(() => {
                 isCenteringRef.current = false
-              }, 500)
+              })
             }
             return
           }
