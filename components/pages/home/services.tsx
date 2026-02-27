@@ -200,15 +200,20 @@ function DirectionalWaves({
 }) {
   const [instances, setInstances] = useState<number[]>([])
 
-  // Allow overlapping bursts (important for fast hover rhythm like 330ms)
+  // Allow max 2 overlapping bursts to keep performance smooth
   useEffect(() => {
     if (pulseToken === null) return
-    setInstances((prev) => [...prev, pulseToken])
+    setInstances((prev) => {
+      const next = [...prev, pulseToken]
+      // limit to 2 concurrent instances – drop the oldest
+      if (next.length > 2) next.shift()
+      return next
+    })
 
     // remove after the longest ring finishes (duration + max delay)
     const t = setTimeout(() => {
       setInstances((prev) => prev.filter((x) => x !== pulseToken))
-    }, 2400)
+    }, 3500)
 
     return () => clearTimeout(t)
   }, [pulseToken])
@@ -227,9 +232,9 @@ function DirectionalWaves({
     initial: { r: 0, opacity: 0 },
     animate: {
       r: [0, dist * 1.03] as number[],
-      opacity: [0, 1, 0] as number[],
+      opacity: [0, 0.85, 0.5, 0] as number[],
     },
-    transition: { duration: 1.35, ease: "easeOut" as const, delay: delayMs / 1000 },
+    transition: { duration: 2.0, ease: "easeOut" as const, delay: delayMs / 1000 },
   }
 
   return (
@@ -249,47 +254,15 @@ function DirectionalWaves({
         </mask>
 
         <linearGradient id={`${id}-grad`} gradientUnits="userSpaceOnUse" x1={center.x} y1={center.y} x2={target.x} y2={target.y}>
-          <stop offset="0%" stopColor="rgba(176, 101, 246, 0.52)" />
-          <stop offset="55%" stopColor="rgba(116, 71, 189, 0.48)" />
-          <stop offset="100%" stopColor="rgba(25, 28, 201, 0.4)" />
+          <stop offset="0%" stopColor="rgba(176, 101, 246, 0.75)" />
+          <stop offset="55%" stopColor="rgba(116, 71, 189, 0.65)" />
+          <stop offset="100%" stopColor="rgba(25, 28, 201, 0.55)" />
         </linearGradient>
-
-        <filter id={`${id}-glow`} x="-50%" y="-50%" width="200%" height="200%">
-          <feGaussianBlur stdDeviation="3.5" result="coloredBlur" />
-          <feMerge>
-            <feMergeNode in="coloredBlur" />
-            <feMergeNode in="SourceGraphic" />
-          </feMerge>
-        </filter>
       </defs>
 
       {instances.map((token) => (
         <g key={token}>
-          <g mask={`url(#${id}-mask)`} filter={`url(#${id}-glow)`} style={{ mixBlendMode: "screen" }}>
-            <motion.circle
-              cx={center.x}
-              cy={center.y}
-              fill="none"
-              stroke={`url(#${id}-grad)`}
-              strokeWidth="6"
-              strokeLinecap="round"
-              strokeDasharray="10 12"
-              {...ringCommon}
-            />
-            <motion.circle
-              cx={center.x}
-              cy={center.y}
-              fill="none"
-              stroke={`url(#${id}-grad)`}
-              strokeWidth="4"
-              strokeLinecap="round"
-              strokeDasharray="6 14"
-              {...ringCommon}
-              transition={{
-                ...(ringCommon.transition as any),
-                delay: (delayMs + 220) / 1000,
-              }}
-            />
+          <g mask={`url(#${id}-mask)`}>
             <motion.circle
               cx={center.x}
               cy={center.y}
@@ -297,11 +270,32 @@ function DirectionalWaves({
               stroke={`url(#${id}-grad)`}
               strokeWidth="2"
               strokeLinecap="round"
-              strokeDasharray="3 16"
+              {...ringCommon}
+            />
+            <motion.circle
+              cx={center.x}
+              cy={center.y}
+              fill="none"
+              stroke={`url(#${id}-grad)`}
+              strokeWidth="1.5"
+              strokeLinecap="round"
               {...ringCommon}
               transition={{
                 ...(ringCommon.transition as any),
-                delay: (delayMs + 440) / 1000,
+                delay: (delayMs + 350) / 1000,
+              }}
+            />
+            <motion.circle
+              cx={center.x}
+              cy={center.y}
+              fill="none"
+              stroke={`url(#${id}-grad)`}
+              strokeWidth="1"
+              strokeLinecap="round"
+              {...ringCommon}
+              transition={{
+                ...(ringCommon.transition as any),
+                delay: (delayMs + 700) / 1000,
               }}
             />
           </g>
@@ -309,12 +303,13 @@ function DirectionalWaves({
           <motion.circle
             cx={target.x}
             cy={target.y}
-            r={6}
+            r={4}
             fill="none"
+            stroke="rgba(168,85,247,0.3)"
+            strokeWidth="1"
             initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: [0, 1, 0.4, 0], scale: [0.8, 1.2, 1.05, 0.95] }}
-            transition={{ duration: 0.9, ease: "easeOut", delay: delayMs / 1000 }}
-            style={{ filter: "drop-shadow(0 0 10px rgba(168,85,247,0.45)) drop-shadow(0 0 16px rgba(59,130,246,0.25))" }}
+            animate={{ opacity: [0, 0.7, 0.3, 0], scale: [0.8, 1.15, 1.0, 0.95] }}
+            transition={{ duration: 1.0, ease: "easeOut", delay: delayMs / 1000 }}
           />
         </g>
       ))}
@@ -424,7 +419,7 @@ function DesktopServices({ items }: { items: any[] }) {
         if (next[idx] === token) next[idx] = null
         return next
       })
-    }, 1600)
+    }, 3000)
   }, [])
 
   useEffect(() => {
@@ -436,29 +431,19 @@ function DesktopServices({ items }: { items: any[] }) {
     const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
 
     const sequence = async () => {
+      // satellite appears
       setStep(1)
       await sleep(750)
       if (cancelled) return
 
+      // show all cards + waves simultaneously
       setStep(2)
-      await sleep(700)
-      if (cancelled) return
-
-      setStep(3)
-      triggerPulse(0)
-
-      setStep(4)
-      await sleep(700)
-      if (cancelled) return
-
-      setStep(5)
-      triggerPulse(1)
-
-      setStep(6)
-      await sleep(700)
+      await sleep(100)
       if (cancelled) return
 
       setStep(7)
+      triggerPulse(0)
+      triggerPulse(1)
       triggerPulse(2)
     }
 
@@ -501,7 +486,7 @@ function DesktopServices({ items }: { items: any[] }) {
     const scheduleIdle = (idx: number) => {
       const scheduleNext = async () => {
         while (!cancelled && hovered === null) {
-          await sleep(randInt(2000, 5000))
+          await sleep(randInt(2200, 4500))
           if (cancelled || hovered !== null) return
           triggerPulse(idx)
         }
@@ -513,7 +498,7 @@ function DesktopServices({ items }: { items: any[] }) {
       const loop = async () => {
         triggerPulse(idx)
         while (!cancelled && hovered === idx) {
-          await sleep(330)
+          await sleep(1000)
           if (cancelled || hovered !== idx) return
           triggerPulse(idx)
         }
@@ -544,9 +529,8 @@ function DesktopServices({ items }: { items: any[] }) {
 
   const [left, rightTop, bottom] = items
 
-  const cardVisible = (idx: number) => {
-    if (idx === 0) return step >= 3
-    if (idx === 1) return step >= 5
+  const cardVisible = (_idx: number) => {
+    // all cards appear simultaneously at step 7
     return step >= 7
   }
 
