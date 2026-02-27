@@ -319,7 +319,7 @@ function DirectionalWaves({
 
 function DesktopServices({ items }: { items: any[] }) {
   const containerRef = useRef<HTMLDivElement | null>(null)
-  const isInView = useInView(containerRef, { once: false, amount: 0.35 })
+  const isInView = useInView(containerRef, { once: false, amount: 0.15 })
   const prefersReducedMotion = useReducedMotion()
 
   // ensure the intro reveal animation only plays once per page load
@@ -433,14 +433,10 @@ function DesktopServices({ items }: { items: any[] }) {
     const sequence = async () => {
       // satellite appears
       setStep(1)
-      await sleep(750)
+      await sleep(350)
       if (cancelled) return
 
       // show all cards + waves simultaneously
-      setStep(2)
-      await sleep(100)
-      if (cancelled) return
-
       setStep(7)
       triggerPulse(0)
       triggerPulse(1)
@@ -539,6 +535,19 @@ function DesktopServices({ items }: { items: any[] }) {
       ref={containerRef}
       className="relative w-full min-h-[500px] lg:min-h-[600px] hidden md:block overflow-visible"
     >
+      {/* Nebula gradient background */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-0"
+        style={{
+          background: [
+            "radial-gradient(ellipse 58% 52% at 50% 50%, rgba(139, 92, 246, 0.12) 0%, transparent 70%)",
+            "radial-gradient(ellipse 42% 38% at 41% 47%, rgba(59, 130, 246, 0.09) 0%, transparent 65%)",
+            "radial-gradient(ellipse 32% 28% at 56% 55%, rgba(168, 85, 247, 0.08) 0%, transparent 60%)",
+          ].join(", "),
+        }}
+      />
+
       {/* Waves */}
       {geometry.targets[0] && <DirectionalWaves id="wave-left" center={geometry.center} target={geometry.targets[0]} pulseToken={pulseTokens[0]} delayMs={0} />}
       {geometry.targets[1] && <DirectionalWaves id="wave-right" center={geometry.center} target={geometry.targets[1]} pulseToken={pulseTokens[1]} delayMs={90} />}
