@@ -149,8 +149,10 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
       return nav ? nav.getBoundingClientRect().height : 0
     }
 
-    // NEW: center scroll accounting for fixed header
-    const scrollSectionToCenter = (behavior: ScrollBehavior = "smooth") => {
+    // Smooth center scroll with custom easing (gentler than native smooth)
+    const centerRafRef = { current: 0 }
+
+    const scrollSectionToCenter = () => {
       const sectionEl = sectionRef.current
       if (!sectionEl) return
 
@@ -161,12 +163,37 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
       const viewportCenter = headerH + viewportHeight / 2
       const sectionCenter = rect.top + rect.height / 2
 
-      const scrollOffset = sectionCenter - viewportCenter
+      const totalOffset = sectionCenter - viewportCenter
 
-      window.scrollBy({
-        top: scrollOffset,
-        behavior,
-      })
+      // Skip if already close enough
+      if (Math.abs(totalOffset) < 2) return
+
+      const startScrollY = window.scrollY
+      const targetScrollY = startScrollY + totalOffset
+      const duration = Math.min(700, Math.max(350, Math.abs(totalOffset) * 1.2))
+      const startTime = performance.now()
+
+      // ease-out cubic: decelerates smoothly
+      const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3)
+
+      if (centerRafRef.current) window.cancelAnimationFrame(centerRafRef.current)
+
+      const animate = (now: number) => {
+        const elapsed = now - startTime
+        const progress = Math.min(1, elapsed / duration)
+        const eased = easeOutCubic(progress)
+
+        window.scrollTo(0, startScrollY + totalOffset * eased)
+
+        if (progress < 1) {
+          centerRafRef.current = window.requestAnimationFrame(animate)
+        } else {
+          centerRafRef.current = 0
+          window.scrollTo(0, targetScrollY)
+        }
+      }
+
+      centerRafRef.current = window.requestAnimationFrame(animate)
     }
 
     // Visible ratio of the section within the viewport, excluding the fixed header overlap.
@@ -255,10 +282,10 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
 
             if (!isCenteringRef.current) {
               isCenteringRef.current = true
-              scrollSectionToCenter("smooth")
+              scrollSectionToCenter()
               window.setTimeout(() => {
                 isCenteringRef.current = false
-              }, 250)
+              }, 500)
             }
             return
           }
@@ -400,7 +427,7 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-50px" }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                transition={{ duration: 0.5 }}
               >
                 <Card
                   className={[

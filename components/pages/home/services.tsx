@@ -433,7 +433,7 @@ function DesktopServices({ items }: { items: any[] }) {
     const sequence = async () => {
       // satellite appears
       setStep(1)
-      await sleep(350)
+      await sleep(150)
       if (cancelled) return
 
       // show all cards + waves simultaneously
