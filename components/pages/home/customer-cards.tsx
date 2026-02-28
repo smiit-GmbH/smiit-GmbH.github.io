@@ -69,11 +69,11 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
       }
     }
 
-    const DIRECT_SPEED = 1.15
-    const DIRECT_BLEND = 0.35          // fraction of deltaY applied as immediate scroll (helps Edge precision touchpad)
-    const IMPULSE = 0.0025
-    const FRICTION_16MS = 0.94
-    const MIN_VELOCITY = 0.04
+    const DIRECT_SPEED = 0.6
+    const DIRECT_BLEND = 0.25           // fraction of deltaY applied as immediate scroll (helps Edge precision touchpad)
+    const IMPULSE = 0.0015
+    const FRICTION_16MS = 0.96
+    const MIN_VELOCITY = 0.02
 
     const UP_CENTER_VISIBILITY = 0.45
     const UP_HIJACK_MIN_PX = 10
