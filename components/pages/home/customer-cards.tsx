@@ -72,6 +72,7 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
     }
 
     const DIRECT_SPEED = 1.15
+    const DIRECT_BLEND = 0.35          // fraction of deltaY applied as immediate scroll (helps Edge precision touchpad)
     const IMPULSE = 0.0025
     const FRICTION_16MS = 0.94
     const MIN_VELOCITY = 0.04
@@ -266,10 +267,7 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
         const shouldLock = (scrollingDown && !atEnd) || (scrollingUp && !atStart)
 
         if (shouldLock) {
-          isLockedRef.current = true
-          e.preventDefault()
-
-          // NEW: enforce center-first, then horizontal. If not centered, we center and RETURN
+          // Enforce center-first, then horizontal. If not centered, we center and RETURN
           // (no horizontal movement in this wheel event).
           if (!isSectionCenteredStrict()) {
             // On upward scroll, only snap once the section is sufficiently visible below the header.
@@ -277,9 +275,16 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
               const visibleRatio = getVisibleRatioBelowHeader()
               const ratio = Math.max(visibleRatio, intersectionRatioRef.current)
               if (ratio < UP_CENTER_VISIBILITY) {
+                // Section not visible enough yet — let the browser scroll normally
+                // so the user can continue scrolling up. Do NOT preventDefault().
+                isLockedRef.current = false
                 return
               }
             }
+
+            // Section is visible enough to center — now we can lock and preventDefault.
+            isLockedRef.current = true
+            e.preventDefault()
 
             if (!isCenteringRef.current) {
               isCenteringRef.current = true
@@ -290,7 +295,10 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
             return
           }
 
-          // If we reach here, it's centered -> ok to hijack horizontally.
+          // Section is centered -> ok to lock and hijack horizontally.
+          isLockedRef.current = true
+          e.preventDefault()
+
           if (!didCenterOnLockRef.current) {
             didCenterOnLockRef.current = true
           }
@@ -300,6 +308,16 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
             const nextLeft = Math.min(maxLeft, Math.max(0, currentLeft + deltaY * DIRECT_SPEED))
             scrollerEl.scrollLeft = nextLeft
             return
+          }
+
+          // Hybrid scroll: apply a direct (immediate) portion so that even tiny
+          // precision-touchpad deltas (common in Edge) produce visible movement,
+          // then feed the remainder into the inertia engine for smooth coast.
+          {
+            const directPx = deltaY * DIRECT_SPEED * DIRECT_BLEND
+            const currentLeft = scrollerEl.scrollLeft
+            const nextLeft = Math.min(maxLeft, Math.max(0, currentLeft + directPx))
+            scrollerEl.scrollLeft = nextLeft
           }
 
           if (velocityRef.current !== 0 && Math.sign(velocityRef.current) !== Math.sign(deltaY)) {
