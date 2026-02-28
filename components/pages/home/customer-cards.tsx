@@ -2,7 +2,7 @@
 
 import { Card, CardTitle } from "@/components/ui/card"
 import Image from "next/image"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef } from "react"
 import { motion } from "framer-motion"
 
 const LOGOS: Record<number, string> = {
@@ -26,8 +26,6 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
   const sectionRef = useRef<HTMLElement | null>(null)
   const scrollerRef = useRef<HTMLDivElement | null>(null)
 
-  const [mobileScrollProgress, setMobileScrollProgress] = useState(0)
-  const [showMobileIndicator, setShowMobileIndicator] = useState(false)
 
   // Desktop/Tablet horizontal scroll hijacking with Intersection Observer
   useEffect(() => {
@@ -365,60 +363,65 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
     }
   }, [])
 
-  useEffect(() => {
-    if (typeof window === "undefined") return
-
-    const mql = window.matchMedia("(min-width: 768px)")
-
-    let raf = 0
-    const update = () => {
-      raf = 0
-      const scrollerEl = scrollerRef.current
-      if (!scrollerEl) return
-
-      if (mql.matches) {
-        setShowMobileIndicator(false)
-        return
-      }
-
-      const maxLeft = scrollerEl.scrollWidth - scrollerEl.clientWidth
-      const canScroll = maxLeft > 1
-      setShowMobileIndicator(canScroll)
-
-      const p = canScroll ? scrollerEl.scrollLeft / maxLeft : 0
-      const clamped = Math.max(0, Math.min(1, Number.isFinite(p) ? p : 0))
-      setMobileScrollProgress(clamped)
-    }
-
-    const schedule = () => {
-      if (raf) return
-      raf = window.requestAnimationFrame(update)
-    }
-
-    const scrollerEl = scrollerRef.current
-    if (!scrollerEl) return
-
-    update()
-
-    scrollerEl.addEventListener("scroll", schedule, { passive: true })
-    window.addEventListener("resize", schedule)
-    mql.addEventListener("change", schedule)
-
-    return () => {
-      scrollerEl.removeEventListener("scroll", schedule)
-      window.removeEventListener("resize", schedule)
-      mql.removeEventListener("change", schedule)
-      if (raf) window.cancelAnimationFrame(raf)
-    }
-  }, [])
-
   return (
     <section ref={sectionRef} className="relative">
       <div className="absolute top-0 md:top-[128px] inset-x-0 bottom-0 bg-background -z-10" />
 
+      {/* ── Mobile: Vertical Testimonial Timeline ── */}
+      <div className="md:hidden px-4 sm:px-6 pb-2">
+        <div className="relative">
+          {/* Timeline line */}
+          <div className="absolute left-[19px] top-4 bottom-4 w-px bg-gradient-to-b from-black/10 via-black/20 to-black/5" />
+
+          <div className="flex flex-col gap-0">
+            {customers.map((customer: any, index: number) => (
+              <motion.div
+                key={customer.id}
+                className="relative flex items-start gap-4 py-5"
+                initial={{ opacity: 0, x: -16 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true, margin: "-30px" }}
+                transition={{ duration: 0.5, delay: index * 0.08, ease: "easeOut" }}
+              >
+                {/* Timeline dot */}
+                <div className="relative z-10 mt-1 shrink-0">
+                  <div className="w-[38px] h-[38px] rounded-full bg-white shadow-md border border-black/[0.06] flex items-center justify-center">
+                    <div className="relative h-5 w-7">
+                      <Image
+                        src={customer.logoSrc}
+                        alt={`${customer.name} Logo`}
+                        fill
+                        sizes="28px"
+                        className="object-contain"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="flex-1 min-w-0 pt-0.5">
+                  <div className="flex items-baseline gap-2">
+                    <h3 className="font-serif text-[1.05rem] font-medium text-black tracking-tight leading-tight">
+                      {customer.name}
+                    </h3>
+                  </div>
+                  <p className="text-[0.78rem] text-black/55 leading-snug mt-0.5">
+                    {customer.subtitle}
+                  </p>
+                  <p className="text-[0.82rem] text-black/70 leading-relaxed mt-2 font-medium italic">
+                    &ldquo;{customer.feedback}&rdquo;
+                  </p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* ── Desktop: Horizontal scroll (unchanged) ── */}
       <div
         ref={scrollerRef}
-        className="overflow-x-auto pb-6 md:pb-8 no-scrollbar snap-x snap-mandatory md:snap-none"
+        className="hidden md:block overflow-x-auto pb-6 md:pb-8 no-scrollbar snap-x snap-mandatory md:snap-none"
       >
         <div
           className={[
@@ -488,21 +491,6 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
             )
           })}
         </div>
-      </div>
-
-      {/* Mobile-only scroll progress indicator */}
-      <div className="md:hidden flex justify-center pt-2 pb-4">
-        {showMobileIndicator && (
-          <div
-            className="relative h-1.5 w-24 rounded-full bg-black/5 overflow-hidden"
-            aria-hidden="true"
-          >
-            <div
-              className="absolute top-0 left-0 h-full w-8 rounded-full bg-black"
-              style={{ transform: `translateX(${mobileScrollProgress * (96 - 32)}px)` }}
-            />
-          </div>
-        )}
       </div>
     </section>
   )
