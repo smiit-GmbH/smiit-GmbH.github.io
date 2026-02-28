@@ -9,15 +9,16 @@ interface ServicesProps {
   dict: any
 }
 
-function TagPill({ label }: { label: string }) {
+function TagPill({ label, variant = "default" }: { label: string; variant?: "default" | "glass" }) {
   return (
     <span
       className={[
         "inline-flex items-center rounded-full",
-        "border border-black/25 bg-white/70",
-        "px-2 py-0.5",
-        "text-[0.62rem] font-semibold uppercase tracking-wide text-black/60",
-        "dark:border-white/20 dark:bg-white/10 dark:text-white/70",
+        "px-2.5 py-0.5",
+        "text-[0.62rem] font-semibold uppercase tracking-wide",
+        variant === "glass"
+          ? "border border-black/10 bg-white/35 text-black/55 backdrop-blur-sm dark:border-white/20 dark:bg-white/15 dark:text-white/80"
+          : "border border-black/25 bg-white/70 text-black/60 dark:border-white/20 dark:bg-white/10 dark:text-white/70",
       ].join(" ")}
     >
       {label}
@@ -161,25 +162,140 @@ function getImage(title: string) {
   return undefined
 }
 
-function MobileServiceCardWrapper({ children }: { children: React.ReactNode }) {
-  const ref = useRef(null)
+function MobileServiceCard({
+  title,
+  text,
+  tags,
+  href,
+  imageSrc,
+  index = 0,
+}: {
+  title: string
+  text: string
+  tags: string[]
+  href?: string
+  imageSrc?: string
+  index?: number
+}) {
+  const ref = useRef<HTMLDivElement>(null)
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end start"],
   })
 
-  const scale = useTransform(scrollYProgress, [0, 0.5, 1], [0.85, 1, 1])
-  const opacity = useTransform(scrollYProgress, [0, 0.5, 1], [0.6, 1, 1])
+  // Scroll-reveal: fade + scale in
+  const cardScale = useTransform(scrollYProgress, [0, 0.28, 0.65], [0.94, 1, 1])
+  const cardOpacity = useTransform(scrollYProgress, [0, 0.25, 0.65], [0, 1, 1])
 
-  return (
+  // Parallax: image moves slower than scroll
+  const imageY = useTransform(scrollYProgress, [0, 1], ["-5%", "5%"])
+
+  const cardContent = (
     <motion.div
       ref={ref}
-      style={{ scale, opacity }}
+      style={{ scale: cardScale, opacity: cardOpacity }}
       className="origin-center"
     >
-      {children}    
+      <div
+        className="relative overflow-hidden rounded-[1.25rem] shadow-[0_10px_40px_rgba(0,0,0,0.12)]"
+        style={{ aspectRatio: "3 / 4" }}
+      >
+        {/* Background image with parallax */}
+        {imageSrc && (
+          <motion.div
+            className="absolute inset-[-6%] z-0"
+            style={{ y: imageY }}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={imageSrc}
+              alt=""
+              className="w-full h-full object-cover"
+            />
+          </motion.div>
+        )}
+
+        {/* Dark gradient overlay — stronger at bottom for glass panel readability */}
+        <div
+          className="absolute inset-0 z-[1]"
+          style={{
+            background: [
+              "linear-gradient(to top, rgba(0,0,0,0.52) 0%, rgba(0,0,0,0.22) 35%, rgba(0,0,0,0.06) 55%, transparent 100%)",
+            ].join(", "),
+          }}
+        />
+
+        {/* Subtle cool tint overlay to unify illustration colors */}
+        <div
+          className="absolute inset-0 z-[2] pointer-events-none"
+          style={{
+            background: "linear-gradient(160deg, rgba(99,102,241,0.07) 0%, rgba(168,85,247,0.05) 40%, transparent 100%)",
+          }}
+        />
+
+        {/* Glassmorphism panel at the bottom */}
+        <div className="absolute bottom-0 left-0 right-0 z-[5] p-3">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.5 }}
+            transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 + index * 0.08 }}
+            className={[
+              "rounded-[1rem] p-5",
+              "bg-white/80 dark:bg-black/50",
+              "border border-white/35 dark:border-white/12",
+              "shadow-[inset_0_1px_0_rgba(255,255,255,0.4),0_8px_24px_rgba(0,0,0,0.08)]",
+            ].join(" ")}
+            style={{
+              backdropFilter: "blur(24px) saturate(1.5)",
+              WebkitBackdropFilter: "blur(24px) saturate(1.5)",
+            }}
+          >
+            <h3 className="font-serif text-[1.4rem] leading-[1.08] tracking-tight text-black/90 dark:text-white">
+              {title}
+            </h3>
+            <p className="mt-2 text-[0.82rem] leading-relaxed text-black/55 dark:text-white/65 line-clamp-2">
+              {text}
+            </p>
+            <div className="mt-3 flex items-center justify-between gap-2">
+              <div className="flex flex-wrap gap-1.5">
+                {tags.map((t) => (
+                  <TagPill key={t} label={t} variant="glass" />
+                ))}
+              </div>
+              {href && (
+                <span className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-black/[0.07] dark:bg-white/12 text-black/45 dark:text-white/55 transition-colors">
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M7 17L17 7" />
+                    <path d="M7 7h10v10" />
+                  </svg>
+                </span>
+              )}
+            </div>
+          </motion.div>
+        </div>
+      </div>
     </motion.div>
   )
+
+  if (href) {
+    return (
+      <LocalizedLink href={href} className="block outline-none rounded-[1.25rem]">
+        {cardContent}
+      </LocalizedLink>
+    )
+  }
+
+  return cardContent
 }
 
 
@@ -423,7 +539,7 @@ function DesktopServices({ items }: { items: any[] }) {
   }, [])
 
   useEffect(() => {
-    if (!isInView || prefersReducedMotion) return
+    if (prefersReducedMotion) return
     if (introPlayedRef.current) return
     introPlayedRef.current = true
 
@@ -447,11 +563,10 @@ function DesktopServices({ items }: { items: any[] }) {
     return () => {
       cancelled = true
     }
-  }, [isInView, prefersReducedMotion, triggerPulse])
+  }, [prefersReducedMotion, triggerPulse])
 
-  // (re)measure whenever we enter view, and react to resizes/layout changes
+  // (re)measure geometry and react to resizes/layout changes
   useEffect(() => {
-    if (!isInView) return
     requestMeasure()
 
     const container = containerRef.current
@@ -472,7 +587,7 @@ function DesktopServices({ items }: { items: any[] }) {
   }, [isInView, requestMeasure])
 
   useEffect(() => {
-    if (!isInView || prefersReducedMotion) return
+    if (prefersReducedMotion) return
 
     const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
     const randInt = (min: number, max: number) => Math.floor(min + Math.random() * (max - min + 1))
@@ -521,7 +636,7 @@ function DesktopServices({ items }: { items: any[] }) {
     return () => {
       cancelled = true
     }
-  }, [hovered, isInView, prefersReducedMotion, triggerPulse])
+  }, [hovered, prefersReducedMotion, triggerPulse])
 
   const [left, rightTop, bottom] = items
 
@@ -683,29 +798,18 @@ export default function Services({ dict }: ServicesProps) {
           </p>
         </div>
 
-        {/* Mobile: stacked */}
-        <div className="mt-7 flex flex-col gap-2 md:hidden">
-          {items.map((it) => (
-            // <div key={it.title} className="origin-center">
-            //   <ServiceCard
-            //     title={it.title}
-            //     text={it.text}
-            //     tags={it.tags}
-            //     href={getLink(it.title)}
-            //     imageSrc={getImage(it.title)}
-            //     className="min-h-[28vh] flex flex-col justify-center"
-            //   />
-            // </div>
-            <MobileServiceCardWrapper key={it.title}>
-              <ServiceCard
-                title={it.title}
-                text={it.text}
-                tags={it.tags}
-                href={getLink(it.title)}
-                imageSrc={getImage(it.title)}
-                className="min-h-[28vh] flex flex-col justify-center"
-              />
-            </MobileServiceCardWrapper>
+        {/* Mobile: Glassmorphism overlay cards */}
+        <div className="mt-7 flex flex-col gap-5 md:hidden">
+          {items.map((it, idx) => (
+            <MobileServiceCard
+              key={it.title}
+              title={it.title}
+              text={it.text}
+              tags={it.tags}
+              href={getLink(it.title)}
+              imageSrc={getImage(it.title)}
+              index={idx}
+            />
           ))}
         </div>
 
