@@ -81,6 +81,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
               poster="/assets/home/hero.png"
               onError={() => setVideoFailed(true)}
             >
+              <source src="/assets/videos/hero.webm" type="video/webm" />
               <source src="/assets/videos/hero.mp4" type="video/mp4" />
             </video>
           </div>

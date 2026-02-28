@@ -210,10 +210,10 @@ function DirectionalWaves({
       return next
     })
 
-    // remove after the longest ring finishes (duration + max delay)
+    // remove after the longest ring finishes (duration 1.5s + max delay 0.5s + buffer)
     const t = setTimeout(() => {
       setInstances((prev) => prev.filter((x) => x !== pulseToken))
-    }, 3500)
+    }, 2500)
 
     return () => clearTimeout(t)
   }, [pulseToken])
@@ -234,7 +234,7 @@ function DirectionalWaves({
       r: [0, dist * 1.03] as number[],
       opacity: [0, 0.85, 0.5, 0] as number[],
     },
-    transition: { duration: 2.0, ease: "easeOut" as const, delay: delayMs / 1000 },
+    transition: { duration: 1.5, ease: "easeOut" as const, delay: delayMs / 1000 },
   }
 
   return (
@@ -282,7 +282,7 @@ function DirectionalWaves({
               {...ringCommon}
               transition={{
                 ...(ringCommon.transition as any),
-                delay: (delayMs + 350) / 1000,
+                delay: (delayMs + 250) / 1000,
               }}
             />
             <motion.circle
@@ -295,7 +295,7 @@ function DirectionalWaves({
               {...ringCommon}
               transition={{
                 ...(ringCommon.transition as any),
-                delay: (delayMs + 700) / 1000,
+                delay: (delayMs + 500) / 1000,
               }}
             />
           </g>
@@ -419,7 +419,7 @@ function DesktopServices({ items }: { items: any[] }) {
         if (next[idx] === token) next[idx] = null
         return next
       })
-    }, 3000)
+    }, 2200)
   }, [])
 
   useEffect(() => {
@@ -482,7 +482,7 @@ function DesktopServices({ items }: { items: any[] }) {
     const scheduleIdle = (idx: number) => {
       const scheduleNext = async () => {
         while (!cancelled && hovered === null) {
-          await sleep(randInt(2200, 4500))
+          await sleep(randInt(1200, 2800))
           if (cancelled || hovered !== null) return
           triggerPulse(idx)
         }
@@ -494,7 +494,7 @@ function DesktopServices({ items }: { items: any[] }) {
       const loop = async () => {
         triggerPulse(idx)
         while (!cancelled && hovered === idx) {
-          await sleep(1000)
+          await sleep(700)
           if (cancelled || hovered !== idx) return
           triggerPulse(idx)
         }
