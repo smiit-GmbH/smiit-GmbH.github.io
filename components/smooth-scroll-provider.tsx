@@ -40,7 +40,7 @@ export function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {
       // Slightly reduce wheel speed for a calmer feel
       wheelMultiplier: 0.85,
       // Touch scrolling
-      touchMultiplier: 0.8,
+      touchMultiplier: 0.65,
       // Infinite scroll disabled
       infinite: false,
     })
