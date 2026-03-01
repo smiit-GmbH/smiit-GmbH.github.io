@@ -63,11 +63,6 @@ export function CalendlyHandler({ url }: Props) {
   const open = useCallback(() => {
     const finalUrl = buildCalendlyUrl()
     if (!finalUrl) {
-      console.warn(
-        "[CalendlyHandler] Kein Calendly-Link konfiguriert. " +
-          "Setze NEXT_PUBLIC_CALENDLY_URL (oder _DE / _EN) in .env " +
-          "oder übergib <CalendlyHandler url='…' />."
-      )
       return
     }
 
