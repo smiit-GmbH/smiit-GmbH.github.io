@@ -29,7 +29,7 @@ function CountUp({
   const rawNumber = match ? match[2] : "0"
   const normalizedNumber = rawNumber.replace(",", ".")
   const number = match ? Number.parseFloat(normalizedNumber) : 0
-  const suffix = match ? match[3] : value // Fallback if no number found
+  const suffix = match ? match[3] : value
 
   const fractionDigits = (() => {
     const m = rawNumber.match(/[\.,](\d+)$/)
@@ -85,7 +85,6 @@ export default function Results({ dict, locale }: ResultsProps) {
 
   const titleUnderlinePathRef = useRef<SVGPathElement | null>(null)
   const titleUnderlineInView = useInView(titleUnderlinePathRef, {
-    // allow retrigger when user scrolls away and back
     once: false,
     margin: "-20px",
   })
@@ -145,7 +144,6 @@ export default function Results({ dict, locale }: ResultsProps) {
   useEffect(() => {
     if (!titleUnderlineInView) return
 
-    // Show underline for 5 seconds after entering view
     setShowTitleUnderline(true)
 
     if (underlineTimerRef.current) window.clearTimeout(underlineTimerRef.current)

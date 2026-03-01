@@ -51,7 +51,6 @@ function ServiceCard({
   onBlur?: () => void
   href?: string
   imageSrc?: string
-  /** changes whenever a pulse should (re)start */
   signalToken?: number | null
 }) {
   const CardContent = (
@@ -164,10 +163,6 @@ function getImage(title: string) {
   return undefined
 }
 
-/**
- * Single card layer — always mounted, visibility controlled via opacity/scale.
- * This avoids the blank flash that AnimatePresence mode="wait" causes.
- */
 function MobileCardLayer({
   item,
   isActive,
@@ -202,7 +197,6 @@ function MobileCardLayer({
           </div>
         )}
 
-        {/* Dark gradient overlay — stronger for text readability */}
         <div
           className="absolute inset-0 z-[1]"
           style={{
@@ -212,7 +206,6 @@ function MobileCardLayer({
           }}
         />
 
-        {/* Subtle cool tint overlay */}
         <div
           className="absolute inset-0 z-[2] pointer-events-none"
           style={{
@@ -284,12 +277,6 @@ function MobileCardLayer({
   return inner
 }
 
-/**
- * Mobile: Sticky-Stack with scroll-triggered crossfade.
- * The visible area is the height of ONE card. As the user scrolls,
- * cards crossfade in/out with a smooth opacity + scale transition.
- * A pill-shaped dot indicator shows which card is active.
- */
 function MobileServicesStack({
   items,
   header,
@@ -297,11 +284,8 @@ function MobileServicesStack({
   ctaButton,
 }: {
   items: Array<{ title: string; text: string; tags: string[] }>
-  /** Section header (title + subtitle) rendered inside the sticky area */
   header?: React.ReactNode
-  /** CTA text shown after the last card */
   ctaText?: string
-  /** CTA button label */
   ctaButton?: string
 }) {
   const count = items.length
@@ -313,9 +297,7 @@ function MobileServicesStack({
     offset: ["start start", "end end"],
   })
 
-  // Map scroll progress to active index
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    // Clamp to valid range; last card stays until the very end
     const raw = latest * count
     const idx = Math.max(0, Math.min(count - 1, Math.floor(raw)))
     setActiveIndex(idx)
@@ -327,7 +309,6 @@ function MobileServicesStack({
       className="relative md:hidden"
       style={{ height: `${count * 80}vh` }}
     >
-      {/* Sticky container — stays in view below the fixed header (h-18 = 72px) */}
       <div className="sticky top-[80px] z-10 px-0">
         {/* Section header — sticky together with the card */}
         {header && <div className="mb-5">{header}</div>}
@@ -406,23 +387,19 @@ function DirectionalWaves({
   id: string
   center: { x: number; y: number }
   target: { x: number; y: number }
-  /** changes whenever a burst should start; if null, nothing is rendered */
   pulseToken: number | null
   delayMs?: number
 }) {
   const [instances, setInstances] = useState<number[]>([])
 
-  // Allow max 2 overlapping bursts to keep performance smooth
   useEffect(() => {
     if (pulseToken === null) return
     setInstances((prev) => {
       const next = [...prev, pulseToken]
-      // limit to 2 concurrent instances – drop the oldest
       if (next.length > 2) next.shift()
       return next
     })
 
-    // remove after the longest ring finishes (duration 1.5s + max delay 0.5s + buffer)
     const t = setTimeout(() => {
       setInstances((prev) => prev.filter((x) => x !== pulseToken))
     }, 2500)
@@ -436,10 +413,8 @@ function DirectionalWaves({
   const dy = target.y - center.y
   const dist = Math.sqrt(dx * dx + dy * dy)
 
-  // dynamic corridor: narrow enough to feel “directed”, wide enough to hit the card reliably
   const corridor = Math.max(54, Math.min(120, dist * 0.14))
 
-  // NOTE: keep keyframe arrays mutable (not `as const`) to satisfy Framer Motion TS types
   const ringCommon = {
     initial: { r: 0, opacity: 0 },
     animate: {
@@ -534,18 +509,15 @@ function DesktopServices({ items }: { items: any[] }) {
   const isInView = useInView(containerRef, { once: false, amount: 0.15 })
   const prefersReducedMotion = useReducedMotion()
 
-  // ensure the intro reveal animation only plays once per page load
   const introPlayedRef = useRef(false)
 
   const [step, setStep] = useState(0)
   const [hovered, setHovered] = useState<number | null>(null)
 
-  /** wave + card pulse tokens per card; null = currently not rendered */
   const [pulseTokens, setPulseTokens] = useState<Array<number | null>>([null, null, null])
   const pulseSeq = useRef(1)
   const clearPulseTimeouts = useRef<Array<any>>([null, null, null])
 
-  /** dynamic measurement in SVG viewBox space (1000 x 1000) */
   const satelliteRef = useRef<HTMLDivElement | null>(null)
   const cardRefs = useRef<Array<HTMLDivElement | null>>([null, null, null])
   const measureRaf = useRef<number | null>(null)
@@ -588,7 +560,6 @@ function DesktopServices({ items }: { items: any[] }) {
       const vy = cardCenter.y - center.y
       const len = Math.sqrt(vx * vx + vy * vy) || 1
 
-      // place target on the card edge (towards the satellite), not the center
       const approxRadius = 0.46 * Math.min(r.width * scaleX, r.height * scaleY)
       const tx = cardCenter.x - (vx / len) * approxRadius
       const ty = cardCenter.y - (vy / len) * approxRadius
@@ -614,7 +585,6 @@ function DesktopServices({ items }: { items: any[] }) {
   }, [measure])
 
   const triggerPulse = useCallback((idx: number) => {
-    // clear any scheduled "turn off" for this card
     if (clearPulseTimeouts.current[idx]) clearTimeout(clearPulseTimeouts.current[idx])
 
     const token = pulseSeq.current++
@@ -624,7 +594,6 @@ function DesktopServices({ items }: { items: any[] }) {
       return next
     })
 
-    // keep it mounted briefly; unmount after animation has faded out
     clearPulseTimeouts.current[idx] = setTimeout(() => {
       setPulseTokens((prev) => {
         const next = [...prev]
@@ -643,12 +612,10 @@ function DesktopServices({ items }: { items: any[] }) {
     const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
 
     const sequence = async () => {
-      // satellite appears
       setStep(1)
       await sleep(50)
       if (cancelled) return
 
-      // show all cards + waves simultaneously
       setStep(7)
       triggerPulse(0)
       triggerPulse(1)
@@ -661,7 +628,6 @@ function DesktopServices({ items }: { items: any[] }) {
     }
   }, [prefersReducedMotion, triggerPulse])
 
-  // (re)measure geometry and react to resizes/layout changes
   useEffect(() => {
     requestMeasure()
 
@@ -713,7 +679,6 @@ function DesktopServices({ items }: { items: any[] }) {
       loop()
     }
 
-    // clear any pending off-timers (so hover feels "continuous")
     clearPulseTimeouts.current.forEach((t, i) => {
       if (t) {
         clearTimeout(t)
@@ -737,7 +702,6 @@ function DesktopServices({ items }: { items: any[] }) {
   const [left, rightTop, bottom] = items
 
   const cardVisible = (_idx: number) => {
-    // all cards appear simultaneously at step 7
     return step >= 7
   }
 
@@ -791,7 +755,7 @@ function DesktopServices({ items }: { items: any[] }) {
         </div>
       </motion.div>
 
-      {/* Cards (wider + farther apart) */}
+      {/* Cards */}
       {left && (
         <motion.div
           className="absolute left-[1%] top-[15%] w-[36%] z-30"

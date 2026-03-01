@@ -277,7 +277,6 @@ export default async function PrivacyPage({
 
   return (
     <main className="min-h-screen">
-      {/* Hero-style header image */}
       <section className="relative isolate z-0 h-[46vh] sm:h-[50vh] md:h-[58vh] overflow-hidden rounded-b-[1.75rem] bg-black/[0.02] mb-8 sm:mb-6">
         <div className="absolute inset-0">
           <Image
@@ -291,19 +290,15 @@ export default async function PrivacyPage({
           />
         </div>
 
-        {/* Safe area + readability overlays (keep cinematic image, but make left text area calmer) */}
         <div
           className={[
             "pointer-events-none absolute inset-0 z-[5]",
-            // left-to-right washout so text doesn't fight with the motif
             "bg-gradient-to-r from-white/70 via-white/15 to-transparent",
           ].join(" ")}
         />
 
-        {/* Additional subtle dark-to-transparent gradient for contrast */}
         <div className="pointer-events-none absolute inset-0 z-[6] bg-gradient-to-t from-black/12 via-black/4 to-transparent" />
 
-        {/* Grain overlay like on home */}
         <div
           className="pointer-events-none absolute inset-0 z-10 opacity-[0.18] bg-black/10"
           style={{
@@ -314,7 +309,6 @@ export default async function PrivacyPage({
           }}
         />
 
-        {/* Title without background, positioned higher */}
         <div className="relative z-20 h-full">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 w-full pt-28 sm:pt-32 md:pt-36">
             <h1 className="font-serif text-[2.35rem] sm:text-[2.8rem] md:text-[3.25rem] leading-[1.06] text-black tracking-tight">
@@ -335,7 +329,6 @@ export default async function PrivacyPage({
         </div>
       </section>
 
-      {/* Content */}
       <section className="relative z-30 py-0 md:py-0">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div className="relative z-30 -mt-32 sm:-mt-46 md:-mt-62 lg:-mt-64 rounded-[1.75rem] border border-black/10 bg-white shadow-xl ring-1 ring-black/5 p-6 sm:p-8 md:p-10">
@@ -402,7 +395,6 @@ export default async function PrivacyPage({
         </div>
       </section>
 
-      {/* Spacing after overlapped card */}
       <div className="h-2 md:h-4" />
     </main>
   )

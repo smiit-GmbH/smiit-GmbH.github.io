@@ -10,23 +10,12 @@ import {
 } from "react"
 import Lenis from "lenis"
 
-// ---------------------------------------------------------------------------
-// Context – allows any component to access the Lenis instance
-// ---------------------------------------------------------------------------
 const LenisContext = createContext<Lenis | null>(null)
 
-/**
- * Hook to access the global Lenis instance.
- * Returns `null` when Lenis is disabled (e.g. prefers-reduced-motion) or
- * before hydration.
- */
 export function useLenis() {
   return useContext(LenisContext)
 }
 
-// ---------------------------------------------------------------------------
-// Provider
-// ---------------------------------------------------------------------------
 interface SmoothScrollProviderProps {
   children: ReactNode
 }
@@ -36,7 +25,6 @@ export function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {
   const rafRef = useRef<number>(0)
 
   useEffect(() => {
-    // Respect prefers-reduced-motion
     const reducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)"
     ).matches
@@ -51,7 +39,7 @@ export function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {
       smoothWheel: true,
       // Slightly reduce wheel speed for a calmer feel
       wheelMultiplier: 0.85,
-      // Keep touch scrolling native (better mobile UX)
+      // Touch scrolling
       touchMultiplier: 0.9,
       // Infinite scroll disabled
       infinite: false,
@@ -59,7 +47,6 @@ export function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {
 
     setLenis(instance)
 
-    // RAF loop to drive Lenis
     function raf(time: number) {
       instance.raf(time)
       rafRef.current = requestAnimationFrame(raf)

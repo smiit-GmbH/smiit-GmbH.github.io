@@ -27,35 +27,27 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
   const sectionRef = useRef<HTMLElement | null>(null)
   const scrollerRef = useRef<HTMLDivElement | null>(null)
 
-  // Access global Lenis instance for pausing during horizontal scroll hijacking
   const lenis = useLenis()
   const lenisRef = useRef(lenis)
   useEffect(() => { lenisRef.current = lenis }, [lenis])
 
-  // Desktop/Tablet horizontal scroll hijacking with Intersection Observer
   useEffect(() => {
     if (typeof window === "undefined") return
 
     const mql = window.matchMedia("(min-width: 768px)")
     const reducedMotionMql = window.matchMedia("(prefers-reduced-motion: reduce)")
 
-    // Track if section is intersecting viewport
     const isIntersectingRef = { current: false }
-    // Track intersection ratio (0..1) for fine-grained visibility checks
     const intersectionRatioRef = { current: 0 }
-    // Track if we're currently "locked" in horizontal scroll mode
     const isLockedRef = { current: false }
-    // Ensure we only auto-center once per lock session (reset when leaving viewport)
     const didCenterOnLockRef = { current: false }
 
-    // NEW: track if we're currently auto-centering to avoid horizontal movement in the same wheel tick
     const isCenteringRef = { current: false }
 
     const rafIdRef = { current: 0 }
     const lastTsRef = { current: 0 }
     const velocityRef = { current: 0 }
 
-    // Pause / resume Lenis smooth scroll when horizontal hijacking is active
     const pauseLenis = () => { lenisRef.current?.stop() }
     const resumeLenis = () => { lenisRef.current?.start() }
 
@@ -79,7 +71,7 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
     }
 
     const DIRECT_SPEED = 0.6
-    const DIRECT_BLEND = 0.25           // fraction of deltaY applied as immediate scroll (helps Edge precision touchpad)
+    const DIRECT_BLEND = 0.25
     const IMPULSE = 0.0015
     const FRICTION_16MS = 0.96
     const MIN_VELOCITY = 0.02
@@ -157,7 +149,6 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
       return nav ? nav.getBoundingClientRect().height : 0
     }
 
-    // Smooth center scroll with custom easing (gentler than native smooth)
     const centerRafRef = { current: 0 }
 
     const scrollSectionToCenter = (onDone?: () => void) => {
@@ -173,7 +164,6 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
 
       const totalOffset = sectionCenter - viewportCenter
 
-      // Skip if already close enough
       if (Math.abs(totalOffset) < 2) { onDone?.(); return }
 
       const startScrollY = window.scrollY
@@ -181,7 +171,6 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
       const duration = Math.min(600, Math.max(300, Math.abs(totalOffset) * 1.0))
       const startTime = performance.now()
 
-      // ease-out cubic: decelerates smoothly
       const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3)
 
       if (centerRafRef.current) window.cancelAnimationFrame(centerRafRef.current)
@@ -205,7 +194,6 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
       centerRafRef.current = window.requestAnimationFrame(animate)
     }
 
-    // Visible ratio of the section within the viewport, excluding the fixed header overlap.
     const getVisibleRatioBelowHeader = () => {
       const sectionEl = sectionRef.current
       if (!sectionEl) return 0
@@ -223,7 +211,6 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
       return visible / rect.height
     }
 
-    // NEW: stricter "centered" check that respects header and uses a tighter tolerance band
     const isSectionCenteredStrict = () => {
       const sectionEl = sectionRef.current
       if (!sectionEl) return false
@@ -237,7 +224,6 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
 
       const sectionCenter = rect.top + rect.height / 2
 
-      // Tight tolerance: 10% of usable viewport height
       const tolerance = viewportHeight * 0.1
       return Math.abs(sectionCenter - viewportCenter) <= tolerance
     }
@@ -255,8 +241,6 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
       const scrollingDown = deltaY > 0
       const scrollingUp = deltaY < 0
 
-      // Gate: when approaching from below (scrolling up), only start hijacking once
-      // the section's bottom is visible below the fixed header.
       if (scrollingUp) {
         const sectionEl = sectionRef.current
         if (sectionEl) {
@@ -264,7 +248,6 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
           const headerH = getHeaderHeight()
           const bottomVisibleBelowHeader = rect.bottom > headerH + UP_HIJACK_MIN_PX
           if (!bottomVisibleBelowHeader) {
-            // Not visible yet -> let browser do normal vertical scroll.
             return
           }
         }
@@ -274,23 +257,17 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
         const shouldLock = (scrollingDown && !atEnd) || (scrollingUp && !atStart)
 
         if (shouldLock) {
-          // Enforce center-first, then horizontal. If not centered, we center and RETURN
-          // (no horizontal movement in this wheel event).
           if (!isSectionCenteredStrict()) {
-            // On upward scroll, only snap once the section is sufficiently visible below the header.
             if (scrollingUp) {
               const visibleRatio = getVisibleRatioBelowHeader()
               const ratio = Math.max(visibleRatio, intersectionRatioRef.current)
               if (ratio < UP_CENTER_VISIBILITY) {
-                // Section not visible enough yet — let the browser scroll normally
-                // so the user can continue scrolling up. Do NOT preventDefault().
                 isLockedRef.current = false
                 resumeLenis()
                 return
               }
             }
 
-            // Section is visible enough to center — now we can lock and preventDefault.
             isLockedRef.current = true
             pauseLenis()
             e.preventDefault()
@@ -304,7 +281,6 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
             return
           }
 
-          // Section is centered -> ok to lock and hijack horizontally.
           isLockedRef.current = true
           pauseLenis()
           e.preventDefault()
@@ -320,9 +296,6 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
             return
           }
 
-          // Hybrid scroll: apply a direct (immediate) portion so that even tiny
-          // precision-touchpad deltas (common in Edge) produce visible movement,
-          // then feed the remainder into the inertia engine for smooth coast.
           {
             const directPx = deltaY * DIRECT_SPEED * DIRECT_BLEND
             const currentLeft = scrollerEl.scrollLeft
@@ -385,7 +358,6 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
       {/* ── Mobile: Vertical Testimonial Timeline ── */}
       <div className="md:hidden px-4 sm:px-6 pb-2">
         <div className="relative">
-          {/* Timeline line */}
           <div className="absolute left-[19px] top-4 bottom-4 w-px bg-gradient-to-b from-black/10 via-black/20 to-black/5" />
 
           <div className="flex flex-col gap-0">
@@ -433,7 +405,7 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
         </div>
       </div>
 
-      {/* ── Desktop: Horizontal scroll (unchanged) ── */}
+      {/* ── Desktop: Horizontal scroll ── */}
       <div
         ref={scrollerRef}
         className="hidden md:block overflow-x-auto pb-6 md:pb-8 no-scrollbar snap-x snap-mandatory md:snap-none"

@@ -15,18 +15,17 @@ export default function About({ dict }: AboutProps) {
   useEffect(() => {
     if (!sectionRef.current) return
 
-    // optional: reduced motion respektieren
     const reduce =
       typeof window !== "undefined" &&
       window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches
     if (reduce) {
-      setPlay(true) // oder false – je nachdem ob du dann statisch zeigen willst
+      setPlay(true)
       return
     }
 
     const obs = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) setPlay(true) // startet 1x
+        if (entry.isIntersecting) setPlay(true)
       },
       { threshold: 0.35 }
     )

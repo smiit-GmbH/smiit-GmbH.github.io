@@ -71,15 +71,12 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
     <footer className="bg-background py-10">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 lg:grid-cols-5 gap-8 md:gap-12 mb-12">
-          {/* Left Column - Logo & Description */}
           <div className="col-span-2 lg:col-span-2 space-y-6">
-            {/* Logo + Social (mobile: same row) */}
             <div className="flex items-center justify-between">
               <Link href={homeHref} aria-label="Claimity home" className="flex items-center">
                 <Image src="/logo_black.png" alt="Claimity Logo" width={70} height={28} priority />
               </Link>
 
-              {/* Social Media */}
               <div className="flex gap-4">
                 <a
                   href="https://www.linkedin.com/company/smiit-gmbh/"
@@ -95,13 +92,11 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
               </div>
             </div>
 
-            {/* Description */}
             <p className="text-md text-black leading-relaxed max-w-sm">
               {L.companyBlurb}
             </p>
           </div>
 
-          {/* Column 1 */}
           <div className="space-y-4">
             <h3 className="text-base font-bold text-black">{L.services}</h3>
             <ul className="space-y-2 md:space-y-3">
@@ -123,7 +118,6 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
             </ul>
           </div>
 
-          {/* Column 2 */}
           <div className="space-y-4">
             <h3 className="text-base font-bold text-black">{L.company}</h3>
             <ul className="space-y-2 md:space-y-3">
@@ -160,7 +154,6 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
             </ul>
           </div>
 
-          {/* Column 3 */}
           <div className="space-y-4">
             <h3 className="text-base font-bold text-black">{L.contactSection}</h3>
             <ul className="space-y-3 md:space-y-3">
@@ -195,7 +188,6 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
           </div>
         </div>
 
-        {/* Bottom Bar - Copyright & Legal Links */}
         <div className="pt-4 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-gray-700">© 2026 {L.companyName}. {L.rights}</p>
           <div className="flex flex-wrap gap-6 md:flex-nowrap justify-center md:justify-start w-full md:w-auto">

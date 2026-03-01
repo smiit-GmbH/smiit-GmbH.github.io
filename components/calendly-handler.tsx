@@ -74,7 +74,6 @@ export function CalendlyHandler({ url }: Props) {
     if (window.Calendly?.initPopupWidget) {
       window.Calendly.initPopupWidget({ url: finalUrl })
     } else {
-      // Script not loaded yet – queue the open
       pendingOpenRef.current = true
     }
   }, [buildCalendlyUrl])
@@ -141,13 +140,11 @@ export function CalendlyHandler({ url }: Props) {
 
   return (
     <>
-      {/* Calendly widget CSS – required for the popup overlay */}
       <link
         rel="stylesheet"
         href="https://assets.calendly.com/assets/external/widget.css"
       />
 
-      {/* Calendly widget JS */}
       <Script
         src="https://assets.calendly.com/assets/external/widget.js"
         strategy="afterInteractive"
