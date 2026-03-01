@@ -4,7 +4,7 @@ import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { AlignJustify, ChevronDown, Globe } from "lucide-react"
+import { AlignJustify, Contact, ChevronDown, Globe, PhoneCall } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   Sheet,
@@ -178,16 +178,24 @@ export default function Header({ forceLang }: { forceLang?: string }) {
           </div>
 
           <div className="flex items-center gap-3 sm:gap-6">
-            <Link href={contactHref} scroll={false} className="hidden md:block">
+            <a href="#book" className="hidden md:block">
               <Button className="bg-[#F703EB] hover:bg-[#DE02D2] text-black rounded-md px-3 py-2 font-medium text-sm tracking-tight cursor-pointer shadow-none border-none">
                 {L.talkToExpert}
               </Button>
-            </Link>
+            </a>
             <div className="px-2 hidden md:block">
               <LanguageSwitcher />
             </div>
 
-            <div className="md:hidden">
+            <div className="md:hidden flex items-center gap-2">
+              <a
+                href="#book"
+                aria-label={L.talkToExpert}
+                className="h-10 w-10 rounded-xl backdrop-blur-md flex items-center justify-center transition-colors"
+              >
+                <PhoneCall className="h-5 w-5 mr-2 text-black/80" />
+              </a>
+
               <Sheet>
                 <SheetTrigger asChild>
                   <button

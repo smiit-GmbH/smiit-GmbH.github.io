@@ -379,7 +379,7 @@ function MobileServicesStack({
               {ctaText}
             </p>
             <div className="mt-4 flex justify-center">
-              <LocalizedLink href="/contact">
+              <a href="#book">
                 <Button
                   variant="outline"
                   className="rounded-xl px-8 py-6 text-base border-black text-black hover:bg-black hover:text-white transition-all duration-300 hover:scale-105 cursor-pointer"
@@ -387,7 +387,7 @@ function MobileServicesStack({
                   {ctaButton}
                   <ChevronRight className="ml-2 h-4 w-4" />
                 </Button>
-              </LocalizedLink>
+              </a>
             </div>
           </motion.div>
         )}

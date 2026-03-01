@@ -5,6 +5,7 @@ import "../globals.css"
 import Footer from "@/components/footer"
 import Header from "@/components/header"
 import { ScrollToTop } from "@/components/scroll-to-top"
+import { CalendlyHandler } from "@/components/calendly-handler"
 
 const geist = Geist({
   subsets: ["latin"],
@@ -76,6 +77,7 @@ export default async function RootLayout({
     <html lang={lang}>
       <body className={`${geist.variable} ${geistMono.variable} ${playfair.variable} font-sans antialiased`}>
         <ScrollToTop />
+        <CalendlyHandler />
         <Header forceLang={lang} />
         {children}
         <Footer forceLang={lang} />
