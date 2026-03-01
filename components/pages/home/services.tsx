@@ -214,6 +214,27 @@ function MobileCardLayer({
           }}
         />
 
+        {/* Top-right link indicator */}
+        {href && (
+          <div className="absolute top-4 right-4 z-[6]">
+            <span className="flex items-center justify-center w-9 h-9 rounded-full bg-black/25 text-white/90 backdrop-blur-sm border border-white/20 transition-colors">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M7 17L17 7" />
+                <path d="M7 7h10v10" />
+              </svg>
+            </span>
+          </div>
+        )}
+
         {/* Content directly on the image — no panel */}
         <div className="absolute bottom-0 left-0 right-0 z-[5] p-5 pb-6">
           {/* Tags row */}
@@ -233,28 +254,11 @@ function MobileCardLayer({
             {item.title}
           </h3>
 
-          {/* Description + Link arrow row */}
-          <div className="mt-2.5 flex items-end gap-3">
-            <p className="flex-1 text-[0.82rem] leading-relaxed text-white/85 line-clamp-4">
+          {/* Description */}
+          <div className="mt-2.5">
+            <p className="text-[0.82rem] leading-relaxed text-white/85 line-clamp-4">
               {item.text}
             </p>
-            {href && (
-              <span className="flex-shrink-0 flex items-center justify-center w-9 h-9 rounded-full bg-white/15 text-white/80 backdrop-blur-sm transition-colors hover:bg-white/25">
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M7 17L17 7" />
-                  <path d="M7 7h10v10" />
-                </svg>
-              </span>
-            )}
           </div>
         </div>
       </div>
