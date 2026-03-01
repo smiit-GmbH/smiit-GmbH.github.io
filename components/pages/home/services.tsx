@@ -1,9 +1,11 @@
 "use client"
 
 import React, { useCallback, useEffect, useRef, useState } from "react"
-import { motion, useInView, useReducedMotion, useScroll, useTransform } from "framer-motion"
+import { motion, useInView, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from "framer-motion"
 import LocalizedLink from "../../localized-link"
 import { DotLottieReact } from "@lottiefiles/dotlottie-react"
+import { Button } from "@/components/ui/button"
+import { ChevronRight } from "lucide-react"
 
 interface ServicesProps {
   dict: any
@@ -162,126 +164,105 @@ function getImage(title: string) {
   return undefined
 }
 
-function MobileServiceCard({
-  title,
-  text,
-  tags,
+/**
+ * Single card layer — always mounted, visibility controlled via opacity/scale.
+ * This avoids the blank flash that AnimatePresence mode="wait" causes.
+ */
+function MobileCardLayer({
+  item,
+  isActive,
   href,
   imageSrc,
-  index = 0,
 }: {
-  title: string
-  text: string
-  tags: string[]
+  item: { title: string; text: string; tags: string[] }
+  isActive: boolean
   href?: string
   imageSrc?: string
-  index?: number
 }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "end start"],
-  })
-
-  // Scroll-reveal: fade + scale in
-  const cardScale = useTransform(scrollYProgress, [0, 0.28, 0.65], [0.94, 1, 1])
-  const cardOpacity = useTransform(scrollYProgress, [0, 0.25, 0.65], [0, 1, 1])
-
-  // Parallax: image moves slower than scroll
-  const imageY = useTransform(scrollYProgress, [0, 1], ["-5%", "5%"])
-
-  const cardContent = (
+  const inner = (
     <motion.div
-      ref={ref}
-      style={{ scale: cardScale, opacity: cardOpacity }}
-      className="origin-center"
+      animate={{
+        opacity: isActive ? 1 : 0,
+        scale: isActive ? 1 : 0.96,
+      }}
+      transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+      className="absolute inset-0 will-change-[opacity,transform]"
+      style={{ pointerEvents: isActive ? "auto" : "none" }}
     >
-      <div
-        className="relative overflow-hidden rounded-[1.25rem] shadow-[0_10px_40px_rgba(0,0,0,0.12)]"
-        style={{ aspectRatio: "3 / 4" }}
-      >
-        {/* Background image with parallax */}
+      <div className="relative w-full h-full overflow-hidden rounded-[1.25rem] shadow-[0_10px_40px_rgba(0,0,0,0.12)]">
+        {/* Background image */}
         {imageSrc && (
-          <motion.div
-            className="absolute inset-[-6%] z-0"
-            style={{ y: imageY }}
-          >
+          <div className="absolute inset-0 z-0">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={imageSrc}
               alt=""
               className="w-full h-full object-cover"
             />
-          </motion.div>
+          </div>
         )}
 
-        {/* Dark gradient overlay — stronger at bottom for glass panel readability */}
+        {/* Dark gradient overlay — stronger for text readability */}
         <div
           className="absolute inset-0 z-[1]"
           style={{
             background: [
-              "linear-gradient(to top, rgba(0,0,0,0.52) 0%, rgba(0,0,0,0.22) 35%, rgba(0,0,0,0.06) 55%, transparent 100%)",
+              "linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.45) 30%, rgba(0,0,0,0.18) 55%, rgba(0,0,0,0.04) 75%, transparent 100%)",
             ].join(", "),
           }}
         />
 
-        {/* Subtle cool tint overlay to unify illustration colors */}
+        {/* Subtle cool tint overlay */}
         <div
           className="absolute inset-0 z-[2] pointer-events-none"
           style={{
-            background: "linear-gradient(160deg, rgba(99,102,241,0.07) 0%, rgba(168,85,247,0.05) 40%, transparent 100%)",
+            background:
+              "linear-gradient(160deg, rgba(99,102,241,0.08) 0%, rgba(168,85,247,0.06) 60%, transparent 100%)",
           }}
         />
 
-        {/* Glassmorphism panel at the bottom */}
-        <div className="absolute bottom-0 left-0 right-0 z-[5] p-3">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.5 }}
-            transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 + index * 0.08 }}
-            className={[
-              "rounded-[1rem] p-5",
-              "bg-white/80 dark:bg-black/50",
-              "border border-white/35 dark:border-white/12",
-              "shadow-[inset_0_1px_0_rgba(255,255,255,0.4),0_8px_24px_rgba(0,0,0,0.08)]",
-            ].join(" ")}
-            style={{
-              backdropFilter: "blur(24px) saturate(1.5)",
-              WebkitBackdropFilter: "blur(24px) saturate(1.5)",
-            }}
-          >
-            <h3 className="font-serif text-[1.4rem] leading-[1.08] tracking-tight text-black/90 dark:text-white">
-              {title}
-            </h3>
-            <p className="mt-2 text-[0.82rem] leading-relaxed text-black/55 dark:text-white/65 line-clamp-2">
-              {text}
+        {/* Content directly on the image — no panel */}
+        <div className="absolute bottom-0 left-0 right-0 z-[5] p-5 pb-6">
+          {/* Tags row */}
+          <div className="flex flex-wrap gap-1.5 mb-3">
+            {item.tags.map((t) => (
+              <span
+                key={t}
+                className="inline-flex items-center rounded-full px-2.5 py-0.5 text-[0.6rem] font-semibold uppercase tracking-wide border border-white/25 text-white/95 bg-white/[0.08]"
+              >
+                {t}
+              </span>
+            ))}
+          </div>
+
+          {/* Title */}
+          <h3 className="font-serif text-[1.55rem] leading-[1.08] tracking-tight text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.3)]">
+            {item.title}
+          </h3>
+
+          {/* Description + Link arrow row */}
+          <div className="mt-2.5 flex items-end gap-3">
+            <p className="flex-1 text-[0.82rem] leading-relaxed text-white/85 line-clamp-4">
+              {item.text}
             </p>
-            <div className="mt-3 flex items-center justify-between gap-2">
-              <div className="flex flex-wrap gap-1.5">
-                {tags.map((t) => (
-                  <TagPill key={t} label={t} variant="glass" />
-                ))}
-              </div>
-              {href && (
-                <span className="flex-shrink-0 flex items-center justify-center w-8 h-8 rounded-full bg-black/[0.07] dark:bg-white/12 text-black/45 dark:text-white/55 transition-colors">
-                  <svg
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  >
-                    <path d="M7 17L17 7" />
-                    <path d="M7 7h10v10" />
-                  </svg>
-                </span>
-              )}
-            </div>
-          </motion.div>
+            {href && (
+              <span className="flex-shrink-0 flex items-center justify-center w-9 h-9 rounded-full bg-white/15 text-white/80 backdrop-blur-sm transition-colors hover:bg-white/25">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M7 17L17 7" />
+                  <path d="M7 7h10v10" />
+                </svg>
+              </span>
+            )}
+          </div>
         </div>
       </div>
     </motion.div>
@@ -289,16 +270,131 @@ function MobileServiceCard({
 
   if (href) {
     return (
-      <LocalizedLink href={href} className="block outline-none rounded-[1.25rem]">
-        {cardContent}
+      <LocalizedLink
+        href={href}
+        className="absolute inset-0 block outline-none rounded-[1.25rem]"
+        tabIndex={isActive ? 0 : -1}
+        aria-hidden={!isActive}
+      >
+        {inner}
       </LocalizedLink>
     )
   }
 
-  return cardContent
+  return inner
 }
 
+/**
+ * Mobile: Sticky-Stack with scroll-triggered crossfade.
+ * The visible area is the height of ONE card. As the user scrolls,
+ * cards crossfade in/out with a smooth opacity + scale transition.
+ * A pill-shaped dot indicator shows which card is active.
+ */
+function MobileServicesStack({
+  items,
+  header,
+  ctaText,
+  ctaButton,
+}: {
+  items: Array<{ title: string; text: string; tags: string[] }>
+  /** Section header (title + subtitle) rendered inside the sticky area */
+  header?: React.ReactNode
+  /** CTA text shown after the last card */
+  ctaText?: string
+  /** CTA button label */
+  ctaButton?: string
+}) {
+  const count = items.length
+  const scrollAreaRef = useRef<HTMLDivElement>(null)
+  const [activeIndex, setActiveIndex] = useState(0)
 
+  const { scrollYProgress } = useScroll({
+    target: scrollAreaRef,
+    offset: ["start start", "end end"],
+  })
+
+  // Map scroll progress to active index
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    // Clamp to valid range; last card stays until the very end
+    const raw = latest * count
+    const idx = Math.max(0, Math.min(count - 1, Math.floor(raw)))
+    setActiveIndex(idx)
+  })
+
+  return (
+    <div
+      ref={scrollAreaRef}
+      className="relative md:hidden"
+      style={{ height: `${count * 80}vh` }}
+    >
+      {/* Sticky container — stays in view below the fixed header (h-18 = 72px) */}
+      <div className="sticky top-[80px] z-10 px-0">
+        {/* Section header — sticky together with the card */}
+        {header && <div className="mb-5">{header}</div>}
+
+        {/* Card viewport — fixed aspect ratio, all layers stacked */}
+        <div
+          className="relative w-full rounded-[1.25rem]"
+          style={{ aspectRatio: "3 / 4" }}
+        >
+          {items.map((item, idx) => (
+            <MobileCardLayer
+              key={item.title}
+              item={item}
+              isActive={idx === activeIndex}
+              href={getLink(item.title)}
+              imageSrc={getImage(item.title)}
+            />
+          ))}
+        </div>
+
+        {/* Dot indicator */}
+        <div className="flex justify-center gap-2 mt-4 mb-12">
+          {items.map((item, idx) => (
+            <motion.div
+              key={item.title}
+              className="rounded-full"
+              animate={{
+                width: idx === activeIndex ? 24 : 8,
+                backgroundColor:
+                  idx === activeIndex
+                    ? "rgba(0, 0, 0, 0.85)"
+                    : "rgba(0, 0, 0, 0.15)",
+              }}
+              transition={{ duration: 0.35, ease: "easeInOut" }}
+              style={{ height: 8 }}
+            />
+          ))}
+        </div>
+
+        {/* CTA — visible after scrolling through all cards */}
+        {activeIndex === count - 1 && ctaText && ctaButton && (
+          <motion.div
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, ease: "easeOut", delay: 0.15 }}
+            className="mt-6 text-center"
+          >
+            <p className="text-sm leading-relaxed text-black/75 dark:text-white/75 max-w-[54ch] mx-auto">
+              {ctaText}
+            </p>
+            <div className="mt-4 flex justify-center">
+              <LocalizedLink href="/contact">
+                <Button
+                  variant="outline"
+                  className="rounded-xl px-8 py-6 text-base border-black text-black hover:bg-black hover:text-white transition-all duration-300 hover:scale-105 cursor-pointer"
+                >
+                  {ctaButton}
+                  <ChevronRight className="ml-2 h-4 w-4" />
+                </Button>
+              </LocalizedLink>
+            </div>
+          </motion.div>
+        )}
+      </div>
+    </div>
+  )
+}
 
 function DirectionalWaves({
   id,
@@ -786,35 +882,34 @@ export default function Services({ dict }: ServicesProps) {
   const lastWord = words.length > 0 ? words.pop() : ""
   const firstPart = words.join(" ")
 
+  const sectionHeader = (
+    <div className="text-center">
+      <h2 className="font-serif text-[2.6rem] sm:text-[3.15rem] md:text-[3.6rem] leading-[1.05] tracking-tight text-black dark:text-white whitespace-pre-line text-balance">
+        {firstPart} <span className="text-[#21569c]">{lastWord}</span>
+      </h2>
+      <p className="mt-4 text-sm sm:text-base leading-relaxed text-black/75 dark:text-white/75 max-w-[54ch] mx-auto">
+        {dict.services.subtitle}
+      </p>
+    </div>
+  )
+
   return (
     <section className="relative pt-14 pb-8 md:pt-12 md:pb-6">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center">
-          <h2 className="font-serif text-[2.6rem] sm:text-[3.15rem] md:text-[3.6rem] leading-[1.05] tracking-tight text-black dark:text-white whitespace-pre-line text-balance">
-            {firstPart} <span className="text-[#21569c]">{lastWord}</span>
-          </h2>
-          <p className="mt-4 text-sm sm:text-base leading-relaxed text-black/75 dark:text-white/75 max-w-[54ch] mx-auto">
-            {dict.services.subtitle}
-          </p>
-        </div>
+        {/* Desktop: header rendered normally above the cards */}
+        <div className="hidden md:block">{sectionHeader}</div>
 
-        {/* Mobile: Glassmorphism overlay cards */}
-        <div className="mt-7 flex flex-col gap-5 md:hidden">
-          {items.map((it, idx) => (
-            <MobileServiceCard
-              key={it.title}
-              title={it.title}
-              text={it.text}
-              tags={it.tags}
-              href={getLink(it.title)}
-              imageSrc={getImage(it.title)}
-              index={idx}
-            />
-          ))}
-        </div>
+        {/* Mobile: Sticky-stack with scroll-triggered crossfade (header inside sticky) */}
+        <MobileServicesStack
+          items={items}
+          header={sectionHeader}
+          ctaText={dict.services.mobileCta}
+          ctaButton={dict.services.mobileCtaButton}
+        />
 
         <DesktopServices items={items} />
       </div>
     </section>
   )
 }
+

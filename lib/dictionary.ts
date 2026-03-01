@@ -32,6 +32,8 @@ const dictionaries = {
           text: "Wir bauen intuitive Web-Apps, die Eingaben vereinfachen, Systeme über APIs verbinden und Workflows automatisieren — sicher und skalierbar.",
         },
       ],
+      mobileCta: "Sie haben Fragen zu unseren Dienstleistungen? Buchen Sie gerne ein kostenloses und unverbindliches Erstgespräch mit uns.",
+      mobileCtaButton: "Sprechen Sie mit uns",
     },
     customerCards: [
       {
@@ -89,7 +91,7 @@ const dictionaries = {
       text: "We are by your side.\nThrough apps, dashboards, and automation — boosting\nproductivity and accelerating decisions.",
     },
     services: {
-      title: "Workflows engineered for impact",
+      title: "Workflows for measurable impact",
       subtitle: "At smiit, we build apps, automation, and analytics that move your business forward.",
       items: [
         {
@@ -108,6 +110,8 @@ const dictionaries = {
           text: "We create intuitive web apps that simplify inputs, connect systems via API, and automate workflows — secure and scalable.",
         },
       ],
+      mobileCta: "Have questions about our services? Book a free, no-obligation introductory call with us.",
+      mobileCtaButton: "Talk to a digital expert",
     },
     customerCards: [
       {

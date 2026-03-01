@@ -43,7 +43,7 @@ export default function Header({ forceLang }: { forceLang?: string }) {
   const L =
     lang === "de"
       ? {
-          home: "Startseite",
+          home: "Start",
           products: "Produkte",
           services: "Dienstleistungen",
           about: "Über uns",
@@ -240,6 +240,22 @@ export default function Header({ forceLang }: { forceLang?: string }) {
 
                   <div className="flex-1 overflow-y-auto px-4 pb-4">
                     <div className="space-y-7">
+
+                      <div>
+                        <p className="text-sm font-semibold text-black">{lang === "de" ? "Startseite" : "Homepage"}</p>
+                        <div className="mt-3 space-y-1">
+                          <SheetClose asChild>
+                            <Link
+                              href={homeHref}
+                              scroll={false}
+                              className="block rounded-xl px-3 py-2 text-sm text-black/80 hover:bg-black/[0.04]"
+                            >
+                              {L.home}
+                            </Link>
+                          </SheetClose>
+                        </div>
+                      </div>
+
                       <div>
                         <p className="text-sm font-semibold text-black">{L.services}</p>
                         <div className="mt-3 space-y-1">
