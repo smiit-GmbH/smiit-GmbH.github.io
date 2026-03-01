@@ -170,17 +170,17 @@
 @layer utilities {
   @media (min-width: 768px) {
     .home-cards-offset {
-      margin-top: -2.25rem;
+      margin-top: -4.25rem;
     }
   }
 
   @media (min-width: 1024px) {
     .home-cards-offset {
-      margin-top: -3.25rem;
+      margin-top: -4.75rem;
     }
   }
 
-  @media (min-width: 768px) and (max-height: 660px) {
+  @media (min-width: 768px) and (max-height: 690px) {
     .home-cards-offset {
       margin-top: 1.5rem;
     }

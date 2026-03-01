@@ -48,7 +48,7 @@ export default function Header({ forceLang }: { forceLang?: string }) {
           services: "Dienstleistungen",
           about: "Über uns",
           talkToExpert: "Sprechen Sie mit uns",
-          smiitAnalytics: "smiit Analytics",
+          smiitAnalytics: "smiit Analytics für bexio",
           productScout: "Product Scout",
           azaiElevate: "Azai Elevate",
           webappsWorkflows: "Apps & Workflows",
@@ -61,7 +61,7 @@ export default function Header({ forceLang }: { forceLang?: string }) {
           services: "Our services",
           about: "About us",
           talkToExpert: "Talk to a digital expert",
-          smiitAnalytics: "smiit Analytics",
+          smiitAnalytics: "smiit Analytics for bexio",
           productScout: "Product Scout",
           azaiElevate: "Azai Elevate",
           webappsWorkflows: "Apps & Workflows",
@@ -89,7 +89,7 @@ export default function Header({ forceLang }: { forceLang?: string }) {
     | { type: "external"; href: string; label: string }
   > = [
     { type: "internal", href: smiitAnalyticsHref, label: L.smiitAnalytics },
-    { type: "internal", href: productScoutHref, label: L.productScout },
+    // { type: "internal", href: productScoutHref, label: L.productScout },
     { type: "external", href: "https://www.azai.ch", label: L.azaiElevate },
   ]
 

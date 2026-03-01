@@ -126,11 +126,11 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
                   {L.about}
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link href={productsHref} className="text-sm text-gray-700 hover:text-black transition-colors">
                   {L.products}
                 </Link>
-              </li>
+              </li> */}
               <li>
                 <Link
                   href="https://grab.smiit.de"
