@@ -277,7 +277,7 @@ export default async function PrivacyPage({
 
   return (
     <main className="min-h-screen">
-      <section className="relative isolate z-0 h-[46vh] sm:h-[50vh] md:h-[58vh] overflow-hidden rounded-b-[1.75rem] bg-black/[0.02] mb-8 sm:mb-6">
+      <section className="relative isolate z-0 min-h-[300px] h-[42vh] sm:h-[48vh] md:h-[46vh] lg:h-[50vh] max-h-[560px] overflow-hidden rounded-b-[1.75rem] bg-black/[0.02] mb-2 sm:mb-4 md:mb-0">
         <div className="absolute inset-0">
           <Image
             src="/assets/legal.png"
@@ -309,8 +309,8 @@ export default async function PrivacyPage({
           }}
         />
 
-        <div className="relative z-20 h-full">
-          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 w-full pt-28 sm:pt-32 md:pt-36">
+        <div className="relative z-20 h-full flex items-end">
+          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 w-full pb-12 sm:pb-14 md:pb-16 lg:pb-20">
             <h1 className="font-serif text-[2.35rem] sm:text-[2.8rem] md:text-[3.25rem] leading-[1.06] text-black tracking-tight">
               {isDe ? (
                 <>
@@ -331,7 +331,7 @@ export default async function PrivacyPage({
 
       <section className="relative z-30 py-0 md:py-0">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="relative z-30 -mt-32 sm:-mt-46 md:-mt-62 lg:-mt-64 rounded-[1.75rem] border border-black/10 bg-white shadow-xl ring-1 ring-black/5 p-6 sm:p-8 md:p-10">
+          <div className="relative z-30 -mt-6 sm:-mt-8 md:-mt-10 lg:-mt-12 rounded-[1.75rem] border border-black/10 bg-white shadow-xl ring-1 ring-black/5 p-6 sm:p-8 md:p-10">
             <div className="space-y-10">
               {L.sections.map((section) => (
                 <section key={section.title}>

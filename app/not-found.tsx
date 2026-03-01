@@ -51,17 +51,18 @@ export default function NotFound() {
       </head>
       <body className={`${geist.variable} ${geistMono.variable} ${playfair.variable} font-sans antialiased`}>
         <main className="min-h-screen flex flex-col">
-          <section className="relative w-full h-[90vh] md:h-[105vh] rounded-b-[1.75rem] overflow-hidden bg-[url('/assets/not_found_mobile.png')] md:bg-[url('/assets/not_found.png')] bg-cover bg-center bg-no-repeat flex flex-col">
+          <section className="relative w-full min-h-[70vh] h-[88vh] md:h-[95vh] max-h-[980px] rounded-b-[1.75rem] overflow-hidden bg-[url('/assets/not_found_mobile.png')] md:bg-[url('/assets/not_found.png')] bg-cover bg-center bg-no-repeat flex flex-col">
+            <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/45 via-white/25 to-black/35" />
             <Header />
-            <div className="flex-grow flex items-start justify-center px-4 pt-20 mt-2 md:mt-0 md:pt-14">
-                <div className="max-w-sm mx-auto text-center font-serif">
+            <div className="relative z-10 flex-grow flex items-start justify-center px-4 pt-20 mt-2 md:mt-0 md:pt-14">
+                <div className="max-w-md mx-auto text-center font-serif">
                   <div className="mb-8">
                     <h1 className="text-[100px] md:text-[150px] font-bold text-primary/20 leading-none">404</h1>
                   </div>
 
                   <div className="mt-12 mb-8">
-                    <h2 className="text-3xl md:text-4xl mb-4 text-foreground">{L.title}</h2>
-                    <p className="text-xl text-black/80 mb-2">{L.description}</p>
+                    <h2 className="text-3xl md:text-4xl mb-4 text-black drop-shadow-[0_1px_2px_rgba(255,255,255,0.4)]">{L.title}</h2>
+                    <p className="text-lg md:text-xl text-black/85 mb-2 drop-shadow-[0_1px_2px_rgba(255,255,255,0.45)]">{L.description}</p>
                   </div>
 
                   <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-10">

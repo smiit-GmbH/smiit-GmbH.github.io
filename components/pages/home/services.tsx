@@ -496,8 +496,8 @@ function DirectionalWaves({
         </linearGradient>
       </defs>
 
-      {instances.map((token) => (
-        <g key={token}>
+      {instances.map((token, index) => (
+        <g key={`${id}-${token}-${index}`}>
           <g mask={`url(#${id}-mask)`}>
             <motion.circle
               cx={center.x}

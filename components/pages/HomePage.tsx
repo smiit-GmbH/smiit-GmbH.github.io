@@ -16,7 +16,7 @@ export default function HomePage({
     <>
       <HeroSection lang={lang} dict={dict} />
 
-      <div className="relative z-30 mt-10 md:-mt-21">
+      <div className="relative z-30 mt-8 home-cards-offset">
         <CustomerCards dict={dict} />
       </div>
 

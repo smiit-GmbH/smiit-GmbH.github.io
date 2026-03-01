@@ -353,7 +353,7 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
 
   return (
     <section ref={sectionRef} className="relative">
-      <div className="absolute top-0 md:top-[128px] inset-x-0 bottom-0 bg-background -z-10" />
+      <div className="absolute top-0 md:top-[96px] inset-x-0 bottom-0 bg-background -z-10" />
 
       {/* ── Mobile: Vertical Testimonial Timeline ── */}
       <div className="md:hidden px-4 sm:px-6 pb-2">
@@ -363,7 +363,7 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
           <div className="flex flex-col gap-0">
             {customers.map((customer: any, index: number) => (
               <motion.div
-                key={customer.id}
+                key={`mobile-${customer.id}-${index}`}
                 className="relative flex items-start gap-4 py-5"
                 initial={{ opacity: 0, x: -16 }}
                 whileInView={{ opacity: 1, x: 0 }}
@@ -413,28 +413,26 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
         <div
           className={[
             "flex min-w-max",
-            "gap-4 md:gap-4",
+            "gap-3 md:gap-3 lg:gap-4",
             "px-4 sm:px-6",
-            "md:px-0",
-            "md:pl-16 md:pr-[calc(4rem+(100vw-100%))]",
-            "lg:pl-20 lg:pr-[calc(5rem+(100vw-100%))]",
+            "md:px-8 lg:px-12 xl:px-16",
           ].join(" ")}
         >
           {customers.map((customer: any, index: number) => {
             return (
               <motion.div
-                key={customer.id}
+                key={`desktop-${customer.id}-${index}`}
                 className={[
                   "snap-center shrink-0 h-full",
                   "flex flex-col",
                   "w-[85vw]",
                   "max-w-[420px]",
                   "sm:w-[350px]",
-                  "md:w-[720px]",
+                  "md:w-[clamp(360px,42vw,560px)]",
                 ].join(" ")}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-50px" }}
+                viewport={{ once: true, amount: 0.55, margin: "0px 0px -18% 0px" }}
                 transition={{ duration: 0.5 }}
               >
                 <Card
