@@ -126,6 +126,18 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  a,
+  button,
+  [role="button"] {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  [role="button"]:focus-visible {
+    @apply outline-none ring-1 ring-black/20 dark:ring-white/25;
+  }
 }
 
 .section-light {

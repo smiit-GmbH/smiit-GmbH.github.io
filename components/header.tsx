@@ -4,7 +4,7 @@ import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { AlignJustify, Contact, ChevronDown, Globe, PhoneCall } from "lucide-react"
+import { AlignJustify, Contact, ChevronDown, Globe, PhoneCall, CalendarDays } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   Sheet,
@@ -193,7 +193,7 @@ export default function Header({ forceLang }: { forceLang?: string }) {
                 aria-label={L.talkToExpert}
                 className="h-10 w-10 rounded-xl backdrop-blur-md flex items-center justify-center transition-colors"
               >
-                <PhoneCall className="h-5 w-5 mr-2 text-black/80" />
+                <CalendarDays className="h-5 w-5 mr-2 text-black/80" />
               </a>
 
               <Sheet>

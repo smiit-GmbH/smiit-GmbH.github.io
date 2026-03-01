@@ -165,22 +165,59 @@ function getImage(title: string) {
 
 function MobileCardLayer({
   item,
-  isActive,
+  state,
+  swipeDirection,
   href,
   imageSrc,
 }: {
   item: { title: string; text: string; tags: string[] }
-  isActive: boolean
+  state: "active" | "prev" | "idle"
+  swipeDirection: 1 | -1
   href?: string
   imageSrc?: string
 }) {
+  const isActive = state === "active"
+  const isPrev = state === "prev"
+
+  const animateState = isActive
+    ? {
+        opacity: 1,
+        x: 0,
+        y: 0,
+        rotate: 0,
+        scale: 1,
+      }
+    : isPrev
+      ? {
+          opacity: 0,
+          x: swipeDirection === 1 ? -76 : 76,
+          y: 8,
+          rotate: swipeDirection === 1 ? -8 : 8,
+          scale: 0.94,
+        }
+      : {
+          opacity: 0,
+          x: swipeDirection === 1 ? 76 : -76,
+          y: 10,
+          rotate: swipeDirection === 1 ? 8 : -8,
+          scale: 0.93,
+        }
+
+  const layerTransition = {
+    x: { type: "spring", stiffness: 220, damping: 30, mass: 1.0 },
+    rotate: { type: "spring", stiffness: 200, damping: 26, mass: 0.95 },
+    opacity: {
+      duration: isActive ? 0.42 : 0.68,
+      ease: [0.22, 1, 0.36, 1],
+    },
+    scale: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
+    y: { duration: 0.44, ease: [0.22, 1, 0.36, 1] },
+  }
+
   const inner = (
     <motion.div
-      animate={{
-        opacity: isActive ? 1 : 0,
-        scale: isActive ? 1 : 0.96,
-      }}
-      transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+      animate={animateState}
+      transition={layerTransition}
       className="absolute inset-0 will-change-[opacity,transform]"
       style={{ pointerEvents: isActive ? "auto" : "none" }}
     >
@@ -295,6 +332,8 @@ function MobileServicesStack({
   const count = items.length
   const scrollAreaRef = useRef<HTMLDivElement>(null)
   const [activeIndex, setActiveIndex] = useState(0)
+  const [prevIndex, setPrevIndex] = useState<number | null>(null)
+  const [swipeDirection, setSwipeDirection] = useState<1 | -1>(1)
 
   const { scrollYProgress } = useScroll({
     target: scrollAreaRef,
@@ -304,7 +343,12 @@ function MobileServicesStack({
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     const raw = latest * count
     const idx = Math.max(0, Math.min(count - 1, Math.floor(raw)))
-    setActiveIndex(idx)
+    setActiveIndex((current) => {
+      if (idx === current) return current
+      setPrevIndex(current)
+      setSwipeDirection(idx > current ? 1 : -1)
+      return idx
+    })
   })
 
   return (
@@ -313,20 +357,21 @@ function MobileServicesStack({
       className="relative md:hidden"
       style={{ height: `${count * 80}vh` }}
     >
-      <div className="sticky top-[80px] z-10 px-0">
-        {/* Section header — sticky together with the card */}
-        {header && <div className="mb-5">{header}</div>}
+      {/* Section header — normal flow on mobile (not sticky) */}
+      {header && <div className="mb-5">{header}</div>}
 
+      <div className="sticky top-[80px] z-10 px-0">
         {/* Card viewport — fixed aspect ratio, all layers stacked */}
         <div
-          className="relative w-full rounded-[1.25rem]"
+          className="relative w-full rounded-[1.25rem] overflow-hidden"
           style={{ aspectRatio: "3 / 4" }}
         >
           {items.map((item, idx) => (
             <MobileCardLayer
               key={item.title}
               item={item}
-              isActive={idx === activeIndex}
+              state={idx === activeIndex ? "active" : idx === prevIndex ? "prev" : "idle"}
+              swipeDirection={swipeDirection}
               href={getLink(item.title)}
               imageSrc={getImage(item.title)}
             />
@@ -334,7 +379,7 @@ function MobileServicesStack({
         </div>
 
         {/* Dot indicator */}
-        <div className="flex justify-center gap-2 mt-4 mb-12">
+        <div className="flex justify-center gap-2 mt-4 mb-6">
           {items.map((item, idx) => (
             <motion.div
               key={item.title}
@@ -352,13 +397,13 @@ function MobileServicesStack({
           ))}
         </div>
 
-        {/* CTA — visible after scrolling through all cards */}
-        {activeIndex === count - 1 && ctaText && ctaButton && (
+        {/* CTA — sticky together with cards on mobile */}
+        {ctaText && ctaButton && (
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: "easeOut", delay: 0.15 }}
-            className="mt-6 text-center"
+            transition={{ duration: 0.5, ease: "easeOut", delay: 0.05 }}
+            className="mt-2 text-center"
           >
             <p className="text-sm leading-relaxed text-black/75 dark:text-white/75 max-w-[54ch] mx-auto">
               {ctaText}
