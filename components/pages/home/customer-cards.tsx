@@ -4,6 +4,7 @@ import { Card, CardTitle } from "@/components/ui/card"
 import Image from "next/image"
 import { useEffect, useRef } from "react"
 import { motion } from "framer-motion"
+import { useLenis } from "@/components/smooth-scroll-provider"
 
 const LOGOS: Record<number, string> = {
   1: "/assets/logos/dy-project.png",
@@ -26,6 +27,10 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
   const sectionRef = useRef<HTMLElement | null>(null)
   const scrollerRef = useRef<HTMLDivElement | null>(null)
 
+  // Access global Lenis instance for pausing during horizontal scroll hijacking
+  const lenis = useLenis()
+  const lenisRef = useRef(lenis)
+  useEffect(() => { lenisRef.current = lenis }, [lenis])
 
   // Desktop/Tablet horizontal scroll hijacking with Intersection Observer
   useEffect(() => {
@@ -49,6 +54,10 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
     const rafIdRef = { current: 0 }
     const lastTsRef = { current: 0 }
     const velocityRef = { current: 0 }
+
+    // Pause / resume Lenis smooth scroll when horizontal hijacking is active
+    const pauseLenis = () => { lenisRef.current?.stop() }
+    const resumeLenis = () => { lenisRef.current?.start() }
 
     const isScrollable = () => {
       const scrollerEl = scrollerRef.current
@@ -276,12 +285,14 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
                 // Section not visible enough yet — let the browser scroll normally
                 // so the user can continue scrolling up. Do NOT preventDefault().
                 isLockedRef.current = false
+                resumeLenis()
                 return
               }
             }
 
             // Section is visible enough to center — now we can lock and preventDefault.
             isLockedRef.current = true
+            pauseLenis()
             e.preventDefault()
 
             if (!isCenteringRef.current) {
@@ -295,6 +306,7 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
 
           // Section is centered -> ok to lock and hijack horizontally.
           isLockedRef.current = true
+          pauseLenis()
           e.preventDefault()
 
           if (!didCenterOnLockRef.current) {
@@ -327,6 +339,7 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
           return
         } else {
           isLockedRef.current = false
+          resumeLenis()
         }
       }
     }
@@ -342,6 +355,7 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
             didCenterOnLockRef.current = false
             isCenteringRef.current = false
             stopInertia()
+            resumeLenis()
           }
         })
       },
@@ -360,6 +374,7 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
       window.removeEventListener("wheel", onWheel)
       observer.disconnect()
       stopInertia()
+      resumeLenis()
     }
   }, [])
 
