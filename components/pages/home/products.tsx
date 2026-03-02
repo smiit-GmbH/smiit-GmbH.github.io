@@ -119,7 +119,7 @@ export default function Products({ dict }: ProductsProps) {
   const { products } = dict
 
   return (
-    <section className="relative pt-4 pb-4 md:pt-8 md:pb-8">
+    <section className="relative pt-2 pb-4 md:pt-8 md:pb-8">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           className="text-center mb-10 md:mb-14"

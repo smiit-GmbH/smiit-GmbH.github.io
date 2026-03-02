@@ -558,8 +558,6 @@ function DesktopServices({ items }: { items: any[] }) {
   const isInView = useInView(containerRef, { once: false, amount: 0.15 })
   const prefersReducedMotion = useReducedMotion()
 
-  const introPlayedRef = useRef(false)
-
   const [step, setStep] = useState(0)
   const [hovered, setHovered] = useState<number | null>(null)
 
@@ -654,8 +652,6 @@ function DesktopServices({ items }: { items: any[] }) {
 
   useEffect(() => {
     if (prefersReducedMotion) return
-    if (introPlayedRef.current) return
-    introPlayedRef.current = true
 
     let cancelled = false
     const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
