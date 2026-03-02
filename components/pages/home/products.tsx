@@ -154,8 +154,9 @@ export default function Products({ dict }: ProductsProps) {
           )}
         </motion.div>
 
+        {/* Desktop CTA – gradient banner */}
         <motion.div
-          className="mt-6 md:mt-8 rounded-[1.5rem] overflow-hidden flex flex-col items-center justify-center text-center px-6 py-16 md:py-20 products-gradient-animate"
+          className="mt-8 rounded-[1.5rem] overflow-hidden hidden md:flex flex-col items-center justify-center text-center px-6 py-20 products-gradient-animate"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-30px" }}
@@ -167,7 +168,7 @@ export default function Products({ dict }: ProductsProps) {
           }}
         >
           <motion.h2
-            className="font-serif text-[2rem] sm:text-[2.6rem] md:text-[3.2rem] leading-[1.12] tracking-tight text-black whitespace-pre-line max-w-[22ch]"
+            className="font-serif text-[3.2rem] leading-[1.12] tracking-tight text-black whitespace-pre-line max-w-[22ch]"
             variants={fadeUpVariants}
             transition={{ duration: 0.7, ease: "easeOut" }}
           >
@@ -182,6 +183,50 @@ export default function Products({ dict }: ProductsProps) {
               <Button
                 variant="outline"
                 className="rounded-xl px-6 py-6 text-sm text-black bg-white hover:bg-white/80 hover:text-black cursor-pointer"
+              >
+                {products.ctaBottomButton}
+                <ChevronRight className="ml-1.5 h-4 w-4" />
+              </Button>
+            </a>
+          </motion.div>
+        </motion.div>
+
+        {/* Mobile CTA – compact, minimal */}
+        <motion.div
+          className="mt-5 md:hidden rounded-2xl border border-black/8 bg-white px-5 py-8"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-30px" }}
+          variants={{
+            hidden: {},
+            visible: {
+              transition: { staggerChildren: 0.12 },
+            },
+          }}
+        >
+          <motion.h2
+            className="font-serif text-[1.5rem] leading-[1.18] tracking-tight text-black whitespace-pre-line"
+            variants={fadeUpVariants}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+          >
+            {products.ctaBottom}
+          </motion.h2>
+          <motion.p
+            className="mt-2.5 text-[0.84rem] leading-relaxed text-black/60"
+            variants={fadeUpVariants}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+          >
+            {products.ctaSubtext ?? ""}
+          </motion.p>
+          <motion.div
+            className="mt-5"
+            variants={fadeUpVariants}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+          >
+            <a href="#book" className="block">
+              <Button
+                variant="outline"
+                className="w-full rounded-xl px-5 py-5 text-sm font-medium border-black text-black hover:bg-black hover:text-white transition-all duration-300 cursor-pointer"
               >
                 {products.ctaBottomButton}
                 <ChevronRight className="ml-1.5 h-4 w-4" />
