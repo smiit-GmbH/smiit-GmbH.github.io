@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button"
 import { ChevronRight } from "lucide-react"
 import { motion, useScroll, useTransform } from "framer-motion"
 import { useRef } from "react"
+import LocalizedLink from "@/components/localized-link"
 
 interface ProductsProps {
   dict: any
@@ -14,7 +15,7 @@ function ProductCard({
   item,
   index,
 }: {
-  item: { title: string; text: string; image: string }
+  item: { title: string; text: string; image: string; href?: string; external?: boolean }
   index: number
 }) {
   const cardRef = useRef<HTMLDivElement>(null)
@@ -26,17 +27,8 @@ function ProductCard({
 
   const imageY = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"])
 
-  return (
-    <motion.div
-      ref={cardRef}
-      variants={{
-        hidden: { opacity: 0, y: 40 },
-        visible: { opacity: 1, y: 0 },
-      }}
-      className="group relative overflow-hidden rounded-[1.5rem] min-h-[460px] sm:min-h-[520px] md:min-h-[560px] cursor-pointer"
-      whileHover={{ scale: 1.02 }}
-      transition={{ duration: 0.35, ease: "easeOut" }}
-    >
+  const cardContent = (
+    <>
       {/* Parallax image wrapper */}
       <motion.div
         className="absolute inset-[-16%] will-change-transform"
@@ -65,6 +57,46 @@ function ProductCard({
           {item.text}
         </p>
       </div>
+    </>
+  )
+
+  const linkOverlay = item.href ? (
+    item.external ? (
+      <a
+        href={item.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="absolute inset-0 z-20"
+        aria-label={item.title.replace("\n", " ")}
+      />
+    ) : item.href.startsWith("#") ? (
+      <a
+        href={item.href}
+        className="absolute inset-0 z-20"
+        aria-label={item.title.replace("\n", " ")}
+      />
+    ) : (
+      <LocalizedLink
+        href={item.href}
+        className="absolute inset-0 z-20"
+        aria-label={item.title.replace("\n", " ")}
+      />
+    )
+  ) : null
+
+  return (
+    <motion.div
+      ref={cardRef}
+      variants={{
+        hidden: { opacity: 0, y: 40 },
+        visible: { opacity: 1, y: 0 },
+      }}
+      className="group relative overflow-hidden rounded-[1.5rem] min-h-[460px] sm:min-h-[520px] md:min-h-[560px] cursor-pointer"
+      whileHover={{ scale: 1.02 }}
+      transition={{ duration: 0.35, ease: "easeOut" }}
+    >
+      {cardContent}
+      {linkOverlay}
     </motion.div>
   )
 }
@@ -114,7 +146,7 @@ export default function Products({ dict }: ProductsProps) {
         >
           {products.items.map(
             (
-              item: { title: string; text: string; image: string },
+              item: { title: string; text: string; image: string; href?: string; external?: boolean },
               idx: number
             ) => (
               <ProductCard key={idx} item={item} index={idx} />
