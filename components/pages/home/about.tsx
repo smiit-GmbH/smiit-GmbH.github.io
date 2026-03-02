@@ -3,6 +3,7 @@
 import Image from "next/image"
 import { DotLottieReact } from "@lottiefiles/dotlottie-react"
 import { useEffect, useRef, useState } from "react"
+import { motion, useScroll, useTransform } from "framer-motion"
 
 interface AboutProps {
   dict: any
@@ -10,7 +11,15 @@ interface AboutProps {
 
 export default function About({ dict }: AboutProps) {
   const sectionRef = useRef<HTMLElement | null>(null)
+  const containerRef = useRef<HTMLDivElement | null>(null)
   const [play, setPlay] = useState(false)
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start end", "end start"],
+  })
+
+  const imageY = useTransform(scrollYProgress, [0, 1], ["-6%", "6%"])
 
   useEffect(() => {
     if (!sectionRef.current) return
@@ -38,6 +47,7 @@ export default function About({ dict }: AboutProps) {
     <section ref={sectionRef} className="relative pt-12 pb-0 md:pt-20 md:pb-8">
       <div className="max-w-[1400px] mx-auto px-0 sm:px-6 lg:px-8">
         <div
+          ref={containerRef}
           className={[
             "relative overflow-hidden",
             "rounded-[1.75rem]",
@@ -45,7 +55,7 @@ export default function About({ dict }: AboutProps) {
             "min-h-[600px] sm:min-h-[705px] md:min-h-[610px] lg:min-h-[690px]",
           ].join(" ")}
         >
-          {/* Background image */}
+          {/* Background image – Mobile (no parallax) */}
           <Image
             src="/assets/home/about_mobile.png"
             alt=""
@@ -55,15 +65,22 @@ export default function About({ dict }: AboutProps) {
             className="object-cover object-bottom scale-[1.12] md:hidden"
             priority={false}
           />
-          <Image
-            src="/assets/home/about.png"
-            alt=""
-            fill
-            sizes="(min-width: 768px) 1200px, 100vw"
-            aria-hidden="true"
-            className="hidden md:block object-cover object-top"
-            priority={false}
-          />
+
+          {/* Background image – Desktop (with parallax) */}
+          <motion.div
+            className="hidden md:block absolute inset-[-12%] will-change-transform"
+            style={{ y: imageY }}
+          >
+            <Image
+              src="/assets/home/about.png"
+              alt=""
+              fill
+              sizes="(min-width: 768px) 1200px, 100vw"
+              aria-hidden="true"
+              className="object-cover object-top"
+              priority={false}
+            />
+          </motion.div>
 
           {/* Text overlay */}
           <div className="relative z-10 h-full flex flex-col items-center justify-start text-center px-3 md:px-10 pt-16 sm:pt-14 md:pt-12 lg:pt-16">
