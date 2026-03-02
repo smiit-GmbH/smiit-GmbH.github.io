@@ -269,7 +269,7 @@ export default function Results({ dict, locale }: ResultsProps) {
           <LocalizedLink href="/contact">
             <Button
               variant="outline"
-              className="rounded-xl px-8 py-6 text-base border-black text-black hover:bg-black hover:text-white transition-all duration-300 hover:scale-105 cursor-pointer"
+              className="rounded-xl px-8 py-6 text-base border-black text-black hover:bg-black hover:text-white transition-all duration-300 cursor-pointer"
             >
               {dict.results.button}
               <ChevronRight className="ml-2 h-4 w-4" />

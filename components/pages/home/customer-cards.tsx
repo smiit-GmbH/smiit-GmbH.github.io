@@ -168,17 +168,17 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
 
       const startScrollY = window.scrollY
       const targetScrollY = startScrollY + totalOffset
-      const duration = Math.min(600, Math.max(300, Math.abs(totalOffset) * 1.0))
+      const duration = Math.min(1200, Math.max(600, Math.abs(totalOffset) * 2.0))
       const startTime = performance.now()
 
-      const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3)
+      const easeInOutCubic = (t: number) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
 
       if (centerRafRef.current) window.cancelAnimationFrame(centerRafRef.current)
 
       const animate = (now: number) => {
         const elapsed = now - startTime
         const progress = Math.min(1, elapsed / duration)
-        const eased = easeOutCubic(progress)
+        const eased = easeInOutCubic(progress)
 
         window.scrollTo({ left: window.scrollX, top: startScrollY + totalOffset * eased, behavior: "instant" as ScrollBehavior })
 

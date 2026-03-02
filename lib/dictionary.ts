@@ -79,6 +79,30 @@ const dictionaries = {
       ],
       button: "Bringen Sie Ihr Business voran"
     },
+    products: {
+      title: "Entscheidungen gestützt\nauf Daten, nicht auf Vermutungen",
+      subtitle: "smiit-Produkte verwandeln Rohdaten in klare Erkenntnisse und ermöglichen\nintelligentere, faktenbasierte Geschäftsentscheidungen.",
+      cta: "Kostenloses Erstgespräch buchen",
+      items: [
+        {
+          title: "Product\nScout",
+          text: "KI-gestützte Preisvergleichs-Suchmaschine für Einzelhändler und Handwerker. Durchsuchen Sie alle Ihre Lieferanten gleichzeitig.",
+          image: "/assets/home/product_scout.png",
+        },
+        {
+          title: "smiit Analytics\nfür bexio",
+          text: "Unser bexio Analysedashboard für Schweizer Nutzer automatisiert Ihre Auswertungen und konsolidiert alle KPIs aus bexio in übersichtlichen Reports.",
+          image: "/assets/home/smiit_analytics.png",
+        },
+        {
+          title: "Azai\nElevate",
+          text: "Intelligente Projektmanagement-Plattform mit KI-gestützter Risikoanalyse und automatisierten Workflows für erfolgreiche Projekte.",
+          image: "/assets/home/azai.png",
+        },
+      ],
+      ctaBottom: "Lassen Sie uns über Ihre\nHerausforderungen sprechen",
+      ctaBottomButton: "Kostenloses Erstgespräch buchen",
+    },
   },
   en: {
     hero: {
@@ -156,6 +180,30 @@ const dictionaries = {
         { value: "3", label: "Service areas", text: "Our broad range of expertise enables integrated implementation: data analysis, automation & apps." }
       ],
       button: "Boost your business"
+    },
+    products: {
+      title: "Decisions backed\nby data, not guesswork",
+      subtitle: "smiit products turn raw data into clear insights, enabling\nsmarter, fact-based business decisions.",
+      cta: "Schedule a free demo",
+      items: [
+        {
+          title: "Product\nScout",
+          text: "AI-powered price comparison search engine for retailers and craftsmen. Search all your suppliers simultaneously.",
+          image: "/assets/home/product_scout.png",
+        },
+        {
+          title: "smiit Analytics\nfor bexio",
+          text: "Our bexio analysis dashboard for Swiss users automates your evaluations and consolidates all KPIs from bexio in clear reporting.",
+          image: "/assets/home/smiit_analytics.png",
+        },
+        {
+          title: "Azai\nElevate",
+          text: "Intelligent project management platform with AI-powered risk analysis and automated workflows for successful projects.",
+          image: "/assets/home/azai.png",
+        },
+      ],
+      ctaBottom: "Let's talk about your\nchallenges",
+      ctaBottomButton: "Schedule a free demo",
     },
   },
 }

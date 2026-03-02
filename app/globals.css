@@ -195,3 +195,21 @@
     scrollbar-width: none;
   }
 }
+
+@keyframes products-gradient-shift {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
+.products-gradient-animate {
+  background: linear-gradient(135deg, #A3B9EB 0%, #C4A8F0 25%, #D6BFFB 50%, #B8C8F0 75%, #A3B9EB 100%);
+  background-size: 300% 300%;
+  animation: products-gradient-shift 8s ease infinite;
+}
