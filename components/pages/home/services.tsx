@@ -363,7 +363,7 @@ function MobileServicesStack({
       <div className="sticky top-[80px] z-10 px-0">
         {/* Card viewport — fixed aspect ratio, all layers stacked */}
         <div
-          className="relative w-full rounded-[1.25rem] overflow-hidden"
+          className="relative w-full max-h-[min(70vh,600px)] rounded-[1.25rem] overflow-hidden"
           style={{ aspectRatio: "3 / 4" }}
         >
           {items.map((item, idx) => (
@@ -753,7 +753,7 @@ function DesktopServices({ items }: { items: any[] }) {
   return (
     <div
       ref={containerRef}
-      className="relative w-full min-h-[500px] lg:min-h-[600px] hidden md:block overflow-visible"
+      className="relative w-full min-h-[500px] lg:min-h-[600px] hidden lg:block overflow-visible"
     >
       {/* Nebula gradient background */}
       <div
@@ -905,7 +905,7 @@ export default function Services({ dict }: ServicesProps) {
   return (
     <section className="relative pt-14 pb-8 md:pt-12 md:pb-6">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Desktop: header rendered normally above the cards */}
+        {/* Desktop + Tablet: header rendered normally above the cards */}
         <div className="hidden md:block">{sectionHeader}</div>
 
         {/* Mobile: Sticky-stack with scroll-triggered crossfade (header inside sticky) */}
@@ -915,6 +915,38 @@ export default function Services({ dict }: ServicesProps) {
           ctaText={dict.services.mobileCta}
           ctaButton={dict.services.mobileCtaButton}
         />
+
+        {/* Tablet: simple vertical card list for md–lg range */}
+        <div className="hidden md:flex lg:hidden flex-col gap-5 mt-10">
+          {items.map((item) => (
+            <ServiceCard
+              key={item.title}
+              title={item.title}
+              text={item.text}
+              tags={item.tags}
+              href={getLink(item.title)}
+              imageSrc={getImage(item.title)}
+            />
+          ))}
+          {dict.services.mobileCta && dict.services.mobileCtaButton && (
+            <div className="mt-4 text-center">
+              <p className="text-sm leading-relaxed text-black/75 dark:text-white/75 max-w-[54ch] mx-auto">
+                {dict.services.mobileCta}
+              </p>
+              <div className="mt-4 flex justify-center">
+                <a href="#book">
+                  <Button
+                    variant="outline"
+                    className="rounded-xl px-8 py-6 text-base border-black text-black hover:bg-black hover:text-white transition-all duration-300 hover:scale-105 cursor-pointer"
+                  >
+                    {dict.services.mobileCtaButton}
+                    <ChevronRight className="ml-2 h-4 w-4" />
+                  </Button>
+                </a>
+              </div>
+            </div>
+          )}
+        </div>
 
         <DesktopServices items={items} />
       </div>

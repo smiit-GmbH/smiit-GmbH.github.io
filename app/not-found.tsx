@@ -62,7 +62,7 @@ export default function NotFound() {
 
                   <div className="mt-12 mb-8">
                     <h2 className="text-3xl md:text-4xl mb-4 text-black drop-shadow-[0_1px_2px_rgba(255,255,255,0.4)]">{L.title}</h2>
-                    <p className="text-lg md:text-xl text-black/85 mb-2 drop-shadow-[0_1px_2px_rgba(255,255,255,0.45)]">{L.description}</p>
+                    <p className="text-lg md:text-xl text-black/85 mb-2 drop-shadow-[0_1px_2px_rgba(255,255,255,0.45)] md:max-w-[30ch] md:mx-auto">{L.description}</p>
                   </div>
 
                   <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-10">

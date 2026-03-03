@@ -138,7 +138,7 @@ export default function Products({ dict }: ProductsProps) {
         </motion.div>
 
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-5"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
@@ -147,16 +147,22 @@ export default function Products({ dict }: ProductsProps) {
           {products.items.map(
             (
               item: { title: string; text: string; image: string; href?: string; external?: boolean },
-              idx: number
-            ) => (
-              <ProductCard key={idx} item={item} index={idx} />
-            )
+              idx: number,
+              arr: any[]
+            ) => {
+              const isLastOdd = idx === arr.length - 1 && arr.length % 2 !== 0
+              return (
+                <div key={idx} className={isLastOdd ? "md:col-span-2 md:max-w-[calc(50%-0.625rem)] md:mx-auto lg:col-span-1 lg:max-w-none lg:mx-0" : ""}>
+                  <ProductCard item={item} index={idx} />
+                </div>
+              )
+            }
           )}
         </motion.div>
 
         {/* Desktop CTA – gradient banner */}
         <motion.div
-          className="mt-8 rounded-[1.5rem] overflow-hidden hidden md:flex flex-col items-center justify-center text-center px-6 py-20 products-gradient-animate"
+          className="mt-8 rounded-[1.5rem] overflow-hidden hidden lg:flex flex-col items-center justify-center text-center px-6 py-20 products-gradient-animate"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-30px" }}
@@ -193,7 +199,7 @@ export default function Products({ dict }: ProductsProps) {
 
         {/* Mobile CTA – compact, minimal */}
         <motion.div
-          className="mt-5 md:hidden rounded-2xl border border-black/8 bg-white px-5 py-8"
+          className="mt-5 lg:hidden rounded-2xl border border-black/8 bg-white px-5 py-8"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-30px" }}

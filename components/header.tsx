@@ -109,7 +109,7 @@ export default function Header({ forceLang }: { forceLang?: string }) {
             />
           </Link>
 
-          <div className="hidden md:flex items-center gap-8">
+          <div className="hidden lg:flex items-center gap-8">
             <div className="relative group" onMouseEnter={() => setIsServicesOpen(true)} onMouseLeave={() => setIsServicesOpen(false)}>
               <button
                 className="flex items-center gap-2 rounded-xl bg-transparent px-5 py-2.5 text-sm font-medium text-black hover:bg-black/5 transition-colors cursor-pointer"
@@ -178,16 +178,16 @@ export default function Header({ forceLang }: { forceLang?: string }) {
           </div>
 
           <div className="flex items-center gap-3 sm:gap-6">
-            <a href="#book" className="hidden md:block">
+            <a href="#book" className="hidden lg:block">
               <Button className="bg-[#F703EB] hover:bg-[#DE02D2] text-black rounded-md px-3 py-2 font-medium text-sm tracking-tight cursor-pointer shadow-none border-none">
                 {L.talkToExpert}
               </Button>
             </a>
-            <div className="px-2 hidden md:block">
+            <div className="px-2 hidden lg:block">
               <LanguageSwitcher />
             </div>
 
-            <div className="md:hidden flex items-center gap-2">
+            <div className="lg:hidden flex items-center gap-2">
               <a
                 href="#book"
                 aria-label={L.talkToExpert}

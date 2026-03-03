@@ -96,11 +96,11 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
             }}
           />
 
-          <div className="relative z-20 min-h-screen flex flex-col items-center text-center pt-20 sm:pt-28 pb-24 md:pb-16 md:items-start md:text-left md:pt-36">
+          <div className="relative z-20 min-h-screen flex flex-col items-center text-center pt-20 sm:pt-20 pb-24 md:pb-16 md:items-start md:text-left md:pt-36">
             <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
               <div className="grid lg:grid-cols-14 gap-10 lg:gap-16 items-center">
                 <div className="lg:col-span-8">
-                  <h1 className="font-serif text-[2.8rem] sm:text-[2.75rem] md:text-[2.75rem] lg:text-[3.5rem] xl:text-[4.0rem] leading-[1.04] text-black tracking-tight max-w-[18ch] md:max-w-none mx-auto md:mx-0">
+                  <h1 className="font-serif text-[2.8rem] sm:text-[2.75rem] md:text-[2.75rem] lg:text-[3.5rem] xl:text-[4.0rem] leading-[1.04] text-black tracking-tight max-w-[18ch] md:max-w-[20ch] lg:max-w-none mx-auto md:mx-0">
                     {dict.hero.title}
                   </h1>
 
@@ -121,7 +121,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
             </div>
 
              {/* Mobile CTA */}
-             <div className="md:hidden absolute left-4 right-4 bottom-14 sm:bottom-6">
+             <div className="md:hidden absolute left-4 right-4 bottom-14 sm:bottom-14">
                <Link href={`/${lang}/contact`} scroll={false} className="block">
                 <button className="w-full flex items-center justify-center gap-3 bg-white/80 hover:bg-white/90 border border-black/10 text-black text-center px-5 py-3 rounded-2xl font-semibold text-sm transition-colors backdrop-blur-md cursor-pointer">
                    {dict.hero.cta}
