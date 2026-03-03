@@ -3,6 +3,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react"
 import { motion, useInView, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from "framer-motion"
 import LocalizedLink from "../../localized-link"
+import { useLenis } from "../../smooth-scroll-provider"
 import { DotLottieReact } from "@lottiefiles/dotlottie-react"
 import { Button } from "@/components/ui/button"
 import { ChevronRight } from "lucide-react"
@@ -330,13 +331,18 @@ function MobileServicesStack({
   ctaButton?: string
 }) {
   const count = items.length
+  const lenis = useLenis()
   const scrollAreaRef = useRef<HTMLDivElement>(null)
   const [activeIndex, setActiveIndex] = useState(0)
   const [prevIndex, setPrevIndex] = useState<number | null>(null)
   const [swipeDirection, setSwipeDirection] = useState<1 | -1>(1)
 
+  // Touch/swipe refs
   const touchStartRef = useRef<{ x: number; y: number; time: number } | null>(null)
   const isSwipingRef = useRef(false)
+  // Lock to temporarily ignore scroll-driven index updates after a swipe/dot-click
+  const scrollLockRef = useRef(false)
+  const scrollLockTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const { scrollYProgress } = useScroll({
     target: scrollAreaRef,
@@ -344,6 +350,8 @@ function MobileServicesStack({
   })
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    // Skip scroll-driven updates while a swipe/dot navigation is in progress
+    if (scrollLockRef.current) return
     const raw = latest * count
     const idx = Math.max(0, Math.min(count - 1, Math.floor(raw)))
     setActiveIndex((current) => {
@@ -354,9 +362,18 @@ function MobileServicesStack({
     })
   })
 
+  // Navigate to a specific card index (used by swipe + dot click)
   const goToCard = useCallback(
     (targetIndex: number) => {
       const clamped = Math.max(0, Math.min(count - 1, targetIndex))
+
+      // Lock scroll-driven updates so they don't fight with our direct state change
+      scrollLockRef.current = true
+      if (scrollLockTimerRef.current) clearTimeout(scrollLockTimerRef.current)
+      scrollLockTimerRef.current = setTimeout(() => {
+        scrollLockRef.current = false
+      }, 1200)
+
       setActiveIndex((current) => {
         if (clamped === current) return current
         setPrevIndex(current)
@@ -364,6 +381,7 @@ function MobileServicesStack({
         return clamped
       })
 
+      // Scroll the page so the scroll-based index stays in sync after the lock expires
       const el = scrollAreaRef.current
       if (!el) return
       const rect = el.getBoundingClientRect()
@@ -371,9 +389,15 @@ function MobileServicesStack({
       const totalScrollRange = el.scrollHeight - window.innerHeight
       const targetProgress = (clamped + 0.5) / count
       const targetScroll = absoluteTop + targetProgress * totalScrollRange
-      window.scrollTo({ top: targetScroll, behavior: "smooth" })
+
+      // Use Lenis if available, otherwise fall back to native scrollTo
+      if (lenis) {
+        lenis.scrollTo(targetScroll, { duration: 1.0 })
+      } else {
+        window.scrollTo({ top: targetScroll, behavior: "smooth" })
+      }
     },
-    [count],
+    [count, lenis],
   )
 
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
