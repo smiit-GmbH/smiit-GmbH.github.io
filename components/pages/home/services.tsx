@@ -335,6 +335,9 @@ function MobileServicesStack({
   const [prevIndex, setPrevIndex] = useState<number | null>(null)
   const [swipeDirection, setSwipeDirection] = useState<1 | -1>(1)
 
+  const touchStartRef = useRef<{ x: number; y: number; time: number } | null>(null)
+  const isSwipingRef = useRef(false)
+
   const { scrollYProgress } = useScroll({
     target: scrollAreaRef,
     offset: ["start start", "end end"],
@@ -351,6 +354,71 @@ function MobileServicesStack({
     })
   })
 
+  const goToCard = useCallback(
+    (targetIndex: number) => {
+      const clamped = Math.max(0, Math.min(count - 1, targetIndex))
+      setActiveIndex((current) => {
+        if (clamped === current) return current
+        setPrevIndex(current)
+        setSwipeDirection(clamped > current ? 1 : -1)
+        return clamped
+      })
+
+      const el = scrollAreaRef.current
+      if (!el) return
+      const rect = el.getBoundingClientRect()
+      const absoluteTop = rect.top + window.scrollY
+      const totalScrollRange = el.scrollHeight - window.innerHeight
+      const targetProgress = (clamped + 0.5) / count
+      const targetScroll = absoluteTop + targetProgress * totalScrollRange
+      window.scrollTo({ top: targetScroll, behavior: "smooth" })
+    },
+    [count],
+  )
+
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    const touch = e.touches[0]
+    touchStartRef.current = { x: touch.clientX, y: touch.clientY, time: Date.now() }
+    isSwipingRef.current = false
+  }, [])
+
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    if (!touchStartRef.current) return
+    const touch = e.touches[0]
+    const deltaX = Math.abs(touch.clientX - touchStartRef.current.x)
+    const deltaY = Math.abs(touch.clientY - touchStartRef.current.y)
+
+    if (deltaX > deltaY && deltaX > 10) {
+      isSwipingRef.current = true
+    }
+  }, [])
+
+  const handleTouchEnd = useCallback(
+    (e: React.TouchEvent) => {
+      if (!touchStartRef.current) return
+      const touch = e.changedTouches[0]
+      const deltaX = touch.clientX - touchStartRef.current.x
+      const deltaTime = Date.now() - touchStartRef.current.time
+      const velocity = Math.abs(deltaX) / deltaTime // px/ms
+
+      touchStartRef.current = null
+
+      if (!isSwipingRef.current) return
+      isSwipingRef.current = false
+
+      const isSwipe = Math.abs(deltaX) > 50 || velocity > 0.3
+
+      if (!isSwipe) return
+
+      if (deltaX < 0 && activeIndex < count - 1) {
+        goToCard(activeIndex + 1)
+      } else if (deltaX > 0 && activeIndex > 0) {
+        goToCard(activeIndex - 1)
+      }
+    },
+    [activeIndex, count, goToCard],
+  )
+
   return (
     <div
       ref={scrollAreaRef}
@@ -365,6 +433,9 @@ function MobileServicesStack({
         <div
           className="relative w-full max-h-[min(70vh,600px)] rounded-[1.25rem] overflow-hidden"
           style={{ aspectRatio: "3 / 4" }}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
         >
           {items.map((item, idx) => (
             <MobileCardLayer
@@ -378,12 +449,22 @@ function MobileServicesStack({
           ))}
         </div>
 
-        {/* Dot indicator */}
+        {/* Dot indicator — clickable */}
         <div className="flex justify-center gap-2 mt-4 mb-6">
           {items.map((item, idx) => (
             <motion.div
               key={item.title}
-              className="rounded-full"
+              className="rounded-full cursor-pointer"
+              role="button"
+              aria-label={`Go to card ${idx + 1}`}
+              tabIndex={0}
+              onClick={() => goToCard(idx)}
+              onKeyDown={(e: React.KeyboardEvent) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault()
+                  goToCard(idx)
+                }
+              }}
               animate={{
                 width: idx === activeIndex ? 24 : 8,
                 backgroundColor:
