@@ -41,7 +41,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
         style={{ pointerEvents: contentVisible ? "auto" : "none" }}
         aria-hidden={!contentVisible}
       >
-        <section className="relative isolate min-h-[680px] h-[95svh] md:h-[105vh] overflow-hidden rounded-b-[1.75rem]">
+        <section className="relative isolate min-h-[680px] h-[95vh] md:h-[105vh] overflow-hidden rounded-b-[1.75rem]">
           <div className="absolute inset-0 z-0">
             {/* Mobile hero */}
             <Image
@@ -96,7 +96,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
             }}
           />
 
-          <div className="relative z-20 h-full flex flex-col items-center text-center pt-20 sm:pt-20 pb-24 md:pb-16 md:items-start md:text-left md:pt-36">
+          <div className="relative z-20 min-h-screen flex flex-col items-center text-center pt-20 sm:pt-20 pb-24 md:pb-16 md:items-start md:text-left md:pt-36">
             <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
               <div className="grid lg:grid-cols-14 gap-10 lg:gap-16 items-center">
                 <div className="lg:col-span-8">
