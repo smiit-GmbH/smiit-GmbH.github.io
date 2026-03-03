@@ -100,7 +100,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
             <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
               <div className="grid lg:grid-cols-14 gap-10 lg:gap-16 items-center">
                 <div className="lg:col-span-8">
-                  <h1 className="font-serif text-[2.8rem] sm:text-[2.75rem] md:text-[2.75rem] lg:text-[3.5rem] xl:text-[4.0rem] leading-[1.04] text-black tracking-tight max-w-[18ch] md:max-w-[20ch] lg:max-w-none mx-auto md:mx-0">
+                  <h1 className="font-serif text-[2.5rem] sm:text-[2.75rem] md:text-[2.75rem] lg:text-[3.5rem] xl:text-[4.0rem] leading-[1.04] text-black tracking-tight max-w-[18ch] md:max-w-[20ch] lg:max-w-none mx-auto md:mx-0">
                     {dict.hero.title}
                   </h1>
 

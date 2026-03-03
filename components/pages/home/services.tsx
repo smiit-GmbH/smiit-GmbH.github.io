@@ -473,32 +473,29 @@ function MobileServicesStack({
           ))}
         </div>
 
-        {/* Dot indicator — clickable */}
-        <div className="flex justify-center gap-2 mt-4 mb-6">
+        {/* Dot indicator — clickable with generous tap target */}
+        <div className="flex justify-center gap-0 mt-2 mb-4">
           {items.map((item, idx) => (
-            <motion.div
+            <button
               key={item.title}
-              className="rounded-full cursor-pointer"
-              role="button"
+              type="button"
+              className="flex items-center justify-center px-1.5 py-3 cursor-pointer bg-transparent border-none outline-none"
               aria-label={`Go to card ${idx + 1}`}
-              tabIndex={0}
               onClick={() => goToCard(idx)}
-              onKeyDown={(e: React.KeyboardEvent) => {
-                if (e.key === "Enter" || e.key === " ") {
-                  e.preventDefault()
-                  goToCard(idx)
-                }
-              }}
-              animate={{
-                width: idx === activeIndex ? 24 : 8,
-                backgroundColor:
-                  idx === activeIndex
-                    ? "rgba(0, 0, 0, 0.85)"
-                    : "rgba(0, 0, 0, 0.15)",
-              }}
-              transition={{ duration: 0.35, ease: "easeInOut" }}
-              style={{ height: 8 }}
-            />
+            >
+              <motion.div
+                className="rounded-full"
+                animate={{
+                  width: idx === activeIndex ? 24 : 8,
+                  backgroundColor:
+                    idx === activeIndex
+                      ? "rgba(0, 0, 0, 0.85)"
+                      : "rgba(0, 0, 0, 0.15)",
+                }}
+                transition={{ duration: 0.35, ease: "easeInOut" }}
+                style={{ height: 8 }}
+              />
+            </button>
           ))}
         </div>
 
