@@ -41,7 +41,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
         style={{ pointerEvents: contentVisible ? "auto" : "none" }}
         aria-hidden={!contentVisible}
       >
-        <section className="relative isolate min-h-[680px] h-[95vh] md:h-[105vh] overflow-hidden rounded-b-[1.75rem]">
+        <section className="relative isolate min-h-[680px] h-[100svh] md:h-[105vh] overflow-hidden rounded-b-[1.75rem]">
           <div className="absolute inset-0 z-0">
             {/* Mobile hero */}
             <Image
@@ -96,7 +96,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
             }}
           />
 
-          <div className="relative z-20 min-h-screen flex flex-col items-center text-center pt-20 sm:pt-20 pb-24 md:pb-16 md:items-start md:text-left md:pt-36">
+          <div className="relative z-20 min-h-[100svh] flex flex-col items-center text-center pt-20 sm:pt-20 pb-24 md:pb-16 md:items-start md:text-left md:pt-36">
             <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
               <div className="grid lg:grid-cols-14 gap-10 lg:gap-16 items-center">
                 <div className="lg:col-span-8">
@@ -121,7 +121,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
             </div>
 
              {/* Mobile CTA */}
-             <div className="md:hidden absolute left-4 right-4 bottom-14 sm:bottom-14">
+             <div className="md:hidden absolute left-4 right-4 bottom-4 sm:bottom-14">
                <Link href={`/${lang}/contact`} scroll={false} className="block">
                 <button className="w-full flex items-center justify-center gap-3 bg-white/80 hover:bg-white/90 border border-black/10 text-black text-center px-5 py-3 rounded-2xl font-semibold text-sm transition-colors backdrop-blur-md cursor-pointer">
                    {dict.hero.cta}
