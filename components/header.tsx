@@ -47,7 +47,7 @@ export default function Header({ forceLang }: { forceLang?: string }) {
           products: "Produkte",
           services: "Dienstleistungen",
           about: "Über uns",
-          talkToExpert: "Sprechen Sie mit uns",
+          talkToExpert: "Kontaktieren Sie uns",
           smiitAnalytics: "smiit Analytics für bexio",
           productScout: "Product Scout",
           azaiElevate: "Azai Elevate",
@@ -178,11 +178,11 @@ export default function Header({ forceLang }: { forceLang?: string }) {
           </div>
 
           <div className="flex items-center gap-3 sm:gap-6">
-            <a href="#book" className="hidden lg:block">
-              <Button className="bg-[#F703EB] hover:bg-[#DE02D2] text-black rounded-md px-3 py-2 font-medium text-sm tracking-tight cursor-pointer shadow-none border-none">
+            <Link href={contactHref} scroll={false} className="hidden lg:block">
+              <Button className="bg-[#F703EB] hover:bg-[#DE02D2] text-white rounded-md px-3 py-2 font-medium text-sm tracking-tight cursor-pointer shadow-none border-none">
                 {L.talkToExpert}
               </Button>
-            </a>
+            </Link>
             <div className="px-2 hidden lg:block">
               <LanguageSwitcher />
             </div>
@@ -330,7 +330,7 @@ export default function Header({ forceLang }: { forceLang?: string }) {
                   <SheetFooter>
                     <SheetClose asChild>
                       <Link href={contactHref} scroll={false}>
-                        <Button className="w-full bg-[#F703EB] hover:bg-[#DE02D2] text-black rounded-md px-3 py-2 font-medium text-sm tracking-tight cursor-pointer shadow-none border-none">
+                        <Button className="w-full bg-[#F703EB] hover:bg-[#DE02D2] text-white rounded-md px-3 py-2 font-medium text-sm tracking-tight cursor-pointer shadow-none border-none">
                           {L.talkToExpert}
                         </Button>
                       </Link>
