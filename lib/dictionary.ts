@@ -108,6 +108,21 @@ const dictionaries = {
       ctaSubtext: "Wir beraten Sie unverbindlich zu Ihren Möglichkeiten.",
       ctaBottomButton: "Kostenloses Erstgespräch buchen",
     },
+    aboutPage: {
+      titlePrefix: "Digitale Transformation. Weite Expertise. ",
+      titleHighlight: "Nachhaltiger",
+      titleSuffix: " Mehrwert.",
+      description: "Wir sind ein IT-Unternehmen mit der Vision, kleine und mittelständische Unternehmen im DACH-Raum zu digitalisieren - durch maßgeschneiderte Lösungen in den Bereichen Datenanalyse, Automatisierung und App-Entwicklung.",
+      primaryButton: "Kostenloses Erstgespräch",
+      secondaryButton: "Unsere Services",
+      features: [
+        "5+ Jahre Erfahrung",
+        "DACH-weiter Fokus",
+        "In-House Entwicklung"
+      ],
+      ourClients: "Unsere Kunden",
+      overview: "Übersicht"
+    },
     contact: {
       titlePrefix: "",
       titleHighlight: "Kontaktieren",
@@ -277,6 +292,21 @@ const dictionaries = {
       ctaBottom: "Let's talk about your\nchallenges",
       ctaSubtext: "We'll advise you on your options — no strings attached.",
       ctaBottomButton: "Schedule a free demo",
+    },
+    aboutPage: {
+      titlePrefix: "Digital transformation. Wide expertise. ",
+      titleHighlight: "Sustainable",
+      titleSuffix: " value.",
+      description: "We are an IT company with the vision of digitizing small and medium-sized enterprises in the DACH region - through tailored solutions in data analytics, automation, and app development.",
+      primaryButton: "Free Consultation",
+      secondaryButton: "Our Services",
+      features: [
+        "5+ years experience",
+        "DACH-wide focus",
+        "In-house development"
+      ],
+      ourClients: "Our Clients",
+      overview: "Overview"
     },
     contact: {
       titlePrefix: "Get in ",

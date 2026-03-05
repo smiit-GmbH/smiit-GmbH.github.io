@@ -70,7 +70,7 @@ export default function ContactInfo({ dict }: ContactInfoProps) {
                 href={member.cvLink}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-1.5 flex items-center gap-1.5 text-[11px] sm:text-xs text-[#F703EB] hover:text-[#F703EB]/80 transition-colors font-medium"
+                className="mt-1.5 flex items-center gap-1.5 text-[11px] sm:text-xs text-black/60 hover:text-black transition-colors break-all"
               >
                 <ExternalLink className="w-3 h-3 shrink-0" />
                 {info.cvLinkText || "Lebenslauf"}

@@ -1,6 +1,5 @@
-import type { Metadata } from "next"
 import { getDictionary, Locale } from "@/lib/dictionary"
-import ContactPage from "@/components/pages/ContactPage"
+import AboutPage from "@/components/pages/AboutPage"
 
 export async function generateStaticParams() {
   return [{ lang: "de" }, { lang: "en" }]
@@ -14,5 +13,5 @@ export default async function Page({
   const { lang } = await params
   const dict = getDictionary(lang)
 
-  return <ContactPage lang={lang} dict={dict} />
+  return <AboutPage lang={lang} dict={dict} />
 }

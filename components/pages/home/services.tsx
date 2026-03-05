@@ -150,9 +150,9 @@ function ServiceCard({
 
 function getLink(title: string) {
   const t = title.toLowerCase()
-  if (t.includes("consulting") || t.includes("beratung")) return "/consulting"
-  if (t.includes("analysis") || t.includes("analyse")) return "/analytics"
-  if (t.includes("app") || t.includes("workflow")) return "/apps"
+  if (t.includes("consulting") || t.includes("beratung")) return "/services/consulting"
+  if (t.includes("analysis") || t.includes("analyse")) return "/services/analytics"
+  if (t.includes("app") || t.includes("workflow")) return "/services/apps"
   return undefined
 }
 

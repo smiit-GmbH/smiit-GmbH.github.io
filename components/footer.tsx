@@ -59,9 +59,9 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
         }
 
   const homeHref = `${base}/`
-  const appsHref = `${base}/apps`
-  const analyticsHref = `${base}/analytics`
-  const consultingHref = `${base}/consulting`
+  const appsHref = `${base}/services/apps`
+  const analyticsHref = `${base}/services/analytics`
+  const consultingHref = `${base}/services/consulting`
   const aboutHref = `${base}/about`
   const productsHref = `${base}/products`
   const imprintHref = `${base}/legal-notice`
