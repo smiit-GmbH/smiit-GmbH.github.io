@@ -337,9 +337,6 @@ function MobileServicesStack({
   const [prevIndex, setPrevIndex] = useState<number | null>(null)
   const [swipeDirection, setSwipeDirection] = useState<1 | -1>(1)
 
-  // Touch/swipe refs
-  const touchStartRef = useRef<{ x: number; y: number; time: number } | null>(null)
-  const isSwipingRef = useRef(false)
   // Lock to temporarily ignore scroll-driven index updates after a swipe/dot-click
   const scrollLockRef = useRef(false)
   const scrollLockTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -400,49 +397,6 @@ function MobileServicesStack({
     [count, lenis],
   )
 
-  const handleTouchStart = useCallback((e: React.TouchEvent) => {
-    const touch = e.touches[0]
-    touchStartRef.current = { x: touch.clientX, y: touch.clientY, time: Date.now() }
-    isSwipingRef.current = false
-  }, [])
-
-  const handleTouchMove = useCallback((e: React.TouchEvent) => {
-    if (!touchStartRef.current) return
-    const touch = e.touches[0]
-    const deltaX = Math.abs(touch.clientX - touchStartRef.current.x)
-    const deltaY = Math.abs(touch.clientY - touchStartRef.current.y)
-
-    if (deltaX > deltaY && deltaX > 10) {
-      isSwipingRef.current = true
-    }
-  }, [])
-
-  const handleTouchEnd = useCallback(
-    (e: React.TouchEvent) => {
-      if (!touchStartRef.current) return
-      const touch = e.changedTouches[0]
-      const deltaX = touch.clientX - touchStartRef.current.x
-      const deltaTime = Date.now() - touchStartRef.current.time
-      const velocity = Math.abs(deltaX) / deltaTime // px/ms
-
-      touchStartRef.current = null
-
-      if (!isSwipingRef.current) return
-      isSwipingRef.current = false
-
-      const isSwipe = Math.abs(deltaX) > 50 || velocity > 0.3
-
-      if (!isSwipe) return
-
-      if (deltaX < 0 && activeIndex < count - 1) {
-        goToCard(activeIndex + 1)
-      } else if (deltaX > 0 && activeIndex > 0) {
-        goToCard(activeIndex - 1)
-      }
-    },
-    [activeIndex, count, goToCard],
-  )
-
   return (
     <div
       ref={scrollAreaRef}
@@ -453,50 +407,49 @@ function MobileServicesStack({
       {header && <div className="mb-5">{header}</div>}
 
       <div className="sticky top-[80px] z-10 px-0">
-        {/* Card viewport — fixed aspect ratio, all layers stacked */}
-        <div
-          className="relative w-full max-h-[min(70vh,600px)] rounded-[1.25rem] overflow-hidden"
-          style={{ aspectRatio: "3 / 4" }}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
-        >
-          {items.map((item, idx) => (
-            <MobileCardLayer
-              key={item.title}
-              item={item}
-              state={idx === activeIndex ? "active" : idx === prevIndex ? "prev" : "idle"}
-              swipeDirection={swipeDirection}
-              href={getLink(item.title)}
-              imageSrc={getImage(item.title)}
-            />
-          ))}
-        </div>
-
-        {/* Dot indicator — clickable with generous tap target */}
-        <div className="flex justify-center gap-0 mt-2 mb-4">
-          {items.map((item, idx) => (
-            <button
-              key={item.title}
-              type="button"
-              className="flex items-center justify-center px-1.5 py-3 cursor-pointer bg-transparent border-none outline-none"
-              aria-label={`Go to card ${idx + 1}`}
-              onClick={() => goToCard(idx)}
-            >
-              <motion.div
-                className="rounded-full"
-                animate={{
-                  width: idx === activeIndex ? 24 : 8,
-                  backgroundColor:
-                    idx === activeIndex
-                      ? "rgba(0, 0, 0, 0.85)"
-                      : "rgba(0, 0, 0, 0.15)",
-                }}
-                transition={{ duration: 0.35, ease: "easeInOut" }}
-                style={{ height: 8 }}
+        <div className="flex items-center gap-2">
+          {/* Card viewport — fixed aspect ratio, all layers stacked */}
+          <div
+            className="relative flex-1 max-h-[min(70vh,600px)] rounded-[1.25rem] overflow-hidden"
+            style={{ aspectRatio: "3 / 4" }}
+          >
+            {items.map((item, idx) => (
+              <MobileCardLayer
+                key={item.title}
+                item={item}
+                state={idx === activeIndex ? "active" : idx === prevIndex ? "prev" : "idle"}
+                swipeDirection={swipeDirection}
+                href={getLink(item.title)}
+                imageSrc={getImage(item.title)}
               />
-            </button>
-          ))}
+            ))}
+          </div>
+
+          {/* Dot indicator — vertical on the right side of cards */}
+          <div className="flex flex-col items-center justify-center gap-1 py-2 pr-0.5">
+            {items.map((item, idx) => (
+              <button
+                key={item.title}
+                type="button"
+                className="flex items-center justify-center px-2 py-1.5 cursor-pointer bg-transparent border-none outline-none"
+                aria-label={`Go to card ${idx + 1}`}
+                onClick={() => goToCard(idx)}
+              >
+                <motion.div
+                  className="rounded-full"
+                  animate={{
+                    height: idx === activeIndex ? 24 : 8,
+                    backgroundColor:
+                      idx === activeIndex
+                        ? "rgba(0, 0, 0, 0.85)"
+                        : "rgba(0, 0, 0, 0.15)",
+                  }}
+                  transition={{ duration: 0.35, ease: "easeInOut" }}
+                  style={{ width: 8 }}
+                />
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* CTA — sticky together with cards on mobile */}
