@@ -45,8 +45,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
           relative isolate overflow-hidden rounded-b-[1.75rem]
           min-h-[680px]
           h-[105vh]
-          supports-[height:100svh]:h-[105svh]
-          supports-[height:100dvh]:h-[105dvh]
+          supports-[height:100lvh]:h-[105lvh]
         ">
           <div className="absolute inset-0 z-0">
             {/* Mobile hero */}
