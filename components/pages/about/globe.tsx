@@ -94,10 +94,28 @@ export function Globe({ progress }: GlobeProps) {
 
   const [isMounted, setIsMounted] = useState(false);
   const [isGlobeReady, setIsGlobeReady] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
   const [dimensions, setDimensions] = useState({ width: 520, height: 520 });
   const [viewBlend, setViewBlend] = useState(0);
   const [showLocations, setShowLocations] = useState(false);
   const [countriesGeoJson, setCountriesGeoJson] = useState<GeoJSON.FeatureCollection | null>(null);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const mediaQuery = window.matchMedia("(hover: none), (pointer: coarse)");
+    const updateTouchCapability = () => setIsTouchDevice(mediaQuery.matches);
+
+    updateTouchCapability();
+
+    if (typeof mediaQuery.addEventListener === "function") {
+      mediaQuery.addEventListener("change", updateTouchCapability);
+      return () => mediaQuery.removeEventListener("change", updateTouchCapability);
+    }
+
+    mediaQuery.addListener(updateTouchCapability);
+    return () => mediaQuery.removeListener(updateTouchCapability);
+  }, []);
 
   const smoothedProgress = useMemo(() => {
     // Reduce high-frequency prop jitter while preserving visual continuity.
@@ -356,6 +374,9 @@ export function Globe({ progress }: GlobeProps) {
     const controls = globe.controls();
     controls.autoRotate = false;
     controls.enableZoom = false;
+    controls.enableRotate = false;
+    controls.enablePan = false;
+    controls.enableDamping = false;
 
     globe.pointOfView(OVERVIEW_POV, 0);
   }, [isGlobeReady]);
@@ -396,7 +417,9 @@ export function Globe({ progress }: GlobeProps) {
             height: dimensions.height,
             borderRadius: '50%',
             boxShadow: viewBlend > 0.01 ? `inset 0 0 ${40 * viewBlend}px ${20 * viewBlend}px var(--background)` : 'none',
-            transition: 'box-shadow 300ms ease'
+            transition: 'box-shadow 300ms ease',
+            touchAction: 'pan-y',
+            pointerEvents: isTouchDevice ? 'none' : 'auto'
           }}
         >
           {isMounted && (
@@ -432,6 +455,7 @@ export function Globe({ progress }: GlobeProps) {
               arcDashInitialGap="dashOffset"
               arcDashAnimateTime={4600}
               arcsTransitionDuration={250}
+              enablePointerInteraction={!isTouchDevice}
               htmlElementsData={points}
               htmlLat="lat"
               htmlLng="lng"
