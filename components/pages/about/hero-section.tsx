@@ -46,13 +46,13 @@ export function HeroSection({
   const a = dict.aboutPage
 
   return (
-    <section ref={containerRef} className="relative lg:h-[200vh]">
+    <section ref={containerRef} className="relative overflow-x-clip lg:h-[200vh]">
       <div className="lg:sticky lg:top-0 lg:h-[100dvh] flex items-start lg:items-center pt-28 sm:pt-32 lg:pt-24 pb-12 lg:pb-16">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <div className="grid gap-6 sm:gap-10 lg:gap-16 xl:gap-20 lg:grid-cols-2 items-center">
             
             {/* Left Column: Text Content */}
-            <div className="flex flex-col space-y-6 lg:space-y-10 z-10">
+            <div className="min-w-0 flex flex-col space-y-6 lg:space-y-10 z-10">
               <div className="flex flex-col items-start w-full">
                 <h1 className="font-serif text-[2rem] sm:text-[3.15rem] lg:text-[3rem] xl:text-[3.4rem] leading-tight text-black">
                   {a.titlePrefix}
@@ -106,8 +106,8 @@ export function HeroSection({
               </div>
             </div>
 
-            <div className="flex flex-col items-center w-full mt-12 lg:mt-0">
-              <div className="relative h-[300px] sm:h-[500px] lg:h-[700px] w-full flex items-center justify-center">
+            <div className="min-w-0 flex flex-col items-center w-full mt-12 lg:mt-0">
+              <div className="relative h-[400px] sm:h-[500px] lg:h-[700px] w-full flex items-center justify-center">
                 <div className="absolute inset-0 bg-gradient-to-tr from-[#16aea3]/5 to-transparent rounded-full blur-3xl -z-10 transform scale-110" />
                 <Globe progress={progress} />
               </div>

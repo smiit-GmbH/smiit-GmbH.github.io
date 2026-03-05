@@ -367,13 +367,13 @@ export function Globe({ progress }: GlobeProps) {
   }, []);
 
   return (
-    <div className="relative h-full min-h-0 w-full">
+    <div className="relative h-full min-h-0 w-full overflow-x-clip">
       <div
         ref={globeWrapRef}
-        className="mx-auto flex h-full min-h-0 w-full max-w-[48rem] items-center justify-center"
+        className="mx-auto flex h-full min-h-0 w-full max-w-[48rem] items-center justify-center overflow-hidden"
       >
         <div 
-          className="relative flex items-center justify-center overflow-hidden"
+          className="relative max-w-full flex items-center justify-center overflow-hidden"
           style={{
             width: dimensions.width,
             height: dimensions.height,
