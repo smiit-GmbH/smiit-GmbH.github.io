@@ -411,7 +411,7 @@ function MobileServicesStack({
           {/* Card viewport — fixed aspect ratio, all layers stacked */}
           <div
             className="relative flex-1 max-h-[min(70vh,600px)] rounded-[1.25rem] overflow-hidden"
-            style={{ aspectRatio: "3 / 4" }}
+            style={{ aspectRatio: "3 / 5" }}
           >
             {items.map((item, idx) => (
               <MobileCardLayer
