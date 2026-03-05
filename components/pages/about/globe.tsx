@@ -22,7 +22,31 @@ type GlobeArc = {
   dashOffset: number;
 };
 
-const ReactGlobe = dynamic(() => import("react-globe.gl"), { ssr: false });
+const reactGlobeModulePromise = import("react-globe.gl");
+const ReactGlobe = dynamic(() => reactGlobeModulePromise, { ssr: false });
+
+let countriesGeoJsonPromise: Promise<GeoJSON.FeatureCollection | null> | null = null;
+
+function loadCountriesGeoJson() {
+  if (!countriesGeoJsonPromise) {
+    countriesGeoJsonPromise = fetch("/data/world.geojson")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Failed to load world geojson");
+        }
+
+        return response.json() as Promise<GeoJSON.FeatureCollection>;
+      })
+      .catch(() => null);
+  }
+
+  return countriesGeoJsonPromise;
+}
+
+if (typeof window !== "undefined") {
+  void reactGlobeModulePromise;
+  void loadCountriesGeoJson();
+}
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -156,18 +180,11 @@ export function Globe({ progress }: GlobeProps) {
   useEffect(() => {
     let mounted = true;
 
-    fetch("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/world.geojson")
-      .then((response) => response.json())
-      .then((data: GeoJSON.FeatureCollection) => {
-        if (mounted) {
-          setCountriesGeoJson(data);
-        }
-      })
-      .catch(() => {
-        if (mounted) {
-          setCountriesGeoJson(null);
-        }
-      });
+    loadCountriesGeoJson().then((data) => {
+      if (mounted) {
+        setCountriesGeoJson(data);
+      }
+    });
 
     return () => {
       mounted = false;
