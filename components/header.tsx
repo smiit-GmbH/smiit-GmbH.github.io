@@ -207,8 +207,8 @@ export default function Header({ forceLang }: { forceLang?: string }) {
                   </button>
                 </SheetTrigger>
 
-                <SheetContent side="right" className="bg-white/95 backdrop-blur-md border-black/10">
-                  <SheetHeader>
+                <SheetContent side="right" className="bg-white/95 backdrop-blur-md border-black/10 gap-[clamp(0.5rem,1.6vh,1rem)]">
+                  <SheetHeader className="px-4 pt-[clamp(0.625rem,2vh,1rem)] pb-[clamp(0.5rem,1.6vh,1rem)]">
                     <SheetTitle>{lang === "de" ? "Menü" : "Menu"}</SheetTitle>
 
                     <div className="mt-3 flex items-center justify-between">
@@ -246,17 +246,17 @@ export default function Header({ forceLang }: { forceLang?: string }) {
                     </div>
                   </SheetHeader>
 
-                  <div className="flex-1 overflow-y-auto px-4 pb-4">
-                    <div className="space-y-7">
+                  <div className="flex-1 overflow-y-auto px-4 pb-[clamp(0.625rem,1.8vh,1rem)]">
+                    <div className="space-y-[clamp(0.5rem,3.5vh,1.75rem)]">
 
                       <div>
                         <p className="text-sm font-semibold text-black">{lang === "de" ? "Startseite" : "Homepage"}</p>
-                        <div className="mt-3 space-y-1">
+                        <div className="mt-[clamp(0.25rem,1.6vh,0.75rem)] space-y-1">
                           <SheetClose asChild>
                             <Link
                               href={homeHref}
                               scroll={false}
-                              className="block rounded-xl px-3 py-2 text-sm text-black/80 hover:bg-black/[0.04]"
+                              className="block rounded-xl px-3 py-[clamp(0.4rem,1.2vh,0.5rem)] text-sm text-black/80 hover:bg-black/[0.04]"
                             >
                               {L.home}
                             </Link>
@@ -266,13 +266,13 @@ export default function Header({ forceLang }: { forceLang?: string }) {
 
                       <div>
                         <p className="text-sm font-semibold text-black">{L.services}</p>
-                        <div className="mt-3 space-y-1">
+                        <div className="mt-[clamp(0.25rem,1.6vh,0.75rem)] space-y-1">
                           {servicesLinks.map((item) => (
                             <SheetClose asChild key={item.href}>
                               <Link
                                 href={item.href}
                                 scroll={false}
-                                className="block rounded-xl px-3 py-2 text-sm text-black/80 hover:bg-black/[0.04]"
+                                className="block rounded-xl px-3 py-[clamp(0.4rem,1.2vh,0.5rem)] text-sm text-black/80 hover:bg-black/[0.04]"
                               >
                                 {item.label}
                               </Link>
@@ -283,7 +283,7 @@ export default function Header({ forceLang }: { forceLang?: string }) {
 
                       <div>
                         <p className="text-sm font-semibold text-black">{L.products}</p>
-                        <div className="mt-3 space-y-1">
+                        <div className="mt-[clamp(0.25rem,1.6vh,0.75rem)] space-y-1">
                           {productLinks.map((item) =>
                             item.type === "external" ? (
                               <a
@@ -291,7 +291,7 @@ export default function Header({ forceLang }: { forceLang?: string }) {
                                 href={item.href}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="block rounded-xl px-3 py-2 text-sm text-black/80 hover:bg-black/[0.04]"
+                                className="block rounded-xl px-3 py-[clamp(0.4rem,1.2vh,0.5rem)] text-sm text-black/80 hover:bg-black/[0.04]"
                               >
                                 {item.label}
                               </a>
@@ -300,7 +300,7 @@ export default function Header({ forceLang }: { forceLang?: string }) {
                                 <Link
                                   href={item.href}
                                   scroll={false}
-                                  className="block rounded-xl px-3 py-2 text-sm text-black/80 hover:bg-black/[0.04]"
+                                  className="block rounded-xl px-3 py-[clamp(0.4rem,1.2vh,0.5rem)] text-sm text-black/80 hover:bg-black/[0.04]"
                                 >
                                   {item.label}
                                 </Link>
@@ -312,12 +312,12 @@ export default function Header({ forceLang }: { forceLang?: string }) {
 
                       <div>
                         <p className="text-sm font-semibold text-black">{lang === "de" ? "Unternehmen" : "Company"}</p>
-                        <div className="mt-3 space-y-1">
+                        <div className="mt-[clamp(0.25rem,1.6vh,0.75rem)] space-y-1">
                           <SheetClose asChild>
                             <Link
                               href={aboutHref}
                               scroll={false}
-                              className="block rounded-xl px-3 py-2 text-sm text-black/80 hover:bg-black/[0.04]"
+                              className="block rounded-xl px-3 py-[clamp(0.4rem,1.2vh,0.5rem)] text-sm text-black/80 hover:bg-black/[0.04]"
                             >
                               {L.about}
                             </Link>
@@ -327,10 +327,10 @@ export default function Header({ forceLang }: { forceLang?: string }) {
                     </div>
                   </div>
 
-                  <SheetFooter>
+                  <SheetFooter className="px-4 pb-[clamp(0.625rem,1.8vh,1rem)] pt-[clamp(0.5rem,1.4vh,0.75rem)]">
                     <SheetClose asChild>
                       <Link href={contactHref} scroll={false}>
-                        <Button className="w-full bg-[#F703EB] hover:bg-[#DE02D2] text-white rounded-md px-3 py-2 font-medium text-sm tracking-tight cursor-pointer shadow-none border-none">
+                        <Button className="w-full bg-[#F703EB] hover:bg-[#DE02D2] text-white rounded-md px-3 py-[clamp(0.4rem,1.2vh,0.5rem)] font-medium text-sm tracking-tight cursor-pointer shadow-none border-none">
                           {L.talkToExpert}
                         </Button>
                       </Link>
