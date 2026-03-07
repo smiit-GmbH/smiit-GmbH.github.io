@@ -121,7 +121,25 @@ const dictionaries = {
         "In-House Entwicklung"
       ],
       ourClients: "Unsere Kunden",
-      overview: "Übersicht"
+      overview: "Übersicht",
+      mission: {
+        title: "Unsere Mission & Werte",
+        subtitle: "Wir möchten Veränderungen bewirken und unseren Kunden klare Einblicke\nermöglichen, wertvolle Zeit sparen und moderne Arbeitsweisen etablieren",
+        values: [
+          {
+            title: "Vertrauen & Engagement",
+            text: "Erfolgreiche Projekte entstehen nur durch gegenseitiges Vertrauen und Engagement. Wir bringen unsere Expertise ein – und erwarten die gleiche Offenheit und Beteiligung von unseren Partnern.",
+          },
+          {
+            title: "Nachhaltige Qualität",
+            text: "Wir entwickeln Lösungen, die langfristig funktionieren. Qualität braucht manchmal mehr Zeit – dafür entstehen Systeme, die skalierbar, wartbar und nachhaltig nutzbar sind.",
+          },
+          {
+            title: "Partnerschaftliche Zusammenarbeit",
+            text: "Wir arbeiten nicht für unsere Kunden – sondern mit ihnen. Offene Kommunikation, Zusammenarbeit auf Augenhöhe und Freude an gemeinsamen Projekten sind für uns die Grundlage erfolgreicher Ergebnisse.",
+          },
+        ],
+      },
     },
     contact: {
       titlePrefix: "",
@@ -306,7 +324,25 @@ const dictionaries = {
         "In-house development"
       ],
       ourClients: "Our Clients",
-      overview: "Overview"
+      overview: "Overview",
+      mission: {
+        title: "Our Mission & Values",
+        subtitle: "We want to drive change and give our clients clear insights,\nsave valuable time, and establish modern ways of working",
+        values: [
+          {
+            title: "Trust & Commitment",
+            text: "Successful projects are built on mutual trust and commitment. We bring our expertise – and expect the same openness and involvement from our partners.",
+          },
+          {
+            title: "Sustainable Quality",
+            text: "We develop solutions that work long-term. Quality sometimes takes more time – but the result is systems that are scalable, maintainable, and sustainably usable.",
+          },
+          {
+            title: "Collaborative Partnership",
+            text: "We don't work for our clients – we work with them. Open communication, collaboration at eye level, and joy in shared projects are the foundation of successful outcomes.",
+          },
+        ],
+      },
     },
     contact: {
       titlePrefix: "Get in ",

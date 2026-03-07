@@ -2,6 +2,7 @@
 
 import type { Locale } from "@/lib/dictionary"
 import { HeroSection } from "@/components/pages/about/hero-section"
+import { MissionSection } from "@/components/pages/about/mission"
 
 export default function AboutPage({
   lang,
@@ -13,6 +14,7 @@ export default function AboutPage({
   return (
     <main>
       <HeroSection lang={lang} dict={dict} />
+      <MissionSection dict={dict} />
     </main>
   )
 }
