@@ -92,7 +92,7 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
               </div>
             </div>
 
-            <p className="text-md text-black leading-relaxed max-w-sm">
+            <p className="text-sm sm:text-md text-black leading-relaxed max-w-sm">
               {L.companyBlurb}
             </p>
           </div>

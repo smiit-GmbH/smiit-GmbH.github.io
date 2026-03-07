@@ -106,7 +106,7 @@ export function HeroSection({
               </div>
             </div>
 
-            <div className="min-w-0 flex flex-col items-center w-full mt-12 lg:mt-0">
+            <div className="min-w-0 flex flex-col items-center w-full mt-4 lg:mt-0">
               <div className="relative h-[400px] sm:h-[500px] lg:h-[700px] w-full flex items-center justify-center">
                 <div className="absolute inset-0 bg-gradient-to-tr from-[#16aea3]/5 to-transparent rounded-full blur-3xl -z-10 transform scale-110" />
                 <Globe progress={progress} />
