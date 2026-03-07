@@ -2,7 +2,7 @@
 
 import { useRef, useState, useEffect } from "react"
 import Link from "next/link"
-import { ArrowRight, CheckCircle2, Search, ZoomOut } from "lucide-react"
+import { ArrowRight, CheckCircle2, MapPin, Search, ZoomOut } from "lucide-react"
 import { Globe } from "@/components/pages/about/globe"
 import type { Locale } from "@/lib/dictionary"
 import { useScroll, useMotionValueEvent } from "framer-motion"
@@ -108,6 +108,15 @@ export function HeroSection({
 
             <div className="min-w-0 flex flex-col items-center w-full mt-4 lg:mt-0">
               <div className="relative h-[400px] sm:h-[500px] lg:h-[700px] w-full flex items-center justify-center">
+                {isDesktop && (
+                  <div
+                    className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-[#21569c] bg-white/80 backdrop-blur-sm border border-gray-200 rounded-full shadow-sm transition-opacity duration-500 pointer-events-none"
+                    style={{ opacity: progress > 0.3 ? Math.min(1, (progress - 0.3) * 3) : 0 }}
+                  >
+                    <MapPin className="h-4 w-4" />
+                    {a.ourClients}
+                  </div>
+                )}
                 <div className="absolute inset-0 bg-gradient-to-tr from-[#16aea3]/5 to-transparent rounded-full blur-3xl -z-10 transform scale-110" />
                 <Globe progress={progress} />
               </div>

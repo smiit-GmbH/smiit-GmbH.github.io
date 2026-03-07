@@ -73,7 +73,7 @@ export default function Header({ forceLang }: { forceLang?: string }) {
   const webappsWorkflowsHref = `${base}/services/apps`
   const analyticsHref = `${base}/services/analytics`
   const consultingHref = `${base}/services/consulting`
-  const smiitAnalyticsHref = `${base}/smiit-analytics`
+  const smiitAnalyticsHref = `${base}/products/smiit-analytics`
   const productScoutHref = `${base}/product-scout`
   const aboutHref = `${base}/about`
   const contactHref = `${base}/contact`

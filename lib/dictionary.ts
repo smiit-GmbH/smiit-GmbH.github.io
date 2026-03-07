@@ -94,7 +94,7 @@ const dictionaries = {
           title: "smiit Analytics\nfür bexio",
           text: "Unser bexio Analysedashboard für Schweizer Nutzer automatisiert Ihre Auswertungen und konsolidiert alle KPIs aus bexio in übersichtlichen Reports.",
           image: "/assets/home/smiit_analytics.png",
-          href: "/smiit-analytics",
+          href: "/products/smiit-analytics",
         },
         {
           title: "Azai\nElevate",
@@ -327,7 +327,7 @@ const dictionaries = {
           title: "smiit Analytics\nfor bexio",
           text: "Our bexio analysis dashboard for Swiss users automates your evaluations and consolidates all KPIs from bexio in clear reporting.",
           image: "/assets/home/smiit_analytics.png",
-          href: "/smiit-analytics",
+          href: "/products/smiit-analytics",
         },
         {
           title: "Azai\nElevate",
