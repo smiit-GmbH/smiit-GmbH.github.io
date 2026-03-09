@@ -68,7 +68,7 @@ export function ProcessSection({ dict }: ProcessSectionProps) {
         </motion.div>
 
         <motion.div
-          className="mt-14 md:mt-26 text-center"
+          className="mt-18 md:mt-26 text-center"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
