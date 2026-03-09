@@ -70,7 +70,7 @@ export function HeroSection({ dict }: HeroSectionProps) {
           </motion.p>
 
           <motion.div
-            className="mt-8 md:mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center"
+            className="mt-8 md:mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center"
             variants={fadeUpVariants}
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
