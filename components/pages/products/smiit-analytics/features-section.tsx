@@ -58,7 +58,7 @@ export function FeaturesSection({ dict }: FeaturesSectionProps) {
               return (
                 <motion.div
                   key={idx}
-                  className="flex gap-4 p-5 rounded-[1.75rem] bg-white shadow-[0_10px_30px_rgba(0,0,0,0.06)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.1)] transition-all duration-300 hover:scale-[1.02] hover:-translate-y-0.5"
+                  className="flex gap-4 p-5 rounded-[1.75rem] bg-white border-1 border-gray-100 shadow-[0_10px_30px_rgba(0,0,0,0.03)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.1)] transition-all duration-300 hover:scale-[1.02] hover:-translate-y-0.5"
                   variants={fadeUpVariants}
                   transition={{ duration: 0.6, ease: "easeOut" }}
                 >
