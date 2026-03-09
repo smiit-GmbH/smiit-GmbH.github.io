@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
@@ -17,13 +17,49 @@ import {
 } from "@/components/ui/sheet"
 import { LanguageSwitcher } from "@/components/language-switcher"
 
-export default function Header({ forceLang }: { forceLang?: string }) {
+const DARK_HERO_PATHS = ["/products/smiit-analytics"]
+
+export default function Header({ forceLang, darkHero: darkHeroProp }: { forceLang?: string; darkHero?: boolean }) {
   const [isProductsOpen, setIsProductsOpen] = useState(false)
   const [isServicesOpen, setIsServicesOpen] = useState(false)
+  const [onDarkBg, setOnDarkBg] = useState(false)
+  const navRef = useRef<HTMLElement | null>(null)
   const pathname = usePathname() || "/"
   const detectedLang = pathname.startsWith("/en") ? "en" : pathname.startsWith("/fr") ? "fr" : "de"
   const lang = forceLang || detectedLang
   const base = `/${lang}`
+
+  const darkHero = darkHeroProp ?? DARK_HERO_PATHS.some((p) => pathname.includes(p))
+
+  useEffect(() => {
+    if (!darkHero) {
+      setOnDarkBg(false)
+      return
+    }
+
+    const detectTone = () => {
+      const x = Math.round(window.innerWidth / 2)
+      const y = 24
+      const elements = document.elementsFromPoint(x, y)
+
+      const toneEl = elements.find((el) => {
+        const node = el as HTMLElement
+        if (navRef.current?.contains(node)) return false
+        return Boolean(node.dataset?.headerTone)
+      }) as HTMLElement | undefined
+
+      setOnDarkBg(toneEl?.dataset?.headerTone === "dark")
+    }
+
+    detectTone()
+    window.addEventListener("scroll", detectTone, { passive: true })
+    window.addEventListener("resize", detectTone)
+
+    return () => {
+      window.removeEventListener("scroll", detectTone)
+      window.removeEventListener("resize", detectTone)
+    }
+  }, [darkHero])
 
   function buildPathForLang(currentPathname: string, target: "de" | "en"): string {
     if (currentPathname === "/" || currentPathname === "") {
@@ -93,14 +129,20 @@ export default function Header({ forceLang }: { forceLang?: string }) {
     { type: "external", href: "https://www.azai.ch", label: L.azaiElevate },
   ]
 
+  const isLightHeader = darkHero && onDarkBg
+  const textColor = isLightHeader ? "text-white" : "text-black"
+  const textColorMuted = isLightHeader ? "text-white/80" : "text-black/80"
+  const hoverBg = isLightHeader ? "hover:bg-white/10" : "hover:bg-black/5"
+  const navBg = "bg-transparent backdrop-blur-md"
+
   return (
-    <nav className="fixed top-0 w-full z-50 bg-transparent backdrop-blur-md">
+    <nav ref={navRef} className={`fixed top-0 w-full z-50 transition-all duration-300 ${navBg}`}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-18">
           {/* Logo */}
           <Link href={homeHref} className="flex items-center relative group" scroll={false}>
             <Image
-              src="/logo_black.png"
+              src={isLightHeader ? "/logo_white.png" : "/logo_black.png"}
               alt="smiit"
               width={140}
               height={48}
@@ -112,7 +154,7 @@ export default function Header({ forceLang }: { forceLang?: string }) {
           <div className="hidden lg:flex items-center gap-8">
             <div className="relative group" onMouseEnter={() => setIsServicesOpen(true)} onMouseLeave={() => setIsServicesOpen(false)}>
               <button
-                className="flex items-center gap-2 rounded-xl bg-transparent px-5 py-2.5 text-sm font-medium text-black hover:bg-black/5 transition-colors cursor-pointer"
+                className={`flex items-center gap-2 rounded-xl bg-transparent px-5 py-2.5 text-sm font-medium ${textColor} ${hoverBg} transition-colors cursor-pointer`}
               >
                 {L.services}
                 <ChevronDown className="w-4 h-4 opacity-60" />
@@ -137,7 +179,7 @@ export default function Header({ forceLang }: { forceLang?: string }) {
 
             <div className="relative group" onMouseEnter={() => setIsProductsOpen(true)} onMouseLeave={() => setIsProductsOpen(false)}>
               <button
-                className="flex items-center gap-2 rounded-xl bg-transparent px-5 py-2.5 text-sm font-medium text-black hover:bg-black/5 transition-colors cursor-pointer"
+                className={`flex items-center gap-2 rounded-xl bg-transparent px-5 py-2.5 text-sm font-medium ${textColor} ${hoverBg} transition-colors cursor-pointer`}
               >
                 {L.products}
                 <ChevronDown className="w-4 h-4 opacity-60" />
@@ -172,7 +214,7 @@ export default function Header({ forceLang }: { forceLang?: string }) {
               </div>
             </div>
 
-            <Link href={aboutHref} className="px-2 text-sm font-medium text-black hover:text-black/70 transition-colors cursor-pointer" scroll={false}>
+            <Link href={aboutHref} className={`px-2 text-sm font-medium ${textColor} ${isLightHeader ? "hover:text-white/70" : "hover:text-black/70"} transition-colors cursor-pointer`} scroll={false}>
               {L.about}
             </Link>
           </div>
@@ -184,7 +226,7 @@ export default function Header({ forceLang }: { forceLang?: string }) {
               </Button>
             </Link>
             <div className="px-2 hidden lg:block">
-              <LanguageSwitcher />
+              <LanguageSwitcher light={isLightHeader} />
             </div>
 
             <div className="lg:hidden flex items-center gap-2">
@@ -193,7 +235,7 @@ export default function Header({ forceLang }: { forceLang?: string }) {
                 aria-label={L.talkToExpert}
                 className="h-10 w-10 rounded-xl backdrop-blur-md flex items-center justify-center transition-colors"
               >
-                <CalendarDays className="h-5 w-5 mr-2 text-black/80" />
+                <CalendarDays className={`h-5 w-5 mr-2 ${textColorMuted}`} />
               </a>
 
               <Sheet>
@@ -201,9 +243,9 @@ export default function Header({ forceLang }: { forceLang?: string }) {
                   <button
                     type="button"
                     aria-label="Open menu"
-                    className="h-10 w-10 rounded-xl border border-black/20 backdrop-blur-md flex items-center justify-center"
+                    className={`h-10 w-10 rounded-xl border ${isLightHeader ? "border-white/20" : "border-black/20"} backdrop-blur-md flex items-center justify-center`}
                   >
-                    <AlignJustify className="h-5 w-5 text-black/80" />
+                    <AlignJustify className={`h-5 w-5 ${textColorMuted}`} />
                   </button>
                 </SheetTrigger>
 

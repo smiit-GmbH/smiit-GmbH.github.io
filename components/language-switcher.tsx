@@ -43,7 +43,7 @@ const Flag = ({ country }: { country: string }) => (
   />
 )
 
-export function LanguageSwitcher() {
+export function LanguageSwitcher({ light = false }: { light?: boolean }) {
   const router = useRouter()
   const pathname = usePathname() || "/"
   const current = useMemo(() => computeLangFromPath(pathname), [pathname])
@@ -66,7 +66,9 @@ export function LanguageSwitcher() {
   return (
     <div className="relative" onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
       <button
-        className="flex items-center gap-2 px-2 py-2 text-sm font-medium text-black hover:text-black/70 transition-colors cursor-pointer bg-transparent border-none outline-none"
+        className={`flex items-center gap-2 px-2 py-2 text-sm font-medium transition-colors cursor-pointer bg-transparent border-none outline-none ${
+          light ? "text-white hover:text-white/70" : "text-black hover:text-black/70"
+        }`}
         aria-label="Language selection"
       >
         {/* <Flag country={currentLang.country} /> */}

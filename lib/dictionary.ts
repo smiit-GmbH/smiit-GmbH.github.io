@@ -234,6 +234,106 @@ const dictionaries = {
         },
       ],
     },
+    smiitAnalytics: {
+      hero: {
+        title: "Business Intelligence\nfür bexio-Nutzer",
+        subtitle: "Ist Ihr Business intelligent genug?",
+        description: "Wir haben erfolgreich eine Daten-Infrastruktur entwickelt, um Nutzern der bexio-Software bessere Entscheidungsfindung und strategische sowie operative Planung zu ermöglichen.",
+        primaryCta: "Los gehts!",
+        secondaryCta: "Erfahren Sie mehr",
+      },
+      features: {
+        badge: "INTRODUCING",
+        title: "Was ist smiit Analytics",
+        titleHighlight: "für bexio?",
+        subtitle: "smiit Analytics für bexio ist Ihr Weg in eine klare Zukunft. Ein System, volle Kontrolle, Information & KI-Integration!",
+        items: [
+          {
+            title: "Vollständiges Datenmodell",
+            text: "Integration aller bexio-Daten in einem System",
+          },
+          {
+            title: "Dashboarding",
+            text: "Tiefgehende Analysen für Ihre Organisation",
+          },
+          {
+            title: "Ihr System für die Zukunft",
+            text: "Ihre Infrastruktur für Add-ons und KI",
+          },
+        ],
+      },
+      advantages: {
+        badge: "ADVANTAGE",
+        title: "Your one-time solution,\nbuilt for the future.",
+        items: [
+          {
+            label: "Volle Kontrolle",
+            title: "Complete Ownership",
+            text: "Sie erhalten die volle Kontrolle über Ihre Daten und Analysen. Kein Vendor-Lock-in, keine Abhängigkeiten – Ihr System gehört Ihnen.",
+          },
+          {
+            label: "Individualisierung & Weiterentwicklung",
+            title: "Individualisierung",
+            text: "Passen Sie das System individuell an Ihre Bedürfnisse an. Wir entwickeln maßgeschneiderte Analysen und Erweiterungen für Ihr Unternehmen.",
+          },
+          {
+            label: "Grundgerüst für technologische Innovation",
+            title: "Innovation",
+            text: "Mit der Backend / smiit Analytics-Infrastruktur erhalten Sie das perfekte Gerüst für eine gesamtheitliche digitale Transformation.",
+          },
+        ],
+        learnMore: "Mehr erfahren",
+      },
+      pricing: {
+        badge: "UNSER PRODUKT",
+        title: "Ein pre-built System statt\nteurer Individualberatung",
+        subtitle: "Die Vorteile von smiit Analytics auf einen Blick – bexio-Datenanalyse zum geringen Preis. Wir informieren Sie gerne in einem kostenlosen Call zu unserem Produkt und unseren verschiedenen Preismodellen.",
+        productTitle: "smiit Analytics für bexio",
+        productDescription: "Mit über 250 Analysen können Sie praktisch alles tracken, was in Ihrem Unternehmen passiert! Darüber hinaus können Sie die Analysesoftware von uns individuell anpassen lassen, um unternehmensspezifische Analysen zu erhalten. Überzeugen Sie sich über den Link von unserem Angebot.",
+        priceOneTime: "CHF 1,000.00",
+        priceCustom: "CHF 450.00 einmalig",
+        priceCustomNote: "+ CHF 120.00 je Stunde bei 8-100 Stunden",
+        or: "oder",
+        features: [
+          "250+ Analysen",
+          "Vollständiges Datenmodell",
+          "30 Tage gratis testen",
+        ],
+        demoLink: "Zur Demoversion",
+        consultationLink: "Beratungstermin",
+        freeVersionLink: "Kostenlose Version",
+      },
+      process: {
+        badge: "PROCESS",
+        title: "Der Rollout-Prozess",
+        steps: [
+          {
+            number: "01",
+            title: "Verstehen",
+            text: "Wir wollen Ihre Anforderungen und Bedürfnisse verstehen.",
+          },
+          {
+            number: "02",
+            title: "Zeigen & Beraten",
+            text: "Wir zeigen Ihnen das Dashboard mit Ihren Daten und beraten Sie zu potentiellen Individualisierungen.",
+          },
+          {
+            number: "03",
+            title: "Integration & Dokumentation",
+            text: "Wir integrieren das Dashboard in Ihre IT-Infrastruktur und dokumentieren alle Prozesse.",
+          },
+          {
+            number: "04",
+            title: "Launch und Schulungen",
+            text: "Nach dem Launch schulen wir Ihre Mitarbeiter im Umgang mit dem System.",
+          },
+        ],
+      },
+      cta: {
+        title: "Begleiten Sie uns in eine\nKI-gesteuerte Zukunft!",
+        button: "Vereinbaren Sie einen Termin",
+      },
+    },
   },
   en: {
     hero: {
@@ -466,6 +566,106 @@ const dictionaries = {
           cvLink: "https://nesslauer.smiit.de",
         },
       ],
+    },
+    smiitAnalytics: {
+      hero: {
+        title: "Business Intelligence\nfor bexio Users",
+        subtitle: "Is your business intelligent enough?",
+        description: "We have successfully developed a data infrastructure to enable bexio software users to make better decisions and improve strategic as well as operational planning.",
+        primaryCta: "Get started!",
+        secondaryCta: "Learn more",
+      },
+      features: {
+        badge: "INTRODUCING",
+        title: "What is smiit Analytics",
+        titleHighlight: "for bexio?",
+        subtitle: "smiit Analytics for bexio is your path to a clear future. One system, full control, information & AI integration!",
+        items: [
+          {
+            title: "Complete Data Model",
+            text: "Integration of all bexio data in one system",
+          },
+          {
+            title: "Dashboarding",
+            text: "In-depth analyses for your organization",
+          },
+          {
+            title: "Your System for the Future",
+            text: "Your infrastructure for add-ons and AI",
+          },
+        ],
+      },
+      advantages: {
+        badge: "ADVANTAGE",
+        title: "Your one-time solution,\nbuilt for the future.",
+        items: [
+          {
+            label: "Full Control",
+            title: "Complete Ownership",
+            text: "You get full control over your data and analyses. No vendor lock-in, no dependencies – your system belongs to you.",
+          },
+          {
+            label: "Customization & Development",
+            title: "Individualization",
+            text: "Customize the system to your specific needs. We develop tailored analyses and extensions for your business.",
+          },
+          {
+            label: "Foundation for Technological Innovation",
+            title: "Innovation",
+            text: "With the backend / smiit Analytics infrastructure, you get the perfect foundation for a comprehensive digital transformation.",
+          },
+        ],
+        learnMore: "Learn more",
+      },
+      pricing: {
+        badge: "OUR PRODUCT",
+        title: "A pre-built system instead of\nexpensive individual consulting",
+        subtitle: "The advantages of smiit Analytics at a glance – bexio data analysis at a low price. We are happy to inform you in a free call about our product and our various pricing models.",
+        productTitle: "smiit Analytics for bexio",
+        productDescription: "With over 250 analyses, you can track practically everything happening in your company! Additionally, you can have the analysis software customized by us to receive company-specific analyses. See for yourself via the link to our offering.",
+        priceOneTime: "CHF 1,000.00",
+        priceCustom: "CHF 450.00 one-time",
+        priceCustomNote: "+ CHF 120.00 per hour for 8-100 hours",
+        or: "or",
+        features: [
+          "250+ Analyses",
+          "Complete Data Model",
+          "30 Days Free Trial",
+        ],
+        demoLink: "View Demo",
+        consultationLink: "Book Consultation",
+        freeVersionLink: "Free Version",
+      },
+      process: {
+        badge: "PROCESS",
+        title: "The Rollout Process",
+        steps: [
+          {
+            number: "01",
+            title: "Understand",
+            text: "We want to understand your requirements and needs.",
+          },
+          {
+            number: "02",
+            title: "Show & Advise",
+            text: "We show you the dashboard with your data and advise you on potential customizations.",
+          },
+          {
+            number: "03",
+            title: "Integration & Documentation",
+            text: "We integrate the dashboard into your IT infrastructure and document all processes.",
+          },
+          {
+            number: "04",
+            title: "Launch & Training",
+            text: "After launch, we train your employees on how to use the system.",
+          },
+        ],
+      },
+      cta: {
+        title: "Join us on the journey to an\nAI-powered future!",
+        button: "Schedule a meeting",
+      },
     },
   },
 }
