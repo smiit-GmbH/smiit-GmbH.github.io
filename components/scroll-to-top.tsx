@@ -15,7 +15,7 @@ export function ScrollToTop() {
       // Hash-Fragment vorhanden: zum entsprechenden Element scrollen
       // Kurzes Timeout, damit das DOM (inkl. Client-Komponenten) vollständig gerendert ist
       const timeoutId = setTimeout(() => {
-        const element = document.querySelector(hash)
+        const element = document.querySelector(hash) as HTMLElement | null
         if (element) {
           if (lenis) {
             lenis.scrollTo(element, { immediate: true })

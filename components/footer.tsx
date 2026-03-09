@@ -189,7 +189,7 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
         </div>
 
         <div className="pt-4 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-gray-700">© 2026 {L.companyName}. {L.rights}</p>
+          <p className="text-sm text-gray-700">© {new Date().getFullYear()} {L.companyName}. {L.rights}</p>
           <div className="flex flex-wrap gap-6 md:flex-nowrap justify-center md:justify-start w-full md:w-auto">
             <Link href={imprintHref} className="text-sm text-gray-700 hover:text-black transition-colors">
               {L.imprint}
