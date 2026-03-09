@@ -53,7 +53,7 @@ export function ProcessSection({ dict }: ProcessSectionProps) {
                 variants={fadeUpVariants}
                 transition={{ duration: 0.6, ease: "easeOut" }}
               >
-                <span className="text-[2.5rem] md:text-[3rem] font-serif leading-none text-[#F703EB]/20">
+                <span className="text-[2.5rem] md:text-[3rem] font-serif leading-none text-[#F703EB]/40">
                   {step.number}
                 </span>
                 <h3 className="mt-3 text-lg md:text-xl font-semibold text-black">

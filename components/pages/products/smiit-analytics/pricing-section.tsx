@@ -55,14 +55,6 @@ export function PricingSection({ dict }: PricingSectionProps) {
           >
             {pricing.title}
           </motion.h2>
-
-          <motion.p
-            className="mt-4 md:mt-5 text-sm md:text-base leading-relaxed text-white/45 max-w-[95ch] mx-auto"
-            variants={fadeUpVariants}
-            transition={{ duration: 0.6, ease: "easeOut" }}
-          >
-            {pricing.subtitle}
-          </motion.p>
         </motion.div>
 
         {/* Product card */}
