@@ -270,19 +270,26 @@ const dictionaries = {
             label: "Volle Kontrolle",
             title: "Complete Ownership",
             text: "Sie erhalten die volle Kontrolle über Ihre Daten und Analysen. Kein Vendor-Lock-in, keine Abhängigkeiten – Ihr System gehört Ihnen.",
+            details:
+              "Sie entscheiden selbst, welche Kennzahlen Sie priorisieren, wie Datenmodelle erweitert werden und wann neue Auswertungen live gehen. Dadurch bleiben Sie bei jeder strategischen Entscheidung unabhängig und flexibel.",
           },
           {
             label: "Individualisierung & Weiterentwicklung",
             title: "Individualisierung",
             text: "Passen Sie das System individuell an Ihre Bedürfnisse an. Wir entwickeln maßgeschneiderte Analysen und Erweiterungen für Ihr Unternehmen.",
+            details:
+              "Gemeinsam definieren wir Ihre fachlichen Anforderungen und setzen diese strukturiert um: von spezifischen KPI-Dashboards bis zu unternehmensspezifischen Datenflüssen. So wächst die Lösung mit Ihrem Unternehmen mit.",
           },
           {
             label: "Grundgerüst für technologische Innovation",
             title: "Innovation",
             text: "Mit der Backend / smiit Analytics-Infrastruktur erhalten Sie das perfekte Gerüst für eine gesamtheitliche digitale Transformation.",
+            details:
+              "Die vorhandene Struktur schafft die Basis für weitere Automatisierungen, KI-Use-Cases und neue digitale Services. Damit investieren Sie nicht nur in ein Reporting-Tool, sondern in eine zukunftsfähige Datenplattform.",
           },
         ],
         learnMore: "Mehr erfahren",
+        learnLess: "Weniger anzeigen",
       },
       pricing: {
         badge: "UNSER PRODUKT",
@@ -603,19 +610,26 @@ const dictionaries = {
             label: "Full Control",
             title: "Complete Ownership",
             text: "You get full control over your data and analyses. No vendor lock-in, no dependencies – your system belongs to you.",
+            details:
+              "You decide which KPIs matter most, how data models evolve, and when new reports go live. This keeps your strategic decisions independent and your operations highly adaptable.",
           },
           {
             label: "Customization & Development",
             title: "Individualization",
             text: "Customize the system to your specific needs. We develop tailored analyses and extensions for your business.",
+            details:
+              "Together, we translate your business requirements into concrete implementation steps—from specific KPI dashboards to custom data flows. This ensures the solution scales with your company.",
           },
           {
             label: "Foundation for Technological Innovation",
             title: "Innovation",
             text: "With the backend / smiit Analytics infrastructure, you get the perfect foundation for a comprehensive digital transformation.",
+            details:
+              "The existing architecture enables future automation, AI use cases, and additional digital services. You are not only adopting reporting—you are building a future-ready data platform.",
           },
         ],
         learnMore: "Learn more",
+        learnLess: "Show less",
       },
       pricing: {
         badge: "OUR PRODUCT",

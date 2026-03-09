@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react"
 import { motion } from "framer-motion"
 import { ArrowRight } from "lucide-react"
 
@@ -14,6 +15,13 @@ const fadeUpVariants = {
 
 export function AdvantagesSection({ dict }: AdvantagesSectionProps) {
   const { advantages } = dict.smiitAnalytics
+  const [expandedCards, setExpandedCards] = useState<number[]>([])
+
+  const toggleCard = (idx: number) => {
+    setExpandedCards((prev) =>
+      prev.includes(idx) ? prev.filter((item) => item !== idx) : [...prev, idx]
+    )
+  }
 
   return (
     <section
@@ -44,7 +52,9 @@ export function AdvantagesSection({ dict }: AdvantagesSectionProps) {
           }}
         >
           {advantages.items.map(
-            (item: { label: string; title: string; text: string }, idx: number) => {
+            (item: { label: string; title: string; text: string; details?: string }, idx: number) => {
+              const isExpanded = expandedCards.includes(idx)
+
               return (
                 <motion.div
                   key={idx}
@@ -68,18 +78,34 @@ export function AdvantagesSection({ dict }: AdvantagesSectionProps) {
                     {item.title}
                   </h3>
 
-                  <p className="text-sm leading-relaxed mb-8 text-black/60">
-                    {item.text}
-                  </p>
+                  <p className="text-sm leading-relaxed text-black/60">{item.text}</p>
 
-                  <div className="mt-auto">
-                    <a
-                      href="#book"
+                  <motion.div
+                    initial={false}
+                    animate={{
+                      height: isExpanded ? "auto" : 0,
+                      opacity: isExpanded ? 1 : 0,
+                      marginTop: isExpanded ? 10 : 0,
+                    }}
+                    transition={{ duration: 0.25, ease: "easeOut" }}
+                    className="overflow-hidden"
+                  >
+                    <p className="text-sm leading-relaxed text-black/65">{item.details ?? ""}</p>
+                  </motion.div>
+
+                  <div className="mt-8">
+                    <button
+                      type="button"
+                      onClick={() => toggleCard(idx)}
                       className="inline-flex items-center text-sm font-medium transition-colors duration-200 text-black/60 hover:text-black"
                     >
-                      {advantages.learnMore}
-                      <ArrowRight className="ml-1.5 h-4 w-4" />
-                    </a>
+                      {isExpanded ? (advantages.learnLess ?? "Weniger anzeigen") : advantages.learnMore}
+                      <ArrowRight
+                        className={`ml-1.5 h-4 w-4 transition-transform duration-200 ${
+                          isExpanded ? "rotate-90" : "rotate-0"
+                        }`}
+                      />
+                    </button>
                   </div>
                 </motion.div>
               )
