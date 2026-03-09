@@ -9,10 +9,29 @@ export function ScrollToTop() {
   const lenis = useLenis()
 
   useLayoutEffect(() => {
-    if (lenis) {
-      lenis.scrollTo(0, { immediate: true })
+    const hash = window.location.hash
+
+    if (hash) {
+      // Hash-Fragment vorhanden: zum entsprechenden Element scrollen
+      // Kurzes Timeout, damit das DOM (inkl. Client-Komponenten) vollständig gerendert ist
+      const timeoutId = setTimeout(() => {
+        const element = document.querySelector(hash)
+        if (element) {
+          if (lenis) {
+            lenis.scrollTo(element, { immediate: true })
+          } else {
+            element.scrollIntoView({ behavior: "instant" })
+          }
+        }
+      }, 100)
+      return () => clearTimeout(timeoutId)
     } else {
-      window.scrollTo({ top: 0, left: 0, behavior: "instant" })
+      // Kein Hash: Normal zum Seitenanfang scrollen
+      if (lenis) {
+        lenis.scrollTo(0, { immediate: true })
+      } else {
+        window.scrollTo({ top: 0, left: 0, behavior: "instant" })
+      }
     }
   }, [pathname, lenis])
 
