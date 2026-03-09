@@ -102,7 +102,7 @@ export function AdvantagesSection({ dict }: AdvantagesSectionProps) {
                       {isExpanded ? (advantages.learnLess ?? "Weniger anzeigen") : advantages.learnMore}
                       <ArrowRight
                         className={`ml-1.5 h-4 w-4 transition-transform duration-200 ${
-                          isExpanded ? "rotate-90" : "rotate-0"
+                          isExpanded ? "rotate-270" : "rotate-0"
                         }`}
                       />
                     </button>
