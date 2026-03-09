@@ -22,8 +22,8 @@ export function HeroSection({ dict }: HeroSectionProps) {
       style={{ backgroundColor: "rgb(15 23 42)" }}
     >
       {/* Gradient overlays */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0f172a]/80 via-[#0f172a]/40 to-transparent" />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-[#21569c]/15 rounded-full blur-[120px]" />
+      <div className="hidden md:block absolute inset-0 bg-gradient-to-b from-[#1a2744]/80 via-transparent to-transparent" />
+      <div className="hidden md:block absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] bg-[#21569c]/15 rounded-full blur-[120px]" />
 
       {/* Grain texture */}
       <div
