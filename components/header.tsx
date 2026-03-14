@@ -152,7 +152,7 @@ export default function Header({ forceLang, darkHero: darkHeroProp }: { forceLan
           </Link>
 
           <div className="hidden lg:flex items-center gap-8">
-            <Link href={homeHref} className={`px-2 text-sm font-medium ${textColor} ${isLightHeader ? "hover:text-white/70" : "hover:text-black/70"} transition-colors cursor-pointer`} scroll={false}>
+            <Link href={homeHref} className={`px-5 text-sm font-medium ${textColor} ${isLightHeader ? "hover:text-white/70" : "hover:text-black/70"} transition-colors cursor-pointer`} scroll={false}>
               {L.home}
             </Link>
 
