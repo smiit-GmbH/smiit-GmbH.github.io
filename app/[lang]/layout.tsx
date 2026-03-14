@@ -46,8 +46,8 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
         ? "smiit GmbH - Datengesteuerte Transformation, maßgeschneidert für den Mittelstand"
         : "smiit GmbH - Data-driven transformation, tailored for SMEs",
       description: isDe
-        ? "Digitale Lösungen für Automatisierung, Datenanalyse und Unternehmensberatung"
-        : "Digital solutions for automation, data analytics, and business consulting",
+        ? "Digitale Lösungen für Applikationen, Datenanalyse und digitale Unternehmensstrategie"
+        : "Digital solutions for applications, data analytics, and digital strategy",
       url: `/${lang}/`,
     },
     twitter: {
@@ -56,8 +56,8 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
         ? "smiit GmbH - Datengesteuerte Transformation, maßgeschneidert für den Mittelstand"
         : "smiit GmbH - Data-driven transformation, tailored for SMEs",
       description: isDe
-        ? "Digitale Lösungen für Automatisierung, Datenanalyse und Unternehmensberatung"
-        : "Digital solutions for automation, data analytics, and business consulting",
+        ? "Digitale Lösungen für Applikationen, Datenanalyse und digitale Unternehmensstrategie"
+        : "Digital solutions for applications, data analytics, and digital strategy",
     },
   }
 }

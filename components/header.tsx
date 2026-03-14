@@ -89,7 +89,7 @@ export default function Header({ forceLang, darkHero: darkHeroProp }: { forceLan
           azaiElevate: "Azai Elevate",
           webappsWorkflows: "Apps & Workflows",
           analytics: "Datenanalyse",
-          consulting: "Unternehmensberatung",
+          consulting: "Digitale Strategie",
         }
       : {
           home: "Home",
@@ -102,13 +102,13 @@ export default function Header({ forceLang, darkHero: darkHeroProp }: { forceLan
           azaiElevate: "Azai Elevate",
           webappsWorkflows: "Apps & Workflows",
           analytics: "Data Analytics",
-          consulting: "Business Consulting",
+          consulting: "Digital Strategy",
         }
 
   const homeHref = `${base}/`
   const webappsWorkflowsHref = `${base}/services/apps`
   const analyticsHref = `${base}/services/analytics`
-  const consultingHref = `${base}/services/consulting`
+  const consultingHref = `${base}/services/strategy`
   const smiitAnalyticsHref = `${base}/products/smiit-analytics`
   const productScoutHref = `${base}/product-scout`
   const aboutHref = `${base}/about`
@@ -152,6 +152,10 @@ export default function Header({ forceLang, darkHero: darkHeroProp }: { forceLan
           </Link>
 
           <div className="hidden lg:flex items-center gap-8">
+            <Link href={homeHref} className={`px-2 text-sm font-medium ${textColor} ${isLightHeader ? "hover:text-white/70" : "hover:text-black/70"} transition-colors cursor-pointer`} scroll={false}>
+              {L.home}
+            </Link>
+
             <div className="relative group" onMouseEnter={() => setIsServicesOpen(true)} onMouseLeave={() => setIsServicesOpen(false)}>
               <button
                 className={`flex items-center gap-2 rounded-xl bg-transparent px-5 py-2.5 text-sm font-medium ${textColor} ${hoverBg} transition-colors cursor-pointer`}

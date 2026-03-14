@@ -150,15 +150,15 @@ function ServiceCard({
 
 function getLink(title: string) {
   const t = title.toLowerCase()
-  if (t.includes("consulting") || t.includes("beratung")) return "/services/consulting"
-  if (t.includes("analysis") || t.includes("analyse")) return "/services/analytics"
+  if (t.includes("strategy") || t.includes("strategie")) return "/services/strategy"
+  if (t.includes("analytics") || t.includes("analyse")) return "/services/analytics"
   if (t.includes("app") || t.includes("workflow")) return "/services/apps"
   return undefined
 }
 
 function getImage(title: string) {
   const t = title.toLowerCase()
-  if (t.includes("consulting") || t.includes("beratung")) return "/assets/home/services_consulting.png"
+  if (t.includes("strategy") || t.includes("strategie")) return "/assets/home/services_consulting.png"
   if (t.includes("analysis") || t.includes("analyse")) return "/assets/home/services_analytics.png"
   if (t.includes("app") || t.includes("workflow")) return "/assets/home/services_apps.png"
   return undefined

@@ -4,22 +4,22 @@ const dictionaries = {
   de: {
     hero: {
       title: "Datengesteuerte Transformation, maßgeschneidert für den Mittelstand",
-      subtitle: "Digitale Lösungen für Anwendungen, Automatisierung, Datenanalyse und Unternehmensberatung",
+      subtitle: "Digitale Lösungen für Anwendungen, Workflows, Datenanalyse und digitale Strategie",
       cta: "Starten Sie Ihre Transformation",
     },
     about: {
       title: "smiit hilft Unternehmen,\nDaten in Handlungen zu verwandeln",
-      text: "Wir stehen an Ihrer Seite.\nDurch Apps, Dashboards und Automatisierungen — für mehr\nProduktivität und schnellere Entscheidungen.",
+      text: "Wir stehen an Ihrer Seite.\nDurch Apps, Dashboards und Workflows — für mehr\nProduktivität und schnellere Entscheidungen.",
     },
     services: {
       title: "Workflows für messbaren Impact",
       subtitle:
-        "Bei smiit entwickeln wir Apps, Automatisierungen und Analytics — damit Ihr Business schneller vorankommt.",
+        "Bei smiit entwickeln wir Apps, Workflows und Analytics — damit Ihr Business schneller vorankommt.",
       items: [
         {
-          title: "Unternehmensberatung",
-          tags: ["Strategie", "Prozesse", "IT"],
-          text: "Wir unterstützen den Mittelstand mit IT-Beratung und digitaler Strategie — mit Fokus auf Apps, Automatisierungen und Daten. Praktisch, pragmatisch und umsetzungsstark.",
+          title: "Digitale Strategie",
+          tags: ["Beratung", "Prozesse", "IT"],
+          text: "Wir unterstützen den Mittelstand mit IT-Beratung und digitaler Strategie — mit Fokus auf Apps, Workflows und Daten. Praktisch, pragmatisch und umsetzungsstark.",
         },
         {
           title: "Datenanalyse",
@@ -27,7 +27,7 @@ const dictionaries = {
           text: "Wir verwandeln Ihre Daten in klare Dashboards und KPIs — schnell, aussagekräftig und direkt handlungsorientiert.",
         },
         {
-          title: "Apps / Automatisierungen",
+          title: "Apps & Workflows",
           tags: [".NET", "React", "Next.js"],
           text: "Wir bauen intuitive Web-Apps, die Eingaben vereinfachen, Systeme über APIs verbinden und Workflows automatisieren — sicher und skalierbar.",
         },
@@ -195,9 +195,9 @@ const dictionaries = {
         errorText: "Bitte versuchen Sie es erneut oder kontaktieren Sie uns direkt per E-Mail.",
         disclaimer: "Mit dem Absenden stimmen Sie der Verarbeitung Ihrer Daten zur Bearbeitung zu.",
         interests: [
-          "Unternehmensberatung",
+          "Digitale Unternehmensstrategie",
           "Datenanalyse",
-          "Apps / Automatisierungen",
+          "Apps & Workflows",
           "Website Entwicklung",
           "smiit Analytics für bexio",
           "Azai Elevate",
@@ -345,29 +345,29 @@ const dictionaries = {
   en: {
     hero: {
       title: "Data-driven transformations, tailored for the backbone of enterprises",
-      subtitle: "Digital solutions for applications, automation, data analytics, and business consulting",
+      subtitle: "Digital solutions for applications, workflows, data analytics, and digital strategy",
       cta: "Start your transformation",
     },
     about: {
       title: "smiit helps businesses\nto turn data into action",
-      text: "We are by your side.\nThrough apps, dashboards, and automation — boosting\nproductivity and accelerating decisions.",
+      text: "We are by your side.\nThrough apps, dashboards, and workflows — boosting\nproductivity and accelerating decisions.",
     },
     services: {
       title: "Workflows for measurable impact",
-      subtitle: "At smiit, we build apps, automation, and analytics that move your business forward.",
+      subtitle: "At smiit, we build apps, workflows, and analytics that move your business forward.",
       items: [
         {
-          title: "Business consulting",
-          tags: ["Strategy", "Processes", "IT"],
-          text: "We guide SMEs with IT consulting and digital strategy focused on apps, automation, and data — practical and actionable.",
+          title: "Digital strategy",
+          tags: ["Consulting", "Processes", "IT"],
+          text: "We guide SMEs with IT consulting and digital strategy focused on apps, workflows, and data — practical and actionable.",
         },
         {
-          title: "Data analysis",
+          title: "Data analytics",
           tags: ["Power BI", "SQL & Python", "Azure"],
           text: "We turn your data into clear dashboards and KPIs — fast, insightful, and ready for action.",
         },
         {
-          title: "Apps / automation",
+          title: "Apps & workflows",
           tags: [".NET", "React", "Next.js"],
           text: "We create intuitive web apps that simplify inputs, connect systems via API, and automate workflows — secure and scalable.",
         },
@@ -476,7 +476,7 @@ const dictionaries = {
           },
           {
             title: "Collaborative Partnership",
-            text:           "We don't work for our clients – we work with them. Open communication, collaboration at eye level, and joy in shared projects are the foundation of successful outcomes.",
+            text: "We don't work for our clients – we work with them. Open communication, collaboration at eye level, and joy in shared projects are the foundation of successful outcomes.",
           },
         ],
       },
@@ -535,9 +535,9 @@ const dictionaries = {
         errorText: "Please try again or contact us directly via email.",
         disclaimer: "By submitting, you agree to the processing of your data for handling your request.",
         interests: [
-          "Business consulting",
+          "Digital strategy",
           "Data analytics",
-          "Apps / Automation",
+          "Apps & workflows",
           "Website Development",
           "smiit Analytics for bexio",
           "Azai Elevate",

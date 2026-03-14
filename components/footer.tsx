@@ -17,7 +17,7 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
           services: "Dienstleistungen",
           apps: "Apps & Workflows",
           analytics: "Datenanalyse",
-          consulting: "Unternehmensberatung",
+          consulting: "Digitale Strategie",
           company: "Unternehmen",
           about: "Über uns",
           products: "Produkte",
@@ -39,7 +39,7 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
           services: "Services",
           apps: "Apps & Workflows",
           analytics: "Data Analytics",
-          consulting: "Consulting",
+          consulting: "Digital Strategy",
           company: "Company",
           about: "About",
           products: "Our Products",
@@ -61,7 +61,7 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
   const homeHref = `${base}/`
   const appsHref = `${base}/services/apps`
   const analyticsHref = `${base}/services/analytics`
-  const consultingHref = `${base}/services/consulting`
+  const consultingHref = `${base}/services/strategy`
   const aboutHref = `${base}/about`
   const productsHref = `${base}/products`
   const imprintHref = `${base}/legal-notice`
