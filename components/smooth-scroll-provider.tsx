@@ -4,7 +4,6 @@ import {
   createContext,
   useContext,
   useEffect,
-  useRef,
   useState,
   type ReactNode,
 } from "react"
@@ -22,7 +21,6 @@ interface SmoothScrollProviderProps {
 
 export function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {
   const [lenis, setLenis] = useState<Lenis | null>(null)
-  const rafRef = useRef<number>(0)
 
   useEffect(() => {
     const reducedMotion = window.matchMedia(
@@ -31,30 +29,25 @@ export function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {
     if (reducedMotion) return
 
     const instance = new Lenis({
-      // Scroll duration in seconds – higher = smoother / slower
-      duration: 1.1,
+      // Keep smooth scrolling, but reduce long interpolation tails that amplify dropped frames.
+      duration: 0.8,
       // Easing function – ease-out quart for a natural deceleration feel
       easing: (t: number) => 1 - Math.pow(1 - t, 4),
       // Smooth wheel scrolling
       smoothWheel: true,
-      // Slightly reduce wheel speed for a calmer feel
-      wheelMultiplier: 0.85,
+      // Use Lenis' internal RAF to avoid a second custom animation loop.
+      autoRaf: true,
+      // Slightly reduce wheel speed for a calmer feel without feeling sticky.
+      wheelMultiplier: 0.9,
       // Touch scrolling
-      touchMultiplier: 0.65,
+      touchMultiplier: 0.8,
       // Infinite scroll disabled
       infinite: false,
     })
 
     setLenis(instance)
 
-    function raf(time: number) {
-      instance.raf(time)
-      rafRef.current = requestAnimationFrame(raf)
-    }
-    rafRef.current = requestAnimationFrame(raf)
-
     return () => {
-      cancelAnimationFrame(rafRef.current)
       instance.destroy()
       setLenis(null)
     }

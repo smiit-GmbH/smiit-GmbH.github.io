@@ -336,6 +336,9 @@ function MobileServicesStack({
   const [activeIndex, setActiveIndex] = useState(0)
   const [prevIndex, setPrevIndex] = useState<number | null>(null)
   const [swipeDirection, setSwipeDirection] = useState<1 | -1>(1)
+  const activeIndexRef = useRef(0)
+  const latestScrollProgressRef = useRef(0)
+  const progressRafRef = useRef<number | null>(null)
 
   // Lock to temporarily ignore scroll-driven index updates after a swipe/dot-click
   const scrollLockRef = useRef(false)
@@ -346,18 +349,43 @@ function MobileServicesStack({
     offset: ["start start", "end end"],
   })
 
+  useEffect(() => {
+    activeIndexRef.current = activeIndex
+  }, [activeIndex])
+
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     // Skip scroll-driven updates while a swipe/dot navigation is in progress
     if (scrollLockRef.current) return
-    const raw = latest * count
-    const idx = Math.max(0, Math.min(count - 1, Math.floor(raw)))
-    setActiveIndex((current) => {
-      if (idx === current) return current
+
+    latestScrollProgressRef.current = latest
+    if (progressRafRef.current !== null) return
+
+    progressRafRef.current = window.requestAnimationFrame(() => {
+      progressRafRef.current = null
+
+      const raw = latestScrollProgressRef.current * count
+      const idx = Math.max(0, Math.min(count - 1, Math.floor(raw)))
+      const current = activeIndexRef.current
+      if (idx === current) return
+
       setPrevIndex(current)
       setSwipeDirection(idx > current ? 1 : -1)
-      return idx
+      activeIndexRef.current = idx
+      setActiveIndex(idx)
     })
   })
+
+  useEffect(() => {
+    return () => {
+      if (progressRafRef.current !== null) {
+        window.cancelAnimationFrame(progressRafRef.current)
+      }
+
+      if (scrollLockTimerRef.current) {
+        clearTimeout(scrollLockTimerRef.current)
+      }
+    }
+  }, [])
 
   // Navigate to a specific card index (used by swipe + dot click)
   const goToCard = useCallback(
@@ -375,6 +403,7 @@ function MobileServicesStack({
         if (clamped === current) return current
         setPrevIndex(current)
         setSwipeDirection(clamped > current ? 1 : -1)
+        activeIndexRef.current = clamped
         return clamped
       })
 

@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useState, useEffect } from "react"
+import { useRef, useState, useEffect, useCallback } from "react"
 import Link from "next/link"
 import { ArrowRight, CheckCircle2, MapPin, Search, ZoomOut } from "lucide-react"
 import { Globe } from "@/components/pages/about/globe"
@@ -18,6 +18,17 @@ export function HeroSection({
   const [progress, setProgress] = useState(0)
   const [isDesktop, setIsDesktop] = useState(true)
   const [isMobileZoomedIn, setIsMobileZoomedIn] = useState(false)
+  const progressRafRef = useRef<number | null>(null)
+  const latestDesktopProgressRef = useRef(0)
+  const committedDesktopProgressRef = useRef(0)
+
+  const commitDesktopProgress = useCallback((value: number) => {
+    const quantized = Math.round(Math.max(0, Math.min(1, value)) * 48) / 48
+    if (quantized === committedDesktopProgressRef.current) return
+
+    committedDesktopProgressRef.current = quantized
+    setProgress(quantized)
+  }, [])
 
   useEffect(() => {
     const checkDesktop = () => setIsDesktop(window.innerWidth >= 1024)
@@ -32,9 +43,15 @@ export function HeroSection({
   })
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    if (isDesktop) {
-      setProgress(latest)
-    }
+    if (!isDesktop) return
+
+    latestDesktopProgressRef.current = latest
+    if (progressRafRef.current !== null) return
+
+    progressRafRef.current = window.requestAnimationFrame(() => {
+      progressRafRef.current = null
+      commitDesktopProgress(latestDesktopProgressRef.current)
+    })
   })
 
   useEffect(() => {
@@ -42,6 +59,23 @@ export function HeroSection({
       setProgress(isMobileZoomedIn ? 1 : 0)
     }
   }, [isDesktop, isMobileZoomedIn])
+
+  useEffect(() => {
+    if (!isDesktop) {
+      committedDesktopProgressRef.current = isMobileZoomedIn ? 1 : 0
+      return
+    }
+
+    commitDesktopProgress(scrollYProgress.get())
+  }, [commitDesktopProgress, isDesktop, scrollYProgress])
+
+  useEffect(() => {
+    return () => {
+      if (progressRafRef.current !== null) {
+        window.cancelAnimationFrame(progressRafRef.current)
+      }
+    }
+  }, [])
 
   const a = dict.aboutPage
 

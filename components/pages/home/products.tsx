@@ -3,7 +3,7 @@
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { ChevronRight } from "lucide-react"
-import { motion, useScroll, useTransform } from "framer-motion"
+import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion"
 import { useRef } from "react"
 import LocalizedLink from "@/components/localized-link"
 
@@ -19,19 +19,24 @@ function ProductCard({
   index: number
 }) {
   const cardRef = useRef<HTMLDivElement>(null)
+  const prefersReducedMotion = useReducedMotion()
 
   const { scrollYProgress } = useScroll({
     target: cardRef,
     offset: ["start end", "end start"],
   })
 
-  const imageY = useTransform(scrollYProgress, [0, 1], ["-8%", "8%"])
+  const imageY = useTransform(
+    scrollYProgress,
+    [0, 1],
+    prefersReducedMotion ? ["0%", "0%"] : ["-6%", "6%"]
+  )
 
   const cardContent = (
     <>
       {/* Parallax image wrapper */}
       <motion.div
-        className="absolute inset-[-16%] will-change-transform"
+        className="absolute inset-[-12%] md:inset-[-16%] will-change-transform"
         style={{ y: imageY }}
       >
         <div className="relative w-full h-full transition-transform duration-700 ease-out group-hover:scale-105">

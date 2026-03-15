@@ -3,7 +3,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import * as THREE from "three";
 import type { GlobeMethods } from "react-globe.gl";
 import { LOCATIONS } from "@/lib/locations";
@@ -48,8 +47,6 @@ if (typeof window !== "undefined") {
   void loadCountriesGeoJson();
 }
 
-gsap.registerPlugin(ScrollTrigger);
-
 interface GlobeProps {
   progress: number;
 }
@@ -70,10 +67,6 @@ function lerp(start: number, end: number, t: number) {
   return start + (end - start) * t;
 }
 
-function easeInOutCubic(t: number) {
-  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-}
-
 export function Globe({ progress }: GlobeProps) {
   const globeWrapRef = useRef<HTMLDivElement | null>(null);
   const globeRef = useRef<GlobeMethods | undefined>(undefined);
@@ -81,6 +74,7 @@ export function Globe({ progress }: GlobeProps) {
   const isScrollControlledRef = useRef(false);
   const idleLngRef = useRef(0);
   const idleLastTsRef = useRef(0);
+  const idleScrollTimeoutRef = useRef<number | null>(null);
   const viewStateRef = useRef<GlobeViewState>("overview");
   const pendingViewStateRef = useRef<GlobeViewState | null>(null);
   const transitionTweenRef = useRef<gsap.core.Tween | null>(null);
@@ -91,6 +85,8 @@ export function Globe({ progress }: GlobeProps) {
   const transitionToPovRef = useRef<CameraPov>({ ...FOCUS_POV });
   const transitionFromBlendRef = useRef(0);
   const transitionToBlendRef = useRef(1);
+  const isVisibleRef = useRef(true);
+  const isPointerActiveRef = useRef(false);
 
   const [isMounted, setIsMounted] = useState(false);
   const [isGlobeReady, setIsGlobeReady] = useState(false);
@@ -185,7 +181,13 @@ export function Globe({ progress }: GlobeProps) {
       const width = Math.max(280, maxSide);
       const height = Math.max(280, maxSide);
 
-      setDimensions({ width, height });
+      setDimensions((current) => {
+        if (Math.abs(current.width - width) < 2 && Math.abs(current.height - height) < 2) {
+          return current;
+        }
+
+        return { width, height };
+      });
     });
 
     if (globeWrapRef.current) {
@@ -206,6 +208,59 @@ export function Globe({ progress }: GlobeProps) {
 
     return () => {
       mounted = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    const container = globeWrapRef.current;
+    if (!container) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisibleRef.current = Boolean(entry?.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+
+    observer.observe(container);
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const markPointerActive = () => {
+      isPointerActiveRef.current = true;
+
+      if (idleScrollTimeoutRef.current !== null) {
+        window.clearTimeout(idleScrollTimeoutRef.current);
+      }
+
+      idleScrollTimeoutRef.current = window.setTimeout(() => {
+        isPointerActiveRef.current = false;
+        idleScrollTimeoutRef.current = null;
+      }, 140);
+    };
+
+    const handleVisibilityChange = () => {
+      isVisibleRef.current = document.visibilityState === "visible";
+    };
+
+    handleVisibilityChange();
+
+    window.addEventListener("scroll", markPointerActive, { passive: true });
+    window.addEventListener("wheel", markPointerActive, { passive: true });
+    window.addEventListener("touchmove", markPointerActive, { passive: true });
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      window.removeEventListener("scroll", markPointerActive);
+      window.removeEventListener("wheel", markPointerActive);
+      window.removeEventListener("touchmove", markPointerActive);
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+
+      if (idleScrollTimeoutRef.current !== null) {
+        window.clearTimeout(idleScrollTimeoutRef.current);
+      }
     };
   }, []);
 
@@ -344,12 +399,22 @@ export function Globe({ progress }: GlobeProps) {
     const animateIdle = (ts: number) => {
       const globe = globeRef.current;
       if (globe) {
-        if (!isScrollControlledRef.current) {
+        const shouldAnimateIdle =
+          isGlobeReady &&
+          !isScrollControlledRef.current &&
+          !transitionTweenRef.current &&
+          isVisibleRef.current &&
+          !isPointerActiveRef.current &&
+          document.visibilityState === "visible";
+
+        if (shouldAnimateIdle) {
           if (ts - idleLastTsRef.current >= 33) {
             idleLastTsRef.current = ts;
             idleLngRef.current += 0.05;
             globe.pointOfView({ lat: 18, lng: idleLngRef.current, altitude: 2.05 }, 0);
           }
+        } else {
+          idleLastTsRef.current = ts;
         }
       }
 
@@ -363,7 +428,7 @@ export function Globe({ progress }: GlobeProps) {
         cancelAnimationFrame(rafRef.current);
       }
     };
-  }, []);
+  }, [isGlobeReady, isTouchDevice]);
 
   useEffect(() => {
     if (!isGlobeReady) return;
@@ -440,7 +505,7 @@ export function Globe({ progress }: GlobeProps) {
               polygonsData={countriesGeoJson?.features ?? []}
               polygonCapColor={() => "#cacaca"}
               polygonSideColor={() => "#cacaca"}
-              polygonStrokeColor={() => "rgb(255, 255, 255)"}
+              polygonStrokeColor={() => (showLocations ? "rgb(255, 255, 255)" : "rgba(255, 255, 255, 0.25)")}
               polygonAltitude={0.008}
               arcsData={introArcs}
               arcStartLat="startLat"

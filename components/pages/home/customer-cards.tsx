@@ -155,6 +155,27 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
       const sectionEl = sectionRef.current
       if (!sectionEl) { onDone?.(); return }
 
+      if (reducedMotionMql.matches && lenisRef.current) {
+        const rect = sectionEl.getBoundingClientRect()
+        const headerH = getHeaderHeight()
+        const viewportHeight = window.innerHeight - headerH
+        const viewportCenter = headerH + viewportHeight / 2
+        const sectionCenter = rect.top + rect.height / 2
+        const totalOffset = sectionCenter - viewportCenter
+
+        if (Math.abs(totalOffset) < 2) {
+          onDone?.()
+          return
+        }
+
+        lenisRef.current.scrollTo(window.scrollY + totalOffset, {
+          immediate: true,
+          force: true,
+        })
+        onDone?.()
+        return
+      }
+
       const rect = sectionEl.getBoundingClientRect()
       const headerH = getHeaderHeight()
 

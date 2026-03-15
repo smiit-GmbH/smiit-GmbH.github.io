@@ -93,6 +93,8 @@ export default function Results({ dict, locale }: ResultsProps) {
 
   const [mobileScrollProgress, setMobileScrollProgress] = useState(0)
   const [showMobileIndicator, setShowMobileIndicator] = useState(false)
+  const mobileScrollProgressRef = useRef(0)
+  const mobileIndicatorRef = useRef(false)
 
   useEffect(() => {
     if (typeof window === "undefined") return
@@ -106,17 +108,33 @@ export default function Results({ dict, locale }: ResultsProps) {
       if (!scrollerEl) return
 
       if (mql.matches) {
-        setShowMobileIndicator(false)
+        if (mobileIndicatorRef.current) {
+          mobileIndicatorRef.current = false
+          setShowMobileIndicator(false)
+        }
+
+        if (mobileScrollProgressRef.current !== 0) {
+          mobileScrollProgressRef.current = 0
+          setMobileScrollProgress(0)
+        }
         return
       }
 
       const maxLeft = scrollerEl.scrollWidth - scrollerEl.clientWidth
       const canScroll = maxLeft > 1
-      setShowMobileIndicator(canScroll)
+      if (canScroll !== mobileIndicatorRef.current) {
+        mobileIndicatorRef.current = canScroll
+        setShowMobileIndicator(canScroll)
+      }
 
       const p = canScroll ? scrollerEl.scrollLeft / maxLeft : 0
       const clamped = Math.max(0, Math.min(1, Number.isFinite(p) ? p : 0))
-      setMobileScrollProgress(clamped)
+      const quantized = Math.round(clamped * 100) / 100
+
+      if (quantized !== mobileScrollProgressRef.current) {
+        mobileScrollProgressRef.current = quantized
+        setMobileScrollProgress(quantized)
+      }
     }
 
     const schedule = () => {
