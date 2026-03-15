@@ -10,7 +10,7 @@ const valueImages = [
 ]
 
 const fadeUpVariants = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 12 },
   visible: { opacity: 1, y: 0 },
 }
 
@@ -18,7 +18,7 @@ const gridVariants = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.15,
+      staggerChildren: 0.08,
     },
   },
 }
@@ -34,9 +34,9 @@ export function MissionSection({ dict }: { dict: any }) {
           className="text-center"
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
+          viewport={{ once: true, margin: "-20px" }}
           variants={fadeUpVariants}
-          transition={{ duration: 0.7, ease: "easeOut" }}
+          transition={{ duration: 0.45, ease: "easeOut" }}
         >
           <h1 className="font-serif text-[2.6rem] sm:text-[3.15rem] md:text-[3.6rem] leading-[1.05] tracking-tight text-black whitespace-pre-line text-balance">
             {m.title}
@@ -54,17 +54,18 @@ export function MissionSection({ dict }: { dict: any }) {
               className="flex flex-col items-center gap-6"
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true, margin: "-50px" }}
+              viewport={{ once: true, margin: "-20px" }}
               variants={fadeUpVariants}
-              transition={{ duration: 0.6, ease: "easeOut" }}
+              transition={{ duration: 0.4, ease: "easeOut" }}
             >
-              <div className="relative w-full max-w-[320px] sm:max-w-[360px] aspect-square rounded-2xl overflow-hidden shadow-lg">
+              <div className="relative w-full max-w-[320px] sm:max-w-[360px] aspect-square rounded-2xl overflow-hidden shadow-sm ring-1 ring-black/5">
                 <Image
                   src={valueImages[index]}
                   alt={value.title}
                   fill
                   className="object-cover"
                   sizes="(max-width: 640px) 90vw, 360px"
+                  loading="lazy"
                 />
               </div>
               <div className="text-center max-w-[50ch]">
@@ -90,22 +91,23 @@ export function MissionSection({ dict }: { dict: any }) {
           <motion.div
             className="flex items-center justify-center"
             variants={fadeUpVariants}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
           >
-            <div className="relative w-[260px] xl:w-[300px] aspect-square rounded-2xl overflow-hidden shadow-lg">
+            <div className="relative w-[260px] xl:w-[300px] aspect-square rounded-2xl overflow-hidden shadow-sm ring-1 ring-black/5">
               <Image
                 src={valueImages[0]}
                 alt={m.values[0].title}
                 fill
                 className="object-cover"
                 sizes="300px"
+                loading="lazy"
               />
             </div>
           </motion.div>
           <motion.div
             className="flex flex-col justify-center text-center px-2"
             variants={fadeUpVariants}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
           >
             <h2 className="font-serif text-2xl xl:text-[1.75rem] leading-tight tracking-tight text-black">
               {m.values[1].title}
@@ -117,15 +119,16 @@ export function MissionSection({ dict }: { dict: any }) {
           <motion.div
             className="flex items-center justify-center"
             variants={fadeUpVariants}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
           >
-            <div className="relative w-[260px] xl:w-[300px] aspect-square rounded-2xl overflow-hidden shadow-lg">
+            <div className="relative w-[260px] xl:w-[300px] aspect-square rounded-2xl overflow-hidden shadow-sm ring-1 ring-black/5">
               <Image
                 src={valueImages[2]}
                 alt={m.values[2].title}
                 fill
                 className="object-cover"
                 sizes="300px"
+                loading="lazy"
               />
             </div>
           </motion.div>
@@ -133,7 +136,7 @@ export function MissionSection({ dict }: { dict: any }) {
           <motion.div
             className="flex flex-col justify-center text-center px-2"
             variants={fadeUpVariants}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
           >
             <h2 className="font-serif text-2xl xl:text-[1.75rem] leading-tight tracking-tight text-black">
               {m.values[0].title}
@@ -145,22 +148,23 @@ export function MissionSection({ dict }: { dict: any }) {
           <motion.div
             className="flex items-center justify-center"
             variants={fadeUpVariants}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
           >
-            <div className="relative w-[260px] xl:w-[300px] aspect-square rounded-2xl overflow-hidden shadow-lg">
+            <div className="relative w-[260px] xl:w-[300px] aspect-square rounded-2xl overflow-hidden shadow-sm ring-1 ring-black/5">
               <Image
                 src={valueImages[1]}
                 alt={m.values[1].title}
                 fill
                 className="object-cover"
                 sizes="300px"
+                loading="lazy"
               />
             </div>
           </motion.div>
           <motion.div
             className="flex flex-col justify-center text-center px-2"
             variants={fadeUpVariants}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            transition={{ duration: 0.4, ease: "easeOut" }}
           >
             <h2 className="font-serif text-2xl xl:text-[1.75rem] leading-tight tracking-tight text-black">
               {m.values[2].title}

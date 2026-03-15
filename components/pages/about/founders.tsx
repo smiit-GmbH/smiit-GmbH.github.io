@@ -19,7 +19,7 @@ interface Founder {
 }
 
 const fadeUpVariants = {
-  hidden: { opacity: 0, y: 30 },
+  hidden: { opacity: 0, y: 12 },
   visible: { opacity: 1, y: 0 },
 }
 
@@ -27,7 +27,7 @@ const staggerContainer = {
   hidden: {},
   visible: {
     transition: {
-      staggerChildren: 0.2,
+      staggerChildren: 0.1,
     },
   },
 }
@@ -46,7 +46,7 @@ function FlipCard({
   return (
     <motion.div
       variants={fadeUpVariants}
-      transition={{ duration: 0.6, ease: "easeOut" }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
       className="w-full max-w-[340px] sm:max-w-[360px] mx-auto"
     >
       {/* Card container with perspective */}
@@ -61,7 +61,7 @@ function FlipCard({
           }}
         >
           {/* ===== FRONT ===== */}
-          <div className="absolute inset-0 backface-hidden rounded-2xl overflow-hidden shadow-lg">
+          <div className="absolute inset-0 backface-hidden rounded-2xl overflow-hidden shadow-md ring-1 ring-black/5">
             {/* Image */}
             <Image
               src={founder.image}
@@ -69,6 +69,7 @@ function FlipCard({
               fill
               className="object-cover object-top"
               sizes="(max-width: 640px) 90vw, 360px"
+              loading="lazy"
             />
 
             {/* Gradient overlay at bottom */}
@@ -90,16 +91,17 @@ function FlipCard({
           </div>
 
           {/* ===== BACK ===== */}
-          <div className="absolute inset-0 backface-hidden rotate-y-180 rounded-2xl overflow-hidden shadow-lg">
+          <div className="absolute inset-0 backface-hidden rotate-y-180 rounded-2xl overflow-hidden shadow-md ring-1 ring-black/5">
             <Image
               src={founder.image}
               alt=""
               fill
-              className="object-cover object-top scale-110 blur-md"
+              className="object-cover object-top scale-105 blur-[3px]"
               sizes="360px"
               aria-hidden="true"
+              loading="lazy"
             />
-            <div className="absolute inset-0 bg-white/80 backdrop-blur-xl" />
+            <div className="absolute inset-0 bg-white/88 backdrop-blur-sm" />
 
             {/* Content */}
             <div className="relative h-full flex flex-col justify-between p-6 sm:p-7">
@@ -180,9 +182,9 @@ export function FoundersSection({ lang, dict }: { lang: Locale; dict: any }) {
           className="text-center"
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
+          viewport={{ once: true, margin: "-20px" }}
           variants={fadeUpVariants}
-          transition={{ duration: 0.7, ease: "easeOut" }}
+          transition={{ duration: 0.45, ease: "easeOut" }}
         >
           <h2 className="font-serif text-[2.6rem] sm:text-[3.15rem] md:text-[3.6rem] leading-[1.05] tracking-tight text-black whitespace-pre-line text-balance">
             {f.title}
@@ -215,9 +217,9 @@ export function FoundersSection({ lang, dict }: { lang: Locale; dict: any }) {
           className="mt-12 sm:mt-14 text-center"
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
+          viewport={{ once: true, margin: "-20px" }}
           variants={fadeUpVariants}
-          transition={{ duration: 0.7, ease: "easeOut", delay: 0.2 }}
+          transition={{ duration: 0.45, ease: "easeOut", delay: 0.1 }}
         >
           <p className="text-sm sm:text-base leading-relaxed text-black/75 max-w-[48ch] mx-auto">
             {f.ctaText}
