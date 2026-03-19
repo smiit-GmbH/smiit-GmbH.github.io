@@ -1,6 +1,6 @@
 "use client"
 
-import { useRef, useState, useEffect, useCallback } from "react"
+import { useRef, useState, useEffect, useCallback, useMemo } from "react"
 import Link from "next/link"
 import { ArrowRight, CheckCircle2, MapPin, Search, ZoomOut } from "lucide-react"
 import { Globe } from "@/components/pages/about/globe"
@@ -23,18 +23,44 @@ export function HeroSection({
   const committedDesktopProgressRef = useRef(0)
 
   const commitDesktopProgress = useCallback((value: number) => {
-    const quantized = Math.round(Math.max(0, Math.min(1, value)) * 48) / 48
+    const quantized = Math.round(Math.max(0, Math.min(1, value)) * 24) / 24
     if (quantized === committedDesktopProgressRef.current) return
 
     committedDesktopProgressRef.current = quantized
     setProgress(quantized)
   }, [])
 
+  const desktopBadgeOpacity = useMemo(() => {
+    if (progress <= 0.3) return 0
+
+    const raw = Math.min(1, (progress - 0.3) * 3)
+    return Math.round(raw * 8) / 8
+  }, [progress])
+
   useEffect(() => {
+    let resizeTimeout: number | null = null
+
     const checkDesktop = () => setIsDesktop(window.innerWidth >= 1024)
+    const handleResize = () => {
+      if (resizeTimeout !== null) {
+        window.clearTimeout(resizeTimeout)
+      }
+
+      resizeTimeout = window.setTimeout(() => {
+        resizeTimeout = null
+        checkDesktop()
+      }, 120)
+    }
+
     checkDesktop()
-    window.addEventListener('resize', checkDesktop)
-    return () => window.removeEventListener('resize', checkDesktop)
+
+    window.addEventListener('resize', handleResize)
+    return () => {
+      if (resizeTimeout !== null) {
+        window.clearTimeout(resizeTimeout)
+      }
+      window.removeEventListener('resize', handleResize)
+    }
   }, [])
 
   const { scrollYProgress } = useScroll({
@@ -145,7 +171,7 @@ export function HeroSection({
                 {isDesktop && (
                   <div
                     className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-[#21569c] bg-white/80 backdrop-blur-sm border border-gray-200 rounded-full shadow-sm transition-opacity duration-500 pointer-events-none"
-                    style={{ opacity: progress > 0.3 ? Math.min(1, (progress - 0.3) * 3) : 0 }}
+                    style={{ opacity: desktopBadgeOpacity }}
                   >
                     <MapPin className="h-4 w-4" />
                     {a.ourClients}

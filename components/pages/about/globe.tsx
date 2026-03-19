@@ -96,6 +96,11 @@ export function Globe({ progress }: GlobeProps) {
   const [showLocations, setShowLocations] = useState(false);
   const [countriesGeoJson, setCountriesGeoJson] = useState<GeoJSON.FeatureCollection | null>(null);
 
+  const desktopProgress = useMemo(() => {
+    if (isTouchDevice) return progress;
+    return Math.round(clamp01(progress) * 24) / 24;
+  }, [isTouchDevice, progress]);
+
   useEffect(() => {
     if (typeof window === "undefined") return;
 
@@ -115,8 +120,8 @@ export function Globe({ progress }: GlobeProps) {
 
   const smoothedProgress = useMemo(() => {
     // Reduce high-frequency prop jitter while preserving visual continuity.
-    return Math.round(clamp01(progress) * 120) / 120;
-  }, [progress]);
+    return Math.round(clamp01(desktopProgress) * 120) / 120;
+  }, [desktopProgress]);
 
   const globeMaterial = useMemo(() => {
     const material = new THREE.MeshPhongMaterial();
@@ -142,7 +147,7 @@ export function Globe({ progress }: GlobeProps) {
     if (revealFactor <= 0.02) return [];
 
     const alpha = 0.9 * revealFactor;
-    const total = 8;
+    const total = 5;
     const golden = 137.508;
 
     return Array.from({ length: total }, (_, index) => {
@@ -408,7 +413,8 @@ export function Globe({ progress }: GlobeProps) {
           document.visibilityState === "visible";
 
         if (shouldAnimateIdle) {
-          if (ts - idleLastTsRef.current >= 33) {
+          const idleFrameInterval = isTouchDevice ? 33 : 50;
+          if (ts - idleLastTsRef.current >= idleFrameInterval) {
             idleLastTsRef.current = ts;
             idleLngRef.current += 0.05;
             globe.pointOfView({ lat: 18, lng: idleLngRef.current, altitude: 2.05 }, 0);
@@ -436,6 +442,11 @@ export function Globe({ progress }: GlobeProps) {
     const globe = globeRef.current;
     if (!globe) return;
 
+    const renderer = (globe as GlobeMethods & { renderer?: () => THREE.WebGLRenderer }).renderer?.();
+    if (renderer) {
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isTouchDevice ? 2 : 1.2));
+    }
+
     const controls = globe.controls();
     controls.autoRotate = false;
     controls.enableZoom = false;
@@ -444,7 +455,7 @@ export function Globe({ progress }: GlobeProps) {
     controls.enableDamping = false;
 
     globe.pointOfView(OVERVIEW_POV, 0);
-  }, [isGlobeReady]);
+  }, [isGlobeReady, isTouchDevice]);
 
   useEffect(() => {
     const hideOverlayTooltip = () => {
