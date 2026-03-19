@@ -280,7 +280,7 @@ export default async function PrivacyPage({
       <section className="relative isolate z-0 min-h-[300px] h-[42vh] sm:h-[48vh] md:h-[46vh] lg:h-[50vh] max-h-[560px] overflow-hidden rounded-b-[1.75rem] bg-black/[0.02] mb-2 sm:mb-4 md:mb-0">
         <div className="absolute inset-0">
           <Image
-            src="/assets/legal.png"
+            src="/assets/legal.webp"
             alt=""
             fill
             priority
@@ -302,7 +302,7 @@ export default async function PrivacyPage({
         <div
           className="pointer-events-none absolute inset-0 z-10 opacity-[0.18] bg-black/10"
           style={{
-            backgroundImage: "url(/assets/grain.png)",
+            backgroundImage: "url(/assets/grain.webp)",
             backgroundRepeat: "repeat",
             backgroundSize: "150px 150px",
             mixBlendMode: "soft-light",

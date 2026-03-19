@@ -51,7 +51,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
           <div className="absolute inset-0 z-0">
             {/* Mobile hero */}
             <Image
-              src="/assets/home/hero_mobile.png"
+              src="/assets/home/hero_mobile.webp"
               alt=""
               fill
               priority
@@ -62,7 +62,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
 
             {/* Desktop fallback image */}
             <Image
-              src="/assets/home/hero.png"
+              src="/assets/home/hero.webp"
               alt=""
               fill
               priority
@@ -83,8 +83,8 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
               muted
               loop
               playsInline
-              preload="auto"
-              poster="/assets/home/hero.png"
+              preload="metadata"
+              poster="/assets/home/hero.webp"
               onError={() => setVideoFailed(true)}
             >
               <source src="/assets/videos/hero.webm" type="video/webm" />
@@ -95,7 +95,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
           <div
             className="pointer-events-none absolute inset-0 z-10 opacity-[0.18] bg-black/10"
             style={{
-              backgroundImage: "url(/assets/grain.png)",
+              backgroundImage: "url(/assets/grain.webp)",
               backgroundRepeat: "repeat",
               backgroundSize: "150px 150px",
               mixBlendMode: "soft-light",

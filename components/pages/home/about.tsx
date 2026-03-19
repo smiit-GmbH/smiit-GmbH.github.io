@@ -57,7 +57,7 @@ export default function About({ dict }: AboutProps) {
         >
           {/* Background image – Mobile (no parallax) */}
           <Image
-            src="/assets/home/about_mobile.png"
+            src="/assets/home/about_mobile.webp"
             alt=""
             fill
             sizes="100vw"
@@ -72,7 +72,7 @@ export default function About({ dict }: AboutProps) {
             style={{ y: imageY }}
           >
             <Image
-              src="/assets/home/about.png"
+              src="/assets/home/about.webp"
               alt=""
               fill
               sizes="(min-width: 768px) 1200px, 100vw"

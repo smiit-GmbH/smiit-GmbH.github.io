@@ -148,7 +148,7 @@ const dictionaries = {
           {
             name: "Sebastian Grab",
             role: "Co-Founder & Software Entwickler",
-            image: "/assets/people/sebastian.png",
+            image: "/assets/people/sebastian.webp",
             education: ["B.A. BWL - Industrie", "M.Sc. Digital Processes and Technologies"],
             bio: "Ich verantworte die technische Architektur und Umsetzung unserer Lösungen. Mein Fokus liegt darauf, aus Anforderungen robuste Systeme zu entwickeln – von Datenanalysen über Prozessautomatisierungen bis hin zu individuellen Web-Applikationen.",
             email: "sebastian.grab@smiit.de",
@@ -158,7 +158,7 @@ const dictionaries = {
           {
             name: "Noah Neßlauer",
             role: "Co-Founder & Business Analyst",
-            image: "/assets/people/noah.png",
+            image: "/assets/people/noah.webp",
             education: ["B.A. BWL - Industrie", "M.Sc. Consulting & Business Analytics"],
             bio: "Ich begleite unsere Kunden von der ersten Analyse bis zur Umsetzung der passenden Lösung. Gemeinsam identifizieren wir Herausforderungen, strukturieren Anforderungen und entwickeln datengetriebene Ansätze, die wirklich Mehrwert schaffen.",
             email: "noah.nesslauer@smiit.de",
@@ -221,14 +221,14 @@ const dictionaries = {
         {
           name: "Sebastian Grab",
           role: "Software Entwickler",
-          image: "/assets/people/sebastian.png",
+          image: "/assets/people/sebastian.webp",
           email: "sebastian.grab@smiit.de",
           cvLink: "https://grab.smiit.de",
         },
         {
           name: "Noah Neßlauer",
           role: "Business Analyst",
-          image: "/assets/people/noah.png",
+          image: "/assets/people/noah.webp",
           email: "noah.nesslauer@smiit.de",
           cvLink: "https://nesslauer.smiit.de",
         },
@@ -488,7 +488,7 @@ const dictionaries = {
           {
             name: "Sebastian Grab",
             role: "Co-Founder & Software Engineer",
-            image: "/assets/people/sebastian.png",
+            image: "/assets/people/sebastian.webp",
             education: ["B.A. BWL - Industrie", "M.Sc. Digital Processes and Technologies"],
             bio: "I am responsible for the technical architecture and implementation of our solutions. My focus is on developing robust systems based on requirements – from data analysis and process automation to customized web applications.",
             email: "sebastian.grab@smiit.de",
@@ -498,7 +498,7 @@ const dictionaries = {
           {
             name: "Noah Neßlauer",
             role: "Co-Founder & Business Analyst",
-            image: "/assets/people/noah.png",
+            image: "/assets/people/noah.webp",
             education: ["B.A. BWL - Industrie", "M.Sc. Consulting & Business Analytics"],
             bio: "I accompany our customers from the initial analysis to the implementation of the appropriate solution. Together, we identify challenges, structure requirements, and develop data-driven approaches that truly add value.",
             email: "noah.nesslauer@smiit.de",
@@ -561,14 +561,14 @@ const dictionaries = {
         {
           name: "Sebastian Grab",
           role: "Software Engineer",
-          image: "/assets/people/sebastian.png",
+          image: "/assets/people/sebastian.webp",
           email: "sebastian.grab@smiit.de",
           cvLink: "https://grab.smiit.de",
         },
         {
           name: "Noah Neßlauer",
           role: "Business Analyst",
-          image: "/assets/people/noah.png",
+          image: "/assets/people/noah.webp",
           email: "noah.nesslauer@smiit.de",
           cvLink: "https://nesslauer.smiit.de",
         },

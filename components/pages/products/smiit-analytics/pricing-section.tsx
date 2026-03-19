@@ -34,7 +34,7 @@ export function PricingSection({ dict }: PricingSectionProps) {
       <div
         className="pointer-events-none absolute inset-0 z-0 opacity-[0.12]"
         style={{
-          backgroundImage: "url(/assets/grain.png)",
+          backgroundImage: "url(/assets/grain.webp)",
           backgroundRepeat: "repeat",
           backgroundSize: "150px 150px",
           mixBlendMode: "soft-light",
@@ -128,7 +128,7 @@ export function PricingSection({ dict }: PricingSectionProps) {
               <div className="relative rounded-xl overflow-hidden shadow-[0_8px_30px_rgba(0,0,0,0.12)] mb-8 border border-black/5">
                 <div className="relative aspect-[16/10] md:aspect-[16/9]">
                   <Image
-                    src="/assets/products/smiit-analytics/sites.png"
+                    src="/assets/products/smiit-analytics/sites.webp"
                     alt="smiit Analytics Dashboard"
                     fill
                     sizes="(min-width: 768px) 400px, 100vw"

@@ -51,7 +51,7 @@ export default function NotFound() {
       </head>
       <body className={`${geist.variable} ${geistMono.variable} ${playfair.variable} font-sans antialiased`}>
         <main className="min-h-screen flex flex-col">
-          <section className="relative w-full min-h-[70vh] h-[88vh] md:h-[95vh] max-h-[980px] rounded-b-[1.75rem] overflow-hidden bg-[url('/assets/not_found_mobile.png')] md:bg-[url('/assets/not_found.png')] bg-cover bg-center bg-no-repeat flex flex-col">
+          <section className="relative w-full min-h-[70vh] h-[88vh] md:h-[95vh] max-h-[980px] rounded-b-[1.75rem] overflow-hidden bg-[url('/assets/not_found_mobile.webp')] md:bg-[url('/assets/not_found.webp')] bg-cover bg-center bg-no-repeat flex flex-col">
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/45 via-white/25 to-black/35" />
             <Header />
             <div className="relative z-10 flex-grow flex items-start justify-center px-4 pt-20 mt-2 md:mt-0 md:pt-14">

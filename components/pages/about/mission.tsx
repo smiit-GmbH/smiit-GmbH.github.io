@@ -4,9 +4,9 @@ import Image from "next/image"
 import { motion } from "framer-motion"
 
 const valueImages = [
-  "/assets/about/values_trust.png",
-  "/assets/about/values_quality.png",
-  "/assets/about/values_together.png",
+  "/assets/about/values_trust.webp",
+  "/assets/about/values_quality.webp",
+  "/assets/about/values_together.webp",
 ]
 
 const fadeUpVariants = {

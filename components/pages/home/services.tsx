@@ -158,9 +158,9 @@ function getLink(title: string) {
 
 function getImage(title: string) {
   const t = title.toLowerCase()
-  if (t.includes("strategy") || t.includes("strategie")) return "/assets/home/services_consulting.png"
-  if (t.includes("analysis") || t.includes("analyse")) return "/assets/home/services_analytics.png"
-  if (t.includes("app") || t.includes("workflow")) return "/assets/home/services_apps.png"
+  if (t.includes("strategy") || t.includes("strategie")) return "/assets/home/services_consulting.webp"
+  if (t.includes("analytics") || t.includes("analyse")) return "/assets/home/services_analytics.webp"
+  if (t.includes("app") || t.includes("workflow")) return "/assets/home/services_apps.webp"
   return undefined
 }
 
