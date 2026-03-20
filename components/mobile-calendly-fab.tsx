@@ -4,7 +4,7 @@ import { CalendarDays } from "lucide-react"
 
 export function MobileCalendlyFab() {
   return (
-    <div className="lg:hidden fixed right-4 bottom-6 z-[70] pb-[env(safe-area-inset-bottom)]">
+    <div className="lg:hidden fixed right-5 bottom-5 z-[70] pb-[env(safe-area-inset-bottom)]">
       <button
         type="button"
         data-open-calendly="true"
