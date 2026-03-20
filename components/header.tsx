@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { AlignJustify, Contact, ChevronDown, Globe, PhoneCall, CalendarDays } from "lucide-react"
+import { AlignJustify, Contact, ChevronDown, Globe, PhoneCall } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   Sheet,
@@ -138,7 +138,7 @@ export default function Header({ forceLang, darkHero: darkHeroProp }: { forceLan
   return (
     <nav ref={navRef} className={`fixed top-0 w-full z-50 transition-all duration-300 ${navBg}`}>
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-18">
+        <div className="flex justify-between items-center h-16 lg:h-18">
           {/* Logo */}
           <Link href={homeHref} className="flex items-center relative group" scroll={false}>
             <Image
@@ -146,7 +146,7 @@ export default function Header({ forceLang, darkHero: darkHeroProp }: { forceLan
               alt="smiit"
               width={140}
               height={48}
-              className="h-12 w-auto object-contain"
+              className="h-11 lg:h-12 w-auto object-contain"
               priority
             />
           </Link>
@@ -223,7 +223,7 @@ export default function Header({ forceLang, darkHero: darkHeroProp }: { forceLan
             </Link>
           </div>
 
-          <div className="flex items-center gap-3 sm:gap-6">
+          <div className="flex items-center gap-2 sm:gap-6">
             <Link href={contactHref} scroll={false} className="hidden lg:block">
               <Button className="bg-[#F703EB] hover:bg-[#DE02D2] text-white rounded-md px-3 py-2 font-medium text-sm tracking-tight cursor-pointer shadow-none border-none">
                 {L.talkToExpert}
@@ -233,23 +233,15 @@ export default function Header({ forceLang, darkHero: darkHeroProp }: { forceLan
               <LanguageSwitcher light={isLightHeader} />
             </div>
 
-            <div className="lg:hidden flex items-center gap-2">
-              <a
-                href="#book"
-                aria-label={L.talkToExpert}
-                className="h-10 w-10 rounded-xl backdrop-blur-md flex items-center justify-center transition-colors"
-              >
-                <CalendarDays className={`h-5 w-5 mr-2 ${textColorMuted}`} />
-              </a>
-
+            <div className="lg:hidden flex items-center">
               <Sheet>
                 <SheetTrigger asChild>
                   <button
                     type="button"
                     aria-label="Open menu"
-                    className={`h-10 w-10 rounded-xl border ${isLightHeader ? "border-white/20" : "border-black/20"} backdrop-blur-md flex items-center justify-center`}
+                    className={`h-8.5 w-8.5 rounded-lg border ${isLightHeader ? "border-white/20 bg-white/8" : "border-black/15 bg-white/55"} backdrop-blur-md flex items-center justify-center shadow-sm`}
                   >
-                    <AlignJustify className={`h-5 w-5 ${textColorMuted}`} />
+                    <AlignJustify className={`h-4 w-4 ${textColorMuted}`} />
                   </button>
                 </SheetTrigger>
 

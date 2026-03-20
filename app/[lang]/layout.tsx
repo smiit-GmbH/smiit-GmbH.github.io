@@ -7,6 +7,7 @@ import Header from "@/components/header"
 import { ScrollToTop } from "@/components/scroll-to-top"
 import { CalendlyHandler } from "@/components/calendly-handler"
 import { SmoothScrollProvider } from "@/components/smooth-scroll-provider"
+import { MobileCalendlyFab } from "@/components/mobile-calendly-fab"
 
 const geist = Geist({
   subsets: ["latin"],
@@ -81,6 +82,7 @@ export default async function RootLayout({
           <ScrollToTop />
           <CalendlyHandler />
           <Header forceLang={lang} />
+          <MobileCalendlyFab />
           {children}
           <Footer forceLang={lang} />
         </SmoothScrollProvider>
