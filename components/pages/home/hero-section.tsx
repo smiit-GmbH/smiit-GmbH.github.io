@@ -44,7 +44,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
         <section className="
           relative isolate overflow-hidden rounded-b-[1.75rem]
           h-[105vh]
-          supports-[height:100svh]:h-[105svh]
+          supports-[height:100lvh]:h-[105lvh]
           md:min-h-[680px]
           md:h-[105vh]
         ">

@@ -52,7 +52,7 @@ export default function About({ dict }: AboutProps) {
             "relative overflow-hidden",
             "rounded-[1.75rem]",
             "border-none sm:border sm:border-black/10",
-            "min-h-[600px] sm:min-h-[705px] md:min-h-[610px] lg:min-h-[690px]",
+            "h-[600px] sm:min-h-[705px] md:min-h-[610px] lg:min-h-[690px]",
           ].join(" ")}
         >
           {/* Background image – Mobile (no parallax) */}
