@@ -22,6 +22,7 @@ type Props = {
 export function CalendlyHandler({ url }: Props) {
   const pendingOpenRef = useRef(false)
   const scriptLoadedRef = useRef(false)
+  const warmupDoneRef = useRef(false)
 
   const getLang = useCallback((): string => {
     try {
@@ -73,6 +74,37 @@ export function CalendlyHandler({ url }: Props) {
     }
   }, [buildCalendlyUrl])
 
+  const warmup = useCallback(() => {
+    if (warmupDoneRef.current) return
+
+    warmupDoneRef.current = true
+
+    const appendLink = (rel: string, href: string, crossOrigin?: boolean) => {
+      if (!href || typeof document === "undefined") return
+      if (document.head.querySelector(`link[rel="${rel}"][href="${href}"]`)) return
+
+      const link = document.createElement("link")
+      link.rel = rel
+      link.href = href
+      if (crossOrigin) link.crossOrigin = "anonymous"
+      document.head.appendChild(link)
+    }
+
+    appendLink("preconnect", "https://assets.calendly.com", true)
+    appendLink("dns-prefetch", "https://assets.calendly.com")
+
+    const finalUrl = buildCalendlyUrl()
+    if (!finalUrl) return
+
+    try {
+      const finalOrigin = new URL(finalUrl).origin
+      appendLink("preconnect", finalOrigin, true)
+      appendLink("dns-prefetch", finalOrigin)
+    } catch {
+      /* ignore malformed url */
+    }
+  }, [buildCalendlyUrl])
+
 
   const cleanHash = useCallback(() => {
     try {
@@ -113,6 +145,33 @@ export function CalendlyHandler({ url }: Props) {
 
 
   useEffect(() => {
+    const onWarmIntent = (e: Event) => {
+      const target = e.target as HTMLElement | null
+      if (!target) return
+
+      const trigger = target.closest<HTMLElement>(
+        'a[href*="#book"], [data-open-calendly="true"]'
+      )
+      if (!trigger) return
+
+      warmup()
+    }
+
+    document.addEventListener("pointerdown", onWarmIntent, true)
+    document.addEventListener("touchstart", onWarmIntent, true)
+    document.addEventListener("focusin", onWarmIntent, true)
+    document.addEventListener("mouseenter", onWarmIntent, true)
+
+    return () => {
+      document.removeEventListener("pointerdown", onWarmIntent, true)
+      document.removeEventListener("touchstart", onWarmIntent, true)
+      document.removeEventListener("focusin", onWarmIntent, true)
+      document.removeEventListener("mouseenter", onWarmIntent, true)
+    }
+  }, [warmup])
+
+
+  useEffect(() => {
     const onClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement | null
       if (!target) return
@@ -122,6 +181,7 @@ export function CalendlyHandler({ url }: Props) {
       )
       if (!trigger) return
 
+      warmup()
       e.preventDefault()
       e.stopPropagation()
 
@@ -131,7 +191,7 @@ export function CalendlyHandler({ url }: Props) {
 
     document.addEventListener("click", onClick, true)
     return () => document.removeEventListener("click", onClick, true)
-  }, [open, cleanHash])
+  }, [open, cleanHash, warmup])
 
   return (
     <>
@@ -139,6 +199,8 @@ export function CalendlyHandler({ url }: Props) {
         rel="stylesheet"
         href="https://assets.calendly.com/assets/external/widget.css"
       />
+      <link rel="preconnect" href="https://assets.calendly.com" crossOrigin="anonymous" />
+      <link rel="dns-prefetch" href="https://assets.calendly.com" />
 
       <Script
         src="https://assets.calendly.com/assets/external/widget.js"
