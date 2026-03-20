@@ -1,9 +1,8 @@
 "use client"
 
 import React, { useCallback, useEffect, useRef, useState } from "react"
-import { motion, useInView, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from "framer-motion"
+import { motion, useInView, useReducedMotion } from "framer-motion"
 import LocalizedLink from "../../localized-link"
-import { useLenis } from "../../smooth-scroll-provider"
 import { DotLottieReact } from "@lottiefiles/dotlottie-react"
 import { Button } from "@/components/ui/button"
 import { ChevronRight } from "lucide-react"
@@ -330,164 +329,90 @@ function MobileServicesStack({
   ctaText?: string
   ctaButton?: string
 }) {
-  const count = items.length
-  const lenis = useLenis()
-  const scrollAreaRef = useRef<HTMLDivElement>(null)
-  const [activeIndex, setActiveIndex] = useState(0)
-  const [prevIndex, setPrevIndex] = useState<number | null>(null)
-  const [swipeDirection, setSwipeDirection] = useState<1 | -1>(1)
-  const activeIndexRef = useRef(0)
-  const latestScrollProgressRef = useRef(0)
-  const progressRafRef = useRef<number | null>(null)
-
-  // Lock to temporarily ignore scroll-driven index updates after a swipe/dot-click
-  const scrollLockRef = useRef(false)
-  const scrollLockTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-
-  const { scrollYProgress } = useScroll({
-    target: scrollAreaRef,
-    offset: ["start start", "end end"],
-  })
-
-  useEffect(() => {
-    activeIndexRef.current = activeIndex
-  }, [activeIndex])
-
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    // Skip scroll-driven updates while a swipe/dot navigation is in progress
-    if (scrollLockRef.current) return
-
-    latestScrollProgressRef.current = latest
-    if (progressRafRef.current !== null) return
-
-    progressRafRef.current = window.requestAnimationFrame(() => {
-      progressRafRef.current = null
-
-      const raw = latestScrollProgressRef.current * count
-      const idx = Math.max(0, Math.min(count - 1, Math.floor(raw)))
-      const current = activeIndexRef.current
-      if (idx === current) return
-
-      setPrevIndex(current)
-      setSwipeDirection(idx > current ? 1 : -1)
-      activeIndexRef.current = idx
-      setActiveIndex(idx)
-    })
-  })
-
-  useEffect(() => {
-    return () => {
-      if (progressRafRef.current !== null) {
-        window.cancelAnimationFrame(progressRafRef.current)
-      }
-
-      if (scrollLockTimerRef.current) {
-        clearTimeout(scrollLockTimerRef.current)
-      }
-    }
-  }, [])
-
-  // Navigate to a specific card index (used by swipe + dot click)
-  const goToCard = useCallback(
-    (targetIndex: number) => {
-      const clamped = Math.max(0, Math.min(count - 1, targetIndex))
-
-      // Lock scroll-driven updates so they don't fight with our direct state change
-      scrollLockRef.current = true
-      if (scrollLockTimerRef.current) clearTimeout(scrollLockTimerRef.current)
-      scrollLockTimerRef.current = setTimeout(() => {
-        scrollLockRef.current = false
-      }, 1200)
-
-      setActiveIndex((current) => {
-        if (clamped === current) return current
-        setPrevIndex(current)
-        setSwipeDirection(clamped > current ? 1 : -1)
-        activeIndexRef.current = clamped
-        return clamped
-      })
-
-      // Scroll the page so the scroll-based index stays in sync after the lock expires
-      const el = scrollAreaRef.current
-      if (!el) return
-      const rect = el.getBoundingClientRect()
-      const absoluteTop = rect.top + window.scrollY
-      const totalScrollRange = el.scrollHeight - window.innerHeight
-      const targetProgress = (clamped + 0.5) / count
-      const targetScroll = absoluteTop + targetProgress * totalScrollRange
-
-      // Use Lenis if available, otherwise fall back to native scrollTo
-      if (lenis) {
-        lenis.scrollTo(targetScroll, { duration: 1.0 })
-      } else {
-        window.scrollTo({ top: targetScroll, behavior: "smooth" })
-      }
-    },
-    [count, lenis],
-  )
-
   return (
-    <div
-      ref={scrollAreaRef}
-      className="relative md:hidden"
-      style={{ height: `${count * 80}vh` }}
-    >
-      {/* Section header — normal flow on mobile (not sticky) */}
-      {header && <div className="mb-5">{header}</div>}
+    <div className="md:hidden">
+      {header && <div className="mb-8">{header}</div>}
 
-      <div className="sticky top-[80px] z-10 px-0">
-        <div className="flex items-center gap-2">
-          {/* Card viewport — fixed aspect ratio, all layers stacked */}
-          <div
-            className="relative flex-1 max-h-[min(70vh,600px)] rounded-[1.25rem] overflow-hidden"
-            style={{ aspectRatio: "3 / 5" }}
-          >
-            {items.map((item, idx) => (
-              <MobileCardLayer
-                key={item.title}
-                item={item}
-                state={idx === activeIndex ? "active" : idx === prevIndex ? "prev" : "idle"}
-                swipeDirection={swipeDirection}
-                href={getLink(item.title)}
-                imageSrc={getImage(item.title)}
-              />
-            ))}
-          </div>
+      <div className="space-y-6">
+        {items.map((item, idx) => {
+          const href = getLink(item.title)
+          const imageSrc = getImage(item.title)
 
-          {/* Dot indicator — vertical on the right side of cards */}
-          <div className="flex flex-col items-center justify-center gap-1 py-2 pr-0.5">
-            {items.map((item, idx) => (
-              <button
-                key={item.title}
-                type="button"
-                className="flex items-center justify-center px-2 py-1.5 cursor-pointer bg-transparent border-none outline-none"
-                aria-label={`Go to card ${idx + 1}`}
-                onClick={() => goToCard(idx)}
-              >
-                <motion.div
-                  className="rounded-full"
-                  animate={{
-                    height: idx === activeIndex ? 24 : 8,
-                    backgroundColor:
-                      idx === activeIndex
-                        ? "rgba(0, 0, 0, 0.85)"
-                        : "rgba(0, 0, 0, 0.15)",
+          return (
+            <motion.div
+              key={item.title}
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
+              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1], delay: idx * 0.04 }}
+              className="relative overflow-hidden rounded-[1.5rem] border border-black/8 bg-white shadow-[0_16px_44px_rgba(0,0,0,0.08)]"
+            >
+              <div className="relative aspect-[4/5] overflow-hidden">
+                {imageSrc && (
+                  <div className="absolute inset-0">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={imageSrc} alt="" className="h-full w-full object-cover" />
+                  </div>
+                )}
+
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background: [
+                      "linear-gradient(to top, rgba(255,255,255,0.98) 0%, rgba(255,255,255,0.92) 30%, rgba(255,255,255,0.26) 58%, rgba(255,255,255,0.04) 78%, transparent 100%)",
+                      "linear-gradient(160deg, rgba(33,86,156,0.08) 0%, rgba(22,174,163,0.04) 58%, transparent 100%)",
+                    ].join(", "),
                   }}
-                  transition={{ duration: 0.35, ease: "easeInOut" }}
-                  style={{ width: 8 }}
                 />
-              </button>
-            ))}
-          </div>
-        </div>
 
-        {/* CTA — sticky together with cards on mobile */}
+                <div className="absolute left-5 top-5 z-10 inline-flex h-8 min-w-8 items-center justify-center rounded-full border border-black/10 bg-white/78 px-3 text-[0.68rem] font-semibold tracking-[0.14em] text-black/55 backdrop-blur-sm">
+                  {String(idx + 1).padStart(2, "0")}
+                </div>
+
+                <div className="absolute inset-x-0 bottom-0 z-10 p-5 pb-6">
+                  <div className="flex flex-wrap gap-2">
+                    {item.tags.map((t) => (
+                      <span
+                        key={t}
+                        className="inline-flex items-center rounded-full border border-black/12 bg-white/92 px-3 py-1 text-[0.64rem] font-semibold uppercase tracking-[0.08em] text-black/75 shadow-sm"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+
+                  <h3 className="mt-4 max-w-[14ch] font-serif text-[1.9rem] leading-[1.02] tracking-tight text-black">
+                    {item.title}
+                  </h3>
+
+                  <p className="mt-3 max-w-[34ch] text-[0.92rem] leading-relaxed text-black/72">
+                    {item.text}
+                  </p>
+
+                  {href && (
+                    <div className="mt-5">
+                      <LocalizedLink
+                        href={href}
+                        className="inline-flex items-center gap-2 rounded-full border border-black/12 bg-white/82 px-4 py-2.5 text-[0.82rem] font-medium text-black/75 shadow-sm backdrop-blur-sm"
+                      >
+                        Mehr erfahren
+                        <ChevronRight className="h-4 w-4" />
+                      </LocalizedLink>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          )
+        })}
+
         {ctaText && ctaButton && (
           <motion.div
             initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: "easeOut", delay: 0.05 }}
-            className="mt-2 text-center"
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
+            transition={{ duration: 0.45, ease: "easeOut" }}
+            className="pt-2 text-center"
           >
             <p className="text-sm leading-relaxed text-black/75 dark:text-white/75 max-w-[54ch] mx-auto">
               {ctaText}
@@ -496,7 +421,7 @@ function MobileServicesStack({
               <a href="#book">
                 <Button
                   variant="outline"
-                  className="rounded-xl px-8 py-6 text-base border-black text-black hover:bg-black hover:text-white transition-all duration-300 hover:scale-105 cursor-pointer"
+                  className="rounded-xl px-8 py-6 text-base border-black text-black hover:bg-black hover:text-white transition-all duration-300 cursor-pointer"
                 >
                   {ctaButton}
                   <ChevronRight className="ml-2 h-4 w-4" />
