@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import Link from "next/link"
-import { useState } from "react"
+import { memo, useState } from "react"
 import { motion } from "framer-motion"
 import { Mail, ExternalLink, ArrowRight, Linkedin, GraduationCap } from "lucide-react"
 import type { Locale } from "@/lib/dictionary"
@@ -32,7 +32,7 @@ const staggerContainer = {
   },
 }
 
-function FlipCard({
+const FlipCard = memo(function FlipCard({
   founder,
   cvLinkText,
   flipHint,
@@ -91,17 +91,19 @@ function FlipCard({
           </div>
 
           {/* ===== BACK ===== */}
-          <div className="absolute inset-0 backface-hidden rotate-y-180 rounded-2xl overflow-hidden shadow-md ring-1 ring-black/5">
-            <Image
-              src={founder.image}
-              alt=""
-              fill
-              className="object-cover object-top scale-105 blur-[3px]"
-              sizes="360px"
+          <div className="absolute inset-0 backface-hidden rotate-y-180 rounded-2xl overflow-hidden shadow-md ring-1 ring-black/5 bg-[linear-gradient(180deg,rgba(255,255,255,0.96),rgba(244,247,252,0.96))]">
+            <div
               aria-hidden="true"
-              loading="lazy"
+              className="absolute inset-0"
+              style={{
+                background: [
+                  "radial-gradient(circle at top right, rgba(33,86,156,0.16), transparent 38%)",
+                  "radial-gradient(circle at bottom left, rgba(22,174,163,0.12), transparent 34%)",
+                  "linear-gradient(180deg, rgba(255,255,255,0.92), rgba(245,247,251,0.96))",
+                ].join(", "),
+              }}
             />
-            <div className="absolute inset-0 bg-white/88 backdrop-blur-sm" />
+            <div className="absolute inset-0 bg-white/56" />
 
             {/* Content */}
             <div className="relative h-full flex flex-col justify-between p-6 sm:p-7">
@@ -169,7 +171,7 @@ function FlipCard({
       </div>
     </motion.div>
   )
-}
+})
 
 export function FoundersSection({ lang, dict }: { lang: Locale; dict: any }) {
   const f = dict.aboutPage.founders

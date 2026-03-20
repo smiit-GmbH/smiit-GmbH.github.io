@@ -42,11 +42,6 @@ function loadCountriesGeoJson() {
   return countriesGeoJsonPromise;
 }
 
-if (typeof window !== "undefined") {
-  void reactGlobeModulePromise;
-  void loadCountriesGeoJson();
-}
-
 interface GlobeProps {
   progress: number;
 }
@@ -87,6 +82,7 @@ export function Globe({ progress }: GlobeProps) {
   const transitionToBlendRef = useRef(1);
   const isVisibleRef = useRef(true);
   const isPointerActiveRef = useRef(false);
+  const tooltipOverlayRef = useRef<HTMLDivElement | null>(null);
 
   const [isMounted, setIsMounted] = useState(false);
   const [isGlobeReady, setIsGlobeReady] = useState(false);
@@ -103,6 +99,9 @@ export function Globe({ progress }: GlobeProps) {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+
+    void reactGlobeModulePromise;
+    void loadCountriesGeoJson();
 
     const mediaQuery = window.matchMedia("(hover: none), (pointer: coarse)");
     const updateTouchCapability = () => setIsTouchDevice(mediaQuery.matches);
@@ -401,6 +400,8 @@ export function Globe({ progress }: GlobeProps) {
   }, [isMounted, smoothedProgress]);
 
   useEffect(() => {
+    if (!isGlobeReady || showLocations) return;
+
     const animateIdle = (ts: number) => {
       const globe = globeRef.current;
       if (globe) {
@@ -432,9 +433,10 @@ export function Globe({ progress }: GlobeProps) {
     return () => {
       if (rafRef.current) {
         cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
       }
     };
-  }, [isGlobeReady, isTouchDevice]);
+  }, [isGlobeReady, isTouchDevice, showLocations]);
 
   useEffect(() => {
     if (!isGlobeReady) return;
@@ -458,8 +460,53 @@ export function Globe({ progress }: GlobeProps) {
   }, [isGlobeReady, isTouchDevice]);
 
   useEffect(() => {
+    if (typeof document === "undefined") return;
+
+    const existingOverlay = document.getElementById("globe-tooltip-overlay") as HTMLDivElement | null;
+    if (existingOverlay) {
+      tooltipOverlayRef.current = existingOverlay;
+      return;
+    }
+
+    const overlay = document.createElement("div");
+    overlay.id = "globe-tooltip-overlay";
+    overlay.style.position = "fixed";
+    overlay.style.left = "0";
+    overlay.style.top = "0";
+    overlay.style.minWidth = "30px";
+    overlay.style.maxWidth = "240px";
+    overlay.style.padding = "12px 14px";
+    overlay.style.borderRadius = "10px";
+    overlay.style.background = "#0A1128";
+    overlay.style.color = "#ffffff";
+    overlay.style.boxShadow = "0 10px 28px rgba(0,0,0,.28)";
+    overlay.style.border = "1px solid rgba(255,255,255,.14)";
+    overlay.style.fontFamily = "Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif";
+    overlay.style.fontSize = "12px";
+    overlay.style.lineHeight = "1.35";
+    overlay.style.whiteSpace = "normal";
+    overlay.style.zIndex = "2147483647";
+    overlay.style.opacity = "0";
+    overlay.style.pointerEvents = "none";
+    overlay.style.transition = "opacity 160ms ease";
+
+    document.body.appendChild(overlay);
+    tooltipOverlayRef.current = overlay;
+
+    return () => {
+      if (tooltipOverlayRef.current === overlay) {
+        tooltipOverlayRef.current = null;
+      }
+
+      if (overlay.parentNode) {
+        overlay.parentNode.removeChild(overlay);
+      }
+    };
+  }, []);
+
+  useEffect(() => {
     const hideOverlayTooltip = () => {
-      const overlay = document.getElementById("globe-tooltip-overlay") as HTMLDivElement | null;
+      const overlay = tooltipOverlayRef.current;
       if (overlay) {
         overlay.style.opacity = "0";
       }
@@ -556,34 +603,7 @@ export function Globe({ progress }: GlobeProps) {
                 marker.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="#21569c" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3" fill="white" stroke="none"></circle></svg>`;
 
                 const getOverlayTooltip = () => {
-                  let overlay = document.getElementById("globe-tooltip-overlay") as HTMLDivElement | null;
-
-                  if (!overlay) {
-                    overlay = document.createElement("div");
-                    overlay.id = "globe-tooltip-overlay";
-                    overlay.style.position = "fixed";
-                    overlay.style.left = "0";
-                    overlay.style.top = "0";
-                    overlay.style.minWidth = "30px";
-                    overlay.style.maxWidth = "240px";
-                    overlay.style.padding = "12px 14px";
-                    overlay.style.borderRadius = "10px";
-                    overlay.style.background = "#0A1128";
-                    overlay.style.color = "#ffffff";
-                    overlay.style.boxShadow = "0 10px 28px rgba(0,0,0,.28)";
-                    overlay.style.border = "1px solid rgba(255,255,255,.14)";
-                    overlay.style.fontFamily = "Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif";
-                    overlay.style.fontSize = "12px";
-                    overlay.style.lineHeight = "1.35";
-                    overlay.style.whiteSpace = "normal";
-                    overlay.style.zIndex = "2147483647";
-                    overlay.style.opacity = "0";
-                    overlay.style.pointerEvents = "none";
-                    overlay.style.transition = "opacity 160ms ease";
-                    document.body.appendChild(overlay);
-                  }
-
-                  return overlay;
+                  return tooltipOverlayRef.current;
                 };
 
                 el.appendChild(marker);
@@ -596,6 +616,7 @@ export function Globe({ progress }: GlobeProps) {
 
                 const positionTooltip = (event: MouseEvent) => {
                   const overlay = getOverlayTooltip();
+                  if (!overlay) return;
                   const xOffset = 14;
                   const yOffset = 14;
                   const vw = window.innerWidth;
@@ -627,6 +648,7 @@ export function Globe({ progress }: GlobeProps) {
 
                 el.addEventListener("mouseenter", (event) => {
                   const overlay = getOverlayTooltip();
+                  if (!overlay) return;
                   overlay.innerHTML = parts.join("");
                   positionTooltip(event);
                   el.style.zIndex = "1000";
@@ -639,6 +661,7 @@ export function Globe({ progress }: GlobeProps) {
 
                 el.addEventListener("mouseleave", () => {
                   const overlay = getOverlayTooltip();
+                  if (!overlay) return;
                   el.style.zIndex = "2";
                   overlay.style.opacity = "0";
                 });
