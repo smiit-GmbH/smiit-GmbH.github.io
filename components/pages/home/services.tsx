@@ -433,17 +433,17 @@ function MobileServicesStack({
           </div>
         </div>
 
-        <div className="mt-4 flex items-center justify-center gap-3">
+        <div className="mt-4 flex items-center justify-center gap-6">
           <button
             type="button"
             onClick={() => goToCard(activeIndex - 1)}
             aria-label="Vorherige Karte"
-            className="inline-flex h-10 w-10 items-center justify-center text-xl leading-none text-black/45 transition-all duration-300 hover:text-black active:scale-95 dark:text-white/45 dark:hover:text-white"
+            className="inline-flex h-10 w-10 items-center justify-center text-xl leading-none text-black/10 transition-all duration-300 hover:text-black active:scale-95 dark:text-white/45 dark:hover:text-white"
           >
             &lt;
           </button>
 
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-1">
             {items.map((item, idx) => (
               <button
                 key={`${item.title}-dot`}
@@ -466,7 +466,7 @@ function MobileServicesStack({
             type="button"
             onClick={() => goToCard(activeIndex + 1)}
             aria-label="Nächste Karte"
-            className="inline-flex h-10 w-10 items-center justify-center text-xl leading-none text-black/45 transition-all duration-300 hover:text-black active:scale-95 dark:text-white/45 dark:hover:text-white"
+            className="inline-flex h-10 w-10 items-center justify-center text-xl leading-none text-black/10 transition-all duration-300 hover:text-black active:scale-95 dark:text-white/45 dark:hover:text-white"
           >
             &gt;
           </button>
