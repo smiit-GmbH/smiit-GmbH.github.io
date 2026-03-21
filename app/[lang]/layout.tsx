@@ -82,7 +82,7 @@ export default async function RootLayout({
           <ScrollToTop />
           <CalendlyHandler />
           <Header forceLang={lang} />
-          <MobileCalendlyFab />
+          {/* <MobileCalendlyFab /> */}
           {children}
           <Footer forceLang={lang} />
         </SmoothScrollProvider>

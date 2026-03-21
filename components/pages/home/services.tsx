@@ -1,9 +1,8 @@
 "use client"
 
 import React, { useCallback, useEffect, useRef, useState } from "react"
-import { motion, useInView, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from "framer-motion"
+import { motion, useInView, useReducedMotion } from "framer-motion"
 import LocalizedLink from "../../localized-link"
-import { useLenis } from "../../smooth-scroll-provider"
 import { DotLottieReact } from "@lottiefiles/dotlottie-react"
 import { Button } from "@/components/ui/button"
 import { ChevronRight } from "lucide-react"
@@ -172,54 +171,76 @@ function MobileCardLayer({
   imageSrc,
 }: {
   item: { title: string; text: string; tags: string[] }
-  state: "active" | "prev" | "idle"
+  state: "active" | "prev" | "next" | "hidden"
   swipeDirection: 1 | -1
   href?: string
   imageSrc?: string
 }) {
   const isActive = state === "active"
   const isPrev = state === "prev"
+  const isNext = state === "next"
 
-  const animateState = isActive
-    ? {
+  const animateState = (() => {
+    if (isActive) {
+      return {
         opacity: 1,
         x: 0,
         y: 0,
         rotate: 0,
         scale: 1,
+        filter: "blur(0px)",
       }
-    : isPrev
-      ? {
-          opacity: 0,
-          x: swipeDirection === 1 ? -76 : 76,
-          y: 8,
-          rotate: swipeDirection === 1 ? -8 : 8,
-          scale: 0.94,
-        }
-      : {
-          opacity: 0,
-          x: swipeDirection === 1 ? 76 : -76,
-          y: 10,
-          rotate: swipeDirection === 1 ? 8 : -8,
-          scale: 0.93,
-        }
+    }
+
+    if (isPrev) {
+      return {
+        opacity: 0.48,
+        x: swipeDirection === 1 ? -24 : -12,
+        y: -10,
+        rotate: -5,
+        scale: 0.92,
+        filter: "blur(1.5px)",
+      }
+    }
+
+    if (isNext) {
+      return {
+        opacity: 0.34,
+        x: swipeDirection === 1 ? 12 : 24,
+        y: 16,
+        rotate: 5,
+        scale: 0.86,
+        filter: "blur(3px)",
+      }
+    }
+
+    return {
+      opacity: 0,
+      x: swipeDirection === 1 ? 44 : -44,
+      y: 24,
+      rotate: swipeDirection === 1 ? 7 : -7,
+      scale: 0.82,
+      filter: "blur(4px)",
+    }
+  })()
 
   const layerTransition = {
-    x: { type: "spring", stiffness: 220, damping: 30, mass: 1.0 },
-    rotate: { type: "spring", stiffness: 200, damping: 26, mass: 0.95 },
+    x: { type: "spring", stiffness: 320, damping: 32, mass: 0.9 },
+    rotate: { type: "spring", stiffness: 240, damping: 24, mass: 0.85 },
     opacity: {
-      duration: isActive ? 0.42 : 0.68,
+      duration: isActive ? 0.28 : 0.36,
       ease: [0.22, 1, 0.36, 1],
     },
-    scale: { duration: 0.5, ease: [0.22, 1, 0.36, 1] },
-    y: { duration: 0.44, ease: [0.22, 1, 0.36, 1] },
+    scale: { duration: 0.34, ease: [0.22, 1, 0.36, 1] },
+    y: { duration: 0.34, ease: [0.22, 1, 0.36, 1] },
+    filter: { duration: 0.3, ease: [0.22, 1, 0.36, 1] },
   }
 
   const inner = (
     <motion.div
       animate={animateState}
       transition={layerTransition}
-      className="absolute inset-0 will-change-[opacity,transform]"
+      className="absolute inset-0 will-change-[opacity,transform,filter]"
       style={{ pointerEvents: isActive ? "auto" : "none" }}
     >
       <div className="relative w-full h-full overflow-hidden rounded-[1.25rem] shadow-[0_10px_40px_rgba(0,0,0,0.12)]">
@@ -331,163 +352,132 @@ function MobileServicesStack({
   ctaButton?: string
 }) {
   const count = items.length
-  const lenis = useLenis()
-  const scrollAreaRef = useRef<HTMLDivElement>(null)
   const [activeIndex, setActiveIndex] = useState(0)
-  const [prevIndex, setPrevIndex] = useState<number | null>(null)
   const [swipeDirection, setSwipeDirection] = useState<1 | -1>(1)
-  const activeIndexRef = useRef(0)
-  const latestScrollProgressRef = useRef(0)
-  const progressRafRef = useRef<number | null>(null)
 
-  // Lock to temporarily ignore scroll-driven index updates after a swipe/dot-click
-  const scrollLockRef = useRef(false)
-  const scrollLockTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-
-  const { scrollYProgress } = useScroll({
-    target: scrollAreaRef,
-    offset: ["start start", "end end"],
-  })
-
-  useEffect(() => {
-    activeIndexRef.current = activeIndex
-  }, [activeIndex])
-
-  useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    // Skip scroll-driven updates while a swipe/dot navigation is in progress
-    if (scrollLockRef.current) return
-
-    latestScrollProgressRef.current = latest
-    if (progressRafRef.current !== null) return
-
-    progressRafRef.current = window.requestAnimationFrame(() => {
-      progressRafRef.current = null
-
-      const raw = latestScrollProgressRef.current * count
-      const idx = Math.max(0, Math.min(count - 1, Math.floor(raw)))
-      const current = activeIndexRef.current
-      if (idx === current) return
-
-      setPrevIndex(current)
-      setSwipeDirection(idx > current ? 1 : -1)
-      activeIndexRef.current = idx
-      setActiveIndex(idx)
-    })
-  })
-
-  useEffect(() => {
-    return () => {
-      if (progressRafRef.current !== null) {
-        window.cancelAnimationFrame(progressRafRef.current)
-      }
-
-      if (scrollLockTimerRef.current) {
-        clearTimeout(scrollLockTimerRef.current)
-      }
-    }
-  }, [])
-
-  // Navigate to a specific card index (used by swipe + dot click)
   const goToCard = useCallback(
     (targetIndex: number) => {
       const clamped = Math.max(0, Math.min(count - 1, targetIndex))
-
-      // Lock scroll-driven updates so they don't fight with our direct state change
-      scrollLockRef.current = true
-      if (scrollLockTimerRef.current) clearTimeout(scrollLockTimerRef.current)
-      scrollLockTimerRef.current = setTimeout(() => {
-        scrollLockRef.current = false
-      }, 1200)
-
       setActiveIndex((current) => {
         if (clamped === current) return current
-        setPrevIndex(current)
         setSwipeDirection(clamped > current ? 1 : -1)
-        activeIndexRef.current = clamped
         return clamped
       })
-
-      // Scroll the page so the scroll-based index stays in sync after the lock expires
-      const el = scrollAreaRef.current
-      if (!el) return
-      const rect = el.getBoundingClientRect()
-      const absoluteTop = rect.top + window.scrollY
-      const totalScrollRange = el.scrollHeight - window.innerHeight
-      const targetProgress = (clamped + 0.5) / count
-      const targetScroll = absoluteTop + targetProgress * totalScrollRange
-
-      // Use Lenis if available, otherwise fall back to native scrollTo
-      if (lenis) {
-        lenis.scrollTo(targetScroll, { duration: 1.0 })
-      } else {
-        window.scrollTo({ top: targetScroll, behavior: "smooth" })
-      }
     },
-    [count, lenis],
+    [count],
   )
 
+  const handleDragEnd = useCallback(
+    (_event: MouseEvent | TouchEvent | PointerEvent, info: { offset: { x: number }; velocity: { x: number } }) => {
+      const swipePower = Math.abs(info.offset.x) * 0.9 + Math.abs(info.velocity.x) * 0.35
+      if (swipePower < 85) return
+
+      if (info.offset.x < 0) {
+        goToCard(activeIndex + 1)
+        return
+      }
+
+      goToCard(activeIndex - 1)
+    },
+    [activeIndex, goToCard],
+  )
+
+  const getLayerState = (idx: number): "active" | "prev" | "next" | "hidden" => {
+    if (idx === activeIndex) return "active"
+    if (idx === (activeIndex - 1 + count) % count) return "prev"
+    if (idx === (activeIndex + 1) % count) return "next"
+    return "hidden"
+  }
+
   return (
-    <div
-      ref={scrollAreaRef}
-      className="relative md:hidden"
-      style={{ height: `${count * 80}vh` }}
-    >
-      {/* Section header — normal flow on mobile (not sticky) */}
+    <div className="relative md:hidden">
       {header && <div className="mb-5">{header}</div>}
 
-      <div className="sticky top-[80px] z-10 px-0">
-        <div className="flex items-center gap-2">
-          {/* Card viewport — fixed aspect ratio, all layers stacked */}
+      <div className="relative px-0">
+        <div className="flex justify-center">
           <div
-            className="relative flex-1 max-h-[min(70vh,600px)] rounded-[1.25rem] overflow-hidden"
+            className="relative w-full max-w-[320px] rounded-[1.5rem] overflow-visible"
             style={{ aspectRatio: "3 / 5" }}
           >
-            {items.map((item, idx) => (
-              <MobileCardLayer
-                key={item.title}
-                item={item}
-                state={idx === activeIndex ? "active" : idx === prevIndex ? "prev" : "idle"}
-                swipeDirection={swipeDirection}
-                href={getLink(item.title)}
-                imageSrc={getImage(item.title)}
-              />
-            ))}
-          </div>
+            <div className="absolute inset-x-[4%] top-6 h-full rounded-[1.5rem] bg-black/[0.04] blur-2xl" aria-hidden />
 
-          {/* Dot indicator — vertical on the right side of cards */}
-          <div className="flex flex-col items-center justify-center gap-1 py-2 pr-0.5">
+            <motion.div
+              drag="x"
+              dragConstraints={{ left: 0, right: 0 }}
+              dragElastic={0.14}
+              onDragEnd={handleDragEnd}
+              whileDrag={{ scale: 0.985, cursor: "grabbing" }}
+              className="relative h-full touch-pan-y cursor-grab select-none"
+            >
+              {items.map((item, idx) => (
+                <div
+                  key={item.title}
+                  className={idx === activeIndex ? "absolute inset-0 z-30" : idx === (activeIndex - 1 + count) % count ? "absolute inset-0 z-20" : idx === (activeIndex + 1) % count ? "absolute inset-0 z-10" : "absolute inset-0 z-0"}
+                >
+                  <MobileCardLayer
+                    item={item}
+                    state={getLayerState(idx)}
+                    swipeDirection={swipeDirection}
+                    href={getLink(item.title)}
+                    imageSrc={getImage(item.title)}
+                  />
+                </div>
+              ))}
+            </motion.div>
+
+            <div className="pointer-events-none absolute left-5 top-5 z-40 text-[0.68rem] font-medium uppercase tracking-[0.22em] text-white">
+              <span>
+                {String(activeIndex + 1).padStart(2, "0")} / {String(count).padStart(2, "0")}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div className="mt-4 flex items-center justify-center gap-3">
+          <button
+            type="button"
+            onClick={() => goToCard(activeIndex - 1)}
+            aria-label="Vorherige Karte"
+            className="inline-flex h-10 w-10 items-center justify-center text-xl leading-none text-black/45 transition-all duration-300 hover:text-black active:scale-95 dark:text-white/45 dark:hover:text-white"
+          >
+            &lt;
+          </button>
+
+          <div className="flex items-center gap-2">
             {items.map((item, idx) => (
               <button
-                key={item.title}
+                key={`${item.title}-dot`}
                 type="button"
-                className="flex items-center justify-center px-2 py-1.5 cursor-pointer bg-transparent border-none outline-none"
                 aria-label={`Go to card ${idx + 1}`}
                 onClick={() => goToCard(idx)}
+                className="group inline-flex h-9 w-9 items-center justify-center rounded-full"
               >
-                <motion.div
-                  className="rounded-full"
-                  animate={{
-                    height: idx === activeIndex ? 24 : 8,
-                    backgroundColor:
-                      idx === activeIndex
-                        ? "rgba(0, 0, 0, 0.85)"
-                        : "rgba(0, 0, 0, 0.15)",
-                  }}
-                  transition={{ duration: 0.35, ease: "easeInOut" }}
-                  style={{ width: 8 }}
+                <span
+                  className={[
+                    "block rounded-full transition-all duration-300",
+                    idx === activeIndex ? "h-2.5 w-6 bg-black dark:bg-white" : "h-2.5 w-2.5 bg-black/20 dark:bg-white/20 group-active:scale-90",
+                  ].join(" ")}
                 />
               </button>
             ))}
           </div>
+
+          <button
+            type="button"
+            onClick={() => goToCard(activeIndex + 1)}
+            aria-label="Nächste Karte"
+            className="inline-flex h-10 w-10 items-center justify-center text-xl leading-none text-black/45 transition-all duration-300 hover:text-black active:scale-95 dark:text-white/45 dark:hover:text-white"
+          >
+            &gt;
+          </button>
         </div>
 
-        {/* CTA — sticky together with cards on mobile */}
         {ctaText && ctaButton && (
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, ease: "easeOut", delay: 0.05 }}
-            className="mt-2 text-center"
+            className="mt-5 text-center"
           >
             <p className="text-sm leading-relaxed text-black/75 dark:text-white/75 max-w-[54ch] mx-auto">
               {ctaText}
@@ -992,7 +982,7 @@ export default function Services({ dict }: ServicesProps) {
         {/* Desktop + Tablet: header rendered normally above the cards */}
         <div className="hidden md:block">{sectionHeader}</div>
 
-        {/* Mobile: Sticky-stack with scroll-triggered crossfade (header inside sticky) */}
+        {/* Mobile: swipeable stack carousel with layered depth */}
         <MobileServicesStack
           items={items}
           header={sectionHeader}

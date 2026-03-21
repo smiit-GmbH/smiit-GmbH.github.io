@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { AlignJustify, Contact, ChevronDown, Globe, PhoneCall } from "lucide-react"
+import { AlignJustify, Contact, ChevronDown, Globe, PhoneCall, CalendarDays } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   Sheet,
@@ -233,7 +233,15 @@ export default function Header({ forceLang, darkHero: darkHeroProp }: { forceLan
               <LanguageSwitcher light={isLightHeader} />
             </div>
 
-            <div className="lg:hidden flex items-center">
+            <div className="lg:hidden flex items-center gap-2">
+              <a
+                href="#book"
+                aria-label={L.talkToExpert}
+                className={`h-8.5 w-8.5 rounded-lg border border-[#F703EB] bg-[#F703EB]/85 backdrop-blur-md flex items-center justify-center shadow-sm`}
+              >
+                <CalendarDays className={`h-4 w-4 text-white`} />
+              </a>
+
               <Sheet>
                 <SheetTrigger asChild>
                   <button
