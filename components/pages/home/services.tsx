@@ -165,12 +165,16 @@ function getImage(title: string) {
 
 function MobileCardLayer({
   item,
+  index,
+  count,
   state,
   swipeDirection,
   href,
   imageSrc,
 }: {
   item: { title: string; text: string; tags: string[] }
+  index: number
+  count: number
   state: "active" | "prev" | "next" | "hidden"
   swipeDirection: 1 | -1
   href?: string
@@ -194,46 +198,46 @@ function MobileCardLayer({
 
     if (isPrev) {
       return {
-        opacity: 0.48,
-        x: swipeDirection === 1 ? -24 : -12,
-        y: -10,
-        rotate: -5,
-        scale: 0.92,
-        filter: "blur(1.5px)",
+        opacity: 0.54,
+        x: swipeDirection === 1 ? -16 : -10,
+        y: -6,
+        rotate: -1.5,
+        scale: 0.95,
+        filter: "blur(0.8px)",
       }
     }
 
     if (isNext) {
       return {
-        opacity: 0.34,
-        x: swipeDirection === 1 ? 12 : 24,
-        y: 16,
-        rotate: 5,
-        scale: 0.86,
-        filter: "blur(3px)",
+        opacity: 0.3,
+        x: swipeDirection === 1 ? 10 : 16,
+        y: 14,
+        rotate: 1.5,
+        scale: 0.9,
+        filter: "blur(2px)",
       }
     }
 
     return {
       opacity: 0,
-      x: swipeDirection === 1 ? 44 : -44,
-      y: 24,
-      rotate: swipeDirection === 1 ? 7 : -7,
-      scale: 0.82,
-      filter: "blur(4px)",
+      x: swipeDirection === 1 ? 32 : -32,
+      y: 20,
+      rotate: swipeDirection === 1 ? 2 : -2,
+      scale: 0.86,
+      filter: "blur(3px)",
     }
   })()
 
   const layerTransition = {
-    x: { type: "spring", stiffness: 320, damping: 32, mass: 0.9 },
-    rotate: { type: "spring", stiffness: 240, damping: 24, mass: 0.85 },
+    x: { type: "spring", stiffness: 190, damping: 28, mass: 1.02 },
+    rotate: { duration: 0.42, ease: [0.22, 1, 0.36, 1] },
     opacity: {
-      duration: isActive ? 0.28 : 0.36,
+      duration: isActive ? 0.34 : 0.42,
       ease: [0.22, 1, 0.36, 1],
     },
-    scale: { duration: 0.34, ease: [0.22, 1, 0.36, 1] },
-    y: { duration: 0.34, ease: [0.22, 1, 0.36, 1] },
-    filter: { duration: 0.3, ease: [0.22, 1, 0.36, 1] },
+    scale: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
+    y: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
+    filter: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
   }
 
   const inner = (
@@ -293,6 +297,12 @@ function MobileCardLayer({
             </span>
           </div>
         )}
+
+        <div className="absolute left-5 top-5 z-[6] text-[0.68rem] font-medium uppercase tracking-[0.22em] text-white">
+          <span>
+            {String(index + 1).padStart(2, "0")} / {String(count).padStart(2, "0")}
+          </span>
+        </div>
 
         {/* Content directly on the image — no panel */}
         <div className="absolute bottom-0 left-0 right-0 z-[5] p-5 pb-6">
@@ -404,9 +414,10 @@ function MobileServicesStack({
             <motion.div
               drag="x"
               dragConstraints={{ left: 0, right: 0 }}
-              dragElastic={0.14}
+              dragElastic={0.08}
+              dragMomentum={false}
               onDragEnd={handleDragEnd}
-              whileDrag={{ scale: 0.985, cursor: "grabbing" }}
+              whileDrag={{ scale: 0.992, cursor: "grabbing" }}
               className="relative h-full touch-pan-y cursor-grab select-none"
             >
               {items.map((item, idx) => (
@@ -416,6 +427,8 @@ function MobileServicesStack({
                 >
                   <MobileCardLayer
                     item={item}
+                    index={idx}
+                    count={count}
                     state={getLayerState(idx)}
                     swipeDirection={swipeDirection}
                     href={getLink(item.title)}
@@ -424,21 +437,15 @@ function MobileServicesStack({
                 </div>
               ))}
             </motion.div>
-
-            <div className="pointer-events-none absolute left-5 top-5 z-40 text-[0.68rem] font-medium uppercase tracking-[0.22em] text-white">
-              <span>
-                {String(activeIndex + 1).padStart(2, "0")} / {String(count).padStart(2, "0")}
-              </span>
-            </div>
           </div>
         </div>
 
-        <div className="mt-4 flex items-center justify-center gap-6">
+        <div className="mt-4 flex items-center justify-center gap-8">
           <button
             type="button"
             onClick={() => goToCard(activeIndex - 1)}
             aria-label="Vorherige Karte"
-            className="inline-flex h-10 w-10 items-center justify-center text-xl leading-none text-black/10 transition-all duration-300 hover:text-black active:scale-95 dark:text-white/45 dark:hover:text-white"
+            className="inline-flex h-10 w-10 items-center justify-center text-lg leading-none text-black/10 transition-all duration-300 hover:text-black active:scale-95 dark:text-white/45 dark:hover:text-white"
           >
             &lt;
           </button>
@@ -466,7 +473,7 @@ function MobileServicesStack({
             type="button"
             onClick={() => goToCard(activeIndex + 1)}
             aria-label="Nächste Karte"
-            className="inline-flex h-10 w-10 items-center justify-center text-xl leading-none text-black/10 transition-all duration-300 hover:text-black active:scale-95 dark:text-white/45 dark:hover:text-white"
+            className="inline-flex h-10 w-10 items-center justify-center text-lg leading-none text-black/10 transition-all duration-300 hover:text-black active:scale-95 dark:text-white/45 dark:hover:text-white"
           >
             &gt;
           </button>
