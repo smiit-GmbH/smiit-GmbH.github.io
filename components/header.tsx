@@ -156,7 +156,7 @@ export default function Header({ forceLang, darkHero: darkHeroProp }: { forceLan
               {L.home}
             </Link>
 
-            <div className="relative group" onMouseEnter={() => setIsServicesOpen(true)} onMouseLeave={() => setIsServicesOpen(false)}>
+            {/*<div className="relative group" onMouseEnter={() => setIsServicesOpen(true)} onMouseLeave={() => setIsServicesOpen(false)}>
               <button
                 className={`flex items-center gap-2 rounded-xl bg-transparent px-5 py-2.5 text-sm font-medium ${textColor} ${hoverBg} transition-colors cursor-pointer`}
               >
@@ -179,7 +179,7 @@ export default function Header({ forceLang, darkHero: darkHeroProp }: { forceLan
                   ))}
                 </div>
               </div>
-            </div>
+            </div> */}
 
             <div className="relative group" onMouseEnter={() => setIsProductsOpen(true)} onMouseLeave={() => setIsProductsOpen(false)}>
               <button
@@ -310,7 +310,7 @@ export default function Header({ forceLang, darkHero: darkHeroProp }: { forceLan
                         </div>
                       </div>
 
-                      <div>
+                      {/* <div>
                         <p className="text-sm font-semibold text-black">{L.services}</p>
                         <div className="mt-[clamp(0.25rem,1.6vh,0.75rem)] space-y-1">
                           {servicesLinks.map((item) => (
@@ -325,7 +325,7 @@ export default function Header({ forceLang, darkHero: darkHeroProp }: { forceLan
                             </SheetClose>
                           ))}
                         </div>
-                      </div>
+                      </div> */}
 
                       <div>
                         <p className="text-sm font-semibold text-black">{L.products}</p>
