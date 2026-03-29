@@ -213,3 +213,148 @@
   background-size: 300% 300%;
   animation: products-gradient-shift 8s ease infinite;
 }
+
+/* ── Scroll-reveal animation (Lenis-compatible) ── */
+.reveal-fade-up {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.reveal-fade-up.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger delays for children */
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+.kpi-card-reveal {
+  opacity: 0;
+  transform: translateY(16px) scale(0.95);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+.bar-reveal {
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.signal-card-reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.45s ease-out, transform 0.45s ease-out;
+}
+.radar-bar-reveal {
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Carousel module container – opacity only (no transform to avoid Embla swipe conflicts) */
+.carousel-module-reveal {
+  opacity: 0;
+  transition: opacity 0.7s ease-out;
+}
+.carousel-module-reveal.revealed {
+  opacity: 1;
+}
+
+/* Revealed state for child elements */
+.carousel-module-reveal.revealed .kpi-card-reveal {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+.carousel-module-reveal.revealed .bar-reveal {
+  transform: scaleX(1);
+}
+.carousel-module-reveal.revealed .signal-card-reveal {
+  opacity: 1;
+  transform: translateY(0);
+}
+.carousel-module-reveal.revealed .radar-bar-reveal {
+  transform: scaleY(1);
+}
+
+/* Staggered delays */
+.carousel-module-reveal.revealed .kpi-card-reveal:nth-child(1) { transition-delay: 0.3s; }
+.carousel-module-reveal.revealed .kpi-card-reveal:nth-child(2) { transition-delay: 0.4s; }
+.carousel-module-reveal.revealed .kpi-card-reveal:nth-child(3) { transition-delay: 0.5s; }
+.carousel-module-reveal.revealed .kpi-card-reveal:nth-child(4) { transition-delay: 0.6s; }
+.carousel-module-reveal.revealed .segment-row:nth-child(1) .bar-reveal { transition-delay: 0.4s; }
+.carousel-module-reveal.revealed .segment-row:nth-child(2) .bar-reveal { transition-delay: 0.55s; }
+.carousel-module-reveal.revealed .segment-row:nth-child(3) .bar-reveal { transition-delay: 0.7s; }
+.carousel-module-reveal.revealed .segment-row:nth-child(4) .bar-reveal { transition-delay: 0.85s; }
+.carousel-module-reveal.revealed .kpi-card-reveal:nth-child(1) .bar-reveal { transition-delay: 0.6s; }
+.carousel-module-reveal.revealed .kpi-card-reveal:nth-child(2) .bar-reveal { transition-delay: 0.7s; }
+.carousel-module-reveal.revealed .kpi-card-reveal:nth-child(3) .bar-reveal { transition-delay: 0.8s; }
+.carousel-module-reveal.revealed .kpi-card-reveal:nth-child(4) .bar-reveal { transition-delay: 0.9s; }
+.carousel-module-reveal.revealed .signal-card-reveal:nth-child(1) { transition-delay: 0.3s; }
+.carousel-module-reveal.revealed .signal-card-reveal:nth-child(2) { transition-delay: 0.4s; }
+.carousel-module-reveal.revealed .signal-card-reveal:nth-child(3) { transition-delay: 0.5s; }
+.carousel-module-reveal.revealed .signal-card-reveal:nth-child(4) { transition-delay: 0.6s; }
+.carousel-module-reveal.revealed .radar-bar-reveal:nth-child(1) { transition-delay: 0.7s; }
+.carousel-module-reveal.revealed .radar-bar-reveal:nth-child(2) { transition-delay: 0.75s; }
+.carousel-module-reveal.revealed .radar-bar-reveal:nth-child(3) { transition-delay: 0.8s; }
+.carousel-module-reveal.revealed .radar-bar-reveal:nth-child(4) { transition-delay: 0.85s; }
+.carousel-module-reveal.revealed .radar-bar-reveal:nth-child(5) { transition-delay: 0.9s; }
+.carousel-module-reveal.revealed .radar-bar-reveal:nth-child(6) { transition-delay: 0.95s; }
+.carousel-module-reveal.revealed .radar-bar-reveal:nth-child(7) { transition-delay: 1.0s; }
+.carousel-module-reveal.revealed .radar-bar-reveal:nth-child(8) { transition-delay: 1.05s; }
+
+/* ── Line chart reveal animations (Kapitel 3 / Profit module) ── */
+
+/* Area fill: fade in */
+.chart-area-reveal {
+  opacity: 0;
+  transition: opacity 0.9s ease-out;
+}
+.carousel-module-reveal.revealed .chart-area-reveal {
+  opacity: 1;
+  transition-delay: 0.3s;
+}
+
+/* Actual line (Ist-Linie): draw via stroke-dashoffset */
+.line-path-reveal {
+  stroke-dasharray: 600;
+  stroke-dashoffset: 600;
+  transition: stroke-dashoffset 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.carousel-module-reveal.revealed .line-path-reveal {
+  stroke-dashoffset: 0;
+  transition-delay: 0.4s;
+}
+
+/* Forecast line: draw via stroke-dashoffset (shorter, delayed after Ist-Linie) */
+.forecast-path-reveal {
+  stroke-dasharray: 120;
+  stroke-dashoffset: 120;
+  transition: stroke-dashoffset 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.carousel-module-reveal.revealed .forecast-path-reveal {
+  stroke-dashoffset: 0;
+  transition-delay: 1.6s;
+}
+
+/* Data point dots: fade + scale in */
+.chart-dot-reveal {
+  opacity: 0;
+  transform: scale(0.7);
+  transform-origin: center;
+  transform-box: fill-box;
+  transition: opacity 0.35s ease-out, transform 0.35s ease-out;
+}
+.carousel-module-reveal.revealed .chart-dot-reveal {
+  opacity: 1;
+  transform: scale(1);
+}
+/* Staggered delays for 5 actual data points */
+.carousel-module-reveal.revealed .chart-dot-reveal:nth-child(1) { transition-delay: 0.55s; }
+.carousel-module-reveal.revealed .chart-dot-reveal:nth-child(2) { transition-delay: 0.7s; }
+.carousel-module-reveal.revealed .chart-dot-reveal:nth-child(3) { transition-delay: 0.85s; }
+.carousel-module-reveal.revealed .chart-dot-reveal:nth-child(4) { transition-delay: 1.0s; }
+.carousel-module-reveal.revealed .chart-dot-reveal:nth-child(5) { transition-delay: 1.15s; }
+/* Forecast dot (6th) – appears after forecast line starts drawing */
+.carousel-module-reveal.revealed .chart-dot-reveal:nth-child(6) { transition-delay: 1.75s; }

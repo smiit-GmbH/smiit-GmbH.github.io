@@ -3,19 +3,17 @@
 import { useState } from "react"
 import { motion } from "framer-motion"
 import { ArrowRight } from "lucide-react"
+import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
 
 interface AdvantagesSectionProps {
   dict: any
 }
 
-const fadeUpVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0 },
-}
-
 export function AdvantagesSection({ dict }: AdvantagesSectionProps) {
   const { advantages } = dict.smiitAnalytics
   const [expandedCards, setExpandedCards] = useState<number[]>([])
+  const heading = useRevealOnScroll()
+  const cards = useRevealOnScroll()
 
   const toggleCard = (idx: number) => {
     setExpandedCards((prev) =>
@@ -28,47 +26,27 @@ export function AdvantagesSection({ dict }: AdvantagesSectionProps) {
       className="relative py-20 md:py-28 bg-background"
     >
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-        <motion.div
-          className="mb-12 md:mb-16"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.25 }}
-          variants={fadeUpVariants}
-          transition={{ duration: 0.6, ease: "easeOut" }}
+        <div
+          ref={heading.ref}
+          className={`mb-12 md:mb-16 reveal-fade-up ${heading.isRevealed ? "revealed" : ""}`}
         >
           <h2 className="font-serif text-[2rem] sm:text-[2.8rem] md:text-[3.4rem] leading-[1.1] tracking-tight text-black whitespace-pre-line">
             {advantages.title}
           </h2>
-        </motion.div>
+        </div>
 
-        <motion.div
+        <div
+          ref={cards.ref}
           className="grid grid-cols-1 md:grid-cols-3 gap-5"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          variants={{
-            hidden: {},
-            visible: { transition: { staggerChildren: 0.15 } },
-          }}
         >
           {advantages.items.map(
             (item: { label: string; title: string; text: string; details?: string }, idx: number) => {
               const isExpanded = expandedCards.includes(idx)
 
               return (
-                <motion.div
+                <div
                   key={idx}
-                  className={[
-                    "group relative overflow-hidden",
-                    "rounded-[1.75rem]",
-                    "p-6 md:p-8",
-                    "transition-all duration-300 ease-out",
-                    "will-change-transform",
-                    "hover:scale-[1.02] hover:-translate-y-0.5",
-                    "bg-white shadow-[0_10px_30px_rgba(0,0,0,0.06)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.1)]",
-                  ].join(" ")}
-                  variants={fadeUpVariants}
-                  transition={{ duration: 0.6, ease: "easeOut" }}
+                  className={`group relative overflow-hidden rounded-[1.75rem] p-6 md:p-8 transition-all duration-300 ease-out will-change-transform hover:scale-[1.02] hover:-translate-y-0.5 bg-white shadow-[0_10px_30px_rgba(0,0,0,0.06)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.1)] reveal-fade-up reveal-delay-${idx + 1} ${cards.isRevealed ? "revealed" : ""}`}
                 >
                   <p className="text-xs font-medium tracking-wide mb-4 text-black/40">
                     {item.label}
@@ -107,11 +85,11 @@ export function AdvantagesSection({ dict }: AdvantagesSectionProps) {
                       />
                     </button>
                   </div>
-                </motion.div>
+                </div>
               )
             }
           )}
-        </motion.div>
+        </div>
       </div>
     </section>
   )

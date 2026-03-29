@@ -1,34 +1,24 @@
 "use client"
 
-import { motion } from "framer-motion"
 import Image from "next/image"
 import { ArrowRight, CheckCircle2 } from "lucide-react"
+import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
 
 interface PricingSectionProps {
   dict: any
 }
 
-const fadeUpVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0 },
-}
-
 export function PricingSection({ dict }: PricingSectionProps) {
   const { pricing } = dict.smiitAnalytics
+  const section = useRevealOnScroll()
 
   return (
-    <motion.section
+    <section
+      ref={section.ref}
       data-header-tone="dark"
       id="pricing"
       className="relative py-20 md:py-28"
       style={{ backgroundColor: "rgb(15 23 42)" }}
-      initial="hidden"
-      whileInView="visible"
-      viewport={{ once: true, margin: "-50px" }}
-      variants={{
-        hidden: {},
-        visible: { transition: { staggerChildren: 0.12 } },
-      }}
     >
       {/* Grain texture */}
       <div
@@ -43,34 +33,22 @@ export function PricingSection({ dict }: PricingSectionProps) {
 
       <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <motion.div
-          className="text-center mb-12 md:mb-16 max-w-3xl mx-auto"
-          variants={fadeUpVariants}
-          transition={{ duration: 0.6, ease: "easeOut" }}
+        <div
+          className={`text-center mb-12 md:mb-16 max-w-3xl mx-auto reveal-fade-up ${section.isRevealed ? "revealed" : ""}`}
         >
-          <motion.h2
-            className="font-serif text-[2rem] sm:text-[2.8rem] md:text-[3.4rem] leading-[1.1] tracking-tight text-white whitespace-pre-line mb-6"
-            variants={fadeUpVariants}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-          >
+          <h2 className="font-serif text-[2rem] sm:text-[2.8rem] md:text-[3.4rem] leading-[1.1] tracking-tight text-white whitespace-pre-line mb-6">
             {pricing.title}
-          </motion.h2>
+          </h2>
           {pricing.subtitle && (
-            <motion.p
-              className="text-base md:text-lg text-white/70 leading-relaxed"
-              variants={fadeUpVariants}
-              transition={{ duration: 0.8, ease: "easeOut" }}
-            >
+            <p className="text-base md:text-lg text-white/70 leading-relaxed">
               {pricing.subtitle}
-            </motion.p>
+            </p>
           )}
-        </motion.div>
+        </div>
 
         {/* Product card */}
-        <motion.div
-          className="max-w-[1200px] mx-auto rounded-[1.75rem] bg-white overflow-hidden shadow-[0_0_40px_rgba(33,86,156,0.15)] border border-[#21569c]/10"
-          variants={fadeUpVariants}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+        <div
+          className={`max-w-[1200px] mx-auto rounded-[1.75rem] bg-white overflow-hidden shadow-[0_0_40px_rgba(33,86,156,0.15)] border border-[#21569c]/10 reveal-fade-up reveal-delay-2 ${section.isRevealed ? "revealed" : ""}`}
         >
           <div className="grid grid-cols-1 md:grid-cols-12">
             {/* Left: Product info */}
@@ -152,8 +130,8 @@ export function PricingSection({ dict }: PricingSectionProps) {
 
             </div>
           </div>
-        </motion.div>
+        </div>
       </div>
-    </motion.section>
+    </section>
   )
 }
