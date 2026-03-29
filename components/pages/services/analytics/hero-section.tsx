@@ -166,10 +166,8 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
   const [visibleModules, setVisibleModules] = useState<Set<FocusKey>>(new Set())
   const [dashboardZoom, setDashboardZoom] = useState(1)
 
-  // Mobile: reveal on scroll for the entire tab/carousel section
   const tabSectionReveal = useRevealOnScroll({ margin: "-60px" })
 
-  // Mobile: Embla carousel for tab+swipe navigation
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: false, align: "start" })
   const [activeTab, setActiveTab] = useState(0)
   const [visitedTabs, setVisitedTabs] = useState<Set<number>>(new Set([0]))
@@ -242,7 +240,6 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
     return () => window.removeEventListener("resize", updateZoom)
   }, [])
 
-  // Story-Icons werden im Code zugeordnet (Icons sind keine Texte)
   const storyIcons: Record<FocusKey, LucideIcon> = {
     speed: Zap,
     clarity: Layers3,
@@ -250,7 +247,6 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
     ai: BrainCircuit,
   }
 
-  // t ist ein Alias für hero, der die Story-Icons ergänzt
   const t = {
     eyebrow: hero?.dashboard?.eyebrow as string | undefined,
     title: hero?.title as string | undefined,
@@ -284,11 +280,9 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
   })
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    // Story mode beginnt sobald das Dashboard sichtbar ist (ab 0.14)
     const isInStoryRange = latest >= 0.14 && latest < 0.80
     setStoryMode(isInStoryRange)
 
-    // Beim Zurückscrollen vor das Dashboard: alle Module wieder ausblenden
     if (latest < 0.14) {
       setVisibleModules(new Set())
       return
@@ -296,13 +290,12 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
 
     if (!isInStoryRange) return
 
-    // Aktives Modul bestimmen und akkumulativ zu visibleModules hinzufügen
     let currentFocus: FocusKey
-    if (latest < 0.35) {
+    if (latest < 0.30) {
       currentFocus = "speed"
-    } else if (latest < 0.52) {
+    } else if (latest < 0.47) {
       currentFocus = "clarity"
-    } else if (latest < 0.66) {
+    } else if (latest < 0.63) {
       currentFocus = "profit"
     } else {
       currentFocus = "ai"
@@ -365,15 +358,11 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
     return cx(
       "relative min-h-0 rounded-[18px] border transition-all duration-700",
       "border-slate-200/80 bg-white",
-      // Aktives Modul bekommt z-10, damit sein Tooltip über allen anderen Modulen liegt
       isActive && storyMode ? "z-10" : "z-0",
       !storyMode
-        // Nach dem Story-Mode: alle Module vollständig sichtbar
         ? visibleModules.size > 0
           ? "opacity-100 saturate-100 scale-100 shadow-[0_14px_36px_rgba(18,38,63,0.07)]"
-          // Vor dem Story-Mode: alle Module unsichtbar
           : "opacity-0 saturate-0 scale-[0.97] pointer-events-none"
-        // Im Story-Mode: aktiv / sichtbar-gedimmt / noch unsichtbar
         : isActive
           ? "opacity-100 saturate-100 scale-100 shadow-[0_0_0_2px_rgba(33,86,156,0.55),_0_20px_48px_rgba(33,86,156,0.22)]"
           : isVisible
