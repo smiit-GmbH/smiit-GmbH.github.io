@@ -258,6 +258,8 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
     updated: hero?.updated as string | undefined,
     inPractice: hero?.inPractice as string | undefined,
     swipeHint: hero?.swipeHint as string | undefined,
+    mobileTabTitle: hero?.mobileTabTitle as string | undefined,
+    mobileTabTitleHighlight: hero?.mobileTabTitleHighlight as string | undefined,
     tabs: (hero?.tabs ?? {}) as { speed: string; clarity: string; profit: string; ai: string },
     sections: (hero?.sections ?? {}) as { kpis: string; trend: string; trendSub: string; actions: string; signals: string; potentials: string; insights: string; filters: string },
     months: (hero?.months ?? []) as string[],
@@ -670,19 +672,8 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
   }
 
   return (
-    <section ref={containerRef} className="relative overflow-x-clip bg-[#F6F9FC] lg:h-[500vh]">
-      <div className="lg:sticky lg:top-0 lg:h-[100dvh] lg:overflow-hidden lg:pt-20">
-        <div className="absolute inset-0 hidden bg-[radial-gradient(circle_at_top_center,_rgba(33,86,156,0.13),_transparent_28%),radial-gradient(circle_at_18%_84%,_rgba(34,211,238,0.07),_transparent_22%)] lg:block" />
-        <div
-          className="pointer-events-none absolute inset-0 hidden opacity-[0.08] lg:block"
-          style={{
-            backgroundImage: "url(/assets/grain.webp)",
-            backgroundRepeat: "repeat",
-            backgroundSize: "160px 160px",
-            mixBlendMode: "soft-light",
-          }}
-        />
-
+    <section ref={containerRef} className="relative overflow-x-clip bg-transparent lg:h-[500vh]">
+      <div className="lg:sticky lg:top-0 lg:h-[100dvh] lg:pt-20">
         <div className="relative mx-auto flex h-full max-w-[1380px] flex-col items-center px-4 text-center sm:px-6 lg:pb-12 lg:px-8">
           <motion.div
             style={desktopTextStyle}
@@ -735,10 +726,17 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
             <div
               ref={tabSectionReveal.ref}
               className={cx(
-                "relative z-10 w-full pb-12 reveal-fade-up",
+                "relative z-10 w-full pb-6 reveal-fade-up",
                 tabSectionReveal.isRevealed && "revealed"
               )}
             >
+              {/* Mobile Tab Title */}
+              <div className="mb-8 text-center">
+                <h2 className="font-serif text-[2.2rem] sm:text-[2.4rem] md:text-[3rem] leading-[1.1] tracking-tight text-black">
+                  {t.mobileTabTitle} <span className="text-[#21569c]">{t.mobileTabTitleHighlight}</span>
+                </h2>
+              </div>
+
               {/* Tab bar */}
               <div className="mb-5 flex items-center gap-1 overflow-x-auto rounded-2xl border border-slate-200/80 bg-white/80 p-1 shadow-[0_4px_20px_rgba(15,23,42,0.06)] backdrop-blur-xl sm:mb-6 sm:gap-1.5 sm:p-1.5 md:mb-7 md:p-2">
                 {chapters.map(({ key, index: idx }) => {

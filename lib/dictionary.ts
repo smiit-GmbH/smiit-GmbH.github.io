@@ -47,6 +47,8 @@ const dictionaries = {
         updated: "aktualisiert vor 2 Min.",
         inPractice: "In der Praxis",
         swipeHint: "← Wischen zum Wechseln →",
+        mobileTabTitle: "Warum",
+        mobileTabTitleHighlight: "Datenanalyse?",
         tabs: {
           speed: "Entscheidungen",
           clarity: "Transparenz",
@@ -149,6 +151,30 @@ const dictionaries = {
             "Lagerbestand für A-Kategorie frühzeitig optimieren",
           ],
         },
+      },
+      portfolio: {
+        title: "Unser",
+        titleHighlight: "Angebot",
+        subtitle: "Wir unterstützen Sie dabei, den maximalen Wert aus Ihren Daten zu schöpfen – von der Strategie bis zur produktiven Analytics-Lösung.",
+        learnMore: "Mehr erfahren",
+        learnLess: "Weniger anzeigen",
+        items: [
+          {
+            title: "Business Intelligence & Dashboarding",
+            shortDesc: "Wir verwandeln verteilte Daten in eine belastbare Entscheidungsgrundlage – mit sauberer Datenintegration, klaren Modellen und Dashboards, die wirklich genutzt werden. So entstehen Reports und Analysen, die Transparenz schaffen und Führung wirksam unterstützen.",
+            details: "Wir begleiten den gesamten Weg von der Rohdatenquelle bis zur entscheidungsrelevanten Visualisierung. Dazu gehören die Integration und Aufbereitung von Daten, der Aufbau performanter Datenmodelle, die Entwicklung einer semantischen Schicht sowie die Gestaltung von Dashboards für Management, Controlling und operative Teams.\n\nTechnologisch arbeiten wir schwerpunktmäßig im Microsoft-Umfeld – unter anderem mit Power BI und Fabric. Dabei achten wir nicht nur auf Technik, sondern vor allem auf eine Struktur, die mit Ihrem Unternehmen mitwachsen kann."
+          },
+          {
+            title: "Data Governance & Datenstrategie",
+            shortDesc: "Wir schaffen die organisatorischen und fachlichen Grundlagen dafür, dass Daten im Unternehmen konsistent, verständlich und vertrauenswürdig genutzt werden können. Das sorgt für weniger Reibung, bessere Entscheidungen und deutlich mehr Wirkung aus bestehenden Dateninitiativen.",
+            details: "Wir beraten zu zentralen Fragestellungen rund um Data Governance, Master Data Management, Datenverantwortung, Kennzahlendefinitionen und den sinnvollen Aufbau von Self-Service-Analytics-Strukturen. Ziel ist es, Datennutzung nicht dem Zufall zu überlassen, sondern klare Rahmenbedingungen zu schaffen, die Skalierung und Verlässlichkeit ermöglichen.\n\nDabei betrachten wir nicht nur Prozesse und Systeme, sondern auch die organisatorische Seite. So entsteht eine Datenstrategie, die nicht theoretisch bleibt, sondern im Unternehmen greift."
+          },
+          {
+            title: "Machine Learning & MLOps",
+            shortDesc: "Wir bringen KI aus der Konzeptphase in den produktiven Einsatz – strukturiert, skalierbar und technisch sauber. So entstehen Machine-Learning-Lösungen, die nicht nur beeindrucken, sondern im Alltag echten Mehrwert liefern.",
+            details: "Wir unterstützen bei der Konzeption, Entwicklung und Operationalisierung von ML-Modellen – von der Datenaufbereitung und Feature-Entwicklung über Training und Validierung bis hin zur Bereitstellung in produktiven Umgebungen. Dabei steht nicht nur die Modellgüte im Fokus, sondern auch die Frage, wie KI stabil, nachvollziehbar und wartbar in bestehende Prozesse integriert werden kann.\n\nIm Zentrum steht ein praxisnaher MLOps-Ansatz mit klaren Deployments, reproduzierbaren Workflows, Überwachung von Modellen und einer sauberen Verbindung zwischen Data Science und Betrieb."
+          }
+        ]
       },
     },
     customerCards: [
@@ -503,6 +529,8 @@ const dictionaries = {
         updated: "updated 2 min ago",
         inPractice: "In practice",
         swipeHint: "← Swipe to switch →",
+        mobileTabTitle: "Why",
+        mobileTabTitleHighlight: "Data Analytics?",
         tabs: {
           speed: "Decisions",
           clarity: "Transparency",
@@ -605,6 +633,30 @@ const dictionaries = {
             "Optimize stock levels for category A earlier",
           ],
         },
+      },
+      portfolio: {
+        title: "Our",
+        titleHighlight: "Portfolio",
+        subtitle: "We help you extract maximum value from your data – from strategy to productive analytics solutions.",
+        learnMore: "Learn more",
+        learnLess: "Show less",
+        items: [
+          {
+            title: "Business Intelligence & Dashboarding",
+            shortDesc: "We turn distributed data into a reliable basis for decision-making – with clean data integration, clear models, and dashboards that are actually used. This creates reports and analyses that provide transparency and effectively support leadership.",
+            details: "We accompany the entire journey from the raw data source to decision-relevant visualization. This includes the integration and preparation of data, the construction of high-performance data models, the development of a semantic layer, and the design of dashboards for management, controlling, and operational teams.\n\nTechnologically, we focus primarily on the Microsoft environment – including Power BI and Fabric. We pay attention not only to technology but above all to a structure that can grow with your company."
+          },
+          {
+            title: "Data Governance & Data Strategy",
+            shortDesc: "We create the organizational and technical foundations so that data can be used consistently, understandably, and reliably in the company. This ensures less friction, better decisions, and significantly more impact from existing data initiatives.",
+            details: "We advise on central issues relating to data governance, master data management, data responsibility, KPI definitions, and the sensible setup of self-service analytics structures. The goal is not to leave data usage to chance, but to create clear frameworks that enable scaling and reliability.\n\nWe look not only at processes and systems but also at the organizational side. This creates a data strategy that does not remain theoretical but takes effect in the company."
+          },
+          {
+            title: "Machine Learning & MLOps",
+            shortDesc: "We bring AI from the concept phase into productive use – structured, scalable, and technically clean. This creates machine learning solutions that not only impress but deliver real added value in everyday life.",
+            details: "We support the conception, development, and operationalization of ML models – from data preparation and feature engineering to training and validation, all the way to deployment in productive environments. The focus is not only on model quality but also on how AI can be integrated into existing processes in a stable, traceable, and maintainable way.\n\nAt the center is a practical MLOps approach with clear deployments, reproducible workflows, model monitoring, and a clean connection between data science and operations."
+          }
+        ]
       },
     },
     customerCards: [
