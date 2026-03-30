@@ -176,6 +176,12 @@ const dictionaries = {
           }
         ]
       },
+      cta: {
+        title: "Sind Sie bereit für den nächsten Schritt?",
+        subtitle: "Lassen Sie uns gemeinsam herausfinden, wie wir Ihre Daten optimal nutzen können.",
+        primaryButton: "Kostenloses Erstgespräch",
+        secondaryButton: "Kontakt aufnehmen",
+      },
     },
     customerCards: [
       {
@@ -657,6 +663,12 @@ const dictionaries = {
             details: "We support the conception, development, and operationalization of ML models – from data preparation and feature engineering to training and validation, all the way to deployment in productive environments. The focus is not only on model quality but also on how AI can be integrated into existing processes in a stable, traceable, and maintainable way.\n\nAt the center is a practical MLOps approach with clear deployments, reproducible workflows, model monitoring, and a clean connection between data science and operations."
           }
         ]
+      },
+      cta: {
+        title: "Are you ready for the next step?",
+        subtitle: "Let's find out together how we can make the most of your data.",
+        primaryButton: "Free Consultation",
+        secondaryButton: "Contact Us",
       },
     },
     customerCards: [
