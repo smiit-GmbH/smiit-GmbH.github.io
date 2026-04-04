@@ -4,6 +4,7 @@ import type { Locale } from "@/lib/dictionary"
 import HeroSection from "@/components/pages/services/analytics/hero-section"
 import PortfolioSection from "@/components/pages/services/analytics/portfolio"
 import AnalyticsCTA from "@/components/pages/services/analytics/cta"
+import AnalyticsReviews from "@/components/pages/services/analytics/reviews"
 
 export default function AnalyticsPage({
   lang,
@@ -28,6 +29,7 @@ export default function AnalyticsPage({
       <HeroSection lang={lang} dict={dict} />
       <PortfolioSection dict={dict} />
       <AnalyticsCTA dict={dict} />
+      <AnalyticsReviews dict={dict} />
     </main>
   )
 }

@@ -170,7 +170,7 @@ const dictionaries = {
             details: "Wir beraten zu zentralen Fragestellungen rund um Data Governance, Master Data Management, Datenverantwortung, Kennzahlendefinitionen und den sinnvollen Aufbau von Self-Service-Analytics-Strukturen. Ziel ist es, Datennutzung nicht dem Zufall zu überlassen, sondern klare Rahmenbedingungen zu schaffen, die Skalierung und Verlässlichkeit ermöglichen.\n\nDabei betrachten wir nicht nur Prozesse und Systeme, sondern auch die organisatorische Seite. So entsteht eine Datenstrategie, die nicht theoretisch bleibt, sondern im Unternehmen greift."
           },
           {
-            title: "Machine Learning & MLOps",
+            title: "Machine Learning & ML Operations",
             shortDesc: "Wir bringen KI aus der Konzeptphase in den produktiven Einsatz – strukturiert, skalierbar und technisch sauber. So entstehen Machine-Learning-Lösungen, die nicht nur beeindrucken, sondern im Alltag echten Mehrwert liefern.",
             details: "Wir unterstützen bei der Konzeption, Entwicklung und Operationalisierung von ML-Modellen – von der Datenaufbereitung und Feature-Entwicklung über Training und Validierung bis hin zur Bereitstellung in produktiven Umgebungen. Dabei steht nicht nur die Modellgüte im Fokus, sondern auch die Frage, wie KI stabil, nachvollziehbar und wartbar in bestehende Prozesse integriert werden kann.\n\nIm Zentrum steht ein praxisnaher MLOps-Ansatz mit klaren Deployments, reproduzierbaren Workflows, Überwachung von Modellen und einer sauberen Verbindung zwischen Data Science und Betrieb."
           }
@@ -658,7 +658,7 @@ const dictionaries = {
             details: "We advise on central issues relating to data governance, master data management, data responsibility, KPI definitions, and the sensible setup of self-service analytics structures. The goal is not to leave data usage to chance, but to create clear frameworks that enable scaling and reliability.\n\nWe look not only at processes and systems but also at the organizational side. This creates a data strategy that does not remain theoretical but takes effect in the company."
           },
           {
-            title: "Machine Learning & MLOps",
+            title: "Machine Learning & ML Operations",
             shortDesc: "We bring AI from the concept phase into productive use – structured, scalable, and technically clean. This creates machine learning solutions that not only impress but deliver real added value in everyday life.",
             details: "We support the conception, development, and operationalization of ML models – from data preparation and feature engineering to training and validation, all the way to deployment in productive environments. The focus is not only on model quality but also on how AI can be integrated into existing processes in a stable, traceable, and maintainable way.\n\nAt the center is a practical MLOps approach with clear deployments, reproducible workflows, model monitoring, and a clean connection between data science and operations."
           }
