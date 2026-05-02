@@ -358,3 +358,99 @@
 .carousel-module-reveal.revealed .chart-dot-reveal:nth-child(5) { transition-delay: 1.15s; }
 /* Forecast dot (6th) – appears after forecast line starts drawing */
 .carousel-module-reveal.revealed .chart-dot-reveal:nth-child(6) { transition-delay: 1.75s; }
+
+/* Editorial section eyebrow */
+.section-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  color: #21569c;
+  text-transform: uppercase;
+  margin-bottom: 1.25rem;
+}
+.section-eyebrow::before {
+  content: "";
+  display: inline-block;
+  width: 1.75rem;
+  height: 1px;
+  background: linear-gradient(to right, transparent, #21569c);
+}
+
+/* Hero scroll-indicator pulse */
+@keyframes hero-scroll-pulse {
+  0%, 100% { transform: translateY(0); opacity: 0.45; }
+  50%      { transform: translateY(6px); opacity: 1; }
+}
+.hero-scroll-indicator {
+  animation: hero-scroll-pulse 2.4s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-scroll-indicator { animation: none; opacity: 0.6; }
+}
+
+/* Hero showpiece float – subtle 3px up/down loop */
+@keyframes hero-showpiece-float {
+  0%, 100% { transform: translateY(0) rotate3d(0, 1, 0, -8deg) rotate3d(1, 0, 0, 2deg); }
+  50%      { transform: translateY(-6px) rotate3d(0, 1, 0, -8deg) rotate3d(1, 0, 0, 2deg); }
+}
+.hero-showpiece-float {
+  animation: hero-showpiece-float 7s ease-in-out infinite;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-showpiece-float { animation: none; }
+}
+
+/* Hero floating chip – gentle drift */
+@keyframes hero-chip-drift {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-8px); }
+}
+.hero-chip-drift   { animation: hero-chip-drift 5.5s ease-in-out infinite; }
+.hero-chip-drift-2 { animation: hero-chip-drift 6.5s ease-in-out -2s infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .hero-chip-drift, .hero-chip-drift-2 { animation: none; }
+}
+
+/* Manifest band – slow ambient gradient drift */
+@keyframes manifest-glow-drift {
+  0%   { transform: translate(-15%, -15%) scale(1); }
+  50%  { transform: translate(15%, 10%) scale(1.15); }
+  100% { transform: translate(-15%, -15%) scale(1); }
+}
+.manifest-glow {
+  animation: manifest-glow-drift 18s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .manifest-glow { animation: none; }
+}
+
+/* Process-section connection line – animated path drawing */
+.process-connection-path {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  pathLength: 1;
+  transition: stroke-dashoffset 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.process-connection-path.revealed {
+  stroke-dashoffset: 0;
+}
+
+/* Portfolio pipeline – active node halo pulse */
+@keyframes pipeline-node-pulse {
+  0%   { r: 6;  opacity: 0.55; }
+  70%  { r: 16; opacity: 0;    }
+  100% { r: 16; opacity: 0;    }
+}
+.pipeline-node-halo {
+  animation: pipeline-node-pulse 2.4s ease-out infinite;
+  transform-box: fill-box;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pipeline-node-halo { animation: none; opacity: 0; }
+  .pipeline-packet    { display: none; }
+}

@@ -23,7 +23,7 @@ export function AdvantagesSection({ dict }: AdvantagesSectionProps) {
 
   return (
     <section
-      className="relative py-20 md:py-28 bg-background"
+      className="relative py-20 md:py-28"
     >
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div

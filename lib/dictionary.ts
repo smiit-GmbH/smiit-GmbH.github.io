@@ -36,11 +36,25 @@ const dictionaries = {
       mobileCtaButton: "Sprechen Sie mit uns",
     },
     servicesAnalytics: {
+      eyebrows: {
+        hero: "DATENANALYSE",
+        why: "DAS PROBLEM",
+        portfolio: "WAS WIR TUN",
+        manifest: "ZWISCHENRUF",
+        process: "UNSER VORGEHEN",
+        reviews: "STIMMEN",
+        cta: "JETZT STARTEN",
+      },
+      manifest: {
+        lead: "Daten haben Sie genug.",
+        emphasis: "Klarheit ist die Arbeit.",
+      },
       hero: {
         title: "Daten verstehen. Chancen erkennen. Besser entscheiden.",
         description:
           "Wir verdichten verstreute Datenquellen zu einer klaren Entscheidungsebene – damit Teams schneller sehen, was passiert, was relevant wird und was als Nächstes zu tun ist.",
-        primaryCta: "Kostenlosen Beratungstermin vereinbaren",
+        primaryCta: "Jetzt Datenpotenziale entdecken",
+        scrollHint: "Weiter scrollen",
         boardEyebrow: "Executive Intelligence Layer",
         boardTitle: "Von Datensilos zur Entscheidungsebene",
         sourcesConnected: "5 Datenquellen verbunden",
@@ -50,10 +64,10 @@ const dictionaries = {
         mobileTabTitle: "Warum",
         mobileTabTitleHighlight: "Datenanalyse?",
         tabs: {
-          speed: "Entscheidungen",
-          clarity: "Transparenz",
-          profit: "Profit",
-          ai: "KI-Analysen",
+          speed: "Entscheidungstempo",
+          clarity: "Datenklarheit",
+          profit: "Margenkontrolle",
+          ai: "KI-Signale",
         },
         sections: {
           kpis: "Zentrale Kennzahlen",
@@ -69,37 +83,45 @@ const dictionaries = {
         story: {
           speed: {
             step: "Kapitel 1",
-            label: "Schnellere Entscheidungen",
-            title: "Weniger Abstimmung. Mehr Handlung.",
-            body: "Eine Datenbasis. Keine Rückfragen. Priorisierte Maßnahmen zeigen direkt, was jetzt zählt.",
+            label: "Entscheidungstempo",
+            pain: "Sie raten zu viel.",
+            gain: "Priorisierte Maßnahmen.",
+            title: "Schluss mit Daten-Pingpong.",
+            body: "Eine Datenbasis. Keine Rückfragen. Direkt sichtbar, was jetzt zählt – und wer was tun sollte.",
             emphasis: "Entscheidungen entstehen dort, wo die Daten sind.",
           },
           clarity: {
             step: "Kapitel 2",
-            label: "Mehr Transparenz",
+            label: "Datenklarheit",
+            pain: "Daten in Silos.",
+            gain: "Eine einzige Wahrheit.",
             title: "Ein gemeinsames Bild für alle Ebenen.",
-            body: "Vertrieb, Projekte, Prozesse – alles in einer Sicht. Kein Suchen, kein Raten.",
+            body: "Vertrieb, Projekte, Operations – alles in einer Sicht. Kein Suchen. Kein Vergleichen. Kein Streit über Zahlen.",
             emphasis: "Transparenz ist keine Frage des Vertrauens – sondern der Infrastruktur.",
           },
           profit: {
             step: "Kapitel 3",
-            label: "Profitsteigerung",
+            label: "Margenkontrolle",
+            pain: "Margen entgleiten unbemerkt.",
+            gain: "Forecast mit 89% Konfidenz.",
             title: "Wachstum sehen, bevor es passiert.",
-            body: "Forecasts und Margentrends zeigen, wo Momentum entsteht – und wo Sie gegensteuern sollten.",
+            body: "Forecasts und Margentrends zeigen, wo Momentum entsteht – und wo Sie früh gegensteuern sollten.",
             emphasis: "Der stärkste Hebel liegt in der Margenqualität.",
           },
           ai: {
             step: "Kapitel 4",
-            label: "KI & intelligente Analysen",
+            label: "KI-Signale",
+            pain: "Frühwarnung kommt zu spät.",
+            gain: "KI-Signale rund um die Uhr.",
             title: "Muster erkennen, die Menschen übersehen.",
-            body: "KI erkennt Abweichungen, Chancen und Risiken automatisch – bevor sie in Reports auftauchen.",
+            body: "KI erkennt Abweichungen, Chancen und Risiken automatisch – bevor sie überhaupt in Reports auftauchen.",
             emphasis: "Intelligente Analysen arbeiten rund um die Uhr.",
           },
         },
         kpiLabels: {
           revenue: "Umsatz",
           margin: "Deckungsbeitrag",
-          forecastConfidence: "Forecast-Sicherheit",
+          forecastConfidence: "Genauigkeit",
           activeProjects: "Aktive Projekte",
         },
         chartLegend: {
@@ -152,6 +174,11 @@ const dictionaries = {
           ],
         },
       },
+      why: {
+        title: "Daten in Silos. Entscheidungen im Dunkeln.",
+        titleHighlight: "Das sind Probleme, die wir lösen.",
+        subtitle: "Wir verbinden Ihre Quellen zu einer Sicht, auf die sich alle gleichermaßen verlassen können.",
+      },
       portfolio: {
         title: "Unser",
         titleHighlight: "Angebot",
@@ -175,6 +202,37 @@ const dictionaries = {
             details: "Wir unterstützen bei der Konzeption, Entwicklung und Operationalisierung von ML-Modellen – von der Datenaufbereitung und Feature-Entwicklung über Training und Validierung bis hin zur Bereitstellung in produktiven Umgebungen. Dabei steht nicht nur die Modellgüte im Fokus, sondern auch die Frage, wie KI stabil, nachvollziehbar und wartbar in bestehende Prozesse integriert werden kann.\n\nIm Zentrum steht ein praxisnaher MLOps-Ansatz mit klaren Deployments, reproduzierbaren Workflows, Überwachung von Modellen und einer sauberen Verbindung zwischen Data Science und Betrieb."
           }
         ]
+      },
+      process: {
+        title: "So machen wir aus Ihren Daten",
+        titleHighlight: "Entscheidungen.",
+        subtitle: "Vier klare Schritte – vom ersten Gespräch bis zum produktiven Betrieb.",
+        steps: [
+          {
+            number: "01",
+            title: "Verstehen",
+            text: "Wir analysieren Datenlandschaft, Quellen und Ziele – und identifizieren die Hebel mit dem größten Wirkungsgrad.",
+          },
+          {
+            number: "02",
+            title: "Konzipieren",
+            text: "Wir entwerfen Datenmodell, Dashboards und Governance, abgestimmt auf Ihre Entscheidungswege und Ihr Tooling.",
+          },
+          {
+            number: "03",
+            title: "Umsetzen",
+            text: "Wir bauen, integrieren und dokumentieren – iterativ, mit kurzen Feedbackzyklen und sauberer Übergabe.",
+          },
+          {
+            number: "04",
+            title: "Befähigen",
+            text: "Wir schulen Ihr Team, sichern den Betrieb und entwickeln Ihre Analytics-Plattform schrittweise weiter.",
+          },
+        ],
+      },
+      reviewsHeading: {
+        lead: "Was unsere",
+        highlight: "Kunden sagen",
       },
       cta: {
         title: "Sind Sie bereit für den nächsten Schritt?",
@@ -317,6 +375,11 @@ const dictionaries = {
         cvLinkText: "Lebenslauf",
         ctaText: "Lassen Sie uns gemeinsam herausfinden, wie wir Ihr Unternehmen voranbringen können.",
         ctaButton: "Kostenloses Erstgespräch buchen",
+      },
+      closing: {
+        lead: "smiit ist Ihr Partner für",
+        highlight: "langlebige Softwarelösungen,",
+        tail: "die Ihre Prozesse heute vereinfachen — und morgen noch effizienter machen.",
       },
     },
     contact: {
@@ -524,11 +587,25 @@ const dictionaries = {
       mobileCtaButton: "Talk to a digital expert",
     },
     servicesAnalytics: {
+      eyebrows: {
+        hero: "DATA ANALYTICS",
+        why: "THE PROBLEM",
+        portfolio: "WHAT WE DO",
+        manifest: "INTERLUDE",
+        process: "HOW WE WORK",
+        reviews: "VOICES",
+        cta: "GET STARTED",
+      },
+      manifest: {
+        lead: "You already have data.",
+        emphasis: "Clarity is the work.",
+      },
       hero: {
         title: "Understand data. Spot opportunities. Decide better.",
         description:
           "We turn fragmented data sources into a clear decision layer — so teams can see faster what is happening, what matters, and what to do next.",
-        primaryCta: "Book a free consultation",
+        primaryCta: "Discover the potential of your data",
+        scrollHint: "Scroll for more",
         boardEyebrow: "Executive Intelligence Layer",
         boardTitle: "From data silos to a decision layer",
         sourcesConnected: "5 connected data sources",
@@ -538,10 +615,10 @@ const dictionaries = {
         mobileTabTitle: "Why",
         mobileTabTitleHighlight: "Data Analytics?",
         tabs: {
-          speed: "Decisions",
-          clarity: "Transparency",
-          profit: "Profit",
-          ai: "AI Analytics",
+          speed: "Decision speed",
+          clarity: "Data clarity",
+          profit: "Margin control",
+          ai: "AI signals",
         },
         sections: {
           kpis: "Core metrics",
@@ -557,37 +634,45 @@ const dictionaries = {
         story: {
           speed: {
             step: "Chapter 1",
-            label: "Faster decisions",
-            title: "Less alignment. More action.",
-            body: "One data source. No back-and-forth. Prioritized actions show what matters now.",
+            label: "Decision speed",
+            pain: "You guess too much.",
+            gain: "Prioritized actions.",
+            title: "End the data ping-pong.",
+            body: "One data source. No back-and-forth. Instantly clear what matters now – and who needs to act.",
             emphasis: "Decisions happen where the data is.",
           },
           clarity: {
             step: "Chapter 2",
-            label: "More transparency",
+            label: "Data clarity",
+            pain: "Data trapped in silos.",
+            gain: "One single source of truth.",
             title: "One shared picture for every level.",
-            body: "Sales, projects, operations – all in one view. No searching, no guessing.",
+            body: "Sales, projects, operations – all in one view. No searching. No reconciling. No arguing about numbers.",
             emphasis: "Transparency is not a matter of trust — it is a matter of infrastructure.",
           },
           profit: {
             step: "Chapter 3",
-            label: "Profit growth",
+            label: "Margin control",
+            pain: "Margins slip away unnoticed.",
+            gain: "Forecasts at 89% confidence.",
             title: "See growth before it happens.",
-            body: "Forecasts and margin trends reveal where momentum is building – and where to act.",
+            body: "Forecasts and margin trends reveal where momentum is building – and where to steer early.",
             emphasis: "The strongest lever is margin quality.",
           },
           ai: {
             step: "Chapter 4",
-            label: "AI & smart analytics",
+            label: "AI signals",
+            pain: "Early warnings arrive too late.",
+            gain: "AI signals around the clock.",
             title: "Spot patterns humans miss.",
-            body: "AI detects deviations, opportunities and risks automatically – before they hit reports.",
+            body: "AI detects deviations, opportunities and risks automatically – before they ever hit a report.",
             emphasis: "Intelligent analytics work around the clock.",
           },
         },
         kpiLabels: {
           revenue: "Revenue",
           margin: "Margin",
-          forecastConfidence: "Forecast confidence",
+          forecastConfidence: "Accuracy",
           activeProjects: "Active projects",
         },
         chartLegend: {
@@ -640,6 +725,11 @@ const dictionaries = {
           ],
         },
       },
+      why: {
+        title: "Data in silos. Decisions in the dark.",
+        titleHighlight: "These are problems we can solve.",
+        subtitle: "We connect your sources into one view that everyone can rely on.",
+      },
       portfolio: {
         title: "Our",
         titleHighlight: "Portfolio",
@@ -663,6 +753,37 @@ const dictionaries = {
             details: "We support the conception, development, and operationalization of ML models – from data preparation and feature engineering to training and validation, all the way to deployment in productive environments. The focus is not only on model quality but also on how AI can be integrated into existing processes in a stable, traceable, and maintainable way.\n\nAt the center is a practical MLOps approach with clear deployments, reproducible workflows, model monitoring, and a clean connection between data science and operations."
           }
         ]
+      },
+      process: {
+        title: "How we turn your data into",
+        titleHighlight: "decisions.",
+        subtitle: "Four clear steps – from the first conversation to productive operations.",
+        steps: [
+          {
+            number: "01",
+            title: "Understand",
+            text: "We map your data landscape, sources and goals – and pinpoint the levers with the highest impact.",
+          },
+          {
+            number: "02",
+            title: "Design",
+            text: "We craft data model, dashboards and governance, tailored to your decision flows and tooling.",
+          },
+          {
+            number: "03",
+            title: "Build",
+            text: "We build, integrate and document – iteratively, with short feedback cycles and a clean handover.",
+          },
+          {
+            number: "04",
+            title: "Enable",
+            text: "We train your team, secure operations and evolve your analytics platform step by step.",
+          },
+        ],
+      },
+      reviewsHeading: {
+        lead: "What our",
+        highlight: "clients say",
       },
       cta: {
         title: "Are you ready for the next step?",
@@ -805,6 +926,11 @@ const dictionaries = {
         cvLinkText: "Resume",
         ctaText: "Let's find out together how we can move your business forward.",
         ctaButton: "Book a free consultation",
+      },
+      closing: {
+        lead: "smiit is your partner for",
+        highlight: "lasting software solutions",
+        tail: "that simplify your processes today — and make them even more efficient tomorrow.",
       },
     },
     contact: {

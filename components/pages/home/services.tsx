@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useCallback, useEffect, useRef, useState } from "react"
-import { motion, useInView, useReducedMotion } from "framer-motion"
+import { motion, useInView, useReducedMotion, useScroll, useTransform, type MotionValue } from "framer-motion"
 import LocalizedLink from "../../localized-link"
 import { DotLottieReact } from "@lottiefiles/dotlottie-react"
 import { Button } from "@/components/ui/button"
@@ -163,194 +163,350 @@ function getImage(title: string) {
   return undefined
 }
 
-function MobileCardLayer({
+function getAccent(title: string): { hex: string; lightHex: string; rgb: string; fg: string } {
+  const t = title.toLowerCase()
+  if (t.includes("strategy") || t.includes("strategie"))
+    return { hex: "#cbd5e1", lightHex: "#e2e8f0", rgb: "203, 213, 225", fg: "#0f172a" }
+  if (t.includes("analytics") || t.includes("analyse"))
+    return { hex: "#21569c", lightHex: "#7DBBFF", rgb: "33, 86, 156", fg: "#ffffff" }
+  if (t.includes("app") || t.includes("workflow"))
+    return { hex: "#F703EB", lightHex: "#FB81F5", rgb: "247, 3, 235", fg: "#ffffff" }
+  return { hex: "#21569c", lightHex: "#7DBBFF", rgb: "33, 86, 156", fg: "#ffffff" }
+}
+
+function CinemaWord({
+  word,
+  scrollYProgress,
+  start,
+  end,
+  isLast,
+}: {
+  word: string
+  scrollYProgress: MotionValue<number>
+  start: number
+  end: number
+  isLast: boolean
+}) {
+  const opacity = useTransform(scrollYProgress, [start, end], [0, 1])
+  const y = useTransform(scrollYProgress, [start, end], [8, 0])
+  return (
+    <motion.span style={{ opacity, y, display: "inline-block" }}>
+      {word}
+      {!isLast ? " " : ""}
+    </motion.span>
+  )
+}
+
+function CinemaTag({
+  label,
+  scrollYProgress,
+  start,
+  end,
+}: {
+  label: string
+  scrollYProgress: MotionValue<number>
+  start: number
+  end: number
+}) {
+  const opacity = useTransform(scrollYProgress, [start, end], [0, 1])
+  const y = useTransform(scrollYProgress, [start, end], [10, 0])
+  return (
+    <motion.span style={{ opacity, y, display: "inline-block" }}>
+      <TagPill label={label} />
+    </motion.span>
+  )
+}
+
+function ServiceCinemaLayer({
   item,
-  index,
-  count,
-  state,
-  swipeDirection,
-  href,
-  imageSrc,
+  idx,
+  total,
+  scrollYProgress,
 }: {
   item: { title: string; text: string; tags: string[] }
-  index: number
-  count: number
-  state: "active" | "prev" | "next" | "hidden"
-  swipeDirection: 1 | -1
-  href?: string
-  imageSrc?: string
+  idx: number
+  total: number
+  scrollYProgress: MotionValue<number>
 }) {
-  const isActive = state === "active"
-  const isPrev = state === "prev"
-  const isNext = state === "next"
+  const accent = getAccent(item.title)
+  const link = getLink(item.title)
+  const words = item.text.split(/\s+/).filter((w) => w.length > 0)
+  const wordCount = words.length
 
-  const animateState = (() => {
-    if (isActive) {
-      return {
-        opacity: 1,
-        x: 0,
-        y: 0,
-        rotate: 0,
-        scale: 1,
-        filter: "blur(0px)",
-      }
-    }
+  const sliceStart = idx / total
+  const sliceEnd = (idx + 1) / total
+  const sliceLen = sliceEnd - sliceStart
+  const fadeWidth = 0.04
 
-    if (isPrev) {
-      return {
-        opacity: 0.54,
-        x: swipeDirection === 1 ? -16 : -10,
-        y: -6,
-        rotate: -1.5,
-        scale: 0.95,
-        filter: "blur(0.8px)",
-      }
-    }
+  // Cross-fade between adjacent layers at slice boundaries.
+  const fadeStops: [number, number, number, number] =
+    idx === 0
+      ? [-1, 0, sliceEnd - fadeWidth, sliceEnd]
+      : idx === total - 1
+        ? [sliceStart - fadeWidth, sliceStart, 1, 2]
+        : [sliceStart - fadeWidth, sliceStart, sliceEnd - fadeWidth, sliceEnd]
+  const fadeValues: [number, number, number, number] =
+    idx === 0 ? [1, 1, 1, 0] : idx === total - 1 ? [0, 1, 1, 1] : [0, 1, 1, 0]
+  const layerOpacity = useTransform(scrollYProgress, fadeStops, fadeValues)
+  const slideValues: [number, number, number, number] =
+    idx === 0
+      ? [0, 0, 0, -22]
+      : idx === total - 1
+        ? [22, 0, 0, 0]
+        : [22, 0, 0, -22]
+  const layerY = useTransform(scrollYProgress, fadeStops, slideValues)
+  const layerPointerEvents = useTransform(layerOpacity, (v) =>
+    v >= 0.5 ? "auto" : "none",
+  )
 
-    if (isNext) {
-      return {
-        opacity: 0.3,
-        x: swipeDirection === 1 ? 10 : 16,
-        y: 14,
-        rotate: 1.5,
-        scale: 0.9,
-        filter: "blur(2px)",
-      }
-    }
+  const r = (s: number, e: number): [number, number] => [
+    sliceStart + sliceLen * s,
+    sliceStart + sliceLen * e,
+  ]
 
-    return {
-      opacity: 0,
-      x: swipeDirection === 1 ? 32 : -32,
-      y: 20,
-      rotate: swipeDirection === 1 ? 2 : -2,
-      scale: 0.86,
-      filter: "blur(3px)",
-    }
-  })()
+  const eyebrowOpacity = useTransform(scrollYProgress, r(0, 0.02), [0, 1])
+  const titleScale = useTransform(scrollYProgress, r(0, 0.06), [1.08, 1])
+  const titleY = useTransform(scrollYProgress, r(0, 0.06), [16, 0])
+  const titleOpacity = useTransform(scrollYProgress, r(0, 0.02), [0, 1])
+  const haloOpacity = useTransform(scrollYProgress, r(0, 0.04), [0, 1])
+  const ghostOpacity = useTransform(scrollYProgress, r(0, 0.05), [0, 1])
+  const ghostScale = useTransform(scrollYProgress, r(0, 1), [1.05, 0.95])
+  const underlinePathLength = useTransform(scrollYProgress, r(0.06, 0.16), [0, 1])
+  const ctaOpacity = useTransform(scrollYProgress, r(0.66, 0.75), [0, 1])
+  const ctaY = useTransform(scrollYProgress, r(0.66, 0.75), [12, 0])
 
-  const layerTransition = {
-    x: { type: "spring", stiffness: 190, damping: 28, mass: 1.02 },
-    rotate: { duration: 0.42, ease: [0.22, 1, 0.36, 1] },
-    opacity: {
-      duration: isActive ? 0.34 : 0.42,
-      ease: [0.22, 1, 0.36, 1],
-    },
-    scale: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
-    y: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
-    filter: { duration: 0.4, ease: [0.22, 1, 0.36, 1] },
-  }
+  const gradId = `cinema-underline-${idx}`
 
-  const inner = (
+  const wordRangeStart = 0.28
+  const wordRangeEnd = 0.66
+  const span = (wordRangeEnd - wordRangeStart) / Math.max(1, wordCount)
+
+  return (
     <motion.div
-      animate={animateState}
-      transition={layerTransition}
-      className="absolute inset-0 will-change-[opacity,transform,filter]"
-      style={{ pointerEvents: isActive ? "auto" : "none" }}
+      style={{ opacity: layerOpacity, y: layerY, pointerEvents: layerPointerEvents }}
+      className="absolute inset-x-0 top-[18vh] bottom-0 flex items-center"
     >
-      <div className="relative w-full h-full overflow-hidden rounded-[1.25rem] shadow-[0_10px_40px_rgba(0,0,0,0.12)]">
-        {/* Background image */}
-        {imageSrc && (
-          <div className="absolute inset-0 z-0">
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={imageSrc}
-              alt=""
-              className="w-full h-full object-cover"
+      <motion.div
+        aria-hidden
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          opacity: haloOpacity,
+          background: `radial-gradient(ellipse 80% 60% at 50% 50%, rgba(${accent.rgb}, 0.18) 0%, rgba(${accent.rgb}, 0.05) 50%, transparent 80%)`,
+        }}
+      />
+
+      <motion.span
+        aria-hidden
+        className="absolute inset-0 flex items-center justify-center pointer-events-none select-none font-serif leading-none text-black/[0.05] dark:text-white/[0.06]"
+        style={{
+          fontSize: "min(80vw, 65vh)",
+          scale: ghostScale,
+          opacity: ghostOpacity,
+        }}
+      >
+        {idx + 1}
+      </motion.span>
+
+      <div className="relative w-full px-6">
+        <motion.div
+          className="text-[0.68rem] font-medium uppercase tracking-[0.22em] tabular-nums"
+          style={{ opacity: eyebrowOpacity }}
+        >
+          <span style={{ color: accent.hex }}>{String(idx + 1).padStart(2, "0")}</span>
+          <span className="mx-2 text-black/30 dark:text-white/30">/</span>
+          <span className="text-black/55 dark:text-white/60">{String(total).padStart(2, "0")}</span>
+        </motion.div>
+
+        <motion.h3
+          className="mt-3 font-serif text-[2.6rem] sm:text-[3.15rem] leading-[1.02] tracking-tight text-black dark:text-white"
+          style={{
+            scale: titleScale,
+            y: titleY,
+            opacity: titleOpacity,
+            transformOrigin: "left center",
+          }}
+        >
+          {item.title}
+        </motion.h3>
+
+        <svg
+          className="block w-[60%] h-[3px] mt-4 overflow-visible"
+          viewBox="0 0 100 3"
+          preserveAspectRatio="none"
+          aria-hidden
+        >
+          <defs>
+            <linearGradient id={gradId} x1="0" y1="0" x2="100" y2="0" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stopColor={accent.hex} />
+              <stop offset="100%" stopColor={accent.lightHex} />
+            </linearGradient>
+          </defs>
+          <motion.path
+            d="M0 1.5 H 100"
+            stroke={`url(#${gradId})`}
+            strokeWidth={3}
+            strokeLinecap="round"
+            fill="none"
+            style={{ pathLength: underlinePathLength }}
+          />
+        </svg>
+
+        <div className="mt-5 flex flex-wrap gap-2">
+          {item.tags.map((t, i) => (
+            <CinemaTag
+              key={t}
+              label={t}
+              scrollYProgress={scrollYProgress}
+              start={sliceStart + sliceLen * (0.16 + i * 0.03)}
+              end={sliceStart + sliceLen * (0.22 + i * 0.03)}
             />
-          </div>
-        )}
+          ))}
+        </div>
 
-        <div
-          className="absolute inset-0 z-[1]"
-          style={{
-            background: [
-              "linear-gradient(to top, rgba(0,0,0,0.72) 0%, rgba(0,0,0,0.45) 30%, rgba(0,0,0,0.18) 55%, rgba(0,0,0,0.04) 75%, transparent 100%)",
-            ].join(", "),
-          }}
-        />
+        <p className="mt-5 text-[1rem] leading-relaxed text-black/85 dark:text-white/85 max-w-[42ch]">
+          {words.map((word, i) => {
+            const wStart = wordRangeStart + i * span
+            const wEnd = wStart + Math.max(span * 1.6, 0.025)
+            return (
+              <CinemaWord
+                key={`${idx}-${i}`}
+                word={word}
+                scrollYProgress={scrollYProgress}
+                start={sliceStart + sliceLen * wStart}
+                end={sliceStart + sliceLen * wEnd}
+                isLast={i === words.length - 1}
+              />
+            )
+          })}
+        </p>
 
-        <div
-          className="absolute inset-0 z-[2] pointer-events-none"
-          style={{
-            background:
-              "linear-gradient(160deg, rgba(99,102,241,0.08) 0%, rgba(168,85,247,0.06) 60%, transparent 100%)",
-          }}
-        />
-
-        {/* Top-right link indicator */}
-        {href && (
-          <div className="absolute top-4 right-4 z-[6]">
-            <span className="flex items-center justify-center w-9 h-9 rounded-full bg-black/25 text-white/90 backdrop-blur-sm border border-white/20 transition-colors">
+        {link && (
+          <motion.div className="mt-7" style={{ opacity: ctaOpacity, y: ctaY }}>
+            <LocalizedLink
+              href={link}
+              aria-label={item.title}
+              className="inline-flex items-center justify-center w-14 h-14 rounded-full shadow-[0_8px_24px_rgba(0,0,0,0.18)] transition-all duration-300 hover:scale-105 hover:translate-x-1"
+              style={{ backgroundColor: accent.hex, color: accent.fg }}
+            >
               <svg
-                width="16"
-                height="16"
+                width="20"
+                height="20"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
+                aria-hidden
               >
                 <path d="M7 17L17 7" />
                 <path d="M7 7h10v10" />
               </svg>
-            </span>
-          </div>
+            </LocalizedLink>
+          </motion.div>
         )}
-
-        <div className="absolute left-5 top-5 z-[6] text-[0.68rem] font-medium uppercase tracking-[0.22em] text-white">
-          <span>
-            {String(index + 1).padStart(2, "0")} / {String(count).padStart(2, "0")}
-          </span>
-        </div>
-
-        {/* Content directly on the image — no panel */}
-        <div className="absolute bottom-0 left-0 right-0 z-[5] p-5 pb-6">
-          {/* Tags row */}
-          <div className="flex flex-wrap gap-1.5 mb-3">
-            {item.tags.map((t) => (
-              <span
-                key={t}
-                className="inline-flex items-center rounded-full px-2.5 py-0.5 text-[0.6rem] font-semibold uppercase tracking-wide border border-white/25 text-white/95 bg-white/[0.08]"
-              >
-                {t}
-              </span>
-            ))}
-          </div>
-
-          {/* Title */}
-          <h3 className="font-serif text-[1.55rem] leading-[1.08] tracking-tight text-white drop-shadow-[0_1px_3px_rgba(0,0,0,0.3)]">
-            {item.title}
-          </h3>
-
-          {/* Description */}
-          <div className="mt-2.5">
-            <p className="text-[0.82rem] leading-relaxed text-white/85 line-clamp-4">
-              {item.text}
-            </p>
-          </div>
-        </div>
       </div>
     </motion.div>
   )
-
-  if (href) {
-    return (
-      <LocalizedLink
-        href={href}
-        className="absolute inset-0 block outline-none rounded-[1.25rem]"
-        tabIndex={isActive ? 0 : -1}
-        aria-hidden={!isActive}
-      >
-        {inner}
-      </LocalizedLink>
-    )
-  }
-
-  return inner
 }
 
-function MobileServicesStack({
+function MobileServicesCinemaPinned({
+  items,
+}: {
+  items: Array<{ title: string; text: string; tags: string[] }>
+}) {
+  const trackRef = useRef<HTMLDivElement | null>(null)
+  const { scrollYProgress } = useScroll({
+    target: trackRef,
+    offset: ["start start", "end end"],
+  })
+
+  const revealVh = 85 * items.length
+  return (
+    <div
+      ref={trackRef}
+      className="relative -mx-4 sm:-mx-6"
+      style={{ minHeight: `${100 + revealVh}vh` }}
+    >
+      <div className="sticky top-0 h-screen overflow-hidden">
+        {items.map((item, idx) => (
+          <ServiceCinemaLayer
+            key={item.title}
+            item={item}
+            idx={idx}
+            total={items.length}
+            scrollYProgress={scrollYProgress}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+function MobileServicesCinemaStatic({
+  items,
+}: {
+  items: Array<{ title: string; text: string; tags: string[] }>
+}) {
+  return (
+    <ul className="border-t border-black/10 dark:border-white/10">
+      {items.map((item, idx) => {
+        const link = getLink(item.title)
+        const accent = getAccent(item.title)
+        return (
+          <li
+            key={item.title}
+            className="border-b border-black/10 dark:border-white/10 py-10"
+          >
+            <div className="text-[0.68rem] font-medium uppercase tracking-[0.22em] tabular-nums">
+              <span style={{ color: accent.hex }}>{String(idx + 1).padStart(2, "0")}</span>
+              <span className="mx-2 text-black/30 dark:text-white/30">/</span>
+              <span className="text-black/55 dark:text-white/60">{String(items.length).padStart(2, "0")}</span>
+            </div>
+            <h3 className="mt-3 font-serif text-[2.4rem] leading-[1.05] tracking-tight text-black dark:text-white">
+              {item.title}
+            </h3>
+            <div className="mt-4 flex flex-wrap gap-2">
+              {item.tags.map((t) => (
+                <TagPill key={t} label={t} />
+              ))}
+            </div>
+            <p className="mt-4 text-[0.96rem] leading-relaxed text-black/85 dark:text-white/85">
+              {item.text}
+            </p>
+            {link && (
+              <div className="mt-5">
+                <LocalizedLink
+                  href={link}
+                  aria-label={item.title}
+                  className="inline-flex items-center justify-center w-12 h-12 rounded-full"
+                  style={{ backgroundColor: accent.hex, color: accent.fg }}
+                >
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    aria-hidden
+                  >
+                    <path d="M7 17L17 7" />
+                    <path d="M7 7h10v10" />
+                  </svg>
+                </LocalizedLink>
+              </div>
+            )}
+          </li>
+        )
+      })}
+    </ul>
+  )
+}
+
+function MobileServicesCinema({
   items,
   header,
   ctaText,
@@ -361,148 +517,55 @@ function MobileServicesStack({
   ctaText?: string
   ctaButton?: string
 }) {
-  const count = items.length
-  const [activeIndex, setActiveIndex] = useState(0)
-  const [swipeDirection, setSwipeDirection] = useState<1 | -1>(1)
-
-  const goToCard = useCallback(
-    (targetIndex: number) => {
-      const clamped = Math.max(0, Math.min(count - 1, targetIndex))
-      setActiveIndex((current) => {
-        if (clamped === current) return current
-        setSwipeDirection(clamped > current ? 1 : -1)
-        return clamped
-      })
-    },
-    [count],
-  )
-
-  const handleDragEnd = useCallback(
-    (_event: MouseEvent | TouchEvent | PointerEvent, info: { offset: { x: number }; velocity: { x: number } }) => {
-      const swipePower = Math.abs(info.offset.x) * 0.9 + Math.abs(info.velocity.x) * 0.35
-      if (swipePower < 85) return
-
-      if (info.offset.x < 0) {
-        goToCard(activeIndex + 1)
-        return
-      }
-
-      goToCard(activeIndex - 1)
-    },
-    [activeIndex, goToCard],
-  )
-
-  const getLayerState = (idx: number): "active" | "prev" | "next" | "hidden" => {
-    if (idx === activeIndex) return "active"
-    if (idx === (activeIndex - 1 + count) % count) return "prev"
-    if (idx === (activeIndex + 1) % count) return "next"
-    return "hidden"
-  }
+  const prefersReducedMotion = useReducedMotion()
 
   return (
-    <div className="relative md:hidden">
-      {header && <div className="mb-5">{header}</div>}
-
-      <div className="relative px-0">
-        <div className="flex justify-center">
-          <div
-            className="relative w-full max-w-[320px] rounded-[1.5rem] overflow-visible"
-            style={{ aspectRatio: "3 / 5" }}
-          >
-            <div className="absolute inset-x-[4%] top-6 h-full rounded-[1.5rem] bg-black/[0.04] blur-2xl" aria-hidden />
-
-            <motion.div
-              drag="x"
-              dragConstraints={{ left: 0, right: 0 }}
-              dragElastic={0.08}
-              dragMomentum={false}
-              onDragEnd={handleDragEnd}
-              whileDrag={{ scale: 0.992, cursor: "grabbing" }}
-              className="relative h-full touch-pan-y cursor-grab select-none"
+    <div className="md:hidden">
+      {prefersReducedMotion ? (
+        <>
+          {header && <div>{header}</div>}
+          <MobileServicesCinemaStatic items={items} />
+        </>
+      ) : (
+        <>
+          {header && (
+            <div
+              className="relative pointer-events-none"
+              style={{ height: "285vh", marginBottom: "-285vh" }}
             >
-              {items.map((item, idx) => (
-                <div
-                  key={item.title}
-                  className={idx === activeIndex ? "absolute inset-0 z-30" : idx === (activeIndex - 1 + count) % count ? "absolute inset-0 z-20" : idx === (activeIndex + 1) % count ? "absolute inset-0 z-10" : "absolute inset-0 z-0"}
-                >
-                  <MobileCardLayer
-                    item={item}
-                    index={idx}
-                    count={count}
-                    state={getLayerState(idx)}
-                    swipeDirection={swipeDirection}
-                    href={getLink(item.title)}
-                    imageSrc={getImage(item.title)}
-                  />
-                </div>
-              ))}
-            </motion.div>
-          </div>
-        </div>
-
-        <div className="mt-4 flex items-center justify-center gap-8">
-          <button
-            type="button"
-            onClick={() => goToCard(activeIndex - 1)}
-            aria-label="Vorherige Karte"
-            className="inline-flex h-10 w-10 items-center justify-center text-lg leading-none text-black/10 transition-all duration-300 hover:text-black active:scale-95 dark:text-white/45 dark:hover:text-white"
-          >
-            &lt;
-          </button>
-
-          <div className="flex items-center gap-1">
-            {items.map((item, idx) => (
-              <button
-                key={`${item.title}-dot`}
-                type="button"
-                aria-label={`Go to card ${idx + 1}`}
-                onClick={() => goToCard(idx)}
-                className="group inline-flex h-9 w-9 items-center justify-center rounded-full"
-              >
-                <span
-                  className={[
-                    "block rounded-full transition-all duration-300",
-                    idx === activeIndex ? "h-2.5 w-6 bg-black dark:bg-white" : "h-2.5 w-2.5 bg-black/20 dark:bg-white/20 group-active:scale-90",
-                  ].join(" ")}
-                />
-              </button>
-            ))}
-          </div>
-
-          <button
-            type="button"
-            onClick={() => goToCard(activeIndex + 1)}
-            aria-label="Nächste Karte"
-            className="inline-flex h-10 w-10 items-center justify-center text-lg leading-none text-black/10 transition-all duration-300 hover:text-black active:scale-95 dark:text-white/45 dark:hover:text-white"
-          >
-            &gt;
-          </button>
-        </div>
-
-        {ctaText && ctaButton && (
-          <motion.div
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: "easeOut", delay: 0.05 }}
-            className="mt-5 text-center"
-          >
-            <p className="text-sm leading-relaxed text-black/75 dark:text-white/75 max-w-[54ch] mx-auto">
-              {ctaText}
-            </p>
-            <div className="mt-4 flex justify-center">
-              <a href="#book">
-                <Button
-                  variant="outline"
-                  className="rounded-xl px-8 py-6 text-base border-black text-black hover:bg-black hover:text-white transition-all duration-300 hover:scale-105 cursor-pointer"
-                >
-                  {ctaButton}
-                  <ChevronRight className="ml-2 h-4 w-4" />
-                </Button>
-              </a>
+              <div className="sticky top-16 z-30 py-3 pointer-events-auto">
+                {header}
+              </div>
             </div>
-          </motion.div>
-        )}
-      </div>
+          )}
+          <MobileServicesCinemaPinned items={items} />
+        </>
+      )}
+
+      {ctaText && ctaButton && (
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+          className="relative -mt-[10vh] text-center"
+        >
+          <p className="text-sm leading-relaxed text-black/75 dark:text-white/75 max-w-[54ch] mx-auto">
+            {ctaText}
+          </p>
+          <div className="mt-4 flex justify-center">
+            <a href="#book">
+              <Button
+                variant="outline"
+                className="rounded-xl px-8 py-6 text-base border-black text-black hover:bg-black hover:text-white transition-all duration-300 hover:scale-105 cursor-pointer"
+              >
+                {ctaButton}
+                <ChevronRight className="ml-2 h-4 w-4" />
+              </Button>
+            </a>
+          </div>
+        </motion.div>
+      )}
     </div>
   )
 }
@@ -989,8 +1052,8 @@ export default function Services({ dict }: ServicesProps) {
         {/* Desktop + Tablet: header rendered normally above the cards */}
         <div className="hidden md:block">{sectionHeader}</div>
 
-        {/* Mobile: swipeable stack carousel with layered depth */}
-        <MobileServicesStack
+        {/* Mobile: cinema scroll — sticky pin per service, scroll-driven kinetic typography */}
+        <MobileServicesCinema
           items={items}
           header={sectionHeader}
           ctaText={dict.services.mobileCta}

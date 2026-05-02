@@ -92,10 +92,13 @@ export default function AnalyticsReviews({ dict }: { dict: any }) {
           ref={heading.ref}
           className={`text-center mb-16 md:mb-20 reveal-fade-up ${heading.isRevealed ? "revealed" : ""}`}
         >
+          <span className="section-eyebrow justify-center">
+            {dict.servicesAnalytics.eyebrows?.reviews}
+          </span>
           <h2 className="font-serif text-[2rem] sm:text-[2.8rem] md:text-[3.4rem] leading-[1.1] tracking-tight text-black">
-            {dict.servicesAnalytics.portfolio.title === "Unser" ? "Was unsere " : "What our "}
+            {dict.servicesAnalytics.reviewsHeading?.lead}{" "}
             <span className="text-[#21569c]">
-              {dict.servicesAnalytics.portfolio.title === "Unser" ? "Kunden sagen" : "clients say"}
+              {dict.servicesAnalytics.reviewsHeading?.highlight}
             </span>
           </h2>
         </div>

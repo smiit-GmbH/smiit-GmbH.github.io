@@ -2,7 +2,11 @@
 
 import type { Locale } from "@/lib/dictionary"
 import HeroSection from "@/components/pages/services/analytics/hero-section"
+import WhyDashboardSection from "@/components/pages/services/analytics/why-dashboard"
+import HeroDashboardJourney from "@/components/pages/services/analytics/hero-dashboard-journey"
 import PortfolioSection from "@/components/pages/services/analytics/portfolio"
+import ManifestBand from "@/components/pages/services/analytics/manifest-band"
+import ProcessSection from "@/components/pages/services/analytics/process-section"
 import AnalyticsCTA from "@/components/pages/services/analytics/cta"
 import AnalyticsReviews from "@/components/pages/services/analytics/reviews"
 
@@ -25,11 +29,14 @@ export default function AnalyticsPage({
           mixBlendMode: "soft-light",
         }}
       />
-      
       <HeroSection lang={lang} dict={dict} />
+      <WhyDashboardSection dict={dict} />
+      <HeroDashboardJourney lang={lang} dict={dict} />
       <PortfolioSection dict={dict} />
-      <AnalyticsCTA dict={dict} />
+      <ManifestBand dict={dict} />
+      <ProcessSection dict={dict} />
       <AnalyticsReviews dict={dict} />
+      <AnalyticsCTA dict={dict} />
     </main>
   )
 }

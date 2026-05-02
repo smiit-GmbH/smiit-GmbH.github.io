@@ -70,16 +70,16 @@ export default function ContactForm({ dict, lang }: ContactFormProps) {
     )
   }
 
-  const inputClasses = "w-full px-3 sm:px-4 py-2.5 lg:py-2.5 xl:py-3 rounded-xl border border-black/10 bg-white text-[13px] sm:text-sm text-black placeholder:text-black/40 focus:outline-none focus:ring-2 focus:ring-[#F703EB]/40 focus:border-[#F703EB] transition-all"
+  const inputClasses = "w-full px-3 sm:px-4 py-2.5 lg:py-2 xl:py-2.5 rounded-xl border border-black/10 bg-white text-[13px] sm:text-sm text-black placeholder:text-black/40 focus:outline-none focus:ring-2 focus:ring-[#F703EB]/40 focus:border-[#F703EB] transition-all"
   const labelClasses = "block text-[13px] sm:text-sm font-semibold text-black mb-1 lg:mb-1"
 
   return (
-    <div className="space-y-5 lg:space-y-5 xl:space-y-6">
-      <form ref={formRef} onSubmit={handleSubmit} className="space-y-4 lg:space-y-4 xl:space-y-5">
+    <div className="space-y-5 lg:space-y-4 xl:space-y-5">
+      <form ref={formRef} onSubmit={handleSubmit} className="space-y-4 lg:space-y-3 xl:space-y-4">
         <input type="hidden" name="from_name" value={`${firstName} ${lastName}`.trim()} />
         <input type="hidden" name="lang" value={lang} />
         
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-4 xl:gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-3 xl:gap-4">
           <div>
             <label className={labelClasses}>
               {f.firstName} <span className="text-red-500">*</span>
@@ -174,7 +174,7 @@ export default function ContactForm({ dict, lang }: ContactFormProps) {
             name="message"
             placeholder={f.message}
             required
-            rows={4}
+            rows={5}
             className={`${inputClasses} resize-none`}
           />
         </div>

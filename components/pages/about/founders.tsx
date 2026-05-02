@@ -61,32 +61,34 @@ const FlipCard = memo(function FlipCard({
           }}
         >
           {/* ===== FRONT ===== */}
-          <div className="absolute inset-0 backface-hidden rounded-2xl overflow-hidden shadow-md ring-1 ring-black/5">
-            {/* Image */}
-            <Image
-              src={founder.image}
-              alt={founder.name}
-              fill
-              className="object-cover object-top"
-              sizes="(max-width: 640px) 90vw, 360px"
-              loading="lazy"
-            />
+          <div className="absolute inset-0 backface-hidden rounded-2xl overflow-hidden shadow-md ring-1 ring-black/5 bg-[linear-gradient(180deg,#f5f7fa,#e9eef5)] sm:bg-transparent">
+            <div className="absolute inset-3 sm:inset-0 rounded-xl sm:rounded-2xl overflow-hidden">
+              {/* Image */}
+              <Image
+                src={founder.image}
+                alt={founder.name}
+                fill
+                className="object-cover object-top"
+                sizes="(max-width: 640px) 90vw, 360px"
+                loading="lazy"
+              />
 
-            {/* Gradient overlay at bottom */}
-            <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
+              {/* Gradient overlay at bottom */}
+              <div className="absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
 
-            {/* Text on front */}
-            <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6 text-white">
-              <h3 className="font-serif text-xl sm:text-2xl leading-tight tracking-tight">
-                {founder.name}
-              </h3>
-              <p className="mt-1 text-sm sm:text-base text-white/80">
-                {founder.role}
-              </p>
-              <p className="mt-3 text-xs text-white/50 flex items-center gap-1.5">
-                <span className="inline-block w-4 h-[1px] bg-white/40" />
-                {flipHint}
-              </p>
+              {/* Text on front */}
+              <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6 text-white">
+                <h3 className="font-serif text-xl sm:text-2xl leading-tight tracking-tight">
+                  {founder.name}
+                </h3>
+                <p className="mt-1 text-sm sm:text-base text-white/80">
+                  {founder.role}
+                </p>
+                <p className="mt-3 text-xs text-white/50 flex items-center gap-1.5">
+                  <span className="inline-block w-4 h-[1px] bg-white/40" />
+                  {flipHint}
+                </p>
+              </div>
             </div>
           </div>
 
@@ -198,7 +200,7 @@ export function FoundersSection({ lang, dict }: { lang: Locale; dict: any }) {
 
         {/* Cards Grid */}
         <motion.div
-          className="mt-12 sm:mt-14 grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-10 lg:gap-14 max-w-[800px] mx-auto"
+          className="mt-12 sm:mt-14 grid grid-cols-1 sm:grid-cols-2 gap-8 sm:gap-10 lg:gap-24 xl:gap-32 max-w-[800px] lg:max-w-[900px] mx-auto"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}

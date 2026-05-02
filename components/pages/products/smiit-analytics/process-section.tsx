@@ -15,7 +15,7 @@ export function ProcessSection({ dict }: ProcessSectionProps) {
 
   return (
     <section
-      className="relative py-20 md:py-28 overflow-hidden products-gradient-animate"
+      className="relative py-20 md:py-28"
     >
       <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
@@ -63,7 +63,7 @@ export function ProcessSection({ dict }: ProcessSectionProps) {
 
           <div className="mt-8 md:mt-10">
             <a href="#book">
-              <button className="group flex items-center gap-3 mx-auto bg-white/25 hover:bg-white/85 border border-black/20 text-black px-7 py-3.5 rounded-xl font-medium text-sm transition-all duration-300 backdrop-blur-sm cursor-pointer">
+              <button className="group flex items-center gap-3 mx-auto bg-[#21569c] hover:bg-[#1a457d] text-white px-7 py-3.5 rounded-xl font-medium text-sm transition-all duration-300 shadow-[0_14px_28px_rgba(33,86,156,0.20)] cursor-pointer">
                 {cta.button}
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
               </button>

@@ -1,6 +1,7 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { useRef } from "react"
+import { motion, useMotionValue, useSpring, useReducedMotion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { ChevronRight, Mail } from "lucide-react"
 import LocalizedLink from "@/components/localized-link"
@@ -10,8 +11,55 @@ const fadeUpVariants = {
   visible: { opacity: 1, y: 0 },
 }
 
+function MagneticPrimary({ label }: { label: string }) {
+  const ref = useRef<HTMLAnchorElement>(null)
+  const shouldReduceMotion = useReducedMotion()
+
+  const mvX = useMotionValue(0)
+  const mvY = useMotionValue(0)
+  const x = useSpring(mvX, { stiffness: 240, damping: 18, mass: 0.4 })
+  const y = useSpring(mvY, { stiffness: 240, damping: 18, mass: 0.4 })
+
+  const handleMove = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (shouldReduceMotion) return
+    const el = ref.current
+    if (!el) return
+    const rect = el.getBoundingClientRect()
+    const offsetX = e.clientX - (rect.left + rect.width / 2)
+    const offsetY = e.clientY - (rect.top + rect.height / 2)
+    const max = 8
+    mvX.set(Math.max(-max, Math.min(max, offsetX * 0.3)))
+    mvY.set(Math.max(-max, Math.min(max, offsetY * 0.3)))
+  }
+
+  const handleLeave = () => {
+    mvX.set(0)
+    mvY.set(0)
+  }
+
+  return (
+    <motion.a
+      ref={ref}
+      href="#book"
+      onMouseMove={handleMove}
+      onMouseLeave={handleLeave}
+      style={shouldReduceMotion ? undefined : { x, y }}
+      className="inline-block"
+    >
+      <Button
+        variant="outline"
+        className="rounded-xl px-6 py-6 text-sm text-white bg-black hover:bg-black/80 hover:text-white cursor-pointer border-transparent"
+      >
+        {label}
+        <ChevronRight className="ml-1.5 h-4 w-4" />
+      </Button>
+    </motion.a>
+  )
+}
+
 export default function AnalyticsCTA({ dict }: { dict: any }) {
   const cta = dict.servicesAnalytics.cta
+  const eyebrowLabel = dict.servicesAnalytics.eyebrows?.cta
 
   return (
     <section className="relative pb-20 md:pb-28 bg-transparent">
@@ -29,6 +77,14 @@ export default function AnalyticsCTA({ dict }: { dict: any }) {
             },
           }}
         >
+          <motion.span
+            className="section-eyebrow justify-center"
+            variants={fadeUpVariants}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+          >
+            {eyebrowLabel}
+          </motion.span>
+
           <motion.h2
             className="font-serif text-[3.2rem] leading-[1.12] tracking-tight text-black whitespace-pre-line max-w-[22ch]"
             variants={fadeUpVariants}
@@ -57,15 +113,7 @@ export default function AnalyticsCTA({ dict }: { dict: any }) {
                 {cta.secondaryButton}
               </Button>
             </LocalizedLink>
-            <a href="#book">
-              <Button
-                variant="outline"
-                className="rounded-xl px-6 py-6 text-sm text-white bg-black hover:bg-black/80 hover:text-white cursor-pointer border-transparent"
-              >
-                {cta.primaryButton}
-                <ChevronRight className="ml-1.5 h-4 w-4" />
-              </Button>
-            </a>
+            <MagneticPrimary label={cta.primaryButton} />
           </motion.div>
         </motion.div>
 
@@ -82,6 +130,14 @@ export default function AnalyticsCTA({ dict }: { dict: any }) {
             },
           }}
         >
+          <motion.span
+            className="section-eyebrow justify-center"
+            variants={fadeUpVariants}
+            transition={{ duration: 0.5, ease: "easeOut" }}
+          >
+            {eyebrowLabel}
+          </motion.span>
+
           <motion.h2
             className="font-serif text-[1.8rem] sm:text-[2.2rem] leading-[1.15] tracking-tight text-black whitespace-pre-line"
             variants={fadeUpVariants}

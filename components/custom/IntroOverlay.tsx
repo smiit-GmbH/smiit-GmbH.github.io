@@ -30,10 +30,10 @@ export function IntroOverlay({
   const L =
     lang === "de"
       ? {
-          loading: "Unternehmen transformieren...",
+          loading: "Daten transformieren...",
         }
       : {
-          loading: "Transforming companies...",
+          loading: "Transforming data...",
         }
 
   useEffect(() => {
