@@ -2,9 +2,8 @@
 
 import { Button } from "@/components/ui/button"
 import { ChevronRight } from "lucide-react"
-import { motion, useInView, useSpring, useTransform } from "framer-motion"
+import { motion, useInView, useReducedMotion, useSpring, useTransform } from "framer-motion"
 import { useEffect, useRef, useState } from "react"
-import LocalizedLink from "../../localized-link"
 import type { Locale } from "@/lib/dictionary"
 
 interface ResultsProps {
@@ -23,7 +22,9 @@ function CountUp({
 }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-20px" })
-  
+  const prefersReducedMotion = useReducedMotion()
+  const [animate, setAnimate] = useState(false)
+
   const match = value.match(/^([^\d]*)(\d+(?:[\.,]\d+)?)([^\d]*)$/)
   const prefix = match ? match[1] : ""
   const rawNumber = match ? match[2] : "0"
@@ -49,10 +50,15 @@ function CountUp({
   })
 
   useEffect(() => {
-    if (isInView && match) {
+    if (isInView && match && !prefersReducedMotion) {
+      setAnimate(true)
       spring.set(number)
     }
-  }, [isInView, number, spring, match])
+  }, [isInView, number, spring, match, prefersReducedMotion])
+
+  if (!animate) {
+    return <span ref={ref} className={className}>{value}</span>
+  }
 
   return <motion.span ref={ref} className={className}>{display}</motion.span>
 }
@@ -277,14 +283,14 @@ export default function Results({ dict, locale }: ResultsProps) {
         </div>
 
         {/* Button */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 10 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.6 }}
           className="flex justify-center"
         >
-          <LocalizedLink href="/contact">
+          <a href="#book">
             <Button
               variant="outline"
               className="rounded-xl px-8 py-6 text-base border-black text-black hover:bg-black hover:text-white transition-all duration-300 cursor-pointer"
@@ -292,7 +298,7 @@ export default function Results({ dict, locale }: ResultsProps) {
               {dict.results.button}
               <ChevronRight className="ml-2 h-4 w-4" />
             </Button>
-          </LocalizedLink>
+          </a>
         </motion.div>
       </div>
     </section>

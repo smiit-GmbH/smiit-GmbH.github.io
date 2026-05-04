@@ -75,8 +75,8 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8 md:gap-12 mb-12">
           <div className="col-span-2 sm:col-span-3 lg:col-span-2 space-y-6">
             <div className="flex items-center justify-between">
-              <Link href={homeHref} aria-label="Claimity home" className="flex items-center">
-                <Image src="/logo_black.png" alt="Claimity Logo" width={70} height={28} priority />
+              <Link href={homeHref} aria-label="smiit Startseite" className="flex items-center">
+                <Image src="/logo_black.png" alt="smiit" width={70} height={28} priority />
               </Link>
 
               <div className="flex gap-4">

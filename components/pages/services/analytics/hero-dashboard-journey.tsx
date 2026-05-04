@@ -463,7 +463,7 @@ export default function HeroDashboardJourney({ lang, dict }: HeroDashboardJourne
                   <div className="flex items-center gap-2 shrink-0">
                     <Image
                       src="/logo_black.png"
-                      alt="smiit Logo"
+                      alt="smiit"
                       width={64}
                       height={24}
                       className="h-[22px] w-auto object-contain opacity-80"

@@ -854,7 +854,7 @@ export default function WhyDashboardSection({ dict }: WhyDashboardSectionProps) 
                           <div className="flex items-center gap-2.5">
                             <Image
                               src="/logo_black.png"
-                              alt="smiit Logo"
+                              alt="smiit"
                               width={76}
                               height={30}
                               className="h-[28px] w-auto object-contain opacity-80"

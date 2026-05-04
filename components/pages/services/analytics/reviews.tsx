@@ -115,7 +115,7 @@ export default function AnalyticsReviews({ dict }: { dict: any }) {
             <div className="w-full h-full bg-white rounded-[2rem] p-8 shadow-lg border border-gray-100 flex flex-col items-center text-center pointer-events-none">
               <div className="h-12 mb-6 flex items-center justify-center">
                 {prevReview.logoSrc && (
-                  <Image src={prevReview.logoSrc} alt={prevReview.name} width={120} height={40} className="max-h-full w-auto object-contain grayscale" />
+                  <Image src={prevReview.logoSrc} alt="" aria-hidden="true" width={120} height={40} className="max-h-full w-auto object-contain grayscale" />
                 )}
               </div>
               <p className="font-serif text-lg text-black leading-relaxed line-clamp-3">"{prevReview.feedback}"</p>
@@ -157,7 +157,8 @@ export default function AnalyticsReviews({ dict }: { dict: any }) {
                   {currentReview.logoSrc && (
                     <Image
                       src={currentReview.logoSrc}
-                      alt={currentReview.name}
+                      alt=""
+                      aria-hidden="true"
                       width={160}
                       height={60}
                       className="max-h-full w-auto object-contain opacity-80 grayscale hover:grayscale-0 transition-all duration-500"
@@ -189,7 +190,7 @@ export default function AnalyticsReviews({ dict }: { dict: any }) {
             <div className="w-full h-full bg-white rounded-[2rem] p-8 shadow-lg border border-gray-100 flex flex-col items-center text-center pointer-events-none">
               <div className="h-12 mb-6 flex items-center justify-center">
                 {nextReview.logoSrc && (
-                  <Image src={nextReview.logoSrc} alt={nextReview.name} width={120} height={40} className="max-h-full w-auto object-contain grayscale" />
+                  <Image src={nextReview.logoSrc} alt="" aria-hidden="true" width={120} height={40} className="max-h-full w-auto object-contain grayscale" />
                 )}
               </div>
               <p className="font-serif text-lg text-black leading-relaxed line-clamp-3">"{nextReview.feedback}"</p>

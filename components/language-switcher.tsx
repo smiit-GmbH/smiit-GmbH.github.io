@@ -37,9 +37,8 @@ const Flag = ({ country }: { country: string }) => (
   <ReactCountryFlag
     countryCode={country}
     svg
-    title={country}
     style={{ width: "1.1rem", height: "1.1rem", borderRadius: "2px" }}
-    aria-label={`${country} flag`}
+    aria-hidden="true"
   />
 )
 

@@ -23,17 +23,29 @@ const playfair = Playfair_Display({
   variable: "--font-serif",
 })
 
-export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }) {
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params
   const isDe = lang === 'de'
-  
+
+  const title = isDe
+    ? "smiit GmbH - Datengesteuerte Transformation, maßgeschneidert für den Mittelstand"
+    : "smiit GmbH - Data-driven transformation, tailored for SMEs"
+
+  const description = isDe
+    ? "Digitale Lösungen für Applikationen, Workflows, Datenanalyse und digitale Unternehmensstrategie — maßgeschneidert für den Mittelstand."
+    : "Digital solutions for applications, workflows, data analytics, and digital strategy — tailored for SMEs."
+
+  const ogImage = {
+    url: "/og-image.png",
+    width: 1200,
+    height: 630,
+    alt: "smiit GmbH",
+  }
+
   return {
-    title: isDe 
-      ? "smiit GmbH - Datengesteuerte Transformation, maßgeschneidert für den Mittelstand"
-      : "smiit GmbH - Data-driven transformation, tailored for SMEs",
-    description: isDe 
-      ? "Wir helfen Ihnen dabei, die Digitalisierung Ihres Unternehmens voranzutreiben und Ihre Prozesse zu optimieren."
-      : "We help you drive forward the digitalization of your company and optimize your processes.",
+    metadataBase: new URL("https://www.smiit.de"),
+    title,
+    description,
     alternates: {
       canonical: `/${lang}/`,
       languages: {
@@ -43,22 +55,19 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
       },
     },
     openGraph: {
-      title: isDe 
-        ? "smiit GmbH - Datengesteuerte Transformation, maßgeschneidert für den Mittelstand"
-        : "smiit GmbH - Data-driven transformation, tailored for SMEs",
-      description: isDe
-        ? "Digitale Lösungen für Applikationen, Datenanalyse und digitale Unternehmensstrategie"
-        : "Digital solutions for applications, data analytics, and digital strategy",
+      title,
+      description,
       url: `/${lang}/`,
+      siteName: "smiit GmbH",
+      locale: isDe ? "de_DE" : "en_US",
+      type: "website",
+      images: [ogImage],
     },
     twitter: {
       card: "summary_large_image",
-      title: isDe 
-        ? "smiit GmbH - Datengesteuerte Transformation, maßgeschneidert für den Mittelstand"
-        : "smiit GmbH - Data-driven transformation, tailored for SMEs",
-      description: isDe
-        ? "Digitale Lösungen für Applikationen, Datenanalyse und digitale Unternehmensstrategie"
-        : "Digital solutions for applications, data analytics, and digital strategy",
+      title,
+      description,
+      images: [ogImage],
     },
   }
 }

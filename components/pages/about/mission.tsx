@@ -61,7 +61,8 @@ export function MissionSection({ dict }: { dict: any }) {
               <div className="relative w-full max-w-[320px] sm:max-w-[360px] aspect-square rounded-2xl overflow-hidden shadow-sm ring-1 ring-black/5">
                 <Image
                   src={valueImages[index]}
-                  alt={value.title}
+                  alt=""
+                  aria-hidden="true"
                   fill
                   className="object-cover"
                   sizes="(max-width: 640px) 90vw, 360px"
@@ -96,7 +97,8 @@ export function MissionSection({ dict }: { dict: any }) {
             <div className="relative w-[260px] xl:w-[300px] aspect-square rounded-2xl overflow-hidden shadow-sm ring-1 ring-black/5">
               <Image
                 src={valueImages[0]}
-                alt={m.values[0].title}
+                alt=""
+                aria-hidden="true"
                 fill
                 className="object-cover"
                 sizes="300px"
@@ -124,7 +126,8 @@ export function MissionSection({ dict }: { dict: any }) {
             <div className="relative w-[260px] xl:w-[300px] aspect-square rounded-2xl overflow-hidden shadow-sm ring-1 ring-black/5">
               <Image
                 src={valueImages[2]}
-                alt={m.values[2].title}
+                alt=""
+                aria-hidden="true"
                 fill
                 className="object-cover"
                 sizes="300px"
@@ -153,7 +156,8 @@ export function MissionSection({ dict }: { dict: any }) {
             <div className="relative w-[260px] xl:w-[300px] aspect-square rounded-2xl overflow-hidden shadow-sm ring-1 ring-black/5">
               <Image
                 src={valueImages[1]}
-                alt={m.values[1].title}
+                alt=""
+                aria-hidden="true"
                 fill
                 className="object-cover"
                 sizes="300px"

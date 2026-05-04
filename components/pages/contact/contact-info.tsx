@@ -50,7 +50,8 @@ export default function ContactInfo({ dict }: ContactInfoProps) {
             <div className="relative w-16 h-16 sm:w-24 sm:h-24 rounded-full overflow-hidden shadow-lg mb-2 sm:mb-3">
               <Image
                 src={member.image}
-                alt={member.name}
+                alt=""
+                aria-hidden="true"
                 fill
                 sizes="(max-width: 640px) 64px, 96px"
                 className="object-cover"

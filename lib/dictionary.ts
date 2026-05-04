@@ -33,7 +33,7 @@ const dictionaries = {
         },
       ],
       mobileCta: "Sie haben Fragen zu unseren Dienstleistungen? Buchen Sie gerne ein kostenloses und unverbindliches Erstgespräch mit uns.",
-      mobileCtaButton: "Sprechen Sie mit uns",
+      mobileCtaButton: "Kostenloses Erstgespräch buchen",
     },
     servicesAnalytics: {
       eyebrows: {
@@ -283,7 +283,7 @@ const dictionaries = {
         { value: "Ø 3,6", label: "Projekte je Kunde", text: "Über 3,6 Projekte je Kunde zeigen klar: Unsere Kunden vertrauen uns und sind zufrieden mit unseren Ergebnissen." },
         { value: "3", label: "Service Bereiche", text: "Unsere breite fachliche Aufstellung ermöglicht eine integrierte Umsetzung: Datenanalyse, Automatisierungen & Apps." }
       ],
-      button: "Bringen Sie Ihr Business voran"
+      button: "Kostenloses Erstgespräch buchen"
     },
     products: {
       title: "Entscheidungen gestützt\nauf Daten, nicht auf Vermutungen",
@@ -584,7 +584,7 @@ const dictionaries = {
         },
       ],
       mobileCta: "Have questions about our services? Book a free, no-obligation introductory call with us.",
-      mobileCtaButton: "Talk to a digital expert",
+      mobileCtaButton: "Book a free consultation",
     },
     servicesAnalytics: {
       eyebrows: {
@@ -834,7 +834,7 @@ const dictionaries = {
         { value: "Ø 3.6", label: "Projects per customer", text: "Over 3.6 projects per customer clearly show: our customers trust us and are satisfied with our results." },
         { value: "3", label: "Service areas", text: "Our broad range of expertise enables integrated implementation: data analysis, automation & apps." }
       ],
-      button: "Boost your business"
+      button: "Book a free consultation"
     },
     products: {
       title: "Decisions backed\nby data, not guesswork",

@@ -397,7 +397,8 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
                     <div className="relative h-5 w-7">
                       <Image
                         src={customer.logoSrc}
-                        alt={`${customer.name} Logo`}
+                        alt=""
+                        aria-hidden="true"
                         fill
                         sizes="28px"
                         className="object-contain"
@@ -480,7 +481,8 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
                         <div className="relative h-9 w-20 md:h-10 md:w-14">
                           <Image
                             src={customer.logoSrc}
-                            alt={`${customer.name} Logo`}
+                            alt=""
+                            aria-hidden="true"
                             fill
                             sizes="(min-width: 768px) 56px, 56px"
                             className="object-contain"
