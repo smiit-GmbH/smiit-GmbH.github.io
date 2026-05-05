@@ -1,6 +1,6 @@
 "use client"
 
-import { Fragment, useCallback, useEffect, useLayoutEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react"
 import {
   AnimatePresence,
   animate,
@@ -10,18 +10,18 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion"
-import { BarChart3, BrainCircuit, ChevronDown, ShieldCheck } from "lucide-react"
+import {
+  ArrowDownRight,
+  ArrowUpRight,
+  BarChart3,
+  BrainCircuit,
+  CalendarCheck,
+  ChevronDown,
+  ShieldCheck,
+} from "lucide-react"
 import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
 
 const STRAND_COLORS = ["#7DBBFF", "#21569c", "#94A3B8"] as const
-const STRAND_X = [70, 130, 190] as const
-// Three smooth curves through viewBox 260×1200; the last segment of each
-// gently converges toward x=130 so they meet at the bottom for the glow.
-const STRAND_PATHS = [
-  "M 70 0 C 90 260, 50 560, 70 860 C 70 1010, 90 1110, 130 1200",
-  "M 130 0 C 110 260, 150 560, 130 860 C 130 1010, 130 1110, 130 1200",
-  "M 190 0 C 170 260, 210 560, 190 860 C 190 1010, 170 1110, 130 1200",
-] as const
 const ICONS = [BarChart3, ShieldCheck, BrainCircuit] as const
 
 // ---------------------------------------------------------------------------
@@ -84,7 +84,15 @@ function VisualShell({ children, className = "" }: { children: React.ReactNode; 
 
 function BIVisual({ isRevealed }: { isRevealed: boolean }) {
   const bars = [42, 68, 54, 84, 60]
-  const sparkline = "M 0 48 L 28 36 L 56 40 L 84 24 L 112 28 L 140 14 L 168 18 L 196 6"
+  const target = 78
+  const kpis = [
+    { label: "Umsatz", value: "+18%", trend: "up" as const },
+    { label: "Conv.", value: "4.2%", trend: "up" as const },
+    { label: "Churn", value: "-0.8%", trend: "down" as const },
+  ]
+  const W = 200
+  const H = 100
+
   return (
     <VisualShell>
       <div className="flex items-baseline justify-between">
@@ -96,39 +104,78 @@ function BIVisual({ isRevealed }: { isRevealed: boolean }) {
           className="font-serif text-2xl font-semibold text-[#21569c]"
         />
       </div>
-      <div className="mt-4 flex items-end gap-2 h-[42%]">
-        {bars.map((h, i) => (
-          <motion.div
-            key={i}
-            className="flex-1 rounded-t-md bg-gradient-to-t from-[#7DBBFF] to-[#21569c]"
-            initial={{ height: 0 }}
-            animate={isRevealed ? { height: `${h}%` } : { height: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 + i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-          />
-        ))}
+
+      <div className="mt-3 grid grid-cols-3 gap-1.5">
+        {kpis.map((kpi, i) => {
+          const positive = kpi.trend === "up"
+          const TrendIcon = positive ? ArrowUpRight : ArrowDownRight
+          const tone = positive ? "text-emerald-600" : "text-rose-500"
+          return (
+            <motion.div
+              key={kpi.label}
+              initial={{ opacity: 0, y: 6 }}
+              animate={isRevealed ? { opacity: 1, y: 0 } : { opacity: 0, y: 6 }}
+              transition={{ duration: 0.4, delay: 0.15 + i * 0.08 }}
+              className="rounded-lg bg-[#21569c]/[0.04] border border-[#21569c]/10 px-2 py-1.5"
+            >
+              <div className="text-[0.55rem] uppercase tracking-wider text-black/40 font-medium leading-none">
+                {kpi.label}
+              </div>
+              <div className="mt-1 flex items-center gap-1">
+                <span className={`text-[0.78rem] font-semibold ${tone}`}>{kpi.value}</span>
+                <TrendIcon className={`h-3 w-3 ${tone}`} />
+              </div>
+            </motion.div>
+          )
+        })}
       </div>
-      <div className="mt-4 relative h-[28%]">
+
+      <div className="mt-3 relative h-[44%]">
         <div className="absolute inset-x-0 top-0 h-px bg-black/5" />
         <div className="absolute inset-x-0 top-1/2 h-px bg-black/5" />
-        <svg viewBox="0 0 196 60" preserveAspectRatio="none" className="absolute inset-0 w-full h-full">
-          <motion.path
-            d={sparkline}
-            fill="none"
+        <div className="absolute inset-x-0 bottom-0 h-px bg-black/5" />
+
+        <div className="absolute inset-0 flex items-end gap-2">
+          {bars.map((h, i) => (
+            <motion.div
+              key={i}
+              className="flex-1 rounded-t-md bg-gradient-to-t from-[#7DBBFF] to-[#21569c]"
+              initial={{ height: 0 }}
+              animate={isRevealed ? { height: `${h}%` } : { height: 0 }}
+              transition={{ duration: 0.7, delay: 0.3 + i * 0.08, ease: [0.22, 1, 0.36, 1] }}
+            />
+          ))}
+        </div>
+
+        <svg
+          viewBox={`0 0 ${W} ${H}`}
+          preserveAspectRatio="none"
+          className="absolute inset-0 w-full h-full overflow-visible"
+        >
+          <motion.line
+            x1="0"
+            y1={H - target}
+            x2={W}
+            y2={H - target}
             stroke="#21569c"
-            strokeWidth="2"
-            strokeLinecap="round"
+            strokeWidth="0.8"
+            strokeDasharray="3 3"
+            strokeOpacity="0.55"
             initial={{ pathLength: 0 }}
             animate={isRevealed ? { pathLength: 1 } : { pathLength: 0 }}
-            transition={{ duration: 1.2, delay: 0.7, ease: "easeOut" }}
+            transition={{ duration: 0.7, delay: 0.6 }}
           />
         </svg>
-        <motion.div
-          className="absolute h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#21569c] ring-4 ring-[#21569c]/15"
-          style={{ left: "100%", top: "10%" }}
-          initial={{ opacity: 0, scale: 0.4 }}
-          animate={isRevealed ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.4 }}
-          transition={{ duration: 0.4, delay: 1.7 }}
-        />
+
+        <motion.span
+          className="absolute right-0 -translate-y-1/2 rounded-sm bg-white px-1 text-[0.5rem] font-semibold uppercase tracking-wider text-[#21569c]/70"
+          style={{ top: `${100 - target}%` }}
+          initial={{ opacity: 0 }}
+          animate={isRevealed ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: 0.4, delay: 1.1 }}
+        >
+          Ziel
+        </motion.span>
       </div>
     </VisualShell>
   )
@@ -317,175 +364,6 @@ function MLVisual({ isRevealed }: { isRevealed: boolean }) {
 
 const VISUALS = [BIVisual, GovernanceVisual, MLVisual] as const
 
-// ---------------------------------------------------------------------------
-// Pipeline SVG – desktop only, full-height behind the rows
-// ---------------------------------------------------------------------------
-function PipelineSVG({
-  rowCenters,
-  revealedRows,
-  scrollYProgress,
-  reducedMotion,
-}: {
-  rowCenters: number[]
-  revealedRows: boolean[]
-  scrollYProgress: ReturnType<typeof useScroll>["scrollYProgress"]
-  reducedMotion: boolean
-}) {
-  const length0 = useTransform(scrollYProgress, [0.0, 0.55], [0, 1])
-  const length1 = useTransform(scrollYProgress, [0.05, 0.6], [0, 1])
-  const length2 = useTransform(scrollYProgress, [0.1, 0.65], [0, 1])
-  const lengths = [length0, length1, length2]
-
-  return (
-    <svg
-      className="hidden lg:block absolute left-1/2 top-0 -translate-x-1/2 h-full w-[260px] pointer-events-none z-0"
-      viewBox="0 0 260 1200"
-      preserveAspectRatio="none"
-      aria-hidden="true"
-    >
-      <defs>
-        {STRAND_PATHS.map((d, i) => (
-          <path key={i} id={`portfolio-strand-${i}`} d={d} />
-        ))}
-        {STRAND_COLORS.map((color, i) => (
-          <linearGradient
-            key={`grad-${i}`}
-            id={`portfolio-strand-grad-${i}`}
-            x1="0"
-            y1="0"
-            x2="0"
-            y2="1"
-          >
-            <stop offset="0%" stopColor={color} stopOpacity="0" />
-            <stop offset="12%" stopColor={color} stopOpacity="0.95" />
-            <stop offset="88%" stopColor={color} stopOpacity="0.95" />
-            <stop offset="100%" stopColor={color} stopOpacity="0.25" />
-          </linearGradient>
-        ))}
-        <filter
-          id="portfolio-strand-glow"
-          x="-50%"
-          y="-10%"
-          width="200%"
-          height="120%"
-          filterUnits="userSpaceOnUse"
-        >
-          <feGaussianBlur stdDeviation="4" />
-        </filter>
-        <radialGradient id="portfolio-merge-glow" cx="0.5" cy="0.5" r="0.5">
-          <stop offset="0%" stopColor="#7DBBFF" stopOpacity="0.55" />
-          <stop offset="60%" stopColor="#21569c" stopOpacity="0.15" />
-          <stop offset="100%" stopColor="#21569c" stopOpacity="0" />
-        </radialGradient>
-      </defs>
-
-      {/* Strands — three layered passes per path for a polished, energetic feel.
-          Order: soft outer glow (blurred wide stroke) → crisp gradient main →
-          thin white inner highlight that gives the line dimension. */}
-      {STRAND_PATHS.map((d, i) => (
-        <Fragment key={`strand-${i}`}>
-          <motion.path
-            d={d}
-            fill="none"
-            stroke={STRAND_COLORS[i]}
-            strokeWidth="7"
-            strokeOpacity="0.22"
-            strokeLinecap="round"
-            filter="url(#portfolio-strand-glow)"
-            style={reducedMotion ? { pathLength: 1 } : { pathLength: lengths[i] }}
-          />
-          <motion.path
-            d={d}
-            fill="none"
-            stroke={`url(#portfolio-strand-grad-${i})`}
-            strokeWidth="2.2"
-            strokeLinecap="round"
-            style={reducedMotion ? { pathLength: 1 } : { pathLength: lengths[i] }}
-          />
-          <motion.path
-            d={d}
-            fill="none"
-            stroke="#ffffff"
-            strokeWidth="0.6"
-            strokeOpacity="0.7"
-            strokeLinecap="round"
-            style={reducedMotion ? { pathLength: 1 } : { pathLength: lengths[i] }}
-          />
-        </Fragment>
-      ))}
-
-      {/* Background dots on every (strand × row) intersection.
-          Active node = blurred halo + colored core + white inner highlight + pulsing ring. */}
-      {rowCenters.map((cy, rowIdx) =>
-        STRAND_X.map((x, strandIdx) => {
-          const isActive = strandIdx === rowIdx && revealedRows[rowIdx]
-          const color = STRAND_COLORS[strandIdx]
-          return (
-            <g key={`dot-${rowIdx}-${strandIdx}`}>
-              {isActive && (
-                <motion.circle
-                  cx={x}
-                  cy={cy}
-                  fill={color}
-                  filter="url(#portfolio-strand-glow)"
-                  initial={{ r: 3, opacity: 0 }}
-                  animate={{ r: 11, opacity: 0.3 }}
-                  transition={{ duration: 0.6, ease: "easeOut" }}
-                />
-              )}
-              <motion.circle
-                cx={x}
-                cy={cy}
-                fill={color}
-                initial={false}
-                animate={{ r: isActive ? 6 : 3, opacity: isActive ? 1 : 0.45 }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
-              />
-              {isActive && (
-                <>
-                  <motion.circle
-                    cx={x}
-                    cy={cy}
-                    fill="#ffffff"
-                    initial={{ r: 0, opacity: 0 }}
-                    animate={{ r: 1.8, opacity: 0.9 }}
-                    transition={{ duration: 0.4, delay: 0.15, ease: "easeOut" }}
-                  />
-                  <circle
-                    className="pipeline-node-halo"
-                    cx={x}
-                    cy={cy}
-                    r="6"
-                    fill="none"
-                    stroke={color}
-                    strokeWidth="2"
-                  />
-                </>
-              )}
-            </g>
-          )
-        }),
-      )}
-
-      {/* Bottom merge glow */}
-      <ellipse cx="130" cy="1200" rx="80" ry="36" fill="url(#portfolio-merge-glow)" />
-
-      {/* Travelling data packets – soft halo + crisp core + white highlight, animated as a group */}
-      {!reducedMotion &&
-        STRAND_PATHS.map((_, i) => (
-          <g key={`packet-${i}`} className="pipeline-packet">
-            <animateMotion dur="6s" repeatCount="indefinite" begin={`${i * 1.7}s`}>
-              <mpath xlinkHref={`#portfolio-strand-${i}`} />
-            </animateMotion>
-            <circle r="7" fill={STRAND_COLORS[i]} opacity="0.32" filter="url(#portfolio-strand-glow)" />
-            <circle r="2.6" fill={STRAND_COLORS[i]} />
-            <circle r="0.9" fill="#ffffff" opacity="0.95" />
-          </g>
-        ))}
-    </svg>
-  )
-}
-
 // Mobile rail – single dark-blue strand on the left edge
 function MobilePipeline({
   rowCenters,
@@ -543,6 +421,32 @@ function MobilePipeline({
         )
       })}
     </svg>
+  )
+}
+
+// ---------------------------------------------------------------------------
+// BookCircleButton – circular CTA between text and visual
+// ---------------------------------------------------------------------------
+function BookCircleButton({ label, size = "lg" }: { label: string; size?: "lg" | "md" }) {
+  const dimensions = size === "lg" ? "h-14 w-14" : "h-11 w-11"
+  const iconSize = size === "lg" ? "h-5 w-5" : "h-4 w-4"
+  return (
+    <a
+      href="#book"
+      aria-label={label}
+      title={label}
+      className={`group relative inline-flex ${dimensions} items-center justify-center rounded-full bg-[#21569c] text-white shadow-[0_18px_36px_rgba(33,86,156,0.32)] transition-all duration-300 hover:scale-105 hover:bg-[#1a457d] hover:shadow-[0_22px_48px_rgba(33,86,156,0.45)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#21569c]/30`}
+    >
+      <motion.span
+        aria-hidden="true"
+        className="absolute inset-0 rounded-full border border-[#21569c]/40"
+        initial={{ scale: 1, opacity: 0.6 }}
+        animate={{ scale: [1, 1.18, 1], opacity: [0.6, 0, 0.6] }}
+        transition={{ duration: 2.6, repeat: Infinity, ease: "easeOut" }}
+      />
+      <CalendarCheck className={`${iconSize} transition-transform duration-300 group-hover:scale-110`} />
+      <span className="sr-only">{label}</span>
+    </a>
   )
 }
 
@@ -639,9 +543,7 @@ export default function PortfolioSection({ dict }: { dict: any }) {
 
   const heading = useRevealOnScroll<HTMLDivElement>()
   const sectionRef = useRef<HTMLElement | null>(null)
-  const pipelineContainerRef = useRef<HTMLDivElement | null>(null)
   const mobilePipelineContainerRef = useRef<HTMLDivElement | null>(null)
-  const rowRefs = useRef<Array<HTMLDivElement | null>>([])
   const mobileRowRefs = useRef<Array<HTMLDivElement | null>>([])
 
   const { scrollYProgress } = useScroll({
@@ -649,25 +551,9 @@ export default function PortfolioSection({ dict }: { dict: any }) {
     offset: ["start end", "end start"],
   })
 
-  const [rowCenters, setRowCenters] = useState<number[]>(() => items.map((_, i) => 200 + i * 400))
   const [mobileRowCenters, setMobileRowCenters] = useState<number[]>(() => items.map((_, i) => 200 + i * 400))
 
   const computeCenters = useCallback(() => {
-    // Desktop
-    const container = pipelineContainerRef.current
-    if (container) {
-      const cRect = container.getBoundingClientRect()
-      if (cRect.height > 0) {
-        const next = rowRefs.current.map((row) => {
-          if (!row) return 0
-          const r = row.getBoundingClientRect()
-          const rel = r.top + r.height / 2 - cRect.top
-          return Math.max(0, Math.min(1200, (rel / cRect.height) * 1200))
-        })
-        setRowCenters(next)
-      }
-    }
-    // Mobile
     const mContainer = mobilePipelineContainerRef.current
     if (mContainer) {
       const mRect = mContainer.getBoundingClientRect()
@@ -688,9 +574,7 @@ export default function PortfolioSection({ dict }: { dict: any }) {
 
     const observers: ResizeObserver[] = []
     const obs = new ResizeObserver(() => computeCenters())
-    if (pipelineContainerRef.current) obs.observe(pipelineContainerRef.current)
     if (mobilePipelineContainerRef.current) obs.observe(mobilePipelineContainerRef.current)
-    rowRefs.current.forEach((el) => el && obs.observe(el))
     mobileRowRefs.current.forEach((el) => el && obs.observe(el))
     observers.push(obs)
 
@@ -716,14 +600,8 @@ export default function PortfolioSection({ dict }: { dict: any }) {
   const revealedRows = desktopReveals.map((d, i) => d.isRevealed || mobileReveals[i].isRevealed)
 
   return (
-    <section ref={sectionRef} className="relative bg-white overflow-hidden">
-      {/* Top fade — preserves clean transition from the journey above */}
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-x-0 top-0 h-[420px] bg-gradient-to-b from-white from-25% via-white/60 via-65% to-transparent"
-      />
-
-      <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-10 md:pt-14">
+    <section ref={sectionRef} className="relative overflow-hidden">
+      <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-2 sm:pt-4 md:pt-6">
         <div
           ref={heading.ref}
           className={`text-center mb-10 sm:mb-12 md:mb-16 reveal-fade-up ${heading.isRevealed ? "revealed" : ""}`}
@@ -738,23 +616,16 @@ export default function PortfolioSection({ dict }: { dict: any }) {
         </div>
       </div>
 
-      {/* Desktop: rows + pipeline -------------------------------------- */}
+      {/* Desktop: rows -------------------------------------------------- */}
       <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 hidden lg:block">
-        <div ref={pipelineContainerRef} className="relative pb-40">
-          <PipelineSVG
-            rowCenters={rowCenters}
-            revealedRows={revealedRows}
-            scrollYProgress={scrollYProgress}
-            reducedMotion={reducedMotion}
-          />
-
+        <div className="relative pb-16">
           <div className="flex flex-col gap-y-32">
             {items.map((item, i) => {
               const Visual = VISUALS[i] ?? BIVisual
               const textOnLeft = i % 2 === 0
               const textBlock = (
                 <div
-                  className={`relative z-10 flex ${textOnLeft ? "justify-end pr-12" : "justify-start pl-12"}`}
+                  className={`relative z-10 flex ${textOnLeft ? "justify-end pr-8" : "justify-start pl-8"}`}
                 >
                   <div className="max-w-[440px]">
                     <RowText item={item} index={i} dict={dict} alignRight={textOnLeft} />
@@ -763,7 +634,7 @@ export default function PortfolioSection({ dict }: { dict: any }) {
               )
               const visualBlock = (
                 <div
-                  className={`relative z-10 flex ${textOnLeft ? "justify-start pl-12" : "justify-end pr-12"}`}
+                  className={`relative z-10 flex ${textOnLeft ? "justify-start pl-8" : "justify-end pr-8"}`}
                 >
                   <Visual isRevealed={revealedRows[i]} />
                 </div>
@@ -772,13 +643,14 @@ export default function PortfolioSection({ dict }: { dict: any }) {
                 <div
                   key={i}
                   ref={(el) => {
-                    rowRefs.current[i] = el
                     desktopReveals[i].ref.current = el
                   }}
-                  className="grid grid-cols-[1fr_260px_1fr] items-center"
+                  className="grid grid-cols-[1fr_auto_1fr] items-center gap-x-4"
                 >
                   {textOnLeft ? textBlock : visualBlock}
-                  <div aria-hidden="true" />
+                  <div className="relative z-10 flex justify-center">
+                    <BookCircleButton label={portfolio.bookCta} size="lg" />
+                  </div>
                   {textOnLeft ? visualBlock : textBlock}
                 </div>
               )
@@ -789,7 +661,7 @@ export default function PortfolioSection({ dict }: { dict: any }) {
 
       {/* Mobile / tablet: stacked with left rail ---------------------- */}
       <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:hidden">
-        <div ref={mobilePipelineContainerRef} className="relative pb-28">
+        <div ref={mobilePipelineContainerRef} className="relative pb-12">
           <MobilePipeline
             rowCenters={mobileRowCenters}
             revealedRows={revealedRows}
@@ -806,10 +678,13 @@ export default function PortfolioSection({ dict }: { dict: any }) {
                     mobileRowRefs.current[i] = el
                     mobileReveals[i].ref.current = el
                   }}
-                  className="flex flex-col gap-5"
+                  className="flex flex-col"
                 >
                   <div className="flex justify-start">
                     <Visual isRevealed={revealedRows[i]} />
+                  </div>
+                  <div className="relative z-10 -my-4 flex justify-center">
+                    <BookCircleButton label={portfolio.bookCta} size="md" />
                   </div>
                   <RowText item={item} index={i} dict={dict} alignRight={false} />
                 </div>
@@ -818,13 +693,6 @@ export default function PortfolioSection({ dict }: { dict: any }) {
           </div>
         </div>
       </div>
-
-      {/*
-        No explicit transition strip here: <ManifestBand /> renders its own
-        SVG wave-cap (#F6F9FC on #0B162D) at the top. We stay on white so that
-        wave reads cleanly. The pipelineContainer's pb-40 gives the strands
-        room to converge before the seam.
-      */}
     </section>
   )
 }

@@ -173,11 +173,22 @@ const dictionaries = {
             "Lagerbestand für A-Kategorie frühzeitig optimieren",
           ],
         },
-      },
-      why: {
-        title: "Daten in Silos. Entscheidungen im Dunkeln.",
-        titleHighlight: "Das sind Probleme, die wir lösen.",
-        subtitle: "Wir verbinden Ihre Quellen zu einer Sicht, auf die sich alle gleichermaßen verlassen können.",
+        periods: {
+          q: "Quartal",
+          h: "6 Monate",
+          y: "12 Monate",
+        },
+        trendTooltip: {
+          revenueLabel: "Umsatz",
+          deltaLabel: "Δ Vormonat",
+          forecastLabel: "Forecast · Konfidenz 89 %",
+        },
+        kpiDeltaLabels: {
+          revenue: "vs. Vorjahr",
+          margin: "vs. Vorjahr",
+          forecastConfidence: "letzte 4 Wochen",
+          activeProjects: "neu im Quartal",
+        },
       },
       portfolio: {
         title: "Unser",
@@ -185,6 +196,7 @@ const dictionaries = {
         subtitle: "Wir unterstützen Sie dabei, den maximalen Wert aus Ihren Daten zu schöpfen – von der Strategie bis zur produktiven Analytics-Lösung.",
         learnMore: "Mehr erfahren",
         learnLess: "Weniger anzeigen",
+        bookCta: "Gespräch vereinbaren",
         items: [
           {
             title: "Business Intelligence & Dashboarding",
@@ -234,9 +246,38 @@ const dictionaries = {
         lead: "Was unsere",
         highlight: "Kunden sagen",
       },
+      reviews: [
+        {
+          id: 6,
+          name: "Masterhomepage GmbH",
+          subtitle: "Dashboard für Zeitauswertung",
+          quote:
+            "Wir haben ein individuelles Dashboard von smiit erstellen lassen für die Auswertung der Zeiteinträge unserer Mitarbeiter mit Email Erinnerungsflows. Die Jungs sind sehr kompetent und äusserst freundlich. Super Service mit einem TOP Preis-/Leistungsverhältnis. Wir können smiit absolut weiterempfehlen!",
+          metric: "5/5",
+          metricSub: "Volle Empfehlung",
+        },
+        {
+          id: 2,
+          name: "G&B Logistics GmbH",
+          subtitle: "Analysen für CRM, Buchhaltung, Disposition & HR",
+          quote:
+            "Mit den Auswertungen von smiit sehen wir CRM, Buchhaltung, Disposition und Mitarbeiterdaten erstmals an einer Stelle. Die Touren-, Auftrags- und Auslastungskennzahlen sind heute auf Knopfdruck verfügbar – das hat unsere monatliche Auswertung deutlich verschlankt.",
+          metric: "140h",
+          metricSub: "monatlich gespart",
+        },
+        {
+          id: 1,
+          name: "Dy Project AG",
+          subtitle: "Datenintegration & zentrales Reporting",
+          quote:
+            "Endlich haben wir alle unsere Datenquellen zentral vereint. Die Datenintegration von smiit hat uns eine völlig neue Transparenz ermöglicht.",
+          metric: "3→1",
+          metricSub: "Berichtssysteme zusammengeführt",
+        },
+      ],
       cta: {
-        title: "Sind Sie bereit für den nächsten Schritt?",
-        subtitle: "Lassen Sie uns gemeinsam herausfinden, wie wir Ihre Daten optimal nutzen können.",
+        title: "Was würde sich ändern, wenn Ihre Daten endlich miteinander reden?",
+        subtitle: "30 Minuten Erstgespräch. Kostenlos. Unverbindlich. Sie erfahren, wo Ihr größter Hebel liegt — auch wenn wir am Ende nicht zusammenarbeiten.",
         primaryButton: "Kostenloses Erstgespräch",
         secondaryButton: "Kontakt aufnehmen",
       },
@@ -724,11 +765,22 @@ const dictionaries = {
             "Optimize stock levels for category A earlier",
           ],
         },
-      },
-      why: {
-        title: "Data in silos. Decisions in the dark.",
-        titleHighlight: "These are problems we can solve.",
-        subtitle: "We connect your sources into one view that everyone can rely on.",
+        periods: {
+          q: "Quarter",
+          h: "6 months",
+          y: "12 months",
+        },
+        trendTooltip: {
+          revenueLabel: "Revenue",
+          deltaLabel: "Δ vs. last month",
+          forecastLabel: "Forecast · 89% confidence",
+        },
+        kpiDeltaLabels: {
+          revenue: "vs. last year",
+          margin: "vs. last year",
+          forecastConfidence: "last 4 weeks",
+          activeProjects: "new this quarter",
+        },
       },
       portfolio: {
         title: "Our",
@@ -736,6 +788,7 @@ const dictionaries = {
         subtitle: "We help you extract maximum value from your data – from strategy to productive analytics solutions.",
         learnMore: "Learn more",
         learnLess: "Show less",
+        bookCta: "Book a call",
         items: [
           {
             title: "Business Intelligence & Dashboarding",
@@ -785,9 +838,38 @@ const dictionaries = {
         lead: "What our",
         highlight: "clients say",
       },
+      reviews: [
+        {
+          id: 6,
+          name: "Masterhomepage GmbH",
+          subtitle: "Dashboard for time tracking",
+          quote:
+            "smiit built us a custom dashboard to analyze our employees' time entries, complete with automated email reminder flows. The team is highly skilled and exceptionally friendly. Great service at an outstanding value for money. We can absolutely recommend smiit!",
+          metric: "5/5",
+          metricSub: "Wholehearted recommendation",
+        },
+        {
+          id: 2,
+          name: "G&B Logistics GmbH",
+          subtitle: "Analyses for CRM, accounting, dispatch & HR",
+          quote:
+            "With smiit's analyses, we now see CRM, accounting, dispatch and employee data in a single place for the first time. Route, order and utilization KPIs are available at the click of a button — which has significantly streamlined our monthly reporting.",
+          metric: "140h",
+          metricSub: "saved every month",
+        },
+        {
+          id: 1,
+          name: "Dy Project AG",
+          subtitle: "Data integration & central reporting",
+          quote:
+            "We finally have all our data sources unified in one place. smiit's data integration has given us an entirely new level of transparency.",
+          metric: "3→1",
+          metricSub: "reporting systems unified",
+        },
+      ],
       cta: {
-        title: "Are you ready for the next step?",
-        subtitle: "Let's find out together how we can make the most of your data.",
+        title: "What would change if your data finally started talking to each other?",
+        subtitle: "30-minute intro call. Free. No strings attached. You'll find out where your biggest lever is — even if we don't end up working together.",
         primaryButton: "Free Consultation",
         secondaryButton: "Contact Us",
       },

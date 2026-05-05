@@ -67,10 +67,8 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
   const imprintHref = `${base}/legal-notice`
   const privacyHref = `${base}/privacy`
 
-  const isAnalyticsPage = pathname.includes("/services/analytics") && !pathname.includes("/alt")
-
   return (
-    <footer className={`${isAnalyticsPage ? "bg-[#F6F9FC]" : "bg-background"} py-10`}>
+    <footer className="bg-background py-10">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-8 md:gap-12 mb-12">
           <div className="col-span-2 sm:col-span-3 lg:col-span-2 space-y-6">

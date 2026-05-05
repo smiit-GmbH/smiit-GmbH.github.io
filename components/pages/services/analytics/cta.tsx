@@ -48,12 +48,34 @@ function MagneticPrimary({ label }: { label: string }) {
     >
       <Button
         variant="outline"
-        className="rounded-xl px-6 py-6 text-sm text-white bg-black hover:bg-black/80 hover:text-white cursor-pointer border-transparent"
+        className="rounded-xl px-6 py-6 text-sm text-black bg-white hover:bg-white/90 hover:text-black cursor-pointer border-transparent"
       >
         {label}
         <ChevronRight className="ml-1.5 h-4 w-4" />
       </Button>
     </motion.a>
+  )
+}
+
+function DarkBackdrop() {
+  return (
+    <>
+      {/* Slow drifting glow — same recipe as manifest-band */}
+      <div
+        aria-hidden
+        className="manifest-glow pointer-events-none absolute left-1/2 top-1/2 z-0 h-[110%] w-[80%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,_rgba(33,86,156,0.45),_transparent_60%)] blur-3xl"
+      />
+      {/* Subtle grid texture */}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 z-0 opacity-[0.06]"
+        style={{
+          backgroundImage:
+            "linear-gradient(to right, rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.6) 1px, transparent 1px)",
+          backgroundSize: "64px 64px",
+        }}
+      />
+    </>
   )
 }
 
@@ -64,9 +86,10 @@ export default function AnalyticsCTA({ dict }: { dict: any }) {
   return (
     <section className="relative pb-20 md:pb-28 bg-transparent">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Desktop CTA – gradient banner */}
+        {/* Desktop CTA – dark band, mirrors manifest-band visual language */}
         <motion.div
-          className="rounded-[1.5rem] overflow-hidden hidden lg:flex flex-col items-center justify-center text-center px-6 py-20 products-gradient-animate"
+          data-header-tone="dark"
+          className="relative rounded-[1.5rem] overflow-hidden hidden lg:flex flex-col items-center justify-center text-center px-6 py-32 bg-[#0B162D] text-white"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-30px" }}
@@ -77,37 +100,31 @@ export default function AnalyticsCTA({ dict }: { dict: any }) {
             },
           }}
         >
-          <motion.span
-            className="section-eyebrow justify-center"
-            variants={fadeUpVariants}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-          >
-            {eyebrowLabel}
-          </motion.span>
+          <DarkBackdrop />
 
           <motion.h2
-            className="font-serif text-[3.2rem] leading-[1.12] tracking-tight text-black whitespace-pre-line max-w-[22ch]"
+            className="relative z-10 font-serif text-[3.2rem] leading-[1.12] tracking-tight text-white whitespace-pre-line max-w-[28ch]"
             variants={fadeUpVariants}
             transition={{ duration: 0.7, ease: "easeOut" }}
           >
             {cta.title}
           </motion.h2>
           <motion.p
-            className="mt-4 text-lg text-black/70 max-w-[50ch]"
+            className="relative z-10 mt-4 text-md text-white/70 max-w-[58ch]"
             variants={fadeUpVariants}
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
             {cta.subtitle}
           </motion.p>
           <motion.div
-            className="mt-8 flex items-center justify-center gap-4"
+            className="relative z-10 mt-8 flex items-center justify-center gap-4"
             variants={fadeUpVariants}
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
             <LocalizedLink href="/contact">
               <Button
                 variant="outline"
-                className="rounded-xl px-6 py-6 text-sm text-black bg-white hover:bg-white/80 hover:text-black cursor-pointer"
+                className="rounded-xl px-6 py-6 text-sm text-white bg-transparent hover:bg-white/10 hover:text-white border-white/25 cursor-pointer"
               >
                 <Mail className="mr-2 h-4 w-4" />
                 {cta.secondaryButton}
@@ -117,9 +134,10 @@ export default function AnalyticsCTA({ dict }: { dict: any }) {
           </motion.div>
         </motion.div>
 
-        {/* Mobile CTA – gradient banner */}
+        {/* Mobile CTA – dark band */}
         <motion.div
-          className="lg:hidden rounded-[1.5rem] overflow-hidden flex flex-col items-center justify-center text-center px-5 py-12 sm:py-16 products-gradient-animate"
+          data-header-tone="dark"
+          className="relative lg:hidden rounded-[1.5rem] overflow-hidden flex flex-col items-center justify-center text-center px-5 py-20 sm:py-24 bg-[#0B162D] text-white"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-30px" }}
@@ -130,8 +148,10 @@ export default function AnalyticsCTA({ dict }: { dict: any }) {
             },
           }}
         >
+          <DarkBackdrop />
+
           <motion.span
-            className="section-eyebrow justify-center"
+            className="section-eyebrow section-eyebrow--on-dark justify-center relative z-10"
             variants={fadeUpVariants}
             transition={{ duration: 0.5, ease: "easeOut" }}
           >
@@ -139,28 +159,28 @@ export default function AnalyticsCTA({ dict }: { dict: any }) {
           </motion.span>
 
           <motion.h2
-            className="font-serif text-[1.8rem] sm:text-[2.2rem] leading-[1.15] tracking-tight text-black whitespace-pre-line"
+            className="relative z-10 font-serif text-[1.8rem] sm:text-[2.2rem] leading-[1.15] tracking-tight text-white whitespace-pre-line"
             variants={fadeUpVariants}
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
             {cta.title}
           </motion.h2>
           <motion.p
-            className="mt-3 sm:mt-4 text-[0.9rem] sm:text-base leading-relaxed text-black/70 max-w-[40ch]"
+            className="relative z-10 mt-3 sm:mt-4 text-[0.9rem] sm:text-base leading-relaxed text-white/70 max-w-[44ch]"
             variants={fadeUpVariants}
             transition={{ duration: 0.5, ease: "easeOut" }}
           >
             {cta.subtitle}
           </motion.p>
           <motion.div
-            className="mt-8 flex flex-col w-full sm:w-auto sm:flex-row gap-3 sm:gap-4"
+            className="relative z-10 mt-8 flex flex-col w-full sm:w-auto sm:flex-row gap-3 sm:gap-4"
             variants={fadeUpVariants}
             transition={{ duration: 0.5, ease: "easeOut" }}
           >
             <LocalizedLink href="/contact" className="block w-full sm:w-auto">
               <Button
                 variant="outline"
-                className="w-full rounded-xl px-6 py-6 text-sm font-medium border-transparent bg-white text-black hover:bg-white/80 transition-all duration-300 cursor-pointer"
+                className="w-full rounded-xl px-6 py-6 text-sm font-medium border border-white/25 bg-transparent text-white hover:bg-white/10 hover:text-white transition-all duration-300 cursor-pointer"
               >
                 <Mail className="mr-2 h-4 w-4" />
                 {cta.secondaryButton}
@@ -169,7 +189,7 @@ export default function AnalyticsCTA({ dict }: { dict: any }) {
             <a href="#book" className="block w-full sm:w-auto">
               <Button
                 variant="outline"
-                className="w-full rounded-xl px-6 py-6 text-sm font-medium border-transparent bg-black text-white hover:bg-black/80 transition-all duration-300 cursor-pointer"
+                className="w-full rounded-xl px-6 py-6 text-sm font-medium border-transparent bg-white text-black hover:bg-white/90 hover:text-black transition-all duration-300 cursor-pointer"
               >
                 {cta.primaryButton}
                 <ChevronRight className="ml-1.5 h-4 w-4" />

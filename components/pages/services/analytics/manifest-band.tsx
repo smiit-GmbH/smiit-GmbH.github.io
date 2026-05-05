@@ -41,7 +41,7 @@ export default function ManifestBand({ dict }: ManifestBandProps) {
       >
         <path
           d="M 0 0 L 100 0 L 100 7 L 85 7 C 80 7, 80 4, 75 4 L 25 4 C 20 4, 20 7, 15 7 L 0 7 Z"
-          fill="#FFFFFF"
+          fill="#F3F3EE"
         />
       </svg>
 
@@ -65,14 +65,6 @@ export default function ManifestBand({ dict }: ManifestBandProps) {
       {/* Sticky pinned content */}
       <div className="sticky top-0 flex min-h-[70vh] items-center justify-center px-5 py-24 sm:px-8 lg:min-h-[80dvh]">
         <div className="relative z-10 mx-auto max-w-[1200px] text-center">
-          {/* <motion.div
-            initial={{ opacity: 0, scaleX: 0 }}
-            whileInView={{ opacity: 1, scaleX: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 1.0, ease: "easeOut" }}
-            aria-hidden
-            className="mx-auto h-px w-32 origin-center bg-gradient-to-r from-transparent via-[#7DBBFF]/60 to-transparent"
-          /> */}
 
           <motion.h2
             style={usesMotion ? { opacity: leadOpacity, y: leadY } : undefined}
@@ -90,13 +82,6 @@ export default function ManifestBand({ dict }: ManifestBandProps) {
             </span>
           </motion.h2>
 
-          {/* <motion.div
-            initial={{ opacity: 0, scaleX: 0 }}
-            whileInView={{ opacity: 1, scaleX: 1 }}
-            viewport={{ once: true, margin: "-120px" }}
-            transition={{ duration: 1.0, ease: "easeOut", delay: 0.4 }}
-            className="mx-auto mt-12 h-px w-32 origin-center bg-gradient-to-r from-transparent via-[#7DBBFF]/60 to-transparent"
-          /> */}
         </div>
       </div>
 
@@ -109,7 +94,7 @@ export default function ManifestBand({ dict }: ManifestBandProps) {
       >
         <path
           d="M 0 10 L 100 10 L 100 3 L 85 3 C 80 3, 80 6, 75 6 L 25 6 C 20 6, 20 3, 15 3 L 0 3 Z"
-          fill="#F6F9FC"
+          fill="#F3F3EE"
         />
       </svg>
     </section>
