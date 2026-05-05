@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useId, useRef, useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import {
@@ -332,6 +332,12 @@ function ProfitModule({ t, data }: { t: any; data: Dataset }) {
   const lastActual = data.linePoints[data.linePoints.length - 1]
   const forecastPath = forecastSegmentPath(lastActual, data.forecastPoint)
 
+  // Unique gradient IDs per instance — ProfitModule renders twice on this page
+  // (mobile + desktop hero), so shared SVG defs IDs would collide.
+  const uid = useId().replace(/[:]/g, "")
+  const areaGradId = `hdj-profit-area-${uid}`
+  const lineGradId = `hdj-profit-line-${uid}`
+
   return (
     <TooltipProvider delayDuration={80}>
       <div className="flex h-full flex-col overflow-hidden rounded-[18px] p-2">
@@ -363,11 +369,11 @@ function ProfitModule({ t, data }: { t: any; data: Dataset }) {
           <div className="relative my-auto aspect-[510/150] w-full">
             <svg viewBox="0 0 510 150" className="absolute inset-0 block h-full w-full">
               <defs>
-                <linearGradient id="hdj-profit-area" x1="0" x2="0" y1="0" y2="1">
+                <linearGradient id={areaGradId} x1="0" x2="0" y1="0" y2="1">
                   <stop offset="0%" stopColor="rgba(33,86,156,0.14)" />
                   <stop offset="100%" stopColor="rgba(33,86,156,0)" />
                 </linearGradient>
-                <linearGradient id="hdj-profit-line" x1="0" x2="1" y1="0" y2="0">
+                <linearGradient id={lineGradId} x1="0" x2="1" y1="0" y2="0">
                   <stop offset="0%" stopColor="#21569c" />
                   <stop offset="100%" stopColor="#7DBBFF" />
                 </linearGradient>
@@ -378,7 +384,7 @@ function ProfitModule({ t, data }: { t: any; data: Dataset }) {
               <motion.path
                 key={`area-${areaPath}`}
                 d={areaPath}
-                fill="url(#hdj-profit-area)"
+                fill={`url(#${areaGradId})`}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.7, ease: "easeOut" }}
@@ -387,7 +393,7 @@ function ProfitModule({ t, data }: { t: any; data: Dataset }) {
                 key={`line-${linePath}`}
                 d={linePath}
                 fill="none"
-                stroke="url(#hdj-profit-line)"
+                stroke={`url(#${lineGradId})`}
                 strokeWidth="3.2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
