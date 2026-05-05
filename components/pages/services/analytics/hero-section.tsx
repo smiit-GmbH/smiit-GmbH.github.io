@@ -661,14 +661,156 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
       : { opacity: radarOpacity }
 
   return (
-    <section
-      ref={containerRef}
-      className={cx(
-        "relative hidden lg:block",
-        SCROLL_ANIMATIONS_ENABLED ? "lg:h-[420vh]" : "lg:h-screen",
-      )}
-    >
-      <div className="sticky top-0 h-[100dvh] overflow-hidden">
+    <>
+      {/* MOBILE / TABLET — < lg (1024px). Stacked layout with full dashboard preview. */}
+      <section className="relative overflow-hidden lg:hidden">
+        {/* Background glows */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -z-10 right-[-12%] top-[8%] h-[420px] w-[560px] rounded-full bg-[radial-gradient(ellipse_at_center,_rgba(33,86,156,0.12),_transparent_62%)] blur-3xl"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -z-10 left-[-18%] top-[55%] h-[380px] w-[520px] rounded-full bg-[radial-gradient(ellipse_at_center,_rgba(125,187,255,0.10),_transparent_62%)] blur-3xl"
+        />
+
+        <div className="mx-auto max-w-[760px] px-5 pt-16 pb-12 sm:px-6 sm:pt-20 sm:pb-16 md:max-w-[920px] md:px-8 md:pt-24 md:pb-20">
+          {/* Hero text */}
+          <motion.div
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <span className="section-eyebrow">{eyebrowLabel}</span>
+            <h1 className="mt-3 max-w-[18ch] font-serif text-[2.05rem] leading-[1.05] tracking-tight text-[#0B162D] sm:text-[2.5rem] md:text-[3rem]">
+              {hero?.title}
+            </h1>
+            <p className="mt-4 max-w-[58ch] text-[0.95rem] leading-relaxed text-[#0B162D]/70 sm:text-[1rem] md:mt-5 md:text-[1.05rem]">
+              {hero?.description}
+            </p>
+            <div className="mt-6 sm:mt-7">
+              <Link
+                href={`/${lang}/contact#book`}
+                className="group inline-flex items-center justify-center rounded-lg bg-[#21569c] px-5 py-3 text-[0.9rem] font-medium text-white shadow-[0_14px_28px_rgba(33,86,156,0.20)] transition-colors duration-300 hover:bg-[#1d4d8b]"
+              >
+                {hero?.primaryCta}
+                <ArrowRight className="ml-1.5 h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+              </Link>
+            </div>
+          </motion.div>
+
+          {/* Dashboard preview card */}
+          <motion.div
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 36 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-80px" }}
+            transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+            className="relative mt-10 overflow-hidden rounded-[22px] border border-white/70 bg-white/92 shadow-[0_28px_70px_rgba(15,23,42,0.10)] backdrop-blur-2xl sm:mt-14 md:rounded-[28px]"
+          >
+            {/* Subtle top sheen */}
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/80 to-transparent"
+            />
+
+            {/* Header */}
+            <div className="border-b border-slate-100 px-3.5 py-3 sm:px-4 sm:py-3.5">
+              <div className="flex items-center justify-between gap-3">
+                <div className="flex min-w-0 items-center gap-2 shrink-0">
+                  <Image
+                    src="/logo_black.png"
+                    alt="smiit"
+                    width={64}
+                    height={24}
+                    className="h-[20px] w-auto object-contain opacity-80 sm:h-[22px]"
+                  />
+                  <div className="h-3.5 w-px bg-slate-200" />
+                  <h2 className="truncate text-[0.78rem] font-semibold text-[#0B162D] sm:text-[0.86rem]">
+                    Management Dashboard
+                  </h2>
+                </div>
+                <div className="hidden shrink-0 items-center gap-1 text-[0.6rem] text-[#0B162D]/48 sm:inline-flex">
+                  <span>{t.updated}</span>
+                  <ChevronDown className="h-3 w-3" />
+                </div>
+              </div>
+
+              {/* Status row */}
+              <div className="mt-2.5 flex flex-wrap items-center gap-1.5 text-[0.6rem] text-[#0B162D]/48 sm:gap-2">
+                <span className="inline-flex items-center gap-1 rounded-full bg-[#F7FAFF] px-2 py-1">
+                  <Layers3 className="h-3 w-3 text-[#21569c]" />
+                  {t.sourcesConnected}
+                </span>
+
+                <div
+                  role="tablist"
+                  aria-label="Zeitraum"
+                  className="inline-flex items-center gap-0.5 rounded-full bg-[#F7FAFF] p-0.5"
+                >
+                  {(["q", "h", "y"] as const).map((key) => {
+                    const active = periodKey === key
+                    return (
+                      <button
+                        key={key}
+                        type="button"
+                        role="tab"
+                        aria-selected={active}
+                        onClick={() => setPeriodKey(key)}
+                        className={cx(
+                          "rounded-full px-2 py-0.5 text-[0.6rem] font-medium transition-all duration-200",
+                          active
+                            ? "bg-[#21569c] text-white shadow-sm"
+                            : "text-[#0B162D]/60 hover:text-[#0B162D]",
+                        )}
+                      >
+                        {t.periods?.[key]}
+                      </button>
+                    )
+                  })}
+                </div>
+
+                <span className="hidden items-center gap-1 rounded-full bg-[#F7FAFF] px-2 py-1 sm:inline-flex">
+                  <Filter className="h-3 w-3 text-[#21569c]" />
+                  {t.sections.filters}
+                </span>
+              </div>
+            </div>
+
+            {/* Body — stacked on mobile, with last row 2-col on tablet */}
+            <div className="flex flex-col gap-2.5 p-2.5 sm:gap-3 sm:p-3">
+              {/* KPIs */}
+              <div className="overflow-hidden rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)]">
+                <ClarityModule t={t} data={data} reduceMotion={shouldReduceMotion} />
+              </div>
+
+              {/* Trend chart */}
+              <div className="flex min-h-[280px] flex-col overflow-hidden rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)] sm:min-h-[320px] md:min-h-[340px]">
+                <ProfitModule t={t} data={data} />
+              </div>
+
+              {/* Segments + AI signals */}
+              <div className="grid grid-cols-1 gap-2.5 sm:gap-3 md:grid-cols-2">
+                <div className="flex min-h-[210px] flex-col overflow-hidden rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)] md:min-h-[280px]">
+                  <SpeedModule t={t} data={data} />
+                </div>
+                <div className="flex min-h-[260px] flex-col overflow-hidden rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)] md:min-h-[280px]">
+                  <AiModule t={t} data={data} radarStyle={{ opacity: 1 }} />
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* DESKTOP — >= lg (existing pinned hero) */}
+      <section
+        ref={containerRef}
+        className={cx(
+          "relative hidden lg:block",
+          SCROLL_ANIMATIONS_ENABLED ? "lg:h-[420vh]" : "lg:h-screen",
+        )}
+      >
+        <div className="sticky top-0 h-[100dvh] overflow-hidden">
         {/* Background glow — right side, behind the dashboard */}
         <div
           aria-hidden
@@ -820,6 +962,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
 
       </div>
     </section>
+    </>
   )
 }
 

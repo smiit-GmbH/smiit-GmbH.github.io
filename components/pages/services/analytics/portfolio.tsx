@@ -470,8 +470,8 @@ function RowText({
   const t = dict.servicesAnalytics.portfolio
 
   return (
-    <div className={alignRight ? "lg:text-right" : ""}>
-      <div className={`inline-flex items-center gap-3 mb-4 ${alignRight ? "lg:flex-row-reverse" : ""}`}>
+    <div className={alignRight ? "md:text-right" : ""}>
+      <div className={`inline-flex items-center gap-3 mb-4 ${alignRight ? "md:flex-row-reverse" : ""}`}>
         <div
           className="flex h-11 w-11 items-center justify-center rounded-2xl"
           style={{ backgroundColor: `${accent}1F`, color: accent }}
@@ -489,7 +489,7 @@ function RowText({
 
       <p
         className={`mt-4 text-[0.95rem] sm:text-base leading-relaxed text-black/65 max-w-[52ch] lg:max-w-[44ch] ${
-          alignRight ? "lg:ml-auto" : ""
+          alignRight ? "md:ml-auto" : ""
         }`}
       >
         {item.shortDesc}
@@ -503,7 +503,7 @@ function RowText({
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            className="overflow-hidden"
+            className={`overflow-hidden ${alignRight ? "md:ml-auto" : ""}`}
           >
             <div className="mt-4 space-y-3 max-w-[52ch] lg:max-w-[44ch]">
               {item.details.split("\n\n").map((paragraph: string, i: number) => (
@@ -516,7 +516,7 @@ function RowText({
         )}
       </AnimatePresence>
 
-      <div className={`mt-5 flex ${alignRight ? "lg:justify-end" : ""}`}>
+      <div className={`mt-5 flex ${alignRight ? "md:justify-end" : ""}`}>
         <button
           type="button"
           onClick={() => setIsOpen((o) => !o)}
@@ -616,16 +616,16 @@ export default function PortfolioSection({ dict }: { dict: any }) {
         </div>
       </div>
 
-      {/* Desktop: rows -------------------------------------------------- */}
-      <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 hidden lg:block">
-        <div className="relative pb-16">
-          <div className="flex flex-col gap-y-32">
+      {/* Tablet + Desktop: alternating rows -------------------------------- */}
+      <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 hidden md:block">
+        <div className="relative pb-12 lg:pb-16">
+          <div className="flex flex-col gap-y-20 lg:gap-y-32">
             {items.map((item, i) => {
               const Visual = VISUALS[i] ?? BIVisual
               const textOnLeft = i % 2 === 0
               const textBlock = (
                 <div
-                  className={`relative z-10 flex ${textOnLeft ? "justify-end pr-8" : "justify-start pl-8"}`}
+                  className={`relative z-10 flex ${textOnLeft ? "justify-end pr-3 lg:pr-8" : "justify-start pl-3 lg:pl-8"}`}
                 >
                   <div className="max-w-[440px]">
                     <RowText item={item} index={i} dict={dict} alignRight={textOnLeft} />
@@ -634,7 +634,7 @@ export default function PortfolioSection({ dict }: { dict: any }) {
               )
               const visualBlock = (
                 <div
-                  className={`relative z-10 flex ${textOnLeft ? "justify-start pl-8" : "justify-end pr-8"}`}
+                  className={`relative z-10 flex ${textOnLeft ? "justify-start pl-3 lg:pl-8" : "justify-end pr-3 lg:pr-8"}`}
                 >
                   <Visual isRevealed={revealedRows[i]} />
                 </div>
@@ -645,7 +645,7 @@ export default function PortfolioSection({ dict }: { dict: any }) {
                   ref={(el) => {
                     desktopReveals[i].ref.current = el
                   }}
-                  className="grid grid-cols-[1fr_auto_1fr] items-center gap-x-4"
+                  className="grid grid-cols-[1fr_auto_1fr] items-center gap-x-3 lg:gap-x-4"
                 >
                   {textOnLeft ? textBlock : visualBlock}
                   <div className="relative z-10 flex justify-center">
@@ -659,8 +659,8 @@ export default function PortfolioSection({ dict }: { dict: any }) {
         </div>
       </div>
 
-      {/* Mobile / tablet: stacked with left rail ---------------------- */}
-      <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:hidden">
+      {/* Mobile only: stacked with left rail ---------------------------- */}
+      <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 md:hidden">
         <div ref={mobilePipelineContainerRef} className="relative pb-12">
           <MobilePipeline
             rowCenters={mobileRowCenters}

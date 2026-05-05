@@ -108,7 +108,7 @@ export default function AnalyticsReviews({ dict }: { dict: any }) {
                 initial={false}
                 animate={{ opacity: isActive ? 1 : 0 }}
                 transition={{ duration: 0.4, ease: "easeOut" }}
-                className={`grid grid-cols-1 items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] lg:items-center lg:gap-16 ${
+                className={`grid grid-cols-1 items-start gap-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] md:items-center md:gap-12 lg:gap-16 ${
                   isActive ? "" : "pointer-events-none"
                 }`}
               >
