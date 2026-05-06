@@ -7,7 +7,16 @@ export default function RedirectLayout({
 }) {
   return (
     <html lang="de">
-      <body>{children}</body>
+      <body
+        style={{
+          margin: 0,
+          minHeight: "100vh",
+          background:
+            "linear-gradient(to bottom, #B9CAF4, #C7D4F6, #D9E1FA)",
+        }}
+      >
+        {children}
+      </body>
     </html>
   )
 }
