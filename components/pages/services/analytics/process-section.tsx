@@ -2,7 +2,13 @@
 
 import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
-import { useReducedMotion } from "framer-motion"
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform,
+} from "framer-motion"
 import { Compass, PenLine, Hammer, GraduationCap } from "lucide-react"
 import type { LucideIcon } from "lucide-react"
 import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
@@ -82,7 +88,11 @@ export default function ProcessSection({ dict }: ProcessSectionProps) {
             )}
           </div>
 
-          <div ref={mobileReveal.ref} className="mt-12 grid grid-cols-1 gap-5 md:grid-cols-2">
+          <div className="md:hidden">
+            <MobileProcessTimeline steps={steps} reduceMotion={!!shouldReduceMotion} />
+          </div>
+
+          <div ref={mobileReveal.ref} className="mt-12 hidden grid-cols-1 gap-5 md:grid md:grid-cols-2">
             {steps.map((step, idx) => {
               const Icon = stepIcons[idx] ?? Compass
               return (
@@ -269,5 +279,145 @@ function Mindmap({
         )
       })}
     </div>
+  )
+}
+
+function MobileProcessTimeline({
+  steps,
+  reduceMotion,
+}: {
+  steps: Step[]
+  reduceMotion: boolean
+}) {
+  const containerRef = useRef<HTMLDivElement>(null)
+  const stepRefs = useRef<(HTMLDivElement | null)[]>([])
+  const [activeIndex, setActiveIndex] = useState(0)
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start 80%", "end 20%"],
+  })
+  const railSpring = useSpring(scrollYProgress, { stiffness: 110, damping: 24, mass: 0.4 })
+  const railHeight = useTransform(railSpring, (p) => `${Math.min(100, Math.max(0, p * 100))}%`)
+
+  useEffect(() => {
+    if (reduceMotion) return
+    const nodes = stepRefs.current.filter(Boolean) as HTMLDivElement[]
+    if (!nodes.length) return
+    const observers = nodes.map((node, idx) => {
+      const obs = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) setActiveIndex(idx)
+        },
+        { rootMargin: "-45% 0px -45% 0px", threshold: 0 },
+      )
+      obs.observe(node)
+      return obs
+    })
+    return () => observers.forEach((o) => o.disconnect())
+  }, [reduceMotion, steps.length])
+
+  return (
+    <div ref={containerRef} className="relative mt-12">
+      {/* Rail — base track + scroll-driven progress overlay */}
+      <div aria-hidden className="pointer-events-none absolute left-[19px] top-2 bottom-2 w-[2px] rounded-full bg-slate-200/80" />
+      <motion.div
+        aria-hidden
+        style={reduceMotion ? { height: "100%" } : { height: railHeight }}
+        className="pointer-events-none absolute left-[19px] top-2 w-[2px] rounded-full bg-gradient-to-b from-[#21569c] via-[#21569c] to-[#7DBBFF]"
+      />
+
+      <div className="flex flex-col gap-y-7">
+        {steps.map((step, idx) => {
+          const isActive = activeIndex === idx
+          return (
+            <MobileProcessStep
+              key={idx}
+              step={step}
+              idx={idx}
+              isActive={isActive}
+              reduceMotion={reduceMotion}
+              registerRef={(n) => {
+                stepRefs.current[idx] = n
+              }}
+            />
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+function MobileProcessStep({
+  step,
+  idx,
+  isActive,
+  reduceMotion,
+  registerRef,
+}: {
+  step: Step
+  idx: number
+  isActive: boolean
+  reduceMotion: boolean
+  registerRef: (node: HTMLDivElement | null) => void
+}) {
+  const Icon = stepIcons[idx] ?? Compass
+  const reveal = useRevealOnScroll<HTMLDivElement>({ margin: "-60px" })
+
+  const setRef = (node: HTMLDivElement | null) => {
+    ;(reveal.ref as React.RefObject<HTMLDivElement | null>).current = node
+    registerRef(node)
+  }
+
+  const visible = reduceMotion || reveal.isRevealed
+
+  return (
+    <motion.div
+      ref={setRef}
+      initial={reduceMotion ? false : { opacity: 0, y: 12 }}
+      animate={{ opacity: visible ? 1 : 0, y: visible ? 0 : 12 }}
+      transition={{ duration: 0.5, delay: 0.05 + idx * 0.05, ease: [0.22, 1, 0.36, 1] }}
+      className="relative pl-14"
+    >
+      {/* Badge on rail */}
+      <motion.div
+        initial={false}
+        animate={{
+          scale: isActive ? 1.05 : 1,
+          backgroundColor: isActive ? "#21569c" : "#ffffff",
+          borderColor: isActive ? "#21569c" : "rgba(33, 86, 156, 0.25)",
+          color: isActive ? "#ffffff" : "#21569c",
+          boxShadow: isActive
+            ? "0 14px 30px rgba(33,86,156,0.35)"
+            : "0 6px 14px rgba(15,23,42,0.05)",
+        }}
+        transition={{ type: "spring", stiffness: 320, damping: 24 }}
+        className="absolute left-0 top-1 z-10 flex h-10 w-10 items-center justify-center rounded-full border-2"
+      >
+        <Icon className="h-4 w-4" />
+      </motion.div>
+
+      {/* Card */}
+      <div
+        className={`rounded-2xl border bg-white p-5 transition-[border-color,box-shadow] duration-300 ${
+          isActive
+            ? "border-[#21569c]/35 shadow-[0_18px_44px_rgba(33,86,156,0.12)]"
+            : "border-slate-200/70 shadow-[0_8px_22px_rgba(15,23,42,0.04)]"
+        }`}
+      >
+        <div className="flex items-baseline justify-between gap-3">
+          <span className="text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-[#21569c]">
+            Schritt {step.number}
+          </span>
+          <span className="font-serif text-[1.6rem] font-semibold leading-none text-[#21569c]/20">
+            {step.number}
+          </span>
+        </div>
+        <h3 className="mt-2 font-serif text-lg font-semibold leading-tight text-[#0B162D]">
+          {step.title}
+        </h3>
+        <p className="mt-2 text-[0.9rem] leading-relaxed text-black/60">{step.text}</p>
+      </div>
+    </motion.div>
   )
 }

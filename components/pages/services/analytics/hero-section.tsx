@@ -7,6 +7,7 @@ import {
   animate,
   cubicBezier,
   motion,
+  useInView,
   useMotionValue,
   useReducedMotion,
   useScroll,
@@ -271,62 +272,75 @@ function ClarityModule({
   t,
   data,
   reduceMotion,
+  mobileEmphasis = false,
 }: {
   t: any
   data: Dataset
   reduceMotion: boolean | null
+  mobileEmphasis?: boolean
 }) {
   const items = [
-    { label: t.kpiLabels?.revenue, kpi: data.kpis.revenue, deltaLabel: t.kpiDeltaLabels?.revenue },
-    { label: t.kpiLabels?.margin, kpi: data.kpis.margin, deltaLabel: t.kpiDeltaLabels?.margin },
-    { label: t.kpiLabels?.forecastConfidence, kpi: data.kpis.forecastConfidence, deltaLabel: t.kpiDeltaLabels?.forecastConfidence },
-    { label: t.kpiLabels?.activeProjects, kpi: data.kpis.activeProjects, deltaLabel: t.kpiDeltaLabels?.activeProjects },
+    { key: "revenue", label: t.kpiLabels?.revenue, kpi: data.kpis.revenue, deltaLabel: t.kpiDeltaLabels?.revenue },
+    { key: "margin", label: t.kpiLabels?.margin, kpi: data.kpis.margin, deltaLabel: t.kpiDeltaLabels?.margin },
+    { key: "forecastConfidence", label: t.kpiLabels?.forecastConfidence, kpi: data.kpis.forecastConfidence, deltaLabel: t.kpiDeltaLabels?.forecastConfidence },
+    { key: "activeProjects", label: t.kpiLabels?.activeProjects, kpi: data.kpis.activeProjects, deltaLabel: t.kpiDeltaLabels?.activeProjects },
   ]
   return (
     <div className="overflow-hidden rounded-[18px]">
       <div className="p-3">
         <p className="text-[0.72rem] font-semibold text-[#0B162D]">{t.sections.kpis}</p>
         <div className="mt-2.5 grid grid-cols-2 gap-2 sm:grid-cols-4">
-          {items.map((item, i) => (
-            <motion.div
-              key={item.label}
-              whileHover={reduceMotion ? undefined : { y: -2 }}
-              transition={{ type: "spring", stiffness: 320, damping: 22 }}
-              className="group relative rounded-[14px] bg-[#F8FBFE] p-2.5"
-            >
-              <p className="text-[0.5rem] font-medium uppercase tracking-[0.08em] text-[#0B162D]/40">{item.label}</p>
-              <p className="mt-1.5 text-[0.82rem] font-semibold text-[#0B162D] sm:text-[0.86rem]">
-                <CountUp
-                  to={item.kpi.to}
-                  decimals={item.kpi.decimals ?? 0}
-                  suffix={item.kpi.suffix ?? ""}
-                  reduceMotion={reduceMotion}
-                />
-              </p>
-              <div className="mt-2 h-1 overflow-hidden rounded-full bg-slate-100">
-                <motion.div
-                  initial={{ width: 0 }}
-                  animate={{ width: `${item.kpi.bar}%` }}
-                  transition={{ duration: 1.0, delay: 0.5 + i * 0.12, ease: "easeOut" }}
-                  className="h-full rounded-full bg-gradient-to-r from-[#21569c] to-[#7DBBFF]"
-                />
-              </div>
-              {/* Delta badge — fades in on hover */}
-              <div className="pointer-events-none absolute -top-1.5 right-2 translate-y-1 opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100">
-                <span className="inline-flex items-center gap-1 rounded-full bg-[#0B162D] px-2 py-0.5 text-[0.5rem] font-semibold text-white shadow-md">
-                  {item.kpi.delta}
-                  {item.deltaLabel ? <span className="font-normal text-white/60">· {item.deltaLabel}</span> : null}
-                </span>
-              </div>
-            </motion.div>
-          ))}
+          {items.map((item, i) => {
+            return (
+              <motion.div
+                key={item.label}
+                whileHover={reduceMotion ? undefined : { y: -2 }}
+                whileTap={mobileEmphasis && !reduceMotion ? { scale: 0.97 } : undefined}
+                transition={{ type: "spring", stiffness: 320, damping: 22 }}
+                className="group relative rounded-[14px] bg-[#F8FBFE] p-2.5"
+              >
+                <p className="text-[0.5rem] font-medium uppercase tracking-[0.08em] text-[#0B162D]/40">{item.label}</p>
+                <p className="mt-1.5 text-[0.82rem] font-semibold text-[#0B162D] sm:text-[0.86rem]">
+                  <CountUp
+                    to={item.kpi.to}
+                    decimals={item.kpi.decimals ?? 0}
+                    suffix={item.kpi.suffix ?? ""}
+                    reduceMotion={reduceMotion}
+                  />
+                </p>
+                <div className="mt-2 h-1 overflow-hidden rounded-full bg-slate-100">
+                  <motion.div
+                    initial={{ width: 0 }}
+                    animate={{ width: `${item.kpi.bar}%` }}
+                    transition={{ duration: 1.0, delay: 0.5 + i * 0.12, ease: "easeOut" }}
+                    className="h-full rounded-full bg-gradient-to-r from-[#21569c] to-[#7DBBFF]"
+                  />
+                </div>
+                {/* Delta badge — fades in on hover */}
+                <div className="pointer-events-none absolute -top-1.5 right-2 translate-y-1 opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100">
+                  <span className="inline-flex items-center gap-1 rounded-full bg-[#0B162D] px-2 py-0.5 text-[0.5rem] font-semibold text-white shadow-md">
+                    {item.kpi.delta}
+                    {item.deltaLabel ? <span className="font-normal text-white/60">· {item.deltaLabel}</span> : null}
+                  </span>
+                </div>
+              </motion.div>
+            )
+          })}
         </div>
       </div>
     </div>
   )
 }
 
-function ProfitModule({ t, data }: { t: any; data: Dataset }) {
+function ProfitModule({
+  t,
+  data,
+  mobileEmphasis = false,
+}: {
+  t: any
+  data: Dataset
+  mobileEmphasis?: boolean
+}) {
   const linePath = smoothLinePath(data.linePoints)
   const areaPath = smoothAreaPath(data.linePoints)
   const lastActual = data.linePoints[data.linePoints.length - 1]
@@ -337,6 +351,23 @@ function ProfitModule({ t, data }: { t: any; data: Dataset }) {
   const uid = useId().replace(/[:]/g, "")
   const areaGradId = `hdj-profit-area-${uid}`
   const lineGradId = `hdj-profit-line-${uid}`
+
+  // On mobile, hover does nothing — auto-open the forecast tooltip on first
+  // reveal so users see the "Konfidenz 89%" payload without needing to tap.
+  const chartRef = useRef<HTMLDivElement>(null)
+  const inView = useInView(chartRef, { once: true, margin: "-30%" })
+  const [forecastTooltipOpen, setForecastTooltipOpen] = useState<boolean | undefined>(
+    mobileEmphasis ? false : undefined,
+  )
+  useEffect(() => {
+    if (!mobileEmphasis || !inView) return
+    const showTimer = setTimeout(() => setForecastTooltipOpen(true), 1900)
+    const hideTimer = setTimeout(() => setForecastTooltipOpen(false), 4400)
+    return () => {
+      clearTimeout(showTimer)
+      clearTimeout(hideTimer)
+    }
+  }, [mobileEmphasis, inView])
 
   return (
     <TooltipProvider delayDuration={80}>
@@ -366,7 +397,7 @@ function ProfitModule({ t, data }: { t: any; data: Dataset }) {
             </span>
           </div>
 
-          <div className="relative my-auto aspect-[510/150] w-full">
+          <div ref={chartRef} className="relative my-auto aspect-[510/150] w-full">
             <svg viewBox="0 0 510 150" className="absolute inset-0 block h-full w-full">
               <defs>
                 <linearGradient id={areaGradId} x1="0" x2="0" y1="0" y2="1">
@@ -445,7 +476,10 @@ function ProfitModule({ t, data }: { t: any; data: Dataset }) {
               ))}
 
               {/* Forecast point */}
-              <Tooltip>
+              <Tooltip
+                open={mobileEmphasis ? forecastTooltipOpen : undefined}
+                onOpenChange={mobileEmphasis ? setForecastTooltipOpen : undefined}
+              >
                 <TooltipTrigger asChild>
                   <motion.button
                     type="button"
@@ -574,6 +608,11 @@ function SpeedModule({ t, data }: { t: any; data: Dataset }) {
 
 // ---------- Main component ----------
 
+const dashboardChildVariants = {
+  hidden: { opacity: 0, y: 18 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
+}
+
 export default function HeroSection({ lang, dict }: HeroSectionProps) {
   const containerRef = useRef<HTMLElement>(null)
   const shouldReduceMotion = useReducedMotion()
@@ -686,12 +725,13 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
             initial={shouldReduceMotion ? false : { opacity: 0, y: 14 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
+            className="text-center"
           >
             <span className="section-eyebrow">{eyebrowLabel}</span>
-            <h1 className="mt-3 max-w-[18ch] font-serif text-[2.05rem] leading-[1.05] tracking-tight text-[#0B162D] sm:text-[2.5rem] md:text-[3rem]">
+            <h1 className="mx-auto mt-3 max-w-[18ch] font-serif text-[2.05rem] leading-[1.05] tracking-tight text-[#0B162D] sm:text-[2.5rem] md:text-[3rem]">
               {hero?.title}
             </h1>
-            <p className="mt-4 max-w-[58ch] text-[0.95rem] leading-relaxed text-[#0B162D]/70 sm:text-[1rem] md:mt-5 md:text-[1.05rem]">
+            <p className="mx-auto mt-4 max-w-[58ch] text-[0.95rem] leading-relaxed text-[#0B162D]/70 sm:text-[1rem] md:mt-5 md:text-[1.05rem]">
               {hero?.description}
             </p>
             <div className="mt-6 sm:mt-7">
@@ -705,13 +745,23 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
             </div>
           </motion.div>
 
-          {/* Dashboard preview card */}
+          {/* Dashboard preview card — staggered entrance choreography. Each
+              child has its own variant so children boot in sequence: header →
+              status → KPIs → trend → (tablet-only AI). The reduced-data mobile
+              shape (no SpeedModule, no AI on <md) keeps the card focused. */}
           <motion.div
-            initial={shouldReduceMotion ? false : { opacity: 0, y: 36 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={shouldReduceMotion ? false : "hidden"}
+            whileInView={shouldReduceMotion ? undefined : "visible"}
             viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-            className="relative mt-10 overflow-hidden rounded-[22px] border border-white/70 bg-white/92 shadow-[0_28px_70px_rgba(15,23,42,0.10)] backdrop-blur-2xl sm:mt-14 md:rounded-[28px]"
+            variants={{
+              hidden: { opacity: 0, y: 36 },
+              visible: {
+                opacity: 1,
+                y: 0,
+                transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1], staggerChildren: 0.16, delayChildren: 0.18 },
+              },
+            }}
+            className="relative mt-10 overflow-hidden rounded-[22px] border border-white/70 bg-white/92 shadow-[0_8px_20px_rgba(15,23,42,0.04)] backdrop-blur-2xl sm:mt-14 md:rounded-[28px]"
           >
             {/* Subtle top sheen */}
             <div
@@ -720,7 +770,10 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
             />
 
             {/* Header */}
-            <div className="border-b border-slate-100 px-3.5 py-3 sm:px-4 sm:py-3.5">
+            <motion.div
+              variants={dashboardChildVariants}
+              className="border-b border-slate-100 px-3.5 py-3 sm:px-4 sm:py-3.5"
+            >
               <div className="flex items-center justify-between gap-3">
                 <div className="flex min-w-0 items-center gap-2 shrink-0">
                   <Image
@@ -741,9 +794,10 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
                 </div>
               </div>
 
-              {/* Status row */}
+              {/* Status row — period toggle uses shared layoutId so the pill
+                  glides between Q/H/Y on tap instead of a hard color flip. */}
               <div className="mt-2.5 flex flex-wrap items-center gap-1.5 text-[0.6rem] text-[#0B162D]/48 sm:gap-2">
-                <span className="inline-flex items-center gap-1 rounded-full bg-[#F7FAFF] px-2 py-1">
+                <span className="hidden items-center gap-1 rounded-full bg-[#F7FAFF] px-2 py-1 sm:inline-flex">
                   <Layers3 className="h-3 w-3 text-[#21569c]" />
                   {t.sourcesConnected}
                 </span>
@@ -751,7 +805,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
                 <div
                   role="tablist"
                   aria-label="Zeitraum"
-                  className="inline-flex items-center gap-0.5 rounded-full bg-[#F7FAFF] p-0.5"
+                  className="relative inline-flex items-center gap-0.5 rounded-full bg-[#F7FAFF] p-0.5"
                 >
                   {(["q", "h", "y"] as const).map((key) => {
                     const active = periodKey === key
@@ -763,12 +817,20 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
                         aria-selected={active}
                         onClick={() => setPeriodKey(key)}
                         className={cx(
-                          "rounded-full px-2 py-0.5 text-[0.6rem] font-medium transition-all duration-200",
-                          active
-                            ? "bg-[#21569c] text-white shadow-sm"
-                            : "text-[#0B162D]/60 hover:text-[#0B162D]",
+                          "relative z-10 rounded-full px-2 py-0.5 text-[0.6rem] font-medium transition-colors duration-200",
+                          active ? "text-white" : "text-[#0B162D]/60 hover:text-[#0B162D]",
                         )}
                       >
+                        {active && !shouldReduceMotion && (
+                          <motion.span
+                            layoutId="hero-mobile-period-pill"
+                            transition={{ type: "spring", stiffness: 480, damping: 32 }}
+                            className="absolute inset-0 -z-10 rounded-full bg-[#21569c] shadow-sm"
+                          />
+                        )}
+                        {active && shouldReduceMotion && (
+                          <span className="absolute inset-0 -z-10 rounded-full bg-[#21569c] shadow-sm" />
+                        )}
                         {t.periods?.[key]}
                       </button>
                     )
@@ -780,29 +842,34 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
                   {t.sections.filters}
                 </span>
               </div>
-            </div>
+            </motion.div>
 
-            {/* Body — stacked on mobile, with last row 2-col on tablet */}
+            {/* Body — KPIs + trend always; AI only on tablet. SpeedModule is
+                dropped entirely on mobile/tablet for focus. */}
             <div className="flex flex-col gap-2.5 p-2.5 sm:gap-3 sm:p-3">
               {/* KPIs */}
-              <div className="overflow-hidden rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)]">
-                <ClarityModule t={t} data={data} reduceMotion={shouldReduceMotion} />
-              </div>
+              <motion.div
+                variants={dashboardChildVariants}
+                className="overflow-hidden rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)]"
+              >
+                <ClarityModule t={t} data={data} reduceMotion={shouldReduceMotion} mobileEmphasis />
+              </motion.div>
 
-              {/* Trend chart */}
-              <div className="flex min-h-[280px] flex-col overflow-hidden rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)] sm:min-h-[320px] md:min-h-[340px]">
-                <ProfitModule t={t} data={data} />
-              </div>
+              {/* Trend chart — money shot */}
+              <motion.div
+                variants={dashboardChildVariants}
+                className="flex flex-col overflow-hidden rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)] sm:min-h-[320px] md:min-h-[360px]"
+              >
+                <ProfitModule t={t} data={data} mobileEmphasis />
+              </motion.div>
 
-              {/* Segments + AI signals */}
-              <div className="grid grid-cols-1 gap-2.5 sm:gap-3 md:grid-cols-2">
-                <div className="flex min-h-[210px] flex-col overflow-hidden rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)] md:min-h-[280px]">
-                  <SpeedModule t={t} data={data} />
-                </div>
-                <div className="flex min-h-[260px] flex-col overflow-hidden rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)] md:min-h-[280px]">
-                  <AiModule t={t} data={data} radarStyle={{ opacity: 1 }} />
-                </div>
-              </div>
+              {/* AI signals — tablet only */}
+              <motion.div
+                variants={dashboardChildVariants}
+                className="hidden min-h-[260px] flex-col overflow-hidden rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)] md:flex md:min-h-[280px]"
+              >
+                <AiModule t={t} data={data} radarStyle={{ opacity: 1 }} />
+              </motion.div>
             </div>
           </motion.div>
         </div>

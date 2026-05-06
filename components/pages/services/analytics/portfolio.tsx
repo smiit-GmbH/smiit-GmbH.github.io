@@ -1,11 +1,12 @@
 "use client"
 
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import {
   AnimatePresence,
   animate,
   motion,
   useMotionValue,
+  useMotionValueEvent,
   useReducedMotion,
   useScroll,
   useTransform,
@@ -18,8 +19,10 @@ import {
   CalendarCheck,
   ChevronDown,
   ShieldCheck,
+  X,
 } from "lucide-react"
 import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
+import { useLenis } from "@/components/smooth-scroll-provider"
 
 const STRAND_COLORS = ["#7DBBFF", "#21569c", "#94A3B8"] as const
 const ICONS = [BarChart3, ShieldCheck, BrainCircuit] as const
@@ -109,7 +112,7 @@ function BIVisual({ isRevealed }: { isRevealed: boolean }) {
         {kpis.map((kpi, i) => {
           const positive = kpi.trend === "up"
           const TrendIcon = positive ? ArrowUpRight : ArrowDownRight
-          const tone = positive ? "text-emerald-600" : "text-rose-500"
+          const tone = positive ? "text-green-400" : "text-red-400"
           return (
             <motion.div
               key={kpi.label}
@@ -364,68 +367,732 @@ function MLVisual({ isRevealed }: { isRevealed: boolean }) {
 
 const VISUALS = [BIVisual, GovernanceVisual, MLVisual] as const
 
-// Mobile rail – single dark-blue strand on the left edge
-function MobilePipeline({
-  rowCenters,
-  revealedRows,
-  scrollYProgress,
-  reducedMotion,
+// ---------------------------------------------------------------------------
+// Mobile portfolio — vertical stack with mobile-tuned live visuals per service.
+// The desktop SVG visuals don't read well at phone widths because their internal
+// labels are sized in viewBox units (they shrink with the container and become
+// illegible). The mobile counterparts below use HTML pills for labels so text
+// stays sharp, and are sized for ~320–400px card widths.
+// ---------------------------------------------------------------------------
+
+function MobileVisualShell({
+  children,
+  label,
+  badge,
+  accent,
 }: {
-  rowCenters: number[]
-  revealedRows: boolean[]
-  scrollYProgress: ReturnType<typeof useScroll>["scrollYProgress"]
-  reducedMotion: boolean
+  children: React.ReactNode
+  label: string
+  badge?: React.ReactNode
+  accent: string
 }) {
-  const length = useTransform(scrollYProgress, [0.0, 0.7], [0, 1])
   return (
-    <svg
-      className="absolute left-0 top-0 h-full w-[40px] pointer-events-none"
-      viewBox="0 0 40 1200"
-      preserveAspectRatio="none"
+    <div
       aria-hidden="true"
+      className="relative w-full overflow-hidden rounded-2xl border bg-white p-4"
+      style={{
+        borderColor: `${accent}26`,
+        backgroundImage: `linear-gradient(135deg, ${accent}10, transparent 55%)`,
+      }}
     >
-      <motion.path
-        d="M 20 0 L 20 1200"
-        fill="none"
-        stroke="#21569c"
-        strokeWidth="2"
-        strokeOpacity="0.55"
-        strokeLinecap="round"
-        style={reducedMotion ? { pathLength: 1 } : { pathLength: length }}
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-[2px]"
+        style={{
+          background: `linear-gradient(to right, transparent, ${accent}66, transparent)`,
+        }}
       />
-      {rowCenters.map((cy, i) => {
-        const isActive = revealedRows[i]
-        return (
-          <g key={i}>
-            <motion.circle
-              cx={20}
-              cy={cy}
-              r={isActive ? 6 : 3}
-              fill={STRAND_COLORS[i]}
-              initial={false}
-              animate={{ r: isActive ? 6 : 3, opacity: isActive ? 1 : 0.4 }}
-              transition={{ duration: 0.5 }}
-            />
-            {isActive && (
-              <circle
-                className="pipeline-node-halo"
-                cx={20}
-                cy={cy}
-                r="6"
-                fill="none"
-                stroke={STRAND_COLORS[i]}
-                strokeWidth="2"
-              />
-            )}
-          </g>
-        )
-      })}
-    </svg>
+      <div className="relative mb-3 flex items-center justify-between">
+        <span className="text-[0.5rem] font-semibold uppercase tracking-[0.22em] text-black/40">
+          {label}
+        </span>
+        {badge}
+      </div>
+      <div className="relative">{children}</div>
+    </div>
   )
 }
 
-// ---------------------------------------------------------------------------
-// BookCircleButton – circular CTA between text and visual
+function MobileBIVisual({ isRevealed, accent }: { isRevealed: boolean; accent: string }) {
+  const bars = [38, 64, 50, 82, 56, 74]
+  return (
+    <MobileVisualShell
+      accent={accent}
+      label="Umsatz Q3"
+      badge={
+        <motion.div
+          initial={{ opacity: 0, y: -4 }}
+          animate={isRevealed ? { opacity: 1, y: 0 } : { opacity: 0, y: -4 }}
+          transition={{ duration: 0.4, delay: 0.4 }}
+          className="flex items-center gap-1 rounded-full border border-emerald-200/70 bg-emerald-50 px-2 py-0.5"
+        >
+          <ArrowUpRight className="h-3 w-3 text-emerald-600" />
+          <span className="text-[0.6rem] font-semibold text-emerald-700">+18%</span>
+        </motion.div>
+      }
+    >
+      <div className="flex items-end justify-between">
+        <span style={{ color: accent }}>
+          <CountUp
+            to={184}
+            isRevealed={isRevealed}
+            suffix="K"
+            className="font-serif text-[1.85rem] font-semibold leading-none"
+          />
+        </span>
+        <span className="pb-0.5 text-[0.55rem] uppercase tracking-wider text-black/40">
+          vs. Q2
+        </span>
+      </div>
+      <div className="relative mt-3 h-16">
+        <div className="absolute inset-x-0 top-0 h-px bg-black/[0.06]" />
+        <div className="absolute inset-x-0 top-1/2 h-px bg-black/[0.06]" />
+        <div className="absolute inset-x-0 bottom-0 h-px bg-black/[0.06]" />
+        <div className="absolute inset-0 flex items-end gap-1.5">
+          {bars.map((h, i) => (
+            <motion.div
+              key={i}
+              className="flex-1 rounded-t-[3px]"
+              style={{ background: `linear-gradient(to top, ${accent}, ${accent}99)` }}
+              initial={{ height: 0 }}
+              animate={isRevealed ? { height: `${h}%` } : { height: 0 }}
+              transition={{
+                duration: 0.7,
+                delay: 0.25 + i * 0.06,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+            />
+          ))}
+        </div>
+      </div>
+    </MobileVisualShell>
+  )
+}
+
+function MobileGovernanceVisual({
+  isRevealed,
+  accent,
+}: {
+  isRevealed: boolean
+  accent: string
+}) {
+  const sources = ["ERP", "CRM", "OPS"]
+  const targets = ["BI", "ML", "API"]
+  return (
+    <MobileVisualShell
+      accent={accent}
+      label="Data Lineage"
+      badge={
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={isRevealed ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: 0.4, delay: 1.2 }}
+          className="flex items-center gap-1 rounded-full px-2 py-0.5"
+          style={{ backgroundColor: `${accent}1F`, color: accent }}
+        >
+          <ShieldCheck className="h-3 w-3" />
+          <span className="text-[0.6rem] font-semibold tracking-wide">DSGVO</span>
+        </motion.div>
+      }
+    >
+      <div className="relative aspect-[10/3] w-full">
+        <svg
+          viewBox="0 0 100 30"
+          className="absolute inset-0 h-full w-full"
+        >
+          {[5.4, 15, 24.6].map((y1, i) => (
+            <motion.path
+              key={`l-${i}-${isRevealed}`}
+              d={`M 16 ${y1} C 32 ${y1}, 32 15, 50 15`}
+              fill="none"
+              stroke={accent}
+              strokeOpacity="0.55"
+              strokeWidth="0.5"
+              strokeLinecap="round"
+              initial={{ pathLength: 0 }}
+              animate={isRevealed ? { pathLength: 1 } : { pathLength: 0 }}
+              transition={{ pathLength: { duration: 0.7, delay: 0.15 + i * 0.1, ease: "easeOut" } }}
+            />
+          ))}
+          {[5.4, 15, 24.6].map((y2, i) => (
+            <motion.path
+              key={`r-${i}-${isRevealed}`}
+              d={`M 50 15 C 68 15, 68 ${y2}, 84 ${y2}`}
+              fill="none"
+              stroke={accent}
+              strokeOpacity="0.55"
+              strokeWidth="0.5"
+              strokeLinecap="round"
+              initial={{ pathLength: 0 }}
+              animate={isRevealed ? { pathLength: 1 } : { pathLength: 0 }}
+              transition={{ pathLength: { duration: 0.7, delay: 0.6 + i * 0.1, ease: "easeOut" } }}
+            />
+          ))}
+        </svg>
+        <div className="pointer-events-none absolute inset-y-0 left-0 flex flex-col justify-between py-1.5">
+          {sources.map((s, i) => (
+            <motion.span
+              key={s}
+              initial={{ opacity: 0, x: -6 }}
+              animate={isRevealed ? { opacity: 1, x: 0 } : { opacity: 0, x: -6 }}
+              transition={{ duration: 0.4, delay: 0.05 + i * 0.08 }}
+              className="rounded-md border bg-white px-1.5 py-0.5 text-[0.55rem] font-bold tracking-wider"
+              style={{ borderColor: `${accent}55`, color: accent }}
+            >
+              {s}
+            </motion.span>
+          ))}
+        </div>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.6 }}
+          animate={isRevealed ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.6 }}
+          transition={{ duration: 0.5, delay: 0.9 }}
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-md px-2.5 py-1 text-[0.65rem] font-bold tracking-widest text-white"
+          style={{ backgroundColor: accent }}
+        >
+          GOV
+        </motion.div>
+        <div className="pointer-events-none absolute inset-y-0 right-0 flex flex-col justify-between py-1.5">
+          {targets.map((tg, i) => (
+            <motion.span
+              key={tg}
+              initial={{ opacity: 0, x: 6 }}
+              animate={isRevealed ? { opacity: 1, x: 0 } : { opacity: 0, x: 6 }}
+              transition={{ duration: 0.4, delay: 0.5 + i * 0.08 }}
+              className="rounded-md border bg-white px-1.5 py-0.5 text-[0.55rem] font-bold tracking-wider"
+              style={{ borderColor: `${accent}55`, color: accent }}
+            >
+              {tg}
+            </motion.span>
+          ))}
+        </div>
+      </div>
+    </MobileVisualShell>
+  )
+}
+
+function MobileMLVisual({ isRevealed, accent }: { isRevealed: boolean; accent: string }) {
+  const layers = [
+    [0.25, 0.5, 0.75],
+    [0.18, 0.4, 0.6, 0.82],
+    [0.35, 0.65],
+  ]
+  const xCols = [0.12, 0.5, 0.88]
+  const edges: { x1: number; y1: number; x2: number; y2: number; key: string }[] = []
+  layers[0].forEach((y1, i) =>
+    layers[1].forEach((y2, j) =>
+      edges.push({ x1: xCols[0], y1, x2: xCols[1], y2, key: `e0-${i}-${j}` }),
+    ),
+  )
+  layers[1].forEach((y1, i) =>
+    layers[2].forEach((y2, j) =>
+      edges.push({ x1: xCols[1], y1, x2: xCols[2], y2, key: `e1-${i}-${j}` }),
+    ),
+  )
+
+  return (
+    <MobileVisualShell
+      accent={accent}
+      label="Model Inference"
+      badge={
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={isRevealed ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: 0.4, delay: 1.0 }}
+          className="flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-2 py-0.5"
+        >
+          <motion.span
+            className="h-1.5 w-1.5 rounded-full"
+            style={{ backgroundColor: accent, boxShadow: `0 0 6px ${accent}` }}
+            animate={{ opacity: [1, 0.4, 1] }}
+            transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+          />
+          <span className="text-[0.55rem] font-mono font-semibold tracking-[0.18em] text-black/55">
+            LIVE
+          </span>
+        </motion.div>
+      }
+    >
+      <div className="relative aspect-[12/3] w-full">
+        <svg
+          viewBox="0 0 100 25"
+          className="absolute inset-0 h-full w-full"
+        >
+          {edges.map((e, i) => (
+            <motion.line
+              key={`${e.key}-${isRevealed}`}
+              x1={e.x1 * 100}
+              y1={e.y1 * 25}
+              x2={e.x2 * 100}
+              y2={e.y2 * 25}
+              stroke="#94A3B8"
+              strokeWidth="0.4"
+              strokeLinecap="round"
+              initial={{ pathLength: 0, opacity: 0.25 }}
+              animate={
+                isRevealed
+                  ? { pathLength: 1, opacity: [0.25, 0.7, 0.25] }
+                  : { pathLength: 0, opacity: 0.25 }
+              }
+              transition={{
+                pathLength: { duration: 0.6, delay: 0.1 + (i % 4) * 0.05, ease: "easeOut" },
+                opacity: {
+                  duration: 2.4,
+                  repeat: Infinity,
+                  delay: 0.8 + ((i * 0.13) % 1.6),
+                  ease: "easeInOut",
+                },
+              }}
+            />
+          ))}
+          {layers.map((col, ci) =>
+            col.map((y, ri) => (
+              <motion.circle
+                key={`n-${ci}-${ri}`}
+                cx={xCols[ci] * 100}
+                cy={y * 25}
+                r="1.2"
+                fill={ci === 1 ? accent : "#fff"}
+                stroke={accent}
+                strokeWidth={ci === 1 ? 0 : 0.4}
+                initial={{ opacity: 0, scale: 0.5 }}
+                animate={isRevealed ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }}
+                transition={{ duration: 0.35, delay: 0.05 + ci * 0.15 + ri * 0.05 }}
+              />
+            )),
+          )}
+        </svg>
+      </div>
+      <div className="mt-2 flex items-center justify-between border-t border-black/[0.06] pt-2">
+        <span className="text-[0.5rem] font-semibold uppercase tracking-[0.22em] text-black/40">
+          Confidence
+        </span>
+        <span className="font-mono text-sm font-semibold" style={{ color: accent }}>
+          <CountUp to={0.89} isRevealed={isRevealed} duration={1.4} decimals={2} />
+        </span>
+      </div>
+    </MobileVisualShell>
+  )
+}
+
+const MOBILE_VISUALS = [MobileBIVisual, MobileGovernanceVisual, MobileMLVisual] as const
+
+// Bottom-sheet modal for the per-service "Mehr erfahren" details. Pauses Lenis
+// while open so the underlying pinned stage stops drifting.
+function MobileServiceDetailsSheet({
+  item,
+  isOpen,
+  onClose,
+  accent,
+  dict,
+}: {
+  item: any | null
+  isOpen: boolean
+  onClose: () => void
+  accent: string
+  dict: any
+}) {
+  const t = dict.servicesAnalytics.portfolio
+  const lenis = useLenis()
+
+  useEffect(() => {
+    if (!isOpen) return
+    lenis?.stop()
+    const prevHtmlOverflow = document.documentElement.style.overflow
+    document.documentElement.style.overflow = "hidden"
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose()
+    }
+    window.addEventListener("keydown", onKey)
+    return () => {
+      lenis?.start()
+      document.documentElement.style.overflow = prevHtmlOverflow
+      window.removeEventListener("keydown", onKey)
+    }
+  }, [isOpen, lenis, onClose])
+
+  return (
+    <AnimatePresence>
+      {isOpen && item && (
+        <motion.div
+          key="sheet-root"
+          className="fixed inset-0 z-50 flex flex-col justify-end"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="portfolio-sheet-title"
+        >
+          <motion.button
+            type="button"
+            aria-label={t.learnLess ?? "Schließen"}
+            className="absolute inset-0 bg-black/45 backdrop-blur-sm"
+            onClick={onClose}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          />
+          <motion.div
+            className="relative z-10 mx-auto w-full max-w-[640px] rounded-t-[2rem] bg-white p-6 pt-3 shadow-[0_-24px_60px_rgba(15,23,42,0.18)]"
+            initial={{ y: "100%" }}
+            animate={{ y: 0 }}
+            exit={{ y: "100%" }}
+            transition={{ type: "spring", stiffness: 320, damping: 36 }}
+            drag="y"
+            dragConstraints={{ top: 0, bottom: 0 }}
+            dragElastic={{ top: 0, bottom: 0.6 }}
+            onDragEnd={(_, info) => {
+              if (info.offset.y > 80 || info.velocity.y > 600) onClose()
+            }}
+          >
+            <div className="mx-auto mb-4 h-1.5 w-12 rounded-full bg-black/15" />
+            <div className="flex items-start justify-between gap-3">
+              <h3
+                id="portfolio-sheet-title"
+                className="font-serif text-[1.45rem] leading-[1.15] tracking-tight text-black"
+              >
+                {item.title}
+              </h3>
+              <button
+                type="button"
+                onClick={onClose}
+                aria-label={t.learnLess ?? "Schließen"}
+                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-slate-200 text-black/55 transition-colors hover:bg-slate-50"
+              >
+                <X className="h-4 w-4" />
+              </button>
+            </div>
+            <div
+              aria-hidden
+              className="mt-3 h-px w-full"
+              style={{
+                background: `linear-gradient(90deg, ${accent}55, transparent)`,
+              }}
+            />
+            <div className="mt-4 max-h-[60vh] space-y-3 overflow-y-auto pr-1">
+              {item.details.split("\n\n").map((paragraph: string, j: number) => (
+                <p key={j} className="text-[0.95rem] leading-relaxed text-black/65">
+                  {paragraph}
+                </p>
+              ))}
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  )
+}
+
+function StageProgressRail({
+  progress,
+  activeIndex,
+}: {
+  progress: any
+  activeIndex: number
+}) {
+  const w0 = useTransform(progress, [0, 0.33], ["0%", "100%"])
+  const w1 = useTransform(progress, [0.33, 0.66], ["0%", "100%"])
+  const w2 = useTransform(progress, [0.66, 1], ["0%", "100%"])
+  const widths = [w0, w1, w2]
+  const accent = STRAND_COLORS[activeIndex] ?? STRAND_COLORS[0]
+
+  return (
+    <div className="flex items-center gap-3">
+      <div className="flex flex-1 items-center gap-1.5">
+        {widths.map((w, i) => (
+          <div
+            key={i}
+            className="relative h-[3px] flex-1 overflow-hidden rounded-full bg-black/[0.08]"
+          >
+            <motion.span
+              className="absolute inset-y-0 left-0 rounded-full"
+              style={{ width: w, backgroundColor: STRAND_COLORS[i] }}
+            />
+          </div>
+        ))}
+      </div>
+      <span
+        className="font-mono text-[0.65rem] font-semibold tracking-[0.18em]"
+        style={{ color: accent }}
+      >
+        {`0${activeIndex + 1}`}
+        <span className="text-black/35"> / 03</span>
+      </span>
+    </div>
+  )
+}
+
+function StageVisualLayer({
+  progress,
+  sectionRevealed,
+}: {
+  progress: any
+  sectionRevealed: boolean
+}) {
+  const o0 = useTransform(progress, [0, 0.28, 0.36], [1, 1, 0])
+  const o1 = useTransform(progress, [0.28, 0.36, 0.62, 0.7], [0, 1, 1, 0])
+  const o2 = useTransform(progress, [0.62, 0.7, 1], [0, 1, 1])
+  const s0 = useTransform(progress, [0, 0.36], [1, 0.97])
+  const s1 = useTransform(progress, [0.3, 0.36, 0.66, 0.7], [0.97, 1, 1, 0.97])
+  const s2 = useTransform(progress, [0.62, 0.7], [0.97, 1])
+  const layers = [
+    { o: o0, s: s0 },
+    { o: o1, s: s1 },
+    { o: o2, s: s2 },
+  ]
+
+  return (
+    <div aria-hidden className="relative w-full h-[clamp(170px,23vh,210px)]">
+      {MOBILE_VISUALS.map((Visual, i) => {
+        const accent = STRAND_COLORS[i]
+        return (
+          <motion.div
+            key={i}
+            className="absolute inset-0 flex items-center justify-center"
+            style={{ opacity: layers[i].o, scale: layers[i].s }}
+          >
+            <div className="w-full max-w-[420px]">
+              <Visual isRevealed={sectionRevealed} accent={accent} />
+            </div>
+          </motion.div>
+        )
+      })}
+    </div>
+  )
+}
+
+function StageTextLayer({
+  items,
+  activeIndex,
+}: {
+  items: any[]
+  activeIndex: number
+}) {
+  const item = items[activeIndex]
+  const Icon = ICONS[activeIndex] ?? BarChart3
+  const accent = STRAND_COLORS[activeIndex] ?? STRAND_COLORS[0]
+
+  return (
+    <div className="relative" aria-live="polite">
+      <AnimatePresence mode="popLayout" initial={false}>
+        <motion.div
+          key={activeIndex}
+          initial={{ opacity: 0, y: 6 }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={{ opacity: 0, y: -6 }}
+          transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <div className="flex items-center gap-3">
+            <div
+              className="flex h-10 w-10 items-center justify-center rounded-2xl"
+              style={{ backgroundColor: `${accent}1F` }}
+            >
+              <Icon className="h-5 w-5" style={{ color: accent }} />
+            </div>
+            <span
+              className="font-mono text-[0.62rem] font-semibold uppercase tracking-[0.24em]"
+              style={{ color: accent }}
+            >
+              {`0${activeIndex + 1}`} <span className="text-black/30">/ 03</span>
+            </span>
+          </div>
+          <h3 className="mt-3 font-serif text-[1.6rem] leading-[1.1] tracking-tight text-black text-balance">
+            {item.title}
+          </h3>
+          <p className="mt-2 text-[0.9rem] leading-relaxed text-black/65 text-balance">
+            {item.shortDesc}
+          </p>
+        </motion.div>
+      </AnimatePresence>
+    </div>
+  )
+}
+
+function ScrollytellingStage({
+  items,
+  progress,
+  activeIndex,
+  sectionRevealed,
+  dict,
+  onOpenDetails,
+}: {
+  items: any[]
+  progress: any
+  activeIndex: number
+  sectionRevealed: boolean
+  dict: any
+  onOpenDetails: (index: number) => void
+}) {
+  const t = dict.servicesAnalytics.portfolio
+  const activeAccent = STRAND_COLORS[activeIndex] ?? STRAND_COLORS[0]
+  return (
+    <div className="sticky top-16 flex h-[calc(100vh-4rem)] max-h-[560px] w-full flex-col">
+      <div className="flex flex-1 flex-col gap-4 px-5 pb-5 pt-4">
+        <StageProgressRail progress={progress} activeIndex={activeIndex} />
+        <StageVisualLayer progress={progress} sectionRevealed={sectionRevealed} />
+        <StageTextLayer items={items} activeIndex={activeIndex} />
+        <div className="mt-1 flex items-center justify-between gap-4">
+          <button
+            type="button"
+            onClick={() => onOpenDetails(activeIndex)}
+            className="inline-flex items-center gap-2 rounded-full border px-4 py-2 text-[0.78rem] font-medium transition-colors duration-300"
+            style={{
+              color: activeAccent,
+              backgroundColor: `${activeAccent}10`,
+              borderColor: `${activeAccent}33`,
+            }}
+            aria-label={`${t.learnMore} – ${items[activeIndex]?.title ?? ""}`}
+          >
+            {t.learnMore}
+            <ChevronDown className="h-4 w-4 -rotate-90" />
+          </button>
+          <BookCircleButton label={t.bookCta} size="md" />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// Reduced-motion / fallback rendering. Three plain blocks with the visuals
+// fully resolved, native <details> for the disclosure — no scroll math.
+function MobileFallbackStack({
+  items,
+  dict,
+  onOpenDetails,
+}: {
+  items: any[]
+  dict: any
+  onOpenDetails: (index: number) => void
+}) {
+  const t = dict.servicesAnalytics.portfolio
+  return (
+    <div className="flex flex-col gap-6 px-4 sm:px-6">
+      {items.map((item, i) => {
+        const Icon = ICONS[i] ?? BarChart3
+        const accent = STRAND_COLORS[i] ?? STRAND_COLORS[0]
+        const Visual = MOBILE_VISUALS[i] ?? MobileBIVisual
+        return (
+          <article
+            key={i}
+            className="rounded-[1.5rem] border border-slate-200/70 bg-white p-5"
+          >
+            <Visual isRevealed accent={accent} />
+            <div className="mt-4 flex items-center gap-3">
+              <div
+                className="flex h-10 w-10 items-center justify-center rounded-2xl"
+                style={{ backgroundColor: `${accent}1F` }}
+              >
+                <Icon className="h-5 w-5" style={{ color: accent }} />
+              </div>
+              <span
+                className="text-[0.62rem] font-semibold uppercase tracking-[0.24em]"
+                style={{ color: accent }}
+              >
+                {`0${i + 1}`} <span className="text-black/30">/ 03</span>
+              </span>
+            </div>
+            <h3 className="mt-3 font-serif text-[1.55rem] leading-[1.1] tracking-tight text-black">
+              {item.title}
+            </h3>
+            <p className="mt-2 text-[0.92rem] leading-relaxed text-black/65">
+              {item.shortDesc}
+            </p>
+            <button
+              type="button"
+              onClick={() => onOpenDetails(i)}
+              className="mt-4 inline-flex items-center gap-2 rounded-full border px-4 py-2 text-[0.78rem] font-medium"
+              style={{
+                color: accent,
+                backgroundColor: `${accent}10`,
+                borderColor: `${accent}33`,
+              }}
+            >
+              {t.learnMore}
+              <ChevronDown className="h-4 w-4 -rotate-90" />
+            </button>
+          </article>
+        )
+      })}
+      <div className="flex justify-center pt-2">
+        <BookCircleButton label={t.bookCta} size="lg" />
+      </div>
+    </div>
+  )
+}
+
+function MobileScrollytellingSection({
+  items,
+  dict,
+}: {
+  items: any[]
+  dict: any
+}) {
+  const sectionRef = useRef<HTMLDivElement | null>(null)
+  const reveal = useRevealOnScroll<HTMLDivElement>({ margin: "-15%" })
+  const reducedMotion = useReducedMotion() ?? false
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end end"],
+  })
+
+  const indexMV = useTransform(
+    scrollYProgress,
+    [0, 0.33, 0.34, 0.66, 0.67, 1],
+    [0, 0, 1, 1, 2, 2],
+  )
+  const [activeIndex, setActiveIndex] = useState(0)
+  useMotionValueEvent(indexMV, "change", (v) => {
+    const next = Math.max(0, Math.min(2, Math.round(v)))
+    setActiveIndex((prev) => (prev === next ? prev : next))
+  })
+
+  const [openIndex, setOpenIndex] = useState<number | null>(null)
+  const openItem = openIndex !== null ? items[openIndex] : null
+  const openAccent =
+    openIndex !== null
+      ? STRAND_COLORS[openIndex] ?? STRAND_COLORS[0]
+      : STRAND_COLORS[0]
+
+  return (
+    <>
+      {reducedMotion ? (
+        <MobileFallbackStack
+          items={items}
+          dict={dict}
+          onOpenDetails={(i) => setOpenIndex(i)}
+        />
+      ) : (
+        <div
+          ref={(el) => {
+            sectionRef.current = el
+            reveal.ref.current = el
+          }}
+          className="relative min-h-[200vh]"
+          style={{ scrollMarginTop: "80px" }}
+        >
+          <ScrollytellingStage
+            items={items}
+            progress={scrollYProgress}
+            activeIndex={activeIndex}
+            sectionRevealed={reveal.isRevealed}
+            dict={dict}
+            onOpenDetails={(i) => setOpenIndex(i)}
+          />
+        </div>
+      )}
+      <MobileServiceDetailsSheet
+        item={openItem}
+        isOpen={openIndex !== null}
+        onClose={() => setOpenIndex(null)}
+        accent={openAccent}
+        dict={dict}
+      />
+    </>
+  )
+}
+
 // ---------------------------------------------------------------------------
 function BookCircleButton({ label, size = "lg" }: { label: string; size?: "lg" | "md" }) {
   const dimensions = size === "lg" ? "h-14 w-14" : "h-11 w-11"
@@ -539,68 +1206,21 @@ function RowText({
 export default function PortfolioSection({ dict }: { dict: any }) {
   const portfolio = dict.servicesAnalytics.portfolio
   const items: any[] = portfolio.items ?? []
-  const reducedMotion = useReducedMotion() ?? false
 
   const heading = useRevealOnScroll<HTMLDivElement>()
   const sectionRef = useRef<HTMLElement | null>(null)
-  const mobilePipelineContainerRef = useRef<HTMLDivElement | null>(null)
-  const mobileRowRefs = useRef<Array<HTMLDivElement | null>>([])
 
-  const { scrollYProgress } = useScroll({
-    target: sectionRef as any,
-    offset: ["start end", "end start"],
-  })
-
-  const [mobileRowCenters, setMobileRowCenters] = useState<number[]>(() => items.map((_, i) => 200 + i * 400))
-
-  const computeCenters = useCallback(() => {
-    const mContainer = mobilePipelineContainerRef.current
-    if (mContainer) {
-      const mRect = mContainer.getBoundingClientRect()
-      if (mRect.height > 0) {
-        const next = mobileRowRefs.current.map((row) => {
-          if (!row) return 0
-          const r = row.getBoundingClientRect()
-          const rel = r.top + r.height / 2 - mRect.top
-          return Math.max(0, Math.min(1200, (rel / mRect.height) * 1200))
-        })
-        setMobileRowCenters(next)
-      }
-    }
-  }, [])
-
-  useLayoutEffect(() => {
-    computeCenters()
-
-    const observers: ResizeObserver[] = []
-    const obs = new ResizeObserver(() => computeCenters())
-    if (mobilePipelineContainerRef.current) obs.observe(mobilePipelineContainerRef.current)
-    mobileRowRefs.current.forEach((el) => el && obs.observe(el))
-    observers.push(obs)
-
-    window.addEventListener("resize", computeCenters)
-    return () => {
-      observers.forEach((o) => o.disconnect())
-      window.removeEventListener("resize", computeCenters)
-    }
-  }, [computeCenters, items.length])
-
-  // Per-row reveal hooks – two sets because the desktop and mobile trees coexist
-  // (only one is visually present at a time, but both mount). One IntersectionObserver
-  // per element keeps each tree's observer hooked to the correct DOM node, and we OR
-  // the two so the row "reveals" as soon as whichever variant is on-screen fires.
+  // Per-row reveal hooks for the desktop alternating layout (md+).
+  // Mobile (<md) uses the carousel which manages active state internally,
+  // so it doesn't need scroll-tied reveals.
   const dReveal0 = useRevealOnScroll<HTMLDivElement>({ margin: "-120px" })
   const dReveal1 = useRevealOnScroll<HTMLDivElement>({ margin: "-120px" })
   const dReveal2 = useRevealOnScroll<HTMLDivElement>({ margin: "-120px" })
-  const mReveal0 = useRevealOnScroll<HTMLDivElement>({ margin: "-120px" })
-  const mReveal1 = useRevealOnScroll<HTMLDivElement>({ margin: "-120px" })
-  const mReveal2 = useRevealOnScroll<HTMLDivElement>({ margin: "-120px" })
   const desktopReveals = [dReveal0, dReveal1, dReveal2]
-  const mobileReveals = [mReveal0, mReveal1, mReveal2]
-  const revealedRows = desktopReveals.map((d, i) => d.isRevealed || mobileReveals[i].isRevealed)
+  const revealedRows = desktopReveals.map((d) => d.isRevealed)
 
   return (
-    <section ref={sectionRef} className="relative overflow-hidden">
+    <section ref={sectionRef} className="relative md:overflow-hidden">
       <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-2 sm:pt-4 md:pt-6">
         <div
           ref={heading.ref}
@@ -659,39 +1279,9 @@ export default function PortfolioSection({ dict }: { dict: any }) {
         </div>
       </div>
 
-      {/* Mobile only: stacked with left rail ---------------------------- */}
-      <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 md:hidden">
-        <div ref={mobilePipelineContainerRef} className="relative pb-12">
-          <MobilePipeline
-            rowCenters={mobileRowCenters}
-            revealedRows={revealedRows}
-            scrollYProgress={scrollYProgress}
-            reducedMotion={reducedMotion}
-          />
-          <div className="ml-[56px] flex flex-col gap-y-16">
-            {items.map((item, i) => {
-              const Visual = VISUALS[i] ?? BIVisual
-              return (
-                <div
-                  key={i}
-                  ref={(el) => {
-                    mobileRowRefs.current[i] = el
-                    mobileReveals[i].ref.current = el
-                  }}
-                  className="flex flex-col"
-                >
-                  <div className="flex justify-start">
-                    <Visual isRevealed={revealedRows[i]} />
-                  </div>
-                  <div className="relative z-10 -my-4 flex justify-center">
-                    <BookCircleButton label={portfolio.bookCta} size="md" />
-                  </div>
-                  <RowText item={item} index={i} dict={dict} alignRight={false} />
-                </div>
-              )
-            })}
-          </div>
-        </div>
+      {/* Mobile only: scroll-pinned scrollytelling stage ------------------ */}
+      <div className="relative z-10 md:hidden">
+        <MobileScrollytellingSection items={items} dict={dict} />
       </div>
     </section>
   )

@@ -81,10 +81,9 @@ function DarkBackdrop() {
 
 export default function AnalyticsCTA({ dict }: { dict: any }) {
   const cta = dict.servicesAnalytics.cta
-  const eyebrowLabel = dict.servicesAnalytics.eyebrows?.cta
 
   return (
-    <section className="relative pb-20 md:pb-28 bg-transparent">
+    <section className="relative pb-10 md:pb-14 bg-transparent">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Desktop CTA – dark band, mirrors manifest-band visual language */}
         <motion.div
@@ -150,14 +149,6 @@ export default function AnalyticsCTA({ dict }: { dict: any }) {
         >
           <DarkBackdrop />
 
-          <motion.span
-            className="section-eyebrow section-eyebrow--on-dark justify-center relative z-10"
-            variants={fadeUpVariants}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-          >
-            {eyebrowLabel}
-          </motion.span>
-
           <motion.h2
             className="relative z-10 font-serif text-[1.8rem] sm:text-[2.2rem] leading-[1.15] tracking-tight text-white whitespace-pre-line"
             variants={fadeUpVariants}
@@ -178,22 +169,53 @@ export default function AnalyticsCTA({ dict }: { dict: any }) {
             transition={{ duration: 0.5, ease: "easeOut" }}
           >
             <LocalizedLink href="/contact" className="block w-full sm:w-auto">
-              <Button
-                variant="outline"
-                className="w-full rounded-xl px-6 py-6 text-sm font-medium border border-white/25 bg-transparent text-white hover:bg-white/10 hover:text-white transition-all duration-300 cursor-pointer"
+              <motion.div
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 420, damping: 26 }}
               >
-                <Mail className="mr-2 h-4 w-4" />
-                {cta.secondaryButton}
-              </Button>
+                <Button
+                  variant="outline"
+                  className="w-full rounded-xl px-6 py-6 text-sm font-medium border border-white/25 bg-transparent text-white hover:bg-white/10 hover:text-white transition-all duration-300 cursor-pointer"
+                >
+                  {/* One-shot greet wiggle on the mail icon when the row enters viewport */}
+                  <motion.span
+                    initial={{ rotate: 0 }}
+                    whileInView={{ rotate: [0, -8, 6, -3, 0] }}
+                    viewport={{ once: true, margin: "-20px" }}
+                    transition={{ duration: 0.7, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                    style={{ display: "inline-flex", transformOrigin: "60% 60%" }}
+                    className="mr-2"
+                  >
+                    <Mail className="h-4 w-4" />
+                  </motion.span>
+                  {cta.secondaryButton}
+                </Button>
+              </motion.div>
             </LocalizedLink>
             <a href="#book" className="block w-full sm:w-auto">
-              <Button
-                variant="outline"
-                className="w-full rounded-xl px-6 py-6 text-sm font-medium border-transparent bg-white text-black hover:bg-white/90 hover:text-black transition-all duration-300 cursor-pointer"
+              <motion.div
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 420, damping: 26 }}
+                className="relative w-full overflow-hidden rounded-xl"
               >
-                {cta.primaryButton}
-                <ChevronRight className="ml-1.5 h-4 w-4" />
-              </Button>
+                <Button
+                  variant="outline"
+                  className="w-full rounded-xl px-6 py-6 text-sm font-medium border-transparent bg-white text-black hover:bg-white/90 hover:text-black transition-all duration-300 cursor-pointer"
+                >
+                  {cta.primaryButton}
+                  <ChevronRight className="ml-1.5 h-4 w-4" />
+                </Button>
+                {/* Diagonal light-sweep on first reveal — runs once, signals
+                    "this is the action button" without any user interaction. */}
+                <motion.span
+                  aria-hidden
+                  initial={{ x: "-110%" }}
+                  whileInView={{ x: "120%" }}
+                  viewport={{ once: true, margin: "-20px" }}
+                  transition={{ duration: 0.95, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
+                  className="pointer-events-none absolute inset-y-0 -inset-x-2 -skew-x-12 bg-gradient-to-r from-transparent via-[#21569c]/22 to-transparent mix-blend-multiply"
+                />
+              </motion.div>
             </a>
           </motion.div>
         </motion.div>
