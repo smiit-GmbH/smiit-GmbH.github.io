@@ -12,20 +12,21 @@ import {
   useTransform,
 } from "framer-motion"
 import {
+  AppWindow,
   ArrowDownRight,
   ArrowUpRight,
-  BarChart3,
-  BrainCircuit,
   CalendarCheck,
   ChevronDown,
+  Cloud,
+  Palette,
   ShieldCheck,
   X,
 } from "lucide-react"
 import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
 import { useLenis } from "@/components/smooth-scroll-provider"
 
-const STRAND_COLORS = ["#7DBBFF", "#21569c", "#94A3B8"] as const
-const ICONS = [BarChart3, ShieldCheck, BrainCircuit] as const
+const STRAND_COLORS = ["#FA85F4", "#F703EB", "#94A3B8"] as const
+const ICONS = [AppWindow, Palette, Cloud] as const
 
 // ---------------------------------------------------------------------------
 // CountUp – cheap motion-value driven number animation
@@ -78,7 +79,7 @@ function VisualShell({ children, className = "" }: { children: React.ReactNode; 
   return (
     <div
       aria-hidden="true"
-      className={`relative w-full max-w-[380px] aspect-[5/4] rounded-3xl bg-white border border-gray-100 shadow-[0_18px_44px_rgba(33,86,156,0.10)] p-5 sm:p-6 overflow-hidden ${className}`}
+      className={`relative flex flex-col justify-between w-full max-w-[380px] aspect-[5/4] rounded-3xl bg-white border border-gray-100 shadow-[0_18px_44px_rgba(15,23,42,0.10)] p-5 sm:p-6 overflow-hidden ${className}`}
     >
       {children}
     </div>
@@ -86,279 +87,318 @@ function VisualShell({ children, className = "" }: { children: React.ReactNode; 
 }
 
 function BIVisual({ isRevealed }: { isRevealed: boolean }) {
-  const bars = [42, 68, 54, 84, 60]
-  const target = 78
-  const kpis = [
-    { label: "Umsatz", value: "+18%", trend: "up" as const },
-    { label: "Conv.", value: "4.2%", trend: "up" as const },
-    { label: "Churn", value: "-0.8%", trend: "down" as const },
+  const modules = [
+    { label: "Vertrieb", color: "#F703EB", metric: "247" },
+    { label: "Lager", color: "#FA85F4", metric: "1.2k" },
+    { label: "Kunden", color: "#94A3B8", metric: "892" },
   ]
-  const W = 200
-  const H = 100
-
+  const tabs = ["Übersicht", "Berichte", "Einstellungen"]
   return (
     <VisualShell>
       <div className="flex items-baseline justify-between">
-        <span className="text-[0.65rem] uppercase tracking-[0.18em] text-black/40 font-medium">Umsatz Q3</span>
+        <span className="text-[0.65rem] uppercase tracking-[0.18em] text-black/40 font-medium">Aktive Nutzer</span>
         <CountUp
-          to={184}
+          to={1247}
           isRevealed={isRevealed}
-          suffix="K"
-          className="font-serif text-2xl font-semibold text-[#21569c]"
+          className="font-serif text-2xl font-semibold text-[#F703EB]"
         />
       </div>
 
-      <div className="mt-3 grid grid-cols-3 gap-1.5">
-        {kpis.map((kpi, i) => {
-          const positive = kpi.trend === "up"
-          const TrendIcon = positive ? ArrowUpRight : ArrowDownRight
-          const tone = positive ? "text-green-400" : "text-red-400"
-          return (
+      {/* Window-style mockup */}
+      <div className="mt-3 rounded-lg border border-slate-200/70 bg-slate-50/60 p-2.5">
+        {/* Title bar */}
+        <div className="flex items-center gap-1.5 mb-2">
+          <div className="h-1.5 w-1.5 rounded-full bg-red-300/70" />
+          <div className="h-1.5 w-1.5 rounded-full bg-yellow-300/70" />
+          <div className="h-1.5 w-1.5 rounded-full bg-green-300/70" />
+          <div className="ml-2 h-2 flex-1 rounded-sm bg-white" />
+        </div>
+
+        {/* Tabs row */}
+        <div className="flex items-center gap-1 mb-2">
+          {tabs.map((tab, i) => (
             <motion.div
-              key={kpi.label}
-              initial={{ opacity: 0, y: 6 }}
-              animate={isRevealed ? { opacity: 1, y: 0 } : { opacity: 0, y: 6 }}
-              transition={{ duration: 0.4, delay: 0.15 + i * 0.08 }}
-              className="rounded-lg bg-[#21569c]/[0.04] border border-[#21569c]/10 px-2 py-1.5"
+              key={tab}
+              initial={{ opacity: 0, y: -3 }}
+              animate={isRevealed ? { opacity: 1, y: 0 } : { opacity: 0, y: -3 }}
+              transition={{ duration: 0.35, delay: 0.1 + i * 0.06 }}
+              className={`rounded-sm px-1.5 py-0.5 text-[0.5rem] font-semibold ${
+                i === 0
+                  ? "bg-[#F703EB]/10 text-[#F703EB]"
+                  : "bg-white text-black/40"
+              }`}
             >
-              <div className="text-[0.55rem] uppercase tracking-wider text-black/40 font-medium leading-none">
-                {kpi.label}
-              </div>
-              <div className="mt-1 flex items-center gap-1">
-                <span className={`text-[0.78rem] font-semibold ${tone}`}>{kpi.value}</span>
-                <TrendIcon className={`h-3 w-3 ${tone}`} />
-              </div>
+              {tab}
             </motion.div>
-          )
-        })}
-      </div>
-
-      <div className="mt-3 relative h-[44%]">
-        <div className="absolute inset-x-0 top-0 h-px bg-black/5" />
-        <div className="absolute inset-x-0 top-1/2 h-px bg-black/5" />
-        <div className="absolute inset-x-0 bottom-0 h-px bg-black/5" />
-
-        <div className="absolute inset-0 flex items-end gap-2">
-          {bars.map((h, i) => (
-            <motion.div
-              key={i}
-              className="flex-1 rounded-t-md bg-gradient-to-t from-[#7DBBFF] to-[#21569c]"
-              initial={{ height: 0 }}
-              animate={isRevealed ? { height: `${h}%` } : { height: 0 }}
-              transition={{ duration: 0.7, delay: 0.3 + i * 0.08, ease: [0.22, 1, 0.36, 1] }}
-            />
           ))}
         </div>
 
-        <svg
-          viewBox={`0 0 ${W} ${H}`}
-          preserveAspectRatio="none"
-          className="absolute inset-0 w-full h-full overflow-visible"
-        >
-          <motion.line
-            x1="0"
-            y1={H - target}
-            x2={W}
-            y2={H - target}
-            stroke="#21569c"
-            strokeWidth="0.8"
-            strokeDasharray="3 3"
-            strokeOpacity="0.55"
-            initial={{ pathLength: 0 }}
-            animate={isRevealed ? { pathLength: 1 } : { pathLength: 0 }}
-            transition={{ duration: 0.7, delay: 0.6 }}
-          />
-        </svg>
+        {/* Module cards with metrics */}
+        <div className="grid grid-cols-3 gap-1.5">
+          {modules.map((mod, i) => (
+            <motion.div
+              key={mod.label}
+              initial={{ opacity: 0, y: 6 }}
+              animate={isRevealed ? { opacity: 1, y: 0 } : { opacity: 0, y: 6 }}
+              transition={{ duration: 0.5, delay: 0.3 + i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+              className="rounded-md border p-2"
+              style={{ backgroundColor: `${mod.color}14`, borderColor: `${mod.color}33` }}
+            >
+              <div className="flex items-center justify-between mb-1">
+                <div className="h-1 w-1/2 rounded-full" style={{ backgroundColor: mod.color }} />
+                <span className="text-[0.5rem] font-mono font-semibold leading-none" style={{ color: mod.color }}>
+                  {mod.metric}
+                </span>
+              </div>
+              <div className="h-0.5 w-1/2 rounded-full mb-1.5" style={{ backgroundColor: `${mod.color}66` }} />
+              <div className="text-[0.55rem] font-semibold leading-none" style={{ color: mod.color }}>
+                {mod.label}
+              </div>
+            </motion.div>
+          ))}
+        </div>
 
-        <motion.span
-          className="absolute right-0 -translate-y-1/2 rounded-sm bg-white px-1 text-[0.5rem] font-semibold uppercase tracking-wider text-[#21569c]/70"
-          style={{ top: `${100 - target}%` }}
-          initial={{ opacity: 0 }}
-          animate={isRevealed ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.4, delay: 1.1 }}
+        {/* Live activity row */}
+        <motion.div
+          initial={{ opacity: 0, y: 4 }}
+          animate={isRevealed ? { opacity: 1, y: 0 } : { opacity: 0, y: 4 }}
+          transition={{ duration: 0.45, delay: 0.85, ease: [0.22, 1, 0.36, 1] }}
+          className="mt-2 flex items-center gap-1.5 rounded border border-slate-200/60 bg-white px-1.5 py-1"
         >
-          Ziel
-        </motion.span>
+          <motion.span
+            animate={{ opacity: [1, 0.4, 1] }}
+            transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+            className="h-1 w-1 shrink-0 rounded-full bg-emerald-500"
+          />
+          <span className="truncate text-[0.5rem] text-black/55">
+            J. Müller hat Auftrag #4831 angelegt
+          </span>
+          <span className="ml-auto shrink-0 text-[0.45rem] font-mono text-black/30">2s</span>
+        </motion.div>
+      </div>
+
+      {/* API status */}
+      <div className="mt-3 flex items-center justify-between">
+        <span className="text-[0.55rem] uppercase tracking-wider text-black/40 font-medium">API Status</span>
+        <div className="flex items-center gap-1.5">
+          {[0, 1, 2].map((i) => (
+            <motion.span
+              key={i}
+              initial={{ opacity: 0.3 }}
+              animate={isRevealed ? { opacity: [0.3, 1, 0.3] } : { opacity: 0.3 }}
+              transition={{ duration: 1.6, delay: 0.6 + i * 0.2, repeat: Infinity, ease: "easeInOut" }}
+              className="h-1.5 w-1.5 rounded-full bg-emerald-400"
+            />
+          ))}
+          <span className="ml-1 text-[0.65rem] font-mono font-semibold text-emerald-600">3/3</span>
+        </div>
       </div>
     </VisualShell>
   )
 }
 
 function GovernanceVisual({ isRevealed }: { isRevealed: boolean }) {
-  const edges = [
-    "M 56 50 C 110 50, 110 110, 160 110",
-    "M 56 110 L 160 110",
-    "M 56 170 C 110 170, 110 110, 160 110",
-    "M 200 110 C 250 110, 250 50, 304 50",
-    "M 200 110 L 304 110",
-    "M 200 110 C 250 110, 250 170, 304 170",
-  ]
-  const nodes = [
-    { x: 16, y: 38, label: "ERP" },
-    { x: 16, y: 98, label: "CRM" },
-    { x: 16, y: 158, label: "OPS" },
-    { x: 304, y: 38, label: "BI" },
-    { x: 304, y: 98, label: "ML" },
-    { x: 304, y: 158, label: "API" },
-  ]
+  const palette = ["#F703EB", "#FA85F4", "#0B162D", "#FBE3F9", "#94A3B8"]
   return (
     <VisualShell>
       <div className="flex items-baseline justify-between">
-        <span className="text-[0.65rem] uppercase tracking-[0.18em] text-black/40 font-medium">Data Lineage</span>
-        <span className="text-[0.65rem] font-medium text-[#21569c]">audited</span>
+        <span className="text-[0.65rem] uppercase tracking-[0.18em] text-black/40 font-medium">Website Design</span>
+        <span className="text-[0.65rem] font-medium text-[#F703EB]">Lighthouse 98</span>
       </div>
-      <div className="relative mt-3 flex-1 h-[78%]">
-        <svg viewBox="0 0 360 220" className="absolute inset-0 w-full h-full">
-          {edges.map((d, i) => (
-            <motion.path
+
+      {/* Browser preview */}
+      <div className="mt-3 rounded-lg border border-slate-200/70 bg-white p-2 shadow-sm">
+        <div className="flex items-center gap-1.5 mb-2">
+          <div className="h-1.5 w-1.5 rounded-full bg-red-300/70" />
+          <div className="h-1.5 w-1.5 rounded-full bg-yellow-300/70" />
+          <div className="h-1.5 w-1.5 rounded-full bg-green-300/70" />
+          <div className="ml-2 flex-1 rounded-sm bg-slate-100 px-1.5 py-0.5 text-[0.5rem] text-black/40 font-mono">
+            yoursite.de
+          </div>
+        </div>
+
+        {/* Hero */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={isRevealed ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="rounded-md bg-gradient-to-br from-[#F703EB]/10 via-transparent to-transparent p-2.5"
+        >
+          <motion.div
+            initial={{ width: 0 }}
+            animate={isRevealed ? { width: "65%" } : { width: 0 }}
+            transition={{ duration: 0.6, delay: 0.4, ease: "easeOut" }}
+            className="h-2 rounded-full bg-[#F703EB]"
+          />
+          <motion.div
+            initial={{ width: 0 }}
+            animate={isRevealed ? { width: "40%" } : { width: 0 }}
+            transition={{ duration: 0.5, delay: 0.55, ease: "easeOut" }}
+            className="mt-1.5 h-1 rounded-full bg-[#F703EB]/40"
+          />
+          <motion.div
+            initial={{ width: 0 }}
+            animate={isRevealed ? { width: "30%" } : { width: 0 }}
+            transition={{ duration: 0.4, delay: 0.7, ease: "easeOut" }}
+            className="mt-1 h-1 rounded-full bg-[#F703EB]/40"
+          />
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={isRevealed ? { scale: 1 } : { scale: 0 }}
+            transition={{ duration: 0.4, delay: 0.95 }}
+            className="mt-2 inline-flex h-3 w-12 origin-left rounded-sm bg-[#F703EB]"
+          />
+        </motion.div>
+
+        {/* Card row */}
+        <div className="mt-1.5 grid grid-cols-3 gap-1">
+          {[0, 1, 2].map((i) => (
+            <motion.div
               key={i}
-              d={d}
-              fill="none"
-              stroke="#21569c"
-              strokeWidth="1.5"
-              strokeOpacity="0.35"
-              strokeLinecap="round"
-              initial={{ pathLength: 0 }}
-              animate={isRevealed ? { pathLength: 1 } : { pathLength: 0 }}
-              transition={{ duration: 0.9, delay: 0.25 + i * 0.12, ease: "easeInOut" }}
+              initial={{ opacity: 0, y: 4 }}
+              animate={isRevealed ? { opacity: 1, y: 0 } : { opacity: 0, y: 4 }}
+              transition={{ duration: 0.4, delay: 1.0 + i * 0.08 }}
+              className="rounded-sm bg-slate-100 p-1"
+            >
+              <div className="h-3 rounded-sm bg-slate-200" />
+              <div className="mt-1 h-0.5 w-full rounded-full bg-slate-300" />
+              <div className="mt-0.5 h-0.5 w-2/3 rounded-full bg-slate-300/70" />
+            </motion.div>
+          ))}
+        </div>
+      </div>
+
+      {/* Bottom row: performance + palette */}
+      <div className="mt-3 flex items-center justify-between">
+        <div className="flex items-center gap-1.5">
+          <span className="text-[0.55rem] uppercase tracking-wider text-black/40 font-medium">Performance</span>
+          <CountUp
+            to={98}
+            isRevealed={isRevealed}
+            className="text-[0.78rem] font-mono font-semibold text-emerald-600"
+          />
+        </div>
+        <div className="flex items-center gap-0.5">
+          {palette.map((c, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={isRevealed ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }}
+              transition={{ duration: 0.3, delay: 1.3 + i * 0.05 }}
+              className="h-2.5 w-2.5 rounded-full border border-slate-200/70"
+              style={{ backgroundColor: c }}
             />
           ))}
-          {nodes.map((n, i) => (
-            <motion.g
-              key={i}
-              initial={{ opacity: 0, scale: 0.6 }}
-              animate={isRevealed ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.6 }}
-              transition={{ duration: 0.4, delay: 0.1 + (i % 3) * 0.08, ease: "easeOut" }}
-              style={{ transformOrigin: `${n.x + 20}px ${n.y + 12}px` }}
-            >
-              <rect x={n.x} y={n.y} width="40" height="24" rx="6" fill="#EAF1FB" stroke="#21569c" strokeOpacity="0.4" />
-              <text
-                x={n.x + 20}
-                y={n.y + 16}
-                textAnchor="middle"
-                fontSize="10"
-                fontWeight="600"
-                fill="#21569c"
-                fontFamily="ui-sans-serif, system-ui, sans-serif"
-              >
-                {n.label}
-              </text>
-            </motion.g>
-          ))}
-          {/* Central transform node */}
-          <motion.g
-            initial={{ opacity: 0, scale: 0.6 }}
-            animate={isRevealed ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.6 }}
-            transition={{ duration: 0.5, delay: 1.05, ease: "easeOut" }}
-            style={{ transformOrigin: "180px 110px" }}
-          >
-            <rect x="160" y="98" width="40" height="24" rx="6" fill="#21569c" />
-            <text
-              x="180"
-              y="114"
-              textAnchor="middle"
-              fontSize="10"
-              fontWeight="700"
-              fill="#fff"
-              fontFamily="ui-sans-serif, system-ui, sans-serif"
-            >
-              GOV
-            </text>
-          </motion.g>
-        </svg>
-        {/* Compliance badge floats over the central node */}
-        <motion.div
-          initial={{ opacity: 0, y: 6 }}
-          animate={isRevealed ? { opacity: 1, y: 0 } : { opacity: 0, y: 6 }}
-          transition={{ duration: 0.45, delay: 1.4 }}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-[180%] flex items-center gap-1.5 rounded-full bg-[#21569c] px-2.5 py-1 text-[0.6rem] font-medium text-white shadow-md shadow-[#21569c]/30"
-        >
-          <ShieldCheck className="h-3 w-3" />
-          DSGVO
-        </motion.div>
+        </div>
       </div>
     </VisualShell>
   )
 }
 
 function MLVisual({ isRevealed }: { isRevealed: boolean }) {
-  const layers = [
-    [60, 110, 160], // input – 3
-    [40, 90, 140, 190], // hidden – 4
-    [60, 110, 160], // output – 3
+  const services = [
+    { label: "App", x: 80, y: 100 },
+    { label: "DB", x: 180, y: 100 },
+    { label: "API", x: 280, y: 100 },
+    { label: "ID", x: 130, y: 175 },
+    { label: "KV", x: 230, y: 175 },
   ]
-  const xCols = [40, 180, 320]
-  const edges: { x1: number; y1: number; x2: number; y2: number; key: string }[] = []
-  layers[0].forEach((y1, i) =>
-    layers[1].forEach((y2, j) => edges.push({ x1: xCols[0], y1, x2: xCols[1], y2, key: `e0-${i}-${j}` })),
-  )
-  layers[1].forEach((y1, i) =>
-    layers[2].forEach((y2, j) => edges.push({ x1: xCols[1], y1, x2: xCols[2], y2, key: `e1-${i}-${j}` })),
-  )
+  const cloudX = 180
+  const cloudY = 30
 
   return (
     <VisualShell>
       <div className="flex items-baseline justify-between">
-        <span className="text-[0.65rem] uppercase tracking-[0.18em] text-black/40 font-medium">Model Inference</span>
-        <span className="text-[0.65rem] font-medium text-[#94A3B8]">live</span>
+        <span className="text-[0.65rem] uppercase tracking-[0.18em] text-black/40 font-medium">Azure Topology</span>
+        <span className="text-[0.65rem] font-medium text-[#F703EB] flex items-center gap-1">
+          <ShieldCheck className="h-3 w-3" />
+          compliant
+        </span>
       </div>
       <div className="relative mt-3 h-[78%]">
         <svg viewBox="0 0 360 230" className="absolute inset-0 w-full h-full">
-          {/* Edges – first appear with pathLength then loop opacity */}
-          {edges.map((e, i) => (
-            <motion.line
-              key={e.key}
-              x1={e.x1}
-              y1={e.y1}
-              x2={e.x2}
-              y2={e.y2}
-              stroke="#94A3B8"
-              strokeWidth="1"
-              initial={{ pathLength: 0, opacity: 0.15 }}
-              animate={
-                isRevealed
-                  ? { pathLength: 1, opacity: [0.15, 0.7, 0.15] }
-                  : { pathLength: 0, opacity: 0.15 }
-              }
-              transition={{
-                pathLength: { duration: 0.7, delay: 0.2 + (i % 6) * 0.05, ease: "easeOut" },
-                opacity: {
-                  duration: 2.4,
-                  repeat: Infinity,
-                  repeatType: "loop",
-                  delay: 1 + (i * 0.13) % 1.6,
-                  ease: "easeInOut",
-                },
-              }}
+          {/* Lines from Azure to each service */}
+          {services.map((svc, i) => (
+            <motion.path
+              key={`l-${i}`}
+              d={`M ${cloudX} ${cloudY + 18} C ${cloudX} ${cloudY + 50}, ${svc.x} ${svc.y - 30}, ${svc.x} ${svc.y - 12}`}
+              fill="none"
+              stroke="#F703EB"
+              strokeWidth="1.5"
+              strokeOpacity="0.35"
+              strokeLinecap="round"
+              initial={{ pathLength: 0 }}
+              animate={isRevealed ? { pathLength: 1 } : { pathLength: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 + i * 0.1, ease: "easeInOut" }}
             />
           ))}
-          {/* Nodes */}
-          {layers.map((col, ci) =>
-            col.map((y, ri) => (
-              <motion.circle
-                key={`n-${ci}-${ri}`}
-                cx={xCols[ci]}
-                cy={y}
-                r="6"
-                fill={ci === 1 ? "#21569c" : "#fff"}
-                stroke="#21569c"
-                strokeWidth={ci === 1 ? 0 : 1.5}
-                initial={{ opacity: 0, scale: 0.5 }}
-                animate={isRevealed ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }}
-                transition={{ duration: 0.35, delay: 0.05 + ci * 0.15 + ri * 0.05 }}
+
+          {/* Azure cloud node (center) */}
+          <motion.g
+            initial={{ opacity: 0, scale: 0.6 }}
+            animate={isRevealed ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.6 }}
+            transition={{ duration: 0.5, delay: 0.15 }}
+            style={{ transformOrigin: `${cloudX}px ${cloudY}px` }}
+          >
+            <rect x={cloudX - 40} y={cloudY - 14} width="80" height="32" rx="8" fill="#F703EB" />
+            <text
+              x={cloudX}
+              y={cloudY + 7}
+              textAnchor="middle"
+              fontSize="14"
+              fontWeight="700"
+              fill="#fff"
+              fontFamily="ui-sans-serif, system-ui, sans-serif"
+              letterSpacing="0.12em"
+            >
+              AZURE
+            </text>
+          </motion.g>
+
+          {/* Service nodes */}
+          {services.map((svc, i) => (
+            <motion.g
+              key={svc.label}
+              initial={{ opacity: 0, scale: 0.5 }}
+              animate={isRevealed ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }}
+              transition={{ duration: 0.4, delay: 0.95 + i * 0.08, ease: "easeOut" }}
+              style={{ transformOrigin: `${svc.x}px ${svc.y}px` }}
+            >
+              <rect
+                x={svc.x - 22}
+                y={svc.y - 12}
+                width="44"
+                height="24"
+                rx="6"
+                fill="#FBE3F9"
+                stroke="#F703EB"
+                strokeOpacity="0.4"
+                strokeWidth="1"
               />
-            )),
-          )}
+              <text
+                x={svc.x}
+                y={svc.y + 4}
+                textAnchor="middle"
+                fontSize="11"
+                fontWeight="600"
+                fill="#F703EB"
+                fontFamily="ui-sans-serif, system-ui, sans-serif"
+              >
+                {svc.label}
+              </text>
+            </motion.g>
+          ))}
         </svg>
-        {/* Prediction badge */}
+
+        {/* IaC/Bicep badge */}
         <motion.div
-          initial={{ opacity: 0, x: -6 }}
-          animate={isRevealed ? { opacity: 1, x: 0 } : { opacity: 0, x: -6 }}
-          transition={{ duration: 0.5, delay: 1.4 }}
-          className="absolute right-2 top-2 flex items-center gap-1 rounded-full bg-[#0B162D] px-2.5 py-1 text-[0.65rem] font-mono text-white shadow"
+          initial={{ opacity: 0, y: 6 }}
+          animate={isRevealed ? { opacity: 1, y: 0 } : { opacity: 0, y: 6 }}
+          transition={{ duration: 0.45, delay: 1.5 }}
+          className="absolute right-2 bottom-1 flex items-center gap-1.5 rounded-md bg-[#0B162D] px-2.5 py-1 text-[0.6rem] font-mono text-white shadow"
         >
-          <span className="text-[#7DBBFF]">→</span>
-          <CountUp to={0.89} isRevealed={isRevealed} duration={1.4} decimals={2} />
+          <span className="text-[#FA85F4]">IaC</span>
+          Bicep
         </motion.div>
       </div>
     </VisualShell>
@@ -414,11 +454,11 @@ function MobileVisualShell({
 }
 
 function MobileBIVisual({ isRevealed, accent }: { isRevealed: boolean; accent: string }) {
-  const bars = [38, 64, 50, 82, 56, 74]
+  const modules = ["Vertrieb", "Lager", "Kunden"]
   return (
     <MobileVisualShell
       accent={accent}
-      label="Umsatz Q3"
+      label="Aktive Nutzer"
       badge={
         <motion.div
           initial={{ opacity: 0, y: -4 }}
@@ -426,42 +466,46 @@ function MobileBIVisual({ isRevealed, accent }: { isRevealed: boolean; accent: s
           transition={{ duration: 0.4, delay: 0.4 }}
           className="flex items-center gap-1 rounded-full border border-emerald-200/70 bg-emerald-50 px-2 py-0.5"
         >
-          <ArrowUpRight className="h-3 w-3 text-emerald-600" />
-          <span className="text-[0.6rem] font-semibold text-emerald-700">+18%</span>
+          <span className="h-1 w-1 rounded-full bg-emerald-500" />
+          <span className="text-[0.6rem] font-semibold text-emerald-700">live</span>
         </motion.div>
       }
     >
       <div className="flex items-end justify-between">
         <span style={{ color: accent }}>
           <CountUp
-            to={184}
+            to={1247}
             isRevealed={isRevealed}
-            suffix="K"
             className="font-serif text-[1.85rem] font-semibold leading-none"
           />
         </span>
         <span className="pb-0.5 text-[0.55rem] uppercase tracking-wider text-black/40">
-          vs. Q2
+          3 Module
         </span>
       </div>
-      <div className="relative mt-3 h-16">
-        <div className="absolute inset-x-0 top-0 h-px bg-black/[0.06]" />
-        <div className="absolute inset-x-0 top-1/2 h-px bg-black/[0.06]" />
-        <div className="absolute inset-x-0 bottom-0 h-px bg-black/[0.06]" />
-        <div className="absolute inset-0 flex items-end gap-1.5">
-          {bars.map((h, i) => (
+
+      {/* Window mockup */}
+      <div className="mt-3 rounded-md border border-black/[0.06] bg-white p-1.5">
+        <div className="flex items-center gap-1 mb-1.5">
+          <div className="h-1 w-1 rounded-full bg-red-300/70" />
+          <div className="h-1 w-1 rounded-full bg-yellow-300/70" />
+          <div className="h-1 w-1 rounded-full bg-green-300/70" />
+        </div>
+        <div className="grid grid-cols-3 gap-1">
+          {modules.map((mod, i) => (
             <motion.div
-              key={i}
-              className="flex-1 rounded-t-[3px]"
-              style={{ background: `linear-gradient(to top, ${accent}, ${accent}99)` }}
-              initial={{ height: 0 }}
-              animate={isRevealed ? { height: `${h}%` } : { height: 0 }}
-              transition={{
-                duration: 0.7,
-                delay: 0.25 + i * 0.06,
-                ease: [0.22, 1, 0.36, 1],
-              }}
-            />
+              key={mod}
+              initial={{ opacity: 0, y: 4 }}
+              animate={isRevealed ? { opacity: 1, y: 0 } : { opacity: 0, y: 4 }}
+              transition={{ duration: 0.4, delay: 0.2 + i * 0.08 }}
+              className="rounded border p-1.5"
+              style={{ backgroundColor: `${accent}14`, borderColor: `${accent}33` }}
+            >
+              <div className="h-0.5 w-2/3 rounded-full mb-1" style={{ backgroundColor: accent }} />
+              <div className="text-[0.5rem] font-semibold leading-none" style={{ color: accent }}>
+                {mod}
+              </div>
+            </motion.div>
           ))}
         </div>
       </div>
@@ -476,94 +520,76 @@ function MobileGovernanceVisual({
   isRevealed: boolean
   accent: string
 }) {
-  const sources = ["ERP", "CRM", "OPS"]
-  const targets = ["BI", "ML", "API"]
   return (
     <MobileVisualShell
       accent={accent}
-      label="Data Lineage"
+      label="Website Design"
       badge={
         <motion.div
           initial={{ opacity: 0 }}
           animate={isRevealed ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 0.4, delay: 1.2 }}
+          transition={{ duration: 0.4, delay: 1.0 }}
           className="flex items-center gap-1 rounded-full px-2 py-0.5"
           style={{ backgroundColor: `${accent}1F`, color: accent }}
         >
-          <ShieldCheck className="h-3 w-3" />
-          <span className="text-[0.6rem] font-semibold tracking-wide">DSGVO</span>
+          <span className="text-[0.6rem] font-semibold tracking-wide">Lighthouse 98</span>
         </motion.div>
       }
     >
-      <div className="relative aspect-[10/3] w-full">
-        <svg
-          viewBox="0 0 100 30"
-          className="absolute inset-0 h-full w-full"
-        >
-          {[5.4, 15, 24.6].map((y1, i) => (
-            <motion.path
-              key={`l-${i}-${isRevealed}`}
-              d={`M 16 ${y1} C 32 ${y1}, 32 15, 50 15`}
-              fill="none"
-              stroke={accent}
-              strokeOpacity="0.55"
-              strokeWidth="0.5"
-              strokeLinecap="round"
-              initial={{ pathLength: 0 }}
-              animate={isRevealed ? { pathLength: 1 } : { pathLength: 0 }}
-              transition={{ pathLength: { duration: 0.7, delay: 0.15 + i * 0.1, ease: "easeOut" } }}
-            />
-          ))}
-          {[5.4, 15, 24.6].map((y2, i) => (
-            <motion.path
-              key={`r-${i}-${isRevealed}`}
-              d={`M 50 15 C 68 15, 68 ${y2}, 84 ${y2}`}
-              fill="none"
-              stroke={accent}
-              strokeOpacity="0.55"
-              strokeWidth="0.5"
-              strokeLinecap="round"
-              initial={{ pathLength: 0 }}
-              animate={isRevealed ? { pathLength: 1 } : { pathLength: 0 }}
-              transition={{ pathLength: { duration: 0.7, delay: 0.6 + i * 0.1, ease: "easeOut" } }}
-            />
-          ))}
-        </svg>
-        <div className="pointer-events-none absolute inset-y-0 left-0 flex flex-col justify-between py-1.5">
-          {sources.map((s, i) => (
-            <motion.span
-              key={s}
-              initial={{ opacity: 0, x: -6 }}
-              animate={isRevealed ? { opacity: 1, x: 0 } : { opacity: 0, x: -6 }}
-              transition={{ duration: 0.4, delay: 0.05 + i * 0.08 }}
-              className="rounded-md border bg-white px-1.5 py-0.5 text-[0.55rem] font-bold tracking-wider"
-              style={{ borderColor: `${accent}55`, color: accent }}
-            >
-              {s}
-            </motion.span>
-          ))}
+      <div className="rounded-md border border-black/[0.06] bg-white p-1.5">
+        <div className="flex items-center gap-1 mb-1.5">
+          <div className="h-1 w-1 rounded-full bg-red-300/70" />
+          <div className="h-1 w-1 rounded-full bg-yellow-300/70" />
+          <div className="h-1 w-1 rounded-full bg-green-300/70" />
+          <div className="ml-1 flex-1 rounded-sm bg-slate-100 px-1 py-0.5 text-[0.45rem] font-mono text-black/40">
+            yoursite.de
+          </div>
         </div>
+
+        {/* Hero */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.6 }}
-          animate={isRevealed ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.6 }}
-          transition={{ duration: 0.5, delay: 0.9 }}
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-md px-2.5 py-1 text-[0.65rem] font-bold tracking-widest text-white"
-          style={{ backgroundColor: accent }}
+          initial={{ opacity: 0 }}
+          animate={isRevealed ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="rounded p-2"
+          style={{ background: `linear-gradient(to bottom right, ${accent}10, transparent 70%)` }}
         >
-          GOV
+          <motion.div
+            initial={{ width: 0 }}
+            animate={isRevealed ? { width: "60%" } : { width: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
+            className="h-1.5 rounded-full"
+            style={{ backgroundColor: accent }}
+          />
+          <motion.div
+            initial={{ width: 0 }}
+            animate={isRevealed ? { width: "40%" } : { width: 0 }}
+            transition={{ duration: 0.5, delay: 0.55 }}
+            className="mt-1 h-0.5 rounded-full"
+            style={{ backgroundColor: `${accent}66` }}
+          />
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={isRevealed ? { scale: 1 } : { scale: 0 }}
+            transition={{ duration: 0.4, delay: 0.85 }}
+            className="mt-1.5 inline-flex h-2.5 w-10 origin-left rounded-sm"
+            style={{ backgroundColor: accent }}
+          />
         </motion.div>
-        <div className="pointer-events-none absolute inset-y-0 right-0 flex flex-col justify-between py-1.5">
-          {targets.map((tg, i) => (
-            <motion.span
-              key={tg}
-              initial={{ opacity: 0, x: 6 }}
-              animate={isRevealed ? { opacity: 1, x: 0 } : { opacity: 0, x: 6 }}
-              transition={{ duration: 0.4, delay: 0.5 + i * 0.08 }}
-              className="rounded-md border bg-white px-1.5 py-0.5 text-[0.55rem] font-bold tracking-wider"
-              style={{ borderColor: `${accent}55`, color: accent }}
+
+        {/* Card row */}
+        <div className="mt-1.5 grid grid-cols-3 gap-1">
+          {[0, 1, 2].map((i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 4 }}
+              animate={isRevealed ? { opacity: 1, y: 0 } : { opacity: 0, y: 4 }}
+              transition={{ duration: 0.3, delay: 1.0 + i * 0.06 }}
+              className="rounded-sm bg-slate-100 p-1"
             >
-              {tg}
-            </motion.span>
+              <div className="h-2 rounded-sm bg-slate-200" />
+              <div className="mt-0.5 h-0.5 w-full rounded-full bg-slate-300" />
+            </motion.div>
           ))}
         </div>
       </div>
@@ -572,105 +598,78 @@ function MobileGovernanceVisual({
 }
 
 function MobileMLVisual({ isRevealed, accent }: { isRevealed: boolean; accent: string }) {
-  const layers = [
-    [0.25, 0.5, 0.75],
-    [0.18, 0.4, 0.6, 0.82],
-    [0.35, 0.65],
+  const services = [
+    { label: "App", x: 0.18 },
+    { label: "DB", x: 0.5 },
+    { label: "API", x: 0.82 },
   ]
-  const xCols = [0.12, 0.5, 0.88]
-  const edges: { x1: number; y1: number; x2: number; y2: number; key: string }[] = []
-  layers[0].forEach((y1, i) =>
-    layers[1].forEach((y2, j) =>
-      edges.push({ x1: xCols[0], y1, x2: xCols[1], y2, key: `e0-${i}-${j}` }),
-    ),
-  )
-  layers[1].forEach((y1, i) =>
-    layers[2].forEach((y2, j) =>
-      edges.push({ x1: xCols[1], y1, x2: xCols[2], y2, key: `e1-${i}-${j}` }),
-    ),
-  )
+  const cloudX = 0.5
 
   return (
     <MobileVisualShell
       accent={accent}
-      label="Model Inference"
+      label="Azure Topology"
       badge={
         <motion.div
           initial={{ opacity: 0 }}
           animate={isRevealed ? { opacity: 1 } : { opacity: 0 }}
           transition={{ duration: 0.4, delay: 1.0 }}
-          className="flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-2 py-0.5"
+          className="flex items-center gap-1 rounded-full px-2 py-0.5"
+          style={{ backgroundColor: `${accent}1F`, color: accent }}
         >
-          <motion.span
-            className="h-1.5 w-1.5 rounded-full"
-            style={{ backgroundColor: accent, boxShadow: `0 0 6px ${accent}` }}
-            animate={{ opacity: [1, 0.4, 1] }}
-            transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-          />
-          <span className="text-[0.55rem] font-mono font-semibold tracking-[0.18em] text-black/55">
-            LIVE
-          </span>
+          <span className="text-[0.6rem] font-semibold tracking-wide">compliant</span>
         </motion.div>
       }
     >
-      <div className="relative aspect-[12/3] w-full">
-        <svg
-          viewBox="0 0 100 25"
-          className="absolute inset-0 h-full w-full"
-        >
-          {edges.map((e, i) => (
-            <motion.line
-              key={`${e.key}-${isRevealed}`}
-              x1={e.x1 * 100}
-              y1={e.y1 * 25}
-              x2={e.x2 * 100}
-              y2={e.y2 * 25}
-              stroke="#94A3B8"
-              strokeWidth="0.4"
+      <div className="relative aspect-[10/3] w-full">
+        <svg viewBox="0 0 100 30" className="absolute inset-0 h-full w-full">
+          {services.map((svc, i) => (
+            <motion.path
+              key={`l-${i}`}
+              d={`M ${cloudX * 100} 8 C ${cloudX * 100} 14, ${svc.x * 100} 18, ${svc.x * 100} 22`}
+              fill="none"
+              stroke={accent}
+              strokeOpacity="0.5"
+              strokeWidth="0.5"
               strokeLinecap="round"
-              initial={{ pathLength: 0, opacity: 0.25 }}
-              animate={
-                isRevealed
-                  ? { pathLength: 1, opacity: [0.25, 0.7, 0.25] }
-                  : { pathLength: 0, opacity: 0.25 }
-              }
-              transition={{
-                pathLength: { duration: 0.6, delay: 0.1 + (i % 4) * 0.05, ease: "easeOut" },
-                opacity: {
-                  duration: 2.4,
-                  repeat: Infinity,
-                  delay: 0.8 + ((i * 0.13) % 1.6),
-                  ease: "easeInOut",
-                },
-              }}
+              initial={{ pathLength: 0 }}
+              animate={isRevealed ? { pathLength: 1 } : { pathLength: 0 }}
+              transition={{ duration: 0.7, delay: 0.3 + i * 0.1 }}
             />
           ))}
-          {layers.map((col, ci) =>
-            col.map((y, ri) => (
-              <motion.circle
-                key={`n-${ci}-${ri}`}
-                cx={xCols[ci] * 100}
-                cy={y * 25}
-                r="1.2"
-                fill={ci === 1 ? accent : "#fff"}
-                stroke={accent}
-                strokeWidth={ci === 1 ? 0 : 0.4}
-                initial={{ opacity: 0, scale: 0.5 }}
-                animate={isRevealed ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }}
-                transition={{ duration: 0.35, delay: 0.05 + ci * 0.15 + ri * 0.05 }}
-              />
-            )),
-          )}
         </svg>
+
+        {/* Azure cloud node (center top) */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.6 }}
+          animate={isRevealed ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.6 }}
+          transition={{ duration: 0.4, delay: 0.1 }}
+          className="absolute left-1/2 top-[8%] -translate-x-1/2 rounded-md px-3 py-1 text-[0.65rem] font-bold tracking-widest text-white"
+          style={{ backgroundColor: accent }}
+        >
+          AZURE
+        </motion.div>
+
+        {/* Service pills */}
+        {services.map((svc, i) => (
+          <motion.div
+            key={svc.label}
+            initial={{ opacity: 0, scale: 0.5 }}
+            animate={isRevealed ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.5 }}
+            transition={{ duration: 0.4, delay: 0.7 + i * 0.08 }}
+            className="absolute -translate-x-1/2 -translate-y-1/2 rounded-md border bg-white px-2 py-0.5 text-[0.55rem] font-bold tracking-wider"
+            style={{
+              left: `${svc.x * 100}%`,
+              top: "78%",
+              borderColor: `${accent}55`,
+              color: accent,
+            }}
+          >
+            {svc.label}
+          </motion.div>
+        ))}
       </div>
-      <div className="mt-2 flex items-center justify-between border-t border-black/[0.06] pt-2">
-        <span className="text-[0.5rem] font-semibold uppercase tracking-[0.22em] text-black/40">
-          Confidence
-        </span>
-        <span className="font-mono text-sm font-semibold" style={{ color: accent }}>
-          <CountUp to={0.89} isRevealed={isRevealed} duration={1.4} decimals={2} />
-        </span>
-      </div>
+
     </MobileVisualShell>
   )
 }
@@ -692,7 +691,7 @@ function MobileServiceDetailsSheet({
   accent: string
   dict: any
 }) {
-  const t = dict.servicesAnalytics.portfolio
+  const t = dict.servicesApps.portfolio
   const lenis = useLenis()
 
   useEffect(() => {
@@ -871,7 +870,7 @@ function StageTextLayer({
   activeIndex: number
 }) {
   const item = items[activeIndex]
-  const Icon = ICONS[activeIndex] ?? BarChart3
+  const Icon = ICONS[activeIndex] ?? AppWindow
   const accent = STRAND_COLORS[activeIndex] ?? STRAND_COLORS[0]
 
   return (
@@ -925,11 +924,11 @@ function ScrollytellingStage({
   dict: any
   onOpenDetails: (index: number) => void
 }) {
-  const t = dict.servicesAnalytics.portfolio
+  const t = dict.servicesApps.portfolio
   const activeAccent = STRAND_COLORS[activeIndex] ?? STRAND_COLORS[0]
   return (
     <div className="sticky top-16 flex h-[calc(100vh-4rem)] max-h-[560px] w-full flex-col">
-      <div className="flex flex-1 flex-col gap-4 px-5 pb-5 pt-4">
+      <div className="flex flex-1 flex-col gap-6 px-5 pb-5 pt-4">
         <StageProgressRail progress={progress} activeIndex={activeIndex} />
         <StageVisualLayer progress={progress} sectionRevealed={sectionRevealed} />
         <StageTextLayer items={items} activeIndex={activeIndex} />
@@ -966,11 +965,11 @@ function MobileFallbackStack({
   dict: any
   onOpenDetails: (index: number) => void
 }) {
-  const t = dict.servicesAnalytics.portfolio
+  const t = dict.servicesApps.portfolio
   return (
     <div className="flex flex-col gap-6 px-4 sm:px-6">
       {items.map((item, i) => {
-        const Icon = ICONS[i] ?? BarChart3
+        const Icon = ICONS[i] ?? AppWindow
         const accent = STRAND_COLORS[i] ?? STRAND_COLORS[0]
         const Visual = MOBILE_VISUALS[i] ?? MobileBIVisual
         return (
@@ -1102,11 +1101,11 @@ function BookCircleButton({ label, size = "lg" }: { label: string; size?: "lg" |
       href="#book"
       aria-label={label}
       title={label}
-      className={`group relative inline-flex ${dimensions} items-center justify-center rounded-full bg-[#21569c] text-white shadow-[0_18px_36px_rgba(33,86,156,0.32)] transition-all duration-300 hover:scale-105 hover:bg-[#1a457d] hover:shadow-[0_22px_48px_rgba(33,86,156,0.45)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#21569c]/30`}
+      className={`group relative inline-flex ${dimensions} items-center justify-center rounded-full bg-[#F703EB] text-white shadow-[0_18px_36px_rgba(247,3,235,0.32)] transition-all duration-300 hover:scale-105 hover:bg-[#C601BC] hover:shadow-[0_22px_48px_rgba(247,3,235,0.45)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#F703EB]/30`}
     >
       <motion.span
         aria-hidden="true"
-        className="absolute inset-0 rounded-full border border-[#21569c]/40"
+        className="absolute inset-0 rounded-full border border-[#F703EB]/40"
         initial={{ scale: 1, opacity: 0.6 }}
         animate={{ scale: [1, 1.18, 1], opacity: [0.6, 0, 0.6] }}
         transition={{ duration: 2.6, repeat: Infinity, ease: "easeOut" }}
@@ -1132,9 +1131,9 @@ function RowText({
   alignRight: boolean
 }) {
   const [isOpen, setIsOpen] = useState(false)
-  const Icon = ICONS[index] ?? BarChart3
+  const Icon = ICONS[index] ?? AppWindow
   const accent = STRAND_COLORS[index]
-  const t = dict.servicesAnalytics.portfolio
+  const t = dict.servicesApps.portfolio
 
   return (
     <div className={alignRight ? "md:text-right" : ""}>
@@ -1187,7 +1186,7 @@ function RowText({
         <button
           type="button"
           onClick={() => setIsOpen((o) => !o)}
-          className="group inline-flex items-center gap-2 text-sm font-medium text-[#21569c] hover:text-[#1a457d] transition-colors"
+          className="group inline-flex items-center gap-2 text-sm font-medium text-[#F703EB] hover:text-[#C601BC] transition-colors"
           aria-expanded={isOpen}
         >
           {isOpen ? t.learnLess : t.learnMore}
@@ -1204,7 +1203,7 @@ function RowText({
 // Main section
 // ---------------------------------------------------------------------------
 export default function PortfolioSection({ dict }: { dict: any }) {
-  const portfolio = dict.servicesAnalytics.portfolio
+  const portfolio = dict.servicesApps.portfolio
   const items: any[] = portfolio.items ?? []
 
   const heading = useRevealOnScroll<HTMLDivElement>()
@@ -1226,9 +1225,9 @@ export default function PortfolioSection({ dict }: { dict: any }) {
           ref={heading.ref}
           className={`text-center mb-10 sm:mb-12 md:mb-16 reveal-fade-up ${heading.isRevealed ? "revealed" : ""}`}
         >
-          <span className="section-eyebrow justify-center">{dict.servicesAnalytics.eyebrows?.portfolio}</span>
+          <span className="section-eyebrow justify-center">{dict.servicesApps.eyebrows?.portfolio}</span>
           <h2 className="font-serif text-[2.2rem] sm:text-[2.4rem] md:text-[3rem] leading-[1.1] tracking-tight text-black">
-            {portfolio.title} <span className="text-[#21569c]">{portfolio.titleHighlight}</span>
+            {portfolio.title} <span className="text-[#F703EB]">{portfolio.titleHighlight}</span>
           </h2>
           <p className="mt-3 sm:mt-4 md:mt-6 text-[0.9rem] sm:text-base md:text-lg leading-relaxed text-black/60 max-w-[60ch] mx-auto">
             {portfolio.subtitle}

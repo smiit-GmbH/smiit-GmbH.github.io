@@ -282,6 +282,161 @@ const dictionaries = {
         secondaryButton: "Kontakt aufnehmen",
       },
     },
+    servicesApps: {
+      eyebrows: {
+        hero: "APPS & WORKFLOWS",
+        portfolio: "WAS WIR TUN",
+        process: "UNSER VORGEHEN",
+        reviews: "STIMMEN",
+      },
+      hero: {
+        title: "Workflows verstehen. Apps bauen. Teams entlasten.",
+        description:
+          "Wir entwickeln individuelle Web-Apps, die Ihre Prozesse abbilden und Systeme verbinden – damit Ihr Team weniger klickt, sucht und wartet, und mehr liefert.",
+        primaryCta: "Ideen jetzt besprechen",
+        appName: "OperationsHub",
+        pageTitle: "Dashboard",
+        searchPlaceholder: "Suche…",
+        createNewLabel: "Neuer Auftrag",
+        avatarInitials: "JM",
+        teamActiveLabel: "Team aktiv",
+        updated: "Sync vor 2 Min.",
+        views: { today: "Heute", week: "Woche", month: "Monat" },
+        navItems: {
+          dashboard: "Dashboard",
+          orders: "Aufträge",
+          customers: "Kunden",
+          inventory: "Lager",
+          reports: "Berichte",
+          settings: "Einstellungen",
+        },
+        sections: {
+          stats: "Kennzahlen",
+          pipeline: "Auftragspipeline",
+          pipelineSub: "Live · alle Phasen sichtbar",
+          activity: "Live-Aktivität",
+          tasks: "Offene Aufgaben",
+        },
+        statLabels: {
+          orders: "Bestellungen",
+          customers: "Aktive Kunden",
+          tasks: "Offene Aufgaben",
+          revenue: "Umsatz",
+        },
+        statDeltas: {
+          orders: "vs. gestern",
+          customers: "vs. gestern",
+          tasks: "vs. gestern",
+          revenue: "vs. gestern",
+        },
+        pipelineColumns: {
+          incoming: "Eingang",
+          active: "In Arbeit",
+          done: "Erledigt",
+        },
+        taskPriorityLabels: {
+          high: "Hoch",
+          med: "Mittel",
+          low: "Niedrig",
+        },
+      },
+      reviewsHeading: {
+        lead: "Was unsere",
+        highlight: "Kunden sagen",
+      },
+      reviews: [
+        {
+          id: 3,
+          name: "Claimity AG",
+          subtitle: "SaaS-Plattform für die Versicherungsbranche",
+          quote:
+            "Von der Idee zur fertigen SaaS-Plattform in Rekordzeit. Das Team von smiit hat unsere Vision perfekt umgesetzt und technisch exzellent realisiert.",
+          metric: "6 Wochen",
+          metricSub: "von der Idee zur SaaS-Plattform",
+        },
+        {
+          id: 7,
+          name: "Bitix Media GmbH",
+          subtitle: "Individuelle Verkaufs-App mit Live-Steuerung",
+          quote:
+            "Die individuelle App von smiit wickelt unseren gesamten Verkaufsprozess ab. Wir steuern Aktionen live und sehen sofort, wann, was und wie viel von einem Produkt bestellt und bezahlt wurde.",
+          metric: "1 App",
+          metricSub: "Verkauf End-to-End",
+        },
+        {
+          id: 4,
+          name: "RB Westkamp GmbH",
+          subtitle: "Mitarbeiter-App für Zieltransparenz",
+          quote:
+            "smiit hat für uns eine Web App für unsere Mitarbeitenden entwickelt. Heute sehen unsere Mitarbeiter auf Knopfdruck, welche Ziele sie bereits erreicht haben und welches Potenzial sie noch ausschöpfen können. So haben wir unseren Vertrieb noch effizienter gestalten können.",
+          metric: "Live",
+          metricSub: "Vertriebsziele auf Knopfdruck",
+        },
+      ],
+      manifest: {
+        lead: "Software soll arbeiten.",
+        emphasis: "Nicht beschäftigen.",
+      },
+      portfolio: {
+        title: "Unser",
+        titleHighlight: "Angebot",
+        subtitle: "Wir bauen Web-Apps, Websites und Azure-Setups, die Ihre Workflows tragen – von der ersten Skizze bis zum stabilen Betrieb.",
+        learnMore: "Mehr erfahren",
+        learnLess: "Weniger anzeigen",
+        bookCta: "Gespräch vereinbaren",
+        items: [
+          {
+            title: "Web Applikationen & Plattformen",
+            shortDesc: "Wir bauen individuelle Web-Apps und Plattformen, die Ihre Workflows abbilden, Systeme über APIs verbinden und Anwendern wirklich Arbeit abnehmen. So entstehen digitale Werkzeuge, die im Alltag funktionieren – nicht nur in der Demo.",
+            details: "Wir entwickeln moderne Web-Anwendungen und SaaS-Plattformen entlang Ihres tatsächlichen Bedarfs – vom internen Tool bis zur Multi-Tenant-Lösung. Dabei verbinden wir bestehende Systeme über APIs, integrieren Authentifizierung und Berechtigungen sauber und sorgen dafür, dass Ihre App auch unter Last performt.\n\nTechnologisch setzen wir auf Next.js, React und .NET – mit klaren Architekturen, automatisierten Tests und CI/CD-Pipelines. So entstehen Anwendungen, die nicht nur in der ersten Version glänzen, sondern langfristig wartbar, sicher und skalierbar bleiben."
+          },
+          {
+            title: "Websites & Design",
+            shortDesc: "Wir gestalten und entwickeln Websites, die Ihre Marke ernst nehmen – schnell, klar strukturiert und auf Conversion ausgelegt. Ein Auftritt, der Vertrauen schafft, statt nur gut auszusehen.",
+            details: "Von der ersten Skizze bis zum Go-Live: Wir entwerfen und bauen Websites, die Inhalte sauber führen, mobile-first gedacht sind und auf SEO, Performance und Barrierefreiheit achten. Dabei orientieren wir uns an Ihrer Markenidentität und sorgen für ein konsistentes visuelles System – von Typografie über Farbe bis Komponenten.\n\nTechnisch arbeiten wir mit Next.js und Headless-CMS, sodass Ihr Team Inhalte selbständig pflegen kann, ohne auf Entwickler angewiesen zu sein. Das Ergebnis: ein digitaler Auftritt, der nicht nur am Launch-Tag stark ist, sondern mit Ihrem Geschäft mitwächst."
+          },
+          {
+            title: "Cloud Infrastruktur & Governance",
+            shortDesc: "Wir bauen Ihre Cloud-Umgebung auf Microsoft Azure – sicher, kosteneffizient und nachvollziehbar. Eine Infrastruktur, die mit Ihrem Geschäft skaliert und Compliance-Anforderungen mühelos erfüllt.",
+            details: "Wir konzipieren und betreiben Cloud-Architekturen auf Microsoft Azure – von Landing Zones über Identitäten und Netzwerk bis hin zu CI/CD-Pipelines und Observability. Dabei achten wir auf eine klare Governance-Struktur, sodass Ressourcen, Kosten und Berechtigungen jederzeit transparent bleiben.\n\nSchwerpunkte sind Infrastructure-as-Code mit Bicep oder Terraform, Sicherheits-Baselines nach dem Microsoft Cloud Adoption Framework und wartbare Deployment-Prozesse. So entsteht eine Azure-Umgebung, die nicht nur technisch sauber ist, sondern auch organisatorisch trägt – für stabile Apps, klare Verantwortlichkeiten und planbare Cloud-Kosten."
+          }
+        ]
+      },
+      process: {
+        title: "So machen wir aus Ihren Workflows",
+        titleHighlight: "produktive Apps.",
+        subtitle: "Vier klare Schritte – von der ersten Idee bis zum produktiven Betrieb.",
+        steps: [
+          {
+            number: "01",
+            title: "Verstehen",
+            text: "Wir analysieren Workflows, Anwender und Systemumgebung – und identifizieren, wo eine eigene App den größten Hebel bringt.",
+          },
+          {
+            number: "02",
+            title: "Konzipieren",
+            text: "Wir entwerfen UX, Datenfluss und Architektur – abgestimmt auf Ihre Anwender, vorhandene Systeme und Skalierungsziele.",
+          },
+          {
+            number: "03",
+            title: "Umsetzen",
+            text: "Wir entwickeln, integrieren und testen – iterativ, mit kurzen Feedbackzyklen und sauberer Übergabe.",
+          },
+          {
+            number: "04",
+            title: "Befähigen",
+            text: "Wir rollen aus, schulen Ihr Team und betreuen die App im Betrieb – mit klaren SLAs und einer Roadmap für die Weiterentwicklung.",
+          },
+        ],
+      },
+      cta: {
+        title: "Wie viele Stunden würde Ihr Team zurückgewinnen, wenn die Routine",
+        titleHighlight: "sich selbst erledigt?",
+        subtitle: "30 Minuten Erstgespräch. Kostenlos. Unverbindlich. Sie erfahren, wo sich Ihre größten Routinekiller automatisieren lassen — auch wenn wir am Ende nicht zusammenarbeiten.",
+        primaryButton: "Kostenloses Erstgespräch",
+        secondaryButton: "Kontakt aufnehmen",
+      },
+    },
     customerCards: [
       {
         id: 1,
@@ -870,6 +1025,161 @@ const dictionaries = {
       cta: {
         title: "What would change if your data finally started talking to each other?",
         subtitle: "30-minute intro call. Free. No strings attached. You'll find out where your biggest lever is — even if we don't end up working together.",
+        primaryButton: "Free Consultation",
+        secondaryButton: "Contact Us",
+      },
+    },
+    servicesApps: {
+      eyebrows: {
+        hero: "APPS & WORKFLOWS",
+        portfolio: "WHAT WE DO",
+        process: "HOW WE WORK",
+        reviews: "VOICES",
+      },
+      hero: {
+        title: "Understand workflows. Build apps. Free your team.",
+        description:
+          "We build custom web apps that map your processes and connect your systems – so your team clicks less, searches less, waits less, and delivers more.",
+        primaryCta: "Let's talk about your idea",
+        appName: "OperationsHub",
+        pageTitle: "Dashboard",
+        searchPlaceholder: "Search…",
+        createNewLabel: "New order",
+        avatarInitials: "JM",
+        teamActiveLabel: "Team active",
+        updated: "Synced 2 min ago",
+        views: { today: "Today", week: "Week", month: "Month" },
+        navItems: {
+          dashboard: "Dashboard",
+          orders: "Orders",
+          customers: "Customers",
+          inventory: "Inventory",
+          reports: "Reports",
+          settings: "Settings",
+        },
+        sections: {
+          stats: "Key metrics",
+          pipeline: "Order pipeline",
+          pipelineSub: "Live · all stages visible",
+          activity: "Live activity",
+          tasks: "Open tasks",
+        },
+        statLabels: {
+          orders: "Orders",
+          customers: "Active customers",
+          tasks: "Open tasks",
+          revenue: "Revenue",
+        },
+        statDeltas: {
+          orders: "vs. yesterday",
+          customers: "vs. yesterday",
+          tasks: "vs. yesterday",
+          revenue: "vs. yesterday",
+        },
+        pipelineColumns: {
+          incoming: "Inbox",
+          active: "In progress",
+          done: "Done",
+        },
+        taskPriorityLabels: {
+          high: "High",
+          med: "Medium",
+          low: "Low",
+        },
+      },
+      reviewsHeading: {
+        lead: "What our",
+        highlight: "clients say",
+      },
+      reviews: [
+        {
+          id: 3,
+          name: "Claimity AG",
+          subtitle: "SaaS Platform for the Insurance Industry",
+          quote:
+            "From idea to finished SaaS platform in record time. The smiit team brought our vision to life with technical excellence.",
+          metric: "6 weeks",
+          metricSub: "from idea to SaaS platform",
+        },
+        {
+          id: 7,
+          name: "Bitix Media GmbH",
+          subtitle: "Custom Sales App with Live Control",
+          quote:
+            "smiit's custom app handles our entire sales process. We steer campaigns live and instantly see when, what and how much of a product was ordered and paid.",
+          metric: "1 App",
+          metricSub: "End-to-End Sales",
+        },
+        {
+          id: 4,
+          name: "RB Westkamp GmbH",
+          subtitle: "Employee App for Goal Transparency",
+          quote:
+            "smiit built a web app for our employees. Today our team sees at the touch of a button which goals they've already reached and what potential is still untapped. This has made our sales operation even more efficient.",
+          metric: "Live",
+          metricSub: "Sales Goals at a Tap",
+        },
+      ],
+      manifest: {
+        lead: "Software should do the work.",
+        emphasis: "Not be the work.",
+      },
+      portfolio: {
+        title: "Our",
+        titleHighlight: "Offering",
+        subtitle: "We build web apps, websites and Azure setups that carry your workflows – from the first sketch to stable operations.",
+        learnMore: "Learn more",
+        learnLess: "Show less",
+        bookCta: "Schedule a call",
+        items: [
+          {
+            title: "Web Apps & Platforms",
+            shortDesc: "We build custom web apps and platforms that map your workflows, connect systems through APIs, and genuinely take work off your users' shoulders. Digital tools that work in daily use – not just in the demo.",
+            details: "We develop modern web applications and SaaS platforms tailored to your actual needs – from internal tools to multi-tenant solutions. We connect existing systems through APIs, integrate authentication and permissions cleanly, and ensure your app performs under load.\n\nTechnologically we work with Next.js, React and .NET – with clean architectures, automated tests and CI/CD pipelines. The result: applications that don't just shine in their first version but stay maintainable, secure and scalable long-term."
+          },
+          {
+            title: "Websites & Design",
+            shortDesc: "We design and build websites that take your brand seriously – fast, clearly structured and conversion-oriented. A presence that builds trust, not just one that looks good.",
+            details: "From the first sketch to go-live: we design and build websites that lead content cleanly, are mobile-first by design, and pay attention to SEO, performance and accessibility. We align with your brand identity and ensure a consistent visual system – from typography to color to components.\n\nTechnically we work with Next.js and headless CMS, so your team can maintain content independently without depending on developers. The result: a digital presence that's not only strong on launch day but grows with your business."
+          },
+          {
+            title: "Cloud Infrastructure & Governance",
+            shortDesc: "We build your cloud environment on Microsoft Azure – secure, cost-efficient and traceable. An infrastructure that scales with your business and meets compliance requirements effortlessly.",
+            details: "We design and operate cloud architectures on Microsoft Azure – from landing zones to identities and networking, all the way to CI/CD pipelines and observability. We ensure a clear governance structure, so resources, costs and permissions remain transparent at all times.\n\nFocus areas include Infrastructure-as-Code with Bicep or Terraform, security baselines based on the Microsoft Cloud Adoption Framework, and maintainable deployment processes. The result: an Azure environment that's not only technically clean but also organizationally sound – for stable apps, clear responsibilities and predictable cloud costs."
+          }
+        ]
+      },
+      process: {
+        title: "How we turn your workflows into",
+        titleHighlight: "productive apps.",
+        subtitle: "Four clear steps – from the first idea to productive operations.",
+        steps: [
+          {
+            number: "01",
+            title: "Understand",
+            text: "We map workflows, users and your system landscape – and pinpoint where a custom app delivers the biggest impact.",
+          },
+          {
+            number: "02",
+            title: "Design",
+            text: "We design UX, data flow and architecture – tailored to your users, existing systems and scaling goals.",
+          },
+          {
+            number: "03",
+            title: "Build",
+            text: "We build, integrate and test – iteratively, with short feedback cycles and a clean handover.",
+          },
+          {
+            number: "04",
+            title: "Enable",
+            text: "We roll out, train your team and run the app in production – with clear SLAs and a roadmap for what's next.",
+          },
+        ],
+      },
+      cta: {
+        title: "How many hours would your team get back if",
+        titleHighlight: "routine ran itself?",
+        subtitle: "30-minute intro call. Free. No strings attached. You'll find out where your biggest routine-killers can be automated — even if we don't end up working together.",
         primaryButton: "Free Consultation",
         secondaryButton: "Contact Us",
       },

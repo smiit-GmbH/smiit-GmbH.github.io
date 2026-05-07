@@ -86,7 +86,7 @@ function KineticLine({
 }
 
 export default function ManifestBand({ dict }: ManifestBandProps) {
-  const manifest = dict?.servicesAnalytics?.manifest
+  const manifest = dict?.servicesApps?.manifest
 
   const containerRef = useRef<HTMLElement>(null)
   const shouldReduceMotion = useReducedMotion()
@@ -109,7 +109,7 @@ export default function ManifestBand({ dict }: ManifestBandProps) {
     <section
       ref={containerRef}
       data-header-tone="dark"
-      className="relative overflow-hidden bg-[#0B162D] text-white lg:min-h-[90vh]"
+      className="relative overflow-hidden bg-[#1A1719] text-white lg:min-h-[90vh]"
     >
       {/* Soft curve transition from portfolio (white) into manifest-band (dark) */}
       <svg
@@ -123,12 +123,6 @@ export default function ManifestBand({ dict }: ManifestBandProps) {
           fill="#F3F3EE"
         />
       </svg>
-
-      {/* Slow drifting glow */}
-      <div
-        aria-hidden
-        className="manifest-glow pointer-events-none absolute left-1/2 top-1/2 -z-0 h-[110%] w-[80%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,_rgba(33,86,156,0.45),_transparent_60%)] blur-3xl"
-      />
 
       {/* Subtle grid texture */}
       <div
@@ -154,7 +148,7 @@ export default function ManifestBand({ dict }: ManifestBandProps) {
                 reduceMotion={reduceMotion}
               />
             </h2>
-            <h2 className="mt-2 font-serif italic text-[2rem] leading-[1.05] tracking-tight text-[#7DBBFF] sm:text-[2.6rem] md:text-[3.2rem]">
+            <h2 className="mt-2 font-serif italic text-[2rem] leading-[1.05] tracking-tight text-[#FA85F4] sm:text-[2.6rem] md:text-[3.2rem]">
               <KineticLine
                 text={manifest?.emphasis ?? ""}
                 scrollYProgress={scrollYProgress}
@@ -179,7 +173,7 @@ export default function ManifestBand({ dict }: ManifestBandProps) {
               style={usesMotion ? { opacity: emphasisOpacity, y: emphasisY } : undefined}
               className="mt-2 font-serif text-[2rem] leading-[1.05] tracking-tight sm:text-[2.6rem] md:text-[3.2rem] lg:text-[3.8rem] xl:text-[4.4rem]"
             >
-              <span className="bg-gradient-to-r from-white via-[#cfe2ff] to-[#7DBBFF] bg-clip-text italic text-transparent">
+              <span className="bg-gradient-to-r from-white via-[#FDD0F9] to-[#FA85F4] bg-clip-text italic text-transparent">
                 {manifest?.emphasis}
               </span>
             </motion.h2>

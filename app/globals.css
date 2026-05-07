@@ -379,6 +379,14 @@
   background: linear-gradient(to right, transparent, #21569c);
 }
 
+/* Per-page accent overrides for the section eyebrow */
+[data-page="apps"] .section-eyebrow {
+  color: #F703EB;
+}
+[data-page="apps"] .section-eyebrow::before {
+  background: linear-gradient(to right, transparent, #F703EB);
+}
+
 /* Hero scroll-indicator pulse */
 @keyframes hero-scroll-pulse {
   0%, 100% { transform: translateY(0); opacity: 0.45; }

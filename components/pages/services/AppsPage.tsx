@@ -16,7 +16,7 @@ export default function AppsPage({
   dict: any
 }) {
   return (
-    <main>
+    <main data-page="apps">
       <HeroSection lang={lang} dict={dict} />
       <PortfolioSection dict={dict} />
       <ManifestBand dict={dict} />

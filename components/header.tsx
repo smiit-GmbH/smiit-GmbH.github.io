@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/sheet"
 import { LanguageSwitcher } from "@/components/language-switcher"
 
-const DARK_HERO_PATHS = ["/products/smiit-analytics", "/services/analytics"]
+const DARK_HERO_PATHS = ["/products/smiit-analytics", "/services/analytics", "/services/apps", "/services/strategy"]
 
 export default function Header({ forceLang, darkHero: darkHeroProp }: { forceLang?: string; darkHero?: boolean }) {
   const [isProductsOpen, setIsProductsOpen] = useState(false)
