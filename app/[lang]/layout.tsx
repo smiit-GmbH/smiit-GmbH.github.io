@@ -1,5 +1,5 @@
 import type React from "react"
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import { Geist, Geist_Mono, Playfair_Display } from "next/font/google"
 import "../globals.css"
 import Footer from "@/components/footer"
@@ -39,6 +39,15 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
   })
 }
 
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
+    { media: "(prefers-color-scheme: dark)", color: "#0B162D" },
+  ],
+  width: "device-width",
+  initialScale: 1,
+}
+
 export async function generateStaticParams() {
   return [{ lang: "de" }, { lang: "en" }]
 }
@@ -64,6 +73,17 @@ const organizationJsonLd = {
     { "@type": "Person", name: "Sebastian Grab" },
     { "@type": "Person", name: "Noah Neßlauer" },
   ],
+  contactPoint: [
+    {
+      "@type": "ContactPoint",
+      contactType: "customer support",
+      email: "kontakt@smiit.de",
+      telephone: "+49 160 4073198",
+      areaServed: ["DE", "AT", "CH"],
+      availableLanguage: ["German", "English"],
+    },
+  ],
+  sameAs: ["https://www.linkedin.com/company/smiit-gmbh/"],
 }
 
 const localBusinessJsonLd = {
@@ -71,7 +91,7 @@ const localBusinessJsonLd = {
   "@type": "ProfessionalService",
   name: SITE_NAME,
   url: SITE_URL,
-  image: `${SITE_URL}/og-image.png`,
+  image: `${SITE_URL}/og/home.png`,
   email: "kontakt@smiit.de",
   telephone: "+49 160 4073198",
   priceRange: "$$",

@@ -66,8 +66,7 @@ const FlipCard = memo(function FlipCard({
               {/* Image */}
               <Image
                 src={founder.image}
-                alt=""
-                aria-hidden="true"
+                alt={`${founder.name} – ${founder.role}`}
                 fill
                 className="object-cover object-top"
                 sizes="(max-width: 640px) 90vw, 360px"

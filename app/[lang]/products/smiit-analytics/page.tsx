@@ -1,7 +1,8 @@
 import type { Metadata } from "next"
 import { getDictionary, Locale } from "@/lib/dictionary"
 import SmiitAnalyticsPage from "@/components/pages/products/SmiitAnalyticsPage"
-import { buildPageMetadata } from "@/lib/seo"
+import { buildBreadcrumbJsonLd, buildPageMetadata, buildProductJsonLd } from "@/lib/seo"
+import { JsonLd } from "@/components/seo/json-ld"
 
 export async function generateStaticParams() {
   return [{ lang: "de" }, { lang: "en" }]
@@ -24,6 +25,7 @@ export async function generateMetadata({
       de: "smiit Analytics ist unsere fertige Analytics-Lösung mit vorgefertigten Dashboards und KPIs für den schnellen Einstieg.",
       en: "smiit Analytics is our ready-made analytics solution with pre-built dashboards and KPIs for a fast start.",
     },
+    ogImage: { url: "/og/products-smiit-analytics.png", width: 1200, height: 630, alt: "smiit Analytics" },
   })
 }
 
@@ -35,5 +37,25 @@ export default async function Page({
   const { lang } = await params
   const dict = getDictionary(lang)
 
-  return <SmiitAnalyticsPage lang={lang} dict={dict} />
+  const productJsonLd = buildProductJsonLd({
+    lang,
+    path: "products/smiit-analytics",
+    name: "smiit Analytics",
+    description: {
+      de: "Plug-and-Play Analytics-Lösung mit vorgefertigten Dashboards und KPIs für den Mittelstand.",
+      en: "Plug-and-play analytics solution with pre-built dashboards and KPIs for SMEs.",
+    },
+  })
+
+  const breadcrumbJsonLd = buildBreadcrumbJsonLd(lang, [
+    { name: "smiit Analytics", path: "products/smiit-analytics" },
+  ])
+
+  return (
+    <>
+      <JsonLd data={productJsonLd} />
+      <JsonLd data={breadcrumbJsonLd} />
+      <SmiitAnalyticsPage lang={lang} dict={dict} />
+    </>
+  )
 }

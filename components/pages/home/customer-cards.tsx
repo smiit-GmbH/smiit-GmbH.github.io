@@ -7,11 +7,11 @@ import { motion } from "framer-motion"
 import { useLenis } from "@/components/smooth-scroll-provider"
 
 const LOGOS: Record<number, string> = {
-  1: "/assets/logos/dy-project.png",
-  2: "/assets/logos/gb-logistics.png",
-  3: "/assets/logos/claimity.png",
-  4: "/assets/logos/rb-westkamp.png",
-  5: "/assets/logos/asw-engineering.png",
+  1: "/assets/logos/dy-project.webp",
+  2: "/assets/logos/gb-logistics.webp",
+  3: "/assets/logos/claimity.webp",
+  4: "/assets/logos/rb-westkamp.webp",
+  5: "/assets/logos/asw-engineering.webp",
 }
 
 interface CustomerCardsProps {
@@ -397,8 +397,7 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
                     <div className="relative h-5 w-7">
                       <Image
                         src={customer.logoSrc}
-                        alt=""
-                        aria-hidden="true"
+                        alt={`${customer.name} Logo`}
                         fill
                         sizes="28px"
                         className="object-contain"
@@ -481,8 +480,7 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
                         <div className="relative h-9 w-20 md:h-10 md:w-14">
                           <Image
                             src={customer.logoSrc}
-                            alt=""
-                            aria-hidden="true"
+                            alt={`${customer.name} Logo`}
                             fill
                             sizes="(min-width: 768px) 56px, 56px"
                             className="object-contain"

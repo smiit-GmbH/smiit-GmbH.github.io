@@ -5,7 +5,7 @@ const description =
   "Digitale Lösungen für Applikationen, Workflows, Datenanalyse und digitale Unternehmensstrategie — maßgeschneidert für den Mittelstand."
 
 const ogImage = {
-  url: "/og-image.png",
+  url: "/og/home.png",
   width: 1200,
   height: 630,
   alt: "smiit GmbH",

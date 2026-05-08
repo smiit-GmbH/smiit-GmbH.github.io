@@ -5,7 +5,7 @@ export const SITE_URL = "https://www.smiit.de"
 export const SITE_NAME = "smiit GmbH"
 
 const defaultOgImage = {
-  url: "/og-image.png",
+  url: "/og/home.png",
   width: 1200,
   height: 630,
   alt: "smiit GmbH",
@@ -22,6 +22,72 @@ type BuildPageMetadataInput = {
   ogImage?: { url: string; width: number; height: number; alt: string }
   /** If true, this page should not be indexed (e.g. redirect targets). */
   noindex?: boolean
+}
+
+type BreadcrumbItem = { name: string; path: string }
+
+export function buildBreadcrumbJsonLd(lang: Locale, items: BreadcrumbItem[]) {
+  const home = { name: lang === "de" ? "Start" : "Home", path: "" }
+  const all = [home, ...items]
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: all.map((item, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: item.name,
+      item: `${SITE_URL}/${lang}${item.path ? `/${item.path}` : ""}/`,
+    })),
+  }
+}
+
+type ServiceJsonLdInput = {
+  lang: Locale
+  path: string
+  name: LocalizedText
+  description: LocalizedText
+  serviceType?: LocalizedText
+}
+
+export function buildServiceJsonLd({ lang, path, name, description, serviceType }: ServiceJsonLdInput) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: name[lang],
+    description: description[lang],
+    serviceType: serviceType?.[lang],
+    url: `${SITE_URL}/${lang}/${path}/`,
+    provider: {
+      "@type": "Organization",
+      name: SITE_NAME,
+      url: SITE_URL,
+    },
+    areaServed: ["DE", "AT", "CH", "EU"],
+    inLanguage: lang === "de" ? "de-DE" : "en-US",
+  }
+}
+
+type ProductJsonLdInput = {
+  lang: Locale
+  path: string
+  name: string
+  description: LocalizedText
+  image?: string
+}
+
+export function buildProductJsonLd({ lang, path, name, description, image }: ProductJsonLdInput) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name,
+    description: description[lang],
+    image: image ?? `${SITE_URL}/og/home.png`,
+    url: `${SITE_URL}/${lang}/${path}/`,
+    brand: {
+      "@type": "Brand",
+      name: SITE_NAME,
+    },
+  }
 }
 
 export function buildPageMetadata({
@@ -52,6 +118,14 @@ export function buildPageMetadata({
     robots: noindex
       ? { index: false, follow: false }
       : { index: true, follow: true },
+    icons: {
+      icon: [
+        { url: "/favicon.ico", sizes: "any" },
+        { url: "/icon.png", type: "image/png" },
+      ],
+      apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
+    },
+    manifest: "/site.webmanifest",
     openGraph: {
       title: localizedTitle,
       description: localizedDescription,

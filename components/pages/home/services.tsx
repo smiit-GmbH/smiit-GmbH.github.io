@@ -2,10 +2,15 @@
 
 import React, { useCallback, useEffect, useRef, useState } from "react"
 import { motion, useInView, useReducedMotion, useScroll, useTransform, type MotionValue } from "framer-motion"
+import dynamic from "next/dynamic"
 import LocalizedLink from "../../localized-link"
-import { DotLottieReact } from "@lottiefiles/dotlottie-react"
 import { Button } from "@/components/ui/button"
 import { ChevronRight } from "lucide-react"
+
+const DotLottieReact = dynamic(
+  () => import("@lottiefiles/dotlottie-react").then((m) => m.DotLottieReact),
+  { ssr: false, loading: () => null },
+)
 
 interface ServicesProps {
   dict: any

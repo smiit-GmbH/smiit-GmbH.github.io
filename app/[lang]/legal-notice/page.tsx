@@ -113,25 +113,25 @@ export default async function LegalNoticePage({
             <div className="grid gap-10 md:grid-cols-2">
               <div>
                 <h2 className="font-serif text-xl md:text-3xl text-black tracking-tight">smiit GmbH</h2>
-                <p className="text-sm mt-4 text-black/80 leading-relaxed">
+                <address className="not-italic text-sm mt-4 text-black/80 leading-relaxed">
                   Reiherweg 96
                   <br />
                   89584 Ehingen
                   <br />
                   Deutschland
-                </p>
+                </address>
               </div>
 
               <div>
                 <h3 className="text-sm font-semibold tracking-wide uppercase text-black/70">{L.contact}</h3>
-                <div className="text-sm mt-4 space-y-2 text-black/80">
+                <address className="not-italic text-sm mt-4 space-y-2 text-black/80 block">
                   <p>
                     Telefon: <a className="underline" href="tel:+491604073198">+49 160 4073198</a>
                   </p>
                   <p>
                     Mail: <a className="underline" href="mailto:kontakt@smiit.de">kontakt@smiit.de</a>
                   </p>
-                </div>
+                </address>
               </div>
             </div>
 
@@ -159,7 +159,7 @@ export default async function LegalNoticePage({
 
                 <div>
                   <h3 className="text-sm font-semibold tracking-wide uppercase text-black/70">{L.responsible}</h3>
-                  <p className="text-sm mt-4 text-black/80 leading-relaxed">
+                  <address className="not-italic text-sm mt-4 text-black/80 leading-relaxed">
                     Noah Neßlauer
                     <br />
                     Reiherweg 96
@@ -167,7 +167,7 @@ export default async function LegalNoticePage({
                     89584 Ehingen
                     <br />
                     Deutschland
-                  </p>
+                  </address>
                 </div>
               </div>
 

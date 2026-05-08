@@ -94,7 +94,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
           <div
             className="pointer-events-none absolute inset-0 z-10 opacity-[0.18] bg-black/10"
             style={{
-              backgroundImage: "url(/assets/grain.png)",
+              backgroundImage: "url(/assets/grain.webp)",
               backgroundRepeat: "repeat",
               backgroundSize: "150px 150px",
               mixBlendMode: "soft-light",

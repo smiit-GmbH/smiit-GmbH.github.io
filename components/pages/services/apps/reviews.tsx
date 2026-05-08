@@ -12,9 +12,9 @@ import {
 import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
 
 const LOGOS: Record<number, string> = {
-  3: "/assets/logos/claimity.png",
-  4: "/assets/logos/rb-westkamp.png",
-  7: "/assets/logos/bitix.png",
+  3: "/assets/logos/claimity.webp",
+  4: "/assets/logos/rb-westkamp.webp",
+  7: "/assets/logos/bitix.webp",
 }
 
 interface Review {

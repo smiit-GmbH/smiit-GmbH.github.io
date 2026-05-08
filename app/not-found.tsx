@@ -46,8 +46,12 @@ export default function NotFound() {
       <head>
         <title>{L.title}</title>
         <meta name="description" content={L.description} />
+        <meta name="robots" content="noindex,follow" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#0B162D" />
         <link rel="icon" href="/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-icon.png" />
+        <link rel="manifest" href="/site.webmanifest" />
       </head>
       <body className={`${geist.variable} ${geistMono.variable} ${playfair.variable} font-sans antialiased`}>
         <main className="min-h-screen flex flex-col">

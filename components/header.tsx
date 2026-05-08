@@ -136,7 +136,11 @@ export default function Header({ forceLang, darkHero: darkHeroProp }: { forceLan
   const navBg = "bg-transparent backdrop-blur-md"
 
   return (
-    <nav ref={navRef} className={`fixed top-0 w-full z-50 transition-all duration-300 ${navBg}`}>
+    <nav
+      ref={navRef}
+      aria-label={lang === "de" ? "Hauptnavigation" : "Main navigation"}
+      className={`fixed top-0 w-full z-50 transition-all duration-300 ${navBg}`}
+    >
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 lg:h-18">
           {/* Logo */}

@@ -950,9 +950,13 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
                 <div className="pointer-events-auto text-left">
                   <span className="section-eyebrow">{eyebrowLabel}</span>
 
-                  <h1 className="mx-0 mt-2 max-w-[15ch] font-serif text-[2.8rem] leading-[1.05] text-[#0B162D] xl:text-[3.2rem] 2xl:text-[3.6rem]">
+                  <div
+                    role="presentation"
+                    aria-hidden="true"
+                    className="mx-0 mt-2 max-w-[15ch] font-serif text-[2.8rem] leading-[1.05] text-[#0B162D] xl:text-[3.2rem] 2xl:text-[3.6rem]"
+                  >
                     {hero?.title}
-                  </h1>
+                  </div>
 
                   <p className="mx-0 mt-5 max-w-[56ch] text-[0.98rem] leading-relaxed text-[#0B162D]/70 xl:text-[1.05rem]">
                     {hero?.description}

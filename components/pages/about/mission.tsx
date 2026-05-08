@@ -38,9 +38,9 @@ export function MissionSection({ dict }: { dict: any }) {
           variants={fadeUpVariants}
           transition={{ duration: 0.45, ease: "easeOut" }}
         >
-          <h1 className="font-serif text-[2.6rem] sm:text-[3.15rem] md:text-[3.6rem] leading-[1.05] tracking-tight text-black whitespace-pre-line text-balance">
+          <h2 className="font-serif text-[2.6rem] sm:text-[3.15rem] md:text-[3.6rem] leading-[1.05] tracking-tight text-black whitespace-pre-line text-balance">
             {m.title}
-          </h1>
+          </h2>
           <p className="mt-4 text-sm sm:text-base leading-relaxed text-black/75 max-w-[54ch] mx-auto whitespace-pre-line">
             {m.subtitle}
           </p>

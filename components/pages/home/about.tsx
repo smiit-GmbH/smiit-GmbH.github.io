@@ -1,9 +1,14 @@
 "use client"
 
 import Image from "next/image"
-import { DotLottieReact } from "@lottiefiles/dotlottie-react"
+import dynamic from "next/dynamic"
 import { useEffect, useRef, useState } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
+
+const DotLottieReact = dynamic(
+  () => import("@lottiefiles/dotlottie-react").then((m) => m.DotLottieReact),
+  { ssr: false, loading: () => null },
+)
 
 interface AboutProps {
   dict: any
@@ -57,7 +62,7 @@ export default function About({ dict }: AboutProps) {
         >
           {/* Background image – Mobile (no parallax) */}
           <Image
-            src="/assets/home/about_mobile.png"
+            src="/assets/home/about_mobile.webp"
             alt=""
             fill
             sizes="100vw"
@@ -72,7 +77,7 @@ export default function About({ dict }: AboutProps) {
             style={{ y: imageY }}
           >
             <Image
-              src="/assets/home/about.png"
+              src="/assets/home/about.webp"
               alt=""
               fill
               sizes="(min-width: 768px) 1200px, 100vw"
