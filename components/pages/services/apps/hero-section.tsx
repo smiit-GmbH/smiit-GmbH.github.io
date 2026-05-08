@@ -561,6 +561,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
   const t = {
     appName: (hero?.appName as string) ?? "OperationsHub",
     pageTitle: (hero?.pageTitle as string) ?? "Dashboard",
+    updated: (hero?.updated as string) ?? "Aktualisiert",
     searchPlaceholder: (hero?.searchPlaceholder as string) ?? "Suche…",
     createNewLabel: (hero?.createNewLabel as string) ?? "+ Neuer Auftrag",
     avatarInitials: (hero?.avatarInitials as string) ?? "JM",
