@@ -1,0 +1,39 @@
+# smiit GmbH
+
+> smiit GmbH is a German digital consultancy based in Ehingen (Baden-Württemberg) that helps small and mid-sized enterprises (SMEs / "Mittelstand") run a data-driven transformation. We deliver tailored digital solutions across four areas: custom apps and workflows, data analytics and business intelligence, digital business strategy, and our own product smiit Analytics.
+
+Website: https://www.smiit.de
+Languages: German (default at /de/), English (at /en/)
+Contact: kontakt@smiit.de · +49 160 4073198
+Address: Reiherweg 96, 89584 Ehingen, Germany
+Founders / Managing directors: Sebastian Grab, Noah Neßlauer
+
+## Core pages
+
+- [Home (DE)](https://www.smiit.de/de/): Overview of smiit GmbH and our value proposition for SMEs.
+- [Home (EN)](https://www.smiit.de/en/): Same overview in English.
+- [About (DE)](https://www.smiit.de/de/about/): Who we are, what we believe in, our team.
+- [About (EN)](https://www.smiit.de/en/about/): Same in English.
+- [Contact (DE)](https://www.smiit.de/de/contact/): Email, phone, contact form, online appointment scheduling via Calendly.
+- [Contact (EN)](https://www.smiit.de/en/contact/): Same in English.
+
+## Services
+
+- [Apps & Workflows (DE)](https://www.smiit.de/de/services/apps/): Custom web applications and workflow automation tailored to SME processes.
+- [Apps & Workflows (EN)](https://www.smiit.de/en/services/apps/): Same in English.
+- [Analytics (DE)](https://www.smiit.de/de/services/analytics/): Data analytics, dashboards, KPIs, and business intelligence for SMEs.
+- [Analytics (EN)](https://www.smiit.de/en/services/analytics/): Same in English.
+- [Strategy (DE)](https://www.smiit.de/de/services/strategy/): Digital business strategy, roadmaps, and transformation guidance.
+- [Strategy (EN)](https://www.smiit.de/en/services/strategy/): Same in English.
+
+## Products
+
+- [smiit Analytics (DE)](https://www.smiit.de/de/products/smiit-analytics/): Plug-and-play analytics solution with pre-built dashboards and KPIs for a fast SME start.
+- [smiit Analytics (EN)](https://www.smiit.de/en/products/smiit-analytics/): Same in English.
+
+## Legal
+
+- [Impressum / Legal notice (DE)](https://www.smiit.de/de/legal-notice/)
+- [Legal notice (EN)](https://www.smiit.de/en/legal-notice/)
+- [Datenschutz / Privacy (DE)](https://www.smiit.de/de/privacy/)
+- [Privacy policy (EN)](https://www.smiit.de/en/privacy/)

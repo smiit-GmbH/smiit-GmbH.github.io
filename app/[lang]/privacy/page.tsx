@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import Image from "next/image"
 import type { Locale } from "@/lib/dictionary"
+import { buildPageMetadata } from "@/lib/seo"
 
 export async function generateStaticParams() {
   return [{ lang: "de" }, { lang: "en" }]
@@ -12,25 +13,18 @@ export async function generateMetadata({
   params: Promise<{ lang: Locale }>
 }): Promise<Metadata> {
   const { lang } = await params
-  const isDe = lang === "de"
-
-  const title = isDe ? "smiit GmbH - Datenschutz" : "smiit GmbH - Privacy policy"
-  const description = isDe
-    ? "Datenschutzerklärung der smiit GmbH (Hosting, Kontaktanfragen, Terminvereinbarung)."
-    : "Privacy policy of smiit GmbH (hosting, contact requests, appointment scheduling)."
-
-  return {
-    title,
-    description,
-    alternates: {
-      canonical: `/${lang}/privacy`,
-      languages: {
-        de: "/de/privacy",
-        en: "/en/privacy",
-        "x-default": "/de/privacy",
-      },
+  return buildPageMetadata({
+    lang,
+    path: "privacy",
+    title: {
+      de: "Datenschutz – smiit GmbH",
+      en: "Privacy policy – smiit GmbH",
     },
-  }
+    description: {
+      de: "Datenschutzerklärung der smiit GmbH (Hosting, Kontaktanfragen, Terminvereinbarung).",
+      en: "Privacy policy of smiit GmbH (hosting, contact requests, appointment scheduling).",
+    },
+  })
 }
 
 export default async function PrivacyPage({

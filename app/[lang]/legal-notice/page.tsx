@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import Image from "next/image"
 import type { Locale } from "@/lib/dictionary"
+import { buildPageMetadata } from "@/lib/seo"
 
 export async function generateStaticParams() {
   return [{ lang: "de" }, { lang: "en" }]
@@ -12,25 +13,18 @@ export async function generateMetadata({
   params: Promise<{ lang: Locale }>
 }): Promise<Metadata> {
   const { lang } = await params
-  const isDe = lang === "de"
-
-  const title = isDe ? "smiit GmbH - Impressum" : "smiit GmbH - Legal notice"
-  const description = isDe
-    ? "Impressum der smiit GmbH."
-    : "Legal notice of smiit GmbH."
-
-  return {
-    title,
-    description,
-    alternates: {
-      canonical: `/${lang}/legal-notice`,
-      languages: {
-        de: "/de/legal-notice",
-        en: "/en/legal-notice",
-        "x-default": "/de/legal-notice",
-      },
+  return buildPageMetadata({
+    lang,
+    path: "legal-notice",
+    title: {
+      de: "Impressum – smiit GmbH",
+      en: "Legal notice – smiit GmbH",
     },
-  }
+    description: {
+      de: "Impressum der smiit GmbH.",
+      en: "Legal notice of smiit GmbH.",
+    },
+  })
 }
 
 export default async function LegalNoticePage({

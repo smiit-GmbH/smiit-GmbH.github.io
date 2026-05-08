@@ -18,11 +18,12 @@ export const metadata: Metadata = {
   alternates: {
     canonical: "/de/",
     languages: {
-      "de-DE": "/de/",
+      de: "/de/",
       en: "/en/",
       "x-default": "/de/",
     },
   },
+  robots: { index: false, follow: true },
   openGraph: {
     title,
     description,

@@ -8,6 +8,7 @@ import { ScrollToTop } from "@/components/scroll-to-top"
 import { CalendlyHandler } from "@/components/calendly-handler"
 import { SmoothScrollProvider } from "@/components/smooth-scroll-provider"
 import { MobileCalendlyFab } from "@/components/mobile-calendly-fab"
+import { SITE_NAME, SITE_URL, buildPageMetadata } from "@/lib/seo"
 
 const geist = Geist({
   subsets: ["latin"],
@@ -25,55 +26,63 @@ const playfair = Playfair_Display({
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
   const { lang } = await params
-  const isDe = lang === 'de'
-
-  const title = isDe
-    ? "smiit GmbH - Datengesteuerte Transformation, maßgeschneidert für den Mittelstand"
-    : "smiit GmbH - Data-driven transformation, tailored for SMEs"
-
-  const description = isDe
-    ? "Digitale Lösungen für Applikationen, Workflows, Datenanalyse und digitale Unternehmensstrategie — maßgeschneidert für den Mittelstand."
-    : "Digital solutions for applications, workflows, data analytics, and digital strategy — tailored for SMEs."
-
-  const ogImage = {
-    url: "/og-image.png",
-    width: 1200,
-    height: 630,
-    alt: "smiit GmbH",
-  }
-
-  return {
-    metadataBase: new URL("https://www.smiit.de"),
-    title,
-    description,
-    alternates: {
-      canonical: `/${lang}/`,
-      languages: {
-        "de-DE": "/de/",
-        en: "/en/",
-        "x-default": "/de/",
-      },
+  return buildPageMetadata({
+    lang: lang === "en" ? "en" : "de",
+    title: {
+      de: "smiit GmbH – Datengesteuerte Transformation, maßgeschneidert für den Mittelstand",
+      en: "smiit GmbH – Data-driven transformation, tailored for SMEs",
     },
-    openGraph: {
-      title,
-      description,
-      url: `/${lang}/`,
-      siteName: "smiit GmbH",
-      locale: isDe ? "de_DE" : "en_US",
-      type: "website",
-      images: [ogImage],
+    description: {
+      de: "Digitale Lösungen für Applikationen, Workflows, Datenanalyse und digitale Unternehmensstrategie — maßgeschneidert für den Mittelstand.",
+      en: "Digital solutions for applications, workflows, data analytics, and digital strategy — tailored for SMEs.",
     },
-    twitter: {
-      card: "summary_large_image",
-      title,
-      description,
-      images: [ogImage],
-    },
-  }
+  })
 }
 
 export async function generateStaticParams() {
   return [{ lang: "de" }, { lang: "en" }]
+}
+
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: SITE_NAME,
+  legalName: "smiit GmbH",
+  url: SITE_URL,
+  logo: `${SITE_URL}/logo_black.png`,
+  email: "kontakt@smiit.de",
+  telephone: "+49 160 4073198",
+  vatID: "DE357299821",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Reiherweg 96",
+    postalCode: "89584",
+    addressLocality: "Ehingen",
+    addressCountry: "DE",
+  },
+  founder: [
+    { "@type": "Person", name: "Sebastian Grab" },
+    { "@type": "Person", name: "Noah Neßlauer" },
+  ],
+}
+
+const localBusinessJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: SITE_NAME,
+  url: SITE_URL,
+  image: `${SITE_URL}/og-image.png`,
+  email: "kontakt@smiit.de",
+  telephone: "+49 160 4073198",
+  priceRange: "$$",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Reiherweg 96",
+    postalCode: "89584",
+    addressLocality: "Ehingen",
+    addressCountry: "DE",
+  },
+  areaServed: ["DE", "AT", "CH", "EU"],
 }
 
 export default async function RootLayout({
@@ -87,6 +96,14 @@ export default async function RootLayout({
   return (
     <html lang={lang}>
       <body className={`${geist.variable} ${geistMono.variable} ${playfair.variable} font-sans antialiased`}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
+        />
         <SmoothScrollProvider>
           <ScrollToTop />
           <CalendlyHandler />
