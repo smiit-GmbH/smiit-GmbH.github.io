@@ -49,7 +49,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: str
     alternates: {
       canonical: `/${lang}/`,
       languages: {
-        "de-CH": "/de/",
+        "de-DE": "/de/",
         en: "/en/",
         "x-default": "/de/",
       },
