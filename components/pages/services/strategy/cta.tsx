@@ -63,7 +63,7 @@ function DarkBackdrop() {
       {/* Slow drifting glow — same recipe as manifest-band */}
       <div
         aria-hidden
-        className="manifest-glow pointer-events-none absolute left-1/2 top-1/2 z-0 h-[110%] w-[80%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,_rgba(33,86,156,0.45),_transparent_60%)] blur-3xl"
+        className="manifest-glow pointer-events-none absolute left-1/2 top-1/2 z-0 h-[110%] w-[80%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,_rgba(100,116,139,0.45),_transparent_60%)] blur-3xl"
       />
       {/* Subtle grid texture */}
       <div
@@ -80,7 +80,7 @@ function DarkBackdrop() {
 }
 
 export default function StrategyCTA({ dict }: { dict: any }) {
-  const cta = dict.servicesAnalytics.cta
+  const cta = dict.servicesStrategy.cta
 
   return (
     <section className="relative pb-10 md:pb-14 bg-transparent">
@@ -88,7 +88,7 @@ export default function StrategyCTA({ dict }: { dict: any }) {
         {/* Desktop CTA – dark band, mirrors manifest-band visual language */}
         <motion.div
           data-header-tone="dark"
-          className="relative rounded-[1.5rem] overflow-hidden hidden lg:flex flex-col items-center justify-center text-center px-6 py-32 bg-[#0B162D] text-white"
+          className="relative rounded-[1.5rem] overflow-hidden hidden lg:flex flex-col items-center justify-center text-center px-6 py-32 bg-[#1A1719] text-white"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-30px" }}
@@ -136,7 +136,7 @@ export default function StrategyCTA({ dict }: { dict: any }) {
         {/* Mobile CTA – dark band */}
         <motion.div
           data-header-tone="dark"
-          className="relative lg:hidden rounded-[1.5rem] overflow-hidden flex flex-col items-center justify-center text-center px-5 py-20 sm:py-24 bg-[#0B162D] text-white"
+          className="relative lg:hidden rounded-[1.5rem] overflow-hidden flex flex-col items-center justify-center text-center px-5 py-20 sm:py-24 bg-[#1A1719] text-white"
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-30px" }}
@@ -213,7 +213,7 @@ export default function StrategyCTA({ dict }: { dict: any }) {
                   whileInView={{ x: "120%" }}
                   viewport={{ once: true, margin: "-20px" }}
                   transition={{ duration: 0.95, delay: 0.45, ease: [0.22, 1, 0.36, 1] }}
-                  className="pointer-events-none absolute inset-y-0 -inset-x-2 -skew-x-12 bg-gradient-to-r from-transparent via-[#21569c]/22 to-transparent mix-blend-multiply"
+                  className="pointer-events-none absolute inset-y-0 -inset-x-2 -skew-x-12 bg-gradient-to-r from-transparent via-[#64748B]/22 to-transparent mix-blend-multiply"
                 />
               </motion.div>
             </a>

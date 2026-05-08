@@ -12,9 +12,9 @@ import {
 import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
 
 const LOGOS: Record<number, string> = {
-  1: "/assets/logos/dy-project.png",
   2: "/assets/logos/gb-logistics.png",
-  6: "/assets/logos/masterhomepage.png",
+  7: "/assets/logos/azai.png",
+  8: "/assets/logos/claimity.png",
 }
 
 interface Review {
@@ -112,7 +112,7 @@ function ReviewSlide({
             metric={review.metric}
             isActive={isActive}
             reduceMotion={reduceMotion}
-            className="mt-3 font-serif font-semibold leading-[0.95] tracking-tight text-[#21569c] text-[clamp(2.8rem,13vw,5rem)]"
+            className="mt-3 font-serif font-semibold leading-[0.95] tracking-tight text-[#64748B] text-[clamp(2.8rem,13vw,5rem)]"
           />
         )}
         {review.metricSub && (
@@ -123,7 +123,7 @@ function ReviewSlide({
       </div>
 
       <div className="flex flex-col">
-        <blockquote className="border-l-2 border-[#21569c]/40 pl-5 font-serif italic text-[1.02rem] leading-[1.55] tracking-tight text-[#0B162D] sm:text-[1.12rem]">
+        <blockquote className="border-l-2 border-[#64748B]/40 pl-5 font-serif italic text-[1.02rem] leading-[1.55] tracking-tight text-[#0B162D] sm:text-[1.12rem]">
           &ldquo;{review.quote}&rdquo;
         </blockquote>
 
@@ -268,7 +268,7 @@ export default function StrategyReviews({ dict }: { dict: any }) {
   const stage = useRevealOnScroll({ margin: "-80px" })
   const reduceMotion = useReducedMotion() ?? false
 
-  const reviews: Review[] = (dict.servicesAnalytics.reviews ?? []).map((r: any) => ({
+  const reviews: Review[] = (dict.servicesStrategy.reviews ?? []).map((r: any) => ({
     ...r,
     logoSrc: LOGOS[r.id as keyof typeof LOGOS],
   }))
@@ -287,7 +287,7 @@ export default function StrategyReviews({ dict }: { dict: any }) {
 
   if (reviews.length === 0) return null
 
-  const ariaLabel = dict.servicesAnalytics.eyebrows?.reviews ?? "Reviews"
+  const ariaLabel = dict.servicesStrategy.eyebrows?.reviews ?? "Reviews"
 
   return (
     <section className="relative bg-transparent pt-16 pb-24 sm:pt-20 sm:pb-32 lg:pt-8 lg:pb-32">
@@ -298,12 +298,12 @@ export default function StrategyReviews({ dict }: { dict: any }) {
         >
           <div className="max-w-[34rem]">
             <span className="section-eyebrow">
-              {dict.servicesAnalytics.eyebrows?.reviews}
+              {dict.servicesStrategy.eyebrows?.reviews}
             </span>
             <h2 className="font-serif text-[2rem] sm:text-[2.4rem] md:text-[3rem] leading-[1.1] tracking-tight text-black">
-              {dict.servicesAnalytics.reviewsHeading?.lead}{" "}
-              <span className="text-[#21569c]">
-                {dict.servicesAnalytics.reviewsHeading?.highlight}
+              {dict.servicesStrategy.reviewsHeading?.lead}{" "}
+              <span className="text-[#64748B]">
+                {dict.servicesStrategy.reviewsHeading?.highlight}
               </span>
             </h2>
           </div>
@@ -371,7 +371,7 @@ export default function StrategyReviews({ dict }: { dict: any }) {
                       {r.name}
                     </span>
                     {r.metric && (
-                      <span className="mt-3 font-serif text-[4.2rem] font-semibold leading-[0.95] tracking-tight text-[#21569c] sm:text-[5.5rem] lg:text-[6rem]">
+                      <span className="mt-3 font-serif text-[4.2rem] font-semibold leading-[0.95] tracking-tight text-[#64748B] sm:text-[5.5rem] lg:text-[6rem]">
                         {r.metric}
                       </span>
                     )}
@@ -383,7 +383,7 @@ export default function StrategyReviews({ dict }: { dict: any }) {
                   </div>
 
                   <div className="flex flex-col">
-                    <blockquote className="border-l-2 border-[#21569c]/40 pl-5 font-serif italic text-[1.05rem] leading-[1.55] tracking-tight text-[#0B162D] sm:text-[1.15rem] sm:leading-[1.55] lg:text-[1.2rem]">
+                    <blockquote className="border-l-2 border-[#64748B]/40 pl-5 font-serif italic text-[1.05rem] leading-[1.55] tracking-tight text-[#0B162D] sm:text-[1.15rem] sm:leading-[1.55] lg:text-[1.2rem]">
                       &ldquo;{r.quote}&rdquo;
                     </blockquote>
 

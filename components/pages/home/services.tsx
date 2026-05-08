@@ -166,7 +166,7 @@ function getImage(title: string) {
 function getAccent(title: string): { hex: string; lightHex: string; rgb: string; fg: string } {
   const t = title.toLowerCase()
   if (t.includes("strategy") || t.includes("strategie"))
-    return { hex: "#cbd5e1", lightHex: "#e2e8f0", rgb: "203, 213, 225", fg: "#0f172a" }
+    return { hex: "#64748B", lightHex: "#94A3B8", rgb: "100, 116, 139", fg: "#ffffff" }
   if (t.includes("analytics") || t.includes("analyse"))
     return { hex: "#21569c", lightHex: "#7DBBFF", rgb: "33, 86, 156", fg: "#ffffff" }
   if (t.includes("app") || t.includes("workflow"))

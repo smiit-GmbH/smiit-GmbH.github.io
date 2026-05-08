@@ -282,6 +282,180 @@ const dictionaries = {
         secondaryButton: "Kontakt aufnehmen",
       },
     },
+    servicesStrategy: {
+      eyebrows: {
+        hero: "DIGITALE STRATEGIE",
+        why: "DAS PROBLEM",
+        portfolio: "WAS WIR TUN",
+        manifest: "ZWISCHENRUF",
+        process: "UNSER VORGEHEN",
+        reviews: "STIMMEN",
+        cta: "JETZT STARTEN",
+      },
+      manifest: {
+        lead: "Tempo ohne Richtung",
+        emphasis: "ist nur Lärm.",
+      },
+      hero: {
+        title: "Eine digitale Strategie, die im Alltag trägt.",
+        description:
+          "Wir bringen Cloud, Sicherheit, Daten und Prozesse in eine kohärente Roadmap — mit ehrlichen Bestandsaufnahmen, klaren Prioritäten und der Umsetzungskraft, die Strategiepapiere meistens vermissen lassen.",
+        primaryCta: "Strategie-Sparring vereinbaren",
+        scrollHint: "Weiter scrollen",
+        boardEyebrow: "Executive Intelligence Layer",
+        boardTitle: "Von Datensilos zur Entscheidungsebene",
+        sourcesConnected: "4 Themen · 12 Initiativen",
+        updated: "aktualisiert vor 2 Min.",
+        inPractice: "In der Praxis",
+        swipeHint: "← Wischen zum Wechseln →",
+        mobileTabTitle: "Warum",
+        mobileTabTitleHighlight: "Strategie?",
+        dashboardTitle: "Digital Strategy Cockpit",
+        sections: {
+          kpis: "Maturity-Index",
+          trend: "Strategie-Roadmap",
+          trendSub: "Milestones, Status und Forecast",
+          signals: "Strategische Risiken",
+          potentials: "Initiativen-Pipeline",
+          filters: "Themen · Phasen · Risiko",
+        },
+        months: ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"],
+        kpiLabels: {
+          cloud: "Cloud-Reife",
+          security: "Sicherheit",
+          data: "Daten",
+          process: "Prozess-Reife",
+        },
+        chartLegend: {
+          done: "Erledigt",
+          progress: "In Umsetzung",
+          planned: "Geplant",
+        },
+        signalLabels: {
+          compliance: "Compliance",
+          cyber: "Cyber",
+          vendor: "Vendor-Lock",
+          operational: "Operativ",
+        },
+        signalRadar: {
+          title: "Risiko-Trend",
+          period: "letzte 6 Monate",
+        },
+        segments: {
+          sondieren: "Sondieren",
+          konzipieren: "Konzipieren",
+          umsetzen: "Umsetzen",
+          verankern: "Verankern",
+        },
+        periods: {
+          q: "Quartal",
+          h: "6 Monate",
+          y: "12 Monate",
+        },
+        trendTooltip: {
+          statusDone: "Erledigt",
+          statusProgress: "In Umsetzung",
+          statusPlanned: "Geplant",
+        },
+        kpiDeltaLabels: {
+          cloud: "→ Ziel",
+          security: "→ Ziel",
+          data: "→ Ziel",
+          process: "→ Ziel",
+        },
+      },
+      portfolio: {
+        title: "Unser",
+        titleHighlight: "Angebot",
+        subtitle: "Wir begleiten Sie auf dem Weg zu einer digitalen Strategie, die im Alltag trägt – von der ehrlichen Bestandsaufnahme bis zur produktiven Cloud-Plattform.",
+        learnMore: "Mehr erfahren",
+        learnLess: "Weniger anzeigen",
+        bookCta: "Gespräch vereinbaren",
+        items: [
+          {
+            title: "Prozessoptimierung & -automatisierung",
+            shortDesc: "Wir machen Geschäftsprozesse sichtbar, hinterfragen Brüche und Reibungspunkte und automatisieren, wo es sich messbar lohnt. So entstehen schlankere Abläufe, weniger Medienbrüche und Teams, die mehr Zeit für das Eigentliche haben.",
+            details: "Wir starten mit einer sauberen Prozessmodellierung – von der Ist-Aufnahme über die Schwachstellen-Analyse bis zum Soll-Konzept, eng abgestimmt mit den Menschen, die den Prozess täglich leben. Dabei nutzen wir etablierte Notationen wie BPMN und halten Modelle bewusst pragmatisch und nutzbar.\n\nIm Anschluss übersetzen wir das Soll-Bild in digitalisierte Workflows – über Power Automate, individuelle Apps oder Integrationen in bestehende Systeme. Wir wählen den Weg, der zur Reife Ihrer IT-Landschaft passt, und automatisieren genau das, was nachweislich Aufwand spart oder Qualität verbessert."
+          },
+          {
+            title: "Cloud-Infrastruktur & DevOps",
+            shortDesc: "Wir bauen Ihre Azure-Landschaft so auf, dass sie skaliert, sicher ist und auch nach zwei Jahren noch verständlich bleibt. Infrastructure as Code, klare Netzwerk- und Governance-Konzepte, automatisierte Deployments – von Anfang an mitgedacht.",
+            details: "Wir setzen ausschließlich auf Microsoft Azure und kennen das Ökosystem von der Tenant-Architektur bis zur einzelnen Pipeline. Konkret bauen wir Landing Zones, Hub-and-Spoke-Netzwerke, Identity- und Berechtigungskonzepte sowie durchdachte Naming- und Tagging-Strategien – abgestimmt auf Ihre Compliance- und Skalierungsanforderungen.\n\nInfrastruktur entsteht bei uns als Code (Bicep oder Terraform), nie per Klick im Portal. CI/CD-Pipelines, automatisierte Tests, Security-Scans und Dokumentation gehören zur Lieferung – damit Ihre Plattform nicht nur am Launch-Tag läuft, sondern auch im Audit, im Disaster-Recovery-Test und bei der nächsten größeren Erweiterung trägt."
+          },
+          {
+            title: "IT-Sicherheit",
+            shortDesc: "Sicherheit ist kein Produkt, das man kauft, sondern eine Disziplin, die man verankert. Wir bringen Ihre IT-Landschaft auf einen belastbaren Stand – von der ehrlichen Lagebewertung über die Härtung von Identity, Netzwerk und Daten bis zur Verankerung im Alltag.",
+            details: "Wir beginnen mit einer ehrlichen Bestandsaufnahme: Wo liegen Ihre kritischen Werte, wo sind die größten Lücken, was sagen Audits – und was sagt die Realität? Aus diesem Lagebild leiten wir eine priorisierte Roadmap ab, mit Quick Wins (MFA, Patch-Disziplin, Backup-Tests) und strukturellen Maßnahmen (Zero Trust, Identity-Governance, Netzwerksegmentierung).\n\nSicherheit denken wir dabei nicht als Sonderprojekt, sondern als Querschnitt: Unsere Cloud-Architekturen sind von Grund auf gehärtet, unsere Prozessdesigns berücksichtigen Datenschutz und unsere DevOps-Pipelines integrieren Security-Scans. So entsteht ein Schutzniveau, das im Alltag trägt – ohne Ihr Tempo auszubremsen."
+          }
+        ]
+      },
+      process: {
+        title: "So entwickeln wir Ihre",
+        titleHighlight: "digitale Strategie.",
+        subtitle: "Vier klare Schritte – von der ehrlichen Bestandsaufnahme bis zur verankerten Roadmap.",
+        steps: [
+          {
+            number: "01",
+            title: "Sondieren",
+            text: "Wir nehmen Cloud-Reife, Sicherheits-Posture, Datenlandschaft und Kernprozesse unter die Lupe — ehrlich, quantifiziert, ohne Schönfärben.",
+          },
+          {
+            number: "02",
+            title: "Konzipieren",
+            text: "Wir zeichnen Ihr Zielbild und priorisieren: Was bringt am meisten, was ist kritisch, was kann warten? Mit Aufwandsschätzung und Quick Wins.",
+          },
+          {
+            number: "03",
+            title: "Umsetzen",
+            text: "Wir führen die Roadmap in die Praxis: Cloud-Migration, Sicherheits-Härtung, Datenfundament, Prozess-Automatisierung — iterativ, mit messbaren Etappen.",
+          },
+          {
+            number: "04",
+            title: "Verankern",
+            text: "Wir übergeben sauber, schulen Ihr Team und stehen für Reviews und Weiterentwicklung bereit — damit die Strategie nicht im Schrank verschwindet.",
+          },
+        ],
+      },
+      reviewsHeading: {
+        lead: "Was unsere",
+        highlight: "Kunden sagen",
+      },
+      reviews: [
+        {
+          id: 7,
+          name: "Azai AG",
+          subtitle: "Cloud-Architektur & Governance für SaaS-Plattform",
+          quote:
+            "smiit hat uns beim Aufbau einer hochskalierenden SaaS-Plattform begleitet. Networking, Sicherheit und Governance waren von Anfang an Teil der Cloud-Architektur — nicht nachgereicht.",
+          metric: "99,9 %",
+          metricSub: "Plattform-Verfügbarkeit",
+        },
+        {
+          id: 8,
+          name: "Claimity AG",
+          subtitle: "DSGVO-konforme Azure-Infrastruktur & DevOps",
+          quote:
+            "smiit hat unsere DSGVO-konforme Azure-Infrastruktur als Infrastructure-as-Code aufgesetzt — inklusive sauberer DevOps-Pipelines. Sechs Wochen vom Whiteboard zur produktiven SaaS-Plattform.",
+          metric: "6 Wo.",
+          metricSub: "von der Idee zur SaaS-Plattform",
+        },
+        {
+          id: 2,
+          name: "G&B Logistics GmbH",
+          subtitle: "Stammdaten-Konsolidierung & Echtzeit-Analytics",
+          quote:
+            "Mit smiit haben wir Daten aus verschiedenen Systemen erstmals miteinander verbunden und unsere Stammdaten konsolidiert. Operative Prozesse laufen dadurch reibungsloser — und unsere Echtzeit-Auswertungen ziehen aus einer Quelle.",
+          metric: "4→1",
+          metricSub: "Systeme konsolidiert",
+        },
+      ],
+      cta: {
+        title: "Bevor Sie das nächste Tool kaufen — lassen Sie uns über Ihre Strategie reden.",
+        subtitle: "30 Minuten. Kostenlos. Wir hören zu, ordnen ein und sagen Ihnen, was wir an Ihrer Stelle priorisieren würden — Cloud-Migration, Sicherheit, Datenstrategie oder Prozesse.",
+        primaryButton: "Kostenloses Erstgespräch",
+        secondaryButton: "Kontakt aufnehmen",
+      },
+    },
     servicesApps: {
       eyebrows: {
         hero: "APPS & WORKFLOWS",
@@ -1025,6 +1199,180 @@ const dictionaries = {
       cta: {
         title: "What would change if your data finally started talking to each other?",
         subtitle: "30-minute intro call. Free. No strings attached. You'll find out where your biggest lever is — even if we don't end up working together.",
+        primaryButton: "Free Consultation",
+        secondaryButton: "Contact Us",
+      },
+    },
+    servicesStrategy: {
+      eyebrows: {
+        hero: "DIGITAL STRATEGY",
+        why: "THE PROBLEM",
+        portfolio: "WHAT WE DO",
+        manifest: "INTERLUDE",
+        process: "HOW WE WORK",
+        reviews: "VOICES",
+        cta: "GET STARTED",
+      },
+      manifest: {
+        lead: "Speed without direction",
+        emphasis: "is just noise.",
+      },
+      hero: {
+        title: "A digital strategy that holds up in daily operations.",
+        description:
+          "We turn cloud, security, data, and processes into a coherent roadmap — with honest assessments, clear priorities, and the execution power that strategy papers usually lack.",
+        primaryCta: "Book a strategy session",
+        scrollHint: "Scroll for more",
+        boardEyebrow: "Executive Intelligence Layer",
+        boardTitle: "From data silos to a decision layer",
+        sourcesConnected: "4 themes · 12 initiatives",
+        updated: "updated 2 min ago",
+        inPractice: "In practice",
+        swipeHint: "← Swipe to switch →",
+        mobileTabTitle: "Why",
+        mobileTabTitleHighlight: "Strategy?",
+        dashboardTitle: "Digital Strategy Cockpit",
+        sections: {
+          kpis: "Maturity Index",
+          trend: "Strategy Roadmap",
+          trendSub: "Milestones, status and forecast",
+          signals: "Strategic Risks",
+          potentials: "Initiative Pipeline",
+          filters: "Themes · Phases · Risk",
+        },
+        months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        kpiLabels: {
+          cloud: "Cloud Maturity",
+          security: "Security",
+          data: "Data",
+          process: "Process Maturity",
+        },
+        chartLegend: {
+          done: "Done",
+          progress: "In progress",
+          planned: "Planned",
+        },
+        signalLabels: {
+          compliance: "Compliance",
+          cyber: "Cyber",
+          vendor: "Vendor lock-in",
+          operational: "Operational",
+        },
+        signalRadar: {
+          title: "Risk trend",
+          period: "last 6 months",
+        },
+        segments: {
+          sondieren: "Assess",
+          konzipieren: "Design",
+          umsetzen: "Execute",
+          verankern: "Embed",
+        },
+        periods: {
+          q: "Quarter",
+          h: "6 months",
+          y: "12 months",
+        },
+        trendTooltip: {
+          statusDone: "Done",
+          statusProgress: "In progress",
+          statusPlanned: "Planned",
+        },
+        kpiDeltaLabels: {
+          cloud: "→ target",
+          security: "→ target",
+          data: "→ target",
+          process: "→ target",
+        },
+      },
+      portfolio: {
+        title: "Our",
+        titleHighlight: "Portfolio",
+        subtitle: "We guide you toward a digital strategy that holds up in daily operations – from an honest assessment to a productive cloud platform.",
+        learnMore: "Learn more",
+        learnLess: "Show less",
+        bookCta: "Book a call",
+        items: [
+          {
+            title: "Process Optimization & Automation",
+            shortDesc: "We make business processes visible, challenge breaks and friction points, and automate where it pays off measurably. The result: leaner workflows, fewer media breaks, and teams with more time for the work that matters.",
+            details: "We start with clean process modeling – from a current-state assessment through pain-point analysis to a target concept, always closely aligned with the people who live the process every day. We use established notations like BPMN and keep models deliberately pragmatic and usable.\n\nWe then translate the target picture into digitalized workflows – via Power Automate, custom apps, or integrations with your existing systems. We choose the path that fits the maturity of your IT landscape, and automate exactly what demonstrably saves effort or improves quality."
+          },
+          {
+            title: "Cloud Infrastructure & DevOps",
+            shortDesc: "We build your Azure landscape so it scales, stays secure, and remains comprehensible two years down the road. Infrastructure as code, clear network and governance concepts, automated deployments – built in from day one.",
+            details: "We focus exclusively on Microsoft Azure and know the ecosystem from tenant architecture down to individual pipelines. Concretely, we build landing zones, hub-and-spoke networks, identity and permission concepts, and well-thought-out naming and tagging strategies – aligned with your compliance and scaling requirements.\n\nInfrastructure is built as code (Bicep or Terraform), never clicked together in the portal. CI/CD pipelines, automated tests, security scans, and documentation are part of the delivery – so your platform doesn't just run on launch day but holds up in audits, in disaster-recovery tests, and during the next major expansion."
+          },
+          {
+            title: "IT Security",
+            shortDesc: "Security isn't a product you buy – it's a discipline you anchor. We bring your IT landscape to a resilient state, from honest situation assessment through hardening of identity, network, and data, to anchoring it in everyday operations.",
+            details: "We begin with an honest assessment: where do your critical assets sit, where are the biggest gaps, what do audits say – and what does reality say? From this picture we derive a prioritized roadmap, with quick wins (MFA, patch discipline, backup tests) and structural measures (Zero Trust, identity governance, network segmentation).\n\nWe think of security not as a special project but as a cross-cutting concern: our cloud architectures are hardened from the ground up, our process designs account for data protection, and our DevOps pipelines integrate security scans. The result is a level of protection that holds up in daily operations – without slowing your tempo."
+          }
+        ]
+      },
+      process: {
+        title: "How we shape your",
+        titleHighlight: "digital strategy.",
+        subtitle: "Four clear steps – from an honest assessment to a roadmap that sticks.",
+        steps: [
+          {
+            number: "01",
+            title: "Assess",
+            text: "We take a hard look at your cloud maturity, security posture, data landscape and core processes — honest, quantified, no sugar-coating.",
+          },
+          {
+            number: "02",
+            title: "Design",
+            text: "We draft your target picture and prioritize: what delivers most, what's critical, what can wait? With effort estimates and quick wins.",
+          },
+          {
+            number: "03",
+            title: "Execute",
+            text: "We bring the roadmap to life: cloud migration, security hardening, data foundation, process automation — iteratively, with measurable milestones.",
+          },
+          {
+            number: "04",
+            title: "Embed",
+            text: "We hand over cleanly, train your team and stay available for reviews and continuous improvement — so the strategy doesn't end up in a drawer.",
+          },
+        ],
+      },
+      reviewsHeading: {
+        lead: "What our",
+        highlight: "clients say",
+      },
+      reviews: [
+        {
+          id: 7,
+          name: "Azai AG",
+          subtitle: "Cloud architecture & governance for SaaS platform",
+          quote:
+            "smiit guided us in building a highly scalable SaaS platform. Networking, security, and governance were part of the cloud architecture from day one — not bolted on afterwards.",
+          metric: "99.9%",
+          metricSub: "platform availability",
+        },
+        {
+          id: 8,
+          name: "Claimity AG",
+          subtitle: "GDPR-compliant Azure infrastructure & DevOps",
+          quote:
+            "smiit set up our GDPR-compliant Azure infrastructure as Infrastructure-as-Code — including clean DevOps pipelines. Six weeks from whiteboard to a productive SaaS platform.",
+          metric: "6 wks",
+          metricSub: "from idea to SaaS platform",
+        },
+        {
+          id: 2,
+          name: "G&B Logistics GmbH",
+          subtitle: "Master data consolidation & real-time analytics",
+          quote:
+            "With smiit, we connected data from different systems for the first time and consolidated our master data. Operational processes run more smoothly — and our real-time analytics pull from a single source.",
+          metric: "4→1",
+          metricSub: "systems consolidated",
+        },
+      ],
+      cta: {
+        title: "Before you buy your next tool — let's talk about your strategy.",
+        subtitle: "30 minutes. Free. We listen, sort things out, and tell you what we'd prioritize in your shoes — cloud migration, security, data strategy, or processes.",
         primaryButton: "Free Consultation",
         secondaryButton: "Contact Us",
       },

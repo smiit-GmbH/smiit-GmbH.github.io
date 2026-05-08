@@ -1,13 +1,12 @@
 "use client"
 
-import { useEffect, useId, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import {
   animate,
   cubicBezier,
   motion,
-  useInView,
   useMotionValue,
   useReducedMotion,
   useScroll,
@@ -19,6 +18,8 @@ import {
   ChevronDown,
   Filter,
   Layers3,
+  Minus,
+  TrendingDown,
   TrendingUp,
 } from "lucide-react"
 import {
@@ -40,141 +41,227 @@ function cx(...classes: Array<string | false | null | undefined>) {
 
 // ---------- Datasets ----------
 type PeriodKey = "q" | "h" | "y"
+type ThemeKey = "cloud" | "security" | "data" | "process"
+type RiskKey = "compliance" | "cyber" | "vendor" | "operational"
+type PhaseKey = "sondieren" | "konzipieren" | "umsetzen" | "verankern"
+type MilestoneStatus = "done" | "progress" | "planned"
+type RiskTrendDir = "down" | "flat" | "up"
 
-interface LinePoint {
-  x: number
-  y: number
-  label: string
-  value: string
+interface MaturityScore {
+  current: number
+  target: number
   delta: string
 }
 
+interface Milestone {
+  x: number
+  status: MilestoneStatus
+  label: string
+}
+
+interface Lane {
+  key: ThemeKey
+  milestones: Milestone[]
+}
+
+interface RiskState {
+  level: number
+  trend: RiskTrendDir
+}
+
+interface InitiativeBucket {
+  count: number
+  bar: number
+}
+
 interface Dataset {
-  kpis: {
-    revenue: { to: number; suffix?: string; decimals?: number; display: string; bar: number; delta: string }
-    margin: { to: number; suffix?: string; decimals?: number; display: string; bar: number; delta: string }
-    forecastConfidence: { to: number; suffix?: string; decimals?: number; display: string; bar: number; delta: string }
-    activeProjects: { to: number; suffix?: string; decimals?: number; display: string; bar: number; delta: string }
-  }
+  maturity: Record<ThemeKey, MaturityScore>
   trendHeader: string
-  linePoints: LinePoint[]
-  forecastPoint: { x: number; y: number; label: string; value: string }
-  signals: { forecastRisk: string; deviation: string; opportunityScore: string; trendStrength: string }
-  segments: { key: "dach" | "swiss" | "serviceUpsell" | "industrialLeads"; value: number }[]
-  radarBars: number[]
+  todayPercent: number
+  lanes: Lane[]
+  risks: Record<RiskKey, RiskState>
+  riskTrend: number[]
+  initiatives: Record<PhaseKey, InitiativeBucket>
   bottomLabels: string[]
 }
 
 const DATASETS: Record<PeriodKey, Dataset> = {
   y: {
-    kpis: {
-      revenue: { to: 4.86, decimals: 2, suffix: " Mio.", display: "4,86 Mio.", bar: 78, delta: "+18,4 %" },
-      margin: { to: 18.4, decimals: 1, suffix: " %", display: "18,4 %", bar: 64, delta: "+1,2 pp" },
-      forecastConfidence: { to: 89, suffix: " %", display: "89 %", bar: 89, delta: "+3 pp" },
-      activeProjects: { to: 27, display: "27", bar: 54, delta: "+5" },
+    maturity: {
+      cloud: { current: 3.4, target: 4.2, delta: "+0,8 pp" },
+      security: { current: 2.1, target: 4.0, delta: "+1,9 pp" },
+      data: { current: 2.8, target: 4.1, delta: "+1,3 pp" },
+      process: { current: 3.0, target: 4.5, delta: "+1,5 pp" },
     },
-    trendHeader: "+18,4%",
-    linePoints: [
-      { x: 18, y: 118, label: "Jan", value: "0,28 Mio.", delta: "+4,1 %" },
-      { x: 112, y: 102, label: "Apr", value: "1,12 Mio.", delta: "+9,6 %" },
-      { x: 208, y: 86, label: "Jul", value: "2,04 Mio.", delta: "+12,2 %" },
-      { x: 304, y: 68, label: "Sep", value: "3,18 Mio.", delta: "+14,8 %" },
-      { x: 398, y: 48, label: "Nov", value: "4,12 Mio.", delta: "+18,4 %" },
+    trendHeader: "+1,4 pp",
+    todayPercent: 38,
+    lanes: [
+      {
+        key: "cloud",
+        milestones: [
+          { x: 8, status: "done", label: "Tenant-Audit" },
+          { x: 28, status: "done", label: "Landing Zone" },
+          { x: 50, status: "progress", label: "IaC-Migration" },
+          { x: 78, status: "planned", label: "Multi-Region" },
+        ],
+      },
+      {
+        key: "security",
+        milestones: [
+          { x: 12, status: "done", label: "MFA-Rollout" },
+          { x: 35, status: "progress", label: "Zero Trust" },
+          { x: 60, status: "planned", label: "Identity-Gov" },
+          { x: 88, status: "planned", label: "SOC-Setup" },
+        ],
+      },
+      {
+        key: "data",
+        milestones: [
+          { x: 15, status: "done", label: "Data Lineage" },
+          { x: 42, status: "progress", label: "Master Data" },
+          { x: 70, status: "planned", label: "Self-Service" },
+        ],
+      },
+      {
+        key: "process",
+        milestones: [
+          { x: 5, status: "done", label: "Prozessmap" },
+          { x: 25, status: "progress", label: "BPMN-Modelle" },
+          { x: 55, status: "planned", label: "Power Automate" },
+          { x: 82, status: "planned", label: "KPI-Steuerung" },
+        ],
+      },
     ],
-    forecastPoint: { x: 492, y: 24, label: "Dez", value: "4,86 Mio." },
-    signals: { forecastRisk: "Mittel", deviation: "-7,2%", opportunityScore: "82/100", trendStrength: "0,84" },
-    segments: [
-      { key: "dach", value: 82 },
-      { key: "swiss", value: 63 },
-      { key: "serviceUpsell", value: 47 },
-      { key: "industrialLeads", value: 36 },
-    ],
-    radarBars: [14, 18, 16, 22, 28, 26, 32, 30],
-    bottomLabels: ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"],
+    risks: {
+      compliance: { level: 3, trend: "down" },
+      cyber: { level: 4, trend: "down" },
+      vendor: { level: 2, trend: "flat" },
+      operational: { level: 3, trend: "down" },
+    },
+    riskTrend: [22, 24, 22, 18, 16, 14, 12, 10],
+    initiatives: {
+      sondieren: { count: 2, bar: 24 },
+      konzipieren: { count: 3, bar: 38 },
+      umsetzen: { count: 4, bar: 56 },
+      verankern: { count: 1, bar: 14 },
+    },
+    bottomLabels: ["Q1", "Q2", "Q3", "Q4"],
   },
   h: {
-    kpis: {
-      revenue: { to: 2.41, decimals: 2, suffix: " Mio.", display: "2,41 Mio.", bar: 52, delta: "+12,8 %" },
-      margin: { to: 17.1, decimals: 1, suffix: " %", display: "17,1 %", bar: 58, delta: "+0,8 pp" },
-      forecastConfidence: { to: 86, suffix: " %", display: "86 %", bar: 86, delta: "+2 pp" },
-      activeProjects: { to: 19, display: "19", bar: 38, delta: "+3" },
+    maturity: {
+      cloud: { current: 3.0, target: 3.7, delta: "+0,7 pp" },
+      security: { current: 1.8, target: 3.2, delta: "+1,4 pp" },
+      data: { current: 2.5, target: 3.5, delta: "+1,0 pp" },
+      process: { current: 2.7, target: 3.8, delta: "+1,1 pp" },
     },
-    trendHeader: "+12,8%",
-    linePoints: [
-      { x: 18, y: 122, label: "Jul", value: "0,22 Mio.", delta: "+3,4 %" },
-      { x: 112, y: 108, label: "Aug", value: "0,68 Mio.", delta: "+6,1 %" },
-      { x: 208, y: 92, label: "Sep", value: "1,18 Mio.", delta: "+8,9 %" },
-      { x: 304, y: 78, label: "Okt", value: "1,72 Mio.", delta: "+10,5 %" },
-      { x: 398, y: 60, label: "Nov", value: "2,12 Mio.", delta: "+12,8 %" },
+    trendHeader: "+1,1 pp",
+    todayPercent: 32,
+    lanes: [
+      {
+        key: "cloud",
+        milestones: [
+          { x: 14, status: "done", label: "Tenant-Audit" },
+          { x: 38, status: "done", label: "Landing Zone" },
+          { x: 65, status: "progress", label: "IaC-Migration" },
+          { x: 90, status: "planned", label: "Multi-Region" },
+        ],
+      },
+      {
+        key: "security",
+        milestones: [
+          { x: 18, status: "done", label: "MFA-Rollout" },
+          { x: 50, status: "progress", label: "Zero Trust" },
+          { x: 82, status: "planned", label: "Identity-Gov" },
+        ],
+      },
+      {
+        key: "data",
+        milestones: [
+          { x: 22, status: "done", label: "Data Lineage" },
+          { x: 58, status: "progress", label: "Master Data" },
+          { x: 86, status: "planned", label: "Self-Service" },
+        ],
+      },
+      {
+        key: "process",
+        milestones: [
+          { x: 8, status: "done", label: "Prozessmap" },
+          { x: 36, status: "progress", label: "BPMN-Modelle" },
+          { x: 72, status: "planned", label: "Power Automate" },
+        ],
+      },
     ],
-    forecastPoint: { x: 492, y: 38, label: "Dez", value: "2,41 Mio." },
-    signals: { forecastRisk: "Niedrig", deviation: "-4,1%", opportunityScore: "74/100", trendStrength: "0,71" },
-    segments: [
-      { key: "dach", value: 68 },
-      { key: "swiss", value: 54 },
-      { key: "serviceUpsell", value: 38 },
-      { key: "industrialLeads", value: 28 },
-    ],
-    radarBars: [12, 14, 12, 18, 22, 24, 28, 26],
+    risks: {
+      compliance: { level: 4, trend: "down" },
+      cyber: { level: 4, trend: "down" },
+      vendor: { level: 2, trend: "flat" },
+      operational: { level: 3, trend: "flat" },
+    },
+    riskTrend: [22, 22, 20, 18, 16, 14],
+    initiatives: {
+      sondieren: { count: 2, bar: 28 },
+      konzipieren: { count: 2, bar: 26 },
+      umsetzen: { count: 3, bar: 42 },
+      verankern: { count: 1, bar: 14 },
+    },
     bottomLabels: ["Jul", "Aug", "Sep", "Okt", "Nov", "Dez"],
   },
   q: {
-    kpis: {
-      revenue: { to: 1.18, decimals: 2, suffix: " Mio.", display: "1,18 Mio.", bar: 38, delta: "+9,6 %" },
-      margin: { to: 19.2, decimals: 1, suffix: " %", display: "19,2 %", bar: 70, delta: "+0,4 pp" },
-      forecastConfidence: { to: 92, suffix: " %", display: "92 %", bar: 92, delta: "+1 pp" },
-      activeProjects: { to: 14, display: "14", bar: 30, delta: "+2" },
+    maturity: {
+      cloud: { current: 2.7, target: 3.2, delta: "+0,5 pp" },
+      security: { current: 1.6, target: 2.4, delta: "+0,8 pp" },
+      data: { current: 2.3, target: 3.0, delta: "+0,7 pp" },
+      process: { current: 2.5, target: 3.2, delta: "+0,7 pp" },
     },
-    trendHeader: "+9,6%",
-    linePoints: [
-      { x: 18, y: 116, label: "Wo 1", value: "0,18 Mio.", delta: "+2,1 %" },
-      { x: 112, y: 110, label: "Wo 4", value: "0,42 Mio.", delta: "+4,4 %" },
-      { x: 208, y: 96, label: "Wo 7", value: "0,68 Mio.", delta: "+6,8 %" },
-      { x: 304, y: 82, label: "Wo 10", value: "0,92 Mio.", delta: "+8,2 %" },
-      { x: 398, y: 70, label: "Wo 12", value: "1,08 Mio.", delta: "+9,6 %" },
+    trendHeader: "+0,7 pp",
+    todayPercent: 45,
+    lanes: [
+      {
+        key: "cloud",
+        milestones: [
+          { x: 10, status: "done", label: "Tenant-Audit" },
+          { x: 50, status: "progress", label: "Landing Zone" },
+          { x: 88, status: "planned", label: "IaC-Setup" },
+        ],
+      },
+      {
+        key: "security",
+        milestones: [
+          { x: 18, status: "done", label: "Patch-Audit" },
+          { x: 55, status: "progress", label: "MFA-Rollout" },
+        ],
+      },
+      {
+        key: "data",
+        milestones: [
+          { x: 30, status: "progress", label: "Daten" },
+          { x: 82, status: "planned", label: "Quellinventar" },
+        ],
+      },
+      {
+        key: "process",
+        milestones: [
+          { x: 12, status: "done", label: "Prozesskartierung" },
+          { x: 45, status: "progress", label: "Top-3 Modellierung" },
+          { x: 90, status: "planned", label: "Pilot-Workflow" },
+        ],
+      },
     ],
-    forecastPoint: { x: 492, y: 52, label: "Wo 13", value: "1,18 Mio." },
-    signals: { forecastRisk: "Niedrig", deviation: "-2,4%", opportunityScore: "68/100", trendStrength: "0,62" },
-    segments: [
-      { key: "dach", value: 54 },
-      { key: "swiss", value: 41 },
-      { key: "serviceUpsell", value: 28 },
-      { key: "industrialLeads", value: 22 },
-    ],
-    radarBars: [10, 14, 12, 16, 18, 22, 24, 28],
-    bottomLabels: ["Wo 1", "Wo 4", "Wo 7", "Wo 10", "Wo 12"],
+    risks: {
+      compliance: { level: 4, trend: "flat" },
+      cyber: { level: 4, trend: "flat" },
+      vendor: { level: 3, trend: "flat" },
+      operational: { level: 3, trend: "flat" },
+    },
+    riskTrend: [20, 20, 19, 18],
+    initiatives: {
+      sondieren: { count: 3, bar: 38 },
+      konzipieren: { count: 2, bar: 28 },
+      umsetzen: { count: 1, bar: 14 },
+      verankern: { count: 0, bar: 0 },
+    },
+    bottomLabels: ["Wo 1", "Wo 4", "Wo 7", "Wo 10", "Wo 13"],
   },
-}
-
-// ---------- Path generators ----------
-
-function smoothLinePath(points: { x: number; y: number }[]): string {
-  if (points.length === 0) return ""
-  let d = `M ${points[0].x} ${points[0].y}`
-  for (let i = 1; i < points.length; i++) {
-    const p0 = points[i - 1]
-    const p1 = points[i]
-    const dx = p1.x - p0.x
-    const cp1x = p0.x + dx / 2
-    const cp2x = p1.x - dx / 2
-    d += ` C ${cp1x} ${p0.y}, ${cp2x} ${p1.y}, ${p1.x} ${p1.y}`
-  }
-  return d
-}
-
-function smoothAreaPath(points: { x: number; y: number }[]): string {
-  if (points.length === 0) return ""
-  const line = smoothLinePath(points)
-  const last = points[points.length - 1]
-  const first = points[0]
-  return `${line} L ${last.x} 146 L ${first.x} 146 Z`
-}
-
-function forecastSegmentPath(from: { x: number; y: number }, to: { x: number; y: number }): string {
-  const dx = to.x - from.x
-  const cp1x = from.x + dx / 2
-  const cp2x = to.x - dx / 2
-  return `M ${from.x} ${from.y} C ${cp1x} ${from.y}, ${cp2x} ${to.y}, ${to.x} ${to.y}`
 }
 
 // ---------- CountUp ----------
@@ -268,7 +355,7 @@ function MagneticCta({ href, children, className }: { href: string; children: Re
 
 // ---------- Module Renderers ----------
 
-function ClarityModule({
+function MaturityModule({
   t,
   data,
   reduceMotion,
@@ -279,47 +366,67 @@ function ClarityModule({
   reduceMotion: boolean | null
   mobileEmphasis?: boolean
 }) {
-  const items = [
-    { key: "revenue", label: t.kpiLabels?.revenue, kpi: data.kpis.revenue, deltaLabel: t.kpiDeltaLabels?.revenue },
-    { key: "margin", label: t.kpiLabels?.margin, kpi: data.kpis.margin, deltaLabel: t.kpiDeltaLabels?.margin },
-    { key: "forecastConfidence", label: t.kpiLabels?.forecastConfidence, kpi: data.kpis.forecastConfidence, deltaLabel: t.kpiDeltaLabels?.forecastConfidence },
-    { key: "activeProjects", label: t.kpiLabels?.activeProjects, kpi: data.kpis.activeProjects, deltaLabel: t.kpiDeltaLabels?.activeProjects },
-  ]
+  const themes: ThemeKey[] = ["cloud", "security", "data", "process"]
+  const items = themes.map((key) => ({
+    key,
+    label: t.kpiLabels?.[key],
+    score: data.maturity[key],
+    deltaLabel: t.kpiDeltaLabels?.[key],
+  }))
+
   return (
     <div className="overflow-hidden rounded-[18px]">
       <div className="p-3">
         <p className="text-[0.72rem] font-semibold text-[#0B162D]">{t.sections.kpis}</p>
         <div className="mt-2.5 grid grid-cols-2 gap-2 sm:grid-cols-4">
           {items.map((item, i) => {
+            const fillPct = (item.score.current / 5) * 100
+            const targetPct = (item.score.target / 5) * 100
             return (
               <motion.div
-                key={item.label}
+                key={item.key}
                 whileHover={reduceMotion ? undefined : { y: -2 }}
                 whileTap={mobileEmphasis && !reduceMotion ? { scale: 0.97 } : undefined}
                 transition={{ type: "spring", stiffness: 320, damping: 22 }}
-                className="group relative rounded-[14px] bg-[#F8FBFE] p-2.5"
+                className="group relative rounded-[14px] bg-[#F8FAFC] p-2.5"
               >
-                <p className="text-[0.5rem] font-medium uppercase tracking-[0.08em] text-[#0B162D]/40">{item.label}</p>
-                <p className="mt-1.5 text-[0.82rem] font-semibold text-[#0B162D] sm:text-[0.86rem]">
-                  <CountUp
-                    to={item.kpi.to}
-                    decimals={item.kpi.decimals ?? 0}
-                    suffix={item.kpi.suffix ?? ""}
-                    reduceMotion={reduceMotion}
-                  />
+                <p className="text-[0.5rem] font-medium uppercase tracking-[0.08em] text-[#0B162D]/40">
+                  {item.label}
                 </p>
-                <div className="mt-2 h-1 overflow-hidden rounded-full bg-slate-100">
+                <div className="mt-1.5 flex items-baseline gap-1">
+                  <CountUp
+                    to={item.score.current}
+                    decimals={1}
+                    reduceMotion={reduceMotion}
+                    className="text-[0.92rem] font-semibold text-[#0B162D] sm:text-[0.96rem]"
+                  />
+                  <span className="text-[0.55rem] text-[#0B162D]/40">/ 5</span>
+                  <span className="ml-auto text-[0.55rem] font-medium text-[#64748B]">
+                    → {item.score.target.toString().replace(".", ",")}
+                  </span>
+                </div>
+                <div className="relative mt-2 h-1">
+                  <div className="absolute inset-x-0 top-0 h-1 overflow-hidden rounded-full bg-slate-100">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      animate={{ width: `${fillPct}%` }}
+                      transition={{ duration: 1.0, delay: 0.5 + i * 0.12, ease: "easeOut" }}
+                      className="h-full rounded-full bg-gradient-to-r from-[#64748B] to-[#94A3B8]"
+                    />
+                  </div>
+                  {/* Target marker */}
                   <motion.div
-                    initial={{ width: 0 }}
-                    animate={{ width: `${item.kpi.bar}%` }}
-                    transition={{ duration: 1.0, delay: 0.5 + i * 0.12, ease: "easeOut" }}
-                    className="h-full rounded-full bg-gradient-to-r from-[#21569c] to-[#7DBBFF]"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 0.4, delay: 1.0 + i * 0.12 }}
+                    className="absolute top-[-2px] bottom-[-2px] w-[1.5px] bg-[#0B162D]/50"
+                    style={{ left: `calc(${targetPct}% - 0.75px)` }}
                   />
                 </div>
                 {/* Delta badge — fades in on hover */}
                 <div className="pointer-events-none absolute -top-1.5 right-2 translate-y-1 opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100">
                   <span className="inline-flex items-center gap-1 rounded-full bg-[#0B162D] px-2 py-0.5 text-[0.5rem] font-semibold text-white shadow-md">
-                    {item.kpi.delta}
+                    {item.score.delta}
                     {item.deltaLabel ? <span className="font-normal text-white/60">· {item.deltaLabel}</span> : null}
                   </span>
                 </div>
@@ -332,42 +439,15 @@ function ClarityModule({
   )
 }
 
-function ProfitModule({
+function RoadmapModule({
   t,
   data,
-  mobileEmphasis = false,
 }: {
   t: any
   data: Dataset
   mobileEmphasis?: boolean
 }) {
-  const linePath = smoothLinePath(data.linePoints)
-  const areaPath = smoothAreaPath(data.linePoints)
-  const lastActual = data.linePoints[data.linePoints.length - 1]
-  const forecastPath = forecastSegmentPath(lastActual, data.forecastPoint)
-
-  // Unique gradient IDs per instance — ProfitModule renders twice on this page
-  // (mobile + desktop hero), so shared SVG defs IDs would collide.
-  const uid = useId().replace(/[:]/g, "")
-  const areaGradId = `hdj-profit-area-${uid}`
-  const lineGradId = `hdj-profit-line-${uid}`
-
-  // On mobile, hover does nothing — auto-open the forecast tooltip on first
-  // reveal so users see the "Konfidenz 89%" payload without needing to tap.
-  const chartRef = useRef<HTMLDivElement>(null)
-  const inView = useInView(chartRef, { once: true, margin: "-30%" })
-  const [forecastTooltipOpen, setForecastTooltipOpen] = useState<boolean | undefined>(
-    mobileEmphasis ? false : undefined,
-  )
-  useEffect(() => {
-    if (!mobileEmphasis || !inView) return
-    const showTimer = setTimeout(() => setForecastTooltipOpen(true), 1900)
-    const hideTimer = setTimeout(() => setForecastTooltipOpen(false), 4400)
-    return () => {
-      clearTimeout(showTimer)
-      clearTimeout(hideTimer)
-    }
-  }, [mobileEmphasis, inView])
+  const themes: ThemeKey[] = ["cloud", "security", "data", "process"]
 
   return (
     <TooltipProvider delayDuration={80}>
@@ -377,145 +457,88 @@ function ProfitModule({
             <p className="text-[0.72rem] font-semibold text-[#0B162D]">{t.sections.trend}</p>
             <p className="mt-0.5 text-[0.58rem] text-[#0B162D]/50">{t.sections.trendSub}</p>
           </div>
-          <div className="rounded-[14px] border border-slate-200/80 bg-[#F8FBFE] px-2.5 py-2 text-right">
-            <div className="flex items-center gap-1 text-[#21569c]">
+          <div className="rounded-[14px] border border-slate-200/80 bg-[#F8FAFC] px-2.5 py-2 text-right">
+            <div className="flex items-center gap-1 text-[#64748B]">
               <TrendingUp className="h-3.5 w-3.5" />
               <span className="text-[0.95rem] font-semibold">{data.trendHeader}</span>
             </div>
           </div>
         </div>
 
-        <div className="mt-2 flex min-h-0 flex-1 flex-col rounded-[16px] border border-slate-200/80 bg-[#F8FBFE] p-2">
-          <div className="mb-1 flex shrink-0 items-center gap-3 text-[0.56rem] text-[#0B162D]/46">
+        <div className="mt-2 flex min-h-0 flex-1 flex-col rounded-[16px] border border-slate-200/80 bg-[#F8FAFC] p-2">
+          {/* Legend */}
+          <div className="mb-1 flex shrink-0 flex-wrap items-center gap-x-3 gap-y-1 text-[0.56rem] text-[#0B162D]/46">
             <span className="inline-flex items-center gap-1">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#21569c]" />
-              {t.chartLegend?.actual}
+              <span className="box-border h-1.5 w-1.5 rounded-full bg-[#64748B]" />
+              {t.chartLegend?.done}
             </span>
             <span className="inline-flex items-center gap-1">
-              <span className="h-1.5 w-1.5 rounded-full bg-[#0B162D]/30" />
-              {t.chartLegend?.forecast}
+              <span className="box-border h-1.5 w-1.5 rounded-full border-2 border-[#64748B] bg-white" />
+              {t.chartLegend?.progress}
+            </span>
+            <span className="inline-flex items-center gap-1">
+              <span className="box-border h-1.5 w-1.5 rounded-full border border-[#64748B] bg-white" />
+              {t.chartLegend?.planned}
             </span>
           </div>
 
-          <div ref={chartRef} className="relative my-auto aspect-[510/150] w-full">
-            <svg viewBox="0 0 510 150" className="absolute inset-0 block h-full w-full">
-              <defs>
-                <linearGradient id={areaGradId} x1="0" x2="0" y1="0" y2="1">
-                  <stop offset="0%" stopColor="rgba(33,86,156,0.14)" />
-                  <stop offset="100%" stopColor="rgba(33,86,156,0)" />
-                </linearGradient>
-                <linearGradient id={lineGradId} x1="0" x2="1" y1="0" y2="0">
-                  <stop offset="0%" stopColor="#21569c" />
-                  <stop offset="100%" stopColor="#7DBBFF" />
-                </linearGradient>
-              </defs>
-              {[26, 54, 82, 110].map((y) => (
-                <line key={y} x1="16" x2="494" y1={y} y2={y} stroke="rgba(15,23,42,0.06)" strokeDasharray="4 6" />
-              ))}
-              <motion.path
-                key={`area-${areaPath}`}
-                d={areaPath}
-                fill={`url(#${areaGradId})`}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.7, ease: "easeOut" }}
-              />
-              <motion.path
-                key={`line-${linePath}`}
-                d={linePath}
-                fill="none"
-                stroke={`url(#${lineGradId})`}
-                strokeWidth="3.2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: 1 }}
-                transition={{ duration: 1.2, ease: "easeInOut" }}
-              />
-              <motion.path
-                key={`forecast-${forecastPath}`}
-                d={forecastPath}
-                fill="none"
-                stroke="rgba(15,23,42,0.35)"
-                strokeWidth="2.4"
-                strokeDasharray="5 6"
-                strokeLinecap="round"
-                initial={{ pathLength: 0 }}
-                animate={{ pathLength: 1 }}
-                transition={{ duration: 0.6, delay: 1.2, ease: "easeOut" }}
-              />
-            </svg>
-
-            {/* Data points as HTML overlays — interactive with tooltips */}
-            <div className="absolute inset-0">
-              {data.linePoints.map((p, idx) => (
-                <Tooltip key={`pp-${idx}-${p.x}-${p.y}`}>
-                  <TooltipTrigger asChild>
-                    <motion.button
-                      type="button"
-                      aria-label={`${p.label}: ${p.value}`}
-                      initial={{ opacity: 0, scale: 0.6 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 0.35, delay: 0.5 + idx * 0.1, ease: "easeOut" }}
-                      className="absolute h-2 w-2 -translate-x-1/2 -translate-y-1/2 cursor-pointer rounded-full bg-[#21569c] ring-4 ring-[#21569c]/10 transition-[box-shadow,filter] hover:brightness-110 hover:ring-[5px] hover:ring-[#21569c]/30 focus-visible:outline-none focus-visible:ring-[#21569c]/40"
-                      style={{ left: `${(p.x / 510) * 100}%`, top: `${(p.y / 150) * 100}%` }}
+          {/* Lanes — 4 themes, milestones placed by x% along each track */}
+          <div className="relative flex min-h-0 flex-1 flex-col justify-around gap-2 py-2">
+            {themes.map((theme, laneIdx) => {
+              const lane = data.lanes.find((l) => l.key === theme)
+              if (!lane) return null
+              return (
+                <div key={theme} className="flex items-center gap-2">
+                  <span className="w-[68px] shrink-0 text-[0.56rem] font-semibold uppercase tracking-wider text-[#0B162D]/55">
+                    {t.kpiLabels?.[theme]}
+                  </span>
+                  <div className="relative h-2 flex-1 rounded-full bg-slate-200/60">
+                    {/* Today cursor */}
+                    <div
+                      className="pointer-events-none absolute inset-y-[-3px] w-[1.5px] bg-[#0B162D]/35"
+                      style={{ left: `${data.todayPercent}%` }}
                     />
-                  </TooltipTrigger>
-                  <TooltipContent side="top" className="bg-[#0B162D] text-white">
-                    <div className="flex flex-col gap-0.5 text-[0.66rem] leading-tight">
-                      <span className="font-semibold">{p.label}</span>
-                      <span className="text-white/70">
-                        {t.trendTooltip?.revenueLabel}: {p.value}
-                      </span>
-                      <span className="text-[#7DBBFF]">
-                        {t.trendTooltip?.deltaLabel} {p.delta}
-                      </span>
-                    </div>
-                  </TooltipContent>
-                </Tooltip>
-              ))}
-
-              {/* Forecast point */}
-              <Tooltip
-                open={mobileEmphasis ? forecastTooltipOpen : undefined}
-                onOpenChange={mobileEmphasis ? setForecastTooltipOpen : undefined}
-              >
-                <TooltipTrigger asChild>
-                  <motion.button
-                    type="button"
-                    aria-label={`${data.forecastPoint.label}: ${data.forecastPoint.value}`}
-                    initial={{ opacity: 0, scale: 0.6 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.35, delay: 1.6, ease: "easeOut" }}
-                    className="absolute h-2 w-2 -translate-x-1/2 -translate-y-1/2 cursor-pointer rounded-full bg-[#0F172A]/35 ring-4 ring-[#0F172A]/[0.06] transition-[box-shadow,filter] hover:brightness-125 hover:ring-[5px] hover:ring-[#0F172A]/15 focus-visible:outline-none focus-visible:ring-[#0F172A]/30"
-                    style={{
-                      left: `${(data.forecastPoint.x / 510) * 100}%`,
-                      top: `${(data.forecastPoint.y / 150) * 100}%`,
-                    }}
-                  />
-                </TooltipTrigger>
-                <TooltipContent side="top" className="bg-[#0B162D] text-white">
-                  <div className="flex flex-col gap-0.5 text-[0.66rem] leading-tight">
-                    <span className="font-semibold">{data.forecastPoint.label}</span>
-                    <span className="text-white/70">
-                      {t.trendTooltip?.revenueLabel}: {data.forecastPoint.value}
-                    </span>
-                    <span className="text-white/50">{t.trendTooltip?.forecastLabel}</span>
+                    {/* Milestones */}
+                    {lane.milestones.map((m, mIdx) => (
+                      <Tooltip key={`m-${theme}-${mIdx}`}>
+                        <TooltipTrigger asChild>
+                          <motion.button
+                            type="button"
+                            initial={{ opacity: 0, scale: 0.5 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.35, delay: 0.4 + laneIdx * 0.06 + mIdx * 0.08 }}
+                            className={cx(
+                              "absolute top-1/2 box-border h-3 w-3 -translate-x-1/2 -translate-y-1/2 cursor-pointer rounded-full border-[#64748B] transition-transform hover:scale-125 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#64748B]/40",
+                              m.status === "done" && "border-[1.5px] bg-[#64748B]",
+                              m.status === "progress" && "border-[3px] bg-white",
+                              m.status === "planned" && "border-[1.5px] bg-white",
+                            )}
+                            style={{ left: `${m.x}%` }}
+                            aria-label={`${m.label} (${m.status})`}
+                          />
+                        </TooltipTrigger>
+                        <TooltipContent side="top" className="bg-[#0B162D] text-white">
+                          <div className="flex flex-col gap-0.5 text-[0.66rem] leading-tight">
+                            <span className="font-semibold">{m.label}</span>
+                            <span className="text-white/70">
+                              {m.status === "done"
+                                ? t.trendTooltip?.statusDone
+                                : m.status === "progress"
+                                  ? t.trendTooltip?.statusProgress
+                                  : t.trendTooltip?.statusPlanned}
+                            </span>
+                          </div>
+                        </TooltipContent>
+                      </Tooltip>
+                    ))}
                   </div>
-                </TooltipContent>
-              </Tooltip>
-
-              {/* Live pulse on the latest actual data point */}
-              <motion.div
-                initial={{ opacity: 0, scale: 1 }}
-                animate={{ opacity: [0, 0.7, 0], scale: [1, 4.5, 4.5] }}
-                transition={{ duration: 2.4, delay: 2.0, repeat: Infinity, repeatDelay: 1.4, ease: "easeOut" }}
-                className="pointer-events-none absolute h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full border-[1.5px] border-[#21569c]/50"
-                style={{ left: `${(lastActual.x / 510) * 100}%`, top: `${(lastActual.y / 150) * 100}%` }}
-              />
-            </div>
+                </div>
+              )
+            })}
           </div>
-          <div className="mt-1 flex shrink-0 justify-between text-[0.56rem] text-[#0B162D]/40">
+
+          {/* Timeline labels */}
+          <div className="mt-1 flex shrink-0 justify-between pl-[76px] text-[0.56rem] text-[#0B162D]/40">
             {data.bottomLabels.map((label, idx) => (
               <span key={`${label}-${idx}`}>{label}</span>
             ))}
@@ -526,47 +549,75 @@ function ProfitModule({
   )
 }
 
-function AiModule({ t, data, radarStyle }: { t: any; data: Dataset; radarStyle?: any }) {
+function RiskModule({ t, data, radarStyle }: { t: any; data: Dataset; radarStyle?: any }) {
+  const risks: { key: RiskKey; label: string; state: RiskState }[] = [
+    { key: "compliance", label: t.signalLabels?.compliance, state: data.risks.compliance },
+    { key: "cyber", label: t.signalLabels?.cyber, state: data.risks.cyber },
+    { key: "vendor", label: t.signalLabels?.vendor, state: data.risks.vendor },
+    { key: "operational", label: t.signalLabels?.operational, state: data.risks.operational },
+  ]
+
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-[18px]">
       <div className="flex min-h-0 flex-1 flex-col p-2 sm:p-3">
         <p className="shrink-0 text-[0.72rem] font-semibold text-[#0B162D]">{t.sections.signals}</p>
-        <div className="mt-1.5 shrink-0 sm:mt-2.5 grid grid-cols-2 gap-1.5 sm:gap-2">
-          {[
-            { label: t.signalLabels?.forecastRisk, value: data.signals.forecastRisk },
-            { label: t.signalLabels?.deviation, value: data.signals.deviation },
-            { label: t.signalLabels?.opportunityScore, value: data.signals.opportunityScore },
-            { label: t.signalLabels?.trendStrength, value: data.signals.trendStrength },
-          ].map((item) => (
-            <div key={item.label} className="rounded-[14px] bg-[#F8FBFE] p-1.5 sm:p-2.5">
-              <p className="text-[0.52rem] font-medium uppercase tracking-[0.14em] text-[#0B162D]/38">{item.label}</p>
-              <p className="mt-1 text-[0.82rem] font-semibold text-[#0B162D] sm:mt-1.5 sm:text-[0.9rem]">{item.value}</p>
-            </div>
-          ))}
+        <div className="mt-1.5 shrink-0 grid grid-cols-2 gap-1.5 sm:mt-2.5 sm:gap-2">
+          {risks.map((risk) => {
+            const TrendIcon =
+              risk.state.trend === "down" ? TrendingDown : risk.state.trend === "up" ? TrendingUp : Minus
+            const trendTone =
+              risk.state.trend === "down"
+                ? "text-emerald-500"
+                : risk.state.trend === "up"
+                  ? "text-red-500"
+                  : "text-slate-400"
+            return (
+              <div key={risk.key} className="rounded-[14px] bg-[#F8FAFC] p-1.5 sm:p-2.5">
+                <div className="flex items-center justify-between gap-1">
+                  <p className="text-[0.52rem] font-medium uppercase tracking-[0.14em] text-[#0B162D]/38">
+                    {risk.label}
+                  </p>
+                  <TrendIcon className={cx("h-3 w-3", trendTone)} />
+                </div>
+                {/* Severity 5-dot */}
+                <div className="mt-1 flex items-center gap-0.5 sm:mt-1.5">
+                  {[1, 2, 3, 4, 5].map((level) => (
+                    <span
+                      key={level}
+                      className={cx(
+                        "h-1.5 w-1.5 rounded-full",
+                        level <= risk.state.level ? "bg-[#64748B]" : "bg-slate-200",
+                      )}
+                    />
+                  ))}
+                </div>
+              </div>
+            )
+          })}
         </div>
         <motion.div
           style={radarStyle}
-          className="mt-1.5 flex min-h-0 flex-1 flex-col overflow-hidden rounded-[14px] bg-[#F8FBFE] p-1.5 sm:mt-2.5 sm:p-2.5"
+          className="mt-1.5 flex min-h-0 flex-1 flex-col overflow-hidden rounded-[14px] bg-[#F8FAFC] p-1.5 sm:mt-2.5 sm:p-2.5"
         >
-          <div className="shrink-0 flex items-center justify-between text-[0.56rem] text-[#0B162D]/44">
+          <div className="flex shrink-0 items-center justify-between text-[0.56rem] text-[#0B162D]/44">
             <span>{t.signalRadar?.title}</span>
             <span>{t.signalRadar?.period}</span>
           </div>
           <div className="mt-1 flex min-h-0 flex-1 items-end gap-1 sm:mt-2">
-            {data.radarBars.map((h, i) => (
+            {data.riskTrend.map((h, i) => (
               <motion.div
                 key={i}
                 initial={{ scaleY: 0, opacity: 0 }}
                 animate={{ scaleY: 1, opacity: 1 }}
                 transition={{ duration: 0.55, delay: 1.0 + i * 0.06, ease: "easeOut" }}
-                style={{ height: `${Math.round((h / 32) * 95)}%`, transformOrigin: "bottom" }}
-                className="flex-1 rounded-t-md bg-[#DCEBFF]"
+                style={{ height: `${Math.round((h / 28) * 95)}%`, transformOrigin: "bottom" }}
+                className="flex-1 rounded-t-md bg-[#E2E8F0]"
               >
                 <motion.div
-                  initial={{ scaleY: 0.5 }}
-                  animate={{ scaleY: [0.5, 0.32 + (i % 3) * 0.12, 0.4 + (i % 4) * 0.08, 0.32 + (i % 3) * 0.12] }}
-                  transition={{ duration: 8, delay: 1.4 + i * 0.05, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
-                  className="h-full w-full rounded-t-md bg-gradient-to-t from-[#21569c] to-[#7DBBFF] opacity-70"
+                  initial={{ scaleY: 0.4 }}
+                  animate={{ scaleY: 1 }}
+                  transition={{ duration: 0.5, delay: 1.4 + i * 0.05, ease: "easeOut" }}
+                  className="h-full w-full rounded-t-md bg-gradient-to-t from-[#64748B] to-[#94A3B8] opacity-80"
                   style={{ transformOrigin: "bottom" }}
                 />
               </motion.div>
@@ -578,24 +629,30 @@ function AiModule({ t, data, radarStyle }: { t: any; data: Dataset; radarStyle?:
   )
 }
 
-function SpeedModule({ t, data }: { t: any; data: Dataset }) {
+function InitiativesModule({ t, data }: { t: any; data: Dataset }) {
+  const phases: { key: PhaseKey; label: string; state: InitiativeBucket }[] = [
+    { key: "sondieren", label: t.segments?.sondieren, state: data.initiatives.sondieren },
+    { key: "konzipieren", label: t.segments?.konzipieren, state: data.initiatives.konzipieren },
+    { key: "umsetzen", label: t.segments?.umsetzen, state: data.initiatives.umsetzen },
+    { key: "verankern", label: t.segments?.verankern, state: data.initiatives.verankern },
+  ]
   return (
     <div className="flex h-full flex-col overflow-hidden rounded-[18px]">
       <div className="flex flex-1 flex-col p-2 sm:p-3">
         <p className="shrink-0 text-[0.72rem] font-semibold text-[#0B162D]">{t.sections.potentials}</p>
         <div className="mt-1.5 flex flex-1 flex-col justify-around sm:mt-2.5">
-          {data.segments.map((seg, i) => (
-            <div key={seg.key}>
+          {phases.map((phase, i) => (
+            <div key={phase.key}>
               <div className="mb-0.5 flex items-center justify-between text-[0.6rem] sm:mb-1">
-                <span className="text-[#0B162D]/68">{t.segments?.[seg.key]}</span>
-                <span className="font-semibold text-[#21569c]">{seg.value}%</span>
+                <span className="text-[#0B162D]/68">{phase.label}</span>
+                <span className="font-semibold text-[#64748B]">{phase.state.count}</span>
               </div>
               <div className="h-1.5 overflow-hidden rounded-full bg-slate-100">
                 <motion.div
                   initial={{ width: 0 }}
-                  animate={{ width: `${seg.value}%` }}
+                  animate={{ width: `${phase.state.bar}%` }}
                   transition={{ duration: 0.9, delay: 0.4 + i * 0.1, ease: "easeOut" }}
-                  className="h-full rounded-full bg-gradient-to-r from-[#21569c] to-[#7DBBFF]"
+                  className="h-full rounded-full bg-gradient-to-r from-[#64748B] to-[#94A3B8]"
                 />
               </div>
             </div>
@@ -620,10 +677,11 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
   // Toggle the scroll-driven dashboard growth. Flip to true to restore the cinematic morph.
   const SCROLL_ANIMATIONS_ENABLED = false
 
-  const hero = dict?.servicesAnalytics?.hero
-  const eyebrowLabel = dict?.servicesAnalytics?.eyebrows?.hero
+  const hero = dict?.servicesStrategy?.hero
+  const eyebrowLabel = dict?.servicesStrategy?.eyebrows?.hero
 
   const t = {
+    dashboardTitle: (hero?.dashboardTitle as string) ?? "Digital Strategy Cockpit",
     sourcesConnected: hero?.sourcesConnected as string,
     updated: hero?.updated as string,
     sections: (hero?.sections ?? {}) as any,
@@ -702,7 +760,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
   const radarStyle = shouldReduceMotion
     ? { opacity: 1 }
     : useStaticIdleLayout
-      ? { opacity: 0 }
+      ? { opacity: 1 }
       : { opacity: radarOpacity }
 
   return (
@@ -712,11 +770,11 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
         {/* Background glows */}
         <div
           aria-hidden
-          className="pointer-events-none absolute -z-10 right-[-12%] top-[8%] h-[420px] w-[560px] rounded-full bg-[radial-gradient(ellipse_at_center,_rgba(33,86,156,0.12),_transparent_62%)] blur-3xl"
+          className="pointer-events-none absolute -z-10 right-[-12%] top-[8%] h-[420px] w-[560px] rounded-full bg-[radial-gradient(ellipse_at_center,_rgba(100,116,139,0.12),_transparent_62%)] blur-3xl"
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute -z-10 left-[-18%] top-[55%] h-[380px] w-[520px] rounded-full bg-[radial-gradient(ellipse_at_center,_rgba(125,187,255,0.10),_transparent_62%)] blur-3xl"
+          className="pointer-events-none absolute -z-10 left-[-18%] top-[55%] h-[380px] w-[520px] rounded-full bg-[radial-gradient(ellipse_at_center,_rgba(148,163,184,0.10),_transparent_62%)] blur-3xl"
         />
 
         <div className="mx-auto max-w-[760px] px-5 pt-16 pb-12 sm:px-6 sm:pt-20 sm:pb-16 md:max-w-[920px] md:px-8 md:pt-24 md:pb-20">
@@ -737,7 +795,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
             <div className="mt-6 sm:mt-7">
               <Link
                 href={`/${lang}/contact#book`}
-                className="group inline-flex items-center justify-center rounded-lg bg-[#21569c] px-5 py-3 text-[0.9rem] font-medium text-white shadow-[0_14px_28px_rgba(33,86,156,0.20)] transition-colors duration-300 hover:bg-[#1d4d8b]"
+                className="group inline-flex items-center justify-center rounded-lg bg-[#64748B] px-5 py-3 text-[0.9rem] font-medium text-white shadow-[0_14px_28px_rgba(100,116,139,0.20)] transition-colors duration-300 hover:bg-[#475569]"
               >
                 {hero?.primaryCta}
                 <ArrowRight className="ml-1.5 h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
@@ -745,10 +803,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
             </div>
           </motion.div>
 
-          {/* Dashboard preview card — staggered entrance choreography. Each
-              child has its own variant so children boot in sequence: header →
-              status → KPIs → trend → (tablet-only AI). The reduced-data mobile
-              shape (no SpeedModule, no AI on <md) keeps the card focused. */}
+          {/* Dashboard preview card — staggered entrance */}
           <motion.div
             initial={shouldReduceMotion ? false : "hidden"}
             whileInView={shouldReduceMotion ? undefined : "visible"}
@@ -785,7 +840,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
                   />
                   <div className="h-3.5 w-px bg-slate-200" />
                   <h2 className="truncate text-[0.78rem] font-semibold text-[#0B162D] sm:text-[0.86rem]">
-                    Management Dashboard
+                    {t.dashboardTitle}
                   </h2>
                 </div>
                 <div className="hidden shrink-0 items-center gap-1 text-[0.6rem] text-[#0B162D]/48 sm:inline-flex">
@@ -794,18 +849,17 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
                 </div>
               </div>
 
-              {/* Status row — period toggle uses shared layoutId so the pill
-                  glides between Q/H/Y on tap instead of a hard color flip. */}
+              {/* Status row — period toggle */}
               <div className="mt-2.5 flex flex-wrap items-center gap-1.5 text-[0.6rem] text-[#0B162D]/48 sm:gap-2">
-                <span className="hidden items-center gap-1 rounded-full bg-[#F7FAFF] px-2 py-1 sm:inline-flex">
-                  <Layers3 className="h-3 w-3 text-[#21569c]" />
+                <span className="hidden items-center gap-1 rounded-full bg-[#F1F5F9] px-2 py-1 sm:inline-flex">
+                  <Layers3 className="h-3 w-3 text-[#64748B]" />
                   {t.sourcesConnected}
                 </span>
 
                 <div
                   role="tablist"
                   aria-label="Zeitraum"
-                  className="relative inline-flex items-center gap-0.5 rounded-full bg-[#F7FAFF] p-0.5"
+                  className="relative inline-flex items-center gap-0.5 rounded-full bg-[#F1F5F9] p-0.5"
                 >
                   {(["q", "h", "y"] as const).map((key) => {
                     const active = periodKey === key
@@ -825,11 +879,11 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
                           <motion.span
                             layoutId="hero-mobile-period-pill"
                             transition={{ type: "spring", stiffness: 480, damping: 32 }}
-                            className="absolute inset-0 -z-10 rounded-full bg-[#21569c] shadow-sm"
+                            className="absolute inset-0 -z-10 rounded-full bg-[#64748B] shadow-sm"
                           />
                         )}
                         {active && shouldReduceMotion && (
-                          <span className="absolute inset-0 -z-10 rounded-full bg-[#21569c] shadow-sm" />
+                          <span className="absolute inset-0 -z-10 rounded-full bg-[#64748B] shadow-sm" />
                         )}
                         {t.periods?.[key]}
                       </button>
@@ -837,38 +891,34 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
                   })}
                 </div>
 
-                <span className="hidden items-center gap-1 rounded-full bg-[#F7FAFF] px-2 py-1 sm:inline-flex">
-                  <Filter className="h-3 w-3 text-[#21569c]" />
+                <span className="hidden items-center gap-1 rounded-full bg-[#F1F5F9] px-2 py-1 sm:inline-flex">
+                  <Filter className="h-3 w-3 text-[#64748B]" />
                   {t.sections.filters}
                 </span>
               </div>
             </motion.div>
 
-            {/* Body — KPIs + trend always; AI only on tablet. SpeedModule is
-                dropped entirely on mobile/tablet for focus. */}
+            {/* Body — Maturity + Roadmap always; Risks only on tablet. Initiatives dropped on mobile/tablet for focus. */}
             <div className="flex flex-col gap-2.5 p-2.5 sm:gap-3 sm:p-3">
-              {/* KPIs */}
               <motion.div
                 variants={dashboardChildVariants}
                 className="overflow-hidden rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)]"
               >
-                <ClarityModule t={t} data={data} reduceMotion={shouldReduceMotion} mobileEmphasis />
+                <MaturityModule t={t} data={data} reduceMotion={shouldReduceMotion} mobileEmphasis />
               </motion.div>
 
-              {/* Trend chart — money shot */}
               <motion.div
                 variants={dashboardChildVariants}
                 className="flex flex-col overflow-hidden rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)] sm:min-h-[320px] md:min-h-[360px]"
               >
-                <ProfitModule t={t} data={data} mobileEmphasis />
+                <RoadmapModule t={t} data={data} mobileEmphasis />
               </motion.div>
 
-              {/* AI signals — tablet only */}
               <motion.div
                 variants={dashboardChildVariants}
                 className="hidden min-h-[260px] flex-col overflow-hidden rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)] md:flex md:min-h-[280px]"
               >
-                <AiModule t={t} data={data} radarStyle={{ opacity: 1 }} />
+                <RiskModule t={t} data={data} radarStyle={{ opacity: 1 }} />
               </motion.div>
             </div>
           </motion.div>
@@ -884,158 +934,156 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
         )}
       >
         <div className="sticky top-0 h-[100dvh] overflow-hidden">
-        {/* Background glow — right side, behind the dashboard */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute right-[5%] top-1/2 -z-10 h-[480px] w-[680px] -translate-y-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,_rgba(33,86,156,0.10),_transparent_62%)] blur-2xl"
-        />
+          {/* Background glow — right side, behind the dashboard */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute right-[5%] top-1/2 -z-10 h-[480px] w-[680px] -translate-y-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,_rgba(100,116,139,0.10),_transparent_62%)] blur-2xl"
+          />
 
-        {/* HERO TEXT — left column */}
-        <motion.div
-          style={heroTextStyle}
-          className="pointer-events-none absolute inset-0 z-10 flex items-center"
-        >
-          <div className="mx-auto w-full max-w-[1380px] px-10">
-            <div className="grid grid-cols-[1fr_1.25fr] items-center gap-10">
-              <div className="pointer-events-auto text-left">
-                <span className="section-eyebrow">{eyebrowLabel}</span>
-
-                <h1 className="mx-0 mt-2 max-w-[15ch] font-serif text-[2.8rem] leading-[1.05] text-[#0B162D] xl:text-[3.2rem] 2xl:text-[3.6rem]">
-                  {hero?.title}
-                </h1>
-
-                <p className="mx-0 mt-5 max-w-[56ch] text-[0.98rem] leading-relaxed text-[#0B162D]/70 xl:text-[1.05rem]">
-                  {hero?.description}
-                </p>
-
-                <div className="mt-9 flex justify-start">
-                  <MagneticCta
-                    href={`/${lang}/contact#book`}
-                    className="group inline-flex items-center justify-center rounded-lg bg-[#21569c] px-5 py-3 text-[0.88rem] font-medium text-white shadow-[0_14px_28px_rgba(33,86,156,0.20)] transition-colors duration-300 hover:bg-[#1d4d8b]"
-                  >
-                    {hero?.primaryCta}
-                    <ArrowRight className="ml-1.5 h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-                  </MagneticCta>
-                </div>
-              </div>
-              <div />
-            </div>
-          </div>
-        </motion.div>
-
-        {/* SINGLE DASHBOARD FRAME */}
-        <motion.div
-          style={dashboardWrapperStyle}
-          className="absolute inset-0 z-20 flex items-center justify-center"
-        >
+          {/* HERO TEXT — left column */}
           <motion.div
-            style={dashboardStyle}
-            className="relative overflow-hidden rounded-[28px] border border-white/70 bg-white/84 shadow-[0_34px_100px_rgba(15,23,42,0.12)] backdrop-blur-2xl"
+            style={heroTextStyle}
+            className="pointer-events-none absolute inset-0 z-10 flex items-center"
           >
-            {/* Light-sweep / glass-reflex */}
-            <motion.div
-              style={lightSweepStyle}
-              aria-hidden
-              className="pointer-events-none absolute inset-y-0 left-0 z-30 w-[45%] -skew-x-12 bg-gradient-to-r from-transparent via-white/95 to-transparent mix-blend-screen"
-            />
+            <div className="mx-auto w-full max-w-[1380px] px-10">
+              <div className="grid grid-cols-[1fr_1.25fr] items-center gap-10">
+                <div className="pointer-events-auto text-left">
+                  <span className="section-eyebrow">{eyebrowLabel}</span>
 
-            <div className="flex h-full min-h-0 flex-col">
-              {/* Dashboard Header */}
-              <div className="border-b border-slate-100 px-3.5 py-3 sm:px-4">
-                <div className="flex items-center justify-between gap-4">
-                  <div className="flex items-center gap-2 shrink-0">
-                    <Image
-                      src="/logo_black.png"
-                      alt="smiit"
-                      width={64}
-                      height={24}
-                      className="h-[22px] w-auto object-contain opacity-80"
-                    />
-                    <div className="h-3.5 w-px bg-slate-200" />
-                    <h2 className="whitespace-nowrap text-[0.88rem] font-semibold text-[#0B162D]">
-                      Management Dashboard
-                    </h2>
-                  </div>
-                  <div className="inline-flex items-center gap-1 text-[0.62rem] text-[#0B162D]/48">
-                    <span>{t.updated}</span>
-                    <ChevronDown className="h-3 w-3" />
+                  <h1 className="mx-0 mt-2 max-w-[15ch] font-serif text-[2.8rem] leading-[1.05] text-[#0B162D] xl:text-[3.2rem] 2xl:text-[3.6rem]">
+                    {hero?.title}
+                  </h1>
+
+                  <p className="mx-0 mt-5 max-w-[56ch] text-[0.98rem] leading-relaxed text-[#0B162D]/70 xl:text-[1.05rem]">
+                    {hero?.description}
+                  </p>
+
+                  <div className="mt-9 flex justify-start">
+                    <MagneticCta
+                      href={`/${lang}/contact#book`}
+                      className="group inline-flex items-center justify-center rounded-lg bg-[#64748B] px-5 py-3 text-[0.88rem] font-medium text-white shadow-[0_14px_28px_rgba(100,116,139,0.20)] transition-colors duration-300 hover:bg-[#475569]"
+                    >
+                      {hero?.primaryCta}
+                      <ArrowRight className="ml-1.5 h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                    </MagneticCta>
                   </div>
                 </div>
-
-                {/* Status row */}
-                <div className="mt-2 flex items-center gap-2 overflow-hidden text-[0.62rem] text-[#0B162D]/48">
-                  <span className="inline-flex items-center gap-1 rounded-full bg-[#F7FAFF] px-2 py-1">
-                    <Layers3 className="h-3 w-3 text-[#21569c]" />
-                    {t.sourcesConnected}
-                  </span>
-
-                  {/* Period toggle group — replaces static date pill */}
-                  <div
-                    role="tablist"
-                    aria-label="Zeitraum"
-                    className="inline-flex items-center gap-0.5 rounded-full bg-[#F7FAFF] p-0.5"
-                  >
-                    {(["q", "h", "y"] as const).map((key) => {
-                      const active = periodKey === key
-                      return (
-                        <button
-                          key={key}
-                          type="button"
-                          role="tab"
-                          aria-selected={active}
-                          onClick={() => setPeriodKey(key)}
-                          className={cx(
-                            "rounded-full px-2 py-0.5 text-[0.62rem] font-medium transition-all duration-200",
-                            active
-                              ? "bg-[#21569c] text-white shadow-sm"
-                              : "text-[#0B162D]/60 hover:text-[#0B162D]",
-                          )}
-                        >
-                          {t.periods?.[key]}
-                        </button>
-                      )
-                    })}
-                  </div>
-
-                  <span className="inline-flex items-center gap-1 rounded-full bg-[#F7FAFF] px-2 py-1">
-                    <Filter className="h-3 w-3 text-[#21569c]" />
-                    {t.sections.filters}
-                  </span>
-                </div>
-              </div>
-
-              {/* Dashboard Body */}
-              <div className="flex min-h-0 flex-1 flex-row gap-2.5 overflow-hidden p-3">
-                {/* Left column */}
-                <div className="flex min-h-0 flex-1 flex-col gap-2.5">
-                  <div className="relative shrink-0 overflow-visible rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)]">
-                    <ClarityModule t={t} data={data} reduceMotion={shouldReduceMotion} />
-                  </div>
-                  <div className="relative flex min-h-0 flex-1 flex-col overflow-visible rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)]">
-                    <ProfitModule t={t} data={data} />
-                  </div>
-                </div>
-
-                {/* Right column */}
-                <div className="flex shrink-0 basis-[33%] flex-col gap-2.5 overflow-hidden">
-                  <motion.div
-                    style={aiWrapperStyle}
-                    className="relative flex shrink-0 flex-col overflow-visible rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)]"
-                  >
-                    <AiModule t={t} data={data} radarStyle={radarStyle} />
-                  </motion.div>
-                  <div className="relative flex min-h-0 flex-1 flex-col overflow-visible rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)]">
-                    <SpeedModule t={t} data={data} />
-                  </div>
-                </div>
+                <div />
               </div>
             </div>
           </motion.div>
-        </motion.div>
 
-      </div>
-    </section>
+          {/* SINGLE DASHBOARD FRAME */}
+          <motion.div
+            style={dashboardWrapperStyle}
+            className="absolute inset-0 z-20 flex items-center justify-center"
+          >
+            <motion.div
+              style={dashboardStyle}
+              className="relative overflow-hidden rounded-[28px] border border-white/70 bg-white/84 shadow-[0_34px_100px_rgba(15,23,42,0.12)] backdrop-blur-2xl"
+            >
+              {/* Light-sweep / glass-reflex */}
+              <motion.div
+                style={lightSweepStyle}
+                aria-hidden
+                className="pointer-events-none absolute inset-y-0 left-0 z-30 w-[45%] -skew-x-12 bg-gradient-to-r from-transparent via-white/95 to-transparent mix-blend-screen"
+              />
+
+              <div className="flex h-full min-h-0 flex-col">
+                {/* Dashboard Header */}
+                <div className="border-b border-slate-100 px-3.5 py-3 sm:px-4">
+                  <div className="flex items-center justify-between gap-4">
+                    <div className="flex items-center gap-2 shrink-0">
+                      <Image
+                        src="/logo_black.png"
+                        alt="smiit"
+                        width={64}
+                        height={24}
+                        className="h-[22px] w-auto object-contain opacity-80"
+                      />
+                      <div className="h-3.5 w-px bg-slate-200" />
+                      <h2 className="whitespace-nowrap text-[0.88rem] font-semibold text-[#0B162D]">
+                        {t.dashboardTitle}
+                      </h2>
+                    </div>
+                    <div className="inline-flex items-center gap-1 text-[0.62rem] text-[#0B162D]/48">
+                      <span>{t.updated}</span>
+                      <ChevronDown className="h-3 w-3" />
+                    </div>
+                  </div>
+
+                  {/* Status row */}
+                  <div className="mt-2 flex items-center gap-2 overflow-hidden text-[0.62rem] text-[#0B162D]/48">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[#F1F5F9] px-2 py-1">
+                      <Layers3 className="h-3 w-3 text-[#64748B]" />
+                      {t.sourcesConnected}
+                    </span>
+
+                    {/* Period toggle group */}
+                    <div
+                      role="tablist"
+                      aria-label="Zeitraum"
+                      className="inline-flex items-center gap-0.5 rounded-full bg-[#F1F5F9] p-0.5"
+                    >
+                      {(["q", "h", "y"] as const).map((key) => {
+                        const active = periodKey === key
+                        return (
+                          <button
+                            key={key}
+                            type="button"
+                            role="tab"
+                            aria-selected={active}
+                            onClick={() => setPeriodKey(key)}
+                            className={cx(
+                              "rounded-full px-2 py-0.5 text-[0.62rem] font-medium transition-all duration-200",
+                              active
+                                ? "bg-[#64748B] text-white shadow-sm"
+                                : "text-[#0B162D]/60 hover:text-[#0B162D]",
+                            )}
+                          >
+                            {t.periods?.[key]}
+                          </button>
+                        )
+                      })}
+                    </div>
+
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[#F1F5F9] px-2 py-1">
+                      <Filter className="h-3 w-3 text-[#64748B]" />
+                      {t.sections.filters}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Dashboard Body */}
+                <div className="flex min-h-0 flex-1 flex-row gap-2.5 overflow-hidden p-3">
+                  {/* Left column */}
+                  <div className="flex min-h-0 flex-1 flex-col gap-2.5">
+                    <div className="relative shrink-0 overflow-visible rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)]">
+                      <MaturityModule t={t} data={data} reduceMotion={shouldReduceMotion} />
+                    </div>
+                    <div className="relative flex min-h-0 flex-1 flex-col overflow-visible rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)]">
+                      <RoadmapModule t={t} data={data} />
+                    </div>
+                  </div>
+
+                  {/* Right column */}
+                  <div className="flex shrink-0 basis-[33%] flex-col gap-2.5 overflow-hidden">
+                    <motion.div
+                      style={aiWrapperStyle}
+                      className="relative flex shrink-0 flex-col overflow-visible rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)]"
+                    >
+                      <RiskModule t={t} data={data} radarStyle={radarStyle} />
+                    </motion.div>
+                    <div className="relative flex min-h-0 flex-1 flex-col overflow-visible rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)]">
+                      <InitiativesModule t={t} data={data} />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
     </>
   )
 }
-

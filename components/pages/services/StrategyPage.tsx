@@ -16,7 +16,7 @@ export default function StrategyPage({
   dict: any
 }) {
   return (
-    <main>
+    <main data-page="strategy">
       <HeroSection lang={lang} dict={dict} />
       <PortfolioSection dict={dict} />
       <ManifestBand dict={dict} />

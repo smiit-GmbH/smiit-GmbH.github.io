@@ -386,6 +386,12 @@
 [data-page="apps"] .section-eyebrow::before {
   background: linear-gradient(to right, transparent, #F703EB);
 }
+[data-page="strategy"] .section-eyebrow {
+  color: #64748B;
+}
+[data-page="strategy"] .section-eyebrow::before {
+  background: linear-gradient(to right, transparent, #64748B);
+}
 
 /* Hero scroll-indicator pulse */
 @keyframes hero-scroll-pulse {

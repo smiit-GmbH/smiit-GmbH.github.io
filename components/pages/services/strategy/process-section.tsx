@@ -26,8 +26,8 @@ interface ProcessSectionProps {
 }
 
 export default function ProcessSection({ dict }: ProcessSectionProps) {
-  const process = dict?.servicesAnalytics?.process
-  const eyebrowLabel = dict?.servicesAnalytics?.eyebrows?.process
+  const process = dict?.servicesStrategy?.process
+  const eyebrowLabel = dict?.servicesStrategy?.eyebrows?.process
   const steps: Step[] = process?.steps ?? []
 
   const containerRef = useRef<HTMLElement>(null)
@@ -79,7 +79,7 @@ export default function ProcessSection({ dict }: ProcessSectionProps) {
             <span className="section-eyebrow justify-center">{eyebrowLabel}</span>
             <h2 className="mx-auto max-w-[22ch] font-serif text-[2.2rem] sm:text-[2.4rem] md:text-[3rem] leading-[1.1] tracking-tight text-black">
               {process?.title}{" "}
-              <span className="text-[#21569c]">{process?.titleHighlight}</span>
+              <span className="text-[#64748B]">{process?.titleHighlight}</span>
             </h2>
             {process?.subtitle && (
               <p className="mx-auto mt-4 max-w-[58ch] text-[0.9rem] sm:text-base leading-relaxed text-black/60">
@@ -98,13 +98,13 @@ export default function ProcessSection({ dict }: ProcessSectionProps) {
               return (
                 <div
                   key={idx}
-                  className={`group relative rounded-[1.5rem] border border-slate-200/70 bg-white p-7 shadow-[0_10px_30px_rgba(15,23,42,0.05)] transition-all duration-500 hover:-translate-y-1 hover:border-[#21569c]/30 hover:shadow-[0_18px_45px_rgba(33,86,156,0.12)] reveal-fade-up reveal-delay-${idx + 1} ${mobileReveal.isRevealed ? "revealed" : ""}`}
+                  className={`group relative rounded-[1.5rem] border border-slate-200/70 bg-white p-7 shadow-[0_10px_30px_rgba(15,23,42,0.05)] transition-all duration-500 hover:-translate-y-1 hover:border-[#64748B]/30 hover:shadow-[0_18px_45px_rgba(100,116,139,0.12)] reveal-fade-up reveal-delay-${idx + 1} ${mobileReveal.isRevealed ? "revealed" : ""}`}
                 >
                   <div className="flex items-center justify-between">
-                    <span className="font-serif text-[2.4rem] md:text-[2.8rem] font-semibold leading-none text-[#21569c]/25">
+                    <span className="font-serif text-[2.4rem] md:text-[2.8rem] font-semibold leading-none text-[#64748B]/25">
                       {step.number}
                     </span>
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#21569c]/10 text-[#21569c]">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#64748B]/10 text-[#64748B]">
                       <Icon className="h-4 w-4 md:h-5 md:w-5" />
                     </div>
                   </div>
@@ -133,7 +133,7 @@ export default function ProcessSection({ dict }: ProcessSectionProps) {
           <span className="section-eyebrow">{eyebrowLabel}</span>
           <h2 className="mt-1 max-w-[26ch] font-serif text-[2rem] leading-[1.05] tracking-tight text-black sm:text-[2.4rem] md:text-[3rem]">
             {process?.title}{" "}
-            <span className="text-[#21569c]">{process?.titleHighlight}</span>
+            <span className="text-[#64748B]">{process?.titleHighlight}</span>
           </h2>
           {process?.subtitle && (
             <p className="mt-3 max-w-[64ch] text-[1rem] leading-relaxed text-black/60">
@@ -167,16 +167,16 @@ export default function ProcessSection({ dict }: ProcessSectionProps) {
                 >
                   <div className="w-full">
                     <div className="flex items-center gap-3">
-                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#21569c] text-white shadow-[0_12px_28px_rgba(33,86,156,0.28)]">
+                      <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#64748B] text-white shadow-[0_12px_28px_rgba(100,116,139,0.28)]">
                         <Icon className="h-4 w-4" />
                       </div>
-                      <span className="text-[0.66rem] font-semibold uppercase tracking-[0.22em] text-[#21569c]">
+                      <span className="text-[0.66rem] font-semibold uppercase tracking-[0.22em] text-[#64748B]">
                         Schritt {step.number}
                       </span>
                     </div>
 
                     <div className="mt-5 flex items-baseline gap-4">
-                      <span className="font-serif text-[3.4rem] font-semibold leading-[0.85] tracking-tight text-[#21569c]/20 xl:text-[4rem]">
+                      <span className="font-serif text-[3.4rem] font-semibold leading-[0.85] tracking-tight text-[#64748B]/20 xl:text-[4rem]">
                         {step.number}
                       </span>
                       <h3 className="font-serif text-[1.85rem] font-semibold leading-[1.05] text-[#0B162D] xl:text-[2.2rem]">
@@ -232,7 +232,7 @@ function Mindmap({
             <path
               key={idx}
               d={path}
-              stroke={isActive ? "#21569c" : "#cbd5e1"}
+              stroke={isActive ? "#64748B" : "#cbd5e1"}
               strokeWidth={isActive ? 1.8 : 1}
               fill="none"
               className="transition-[stroke,stroke-width] duration-300 ease-out"
@@ -263,13 +263,13 @@ function Mindmap({
             style={{ top: `${yPercent}%`, transform: "translateY(-50%)" }}
             className={`absolute right-0 z-10 flex w-[260px] items-center gap-3 rounded-xl border px-4 py-3 transition-all duration-300 ease-out ${
               isActive
-                ? "border-[#21569c] bg-[#21569c] text-white shadow-[0_14px_36px_rgba(33,86,156,0.34)]"
+                ? "border-[#64748B] bg-[#64748B] text-white shadow-[0_14px_36px_rgba(100,116,139,0.34)]"
                 : "border-slate-200/80 bg-white/90 text-[#0B162D]/75 backdrop-blur-sm"
             }`}
           >
             <div
               className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg transition-colors duration-300 ${
-                isActive ? "bg-white/20 text-white" : "bg-[#21569c]/10 text-[#21569c]"
+                isActive ? "bg-white/20 text-white" : "bg-[#64748B]/10 text-[#64748B]"
               }`}
             >
               <Icon className="h-3.5 w-3.5" />
@@ -324,7 +324,7 @@ function MobileProcessTimeline({
       <motion.div
         aria-hidden
         style={reduceMotion ? { height: "100%" } : { height: railHeight }}
-        className="pointer-events-none absolute left-[19px] top-2 w-[2px] rounded-full bg-gradient-to-b from-[#21569c] via-[#21569c] to-[#7DBBFF]"
+        className="pointer-events-none absolute left-[19px] top-2 w-[2px] rounded-full bg-gradient-to-b from-[#64748B] via-[#64748B] to-[#94A3B8]"
       />
 
       <div className="flex flex-col gap-y-7">
@@ -384,11 +384,11 @@ function MobileProcessStep({
         initial={false}
         animate={{
           scale: isActive ? 1.05 : 1,
-          backgroundColor: isActive ? "#21569c" : "#ffffff",
-          borderColor: isActive ? "#21569c" : "rgba(33, 86, 156, 0.25)",
-          color: isActive ? "#ffffff" : "#21569c",
+          backgroundColor: isActive ? "#64748B" : "#ffffff",
+          borderColor: isActive ? "#64748B" : "rgba(148, 163, 184, 0.25)",
+          color: isActive ? "#ffffff" : "#64748B",
           boxShadow: isActive
-            ? "0 14px 30px rgba(33,86,156,0.35)"
+            ? "0 14px 30px rgba(100,116,139,0.35)"
             : "0 6px 14px rgba(15,23,42,0.05)",
         }}
         transition={{ type: "spring", stiffness: 320, damping: 24 }}
@@ -401,15 +401,15 @@ function MobileProcessStep({
       <div
         className={`rounded-2xl border bg-white p-5 transition-[border-color,box-shadow] duration-300 ${
           isActive
-            ? "border-[#21569c]/35 shadow-[0_18px_44px_rgba(33,86,156,0.12)]"
+            ? "border-[#64748B]/35 shadow-[0_18px_44px_rgba(100,116,139,0.12)]"
             : "border-slate-200/70 shadow-[0_8px_22px_rgba(15,23,42,0.04)]"
         }`}
       >
         <div className="flex items-baseline justify-between gap-3">
-          <span className="text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-[#21569c]">
+          <span className="text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-[#64748B]">
             Schritt {step.number}
           </span>
-          <span className="font-serif text-[1.6rem] font-semibold leading-none text-[#21569c]/20">
+          <span className="font-serif text-[1.6rem] font-semibold leading-none text-[#64748B]/20">
             {step.number}
           </span>
         </div>
