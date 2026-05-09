@@ -77,7 +77,7 @@ export function AdvantagesSection({ dict }: AdvantagesSectionProps) {
                       onClick={() => toggleCard(idx)}
                       className="inline-flex items-center text-sm font-medium transition-colors duration-200 text-black/60 hover:text-black"
                     >
-                      {isExpanded ? (advantages.learnLess ?? "Weniger anzeigen") : advantages.learnMore}
+                      {isExpanded ? advantages.learnLess : advantages.learnMore}
                       <ArrowRight
                         className={`ml-1.5 h-4 w-4 transition-transform duration-200 ${
                           isExpanded ? "rotate-270" : "rotate-0"

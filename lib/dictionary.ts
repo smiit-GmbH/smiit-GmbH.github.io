@@ -194,6 +194,10 @@ const dictionaries = {
         title: "Unser",
         titleHighlight: "Angebot",
         subtitle: "Wir unterstützen Sie dabei, den maximalen Wert aus Ihren Daten zu schöpfen – von der Strategie bis zur produktiven Analytics-Lösung.",
+        visuals: {
+          bi: { label: "Umsatz Q3", kpiRevenue: "Umsatz", target: "Ziel" },
+          governance: { badge: "DSGVO" },
+        },
         learnMore: "Mehr erfahren",
         learnLess: "Weniger anzeigen",
         bookCta: "Gespräch vereinbaren",
@@ -219,6 +223,7 @@ const dictionaries = {
         title: "So machen wir aus Ihren Daten",
         titleHighlight: "Entscheidungen.",
         subtitle: "Vier klare Schritte – vom ersten Gespräch bis zum produktiven Betrieb.",
+        stepLabel: "Schritt",
         steps: [
           {
             number: "01",
@@ -245,6 +250,7 @@ const dictionaries = {
       reviewsHeading: {
         lead: "Was unsere",
         highlight: "Kunden sagen",
+        swipeHint: "wischen →",
       },
       reviews: [
         {
@@ -399,6 +405,17 @@ const dictionaries = {
         title: "Unser",
         titleHighlight: "Angebot",
         subtitle: "Wir begleiten Sie auf dem Weg zu einer digitalen Strategie, die im Alltag trägt – von der ehrlichen Bestandsaufnahme bis zur produktiven Cloud-Plattform.",
+        visuals: {
+          process: {
+            label: "Genehmigungslauf",
+            yes: "✓ ja",
+            no: "✗ nein",
+          },
+          security: {
+            eventBackupVerified: "Backup verifiziert",
+            eventAnomalyDetected: "Anomalie erkannt",
+          },
+        },
         learnMore: "Mehr erfahren",
         learnLess: "Weniger anzeigen",
         bookCta: "Gespräch vereinbaren",
@@ -424,6 +441,7 @@ const dictionaries = {
         title: "So entwickeln wir Ihre",
         titleHighlight: "digitale Strategie.",
         subtitle: "Vier klare Schritte – von der ehrlichen Bestandsaufnahme bis zur verankerten Roadmap.",
+        stepLabel: "Schritt",
         steps: [
           {
             number: "01",
@@ -450,6 +468,7 @@ const dictionaries = {
       reviewsHeading: {
         lead: "Was unsere",
         highlight: "Kunden sagen",
+        swipeHint: "wischen →",
       },
       reviews: [
         {
@@ -579,6 +598,7 @@ const dictionaries = {
       reviewsHeading: {
         lead: "Was unsere",
         highlight: "Kunden sagen",
+        swipeHint: "wischen →",
       },
       reviews: [
         {
@@ -596,7 +616,7 @@ const dictionaries = {
           subtitle: "Individuelle Verkaufs-App mit Live-Steuerung",
           quote:
             "Die individuelle App von smiit wickelt unseren gesamten Verkaufsprozess ab. Wir steuern Aktionen live und sehen sofort, wann, was und wie viel von einem Produkt bestellt und bezahlt wurde.",
-          metric: "1 App",
+          metric: "1 System",
           metricSub: "Verkauf End-to-End",
         },
         {
@@ -617,6 +637,15 @@ const dictionaries = {
         title: "Unser",
         titleHighlight: "Angebot",
         subtitle: "Wir bauen Web-Apps, Websites und Azure-Setups, die Ihre Workflows tragen – von der ersten Skizze bis zum stabilen Betrieb.",
+        visuals: {
+          bi: {
+            label: "Aktive Nutzer",
+            tabs: ["Übersicht", "Berichte", "Einstellungen"],
+            modules: ["Vertrieb", "Lager", "Kunden"],
+            activity: "J. Müller hat Auftrag #4831 angelegt",
+            moduleCount: "3 Module",
+          },
+        },
         learnMore: "Mehr erfahren",
         learnLess: "Weniger anzeigen",
         bookCta: "Gespräch vereinbaren",
@@ -629,7 +658,7 @@ const dictionaries = {
           {
             title: "Websites & Design",
             shortDesc: "Wir gestalten und entwickeln Websites, die Ihre Marke ernst nehmen – schnell, klar strukturiert und auf Conversion ausgelegt. Ein Auftritt, der Vertrauen schafft, statt nur gut auszusehen.",
-            details: "Von der ersten Skizze bis zum Go-Live: Wir entwerfen und bauen Websites, die Inhalte sauber führen, mobile-first gedacht sind und auf SEO, Performance und Barrierefreiheit achten. Dabei orientieren wir uns an Ihrer Markenidentität und sorgen für ein konsistentes visuelles System – von Typografie über Farbe bis Komponenten.\n\nTechnisch arbeiten wir mit Next.js und Headless-CMS, sodass Ihr Team Inhalte selbständig pflegen kann, ohne auf Entwickler angewiesen zu sein. Das Ergebnis: ein digitaler Auftritt, der nicht nur am Launch-Tag stark ist, sondern mit Ihrem Geschäft mitwächst."
+            details: "Von der ersten Skizze bis zum Go-Live: Wir entwerfen und bauen Websites, die Inhalte sauber führen. Unsere Websites sind auf mobile-first, SEO, Performance und Barrierefreiheit ausgerichtet. Dabei orientieren wir uns an Ihrer Markenidentität und sorgen für ein konsistentes visuelles System – von Typografie über Farbe bis zu den Komponenten.\n\nTechnisch arbeiten wir mit Next.js und Headless-CMS, sodass Ihr Team Inhalte selbständig pflegen kann, ohne auf Entwickler angewiesen zu sein. Das Ergebnis: ein digitaler Auftritt, der nicht nur am Launch-Tag stark ist, sondern mit Ihrem Geschäft mitwächst."
           },
           {
             title: "Cloud Infrastruktur & Governance",
@@ -642,6 +671,7 @@ const dictionaries = {
         title: "So machen wir aus Ihren Workflows",
         titleHighlight: "produktive Apps.",
         subtitle: "Vier klare Schritte – von der ersten Idee bis zum produktiven Betrieb.",
+        stepLabel: "Schritt",
         steps: [
           {
             number: "01",
@@ -672,7 +702,7 @@ const dictionaries = {
           {
             question: "Wie lange dauert die Entwicklung einer individuellen Web-App?",
             answer:
-              "Vom ersten Konzept bis Go-Live typischerweise 6-12 Wochen, je nach Umfang. Wir liefern in kurzen Iterationen, damit Sie früh produktiv nutzen können — nicht erst nach Monaten Entwicklung.",
+              "Vom ersten Konzept bis zum Go-Live dauert es je nach Umfang ca. 6-12 Wochen. Wir liefern in kurzen Iterationen, sodass Sie die Ergebnisse frühzeitig & produktiv nutzen können — nicht erst nach Monaten Entwicklung.",
           },
           {
             question: "Wem gehört der Code am Ende?",
@@ -687,7 +717,7 @@ const dictionaries = {
           {
             question: "Was kostet die Wartung nach dem Go-Live?",
             answer:
-              "Sie entscheiden. Wir bieten Wartungspakete an, oder Sie übernehmen selbst. Da Code und Dokumentation Ihnen gehören, sind Sie nicht von uns abhängig — wir bleiben gerne, weil wir gut sind, nicht weil Sie nicht wegkönnen.",
+              "Sie entscheiden. Wir bieten Wartungspakete an, oder Sie übernehmen die Wartung selbst. Da Code und Dokumentation Ihnen gehören, sind Sie nicht von uns abhängig — wir bleiben gerne, weil wir gut sind, nicht weil Sie nicht wegkönnen.",
           },
           {
             question: "Wie geht ihr mit DSGVO und Datenhaltung um?",
@@ -697,8 +727,8 @@ const dictionaries = {
         ],
       },
       cta: {
-        title: "Wie viele Stunden würde Ihr Team zurückgewinnen, wenn die Routine",
-        titleHighlight: "sich selbst erledigt?",
+        title: "Wie viele Stunden würde Ihr Team zurückgewinnen, wenn sich die",
+        titleHighlight: "Routine selbst erledigt?",
         subtitle: "30 Minuten Erstgespräch. Kostenlos. Unverbindlich. Sie erfahren, wo sich Ihre größten Routinekiller automatisieren lassen — auch wenn wir am Ende nicht zusammenarbeiten.",
         primaryButton: "Kostenloses Erstgespräch",
         secondaryButton: "Kontakt aufnehmen",
@@ -867,7 +897,7 @@ const dictionaries = {
         successText: "Vielen Dank für Ihre Nachricht. Wir melden uns in Kürze bei Ihnen.",
         errorTitle: "Fehler beim Senden",
         errorText: "Bitte versuchen Sie es erneut oder kontaktieren Sie uns direkt per E-Mail.",
-        disclaimer: "Mit dem Absenden stimmen Sie der Verarbeitung Ihrer Daten zur Bearbeitung zu.",
+        disclaimer: "Mit dem Absenden stimmen Sie der Verarbeitung Ihrer Daten zur Bearbeitung Ihrer Anfrage zu.",
         interests: [
           "Digitale Unternehmensstrategie",
           "Datenanalyse",
@@ -972,7 +1002,9 @@ const dictionaries = {
         productTitle: "smiit Analytics für bexio",
         productDescription: "Mit über 250 Analysen können Sie praktisch alles tracken, was in Ihrem Unternehmen passiert! Darüber hinaus können Sie die Analysesoftware von uns individuell anpassen lassen, um unternehmensspezifische Analysen zu erhalten. Überzeugen Sie sich über den Link von unserem Angebot.",
         priceOneTime: "CHF 1,000.00",
+        priceOneTimeLabel: "Einmaliger Erwerb",
         priceCustom: "CHF 450.00 einmalig",
+        priceCustomLabel: "Erwerb mit Individualisierungen",
         priceCustomNote: "+ CHF 120.00 je Stunde bei 8-100 Stunden",
         or: "oder",
         features: [
@@ -1054,7 +1086,7 @@ const dictionaries = {
       cta: "Start your transformation",
     },
     about: {
-      title: "smiit helps businesses\nto turn data into action",
+      title: "smiit helps businesses\nturn data into action",
       text: "We are by your side.\nThrough apps, dashboards, and workflows — boosting\nproductivity and accelerating decisions.",
     },
     services: {
@@ -1239,6 +1271,10 @@ const dictionaries = {
         title: "Our",
         titleHighlight: "Portfolio",
         subtitle: "We help you extract maximum value from your data – from strategy to productive analytics solutions.",
+        visuals: {
+          bi: { label: "Revenue Q3", kpiRevenue: "Revenue", target: "Target" },
+          governance: { badge: "GDPR" },
+        },
         learnMore: "Learn more",
         learnLess: "Show less",
         bookCta: "Book a call",
@@ -1250,7 +1286,7 @@ const dictionaries = {
           },
           {
             title: "Data Governance & Data Strategy",
-            shortDesc: "We create the organizational and technical foundations so that data can be used consistently, understandably, and reliably in the company. This ensures less friction, better decisions, and significantly more impact from existing data initiatives.",
+            shortDesc: "We create the organizational and technical foundations so that data can be used consistently, clearly, and reliably across the company. This ensures less friction, better decisions, and significantly more impact from existing data initiatives.",
             details: "We advise on central issues relating to data governance, master data management, data responsibility, KPI definitions, and the sensible setup of self-service analytics structures. The goal is not to leave data usage to chance, but to create clear frameworks that enable scaling and reliability.\n\nWe look not only at processes and systems but also at the organizational side. This creates a data strategy that does not remain theoretical but takes effect in the company."
           },
           {
@@ -1264,6 +1300,7 @@ const dictionaries = {
         title: "How we turn your data into",
         titleHighlight: "decisions.",
         subtitle: "Four clear steps – from the first conversation to productive operations.",
+        stepLabel: "Step",
         steps: [
           {
             number: "01",
@@ -1290,6 +1327,7 @@ const dictionaries = {
       reviewsHeading: {
         lead: "What our",
         highlight: "clients say",
+        swipeHint: "swipe →",
       },
       reviews: [
         {
@@ -1443,15 +1481,26 @@ const dictionaries = {
       portfolio: {
         title: "Our",
         titleHighlight: "Portfolio",
-        subtitle: "We guide you toward a digital strategy that holds up in daily operations – from an honest assessment to a productive cloud platform.",
+        subtitle: "We guide you towards a digital strategy that holds up in daily operations – from an honest assessment to a productive cloud platform.",
+        visuals: {
+          process: {
+            label: "Approval flow",
+            yes: "✓ yes",
+            no: "✗ no",
+          },
+          security: {
+            eventBackupVerified: "Backup verified",
+            eventAnomalyDetected: "Anomaly detected",
+          },
+        },
         learnMore: "Learn more",
         learnLess: "Show less",
         bookCta: "Book a call",
         items: [
           {
             title: "Process Optimization & Automation",
-            shortDesc: "We make business processes visible, challenge breaks and friction points, and automate where it pays off measurably. The result: leaner workflows, fewer media breaks, and teams with more time for the work that matters.",
-            details: "We start with clean process modeling – from a current-state assessment through pain-point analysis to a target concept, always closely aligned with the people who live the process every day. We use established notations like BPMN and keep models deliberately pragmatic and usable.\n\nWe then translate the target picture into digitalized workflows – via Power Automate, custom apps, or integrations with your existing systems. We choose the path that fits the maturity of your IT landscape, and automate exactly what demonstrably saves effort or improves quality."
+            shortDesc: "We make business processes visible, identify bottlenecks and friction points, and automate where it pays off measurably. The result: leaner workflows, fewer media breaks, and teams with more time for the work that matters.",
+            details: "We start with clean process modeling – from a current-state assessment through pain-point analysis to a target concept, always closely aligned with the people who live the process every day. We use established notations like BPMN and keep models deliberately pragmatic and usable.\n\nWe then translate the target state into digitalized workflows – via Power Automate, custom apps, or integrations with your existing systems. We choose the path that fits the maturity of your IT landscape, and automate exactly what demonstrably saves effort or improves quality."
           },
           {
             title: "Cloud Infrastructure & DevOps",
@@ -1469,6 +1518,7 @@ const dictionaries = {
         title: "How we shape your",
         titleHighlight: "digital strategy.",
         subtitle: "Four clear steps – from an honest assessment to a roadmap that sticks.",
+        stepLabel: "Step",
         steps: [
           {
             number: "01",
@@ -1478,7 +1528,7 @@ const dictionaries = {
           {
             number: "02",
             title: "Design",
-            text: "We draft your target picture and prioritize: what delivers most, what's critical, what can wait? With effort estimates and quick wins.",
+            text: "We draft your target state and prioritize: what delivers the most value, what's critical, what can wait? With effort estimates and quick wins.",
           },
           {
             number: "03",
@@ -1495,6 +1545,7 @@ const dictionaries = {
       reviewsHeading: {
         lead: "What our",
         highlight: "clients say",
+        swipeHint: "swipe →",
       },
       reviews: [
         {
@@ -1624,6 +1675,7 @@ const dictionaries = {
       reviewsHeading: {
         lead: "What our",
         highlight: "clients say",
+        swipeHint: "swipe →",
       },
       reviews: [
         {
@@ -1641,8 +1693,8 @@ const dictionaries = {
           subtitle: "Custom Sales App with Live Control",
           quote:
             "smiit's custom app handles our entire sales process. We steer campaigns live and instantly see when, what and how much of a product was ordered and paid.",
-          metric: "1 App",
-          metricSub: "End-to-End Sales",
+          metric: "1 System",
+          metricSub: "Sales End-to-End",
         },
         {
           id: 4,
@@ -1651,7 +1703,7 @@ const dictionaries = {
           quote:
             "smiit built a web app for our employees. Today our team sees at the touch of a button which goals they've already reached and what potential is still untapped. This has made our sales operation even more efficient.",
           metric: "Live",
-          metricSub: "Sales Goals at a Tap",
+          metricSub: "Sales Goals at a Tap of a Button",
         },
       ],
       manifest: {
@@ -1662,13 +1714,22 @@ const dictionaries = {
         title: "Our",
         titleHighlight: "Offering",
         subtitle: "We build web apps, websites and Azure setups that carry your workflows – from the first sketch to stable operations.",
+        visuals: {
+          bi: {
+            label: "Active users",
+            tabs: ["Overview", "Reports", "Settings"],
+            modules: ["Sales", "Warehouse", "Customers"],
+            activity: "J. Müller created order #4831",
+            moduleCount: "3 modules",
+          },
+        },
         learnMore: "Learn more",
         learnLess: "Show less",
         bookCta: "Schedule a call",
         items: [
           {
             title: "Web Apps & Platforms",
-            shortDesc: "We build custom web apps and platforms that map your workflows, connect systems through APIs, and genuinely take work off your users' shoulders. Digital tools that work in daily use – not just in the demo.",
+            shortDesc: "We build custom web apps and platforms that map your workflows, connect systems through APIs, and genuinely take work off your users' plates. Digital tools that work in daily use – not just in the demo.",
             details: "We develop modern web applications and SaaS platforms tailored to your actual needs – from internal tools to multi-tenant solutions. We connect existing systems through APIs, integrate authentication and permissions cleanly, and ensure your app performs under load.\n\nTechnologically we work with Next.js, React and .NET – with clean architectures, automated tests and CI/CD pipelines. The result: applications that don't just shine in their first version but stay maintainable, secure and scalable long-term."
           },
           {
@@ -1687,6 +1748,7 @@ const dictionaries = {
         title: "How we turn your workflows into",
         titleHighlight: "productive apps.",
         subtitle: "Four clear steps – from the first idea to productive operations.",
+        stepLabel: "Step",
         steps: [
           {
             number: "01",
@@ -1850,7 +1912,7 @@ const dictionaries = {
           },
           {
             title: "Collaborative Partnership",
-            text: "We don't work for our clients – we work with them. Open communication, collaboration at eye level, and joy in shared projects are the foundation of successful outcomes.",
+            text: "We don't work for our clients – we work with them. Open communication, collaboration on equal terms, and joy in shared projects are the foundation of successful outcomes.",
           },
         ],
       },
@@ -1863,7 +1925,7 @@ const dictionaries = {
             name: "Sebastian Grab",
             role: "Co-Founder & Software Engineer",
             image: "/assets/people/sebastian.webp",
-            education: ["B.A. BWL - Industrie", "M.Sc. Digital Processes and Technologies"],
+            education: ["B.A. Business Administration", "M.Sc. Digital Processes and Technologies"],
             bio: "I am responsible for the technical architecture and implementation of our solutions. My focus is on developing robust systems based on requirements – from data analysis and process automation to customized web applications.",
             email: "sebastian.grab@smiit.de",
             cvLink: "https://grab.smiit.de",
@@ -1873,7 +1935,7 @@ const dictionaries = {
             name: "Noah Neßlauer",
             role: "Co-Founder & Business Analyst",
             image: "/assets/people/noah.webp",
-            education: ["B.A. BWL - Industrie", "M.Sc. Consulting & Business Analytics"],
+            education: ["B.A. Business Administration", "M.Sc. Consulting & Business Analytics"],
             bio: "I accompany our customers from the initial analysis to the implementation of the appropriate solution. Together, we identify challenges, structure requirements, and develop data-driven approaches that truly add value.",
             email: "noah.nesslauer@smiit.de",
             cvLink: "https://nesslauer.smiit.de",
@@ -2017,7 +2079,9 @@ const dictionaries = {
         productTitle: "smiit Analytics for bexio",
         productDescription: "With over 250 analyses, you can track practically everything happening in your company! Additionally, you can have the analysis software customized by us to receive company-specific analyses. See for yourself via the link to our offering.",
         priceOneTime: "CHF 1,000.00",
+        priceOneTimeLabel: "One-time purchase",
         priceCustom: "CHF 450.00 one-time",
+        priceCustomLabel: "Purchase with customizations",
         priceCustomNote: "+ CHF 120.00 per hour for 8-100 hours",
         or: "or",
         features: [

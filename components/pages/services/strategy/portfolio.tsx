@@ -83,7 +83,7 @@ function VisualShell({ children, className = "" }: { children: React.ReactNode; 
   )
 }
 
-function ProcessFlowVisual({ isRevealed }: { isRevealed: boolean }) {
+function ProcessFlowVisual({ isRevealed, labels }: { isRevealed: boolean; labels?: any }) {
   // BPMN-style flow with a forking gateway:
   //   Start → Task → Gateway ┬→ Approve → Done   (success path, token follows)
   //                          └→ Rework → loops back to Task   (rejection path, dashed)
@@ -102,7 +102,7 @@ function ProcessFlowVisual({ isRevealed }: { isRevealed: boolean }) {
   return (
     <VisualShell>
       <div className="flex items-baseline justify-between">
-        <span className="text-[0.65rem] uppercase tracking-[0.18em] text-black/40 font-medium">Genehmigungslauf</span>
+        <span className="text-[0.65rem] uppercase tracking-[0.18em] text-black/40 font-medium">{labels?.process?.label ?? "Genehmigungslauf"}</span>
         <span className="text-[0.65rem] font-medium text-[#64748B]">BPMN</span>
       </div>
       <div className="relative mt-3 flex-1 h-[78%]">
@@ -169,7 +169,7 @@ function ProcessFlowVisual({ isRevealed }: { isRevealed: boolean }) {
             animate={isRevealed ? { opacity: 1 } : { opacity: 0 }}
             transition={{ duration: 0.4, delay: 1.2 }}
           >
-            ✓ ja
+            {labels?.process?.yes ?? "✓ ja"}
           </motion.text>
 
           {/* Approve box */}
@@ -250,7 +250,7 @@ function ProcessFlowVisual({ isRevealed }: { isRevealed: boolean }) {
             animate={isRevealed ? { opacity: 0.9 } : { opacity: 0 }}
             transition={{ duration: 0.4, delay: 1.3 }}
           >
-            ✗ nein
+            {labels?.process?.no ?? "✗ nein"}
           </motion.text>
 
           {/* Rework box (dashed border to signal transient state) */}
@@ -430,7 +430,7 @@ function ProcessFlowVisual({ isRevealed }: { isRevealed: boolean }) {
   )
 }
 
-function CloudTopologyVisual({ isRevealed }: { isRevealed: boolean }) {
+function CloudTopologyVisual({ isRevealed, labels }: { isRevealed: boolean; labels?: any }) {
   // Hub-and-Spoke topology: central HUB with 4 workload spokes (PROD/DEV/DATA/EXT).
   const hubX = 180
   const hubY = 110
@@ -579,14 +579,14 @@ function CloudTopologyVisual({ isRevealed }: { isRevealed: boolean }) {
   )
 }
 
-function SecurityRingsVisual({ isRevealed }: { isRevealed: boolean }) {
+function SecurityRingsVisual({ isRevealed, labels }: { isRevealed: boolean; labels?: any }) {
   // Live SIEM-style feed: security score + recent events ticking in.
   const events = [
     { type: "ok" as const, title: "MFA-Login", source: "J. Müller · Berlin", time: "2 s", isNew: true },
     { type: "warn" as const, title: "Brute-Force blocked", source: "Edge-Gateway", time: "14 s" },
-    { type: "ok" as const, title: "Backup verifiziert", source: "Azure Vault", time: "1 min" },
+    { type: "ok" as const, title: labels?.security?.eventBackupVerified ?? "Backup verifiziert", source: "Azure Vault", time: "1 min" },
     { type: "ok" as const, title: "Patches deployed", source: "3 Hosts · WSUS", time: "5 min" },
-    { type: "warn" as const, title: "Anomalie erkannt", source: "ML-Server · Logs", time: "12 min" },
+    { type: "warn" as const, title: labels?.security?.eventAnomalyDetected ?? "Anomalie erkannt", source: "ML-Server · Logs", time: "12 min" },
   ]
 
   const typeStyles: Record<"ok" | "warn" | "err", { color: string; bg: string; glyph: string }> = {
@@ -722,7 +722,7 @@ function MobileVisualShell({
   )
 }
 
-function MobileProcessFlowVisual({ isRevealed, accent }: { isRevealed: boolean; accent: string }) {
+function MobileProcessFlowVisual({ isRevealed, accent, labels }: { isRevealed: boolean; accent: string; labels?: any }) {
   // Forked BPMN flow on mobile:
   //   Start → Task → Gateway ┬→ Approve → Done   (success, token follows)
   //                          └→ Rework            (rejection, dashed)
@@ -740,7 +740,7 @@ function MobileProcessFlowVisual({ isRevealed, accent }: { isRevealed: boolean; 
   return (
     <MobileVisualShell
       accent={accent}
-      label="Genehmigungslauf"
+      label={labels?.process?.label ?? "Genehmigungslauf"}
       badge={
         <motion.div
           initial={{ opacity: 0 }}
@@ -829,7 +829,7 @@ function MobileProcessFlowVisual({ isRevealed, accent }: { isRevealed: boolean; 
             animate={isRevealed ? { opacity: 1 } : { opacity: 0 }}
             transition={{ duration: 0.4, delay: 0.85 }}
           >
-            ✓ ja
+            {labels?.process?.yes ?? "✓ ja"}
           </motion.text>
           <motion.text
             x={gatewayX + 6}
@@ -843,7 +843,7 @@ function MobileProcessFlowVisual({ isRevealed, accent }: { isRevealed: boolean; 
             animate={isRevealed ? { opacity: 0.9 } : { opacity: 0 }}
             transition={{ duration: 0.4, delay: 0.95 }}
           >
-            ✗ nein
+            {labels?.process?.no ?? "✗ nein"}
           </motion.text>
 
           {/* Token traversing success path */}
@@ -909,9 +909,11 @@ function MobileProcessFlowVisual({ isRevealed, accent }: { isRevealed: boolean; 
 function MobileCloudTopologyVisual({
   isRevealed,
   accent,
+  labels: _labels,
 }: {
   isRevealed: boolean
   accent: string
+  labels?: any
 }) {
   // Hub-Spoke topology: 4 corner spokes connect to a central HUB with looping
   // pulses traveling along each edge.
@@ -1029,12 +1031,12 @@ function MobileCloudTopologyVisual({
   )
 }
 
-function MobileSecurityRingsVisual({ isRevealed, accent }: { isRevealed: boolean; accent: string }) {
+function MobileSecurityRingsVisual({ isRevealed, accent, labels }: { isRevealed: boolean; accent: string; labels?: any }) {
   // Live SIEM-style feed: security score + 3 recent events.
   const events = [
     { type: "ok" as const, title: "MFA-Login", source: "J. Müller", time: "2 s", isNew: true },
     { type: "warn" as const, title: "Brute-Force blocked", source: "Edge-Gateway", time: "14 s" },
-    { type: "ok" as const, title: "Backup verifiziert", source: "Azure Vault", time: "1 min" },
+    { type: "ok" as const, title: labels?.security?.eventBackupVerified ?? "Backup verifiziert", source: "Azure Vault", time: "1 min" },
   ]
 
   const typeStyles: Record<"ok" | "warn" | "err", { color: string; bg: string; glyph: string }> = {
@@ -1277,9 +1279,11 @@ function StageProgressRail({
 function StageVisualLayer({
   progress,
   sectionRevealed,
+  labels,
 }: {
   progress: any
   sectionRevealed: boolean
+  labels?: any
 }) {
   const o0 = useTransform(progress, [0, 0.28, 0.36], [1, 1, 0])
   const o1 = useTransform(progress, [0.28, 0.36, 0.62, 0.7], [0, 1, 1, 0])
@@ -1304,7 +1308,7 @@ function StageVisualLayer({
             style={{ opacity: layers[i].o, scale: layers[i].s }}
           >
             <div className="w-full max-w-[420px]">
-              <Visual isRevealed={sectionRevealed} accent={accent} />
+              <Visual isRevealed={sectionRevealed} accent={accent} labels={labels} />
             </div>
           </motion.div>
         )
@@ -1381,7 +1385,7 @@ function ScrollytellingStage({
     <div className="sticky top-16 flex h-[calc(100vh-4rem)] max-h-[560px] w-full flex-col">
       <div className="flex flex-1 flex-col gap-4 px-5 pb-5 pt-4">
         <StageProgressRail progress={progress} activeIndex={activeIndex} />
-        <StageVisualLayer progress={progress} sectionRevealed={sectionRevealed} />
+        <StageVisualLayer progress={progress} sectionRevealed={sectionRevealed} labels={t.visuals} />
         <StageTextLayer items={items} activeIndex={activeIndex} />
         <div className="mt-1 flex items-center justify-between gap-4">
           <button
@@ -1428,7 +1432,7 @@ function MobileFallbackStack({
             key={i}
             className="rounded-[1.5rem] border border-slate-200/70 bg-white p-5"
           >
-            <Visual isRevealed accent={accent} />
+            <Visual isRevealed accent={accent} labels={t.visuals} />
             <div className="mt-4 flex items-center gap-3">
               <div
                 className="flex h-10 w-10 items-center justify-center rounded-2xl"
@@ -1706,7 +1710,7 @@ export default function PortfolioSection({ dict }: { dict: any }) {
                 <div
                   className={`relative z-10 flex ${textOnLeft ? "justify-start pl-3 lg:pl-8" : "justify-end pr-3 lg:pr-8"}`}
                 >
-                  <Visual isRevealed={revealedRows[i]} />
+                  <Visual isRevealed={revealedRows[i]} labels={portfolio.visuals} />
                 </div>
               )
               return (

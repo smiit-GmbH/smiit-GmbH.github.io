@@ -86,17 +86,18 @@ function VisualShell({ children, className = "" }: { children: React.ReactNode; 
   )
 }
 
-function BIVisual({ isRevealed }: { isRevealed: boolean }) {
+function BIVisual({ isRevealed, labels }: { isRevealed: boolean; labels?: any }) {
+  const moduleLabels: string[] = labels?.bi?.modules ?? ["Vertrieb", "Lager", "Kunden"]
   const modules = [
-    { label: "Vertrieb", color: "#F703EB", metric: "247" },
-    { label: "Lager", color: "#FA85F4", metric: "1.2k" },
-    { label: "Kunden", color: "#94A3B8", metric: "892" },
+    { label: moduleLabels[0], color: "#F703EB", metric: "247" },
+    { label: moduleLabels[1], color: "#FA85F4", metric: "1.2k" },
+    { label: moduleLabels[2], color: "#94A3B8", metric: "892" },
   ]
-  const tabs = ["Übersicht", "Berichte", "Einstellungen"]
+  const tabs: string[] = labels?.bi?.tabs ?? ["Übersicht", "Berichte", "Einstellungen"]
   return (
     <VisualShell>
       <div className="flex items-baseline justify-between">
-        <span className="text-[0.65rem] uppercase tracking-[0.18em] text-black/40 font-medium">Aktive Nutzer</span>
+        <span className="text-[0.65rem] uppercase tracking-[0.18em] text-black/40 font-medium">{labels?.bi?.label ?? "Aktive Nutzer"}</span>
         <CountUp
           to={1247}
           isRevealed={isRevealed}
@@ -171,7 +172,7 @@ function BIVisual({ isRevealed }: { isRevealed: boolean }) {
             className="h-1 w-1 shrink-0 rounded-full bg-emerald-500"
           />
           <span className="truncate text-[0.5rem] text-black/55">
-            J. Müller hat Auftrag #4831 angelegt
+            {labels?.bi?.activity ?? "J. Müller hat Auftrag #4831 angelegt"}
           </span>
           <span className="ml-auto shrink-0 text-[0.45rem] font-mono text-black/30">2s</span>
         </motion.div>
@@ -197,7 +198,7 @@ function BIVisual({ isRevealed }: { isRevealed: boolean }) {
   )
 }
 
-function GovernanceVisual({ isRevealed }: { isRevealed: boolean }) {
+function GovernanceVisual({ isRevealed, labels }: { isRevealed: boolean; labels?: any }) {
   const palette = ["#F703EB", "#FA85F4", "#0B162D", "#FBE3F9", "#94A3B8"]
   return (
     <VisualShell>
@@ -295,7 +296,7 @@ function GovernanceVisual({ isRevealed }: { isRevealed: boolean }) {
   )
 }
 
-function MLVisual({ isRevealed }: { isRevealed: boolean }) {
+function MLVisual({ isRevealed, labels }: { isRevealed: boolean; labels?: any }) {
   const services = [
     { label: "App", x: 80, y: 100 },
     { label: "DB", x: 180, y: 100 },
@@ -453,12 +454,12 @@ function MobileVisualShell({
   )
 }
 
-function MobileBIVisual({ isRevealed, accent }: { isRevealed: boolean; accent: string }) {
-  const modules = ["Vertrieb", "Lager", "Kunden"]
+function MobileBIVisual({ isRevealed, accent, labels }: { isRevealed: boolean; accent: string; labels?: any }) {
+  const modules: string[] = labels?.bi?.modules ?? ["Vertrieb", "Lager", "Kunden"]
   return (
     <MobileVisualShell
       accent={accent}
-      label="Aktive Nutzer"
+      label={labels?.bi?.label ?? "Aktive Nutzer"}
       badge={
         <motion.div
           initial={{ opacity: 0, y: -4 }}
@@ -480,7 +481,7 @@ function MobileBIVisual({ isRevealed, accent }: { isRevealed: boolean; accent: s
           />
         </span>
         <span className="pb-0.5 text-[0.55rem] uppercase tracking-wider text-black/40">
-          3 Module
+          {labels?.bi?.moduleCount ?? "3 Module"}
         </span>
       </div>
 
@@ -516,9 +517,11 @@ function MobileBIVisual({ isRevealed, accent }: { isRevealed: boolean; accent: s
 function MobileGovernanceVisual({
   isRevealed,
   accent,
+  labels: _labels,
 }: {
   isRevealed: boolean
   accent: string
+  labels?: any
 }) {
   return (
     <MobileVisualShell
@@ -597,7 +600,7 @@ function MobileGovernanceVisual({
   )
 }
 
-function MobileMLVisual({ isRevealed, accent }: { isRevealed: boolean; accent: string }) {
+function MobileMLVisual({ isRevealed, accent, labels }: { isRevealed: boolean; accent: string; labels?: any }) {
   const services = [
     { label: "App", x: 0.18 },
     { label: "DB", x: 0.5 },
@@ -826,9 +829,11 @@ function StageProgressRail({
 function StageVisualLayer({
   progress,
   sectionRevealed,
+  labels,
 }: {
   progress: any
   sectionRevealed: boolean
+  labels?: any
 }) {
   const o0 = useTransform(progress, [0, 0.28, 0.36], [1, 1, 0])
   const o1 = useTransform(progress, [0.28, 0.36, 0.62, 0.7], [0, 1, 1, 0])
@@ -853,7 +858,7 @@ function StageVisualLayer({
             style={{ opacity: layers[i].o, scale: layers[i].s }}
           >
             <div className="w-full max-w-[420px]">
-              <Visual isRevealed={sectionRevealed} accent={accent} />
+              <Visual isRevealed={sectionRevealed} accent={accent} labels={labels} />
             </div>
           </motion.div>
         )
@@ -930,7 +935,7 @@ function ScrollytellingStage({
     <div className="sticky top-16 flex h-[calc(100vh-4rem)] max-h-[560px] w-full flex-col">
       <div className="flex flex-1 flex-col gap-6 px-5 pb-5 pt-4">
         <StageProgressRail progress={progress} activeIndex={activeIndex} />
-        <StageVisualLayer progress={progress} sectionRevealed={sectionRevealed} />
+        <StageVisualLayer progress={progress} sectionRevealed={sectionRevealed} labels={t.visuals} />
         <StageTextLayer items={items} activeIndex={activeIndex} />
         <div className="mt-1 flex items-center justify-between gap-4">
           <button
@@ -977,7 +982,7 @@ function MobileFallbackStack({
             key={i}
             className="rounded-[1.5rem] border border-slate-200/70 bg-white p-5"
           >
-            <Visual isRevealed accent={accent} />
+            <Visual isRevealed accent={accent} labels={t.visuals} />
             <div className="mt-4 flex items-center gap-3">
               <div
                 className="flex h-10 w-10 items-center justify-center rounded-2xl"
@@ -1255,7 +1260,7 @@ export default function PortfolioSection({ dict }: { dict: any }) {
                 <div
                   className={`relative z-10 flex ${textOnLeft ? "justify-start pl-3 lg:pl-8" : "justify-end pr-3 lg:pr-8"}`}
                 >
-                  <Visual isRevealed={revealedRows[i]} />
+                  <Visual isRevealed={revealedRows[i]} labels={portfolio.visuals} />
                 </div>
               )
               return (

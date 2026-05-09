@@ -118,11 +118,11 @@ export function PricingSection({ dict }: PricingSectionProps) {
               {/* Prices */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 border-t border-black/10 pt-4 mt-auto">
                 <div>
-                  <p className="text-[0.72rem] tracking-wide uppercase text-black/45">Einmaliger Erwerb</p>
+                  <p className="text-[0.72rem] tracking-wide uppercase text-black/45">{pricing.priceOneTimeLabel}</p>
                   <p className="mt-1 text-[1.05rem] font-semibold text-black">{pricing.priceOneTime}</p>
                 </div>
                 <div>
-                  <p className="text-[0.72rem] tracking-wide uppercase text-black/45">Erwerb mit Individualisierungen</p>
+                  <p className="text-[0.72rem] tracking-wide uppercase text-black/45">{pricing.priceCustomLabel}</p>
                   <p className="mt-1 text-[1.05rem] font-semibold text-black">{pricing.priceCustom}</p>
                   <p className="text-[0.72rem] text-black/45 mt-1">{pricing.priceCustomNote}</p>
                 </div>

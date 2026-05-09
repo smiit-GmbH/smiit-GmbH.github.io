@@ -152,10 +152,12 @@ function MobileReviewsCarousel({
   reviews,
   reduceMotion,
   ariaLabel,
+  swipeHint,
 }: {
   reviews: Review[]
   reduceMotion: boolean
   ariaLabel: string
+  swipeHint: string
 }) {
   const [api, setApi] = useState<CarouselApi | null>(null)
   const [selected, setSelected] = useState(0)
@@ -254,7 +256,7 @@ function MobileReviewsCarousel({
               transition={{ duration: 2.4, repeat: Infinity, repeatDelay: 1.2, ease: "easeInOut" }}
               className="text-[0.65rem] font-medium uppercase tracking-[0.18em] text-black/40"
             >
-              wischen →
+              {swipeHint}
             </motion.span>
           )}
         </div>
@@ -341,6 +343,7 @@ export default function AnalyticsReviews({ dict }: { dict: any }) {
               reviews={reviews}
               reduceMotion={reduceMotion}
               ariaLabel={ariaLabel}
+              swipeHint={dict.servicesAnalytics.reviewsHeading?.swipeHint ?? "wischen →"}
             />
           </div>
 
@@ -359,7 +362,7 @@ export default function AnalyticsReviews({ dict }: { dict: any }) {
                   key={r.id}
                   aria-hidden={!isActive}
                   style={{ gridArea: "1 / 1" }}
-                  initial={false}
+                  initial={{ opacity: isActive ? 1 : 0 }}
                   animate={{ opacity: isActive ? 1 : 0 }}
                   transition={{ duration: 0.4, ease: "easeOut" }}
                   className={`grid grid-cols-1 items-start gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] lg:items-center lg:gap-16 ${

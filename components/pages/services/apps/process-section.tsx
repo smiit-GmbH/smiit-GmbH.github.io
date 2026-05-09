@@ -171,7 +171,7 @@ export default function ProcessSection({ dict }: ProcessSectionProps) {
                         <Icon className="h-4 w-4" />
                       </div>
                       <span className="text-[0.66rem] font-semibold uppercase tracking-[0.22em] text-[#F703EB]">
-                        Schritt {step.number}
+                        {process?.stepLabel ?? "Schritt"} {step.number}
                       </span>
                     </div>
 
@@ -407,7 +407,7 @@ function MobileProcessStep({
       >
         <div className="flex items-baseline justify-between gap-3">
           <span className="text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-[#F703EB]">
-            Schritt {step.number}
+            {process?.stepLabel ?? "Schritt"} {step.number}
           </span>
           <span className="font-serif text-[1.6rem] font-semibold leading-none text-[#F703EB]/20">
             {step.number}
