@@ -68,6 +68,7 @@ export default async function Page({
 
   return (
     <>
+      <link rel="preload" href="/data/world.geojson" as="fetch" crossOrigin="anonymous" />
       <JsonLd data={breadcrumbJsonLd} />
       {personJsonLds.map((data, idx) => (
         <JsonLd key={`person-${idx}`} data={data} />

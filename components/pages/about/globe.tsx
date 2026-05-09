@@ -3,7 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import dynamic from "next/dynamic";
 import gsap from "gsap";
-import * as THREE from "three";
+import { Color, MeshPhongMaterial, type WebGLRenderer } from "three";
 import type { GlobeMethods } from "react-globe.gl";
 import { LOCATIONS } from "@/lib/locations";
 
@@ -123,10 +123,10 @@ export function Globe({ progress }: GlobeProps) {
   }, [desktopProgress]);
 
   const globeMaterial = useMemo(() => {
-    const material = new THREE.MeshPhongMaterial();
-    material.color = new THREE.Color("#c5d4db");
-    material.emissive = new THREE.Color("#edf8ff");
-    material.specular = new THREE.Color("#000000");
+    const material = new MeshPhongMaterial();
+    material.color = new Color("#c5d4db");
+    material.emissive = new Color("#edf8ff");
+    material.specular = new Color("#000000");
     material.shininess = 1;
     return material;
   }, []);
@@ -444,7 +444,7 @@ export function Globe({ progress }: GlobeProps) {
     const globe = globeRef.current;
     if (!globe) return;
 
-    const renderer = (globe as GlobeMethods & { renderer?: () => THREE.WebGLRenderer }).renderer?.();
+    const renderer = (globe as GlobeMethods & { renderer?: () => WebGLRenderer }).renderer?.();
     if (renderer) {
       renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, isTouchDevice ? 2 : 1.2));
     }

@@ -4,12 +4,27 @@ import { useRef, useState, useEffect, useCallback, useMemo } from "react"
 import dynamic from "next/dynamic"
 import Link from "next/link"
 import { ArrowRight, CheckCircle2, MapPin, Search, ZoomOut } from "lucide-react"
+import { Spinner } from "@/components/ui/spinner"
 import type { Locale } from "@/lib/dictionary"
 import { useScroll, useMotionValueEvent } from "framer-motion"
 
+if (typeof window !== "undefined") {
+  void import("@/components/pages/about/globe")
+  void import("react-globe.gl")
+  void fetch("/data/world.geojson", { priority: "low" } as RequestInit).catch(() => {})
+}
+
+function GlobePlaceholder() {
+  return (
+    <div className="flex h-full w-full items-center justify-center">
+      <Spinner size={32} aria-label="Lade interaktiven Globus" />
+    </div>
+  )
+}
+
 const Globe = dynamic(
   () => import("@/components/pages/about/globe").then((m) => m.Globe),
-  { ssr: false },
+  { ssr: false, loading: () => <GlobePlaceholder /> },
 )
 
 export function HeroSection({
