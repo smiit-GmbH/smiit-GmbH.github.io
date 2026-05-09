@@ -15,11 +15,7 @@ if (typeof window !== "undefined") {
 }
 
 function GlobePlaceholder() {
-  return (
-    <div className="flex h-full w-full items-center justify-center">
-      <Spinner size={32} aria-label="Lade interaktiven Globus" />
-    </div>
-  )
+  return <Spinner size={40} aria-label="Lade interaktiven Globus" />
 }
 
 const Globe = dynamic(
