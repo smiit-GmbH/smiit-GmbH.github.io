@@ -46,17 +46,41 @@ type RiskKey = "compliance" | "cyber" | "vendor" | "operational"
 type PhaseKey = "sondieren" | "konzipieren" | "umsetzen" | "verankern"
 type MilestoneStatus = "done" | "progress" | "planned"
 type RiskTrendDir = "down" | "flat" | "up"
+type MilestoneKey =
+  | "tenantAudit"
+  | "landingZone"
+  | "iacMigration"
+  | "multiRegion"
+  | "mfaRollout"
+  | "zeroTrust"
+  | "identityGov"
+  | "socSetup"
+  | "dataLineage"
+  | "masterData"
+  | "selfService"
+  | "processMap"
+  | "bpmnModels"
+  | "powerAutomate"
+  | "kpiSteering"
+  | "patchAudit"
+  | "data"
+  | "sourceInventory"
+  | "processMapping"
+  | "top3Modeling"
+  | "pilotWorkflow"
+  | "iacSetup"
 
 interface MaturityScore {
   current: number
   target: number
-  delta: string
+  delta: number
+  deltaUnit: "pp"
 }
 
 interface Milestone {
   x: number
   status: MilestoneStatus
-  label: string
+  labelKey: MilestoneKey
 }
 
 interface Lane {
@@ -76,59 +100,60 @@ interface InitiativeBucket {
 
 interface Dataset {
   maturity: Record<ThemeKey, MaturityScore>
-  trendHeader: string
+  trendHeader: number
+  trendHeaderUnit: "pp"
   todayPercent: number
   lanes: Lane[]
   risks: Record<RiskKey, RiskState>
   riskTrend: number[]
   initiatives: Record<PhaseKey, InitiativeBucket>
-  bottomLabels: string[]
 }
 
 const DATASETS: Record<PeriodKey, Dataset> = {
   y: {
     maturity: {
-      cloud: { current: 3.4, target: 4.2, delta: "+0,8 pp" },
-      security: { current: 2.1, target: 4.0, delta: "+1,9 pp" },
-      data: { current: 2.8, target: 4.1, delta: "+1,3 pp" },
-      process: { current: 3.0, target: 4.5, delta: "+1,5 pp" },
+      cloud: { current: 3.4, target: 4.2, delta: 0.8, deltaUnit: "pp" },
+      security: { current: 2.1, target: 4.0, delta: 1.9, deltaUnit: "pp" },
+      data: { current: 2.8, target: 4.1, delta: 1.3, deltaUnit: "pp" },
+      process: { current: 3.0, target: 4.5, delta: 1.5, deltaUnit: "pp" },
     },
-    trendHeader: "+1,4 pp",
+    trendHeader: 1.4,
+    trendHeaderUnit: "pp",
     todayPercent: 38,
     lanes: [
       {
         key: "cloud",
         milestones: [
-          { x: 8, status: "done", label: "Tenant-Audit" },
-          { x: 28, status: "done", label: "Landing Zone" },
-          { x: 50, status: "progress", label: "IaC-Migration" },
-          { x: 78, status: "planned", label: "Multi-Region" },
+          { x: 8, status: "done", labelKey: "tenantAudit" },
+          { x: 28, status: "done", labelKey: "landingZone" },
+          { x: 50, status: "progress", labelKey: "iacMigration" },
+          { x: 78, status: "planned", labelKey: "multiRegion" },
         ],
       },
       {
         key: "security",
         milestones: [
-          { x: 12, status: "done", label: "MFA-Rollout" },
-          { x: 35, status: "progress", label: "Zero Trust" },
-          { x: 60, status: "planned", label: "Identity-Gov" },
-          { x: 88, status: "planned", label: "SOC-Setup" },
+          { x: 12, status: "done", labelKey: "mfaRollout" },
+          { x: 35, status: "progress", labelKey: "zeroTrust" },
+          { x: 60, status: "planned", labelKey: "identityGov" },
+          { x: 88, status: "planned", labelKey: "socSetup" },
         ],
       },
       {
         key: "data",
         milestones: [
-          { x: 15, status: "done", label: "Data Lineage" },
-          { x: 42, status: "progress", label: "Master Data" },
-          { x: 70, status: "planned", label: "Self-Service" },
+          { x: 15, status: "done", labelKey: "dataLineage" },
+          { x: 42, status: "progress", labelKey: "masterData" },
+          { x: 70, status: "planned", labelKey: "selfService" },
         ],
       },
       {
         key: "process",
         milestones: [
-          { x: 5, status: "done", label: "Prozessmap" },
-          { x: 25, status: "progress", label: "BPMN-Modelle" },
-          { x: 55, status: "planned", label: "Power Automate" },
-          { x: 82, status: "planned", label: "KPI-Steuerung" },
+          { x: 5, status: "done", labelKey: "processMap" },
+          { x: 25, status: "progress", labelKey: "bpmnModels" },
+          { x: 55, status: "planned", labelKey: "powerAutomate" },
+          { x: 82, status: "planned", labelKey: "kpiSteering" },
         ],
       },
     ],
@@ -145,49 +170,49 @@ const DATASETS: Record<PeriodKey, Dataset> = {
       umsetzen: { count: 4, bar: 56 },
       verankern: { count: 1, bar: 14 },
     },
-    bottomLabels: ["Q1", "Q2", "Q3", "Q4"],
   },
   h: {
     maturity: {
-      cloud: { current: 3.0, target: 3.7, delta: "+0,7 pp" },
-      security: { current: 1.8, target: 3.2, delta: "+1,4 pp" },
-      data: { current: 2.5, target: 3.5, delta: "+1,0 pp" },
-      process: { current: 2.7, target: 3.8, delta: "+1,1 pp" },
+      cloud: { current: 3.0, target: 3.7, delta: 0.7, deltaUnit: "pp" },
+      security: { current: 1.8, target: 3.2, delta: 1.4, deltaUnit: "pp" },
+      data: { current: 2.5, target: 3.5, delta: 1.0, deltaUnit: "pp" },
+      process: { current: 2.7, target: 3.8, delta: 1.1, deltaUnit: "pp" },
     },
-    trendHeader: "+1,1 pp",
+    trendHeader: 1.1,
+    trendHeaderUnit: "pp",
     todayPercent: 32,
     lanes: [
       {
         key: "cloud",
         milestones: [
-          { x: 14, status: "done", label: "Tenant-Audit" },
-          { x: 38, status: "done", label: "Landing Zone" },
-          { x: 65, status: "progress", label: "IaC-Migration" },
-          { x: 90, status: "planned", label: "Multi-Region" },
+          { x: 14, status: "done", labelKey: "tenantAudit" },
+          { x: 38, status: "done", labelKey: "landingZone" },
+          { x: 65, status: "progress", labelKey: "iacMigration" },
+          { x: 90, status: "planned", labelKey: "multiRegion" },
         ],
       },
       {
         key: "security",
         milestones: [
-          { x: 18, status: "done", label: "MFA-Rollout" },
-          { x: 50, status: "progress", label: "Zero Trust" },
-          { x: 82, status: "planned", label: "Identity-Gov" },
+          { x: 18, status: "done", labelKey: "mfaRollout" },
+          { x: 50, status: "progress", labelKey: "zeroTrust" },
+          { x: 82, status: "planned", labelKey: "identityGov" },
         ],
       },
       {
         key: "data",
         milestones: [
-          { x: 22, status: "done", label: "Data Lineage" },
-          { x: 58, status: "progress", label: "Master Data" },
-          { x: 86, status: "planned", label: "Self-Service" },
+          { x: 22, status: "done", labelKey: "dataLineage" },
+          { x: 58, status: "progress", labelKey: "masterData" },
+          { x: 86, status: "planned", labelKey: "selfService" },
         ],
       },
       {
         key: "process",
         milestones: [
-          { x: 8, status: "done", label: "Prozessmap" },
-          { x: 36, status: "progress", label: "BPMN-Modelle" },
-          { x: 72, status: "planned", label: "Power Automate" },
+          { x: 8, status: "done", labelKey: "processMap" },
+          { x: 36, status: "progress", labelKey: "bpmnModels" },
+          { x: 72, status: "planned", labelKey: "powerAutomate" },
         ],
       },
     ],
@@ -204,46 +229,46 @@ const DATASETS: Record<PeriodKey, Dataset> = {
       umsetzen: { count: 3, bar: 42 },
       verankern: { count: 1, bar: 14 },
     },
-    bottomLabels: ["Jul", "Aug", "Sep", "Okt", "Nov", "Dez"],
   },
   q: {
     maturity: {
-      cloud: { current: 2.7, target: 3.2, delta: "+0,5 pp" },
-      security: { current: 1.6, target: 2.4, delta: "+0,8 pp" },
-      data: { current: 2.3, target: 3.0, delta: "+0,7 pp" },
-      process: { current: 2.5, target: 3.2, delta: "+0,7 pp" },
+      cloud: { current: 2.7, target: 3.2, delta: 0.5, deltaUnit: "pp" },
+      security: { current: 1.6, target: 2.4, delta: 0.8, deltaUnit: "pp" },
+      data: { current: 2.3, target: 3.0, delta: 0.7, deltaUnit: "pp" },
+      process: { current: 2.5, target: 3.2, delta: 0.7, deltaUnit: "pp" },
     },
-    trendHeader: "+0,7 pp",
+    trendHeader: 0.7,
+    trendHeaderUnit: "pp",
     todayPercent: 45,
     lanes: [
       {
         key: "cloud",
         milestones: [
-          { x: 10, status: "done", label: "Tenant-Audit" },
-          { x: 50, status: "progress", label: "Landing Zone" },
-          { x: 88, status: "planned", label: "IaC-Setup" },
+          { x: 10, status: "done", labelKey: "tenantAudit" },
+          { x: 50, status: "progress", labelKey: "landingZone" },
+          { x: 88, status: "planned", labelKey: "iacSetup" },
         ],
       },
       {
         key: "security",
         milestones: [
-          { x: 18, status: "done", label: "Patch-Audit" },
-          { x: 55, status: "progress", label: "MFA-Rollout" },
+          { x: 18, status: "done", labelKey: "patchAudit" },
+          { x: 55, status: "progress", labelKey: "mfaRollout" },
         ],
       },
       {
         key: "data",
         milestones: [
-          { x: 30, status: "progress", label: "Daten" },
-          { x: 82, status: "planned", label: "Quellinventar" },
+          { x: 30, status: "progress", labelKey: "data" },
+          { x: 82, status: "planned", labelKey: "sourceInventory" },
         ],
       },
       {
         key: "process",
         milestones: [
-          { x: 12, status: "done", label: "Prozesskartierung" },
-          { x: 45, status: "progress", label: "Top-3 Modellierung" },
-          { x: 90, status: "planned", label: "Pilot-Workflow" },
+          { x: 12, status: "done", labelKey: "processMapping" },
+          { x: 45, status: "progress", labelKey: "top3Modeling" },
+          { x: 90, status: "planned", labelKey: "pilotWorkflow" },
         ],
       },
     ],
@@ -260,15 +285,19 @@ const DATASETS: Record<PeriodKey, Dataset> = {
       umsetzen: { count: 1, bar: 14 },
       verankern: { count: 0, bar: 0 },
     },
-    bottomLabels: ["Wo 1", "Wo 4", "Wo 7", "Wo 10", "Wo 13"],
   },
 }
 
 // ---------- CountUp ----------
 
-function formatNumber(value: number, decimals = 0): string {
+function formatNumber(value: number, decimals = 0, lang: Locale = "de"): string {
   const fixed = decimals > 0 ? value.toFixed(decimals) : Math.round(value).toString()
-  return decimals > 0 ? fixed.replace(".", ",") : fixed
+  return decimals > 0 && lang === "de" ? fixed.replace(".", ",") : fixed
+}
+
+function formatDelta(value: number, decimals: number, unit: string, lang: Locale): string {
+  const sign = value >= 0 ? "+" : ""
+  return `${sign}${formatNumber(value, decimals, lang)} ${unit}`
 }
 
 function CountUp({
@@ -278,6 +307,7 @@ function CountUp({
   prefix = "",
   className,
   reduceMotion,
+  lang = "de",
 }: {
   to: number
   decimals?: number
@@ -285,23 +315,24 @@ function CountUp({
   prefix?: string
   className?: string
   reduceMotion?: boolean | null
+  lang?: Locale
 }) {
   const value = useMotionValue(reduceMotion ? to : 0)
-  const [display, setDisplay] = useState(formatNumber(reduceMotion ? to : 0, decimals))
+  const [display, setDisplay] = useState(formatNumber(reduceMotion ? to : 0, decimals, lang))
 
   useEffect(() => {
     if (reduceMotion) {
       value.set(to)
-      setDisplay(formatNumber(to, decimals))
+      setDisplay(formatNumber(to, decimals, lang))
       return
     }
     const controls = animate(value, to, { duration: 0.9, ease: [0.22, 1, 0.36, 1] })
-    const unsub = value.on("change", (v) => setDisplay(formatNumber(v, decimals)))
+    const unsub = value.on("change", (v) => setDisplay(formatNumber(v, decimals, lang)))
     return () => {
       controls.stop()
       unsub()
     }
-  }, [to, decimals, reduceMotion, value])
+  }, [to, decimals, reduceMotion, value, lang])
 
   return (
     <span className={className}>
@@ -360,11 +391,13 @@ function MaturityModule({
   data,
   reduceMotion,
   mobileEmphasis = false,
+  lang,
 }: {
   t: any
   data: Dataset
   reduceMotion: boolean | null
   mobileEmphasis?: boolean
+  lang: Locale
 }) {
   const themes: ThemeKey[] = ["cloud", "security", "data", "process"]
   const items = themes.map((key) => ({
@@ -382,6 +415,8 @@ function MaturityModule({
           {items.map((item, i) => {
             const fillPct = (item.score.current / 5) * 100
             const targetPct = (item.score.target / 5) * 100
+            const targetDisplay = formatNumber(item.score.target, 1, lang)
+            const deltaDisplay = formatDelta(item.score.delta, 1, item.score.deltaUnit, lang)
             return (
               <motion.div
                 key={item.key}
@@ -398,11 +433,12 @@ function MaturityModule({
                     to={item.score.current}
                     decimals={1}
                     reduceMotion={reduceMotion}
+                    lang={lang}
                     className="text-[0.92rem] font-semibold text-[#0B162D] sm:text-[0.96rem]"
                   />
                   <span className="text-[0.55rem] text-[#0B162D]/40">/ 5</span>
                   <span className="ml-auto text-[0.55rem] font-medium text-[#64748B]">
-                    → {item.score.target.toString().replace(".", ",")}
+                    → {targetDisplay}
                   </span>
                 </div>
                 <div className="relative mt-2 h-1">
@@ -426,7 +462,7 @@ function MaturityModule({
                 {/* Delta badge — fades in on hover */}
                 <div className="pointer-events-none absolute -top-1.5 right-2 translate-y-1 opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100">
                   <span className="inline-flex items-center gap-1 rounded-full bg-[#0B162D] px-2 py-0.5 text-[0.5rem] font-semibold text-white shadow-md">
-                    {item.score.delta}
+                    {deltaDisplay}
                     {item.deltaLabel ? <span className="font-normal text-white/60">· {item.deltaLabel}</span> : null}
                   </span>
                 </div>
@@ -442,12 +478,17 @@ function MaturityModule({
 function RoadmapModule({
   t,
   data,
+  lang,
+  bottomLabels,
 }: {
   t: any
   data: Dataset
   mobileEmphasis?: boolean
+  lang: Locale
+  bottomLabels: string[]
 }) {
   const themes: ThemeKey[] = ["cloud", "security", "data", "process"]
+  const trendHeaderDisplay = formatDelta(data.trendHeader, 1, data.trendHeaderUnit, lang)
 
   return (
     <TooltipProvider delayDuration={80}>
@@ -460,7 +501,7 @@ function RoadmapModule({
           <div className="rounded-[14px] border border-slate-200/80 bg-[#F8FAFC] px-2.5 py-2 text-right">
             <div className="flex items-center gap-1 text-[#64748B]">
               <TrendingUp className="h-3.5 w-3.5" />
-              <span className="text-[0.95rem] font-semibold">{data.trendHeader}</span>
+              <span className="text-[0.95rem] font-semibold">{trendHeaderDisplay}</span>
             </div>
           </div>
         </div>
@@ -499,7 +540,9 @@ function RoadmapModule({
                       style={{ left: `${data.todayPercent}%` }}
                     />
                     {/* Milestones */}
-                    {lane.milestones.map((m, mIdx) => (
+                    {lane.milestones.map((m, mIdx) => {
+                      const milestoneLabel = t.milestoneLabels?.[m.labelKey] ?? m.labelKey
+                      return (
                       <Tooltip key={`m-${theme}-${mIdx}`}>
                         <TooltipTrigger asChild>
                           <motion.button
@@ -514,12 +557,12 @@ function RoadmapModule({
                               m.status === "planned" && "border-[1.5px] bg-white",
                             )}
                             style={{ left: `${m.x}%` }}
-                            aria-label={`${m.label} (${m.status})`}
+                            aria-label={`${milestoneLabel} (${m.status})`}
                           />
                         </TooltipTrigger>
                         <TooltipContent side="top" className="bg-[#0B162D] text-white">
                           <div className="flex flex-col gap-0.5 text-[0.66rem] leading-tight">
-                            <span className="font-semibold">{m.label}</span>
+                            <span className="font-semibold">{milestoneLabel}</span>
                             <span className="text-white/70">
                               {m.status === "done"
                                 ? t.trendTooltip?.statusDone
@@ -530,7 +573,8 @@ function RoadmapModule({
                           </div>
                         </TooltipContent>
                       </Tooltip>
-                    ))}
+                      )
+                    })}
                   </div>
                 </div>
               )
@@ -539,7 +583,7 @@ function RoadmapModule({
 
           {/* Timeline labels */}
           <div className="mt-1 flex shrink-0 justify-between pl-[76px] text-[0.56rem] text-[#0B162D]/40">
-            {data.bottomLabels.map((label, idx) => (
+            {bottomLabels.map((label, idx) => (
               <span key={`${label}-${idx}`}>{label}</span>
             ))}
           </div>
@@ -694,10 +738,14 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
     periods: hero?.periods ?? { q: "Quartal", h: "6 Monate", y: "12 Monate" },
     trendTooltip: hero?.trendTooltip ?? {},
     kpiDeltaLabels: hero?.kpiDeltaLabels ?? {},
+    milestoneLabels: hero?.milestoneLabels ?? {},
+    bottomLabels: hero?.bottomLabels ?? { q: [], h: [], y: [] },
+    ariaLabels: hero?.ariaLabels ?? { timeRange: "Zeitraum" },
   }
 
   const [periodKey, setPeriodKey] = useState<PeriodKey>("y")
   const data = DATASETS[periodKey]
+  const bottomLabels = (t.bottomLabels?.[periodKey] ?? []) as string[]
 
   // ── Scroll-driven motion (kept for one-line restore) ─────────────
   const { scrollYProgress } = useScroll({
@@ -858,7 +906,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
 
                 <div
                   role="tablist"
-                  aria-label="Zeitraum"
+                  aria-label={t.ariaLabels?.timeRange}
                   className="relative inline-flex items-center gap-0.5 rounded-full bg-[#F1F5F9] p-0.5"
                 >
                   {(["q", "h", "y"] as const).map((key) => {
@@ -904,14 +952,14 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
                 variants={dashboardChildVariants}
                 className="overflow-hidden rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)]"
               >
-                <MaturityModule t={t} data={data} reduceMotion={shouldReduceMotion} mobileEmphasis />
+                <MaturityModule t={t} data={data} reduceMotion={shouldReduceMotion} mobileEmphasis lang={lang} />
               </motion.div>
 
               <motion.div
                 variants={dashboardChildVariants}
                 className="flex flex-col overflow-hidden rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)] sm:min-h-[320px] md:min-h-[360px]"
               >
-                <RoadmapModule t={t} data={data} mobileEmphasis />
+                <RoadmapModule t={t} data={data} mobileEmphasis lang={lang} bottomLabels={bottomLabels} />
               </motion.div>
 
               <motion.div
@@ -1026,7 +1074,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
                     {/* Period toggle group */}
                     <div
                       role="tablist"
-                      aria-label="Zeitraum"
+                      aria-label={t.ariaLabels?.timeRange}
                       className="inline-flex items-center gap-0.5 rounded-full bg-[#F1F5F9] p-0.5"
                     >
                       {(["q", "h", "y"] as const).map((key) => {
@@ -1063,10 +1111,10 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
                   {/* Left column */}
                   <div className="flex min-h-0 flex-1 flex-col gap-2.5">
                     <div className="relative shrink-0 overflow-visible rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)]">
-                      <MaturityModule t={t} data={data} reduceMotion={shouldReduceMotion} />
+                      <MaturityModule t={t} data={data} reduceMotion={shouldReduceMotion} lang={lang} />
                     </div>
                     <div className="relative flex min-h-0 flex-1 flex-col overflow-visible rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)]">
-                      <RoadmapModule t={t} data={data} />
+                      <RoadmapModule t={t} data={data} lang={lang} bottomLabels={bottomLabels} />
                     </div>
                   </div>
 

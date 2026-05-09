@@ -89,7 +89,7 @@ export default function ProcessSection({ dict }: ProcessSectionProps) {
           </div>
 
           <div className="md:hidden">
-            <MobileProcessTimeline steps={steps} reduceMotion={!!shouldReduceMotion} />
+            <MobileProcessTimeline steps={steps} reduceMotion={!!shouldReduceMotion} stepLabel={process?.stepLabel} />
           </div>
 
           <div ref={mobileReveal.ref} className="mt-12 hidden grid-cols-1 gap-5 md:grid md:grid-cols-2">
@@ -285,9 +285,11 @@ function Mindmap({
 function MobileProcessTimeline({
   steps,
   reduceMotion,
+  stepLabel,
 }: {
   steps: Step[]
   reduceMotion: boolean
+  stepLabel?: string
 }) {
   const containerRef = useRef<HTMLDivElement>(null)
   const stepRefs = useRef<(HTMLDivElement | null)[]>([])
@@ -337,6 +339,7 @@ function MobileProcessTimeline({
               idx={idx}
               isActive={isActive}
               reduceMotion={reduceMotion}
+              stepLabel={stepLabel}
               registerRef={(n) => {
                 stepRefs.current[idx] = n
               }}
@@ -353,12 +356,14 @@ function MobileProcessStep({
   idx,
   isActive,
   reduceMotion,
+  stepLabel,
   registerRef,
 }: {
   step: Step
   idx: number
   isActive: boolean
   reduceMotion: boolean
+  stepLabel?: string
   registerRef: (node: HTMLDivElement | null) => void
 }) {
   const Icon = stepIcons[idx] ?? Compass
@@ -407,7 +412,7 @@ function MobileProcessStep({
       >
         <div className="flex items-baseline justify-between gap-3">
           <span className="text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-[#21569c]">
-            {process?.stepLabel ?? "Schritt"} {step.number}
+            {stepLabel ?? "Schritt"} {step.number}
           </span>
           <span className="font-serif text-[1.6rem] font-semibold leading-none text-[#21569c]/20">
             {step.number}

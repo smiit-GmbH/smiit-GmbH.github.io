@@ -40,49 +40,84 @@ function cx(...classes: Array<string | false | null | undefined>) {
 
 // ---------- Datasets ----------
 type PeriodKey = "q" | "h" | "y"
+type RiskLevelKey = "riskLow" | "riskMedium" | "riskHigh"
+
+interface SuffixSpec {
+  type: "million" | "percent" | "none"
+}
+
+interface KpiSpec {
+  to: number
+  decimals?: number
+  suffix: SuffixSpec
+  bar: number
+  deltaValue: number
+  deltaDecimals?: number
+  deltaUnit: "%" | "pp" | ""
+}
 
 interface LinePoint {
   x: number
   y: number
-  label: string
-  value: string
-  delta: string
+  valueNumber: number
+  valueDecimals: number
+  valueSuffix: SuffixSpec
+  deltaValue: number
+  deltaDecimals: number
+  deltaUnit: "%" | "pp" | ""
 }
 
 interface Dataset {
   kpis: {
-    revenue: { to: number; suffix?: string; decimals?: number; display: string; bar: number; delta: string }
-    margin: { to: number; suffix?: string; decimals?: number; display: string; bar: number; delta: string }
-    forecastConfidence: { to: number; suffix?: string; decimals?: number; display: string; bar: number; delta: string }
-    activeProjects: { to: number; suffix?: string; decimals?: number; display: string; bar: number; delta: string }
+    revenue: KpiSpec
+    margin: KpiSpec
+    forecastConfidence: KpiSpec
+    activeProjects: KpiSpec
   }
-  trendHeader: string
+  trendHeaderValue: number
+  trendHeaderDecimals: number
+  trendHeaderUnit: "%" | "pp"
   linePoints: LinePoint[]
-  forecastPoint: { x: number; y: number; label: string; value: string }
-  signals: { forecastRisk: string; deviation: string; opportunityScore: string; trendStrength: string }
+  forecastPoint: { x: number; y: number; valueNumber: number; valueDecimals: number; valueSuffix: SuffixSpec }
+  signals: {
+    forecastRiskKey: RiskLevelKey
+    deviationValue: number
+    deviationDecimals: number
+    opportunityScore: string
+    trendStrengthValue: number
+    trendStrengthDecimals: number
+  }
   segments: { key: "dach" | "swiss" | "serviceUpsell" | "industrialLeads"; value: number }[]
   radarBars: number[]
-  bottomLabels: string[]
 }
 
 const DATASETS: Record<PeriodKey, Dataset> = {
   y: {
     kpis: {
-      revenue: { to: 4.86, decimals: 2, suffix: " Mio.", display: "4,86 Mio.", bar: 78, delta: "+18,4 %" },
-      margin: { to: 18.4, decimals: 1, suffix: " %", display: "18,4 %", bar: 64, delta: "+1,2 pp" },
-      forecastConfidence: { to: 89, suffix: " %", display: "89 %", bar: 89, delta: "+3 pp" },
-      activeProjects: { to: 27, display: "27", bar: 54, delta: "+5" },
+      revenue: { to: 4.86, decimals: 2, suffix: { type: "million" }, bar: 78, deltaValue: 18.4, deltaDecimals: 1, deltaUnit: "%" },
+      margin: { to: 18.4, decimals: 1, suffix: { type: "percent" }, bar: 64, deltaValue: 1.2, deltaDecimals: 1, deltaUnit: "pp" },
+      forecastConfidence: { to: 89, suffix: { type: "percent" }, bar: 89, deltaValue: 3, deltaDecimals: 0, deltaUnit: "pp" },
+      activeProjects: { to: 27, suffix: { type: "none" }, bar: 54, deltaValue: 5, deltaDecimals: 0, deltaUnit: "" },
     },
-    trendHeader: "+18,4%",
+    trendHeaderValue: 18.4,
+    trendHeaderDecimals: 1,
+    trendHeaderUnit: "%",
     linePoints: [
-      { x: 18, y: 118, label: "Jan", value: "0,28 Mio.", delta: "+4,1 %" },
-      { x: 112, y: 102, label: "Apr", value: "1,12 Mio.", delta: "+9,6 %" },
-      { x: 208, y: 86, label: "Jul", value: "2,04 Mio.", delta: "+12,2 %" },
-      { x: 304, y: 68, label: "Sep", value: "3,18 Mio.", delta: "+14,8 %" },
-      { x: 398, y: 48, label: "Nov", value: "4,12 Mio.", delta: "+18,4 %" },
+      { x: 18, y: 118, valueNumber: 0.28, valueDecimals: 2, valueSuffix: { type: "million" }, deltaValue: 4.1, deltaDecimals: 1, deltaUnit: "%" },
+      { x: 112, y: 102, valueNumber: 1.12, valueDecimals: 2, valueSuffix: { type: "million" }, deltaValue: 9.6, deltaDecimals: 1, deltaUnit: "%" },
+      { x: 208, y: 86, valueNumber: 2.04, valueDecimals: 2, valueSuffix: { type: "million" }, deltaValue: 12.2, deltaDecimals: 1, deltaUnit: "%" },
+      { x: 304, y: 68, valueNumber: 3.18, valueDecimals: 2, valueSuffix: { type: "million" }, deltaValue: 14.8, deltaDecimals: 1, deltaUnit: "%" },
+      { x: 398, y: 48, valueNumber: 4.12, valueDecimals: 2, valueSuffix: { type: "million" }, deltaValue: 18.4, deltaDecimals: 1, deltaUnit: "%" },
     ],
-    forecastPoint: { x: 492, y: 24, label: "Dez", value: "4,86 Mio." },
-    signals: { forecastRisk: "Mittel", deviation: "-7,2%", opportunityScore: "82/100", trendStrength: "0,84" },
+    forecastPoint: { x: 492, y: 24, valueNumber: 4.86, valueDecimals: 2, valueSuffix: { type: "million" } },
+    signals: {
+      forecastRiskKey: "riskMedium",
+      deviationValue: -7.2,
+      deviationDecimals: 1,
+      opportunityScore: "82/100",
+      trendStrengthValue: 0.84,
+      trendStrengthDecimals: 2,
+    },
     segments: [
       { key: "dach", value: 82 },
       { key: "swiss", value: 63 },
@@ -90,25 +125,33 @@ const DATASETS: Record<PeriodKey, Dataset> = {
       { key: "industrialLeads", value: 36 },
     ],
     radarBars: [14, 18, 16, 22, 28, 26, 32, 30],
-    bottomLabels: ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"],
   },
   h: {
     kpis: {
-      revenue: { to: 2.41, decimals: 2, suffix: " Mio.", display: "2,41 Mio.", bar: 52, delta: "+12,8 %" },
-      margin: { to: 17.1, decimals: 1, suffix: " %", display: "17,1 %", bar: 58, delta: "+0,8 pp" },
-      forecastConfidence: { to: 86, suffix: " %", display: "86 %", bar: 86, delta: "+2 pp" },
-      activeProjects: { to: 19, display: "19", bar: 38, delta: "+3" },
+      revenue: { to: 2.41, decimals: 2, suffix: { type: "million" }, bar: 52, deltaValue: 12.8, deltaDecimals: 1, deltaUnit: "%" },
+      margin: { to: 17.1, decimals: 1, suffix: { type: "percent" }, bar: 58, deltaValue: 0.8, deltaDecimals: 1, deltaUnit: "pp" },
+      forecastConfidence: { to: 86, suffix: { type: "percent" }, bar: 86, deltaValue: 2, deltaDecimals: 0, deltaUnit: "pp" },
+      activeProjects: { to: 19, suffix: { type: "none" }, bar: 38, deltaValue: 3, deltaDecimals: 0, deltaUnit: "" },
     },
-    trendHeader: "+12,8%",
+    trendHeaderValue: 12.8,
+    trendHeaderDecimals: 1,
+    trendHeaderUnit: "%",
     linePoints: [
-      { x: 18, y: 122, label: "Jul", value: "0,22 Mio.", delta: "+3,4 %" },
-      { x: 112, y: 108, label: "Aug", value: "0,68 Mio.", delta: "+6,1 %" },
-      { x: 208, y: 92, label: "Sep", value: "1,18 Mio.", delta: "+8,9 %" },
-      { x: 304, y: 78, label: "Okt", value: "1,72 Mio.", delta: "+10,5 %" },
-      { x: 398, y: 60, label: "Nov", value: "2,12 Mio.", delta: "+12,8 %" },
+      { x: 18, y: 122, valueNumber: 0.22, valueDecimals: 2, valueSuffix: { type: "million" }, deltaValue: 3.4, deltaDecimals: 1, deltaUnit: "%" },
+      { x: 112, y: 108, valueNumber: 0.68, valueDecimals: 2, valueSuffix: { type: "million" }, deltaValue: 6.1, deltaDecimals: 1, deltaUnit: "%" },
+      { x: 208, y: 92, valueNumber: 1.18, valueDecimals: 2, valueSuffix: { type: "million" }, deltaValue: 8.9, deltaDecimals: 1, deltaUnit: "%" },
+      { x: 304, y: 78, valueNumber: 1.72, valueDecimals: 2, valueSuffix: { type: "million" }, deltaValue: 10.5, deltaDecimals: 1, deltaUnit: "%" },
+      { x: 398, y: 60, valueNumber: 2.12, valueDecimals: 2, valueSuffix: { type: "million" }, deltaValue: 12.8, deltaDecimals: 1, deltaUnit: "%" },
     ],
-    forecastPoint: { x: 492, y: 38, label: "Dez", value: "2,41 Mio." },
-    signals: { forecastRisk: "Niedrig", deviation: "-4,1%", opportunityScore: "74/100", trendStrength: "0,71" },
+    forecastPoint: { x: 492, y: 38, valueNumber: 2.41, valueDecimals: 2, valueSuffix: { type: "million" } },
+    signals: {
+      forecastRiskKey: "riskLow",
+      deviationValue: -4.1,
+      deviationDecimals: 1,
+      opportunityScore: "74/100",
+      trendStrengthValue: 0.71,
+      trendStrengthDecimals: 2,
+    },
     segments: [
       { key: "dach", value: 68 },
       { key: "swiss", value: 54 },
@@ -116,25 +159,33 @@ const DATASETS: Record<PeriodKey, Dataset> = {
       { key: "industrialLeads", value: 28 },
     ],
     radarBars: [12, 14, 12, 18, 22, 24, 28, 26],
-    bottomLabels: ["Jul", "Aug", "Sep", "Okt", "Nov", "Dez"],
   },
   q: {
     kpis: {
-      revenue: { to: 1.18, decimals: 2, suffix: " Mio.", display: "1,18 Mio.", bar: 38, delta: "+9,6 %" },
-      margin: { to: 19.2, decimals: 1, suffix: " %", display: "19,2 %", bar: 70, delta: "+0,4 pp" },
-      forecastConfidence: { to: 92, suffix: " %", display: "92 %", bar: 92, delta: "+1 pp" },
-      activeProjects: { to: 14, display: "14", bar: 30, delta: "+2" },
+      revenue: { to: 1.18, decimals: 2, suffix: { type: "million" }, bar: 38, deltaValue: 9.6, deltaDecimals: 1, deltaUnit: "%" },
+      margin: { to: 19.2, decimals: 1, suffix: { type: "percent" }, bar: 70, deltaValue: 0.4, deltaDecimals: 1, deltaUnit: "pp" },
+      forecastConfidence: { to: 92, suffix: { type: "percent" }, bar: 92, deltaValue: 1, deltaDecimals: 0, deltaUnit: "pp" },
+      activeProjects: { to: 14, suffix: { type: "none" }, bar: 30, deltaValue: 2, deltaDecimals: 0, deltaUnit: "" },
     },
-    trendHeader: "+9,6%",
+    trendHeaderValue: 9.6,
+    trendHeaderDecimals: 1,
+    trendHeaderUnit: "%",
     linePoints: [
-      { x: 18, y: 116, label: "Wo 1", value: "0,18 Mio.", delta: "+2,1 %" },
-      { x: 112, y: 110, label: "Wo 4", value: "0,42 Mio.", delta: "+4,4 %" },
-      { x: 208, y: 96, label: "Wo 7", value: "0,68 Mio.", delta: "+6,8 %" },
-      { x: 304, y: 82, label: "Wo 10", value: "0,92 Mio.", delta: "+8,2 %" },
-      { x: 398, y: 70, label: "Wo 12", value: "1,08 Mio.", delta: "+9,6 %" },
+      { x: 18, y: 116, valueNumber: 0.18, valueDecimals: 2, valueSuffix: { type: "million" }, deltaValue: 2.1, deltaDecimals: 1, deltaUnit: "%" },
+      { x: 112, y: 110, valueNumber: 0.42, valueDecimals: 2, valueSuffix: { type: "million" }, deltaValue: 4.4, deltaDecimals: 1, deltaUnit: "%" },
+      { x: 208, y: 96, valueNumber: 0.68, valueDecimals: 2, valueSuffix: { type: "million" }, deltaValue: 6.8, deltaDecimals: 1, deltaUnit: "%" },
+      { x: 304, y: 82, valueNumber: 0.92, valueDecimals: 2, valueSuffix: { type: "million" }, deltaValue: 8.2, deltaDecimals: 1, deltaUnit: "%" },
+      { x: 398, y: 70, valueNumber: 1.08, valueDecimals: 2, valueSuffix: { type: "million" }, deltaValue: 9.6, deltaDecimals: 1, deltaUnit: "%" },
     ],
-    forecastPoint: { x: 492, y: 52, label: "Wo 13", value: "1,18 Mio." },
-    signals: { forecastRisk: "Niedrig", deviation: "-2,4%", opportunityScore: "68/100", trendStrength: "0,62" },
+    forecastPoint: { x: 492, y: 52, valueNumber: 1.18, valueDecimals: 2, valueSuffix: { type: "million" } },
+    signals: {
+      forecastRiskKey: "riskLow",
+      deviationValue: -2.4,
+      deviationDecimals: 1,
+      opportunityScore: "68/100",
+      trendStrengthValue: 0.62,
+      trendStrengthDecimals: 2,
+    },
     segments: [
       { key: "dach", value: 54 },
       { key: "swiss", value: 41 },
@@ -142,7 +193,6 @@ const DATASETS: Record<PeriodKey, Dataset> = {
       { key: "industrialLeads", value: 22 },
     ],
     radarBars: [10, 14, 12, 16, 18, 22, 24, 28],
-    bottomLabels: ["Wo 1", "Wo 4", "Wo 7", "Wo 10", "Wo 12"],
   },
 }
 
@@ -179,9 +229,25 @@ function forecastSegmentPath(from: { x: number; y: number }, to: { x: number; y:
 
 // ---------- CountUp ----------
 
-function formatNumber(value: number, decimals = 0): string {
+function formatNumber(value: number, decimals = 0, lang: Locale = "de"): string {
   const fixed = decimals > 0 ? value.toFixed(decimals) : Math.round(value).toString()
-  return decimals > 0 ? fixed.replace(".", ",") : fixed
+  return decimals > 0 && lang === "de" ? fixed.replace(".", ",") : fixed
+}
+
+function resolveSuffix(spec: SuffixSpec, millionSuffix: string): string {
+  if (spec.type === "million") return millionSuffix
+  if (spec.type === "percent") return " %"
+  return ""
+}
+
+function formatDelta(value: number, decimals: number, unit: string, lang: Locale): string {
+  const sign = value >= 0 ? "+" : ""
+  const formatted = `${sign}${formatNumber(value, decimals, lang)}`
+  return unit ? `${formatted} ${unit}` : formatted
+}
+
+function formatValue(value: number, decimals: number, suffix: string, lang: Locale): string {
+  return `${formatNumber(value, decimals, lang)}${suffix}`
 }
 
 function CountUp({
@@ -191,6 +257,7 @@ function CountUp({
   prefix = "",
   className,
   reduceMotion,
+  lang = "de",
 }: {
   to: number
   decimals?: number
@@ -198,23 +265,24 @@ function CountUp({
   prefix?: string
   className?: string
   reduceMotion?: boolean | null
+  lang?: Locale
 }) {
   const value = useMotionValue(reduceMotion ? to : 0)
-  const [display, setDisplay] = useState(formatNumber(reduceMotion ? to : 0, decimals))
+  const [display, setDisplay] = useState(formatNumber(reduceMotion ? to : 0, decimals, lang))
 
   useEffect(() => {
     if (reduceMotion) {
       value.set(to)
-      setDisplay(formatNumber(to, decimals))
+      setDisplay(formatNumber(to, decimals, lang))
       return
     }
     const controls = animate(value, to, { duration: 0.9, ease: [0.22, 1, 0.36, 1] })
-    const unsub = value.on("change", (v) => setDisplay(formatNumber(v, decimals)))
+    const unsub = value.on("change", (v) => setDisplay(formatNumber(v, decimals, lang)))
     return () => {
       controls.stop()
       unsub()
     }
-  }, [to, decimals, reduceMotion, value])
+  }, [to, decimals, reduceMotion, value, lang])
 
   return (
     <span className={className}>
@@ -273,11 +341,15 @@ function ClarityModule({
   data,
   reduceMotion,
   mobileEmphasis = false,
+  lang,
+  millionSuffix,
 }: {
   t: any
   data: Dataset
   reduceMotion: boolean | null
   mobileEmphasis?: boolean
+  lang: Locale
+  millionSuffix: string
 }) {
   const items = [
     { key: "revenue", label: t.kpiLabels?.revenue, kpi: data.kpis.revenue, deltaLabel: t.kpiDeltaLabels?.revenue },
@@ -291,6 +363,8 @@ function ClarityModule({
         <p className="text-[0.72rem] font-semibold text-[#0B162D]">{t.sections.kpis}</p>
         <div className="mt-2.5 grid grid-cols-2 gap-2 sm:grid-cols-4">
           {items.map((item, i) => {
+            const suffix = resolveSuffix(item.kpi.suffix, millionSuffix)
+            const deltaDisplay = formatDelta(item.kpi.deltaValue, item.kpi.deltaDecimals ?? 0, item.kpi.deltaUnit, lang)
             return (
               <motion.div
                 key={item.label}
@@ -304,8 +378,9 @@ function ClarityModule({
                   <CountUp
                     to={item.kpi.to}
                     decimals={item.kpi.decimals ?? 0}
-                    suffix={item.kpi.suffix ?? ""}
+                    suffix={suffix}
                     reduceMotion={reduceMotion}
+                    lang={lang}
                   />
                 </p>
                 <div className="mt-2 h-1 overflow-hidden rounded-full bg-slate-100">
@@ -319,7 +394,7 @@ function ClarityModule({
                 {/* Delta badge — fades in on hover */}
                 <div className="pointer-events-none absolute -top-1.5 right-2 translate-y-1 opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100">
                   <span className="inline-flex items-center gap-1 rounded-full bg-[#0B162D] px-2 py-0.5 text-[0.5rem] font-semibold text-white shadow-md">
-                    {item.kpi.delta}
+                    {deltaDisplay}
                     {item.deltaLabel ? <span className="font-normal text-white/60">· {item.deltaLabel}</span> : null}
                   </span>
                 </div>
@@ -336,15 +411,32 @@ function ProfitModule({
   t,
   data,
   mobileEmphasis = false,
+  lang,
+  millionSuffix,
+  bottomLabels,
+  linePointLabels,
+  forecastPointLabel,
 }: {
   t: any
   data: Dataset
   mobileEmphasis?: boolean
+  lang: Locale
+  millionSuffix: string
+  bottomLabels: string[]
+  linePointLabels: string[]
+  forecastPointLabel: string
 }) {
   const linePath = smoothLinePath(data.linePoints)
   const areaPath = smoothAreaPath(data.linePoints)
   const lastActual = data.linePoints[data.linePoints.length - 1]
   const forecastPath = forecastSegmentPath(lastActual, data.forecastPoint)
+  const trendHeaderDisplay = formatDelta(data.trendHeaderValue, data.trendHeaderDecimals, data.trendHeaderUnit, lang)
+  const forecastValueDisplay = formatValue(
+    data.forecastPoint.valueNumber,
+    data.forecastPoint.valueDecimals,
+    resolveSuffix(data.forecastPoint.valueSuffix, millionSuffix),
+    lang,
+  )
 
   // Unique gradient IDs per instance — ProfitModule renders twice on this page
   // (mobile + desktop hero), so shared SVG defs IDs would collide.
@@ -380,7 +472,7 @@ function ProfitModule({
           <div className="rounded-[14px] border border-slate-200/80 bg-[#F8FBFE] px-2.5 py-2 text-right">
             <div className="flex items-center gap-1 text-[#21569c]">
               <TrendingUp className="h-3.5 w-3.5" />
-              <span className="text-[0.95rem] font-semibold">{data.trendHeader}</span>
+              <span className="text-[0.95rem] font-semibold">{trendHeaderDisplay}</span>
             </div>
           </div>
         </div>
@@ -448,12 +540,21 @@ function ProfitModule({
 
             {/* Data points as HTML overlays — interactive with tooltips */}
             <div className="absolute inset-0">
-              {data.linePoints.map((p, idx) => (
+              {data.linePoints.map((p, idx) => {
+                const pointLabel = linePointLabels[idx] ?? ""
+                const pointValueDisplay = formatValue(
+                  p.valueNumber,
+                  p.valueDecimals,
+                  resolveSuffix(p.valueSuffix, millionSuffix),
+                  lang,
+                )
+                const pointDeltaDisplay = formatDelta(p.deltaValue, p.deltaDecimals, p.deltaUnit, lang)
+                return (
                 <Tooltip key={`pp-${idx}-${p.x}-${p.y}`}>
                   <TooltipTrigger asChild>
                     <motion.button
                       type="button"
-                      aria-label={`${p.label}: ${p.value}`}
+                      aria-label={`${pointLabel}: ${pointValueDisplay}`}
                       initial={{ opacity: 0, scale: 0.6 }}
                       animate={{ opacity: 1, scale: 1 }}
                       transition={{ duration: 0.35, delay: 0.5 + idx * 0.1, ease: "easeOut" }}
@@ -463,17 +564,18 @@ function ProfitModule({
                   </TooltipTrigger>
                   <TooltipContent side="top" className="bg-[#0B162D] text-white">
                     <div className="flex flex-col gap-0.5 text-[0.66rem] leading-tight">
-                      <span className="font-semibold">{p.label}</span>
+                      <span className="font-semibold">{pointLabel}</span>
                       <span className="text-white/70">
-                        {t.trendTooltip?.revenueLabel}: {p.value}
+                        {t.trendTooltip?.revenueLabel}: {pointValueDisplay}
                       </span>
                       <span className="text-[#7DBBFF]">
-                        {t.trendTooltip?.deltaLabel} {p.delta}
+                        {t.trendTooltip?.deltaLabel} {pointDeltaDisplay}
                       </span>
                     </div>
                   </TooltipContent>
                 </Tooltip>
-              ))}
+                )
+              })}
 
               {/* Forecast point */}
               <Tooltip
@@ -483,7 +585,7 @@ function ProfitModule({
                 <TooltipTrigger asChild>
                   <motion.button
                     type="button"
-                    aria-label={`${data.forecastPoint.label}: ${data.forecastPoint.value}`}
+                    aria-label={`${forecastPointLabel}: ${forecastValueDisplay}`}
                     initial={{ opacity: 0, scale: 0.6 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.35, delay: 1.6, ease: "easeOut" }}
@@ -496,9 +598,9 @@ function ProfitModule({
                 </TooltipTrigger>
                 <TooltipContent side="top" className="bg-[#0B162D] text-white">
                   <div className="flex flex-col gap-0.5 text-[0.66rem] leading-tight">
-                    <span className="font-semibold">{data.forecastPoint.label}</span>
+                    <span className="font-semibold">{forecastPointLabel}</span>
                     <span className="text-white/70">
-                      {t.trendTooltip?.revenueLabel}: {data.forecastPoint.value}
+                      {t.trendTooltip?.revenueLabel}: {forecastValueDisplay}
                     </span>
                     <span className="text-white/50">{t.trendTooltip?.forecastLabel}</span>
                   </div>
@@ -516,7 +618,7 @@ function ProfitModule({
             </div>
           </div>
           <div className="mt-1 flex shrink-0 justify-between text-[0.56rem] text-[#0B162D]/40">
-            {data.bottomLabels.map((label, idx) => (
+            {bottomLabels.map((label, idx) => (
               <span key={`${label}-${idx}`}>{label}</span>
             ))}
           </div>
@@ -526,17 +628,20 @@ function ProfitModule({
   )
 }
 
-function AiModule({ t, data, radarStyle }: { t: any; data: Dataset; radarStyle?: any }) {
+function AiModule({ t, data, radarStyle, lang }: { t: any; data: Dataset; radarStyle?: any; lang: Locale }) {
+  const forecastRiskValue = t.signalValues?.[data.signals.forecastRiskKey] ?? data.signals.forecastRiskKey
+  const deviationDisplay = formatDelta(data.signals.deviationValue, data.signals.deviationDecimals, "%", lang)
+  const trendStrengthDisplay = formatNumber(data.signals.trendStrengthValue, data.signals.trendStrengthDecimals, lang)
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-[18px]">
       <div className="flex min-h-0 flex-1 flex-col p-2 sm:p-3">
         <p className="shrink-0 text-[0.72rem] font-semibold text-[#0B162D]">{t.sections.signals}</p>
         <div className="mt-1.5 shrink-0 sm:mt-2.5 grid grid-cols-2 gap-1.5 sm:gap-2">
           {[
-            { label: t.signalLabels?.forecastRisk, value: data.signals.forecastRisk },
-            { label: t.signalLabels?.deviation, value: data.signals.deviation },
+            { label: t.signalLabels?.forecastRisk, value: forecastRiskValue },
+            { label: t.signalLabels?.deviation, value: deviationDisplay },
             { label: t.signalLabels?.opportunityScore, value: data.signals.opportunityScore },
-            { label: t.signalLabels?.trendStrength, value: data.signals.trendStrength },
+            { label: t.signalLabels?.trendStrength, value: trendStrengthDisplay },
           ].map((item) => (
             <div key={item.label} className="rounded-[14px] bg-[#F8FBFE] p-1.5 sm:p-2.5">
               <p className="text-[0.52rem] font-medium uppercase tracking-[0.14em] text-[#0B162D]/38">{item.label}</p>
@@ -636,10 +741,20 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
     periods: hero?.periods ?? { q: "Quartal", h: "6 Monate", y: "12 Monate" },
     trendTooltip: hero?.trendTooltip ?? {},
     kpiDeltaLabels: hero?.kpiDeltaLabels ?? {},
+    ariaLabels: hero?.ariaLabels ?? { timeRange: "Zeitraum" },
+    dashboardTitle: (hero?.dashboardTitle as string) ?? "Management Dashboard",
+    millionSuffix: (hero?.millionSuffix as string) ?? " Mio.",
+    bottomLabels: hero?.bottomLabels ?? { q: [], h: [], y: [] },
+    linePointLabels: hero?.linePointLabels ?? { q: [], h: [], y: [] },
+    forecastPointLabels: hero?.forecastPointLabels ?? { q: "", h: "", y: "" },
+    signalValues: hero?.signalValues ?? {},
   }
 
   const [periodKey, setPeriodKey] = useState<PeriodKey>("y")
   const data = DATASETS[periodKey]
+  const bottomLabels = (t.bottomLabels?.[periodKey] ?? []) as string[]
+  const linePointLabels = (t.linePointLabels?.[periodKey] ?? []) as string[]
+  const forecastPointLabel = (t.forecastPointLabels?.[periodKey] ?? "") as string
 
   // ── Scroll-driven motion (kept for one-line restore) ─────────────
   const { scrollYProgress } = useScroll({
@@ -785,7 +900,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
                   />
                   <div className="h-3.5 w-px bg-slate-200" />
                   <h2 className="truncate text-[0.78rem] font-semibold text-[#0B162D] sm:text-[0.86rem]">
-                    Management Dashboard
+                    {t.dashboardTitle}
                   </h2>
                 </div>
                 <div className="hidden shrink-0 items-center gap-1 text-[0.6rem] text-[#0B162D]/48 sm:inline-flex">
@@ -804,7 +919,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
 
                 <div
                   role="tablist"
-                  aria-label="Zeitraum"
+                  aria-label={t.ariaLabels?.timeRange}
                   className="relative inline-flex items-center gap-0.5 rounded-full bg-[#F7FAFF] p-0.5"
                 >
                   {(["q", "h", "y"] as const).map((key) => {
@@ -852,7 +967,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
                 variants={dashboardChildVariants}
                 className="overflow-hidden rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)]"
               >
-                <ClarityModule t={t} data={data} reduceMotion={shouldReduceMotion} mobileEmphasis />
+                <ClarityModule t={t} data={data} reduceMotion={shouldReduceMotion} mobileEmphasis lang={lang} millionSuffix={t.millionSuffix} />
               </motion.div>
 
               {/* Trend chart — money shot */}
@@ -860,7 +975,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
                 variants={dashboardChildVariants}
                 className="flex flex-col overflow-hidden rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)] sm:min-h-[320px] md:min-h-[360px]"
               >
-                <ProfitModule t={t} data={data} mobileEmphasis />
+                <ProfitModule t={t} data={data} mobileEmphasis lang={lang} millionSuffix={t.millionSuffix} bottomLabels={bottomLabels} linePointLabels={linePointLabels} forecastPointLabel={forecastPointLabel} />
               </motion.div>
 
               {/* AI signals — tablet only */}
@@ -868,7 +983,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
                 variants={dashboardChildVariants}
                 className="hidden min-h-[260px] flex-col overflow-hidden rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)] md:flex md:min-h-[280px]"
               >
-                <AiModule t={t} data={data} radarStyle={{ opacity: 1 }} />
+                <AiModule t={t} data={data} radarStyle={{ opacity: 1 }} lang={lang} />
               </motion.div>
             </div>
           </motion.div>
@@ -957,7 +1072,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
                     />
                     <div className="h-3.5 w-px bg-slate-200" />
                     <h2 className="whitespace-nowrap text-[0.88rem] font-semibold text-[#0B162D]">
-                      Management Dashboard
+                      {t.dashboardTitle}
                     </h2>
                   </div>
                   <div className="inline-flex items-center gap-1 text-[0.62rem] text-[#0B162D]/48">
@@ -976,7 +1091,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
                   {/* Period toggle group — replaces static date pill */}
                   <div
                     role="tablist"
-                    aria-label="Zeitraum"
+                    aria-label={t.ariaLabels?.timeRange}
                     className="inline-flex items-center gap-0.5 rounded-full bg-[#F7FAFF] p-0.5"
                   >
                     {(["q", "h", "y"] as const).map((key) => {
@@ -1013,10 +1128,10 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
                 {/* Left column */}
                 <div className="flex min-h-0 flex-1 flex-col gap-2.5">
                   <div className="relative shrink-0 overflow-visible rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)]">
-                    <ClarityModule t={t} data={data} reduceMotion={shouldReduceMotion} />
+                    <ClarityModule t={t} data={data} reduceMotion={shouldReduceMotion} lang={lang} millionSuffix={t.millionSuffix} />
                   </div>
                   <div className="relative flex min-h-0 flex-1 flex-col overflow-visible rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)]">
-                    <ProfitModule t={t} data={data} />
+                    <ProfitModule t={t} data={data} lang={lang} millionSuffix={t.millionSuffix} bottomLabels={bottomLabels} linePointLabels={linePointLabels} forecastPointLabel={forecastPointLabel} />
                   </div>
                 </div>
 
@@ -1026,7 +1141,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
                     style={aiWrapperStyle}
                     className="relative flex shrink-0 flex-col overflow-visible rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)]"
                   >
-                    <AiModule t={t} data={data} radarStyle={radarStyle} />
+                    <AiModule t={t} data={data} radarStyle={radarStyle} lang={lang} />
                   </motion.div>
                   <div className="relative flex min-h-0 flex-1 flex-col overflow-visible rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)]">
                     <SpeedModule t={t} data={data} />

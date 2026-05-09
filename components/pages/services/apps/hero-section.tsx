@@ -45,7 +45,6 @@ interface StatValue {
   to: number
   suffix?: string
   decimals?: number
-  display: string
   bar: number
   delta: string
 }
@@ -56,18 +55,13 @@ interface PipelineCol {
   items: { name: string; amount: string }[]
 }
 
-interface ActivityItem {
+interface ActivityVisual {
   initials: string
-  user: string
-  action: string
-  time: string
   color: string
 }
 
-interface TaskItem {
-  label: string
+interface TaskVisual {
   priority: Priority
-  due: string
 }
 
 interface Dataset {
@@ -79,17 +73,17 @@ interface Dataset {
   }
   pipelineTotal: number
   pipeline: PipelineCol[]
-  activities: ActivityItem[]
-  tasks: TaskItem[]
+  activityVisuals: ActivityVisual[]
+  taskVisuals: TaskVisual[]
 }
 
 const DATASETS: Record<ViewKey, Dataset> = {
   today: {
     stats: {
-      orders: { to: 12, display: "12", bar: 48, delta: "+3" },
-      customers: { to: 47, display: "47", bar: 62, delta: "+5" },
-      tasks: { to: 8, display: "8", bar: 32, delta: "-2" },
-      revenue: { to: 8.4, decimals: 1, suffix: " k €", display: "8,4 k €", bar: 56, delta: "+12 %" },
+      orders: { to: 12, bar: 48, delta: "+3" },
+      customers: { to: 47, bar: 62, delta: "+5" },
+      tasks: { to: 8, bar: 32, delta: "-2" },
+      revenue: { to: 8.4, decimals: 1, suffix: " k €", bar: 56, delta: "+12 %" },
     },
     pipelineTotal: 12,
     pipeline: [
@@ -119,25 +113,25 @@ const DATASETS: Record<ViewKey, Dataset> = {
         ],
       },
     ],
-    activities: [
-      { initials: "JM", user: "J. Müller", action: "hat Auftrag #4831 angelegt", time: "vor 2 Min.", color: "#F703EB" },
-      { initials: "AS", user: "A. Schmidt", action: "hat Angebot freigegeben", time: "vor 14 Min.", color: "#475569" },
-      { initials: "TW", user: "T. Weber", action: "hat Lieferung bestätigt", time: "vor 38 Min.", color: "#94A3B8" },
-      { initials: "MB", user: "M. Becker", action: "hat Zahlung erfasst", time: "vor 1 Std.", color: "#0B162D" },
+    activityVisuals: [
+      { initials: "JM", color: "#F703EB" },
+      { initials: "AS", color: "#475569" },
+      { initials: "TW", color: "#94A3B8" },
+      { initials: "MB", color: "#0B162D" },
     ],
-    tasks: [
-      { label: "Angebot Müller GmbH freigeben", priority: "high", due: "heute, 17:00" },
-      { label: "Lieferung Becker bestätigen", priority: "high", due: "heute" },
-      { label: "Rechnung #4823 prüfen", priority: "med", due: "morgen" },
-      { label: "Q4-Forecast aktualisieren", priority: "low", due: "diese Woche" },
+    taskVisuals: [
+      { priority: "high" },
+      { priority: "high" },
+      { priority: "med" },
+      { priority: "low" },
     ],
   },
   week: {
     stats: {
-      orders: { to: 87, display: "87", bar: 68, delta: "+12" },
-      customers: { to: 124, display: "124", bar: 78, delta: "+18" },
-      tasks: { to: 23, display: "23", bar: 52, delta: "+4" },
-      revenue: { to: 62, suffix: " k €", display: "62 k €", bar: 64, delta: "+8 %" },
+      orders: { to: 87, bar: 68, delta: "+12" },
+      customers: { to: 124, bar: 78, delta: "+18" },
+      tasks: { to: 23, bar: 52, delta: "+4" },
+      revenue: { to: 62, suffix: " k €", bar: 64, delta: "+8 %" },
     },
     pipelineTotal: 64,
     pipeline: [
@@ -167,25 +161,25 @@ const DATASETS: Record<ViewKey, Dataset> = {
         ],
       },
     ],
-    activities: [
-      { initials: "JM", user: "J. Müller", action: "hat Auftrag #4831 angelegt", time: "vor 3 Std.", color: "#F703EB" },
-      { initials: "SV", user: "S. Voss", action: "hat Vertrag verlängert", time: "vor 8 Std.", color: "#475569" },
-      { initials: "AS", user: "A. Schmidt", action: "hat Mahnung versendet", time: "vor 1 Tag", color: "#94A3B8" },
-      { initials: "MB", user: "M. Becker", action: "hat Reklamation eröffnet", time: "vor 2 Tagen", color: "#0B162D" },
+    activityVisuals: [
+      { initials: "JM", color: "#F703EB" },
+      { initials: "SV", color: "#475569" },
+      { initials: "AS", color: "#94A3B8" },
+      { initials: "MB", color: "#0B162D" },
     ],
-    tasks: [
-      { label: "Klein KG: Angebot kalkulieren", priority: "high", due: "Mi" },
-      { label: "Reklamation Becker bearbeiten", priority: "high", due: "Mi" },
-      { label: "Mahnlauf #34 freigeben", priority: "med", due: "Do" },
-      { label: "Vertriebsmeeting vorbereiten", priority: "low", due: "Fr" },
+    taskVisuals: [
+      { priority: "high" },
+      { priority: "high" },
+      { priority: "med" },
+      { priority: "low" },
     ],
   },
   month: {
     stats: {
-      orders: { to: 342, display: "342", bar: 84, delta: "+47" },
-      customers: { to: 287, display: "287", bar: 88, delta: "+34" },
-      tasks: { to: 47, display: "47", bar: 60, delta: "+8" },
-      revenue: { to: 245, suffix: " k €", display: "245 k €", bar: 76, delta: "+14 %" },
+      orders: { to: 342, bar: 84, delta: "+47" },
+      customers: { to: 287, bar: 88, delta: "+34" },
+      tasks: { to: 47, bar: 60, delta: "+8" },
+      revenue: { to: 245, suffix: " k €", bar: 76, delta: "+14 %" },
     },
     pipelineTotal: 248,
     pipeline: [
@@ -215,26 +209,26 @@ const DATASETS: Record<ViewKey, Dataset> = {
         ],
       },
     ],
-    activities: [
-      { initials: "JM", user: "J. Müller", action: "hat 14 Aufträge abgeschlossen", time: "vor 4 Tagen", color: "#F703EB" },
-      { initials: "SV", user: "S. Voss", action: "hat 6 Verträge verlängert", time: "vor 1 Woche", color: "#475569" },
-      { initials: "AS", user: "A. Schmidt", action: "hat 3 Großkunden onboarded", time: "vor 2 Wochen", color: "#94A3B8" },
-      { initials: "MB", user: "M. Becker", action: "hat Q3-Reporting abgeschlossen", time: "vor 3 Wochen", color: "#0B162D" },
+    activityVisuals: [
+      { initials: "JM", color: "#F703EB" },
+      { initials: "SV", color: "#475569" },
+      { initials: "AS", color: "#94A3B8" },
+      { initials: "MB", color: "#0B162D" },
     ],
-    tasks: [
-      { label: "Schäfer AG: Vertragsverhandlung", priority: "high", due: "diese Woche" },
-      { label: "Quartalsplanung Q1 abstimmen", priority: "high", due: "diese Woche" },
-      { label: "Provisionsabrechnung freigeben", priority: "med", due: "nächste Woche" },
-      { label: "CRM-Daten konsolidieren", priority: "low", due: "diesen Monat" },
+    taskVisuals: [
+      { priority: "high" },
+      { priority: "high" },
+      { priority: "med" },
+      { priority: "low" },
     ],
   },
 }
 
 // ---------- CountUp ----------
 
-function formatNumber(value: number, decimals = 0): string {
+function formatNumber(value: number, decimals = 0, lang: Locale = "de"): string {
   const fixed = decimals > 0 ? value.toFixed(decimals) : Math.round(value).toString()
-  return decimals > 0 ? fixed.replace(".", ",") : fixed
+  return decimals > 0 && lang === "de" ? fixed.replace(".", ",") : fixed
 }
 
 function CountUp({
@@ -244,6 +238,7 @@ function CountUp({
   prefix = "",
   className,
   reduceMotion,
+  lang = "de",
 }: {
   to: number
   decimals?: number
@@ -251,23 +246,24 @@ function CountUp({
   prefix?: string
   className?: string
   reduceMotion?: boolean | null
+  lang?: Locale
 }) {
   const value = useMotionValue(reduceMotion ? to : 0)
-  const [display, setDisplay] = useState(formatNumber(reduceMotion ? to : 0, decimals))
+  const [display, setDisplay] = useState(formatNumber(reduceMotion ? to : 0, decimals, lang))
 
   useEffect(() => {
     if (reduceMotion) {
       value.set(to)
-      setDisplay(formatNumber(to, decimals))
+      setDisplay(formatNumber(to, decimals, lang))
       return
     }
     const controls = animate(value, to, { duration: 0.9, ease: [0.22, 1, 0.36, 1] })
-    const unsub = value.on("change", (v) => setDisplay(formatNumber(v, decimals)))
+    const unsub = value.on("change", (v) => setDisplay(formatNumber(v, decimals, lang)))
     return () => {
       controls.stop()
       unsub()
     }
-  }, [to, decimals, reduceMotion, value])
+  }, [to, decimals, reduceMotion, value, lang])
 
   return (
     <span className={className}>
@@ -327,11 +323,13 @@ function ClarityModule({
   data,
   reduceMotion,
   mobileEmphasis = false,
+  lang,
 }: {
   t: any
   data: Dataset
   reduceMotion: boolean | null
   mobileEmphasis?: boolean
+  lang: Locale
 }) {
   const items = [
     { key: "orders", label: t.statLabels?.orders, kpi: data.stats.orders, deltaLabel: t.statDeltas?.orders },
@@ -359,6 +357,7 @@ function ClarityModule({
                   decimals={item.kpi.decimals ?? 0}
                   suffix={item.kpi.suffix ?? ""}
                   reduceMotion={reduceMotion}
+                  lang={lang}
                 />
               </p>
               <div className="mt-2 h-1 overflow-hidden rounded-full bg-slate-100">
@@ -402,7 +401,7 @@ function ProfitModule({
         <div className="rounded-[14px] border border-slate-200/80 bg-[#FEF8FE] px-2.5 py-2 text-right">
           <div className="flex items-baseline gap-1 text-[#F703EB]">
             <span className="text-[0.95rem] font-semibold">{data.pipelineTotal}</span>
-            <span className="text-[0.5rem] uppercase tracking-wider text-[#F703EB]/60">aktiv</span>
+            <span className="text-[0.5rem] uppercase tracking-wider text-[#F703EB]/60">{t.activeBadge}</span>
           </div>
         </div>
       </div>
@@ -448,7 +447,16 @@ function ProfitModule({
 }
 
 // Live activity feed
-function AiModule({ t, data }: { t: any; data: Dataset; radarStyle?: any }) {
+function AiModule({
+  t,
+  data,
+  activities,
+}: {
+  t: any
+  data: Dataset
+  radarStyle?: any
+  activities: { user: string; action: string; time: string }[]
+}) {
   return (
     <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-[18px]">
       <div className="flex min-h-0 flex-1 flex-col p-2 sm:p-3">
@@ -466,9 +474,11 @@ function AiModule({ t, data }: { t: any; data: Dataset; radarStyle?: any }) {
           </div>
         </div>
         <div className="mt-2 flex min-h-0 flex-1 flex-col justify-between gap-1.5">
-          {data.activities.map((item, i) => (
+          {data.activityVisuals.map((visual, i) => {
+            const content = activities[i] ?? { user: "", action: "", time: "" }
+            return (
             <motion.div
-              key={`${item.user}-${i}`}
+              key={`${content.user}-${i}`}
               initial={{ opacity: 0, x: -8 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.45, delay: 0.5 + i * 0.1, ease: [0.22, 1, 0.36, 1] }}
@@ -476,19 +486,20 @@ function AiModule({ t, data }: { t: any; data: Dataset; radarStyle?: any }) {
             >
               <div
                 className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[0.5rem] font-bold text-white"
-                style={{ backgroundColor: item.color }}
+                style={{ backgroundColor: visual.color }}
               >
-                {item.initials}
+                {visual.initials}
               </div>
               <div className="min-w-0 flex-1">
                 <div className="truncate text-[0.58rem] leading-tight text-[#0B162D]">
-                  <span className="font-semibold">{item.user}</span>{" "}
-                  <span className="text-[#0B162D]/65">{item.action}</span>
+                  <span className="font-semibold">{content.user}</span>{" "}
+                  <span className="text-[#0B162D]/65">{content.action}</span>
                 </div>
-                <div className="mt-0.5 text-[0.5rem] text-[#0B162D]/40">{item.time}</div>
+                <div className="mt-0.5 text-[0.5rem] text-[#0B162D]/40">{content.time}</div>
               </div>
             </motion.div>
-          ))}
+            )
+          })}
         </div>
       </div>
     </div>
@@ -496,7 +507,15 @@ function AiModule({ t, data }: { t: any; data: Dataset; radarStyle?: any }) {
 }
 
 // Open tasks list
-function SpeedModule({ t, data }: { t: any; data: Dataset }) {
+function SpeedModule({
+  t,
+  data,
+  tasks,
+}: {
+  t: any
+  data: Dataset
+  tasks: { label: string; due: string }[]
+}) {
   const priorityColors: Record<Priority, string> = {
     high: "#F703EB",
     med: "#FA85F4",
@@ -507,11 +526,12 @@ function SpeedModule({ t, data }: { t: any; data: Dataset }) {
       <div className="flex flex-1 flex-col p-2 sm:p-3">
         <p className="shrink-0 text-[0.72rem] font-semibold text-[#0B162D]">{t.sections?.tasks}</p>
         <div className="mt-1.5 flex flex-1 flex-col justify-around gap-1 sm:mt-2.5">
-          {data.tasks.map((task, i) => {
-            const color = priorityColors[task.priority]
+          {data.taskVisuals.map((visual, i) => {
+            const content = tasks[i] ?? { label: "", due: "" }
+            const color = priorityColors[visual.priority]
             return (
               <motion.div
-                key={`${task.label}-${i}`}
+                key={`${content.label}-${i}`}
                 initial={{ opacity: 0, x: -4 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.4, delay: 0.5 + i * 0.08 }}
@@ -523,14 +543,14 @@ function SpeedModule({ t, data }: { t: any; data: Dataset }) {
                   style={{ borderColor: color, ["--c" as any]: color }}
                 />
                 <div className="min-w-0 flex-1">
-                  <div className="truncate text-[0.6rem] font-medium text-[#0B162D]">{task.label}</div>
-                  <div className="text-[0.5rem] text-[#0B162D]/40">{task.due}</div>
+                  <div className="truncate text-[0.6rem] font-medium text-[#0B162D]">{content.label}</div>
+                  <div className="text-[0.5rem] text-[#0B162D]/40">{content.due}</div>
                 </div>
                 <div
                   className="rounded-sm px-1 py-0.5 text-[0.48rem] font-bold uppercase tracking-wider"
                   style={{ backgroundColor: `${color}1F`, color }}
                 >
-                  {t.taskPriorityLabels?.[task.priority]}
+                  {t.taskPriorityLabels?.[visual.priority]}
                 </div>
               </motion.div>
             )
@@ -580,6 +600,10 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
       reports: "Berichte",
       settings: "Einstellungen",
     },
+    ariaLabels: hero?.ariaLabels ?? { timeRange: "Zeitraum", mainNav: "Hauptnavigation" },
+    activeBadge: (hero?.activeBadge as string) ?? "aktiv",
+    activitiesByView: hero?.activitiesByView ?? { today: [], week: [], month: [] },
+    tasksByView: hero?.tasksByView ?? { today: [], week: [], month: [] },
   }
 
   const navConfig = [
@@ -593,6 +617,8 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
 
   const [viewKey, setViewKey] = useState<ViewKey>("today")
   const data = DATASETS[viewKey]
+  const activities = (t.activitiesByView?.[viewKey] ?? []) as { user: string; action: string; time: string }[]
+  const tasks = (t.tasksByView?.[viewKey] ?? []) as { label: string; due: string }[]
 
   // ── Scroll-driven motion (kept for one-line restore) ─────────────
   const { scrollYProgress } = useScroll({
@@ -749,7 +775,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
                 <div className="flex items-center gap-1.5">
                   <div
                     role="tablist"
-                    aria-label="Zeitraum"
+                    aria-label={t.ariaLabels?.timeRange}
                     className="relative inline-flex items-center gap-0.5 rounded-full bg-[#FEF7FE] p-0.5"
                   >
                     {(["today", "week", "month"] as const).map((key) => {
@@ -792,7 +818,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
                 variants={dashboardChildVariants}
                 className="overflow-hidden rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)]"
               >
-                <ClarityModule t={t} data={data} reduceMotion={shouldReduceMotion} mobileEmphasis />
+                <ClarityModule t={t} data={data} reduceMotion={shouldReduceMotion} mobileEmphasis lang={lang} />
               </motion.div>
 
               {/* Pipeline — money shot */}
@@ -808,7 +834,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
                 variants={dashboardChildVariants}
                 className="hidden min-h-[260px] flex-col overflow-hidden rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)] md:flex md:min-h-[280px]"
               >
-                <AiModule t={t} data={data} />
+                <AiModule t={t} data={data} activities={activities} />
               </motion.div>
             </div>
           </motion.div>
@@ -939,7 +965,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
                 <div className="flex min-h-0 flex-1 flex-row overflow-hidden">
                   {/* Sidebar */}
                   <nav
-                    aria-label="Hauptnavigation"
+                    aria-label={t.ariaLabels?.mainNav}
                     className="flex w-[140px] shrink-0 flex-col border-r border-slate-100 bg-slate-50/40 p-2"
                   >
                     <ul className="flex flex-col gap-0.5">
@@ -1012,7 +1038,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
                         {/* View toggle */}
                         <div
                           role="tablist"
-                          aria-label="Zeitraum"
+                          aria-label={t.ariaLabels?.timeRange}
                           className="inline-flex items-center gap-0.5 rounded-full bg-[#FEF7FE] p-0.5"
                         >
                           {(["today", "week", "month"] as const).map((key) => {
@@ -1053,7 +1079,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
                       {/* Left column */}
                       <div className="flex min-h-0 flex-1 flex-col gap-2.5">
                         <div className="relative shrink-0 overflow-visible rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)]">
-                          <ClarityModule t={t} data={data} reduceMotion={shouldReduceMotion} />
+                          <ClarityModule t={t} data={data} reduceMotion={shouldReduceMotion} lang={lang} />
                         </div>
                         <div className="relative flex min-h-0 flex-1 flex-col overflow-visible rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)]">
                           <ProfitModule t={t} data={data} />
@@ -1066,10 +1092,10 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
                           style={aiWrapperStyle}
                           className="relative flex shrink-0 flex-col overflow-visible rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)]"
                         >
-                          <AiModule t={t} data={data} />
+                          <AiModule t={t} data={data} activities={activities} />
                         </motion.div>
                         <div className="relative flex min-h-0 flex-1 flex-col overflow-visible rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)]">
-                          <SpeedModule t={t} data={data} />
+                          <SpeedModule t={t} data={data} tasks={tasks} />
                         </div>
                       </div>
                     </div>
