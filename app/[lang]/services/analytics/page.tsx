@@ -37,6 +37,11 @@ export default async function Page({
   const { lang } = await params
   const dict = getDictionary(lang)
 
+  const reviews = (dict.servicesAnalytics.reviews ?? []).map((r: { name: string; quote: string }) => ({
+    author: r.name,
+    reviewBody: r.quote,
+  }))
+
   const serviceJsonLd = buildServiceJsonLd({
     lang,
     path: "services/analytics",
@@ -52,6 +57,7 @@ export default async function Page({
       de: "Datenanalyse",
       en: "Data analytics",
     },
+    reviews,
   })
 
   const breadcrumbJsonLd = buildBreadcrumbJsonLd(lang, [

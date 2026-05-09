@@ -41,15 +41,68 @@ export function buildBreadcrumbJsonLd(lang: Locale, items: BreadcrumbItem[]) {
   }
 }
 
+type ReviewInput = {
+  author: string
+  reviewBody: string
+  ratingValue?: number
+  datePublished?: string
+}
+
+type AggregateRatingInput = {
+  ratingValue: number
+  reviewCount: number
+  bestRating?: number
+  worstRating?: number
+}
+
 type ServiceJsonLdInput = {
   lang: Locale
   path: string
   name: LocalizedText
   description: LocalizedText
   serviceType?: LocalizedText
+  reviews?: ReviewInput[]
+  aggregateRating?: AggregateRatingInput
 }
 
-export function buildServiceJsonLd({ lang, path, name, description, serviceType }: ServiceJsonLdInput) {
+function buildReviewNode({ author, reviewBody, ratingValue, datePublished }: ReviewInput) {
+  return {
+    "@type": "Review",
+    author: { "@type": "Organization", name: author },
+    reviewBody,
+    ...(ratingValue !== undefined
+      ? {
+          reviewRating: {
+            "@type": "Rating",
+            ratingValue,
+            bestRating: 5,
+            worstRating: 1,
+          },
+        }
+      : {}),
+    ...(datePublished ? { datePublished } : {}),
+  }
+}
+
+function buildAggregateRatingNode({ ratingValue, reviewCount, bestRating = 5, worstRating = 1 }: AggregateRatingInput) {
+  return {
+    "@type": "AggregateRating",
+    ratingValue,
+    reviewCount,
+    bestRating,
+    worstRating,
+  }
+}
+
+export function buildServiceJsonLd({
+  lang,
+  path,
+  name,
+  description,
+  serviceType,
+  reviews,
+  aggregateRating,
+}: ServiceJsonLdInput) {
   return {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -64,6 +117,51 @@ export function buildServiceJsonLd({ lang, path, name, description, serviceType 
     },
     areaServed: ["DE", "AT", "CH", "EU"],
     inLanguage: lang === "de" ? "de-DE" : "en-US",
+    ...(reviews && reviews.length > 0 ? { review: reviews.map(buildReviewNode) } : {}),
+    ...(aggregateRating ? { aggregateRating: buildAggregateRatingNode(aggregateRating) } : {}),
+  }
+}
+
+type PersonJsonLdInput = {
+  name: string
+  jobTitle: string
+  image?: string
+  email?: string
+  sameAs?: string[]
+  description?: string
+  knowsLanguage?: string[]
+}
+
+export function buildPersonJsonLd({
+  name,
+  jobTitle,
+  image,
+  email,
+  sameAs,
+  description,
+  knowsLanguage,
+}: PersonJsonLdInput) {
+  const absoluteImage = image
+    ? image.startsWith("http")
+      ? image
+      : `${SITE_URL}${image.startsWith("/") ? image : `/${image}`}`
+    : undefined
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name,
+    jobTitle,
+    ...(absoluteImage ? { image: absoluteImage } : {}),
+    ...(email ? { email } : {}),
+    ...(description ? { description } : {}),
+    ...(knowsLanguage && knowsLanguage.length > 0 ? { knowsLanguage } : {}),
+    ...(sameAs && sameAs.length > 0 ? { sameAs } : {}),
+    worksFor: {
+      "@type": "Organization",
+      name: SITE_NAME,
+      url: SITE_URL,
+    },
   }
 }
 

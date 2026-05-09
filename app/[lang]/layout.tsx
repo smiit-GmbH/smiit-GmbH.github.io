@@ -70,8 +70,28 @@ const organizationJsonLd = {
     addressCountry: "DE",
   },
   founder: [
-    { "@type": "Person", name: "Sebastian Grab" },
-    { "@type": "Person", name: "Noah Neßlauer" },
+    {
+      "@type": "Person",
+      name: "Sebastian Grab",
+      jobTitle: "Co-Founder & Software Engineer",
+      image: `${SITE_URL}/assets/people/sebastian.webp`,
+      email: "sebastian.grab@smiit.de",
+      sameAs: [
+        "https://www.linkedin.com/in/sebastian-grab/",
+        "https://grab.smiit.de",
+      ],
+    },
+    {
+      "@type": "Person",
+      name: "Noah Neßlauer",
+      jobTitle: "Co-Founder & Business Analyst",
+      image: `${SITE_URL}/assets/people/noah.webp`,
+      email: "noah.nesslauer@smiit.de",
+      sameAs: [
+        "https://www.linkedin.com/in/noah-nesslauer/",
+        "https://nesslauer.smiit.de",
+      ],
+    },
   ],
   contactPoint: [
     {

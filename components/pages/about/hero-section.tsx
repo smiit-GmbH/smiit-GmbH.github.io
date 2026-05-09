@@ -1,11 +1,16 @@
 "use client"
 
 import { useRef, useState, useEffect, useCallback, useMemo } from "react"
+import dynamic from "next/dynamic"
 import Link from "next/link"
 import { ArrowRight, CheckCircle2, MapPin, Search, ZoomOut } from "lucide-react"
-import { Globe } from "@/components/pages/about/globe"
 import type { Locale } from "@/lib/dictionary"
 import { useScroll, useMotionValueEvent } from "framer-motion"
+
+const Globe = dynamic(
+  () => import("@/components/pages/about/globe").then((m) => m.Globe),
+  { ssr: false },
+)
 
 export function HeroSection({
   lang,
@@ -148,12 +153,12 @@ export function HeroSection({
                   {a.primaryButton}
                   <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5" />
                 </Link>
-                <Link
+                {/* <Link
                   href={`/${lang}/services/`}
                   className="inline-flex items-center justify-center px-5 py-3 sm:px-6 sm:py-3.5 text-sm sm:text-base font-medium text-[#0B162D] bg-white hover:bg-white/65 border border-gray-200 hover:bg-gray-50 rounded-xl transition-colors duration-200 shadow-sm"
                 >
                   {a.secondaryButton}
-                </Link>
+                </Link> */}
               </div>
 
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-8 pt-4 sm:pt-6 border-t border-gray-100">

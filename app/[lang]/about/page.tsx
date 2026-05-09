@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { getDictionary, Locale } from "@/lib/dictionary"
 import AboutPage from "@/components/pages/AboutPage"
-import { buildBreadcrumbJsonLd, buildPageMetadata } from "@/lib/seo"
+import { buildBreadcrumbJsonLd, buildPageMetadata, buildPersonJsonLd } from "@/lib/seo"
 import { JsonLd } from "@/components/seo/json-ld"
 
 export async function generateStaticParams() {
@@ -29,6 +29,16 @@ export async function generateMetadata({
   })
 }
 
+type FounderMember = {
+  name: string
+  role: string
+  image: string
+  bio: string
+  email: string
+  cvLink?: string
+  linkedIn?: string
+}
+
 export default async function Page({
   params,
 }: {
@@ -41,9 +51,27 @@ export default async function Page({
     { name: lang === "de" ? "Über uns" : "About us", path: "about" },
   ])
 
+  const founders: FounderMember[] = dict.aboutPage.founders.members
+  const knowsLanguage = lang === "de" ? ["German", "English"] : ["English", "German"]
+
+  const personJsonLds = founders.map((founder) =>
+    buildPersonJsonLd({
+      name: founder.name,
+      jobTitle: founder.role,
+      image: founder.image,
+      email: founder.email,
+      description: founder.bio,
+      knowsLanguage,
+      sameAs: [founder.linkedIn, founder.cvLink].filter((u): u is string => Boolean(u)),
+    }),
+  )
+
   return (
     <>
       <JsonLd data={breadcrumbJsonLd} />
+      {personJsonLds.map((data, idx) => (
+        <JsonLd key={`person-${idx}`} data={data} />
+      ))}
       <AboutPage lang={lang} dict={dict} />
     </>
   )
