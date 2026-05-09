@@ -7,6 +7,7 @@ import ManifestBand from "@/components/pages/services/analytics/manifest-band"
 import ProcessSection from "@/components/pages/services/analytics/process-section"
 import AnalyticsCTA from "@/components/pages/services/analytics/cta"
 import AnalyticsReviews from "@/components/pages/services/analytics/reviews"
+import FaqSection from "@/components/pages/shared/faq-section"
 
 export default function AnalyticsPage({
   lang,
@@ -23,6 +24,7 @@ export default function AnalyticsPage({
       <ProcessSection dict={dict} />
       <AnalyticsReviews dict={dict} />
       <AnalyticsCTA dict={dict} />
+      <FaqSection dict={dict.servicesAnalytics.faq} />
     </main>
   )
 }

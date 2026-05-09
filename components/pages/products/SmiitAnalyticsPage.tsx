@@ -6,6 +6,7 @@ import { FeaturesSection } from "@/components/pages/products/smiit-analytics/fea
 import { AdvantagesSection } from "@/components/pages/products/smiit-analytics/advantages-section"
 import { PricingSection } from "@/components/pages/products/smiit-analytics/pricing-section"
 import { ProcessSection } from "@/components/pages/products/smiit-analytics/process-section"
+import FaqSection from "@/components/pages/shared/faq-section"
 
 export default function SmiitAnalyticsPage({
   lang,
@@ -21,6 +22,7 @@ export default function SmiitAnalyticsPage({
       <AdvantagesSection dict={dict} />
       <PricingSection dict={dict} />
       <ProcessSection dict={dict} />
+      <FaqSection dict={dict.smiitAnalytics.faq} compact />
     </main>
   )
 }

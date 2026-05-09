@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { getDictionary, Locale } from "@/lib/dictionary"
 import SmiitAnalyticsPage from "@/components/pages/products/SmiitAnalyticsPage"
-import { buildBreadcrumbJsonLd, buildPageMetadata, buildProductJsonLd } from "@/lib/seo"
+import { buildBreadcrumbJsonLd, buildFaqJsonLd, buildPageMetadata, buildProductJsonLd } from "@/lib/seo"
 import { JsonLd } from "@/components/seo/json-ld"
 
 export async function generateStaticParams() {
@@ -51,10 +51,13 @@ export default async function Page({
     { name: "smiit Analytics", path: "products/smiit-analytics" },
   ])
 
+  const faqJsonLd = buildFaqJsonLd(dict.smiitAnalytics.faq.items)
+
   return (
     <>
       <JsonLd data={productJsonLd} />
       <JsonLd data={breadcrumbJsonLd} />
+      <JsonLd data={faqJsonLd} />
       <SmiitAnalyticsPage lang={lang} dict={dict} />
     </>
   )

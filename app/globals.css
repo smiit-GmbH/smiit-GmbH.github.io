@@ -393,6 +393,17 @@
   background: linear-gradient(to right, transparent, #64748B);
 }
 
+/* Heading highlight word — picks up per-page accent automatically */
+.section-highlight {
+  color: #21569c;
+}
+[data-page="apps"] .section-highlight {
+  color: #F703EB;
+}
+[data-page="strategy"] .section-highlight {
+  color: #64748B;
+}
+
 /* Hero scroll-indicator pulse */
 @keyframes hero-scroll-pulse {
   0%, 100% { transform: translateY(0); opacity: 0.45; }

@@ -7,6 +7,7 @@ import ManifestBand from "@/components/pages/services/apps/manifest-band"
 import ProcessSection from "@/components/pages/services/apps/process-section"
 import AppsCTA from "@/components/pages/services/apps/cta"
 import AppsReviews from "@/components/pages/services/apps/reviews"
+import FaqSection from "@/components/pages/shared/faq-section"
 
 export default function AppsPage({
   lang,
@@ -23,6 +24,7 @@ export default function AppsPage({
       <ProcessSection dict={dict} />
       <AppsReviews dict={dict} />
       <AppsCTA dict={dict} />
+      <FaqSection dict={dict.servicesApps.faq} />
     </main>
   )
 }

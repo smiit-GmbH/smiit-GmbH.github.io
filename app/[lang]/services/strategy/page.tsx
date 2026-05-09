@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { getDictionary, Locale } from "@/lib/dictionary"
 import StrategyPage from "@/components/pages/services/StrategyPage"
-import { buildBreadcrumbJsonLd, buildPageMetadata, buildServiceJsonLd } from "@/lib/seo"
+import { buildBreadcrumbJsonLd, buildFaqJsonLd, buildPageMetadata, buildServiceJsonLd } from "@/lib/seo"
 import { JsonLd } from "@/components/seo/json-ld"
 
 export async function generateStaticParams() {
@@ -67,10 +67,13 @@ export default async function Page({
     },
   ])
 
+  const faqJsonLd = buildFaqJsonLd(dict.servicesStrategy.faq.items)
+
   return (
     <>
       <JsonLd data={serviceJsonLd} />
       <JsonLd data={breadcrumbJsonLd} />
+      <JsonLd data={faqJsonLd} />
       <StrategyPage lang={lang} dict={dict} />
     </>
   )

@@ -275,6 +275,37 @@ const dictionaries = {
           metricSub: "Berichtssysteme zusammengeführt",
         },
       ],
+      faq: {
+        eyebrow: "HÄUFIGE FRAGEN",
+        heading: { lead: "Antworten auf das, was", highlight: "oft gefragt wird" },
+        items: [
+          {
+            question: "Wie schnell sehen wir erste Ergebnisse?",
+            answer:
+              "Wir starten immer mit einem Erstgespräch, in dem wir den größten Hebel identifizieren. Erste Dashboards stehen typischerweise innerhalb weniger Wochen oder sogar Tagen — oft schon, bevor das vollständige Datenmodell aufgebaut ist.",
+          },
+          {
+            question: "Müssen wir unsere bestehenden Tools wechseln?",
+            answer:
+              "Nein. Wir arbeiten in Ihrer bestehenden Tool-Landschaft, schwerpunktmäßig im Microsoft-Umfeld mit Power BI und Fabric. Ein Tool-Wechsel ist nie unser Startpunkt.",
+          },
+          {
+            question: "Wie geht ihr mit unseren sensiblen Geschäftsdaten um?",
+            answer:
+              "Ihre Daten bleiben in Ihrer Infrastruktur. Wir arbeiten DSGVO-konform, dokumentieren alle Datenflüsse vollständig und übergeben am Ende sauber an Ihr Team.",
+          },
+          {
+            question: "Was unterscheidet euch von einer reinen Beratung?",
+            answer:
+              "Wir beraten und implementieren. Statt nur Konzepte zu liefern, bauen wir Datenmodelle, Dashboards und Pipelines selbst — und dokumentieren so, dass Sie eigenständig weiterarbeiten können.",
+          },
+          {
+            question: "Brauchen wir interne BI-Expertise nach dem Projekt?",
+            answer:
+              "Wir bauen nicht nur, wir befähigen. Schulungen und Dokumentation sind fester Bestandteil jedes Projekts — damit Ihr Team später eigenständig erweitern und betreiben kann.",
+          },
+        ],
+      },
       cta: {
         title: "Was würde sich ändern, wenn Ihre Daten endlich miteinander reden?",
         subtitle: "30 Minuten Erstgespräch. Kostenlos. Unverbindlich. Sie erfahren, wo Ihr größter Hebel liegt — auch wenn wir am Ende nicht zusammenarbeiten.",
@@ -449,6 +480,37 @@ const dictionaries = {
           metricSub: "Systeme konsolidiert",
         },
       ],
+      faq: {
+        eyebrow: "HÄUFIGE FRAGEN",
+        heading: { lead: "Antworten auf das, was", highlight: "oft gefragt wird" },
+        items: [
+          {
+            question: "Was unterscheidet euch von einer klassischen Unternehmensberatung?",
+            answer:
+              "Wir setzen das, was wir empfehlen, auch selbst um. Eine Strategie, die wir entwerfen, müssen wir am Ende selbst implementieren können — das diszipliniert die Empfehlungen und vermeidet Konzepte, die in der Schublade verschwinden.",
+          },
+          {
+            question: "Wie lange dauert eine Strategie-Entwicklung?",
+            answer:
+              "Eine fokussierte digitale Roadmap entsteht in 4-8 Wochen, abhängig von Komplexität und Stakeholder-Beteiligung. Wir starten immer mit einem klar abgegrenzten Scope, statt monatelang am großen Ganzen zu schrauben.",
+          },
+          {
+            question: "Was passiert nach der Strategie?",
+            answer:
+              "Sie entscheiden — entweder setzen wir die Roadmap mit Ihnen um (Apps, Datenanalyse, Workflows), oder Ihr Team übernimmt mit unserer Dokumentation. Beide Wege sind okay.",
+          },
+          {
+            question: "Wie geht ihr mit Cloud vs. On-Prem um?",
+            answer:
+              "Technologieneutral. Wir bewerten anhand Ihrer Anforderungen — Compliance, bestehende Infrastruktur, Skalierungsbedarf — und empfehlen das, was zu Ihrem Kontext passt, nicht das, was gerade Trend ist.",
+          },
+          {
+            question: "Können wir auch ein begrenztes Thema an euch geben — z.B. nur Cloud-Migration?",
+            answer:
+              "Ja. Strategieprojekte können einen klaren Fokus haben (Datenstrategie, Cloud-Architektur, Tooling-Auswahl). Wir starten mit einem 30-Minuten-Erstgespräch, um Scope und Erwartung abzugleichen.",
+          },
+        ],
+      },
       cta: {
         title: "Bevor Sie das nächste Tool kaufen — lassen Sie uns über Ihre Strategie reden.",
         subtitle: "30 Minuten. Kostenlos. Wir hören zu, ordnen ein und sagen Ihnen, was wir an Ihrer Stelle priorisieren würden — Cloud-Migration, Sicherheit, Datenstrategie oder Prozesse.",
@@ -600,6 +662,37 @@ const dictionaries = {
             number: "04",
             title: "Befähigen",
             text: "Wir rollen aus, schulen Ihr Team und betreuen die App im Betrieb – mit klaren SLAs und einer Roadmap für die Weiterentwicklung.",
+          },
+        ],
+      },
+      faq: {
+        eyebrow: "HÄUFIGE FRAGEN",
+        heading: { lead: "Antworten auf das, was", highlight: "oft gefragt wird" },
+        items: [
+          {
+            question: "Wie lange dauert die Entwicklung einer individuellen Web-App?",
+            answer:
+              "Vom ersten Konzept bis Go-Live typischerweise 6-12 Wochen, je nach Umfang. Wir liefern in kurzen Iterationen, damit Sie früh produktiv nutzen können — nicht erst nach Monaten Entwicklung.",
+          },
+          {
+            question: "Wem gehört der Code am Ende?",
+            answer:
+              "Ihnen. Sie erhalten den vollen Source-Code und die Dokumentation und können später selbst weiterentwickeln oder den Anbieter wechseln. Kein Vendor-Lock-in.",
+          },
+          {
+            question: "Welchen Tech-Stack verwendet ihr?",
+            answer:
+              "Im Backend setzen wir auf .NET, im Frontend auf JavaScript und TypeScript mit React und Next.js. Bewusst ein fokussierter Stack — keine Framework-Wildwestern, sondern eingespielte Technologien, die wir produktiv beherrschen und langfristig wartbar halten.",
+          },
+          {
+            question: "Was kostet die Wartung nach dem Go-Live?",
+            answer:
+              "Sie entscheiden. Wir bieten Wartungspakete an, oder Sie übernehmen selbst. Da Code und Dokumentation Ihnen gehören, sind Sie nicht von uns abhängig — wir bleiben gerne, weil wir gut sind, nicht weil Sie nicht wegkönnen.",
+          },
+          {
+            question: "Wie geht ihr mit DSGVO und Datenhaltung um?",
+            answer:
+              "DSGVO-konforme Architektur ist Standard, nicht Option. Wir setzen Hosting in der EU oder Schweiz auf, dokumentieren Datenflüsse vollständig und unterstützen bei Auftragsverarbeitungsverträgen.",
           },
         ],
       },
@@ -917,6 +1010,37 @@ const dictionaries = {
           },
         ],
       },
+      faq: {
+        eyebrow: "HÄUFIGE FRAGEN",
+        heading: { lead: "Antworten auf das, was", highlight: "oft gefragt wird" },
+        items: [
+          {
+            question: "Für wen ist smiit Analytics gedacht?",
+            answer:
+              "Für Unternehmen, die bexio im Einsatz haben und mehr aus ihren bexio-Daten herausholen möchten — über das hinaus, was bexio selbst an integrierter Auswertung bietet.",
+          },
+          {
+            question: "Was kostet smiit Analytics?",
+            answer:
+              "Die Standardlösung kostet einmalig CHF 1.000. Eine individuell angepasste Variante startet bei CHF 450 einmalig plus CHF 120 pro Stunde für Custom-Anpassungen (typischerweise 8-100 Stunden).",
+          },
+          {
+            question: "Welche Analysen sind enthalten?",
+            answer:
+              "Über 250 vorgefertigte Analysen für alle Bereiche Ihrer bexio-Daten — Vertrieb, Buchhaltung, Aufträge, Kunden. Sie können sofort starten und bei Bedarf eigene Analysen ergänzen lassen.",
+          },
+          {
+            question: "Können wir die Lösung vorher testen?",
+            answer:
+              "Ja. Sie können smiit Analytics 30 Tage kostenlos testen. So sehen Sie konkret, was die Lösung für Ihre Daten leistet, bevor Sie sich entscheiden.",
+          },
+          {
+            question: "Wem gehört das System nach dem Kauf?",
+            answer:
+              "Sie haben volle Eigentümerschaft — keine wiederkehrenden Lizenzkosten, kein Vendor-Lock-in. Das Datenmodell und alle Anpassungen gehören Ihnen.",
+          },
+        ],
+      },
       cta: {
         title: "Begleiten Sie uns in eine\nKI-gesteuerte Zukunft!",
         button: "Vereinbaren Sie einen Termin",
@@ -1196,6 +1320,37 @@ const dictionaries = {
           metricSub: "reporting systems unified",
         },
       ],
+      faq: {
+        eyebrow: "FREQUENTLY ASKED",
+        heading: { lead: "Answers to the things", highlight: "people ask most" },
+        items: [
+          {
+            question: "How fast will we see results?",
+            answer:
+              "We always start with an intro call to identify the biggest lever. First dashboards typically go live within a few weeks — sometimes even days — often before the full data model is in place.",
+          },
+          {
+            question: "Do we need to switch our existing tools?",
+            answer:
+              "No. We work within your existing tool landscape, primarily in the Microsoft ecosystem with Power BI and Fabric. Tool migration is never our starting point.",
+          },
+          {
+            question: "How do you handle our sensitive business data?",
+            answer:
+              "Your data stays in your infrastructure. We work GDPR-compliant, document data flows in full, and hand over cleanly to your team at the end.",
+          },
+          {
+            question: "How are you different from a pure consultancy?",
+            answer:
+              "We advise and implement. Instead of just delivering concepts, we build the data models, dashboards, and pipelines ourselves — and document them so your team can keep going independently.",
+          },
+          {
+            question: "Do we need internal BI expertise after the project?",
+            answer:
+              "We don't just build, we enable. Training and documentation are part of every project — so your team can extend and operate the platform on its own afterwards.",
+          },
+        ],
+      },
       cta: {
         title: "What would change if your data finally started talking to each other?",
         subtitle: "30-minute intro call. Free. No strings attached. You'll find out where your biggest lever is — even if we don't end up working together.",
@@ -1370,6 +1525,37 @@ const dictionaries = {
           metricSub: "systems consolidated",
         },
       ],
+      faq: {
+        eyebrow: "FREQUENTLY ASKED",
+        heading: { lead: "Answers to the things", highlight: "people ask most" },
+        items: [
+          {
+            question: "How are you different from a classic management consultancy?",
+            answer:
+              "We implement what we recommend. Knowing we'll have to build it ourselves disciplines the strategy — no over-engineered slides, no shelfware.",
+          },
+          {
+            question: "How long does strategy development take?",
+            answer:
+              "A focused digital roadmap takes 4-8 weeks, depending on complexity and stakeholder involvement. We always start with a clearly scoped engagement, not a months-long discovery.",
+          },
+          {
+            question: "What happens after the strategy is delivered?",
+            answer:
+              "You decide — either we implement the roadmap with you (apps, analytics, workflows), or your team takes over with our documentation. Both paths are fine.",
+          },
+          {
+            question: "How do you approach cloud vs. on-prem?",
+            answer:
+              "Technology-neutral. We assess based on your requirements — compliance, existing infrastructure, scaling needs — and recommend what fits your context, not what's currently trending.",
+          },
+          {
+            question: "Can you take on a focused topic, e.g. just cloud migration?",
+            answer:
+              "Yes. Strategy projects can have a clear focus (data strategy, cloud architecture, tooling selection). We start with a 30-minute call to align on scope and expectations.",
+          },
+        ],
+      },
       cta: {
         title: "Before you buy your next tool — let's talk about your strategy.",
         subtitle: "30 minutes. Free. We listen, sort things out, and tell you what we'd prioritize in your shoes — cloud migration, security, data strategy, or processes.",
@@ -1521,6 +1707,37 @@ const dictionaries = {
             number: "04",
             title: "Enable",
             text: "We roll out, train your team and run the app in production – with clear SLAs and a roadmap for what's next.",
+          },
+        ],
+      },
+      faq: {
+        eyebrow: "FREQUENTLY ASKED",
+        heading: { lead: "Answers to the things", highlight: "people ask most" },
+        items: [
+          {
+            question: "How long does it take to build a custom web app?",
+            answer:
+              "Typically 6-12 weeks from first concept to go-live, depending on scope. We deliver in short iterations so you can use the app productively early — not after months of development.",
+          },
+          {
+            question: "Who owns the code at the end?",
+            answer:
+              "You do. You receive the full source code and documentation, and can extend or switch vendors later. No vendor lock-in.",
+          },
+          {
+            question: "What tech stack do you use?",
+            answer:
+              "On the backend we use .NET; on the frontend, JavaScript and TypeScript with React and Next.js. A deliberately focused stack — no framework wild west, just proven technologies we run in production and can keep maintainable long-term.",
+          },
+          {
+            question: "What does maintenance cost after go-live?",
+            answer:
+              "Your call. We offer maintenance packages, or you take over. Since the code and documentation are yours, you're not dependent on us — we stay because we're good, not because you can't leave.",
+          },
+          {
+            question: "How do you handle GDPR and data residency?",
+            answer:
+              "GDPR-compliant architecture is standard, not optional. We set up hosting in the EU or Switzerland, document data flows in full, and support data processing agreements.",
           },
         ],
       },
@@ -1835,6 +2052,37 @@ const dictionaries = {
             number: "04",
             title: "Launch & Training",
             text: "After launch, we train your employees on how to use the system.",
+          },
+        ],
+      },
+      faq: {
+        eyebrow: "FREQUENTLY ASKED",
+        heading: { lead: "Answers to the things", highlight: "people ask most" },
+        items: [
+          {
+            question: "Who is smiit Analytics for?",
+            answer:
+              "Companies using bexio who want to get more out of their bexio data — beyond what bexio itself offers in built-in reporting.",
+          },
+          {
+            question: "What does smiit Analytics cost?",
+            answer:
+              "The standard solution is a one-time CHF 1,000. A customized variant starts at CHF 450 one-time plus CHF 120 per hour for custom adjustments (typically 8-100 hours).",
+          },
+          {
+            question: "Which analyses are included?",
+            answer:
+              "Over 250 pre-built analyses covering all areas of your bexio data — sales, accounting, orders, customers. You can start immediately and add custom analyses as needed.",
+          },
+          {
+            question: "Can we try the solution first?",
+            answer:
+              "Yes. You can test smiit Analytics free for 30 days. That way you see concretely what the solution delivers for your data before committing.",
+          },
+          {
+            question: "Who owns the system after purchase?",
+            answer:
+              "You have full ownership — no recurring license fees, no vendor lock-in. The data model and all customizations belong to you.",
           },
         ],
       },
