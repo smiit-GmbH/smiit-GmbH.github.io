@@ -52,7 +52,7 @@ export async function generateStaticParams() {
   return [{ lang: "de" }, { lang: "en" }]
 }
 
-const buildOrganizationJsonLd = (lang: string) => ({
+const organizationJsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: SITE_NAME,
@@ -78,7 +78,7 @@ const buildOrganizationJsonLd = (lang: string) => ({
       email: "sebastian.grab@smiit.de",
       sameAs: [
         "https://www.linkedin.com/in/sebastian-grab/",
-        `https://grab.smiit.de/${lang}/`,
+        "https://grab.smiit.de",
       ],
     },
     {
@@ -89,7 +89,7 @@ const buildOrganizationJsonLd = (lang: string) => ({
       email: "noah.nesslauer@smiit.de",
       sameAs: [
         "https://www.linkedin.com/in/noah-nesslauer/",
-        `https://nesslauer.smiit.de/${lang}/`,
+        "https://nesslauer.smiit.de",
       ],
     },
   ],
@@ -104,7 +104,7 @@ const buildOrganizationJsonLd = (lang: string) => ({
     },
   ],
   sameAs: ["https://www.linkedin.com/company/smiit-gmbh/"],
-})
+}
 
 const localBusinessJsonLd = {
   "@context": "https://schema.org",
@@ -133,8 +133,6 @@ export default async function RootLayout({
   params: Promise<{ lang: string }>
 }>) {
   const { lang } = await params
-  const localeKey = lang === "en" ? "en" : "de"
-  const organizationJsonLd = buildOrganizationJsonLd(localeKey)
   return (
     <html lang={lang}>
       <body className={`${geist.variable} ${geistMono.variable} ${playfair.variable} font-sans antialiased`}>
