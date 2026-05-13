@@ -7,6 +7,7 @@ import { AdvantagesSection } from "@/components/pages/products/smiit-analytics/a
 import { PricingSection } from "@/components/pages/products/smiit-analytics/pricing-section"
 import { ProcessSection } from "@/components/pages/products/smiit-analytics/process-section"
 import FaqSection from "@/components/pages/shared/faq-section"
+import RelatedLinkBand from "@/components/pages/shared/related-link-band"
 
 export default function SmiitAnalyticsPage({
   lang,
@@ -15,6 +16,7 @@ export default function SmiitAnalyticsPage({
   lang: Locale
   dict: any
 }) {
+  const related = dict.smiitAnalytics.relatedLink
   return (
     <main>
       <HeroSection dict={dict} />
@@ -22,6 +24,7 @@ export default function SmiitAnalyticsPage({
       <AdvantagesSection dict={dict} />
       <PricingSection dict={dict} />
       <ProcessSection dict={dict} />
+      <RelatedLinkBand text={related.text} linkLabel={related.linkLabel} href={related.href} />
       <FaqSection dict={dict.smiitAnalytics.faq} compact />
     </main>
   )

@@ -8,6 +8,7 @@ import ProcessSection from "@/components/pages/services/apps/process-section"
 import AppsCTA from "@/components/pages/services/apps/cta"
 import AppsReviews from "@/components/pages/services/apps/reviews"
 import FaqSection from "@/components/pages/shared/faq-section"
+import RelatedLinkBand from "@/components/pages/shared/related-link-band"
 
 export default function AppsPage({
   lang,
@@ -16,6 +17,7 @@ export default function AppsPage({
   lang: Locale
   dict: any
 }) {
+  const related = dict.servicesApps.relatedLink
   return (
     <main data-page="apps">
       <HeroSection lang={lang} dict={dict} />
@@ -23,6 +25,13 @@ export default function AppsPage({
       <ManifestBand dict={dict} />
       <ProcessSection dict={dict} />
       <AppsReviews dict={dict} />
+      <RelatedLinkBand
+        text={related.text}
+        linkLabel={related.linkLabel}
+        href={related.href}
+        accent="#F703EB"
+        accentHover="#C002B7"
+      />
       <AppsCTA dict={dict} />
       <FaqSection dict={dict.servicesApps.faq} />
     </main>

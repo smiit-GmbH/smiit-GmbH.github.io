@@ -53,13 +53,13 @@ export function HeroSection({ dict }: HeroSectionProps) {
             {hero.title}
           </motion.h1>
 
-          <motion.h2
+          <motion.p
             className="mt-6 md:mt-8 font-serif text-[1.5rem] sm:text-[2rem] md:text-[2.8rem] leading-[1.15] tracking-tight text-white/90"
             variants={fadeUpVariants}
             transition={{ duration: 0.7, ease: "easeOut" }}
           >
             {hero.subtitle}
-          </motion.h2>
+          </motion.p>
 
           <motion.p
             className="mt-6 md:mt-8 text-base md:text-lg leading-relaxed text-white/60 max-w-[60ch] mx-auto"

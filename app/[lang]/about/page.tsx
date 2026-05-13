@@ -18,12 +18,12 @@ export async function generateMetadata({
     lang,
     path: "about",
     title: {
-      de: "Über uns – smiit GmbH",
-      en: "About us – smiit GmbH",
+      de: "smiit GmbH – Über uns, Mission & Gründerteam",
+      en: "smiit GmbH – About us, mission & founders",
     },
     description: {
-      de: "Wer wir sind, woran wir glauben und wie wir mittelständische Unternehmen bei der digitalen Transformation begleiten.",
-      en: "Who we are, what we believe in, and how we partner with SMEs on their digital transformation.",
+      de: "smiit GmbH stellt sich vor: Wer wir sind, woran wir glauben und wie wir mittelständische Unternehmen bei der digitalen Transformation begleiten.",
+      en: "smiit GmbH introduces itself: who we are, what we believe in, and how we partner with SMEs on their digital transformation journey end-to-end.",
     },
     ogImage: { url: "/og/about.png", width: 1200, height: 630, alt: "smiit GmbH – Über uns" },
   })

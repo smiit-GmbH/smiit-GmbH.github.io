@@ -18,12 +18,12 @@ export async function generateMetadata({
     lang,
     path: "services/apps",
     title: {
-      de: "Individuelle Apps & Workflows – smiit GmbH",
-      en: "Custom apps & workflows – smiit GmbH",
+      de: "smiit GmbH – Web Apps für den Mittelstand",
+      en: "smiit GmbH – Web apps & automation for SMEs",
     },
     description: {
-      de: "Maßgeschneiderte Webapplikationen und automatisierte Workflows, die Prozesse im Mittelstand beschleunigen und entlasten.",
-      en: "Custom web applications and automated workflows that speed up and offload processes in SMEs.",
+      de: "Web Apps & Workflow-Automatisierung für den Mittelstand: individuelle Apps, automatisierte Prozesse und API-Integrationen, die Ihre Routine spürbar entlasten.",
+      en: "Web apps & workflow automation for SMEs: custom apps, automated processes and API integrations that take routine work off your team's plate — measurably and fast.",
     },
     ogImage: { url: "/og/services-apps.png", width: 1200, height: 630, alt: "smiit GmbH – Apps & Workflows" },
   })

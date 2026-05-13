@@ -8,6 +8,7 @@ import ProcessSection from "@/components/pages/services/analytics/process-sectio
 import AnalyticsCTA from "@/components/pages/services/analytics/cta"
 import AnalyticsReviews from "@/components/pages/services/analytics/reviews"
 import FaqSection from "@/components/pages/shared/faq-section"
+import RelatedLinkBand from "@/components/pages/shared/related-link-band"
 
 export default function AnalyticsPage({
   lang,
@@ -16,6 +17,7 @@ export default function AnalyticsPage({
   lang: Locale
   dict: any
 }) {
+  const related = dict.servicesAnalytics.relatedLink
   return (
     <main>
       <HeroSection lang={lang} dict={dict} />
@@ -23,6 +25,7 @@ export default function AnalyticsPage({
       <ManifestBand dict={dict} />
       <ProcessSection dict={dict} />
       <AnalyticsReviews dict={dict} />
+      <RelatedLinkBand text={related.text} linkLabel={related.linkLabel} href={related.href} />
       <AnalyticsCTA dict={dict} />
       <FaqSection dict={dict.servicesAnalytics.faq} />
     </main>

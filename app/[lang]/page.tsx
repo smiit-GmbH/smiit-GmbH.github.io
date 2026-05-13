@@ -16,12 +16,12 @@ export async function generateMetadata({
   return buildPageMetadata({
     lang,
     title: {
-      de: "smiit GmbH – Datengesteuerte Transformation für den Mittelstand",
-      en: "smiit GmbH – Data-driven transformation for SMEs",
+      de: "smiit GmbH – Digitale Transformation für den Mittelstand",
+      en: "smiit GmbH – Digital transformation for SMEs",
     },
     description: {
-      de: "Maßgeschneiderte digitale Lösungen für den Mittelstand: Apps, Workflows, Analytics und Unternehmensstrategie aus einer Hand.",
-      en: "Tailored digital solutions for SMEs: apps, workflows, analytics, and strategy — all from one partner.",
+      de: "Digitale Transformation für den Mittelstand: smiit GmbH plant und baut Apps, Workflows, Analytics und Strategie — pragmatisch und umsetzungsstark.",
+      en: "Digital transformation for SMEs: smiit GmbH delivers apps, workflows, analytics and strategy — pragmatic, hands-on, ready to ship in weeks.",
     },
   })
 }

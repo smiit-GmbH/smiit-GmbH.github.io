@@ -18,12 +18,12 @@ export async function generateMetadata({
     lang,
     path: "contact",
     title: {
-      de: "Kontakt – smiit GmbH",
-      en: "Contact – smiit GmbH",
+      de: "smiit GmbH – Kontakt & Termin vereinbaren",
+      en: "smiit GmbH – Contact & schedule a call",
     },
     description: {
-      de: "Sprechen Sie mit uns über Ihr digitales Vorhaben — per E-Mail, Telefon oder direkt online vereinbarten Termin.",
-      en: "Talk to us about your digital initiative — by email, phone, or schedule an online appointment.",
+      de: "Sprechen Sie mit smiit GmbH über Ihr digitales Vorhaben — per E-Mail, Telefon oder direkt einen kostenlosen 30-Minuten-Termin online vereinbaren.",
+      en: "Talk to smiit GmbH about your digital initiative — by email, phone, or schedule a free 30-minute online consultation directly with the team.",
     },
     ogImage: { url: "/og/contact.png", width: 1200, height: 630, alt: "smiit GmbH – Kontakt" },
   })

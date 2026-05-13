@@ -18,12 +18,12 @@ export async function generateMetadata({
     lang,
     path: "services/strategy",
     title: {
-      de: "Digitale Unternehmensstrategie – smiit GmbH",
-      en: "Digital business strategy – smiit GmbH",
+      de: "smiit GmbH – Digitale Strategie & Beratung",
+      en: "smiit GmbH – Digital strategy consulting",
     },
     description: {
-      de: "Vom Status quo zur tragfähigen Roadmap: digitale Strategie und Transformationsbegleitung für mittelständische Unternehmen.",
-      en: "From status quo to a viable roadmap: digital strategy and transformation support for mid-sized companies.",
+      de: "Digitale Strategie und Beratung für den Mittelstand: vom Status quo zur tragfähigen Roadmap — pragmatisch, umsetzungsorientiert und ohne Berater-Theater.",
+      en: "Digital strategy consulting for SMEs: from status quo to a viable roadmap — pragmatic, hands-on, and free of consulting theatre or PowerPoint inflation.",
     },
     ogImage: { url: "/og/services-strategy.png", width: 1200, height: 630, alt: "smiit GmbH – Digitale Strategie" },
   })

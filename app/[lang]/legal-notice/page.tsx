@@ -17,12 +17,12 @@ export async function generateMetadata({
     lang,
     path: "legal-notice",
     title: {
-      de: "Impressum – smiit GmbH",
-      en: "Legal notice – smiit GmbH",
+      de: "smiit GmbH – Impressum",
+      en: "smiit GmbH – Legal notice",
     },
     description: {
-      de: "Impressum der smiit GmbH.",
-      en: "Legal notice of smiit GmbH.",
+      de: "Impressum der smiit GmbH: Anschrift, Geschäftsführer, Handelsregister und Verantwortliche gemäß §5 TMG.",
+      en: "Legal notice of smiit GmbH: company address, managing director, commercial register and responsible parties under §5 TMG.",
     },
   })
 }

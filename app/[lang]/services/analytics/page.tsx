@@ -18,12 +18,12 @@ export async function generateMetadata({
     lang,
     path: "services/analytics",
     title: {
-      de: "Datenanalyse & Business Intelligence – smiit GmbH",
-      en: "Data analytics & business intelligence – smiit GmbH",
+      de: "smiit GmbH – Power BI Beratung für den Mittelstand",
+      en: "smiit GmbH – Power BI consulting for SMEs",
     },
     description: {
-      de: "Aus Daten Entscheidungen machen: Dashboards, KPIs und Analytics-Lösungen, die Ihren Mittelstand operativ besser steuern.",
-      en: "Turn data into decisions: dashboards, KPIs, and analytics solutions that help SMEs run their operations better.",
+      de: "Power BI Beratung für den Mittelstand: Dashboards, KPIs und Datenmodelle, die operative Entscheidungen beschleunigen — von Aufnahme bis Rollout.",
+      en: "Power BI consulting for SMEs: dashboards, KPIs and data models that accelerate operational decisions — from assessment through rollout to training.",
     },
     ogImage: { url: "/og/services-analytics.png", width: 1200, height: 630, alt: "smiit GmbH – Datenanalyse" },
   })

@@ -3,6 +3,7 @@
 import React, { useCallback, useEffect, useRef, useState } from "react"
 import { motion, useInView, useReducedMotion, useScroll, useTransform, type MotionValue } from "framer-motion"
 import dynamic from "next/dynamic"
+import Image from "next/image"
 import LocalizedLink from "../../localized-link"
 import { Button } from "@/components/ui/button"
 import { ChevronRight } from "lucide-react"
@@ -102,16 +103,19 @@ function ServiceCard({
       )}
 
       {imageSrc && (
-        <div className="absolute right-0 top-0 bottom-0 w-[60%] pointer-events-none select-none">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
+        <div
+          className="absolute right-0 top-0 bottom-0 w-[60%] pointer-events-none select-none opacity-90"
+          style={{
+            maskImage: "linear-gradient(to left, black -60%, transparent 100%)",
+            WebkitMaskImage: "linear-gradient(to left, black -60%, transparent 100%)",
+          }}
+        >
+          <Image
             src={imageSrc}
             alt=""
-            className="h-full w-full object-cover object-right opacity-90"
-            style={{
-              maskImage: "linear-gradient(to left, black -60%, transparent 100%)",
-              WebkitMaskImage: "linear-gradient(to left, black -60%, transparent 100%)",
-            }}
+            fill
+            sizes="(max-width: 1024px) 60vw, 22vw"
+            className="object-cover object-right"
           />
         </div>
       )}

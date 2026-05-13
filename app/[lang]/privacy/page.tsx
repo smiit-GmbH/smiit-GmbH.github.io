@@ -17,12 +17,12 @@ export async function generateMetadata({
     lang,
     path: "privacy",
     title: {
-      de: "Datenschutz – smiit GmbH",
-      en: "Privacy policy – smiit GmbH",
+      de: "smiit GmbH – Datenschutzerklärung",
+      en: "smiit GmbH – Privacy policy",
     },
     description: {
-      de: "Datenschutzerklärung der smiit GmbH (Hosting, Kontaktanfragen, Terminvereinbarung).",
-      en: "Privacy policy of smiit GmbH (hosting, contact requests, appointment scheduling).",
+      de: "Datenschutzerklärung der smiit GmbH: Welche personenbezogenen Daten wir verarbeiten (Hosting, Kontaktanfragen, Terminvereinbarung) und auf welcher Rechtsgrundlage.",
+      en: "Privacy policy of smiit GmbH: what personal data we process (hosting, contact requests, appointment scheduling) and on which legal basis under GDPR.",
     },
   })
 }

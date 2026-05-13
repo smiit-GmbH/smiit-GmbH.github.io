@@ -343,6 +343,11 @@ const dictionaries = {
         primaryButton: "Kostenloses Erstgespräch",
         secondaryButton: "Kontakt aufnehmen",
       },
+      relatedLink: {
+        text: "Sie nutzen bexio und suchen eine fertige Datenanalyse-Lösung? Schauen Sie sich unser Produkt smiit Analytics für bexio an.",
+        linkLabel: "Zu smiit Analytics für bexio",
+        href: "/products/smiit-analytics",
+      },
     },
     servicesStrategy: {
       eyebrows: {
@@ -593,6 +598,11 @@ const dictionaries = {
         primaryButton: "Kostenloses Erstgespräch",
         secondaryButton: "Kontakt aufnehmen",
       },
+      relatedLink: {
+        text: "Eine belastbare Strategie braucht belastbare Daten — entdecken Sie unsere Datenanalyse-Leistungen.",
+        linkLabel: "Zur Datenanalyse",
+        href: "/services/analytics",
+      },
     },
     servicesApps: {
       eyebrows: {
@@ -834,6 +844,11 @@ const dictionaries = {
         subtitle: "30 Minuten Erstgespräch. Kostenlos. Unverbindlich. Sie erfahren, wo sich Ihre größten Routinekiller automatisieren lassen — auch wenn wir am Ende nicht zusammenarbeiten.",
         primaryButton: "Kostenloses Erstgespräch",
         secondaryButton: "Kontakt aufnehmen",
+      },
+      relatedLink: {
+        text: "Automatisierte Workflows entfalten ihren Wert erst mit klaren Daten — entdecken Sie unsere Datenanalyse-Leistungen.",
+        linkLabel: "Zur Datenanalyse",
+        href: "/services/analytics",
       },
     },
     customerCards: [
@@ -1179,6 +1194,11 @@ const dictionaries = {
         title: "Begleiten Sie uns in eine\nKI-gesteuerte Zukunft!",
         button: "Vereinbaren Sie einen Termin",
       },
+      relatedLink: {
+        text: "Sie brauchen Datenanalyse jenseits von bexio? Erfahren Sie mehr über unsere maßgeschneiderte Datenanalyse-Dienstleistungen.",
+        linkLabel: "Zur Datenanalyse",
+        href: "/services/analytics",
+      },
     },
   },
   en: {
@@ -1522,6 +1542,11 @@ const dictionaries = {
         primaryButton: "Free Consultation",
         secondaryButton: "Contact Us",
       },
+      relatedLink: {
+        text: "Using bexio and looking for a ready-made analytics solution? Take a look at our product smiit Analytics for bexio.",
+        linkLabel: "Explore smiit Analytics for bexio",
+        href: "/products/smiit-analytics",
+      },
     },
     servicesStrategy: {
       eyebrows: {
@@ -1772,6 +1797,11 @@ const dictionaries = {
         primaryButton: "Free Consultation",
         secondaryButton: "Contact Us",
       },
+      relatedLink: {
+        text: "A solid strategy needs solid data — explore our analytics services.",
+        linkLabel: "Explore our analytics services",
+        href: "/services/analytics",
+      },
     },
     servicesApps: {
       eyebrows: {
@@ -2013,6 +2043,11 @@ const dictionaries = {
         subtitle: "30-minute intro call. Free. No strings attached. You'll find out where your biggest routine-killers can be automated — even if we don't end up working together.",
         primaryButton: "Free Consultation",
         secondaryButton: "Contact Us",
+      },
+      relatedLink: {
+        text: "Automated workflows reach their full potential with clear data — explore our analytics services.",
+        linkLabel: "Explore our analytics services",
+        href: "/services/analytics",
       },
     },
     customerCards: [
@@ -2357,6 +2392,11 @@ const dictionaries = {
       cta: {
         title: "Join us on the journey to an\nAI-powered future!",
         button: "Schedule a meeting",
+      },
+      relatedLink: {
+        text: "Need data analytics beyond bexio? Learn more about our tailored analytics services.",
+        linkLabel: "Explore our analytics services",
+        href: "/services/analytics",
       },
     },
   },

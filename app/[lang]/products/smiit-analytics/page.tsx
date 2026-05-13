@@ -18,12 +18,12 @@ export async function generateMetadata({
     lang,
     path: "products/smiit-analytics",
     title: {
-      de: "smiit Analytics – Plug-and-Play Analytics für den Mittelstand",
-      en: "smiit Analytics – Plug-and-play analytics for SMEs",
+      de: "smiit GmbH – bexio Auswertungen & Dashboard mit Power BI",
+      en: "smiit GmbH – bexio reports & dashboard with Power BI",
     },
     description: {
-      de: "smiit Analytics ist unsere fertige Analytics-Lösung mit vorgefertigten Dashboards und KPIs für den schnellen Einstieg.",
-      en: "smiit Analytics is our ready-made analytics solution with pre-built dashboards and KPIs for a fast start.",
+      de: "bexio Auswertungen als fertiges Dashboard: 250+ Analysen, vollständiges Datenmodell und volle Eigentümerschaft — einmaliger Preis, 30 Tage kostenlos testen.",
+      en: "bexio reports as a ready-made dashboard: 250+ analyses, complete data model and full ownership — one-time price, free 30-day trial included for SMEs.",
     },
     ogImage: { url: "/og/products-smiit-analytics.png", width: 1200, height: 630, alt: "smiit Analytics" },
   })
