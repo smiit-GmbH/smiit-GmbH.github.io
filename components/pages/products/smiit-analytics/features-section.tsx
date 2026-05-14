@@ -1,7 +1,11 @@
 "use client"
 
-import { Database, BarChart3, Cpu } from "lucide-react"
+import Image from "next/image"
+import { Database, BarChart3, Cpu, ExternalLink } from "lucide-react"
 import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
+
+const POWER_BI_URL =
+  "https://app.powerbi.com/view?r=eyJrIjoiMGIzNGViZDUtMjkwYy00NTc5LWJjOWMtZTUwNDk2YTcwM2Q2IiwidCI6IjQxNmMzYzYwLWM3MDEtNDE2ZS1iOTg4LTRmNWZjYjU1ZGZiYyJ9"
 
 interface FeaturesSectionProps {
   dict: any
@@ -59,21 +63,34 @@ export function FeaturesSection({ dict }: FeaturesSectionProps) {
             </div>
           </div>
 
-          {/* Embedded Power BI Report */}
+          {/* Power BI Report preview */}
           <div
             ref={embed.ref}
-            className={`relative rounded-[1.25rem] overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.06)] reveal-fade-up reveal-delay-2 ${embed.isRevealed ? "revealed" : ""}`}
-            style={{ backgroundColor: "rgb(15 23 42)" }}
+            className={`reveal-fade-up reveal-delay-2 ${embed.isRevealed ? "revealed" : ""}`}
           >
-            <div className="relative aspect-[3/2]">
-              <iframe
-                title="smiit Analytics (Website)"
-                src="https://app.powerbi.com/view?r=eyJrIjoiMGIzNGViZDUtMjkwYy00NTc5LWJjOWMtZTUwNDk2YTcwM2Q2IiwidCI6IjQxNmMzYzYwLWM3MDEtNDE2ZS1iOTg4LTRmNWZjYjU1ZGZiYyJ9"
-                className="absolute inset-0 w-full h-full border-0"
-                frameBorder="0"
-                allowFullScreen
-              />
-            </div>
+            <a
+              href={POWER_BI_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group relative block rounded-[1.25rem] overflow-hidden shadow-[0_10px_30px_rgba(0,0,0,0.06)]"
+            >
+              <div className="relative aspect-[16/9]">
+                <Image
+                  src="/assets/products/smiit-analytics/preview.webp"
+                  alt="smiit Analytics Power BI Dashboard"
+                  fill
+                  sizes="(min-width: 1024px) 640px, 100vw"
+                  className="object-cover"
+                />
+              </div>
+
+              <div className="absolute inset-0 flex items-center justify-center bg-white/30 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <span className="inline-flex items-center gap-2 rounded-xl bg-[#21569c] px-5 py-3 text-sm font-medium text-white shadow-lg">
+                  {features.previewButton}
+                  <ExternalLink className="h-4 w-4" />
+                </span>
+              </div>
+            </a>
           </div>
         </div>
       </div>

@@ -10,7 +10,7 @@ type Phase = "initial" | "zoom" | "text" | "exit"
 const EXIT_MS = 500
 
 // Mobile: short brand flash on a fixed timeline.
-const MOBILE = { enterAt: 50, textAt: 300, exitAt: 850 }
+const MOBILE = { enterAt: 50, textAt: 300, exitAt: 1300 }
 // Desktop: stays until the hero video is actually playing, bounded by a
 // minimum (so it doesn't flash) and a maximum (so a slow video can't hang it).
 const DESKTOP = { enterAt: 100, textAt: 650, minExitAt: 1300, maxExitAt: 3600 }

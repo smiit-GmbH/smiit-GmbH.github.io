@@ -1082,6 +1082,7 @@ const dictionaries = {
             text: "Ihre Infrastruktur für Add-ons und KI",
           },
         ],
+        previewButton: "Vorschau",
       },
       advantages: {
         badge: "ADVANTAGE",
@@ -2316,6 +2317,7 @@ const dictionaries = {
             text: "Your infrastructure for add-ons and AI",
           },
         ],
+        previewButton: "Preview",
       },
       advantages: {
         badge: "ADVANTAGE",
