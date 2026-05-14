@@ -136,11 +136,12 @@ export default function ContactForm({ dict, lang }: ContactFormProps) {
         </div>
 
         <div>
-          <label className={labelClasses}>
+          <label htmlFor="interest" className={labelClasses}>
             {f.interest} <span className="text-red-500">*</span>
           </label>
           <div className="relative">
             <select
+              id="interest"
               name="interest"
               required
               value={selectedInterest}

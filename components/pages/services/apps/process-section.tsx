@@ -244,7 +244,7 @@ function Mindmap({
       {/* Center node — logo centered in a colored card */}
       <div className="absolute left-0 top-1/2 z-10 flex h-[100px] w-[140px] -translate-y-1/2 items-center justify-center rounded-xl bg-white">
         <Image
-          src="/logo_black.png"
+          src="/logo_black.webp"
           alt="smiit"
           width={200}
           height={100}

@@ -892,7 +892,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
               <div className="flex items-center justify-between gap-3">
                 <div className="flex min-w-0 items-center gap-2 shrink-0">
                   <Image
-                    src="/logo_black.png"
+                    src="/logo_black.webp"
                     alt="smiit"
                     width={64}
                     height={24}
@@ -1064,7 +1064,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
                 <div className="flex items-center justify-between gap-4">
                   <div className="flex items-center gap-2 shrink-0">
                     <Image
-                      src="/logo_black.png"
+                      src="/logo_black.webp"
                       alt="smiit"
                       width={64}
                       height={24}

@@ -146,7 +146,7 @@ export default function Header({ forceLang, darkHero: darkHeroProp }: { forceLan
           {/* Logo */}
           <Link href={homeHref} className="flex items-center relative group" scroll={false}>
             <Image
-              src={isLightHeader ? "/logo_white.png" : "/logo_black.png"}
+              src={isLightHeader ? "/logo_white.webp" : "/logo_black.webp"}
               alt="smiit"
               width={140}
               height={48}

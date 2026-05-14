@@ -74,7 +74,7 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
           <div className="col-span-2 sm:col-span-3 lg:col-span-2 space-y-6">
             <div className="flex items-center justify-between">
               <Link href={homeHref} aria-label="smiit Startseite" className="flex items-center">
-                <Image src="/logo_black.png" alt="smiit" width={70} height={28} priority />
+                <Image src="/logo_black.webp" alt="smiit" width={70} height={28} priority />
               </Link>
 
               <div className="flex gap-4">
