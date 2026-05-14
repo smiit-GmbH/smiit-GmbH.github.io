@@ -22,6 +22,7 @@ import {
   X,
 } from "lucide-react"
 import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
+import { useActiveInView } from "@/hooks/use-active-in-view"
 import { useLenis } from "@/components/smooth-scroll-provider"
 
 const STRAND_COLORS = ["#7DBBFF", "#21569c", "#94A3B8"] as const
@@ -296,13 +297,15 @@ function MLVisual({ isRevealed, labels }: { isRevealed: boolean; labels?: any })
     layers[2].forEach((y2, j) => edges.push({ x1: xCols[1], y1, x2: xCols[2], y2, key: `e1-${i}-${j}` })),
   )
 
+  const { ref, inView } = useActiveInView()
+
   return (
     <VisualShell>
       <div className="flex items-baseline justify-between">
         <span className="text-[0.65rem] uppercase tracking-[0.18em] text-black/40 font-medium">Model Inference</span>
         <span className="text-[0.65rem] font-medium text-[#94A3B8]">live</span>
       </div>
-      <div className="relative mt-3 h-[78%]">
+      <div ref={ref} className="relative mt-3 h-[78%]">
         <svg viewBox="0 0 360 230" className="absolute inset-0 w-full h-full">
           {/* Edges – first appear with pathLength then loop opacity */}
           {edges.map((e, i) => (
@@ -317,7 +320,7 @@ function MLVisual({ isRevealed, labels }: { isRevealed: boolean; labels?: any })
               initial={{ pathLength: 0, opacity: 0.15 }}
               animate={
                 isRevealed
-                  ? { pathLength: 1, opacity: [0.15, 0.7, 0.15] }
+                  ? { pathLength: 1, opacity: inView ? [0.15, 0.7, 0.15] : 0.15 }
                   : { pathLength: 0, opacity: 0.15 }
               }
               transition={{
@@ -380,14 +383,17 @@ function MobileVisualShell({
   label,
   badge,
   accent,
+  rootRef,
 }: {
   children: React.ReactNode
   label: string
   badge?: React.ReactNode
   accent: string
+  rootRef?: React.Ref<HTMLDivElement>
 }) {
   return (
     <div
+      ref={rootRef}
       aria-hidden="true"
       className="relative w-full overflow-hidden rounded-2xl border bg-white p-4"
       style={{
@@ -592,8 +598,11 @@ function MobileMLVisual({ isRevealed, accent, labels }: { isRevealed: boolean; a
     ),
   )
 
+  const { ref, inView } = useActiveInView()
+
   return (
     <MobileVisualShell
+      rootRef={ref}
       accent={accent}
       label="Model Inference"
       badge={
@@ -606,7 +615,7 @@ function MobileMLVisual({ isRevealed, accent, labels }: { isRevealed: boolean; a
           <motion.span
             className="h-1.5 w-1.5 rounded-full"
             style={{ backgroundColor: accent, boxShadow: `0 0 6px ${accent}` }}
-            animate={{ opacity: [1, 0.4, 1] }}
+            animate={inView ? { opacity: [1, 0.4, 1] } : { opacity: 1 }}
             transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
           />
           <span className="text-[0.55rem] font-mono font-semibold tracking-[0.18em] text-black/55">
@@ -633,7 +642,7 @@ function MobileMLVisual({ isRevealed, accent, labels }: { isRevealed: boolean; a
               initial={{ pathLength: 0, opacity: 0.25 }}
               animate={
                 isRevealed
-                  ? { pathLength: 1, opacity: [0.25, 0.7, 0.25] }
+                  ? { pathLength: 1, opacity: inView ? [0.25, 0.7, 0.25] : 0.25 }
                   : { pathLength: 0, opacity: 0.25 }
               }
               transition={{
@@ -1101,8 +1110,10 @@ function MobileScrollytellingSection({
 function BookCircleButton({ label, size = "lg" }: { label: string; size?: "lg" | "md" }) {
   const dimensions = size === "lg" ? "h-14 w-14" : "h-11 w-11"
   const iconSize = size === "lg" ? "h-5 w-5" : "h-4 w-4"
+  const { ref, inView } = useActiveInView<HTMLAnchorElement>()
   return (
     <a
+      ref={ref}
       href="#book"
       aria-label={label}
       title={label}
@@ -1112,7 +1123,7 @@ function BookCircleButton({ label, size = "lg" }: { label: string; size?: "lg" |
         aria-hidden="true"
         className="absolute inset-0 rounded-full border border-[#21569c]/40"
         initial={{ scale: 1, opacity: 0.6 }}
-        animate={{ scale: [1, 1.18, 1], opacity: [0.6, 0, 0.6] }}
+        animate={inView ? { scale: [1, 1.18, 1], opacity: [0.6, 0, 0.6] } : { scale: 1, opacity: 0.6 }}
         transition={{ duration: 2.6, repeat: Infinity, ease: "easeOut" }}
       />
       <CalendarCheck className={`${iconSize} transition-transform duration-300 group-hover:scale-110`} />

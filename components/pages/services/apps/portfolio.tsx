@@ -23,6 +23,7 @@ import {
   X,
 } from "lucide-react"
 import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
+import { useActiveInView } from "@/hooks/use-active-in-view"
 import { useLenis } from "@/components/smooth-scroll-provider"
 
 const STRAND_COLORS = ["#FA85F4", "#F703EB", "#94A3B8"] as const
@@ -75,9 +76,18 @@ function CountUp({
 // ---------------------------------------------------------------------------
 // Right-column visuals
 // ---------------------------------------------------------------------------
-function VisualShell({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+function VisualShell({
+  children,
+  className = "",
+  shellRef,
+}: {
+  children: React.ReactNode
+  className?: string
+  shellRef?: React.Ref<HTMLDivElement>
+}) {
   return (
     <div
+      ref={shellRef}
       aria-hidden="true"
       className={`relative flex flex-col justify-between w-full max-w-[380px] aspect-[5/4] rounded-3xl bg-white border border-gray-100 shadow-[0_18px_44px_rgba(15,23,42,0.10)] p-5 sm:p-6 overflow-hidden ${className}`}
     >
@@ -94,8 +104,9 @@ function BIVisual({ isRevealed, labels }: { isRevealed: boolean; labels?: any })
     { label: moduleLabels[2], color: "#94A3B8", metric: "892" },
   ]
   const tabs: string[] = labels?.bi?.tabs ?? ["Übersicht", "Berichte", "Einstellungen"]
+  const { ref, inView } = useActiveInView()
   return (
-    <VisualShell>
+    <VisualShell shellRef={ref}>
       <div className="flex items-baseline justify-between">
         <span className="text-[0.65rem] uppercase tracking-[0.18em] text-black/40 font-medium">{labels?.bi?.label ?? "Aktive Nutzer"}</span>
         <CountUp
@@ -167,7 +178,7 @@ function BIVisual({ isRevealed, labels }: { isRevealed: boolean; labels?: any })
           className="mt-2 flex items-center gap-1.5 rounded border border-slate-200/60 bg-white px-1.5 py-1"
         >
           <motion.span
-            animate={{ opacity: [1, 0.4, 1] }}
+            animate={inView ? { opacity: [1, 0.4, 1] } : { opacity: 1 }}
             transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
             className="h-1 w-1 shrink-0 rounded-full bg-emerald-500"
           />
@@ -186,7 +197,7 @@ function BIVisual({ isRevealed, labels }: { isRevealed: boolean; labels?: any })
             <motion.span
               key={i}
               initial={{ opacity: 0.3 }}
-              animate={isRevealed ? { opacity: [0.3, 1, 0.3] } : { opacity: 0.3 }}
+              animate={isRevealed ? { opacity: inView ? [0.3, 1, 0.3] : 0.3 } : { opacity: 0.3 }}
               transition={{ duration: 1.6, delay: 0.6 + i * 0.2, repeat: Infinity, ease: "easeInOut" }}
               className="h-1.5 w-1.5 rounded-full bg-emerald-400"
             />
@@ -1101,8 +1112,10 @@ function MobileScrollytellingSection({
 function BookCircleButton({ label, size = "lg" }: { label: string; size?: "lg" | "md" }) {
   const dimensions = size === "lg" ? "h-14 w-14" : "h-11 w-11"
   const iconSize = size === "lg" ? "h-5 w-5" : "h-4 w-4"
+  const { ref, inView } = useActiveInView<HTMLAnchorElement>()
   return (
     <a
+      ref={ref}
       href="#book"
       aria-label={label}
       title={label}
@@ -1112,7 +1125,7 @@ function BookCircleButton({ label, size = "lg" }: { label: string; size?: "lg" |
         aria-hidden="true"
         className="absolute inset-0 rounded-full border border-[#F703EB]/40"
         initial={{ scale: 1, opacity: 0.6 }}
-        animate={{ scale: [1, 1.18, 1], opacity: [0.6, 0, 0.6] }}
+        animate={inView ? { scale: [1, 1.18, 1], opacity: [0.6, 0, 0.6] } : { scale: 1, opacity: 0.6 }}
         transition={{ duration: 2.6, repeat: Infinity, ease: "easeOut" }}
       />
       <CalendarCheck className={`${iconSize} transition-transform duration-300 group-hover:scale-110`} />

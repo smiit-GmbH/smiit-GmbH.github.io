@@ -10,6 +10,7 @@ import {
   type CarouselApi,
 } from "@/components/ui/carousel"
 import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
+import { useActiveInView } from "@/hooks/use-active-in-view"
 
 const LOGOS: Record<number, string> = {
   3: "/assets/logos/claimity.webp",
@@ -163,6 +164,7 @@ function MobileReviewsCarousel({
   const [selected, setSelected] = useState(0)
   const [paused, setPaused] = useState(false)
   const resumeTimer = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const { ref: inViewRef, inView } = useActiveInView()
 
   useEffect(() => {
     if (!api) return
@@ -209,7 +211,7 @@ function MobileReviewsCarousel({
   )
 
   return (
-    <div className="relative">
+    <div ref={inViewRef} className="relative">
       <Carousel
         opts={{ align: "start", containScroll: "trimSnaps", dragFree: false, loop: reviews.length > 1 }}
         setApi={(a) => setApi(a ?? null)}
@@ -252,7 +254,7 @@ function MobileReviewsCarousel({
             <motion.span
               aria-hidden
               initial={{ opacity: 0, x: -4 }}
-              animate={{ opacity: [0.0, 1, 1, 0.4], x: [0, 6, 6, 0] }}
+              animate={inView ? { opacity: [0.0, 1, 1, 0.4], x: [0, 6, 6, 0] } : { opacity: 0, x: 0 }}
               transition={{ duration: 2.4, repeat: Infinity, repeatDelay: 1.2, ease: "easeInOut" }}
               className="text-[0.65rem] font-medium uppercase tracking-[0.18em] text-black/40"
             >

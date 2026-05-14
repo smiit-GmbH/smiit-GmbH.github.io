@@ -20,6 +20,7 @@ import {
   X,
 } from "lucide-react"
 import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
+import { useActiveInView } from "@/hooks/use-active-in-view"
 import { useLenis } from "@/components/smooth-scroll-provider"
 
 const STRAND_COLORS = ["#64748B", "#475569", "#334155"] as const
@@ -72,9 +73,18 @@ function CountUp({
 // ---------------------------------------------------------------------------
 // Right-column visuals
 // ---------------------------------------------------------------------------
-function VisualShell({ children, className = "" }: { children: React.ReactNode; className?: string }) {
+function VisualShell({
+  children,
+  className = "",
+  shellRef,
+}: {
+  children: React.ReactNode
+  className?: string
+  shellRef?: React.Ref<HTMLDivElement>
+}) {
   return (
     <div
+      ref={shellRef}
       aria-hidden="true"
       className={`relative w-full max-w-[380px] aspect-[5/4] rounded-3xl bg-white border border-gray-100 shadow-[0_18px_44px_rgba(100,116,139,0.10)] p-5 sm:p-6 overflow-hidden ${className}`}
     >
@@ -98,9 +108,10 @@ function ProcessFlowVisual({ isRevealed, labels }: { isRevealed: boolean; labels
   const reworkY = 158
   const taskHalf = 22
   const gatewayHalf = 22
+  const { ref, inView } = useActiveInView<HTMLDivElement>()
 
   return (
-    <VisualShell>
+    <VisualShell shellRef={ref}>
       <div className="flex items-baseline justify-between">
         <span className="text-[0.65rem] uppercase tracking-[0.18em] text-black/40 font-medium">{labels?.process?.label ?? "Genehmigungslauf"}</span>
         <span className="text-[0.65rem] font-medium text-[#64748B]">BPMN</span>
@@ -409,9 +420,9 @@ function ProcessFlowVisual({ isRevealed, labels }: { isRevealed: boolean; labels
             animate={
               isRevealed
                 ? {
-                    cx: [startX, startX, taskX, gatewayX, gatewayX + 18, approveX, doneX, doneX],
-                    cy: [110, 110, 110, 110, 88, approveY, doneY, doneY],
-                    opacity: [0, 1, 1, 1, 1, 1, 1, 0],
+                    cx: inView ? [startX, startX, taskX, gatewayX, gatewayX + 18, approveX, doneX, doneX] : startX,
+                    cy: inView ? [110, 110, 110, 110, 88, approveY, doneY, doneY] : 110,
+                    opacity: inView ? [0, 1, 1, 1, 1, 1, 1, 0] : 0,
                   }
                 : { cx: startX, cy: 110, opacity: 0 }
             }
@@ -440,8 +451,9 @@ function CloudTopologyVisual({ isRevealed, labels }: { isRevealed: boolean; labe
     { x: 56, y: 170, label: "DATA" },
     { x: 304, y: 170, label: "EXT" },
   ]
+  const { ref, inView } = useActiveInView<HTMLDivElement>()
   return (
-    <VisualShell>
+    <VisualShell shellRef={ref}>
       <div className="flex items-baseline justify-between">
         <span className="text-[0.65rem] uppercase tracking-[0.18em] text-black/40 font-medium">Azure Landing Zone</span>
         <span className="text-[0.65rem] font-medium text-[#64748B]">IaC</span>
@@ -545,9 +557,9 @@ function CloudTopologyVisual({ isRevealed, labels }: { isRevealed: boolean; labe
                 animate={
                   isRevealed
                     ? {
-                        cx: [hubEdgeX, spokeEdgeX],
-                        cy: [hubY, spokeEdgeY],
-                        opacity: [0, 1, 1, 0],
+                        cx: inView ? [hubEdgeX, spokeEdgeX] : hubEdgeX,
+                        cy: inView ? [hubY, spokeEdgeY] : hubY,
+                        opacity: inView ? [0, 1, 1, 0] : 0,
                       }
                     : { cx: hubEdgeX, cy: hubY, opacity: 0 }
                 }
@@ -594,15 +606,16 @@ function SecurityRingsVisual({ isRevealed, labels }: { isRevealed: boolean; labe
     warn: { color: "#F59E0B", bg: "bg-amber-50", glyph: "!" },
     err: { color: "#EF4444", bg: "bg-red-50", glyph: "✕" },
   }
+  const { ref, inView } = useActiveInView<HTMLDivElement>()
 
   return (
-    <VisualShell>
+    <VisualShell shellRef={ref}>
       {/* Header */}
       <div className="flex items-baseline justify-between">
         <span className="text-[0.65rem] uppercase tracking-[0.18em] text-black/40 font-medium">Defense-in-Depth</span>
         <div className="flex items-center gap-1">
           <motion.span
-            animate={{ opacity: [1, 0.4, 1] }}
+            animate={inView ? { opacity: [1, 0.4, 1] } : { opacity: 1 }}
             transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
             className="h-1.5 w-1.5 rounded-full bg-emerald-500"
           />
@@ -661,7 +674,7 @@ function SecurityRingsVisual({ isRevealed, labels }: { isRevealed: boolean; labe
               <span className="shrink-0 text-[0.5rem] font-mono text-black/40">{event.time}</span>
               {event.isNew && (
                 <motion.span
-                  animate={{ opacity: [1, 0.3, 1], scale: [1, 1.3, 1] }}
+                  animate={inView ? { opacity: [1, 0.3, 1], scale: [1, 1.3, 1] } : { opacity: 1, scale: 1 }}
                   transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
                   className="h-1 w-1 shrink-0 rounded-full bg-emerald-500"
                 />
@@ -689,14 +702,17 @@ function MobileVisualShell({
   label,
   badge,
   accent,
+  shellRef,
 }: {
   children: React.ReactNode
   label: string
   badge?: React.ReactNode
   accent: string
+  shellRef?: React.Ref<HTMLDivElement>
 }) {
   return (
     <div
+      ref={shellRef}
       aria-hidden="true"
       className="relative w-full overflow-hidden rounded-2xl border bg-white p-4"
       style={{
@@ -736,9 +752,11 @@ function MobileProcessFlowVisual({ isRevealed, accent, labels }: { isRevealed: b
   const reworkX = 75
   const reworkY = 32
   const centerY = 20
+  const { ref, inView } = useActiveInView<HTMLDivElement>()
 
   return (
     <MobileVisualShell
+      shellRef={ref}
       accent={accent}
       label={labels?.process?.label ?? "Genehmigungslauf"}
       badge={
@@ -854,9 +872,9 @@ function MobileProcessFlowVisual({ isRevealed, accent, labels }: { isRevealed: b
             animate={
               isRevealed
                 ? {
-                    cx: [startX, startX, taskX, gatewayX, gatewayX + 6, approveX, doneX, doneX],
-                    cy: [centerY, centerY, centerY, centerY, 14, approveY, approveY, approveY],
-                    opacity: [0, 1, 1, 1, 1, 1, 1, 0],
+                    cx: inView ? [startX, startX, taskX, gatewayX, gatewayX + 6, approveX, doneX, doneX] : startX,
+                    cy: inView ? [centerY, centerY, centerY, centerY, 14, approveY, approveY, approveY] : centerY,
+                    opacity: inView ? [0, 1, 1, 1, 1, 1, 1, 0] : 0,
                   }
                 : { cx: startX, cy: centerY, opacity: 0 }
             }
@@ -925,8 +943,10 @@ function MobileCloudTopologyVisual({
   ]
   const hubX = 50
   const hubY = 20
+  const { ref, inView } = useActiveInView<HTMLDivElement>()
   return (
     <MobileVisualShell
+      shellRef={ref}
       accent={accent}
       label="Azure Landing Zone"
       badge={
@@ -978,9 +998,9 @@ function MobileCloudTopologyVisual({
                 animate={
                   isRevealed
                     ? {
-                        cx: [hubX, sxEdge],
-                        cy: [hubY, s.y],
-                        opacity: [0, 1, 1, 0],
+                        cx: inView ? [hubX, sxEdge] : hubX,
+                        cy: inView ? [hubY, s.y] : hubY,
+                        opacity: inView ? [0, 1, 1, 0] : 0,
                       }
                     : { cx: hubX, cy: hubY, opacity: 0 }
                 }
@@ -1044,9 +1064,11 @@ function MobileSecurityRingsVisual({ isRevealed, accent, labels }: { isRevealed:
     warn: { color: "#F59E0B", bg: "bg-amber-50", glyph: "!" },
     err: { color: "#EF4444", bg: "bg-red-50", glyph: "✕" },
   }
+  const { ref, inView } = useActiveInView<HTMLDivElement>()
 
   return (
     <MobileVisualShell
+      shellRef={ref}
       accent={accent}
       label="Defense-in-Depth"
       badge={
@@ -1057,7 +1079,7 @@ function MobileSecurityRingsVisual({ isRevealed, accent, labels }: { isRevealed:
           className="flex items-center gap-1 rounded-full border border-emerald-200/70 bg-emerald-50 px-2 py-0.5"
         >
           <motion.span
-            animate={{ opacity: [1, 0.4, 1] }}
+            animate={inView ? { opacity: [1, 0.4, 1] } : { opacity: 1 }}
             transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
             className="h-1 w-1 rounded-full bg-emerald-500"
           />
@@ -1114,7 +1136,7 @@ function MobileSecurityRingsVisual({ isRevealed, accent, labels }: { isRevealed:
               <span className="shrink-0 text-[0.45rem] font-mono text-black/40">{event.time}</span>
               {event.isNew && (
                 <motion.span
-                  animate={{ opacity: [1, 0.3, 1], scale: [1, 1.3, 1] }}
+                  animate={inView ? { opacity: [1, 0.3, 1], scale: [1, 1.3, 1] } : { opacity: 1, scale: 1 }}
                   transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
                   className="h-1 w-1 shrink-0 rounded-full bg-emerald-500"
                 />
@@ -1551,8 +1573,10 @@ function MobileScrollytellingSection({
 function BookCircleButton({ label, size = "lg" }: { label: string; size?: "lg" | "md" }) {
   const dimensions = size === "lg" ? "h-14 w-14" : "h-11 w-11"
   const iconSize = size === "lg" ? "h-5 w-5" : "h-4 w-4"
+  const { ref, inView } = useActiveInView<HTMLAnchorElement>()
   return (
     <a
+      ref={ref}
       href="#book"
       aria-label={label}
       title={label}
@@ -1562,7 +1586,7 @@ function BookCircleButton({ label, size = "lg" }: { label: string; size?: "lg" |
         aria-hidden="true"
         className="absolute inset-0 rounded-full border border-[#64748B]/40"
         initial={{ scale: 1, opacity: 0.6 }}
-        animate={{ scale: [1, 1.18, 1], opacity: [0.6, 0, 0.6] }}
+        animate={inView ? { scale: [1, 1.18, 1], opacity: [0.6, 0, 0.6] } : { scale: 1, opacity: 0.6 }}
         transition={{ duration: 2.6, repeat: Infinity, ease: "easeOut" }}
       />
       <CalendarCheck className={`${iconSize} transition-transform duration-300 group-hover:scale-110`} />

@@ -1,14 +1,14 @@
-"use client"
-
+import dynamic from "next/dynamic"
 import type { Locale } from "@/lib/dictionary"
 import HeroSection from "@/components/pages/services/analytics/hero-section"
-import PortfolioSection from "@/components/pages/services/analytics/portfolio"
-import ManifestBand from "@/components/pages/services/analytics/manifest-band"
-import ProcessSection from "@/components/pages/services/analytics/process-section"
-import AnalyticsCTA from "@/components/pages/services/analytics/cta"
-import AnalyticsReviews from "@/components/pages/services/analytics/reviews"
-import FaqSection from "@/components/pages/shared/faq-section"
-import RelatedLinkBand from "@/components/pages/shared/related-link-band"
+
+const PortfolioSection = dynamic(() => import("@/components/pages/services/analytics/portfolio"))
+const ManifestBand = dynamic(() => import("@/components/pages/services/analytics/manifest-band"))
+const ProcessSection = dynamic(() => import("@/components/pages/services/analytics/process-section"))
+const AnalyticsReviews = dynamic(() => import("@/components/pages/services/analytics/reviews"))
+const FaqSection = dynamic(() => import("@/components/pages/shared/faq-section"))
+const RelatedLinkBand = dynamic(() => import("@/components/pages/shared/related-link-band"))
+const AnalyticsCTA = dynamic(() => import("@/components/pages/services/analytics/cta"))
 
 export default function AnalyticsPage({
   lang,

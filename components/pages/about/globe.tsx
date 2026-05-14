@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import gsap from "gsap";
 import { Color, MeshPhongMaterial, type WebGLRenderer } from "three";
 import type { GlobeMethods } from "react-globe.gl";
+import { Spinner } from "@/components/ui/spinner";
 import { LOCATIONS } from "@/lib/locations";
 
 type GlobePoint = (typeof LOCATIONS)[number] & {
@@ -529,6 +530,11 @@ export function Globe({ progress }: GlobeProps) {
 
   return (
     <div className="relative h-full min-h-0 w-full overflow-x-clip">
+      {!isGlobeReady && (
+        <div className="absolute inset-0 z-10 flex items-center justify-center">
+          <Spinner size={40} aria-label="Lade interaktiven Globus" />
+        </div>
+      )}
       <div
         ref={globeWrapRef}
         className="mx-auto flex h-full min-h-0 w-full max-w-[48rem] items-center justify-center overflow-hidden"

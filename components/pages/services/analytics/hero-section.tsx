@@ -27,6 +27,7 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+import { useActiveInView } from "@/hooks/use-active-in-view"
 import type { Locale } from "@/lib/dictionary"
 
 interface HeroSectionProps {
@@ -444,26 +445,28 @@ function ProfitModule({
   const areaGradId = `hdj-profit-area-${uid}`
   const lineGradId = `hdj-profit-line-${uid}`
 
+  const { ref, inView } = useActiveInView()
+
   // On mobile, hover does nothing — auto-open the forecast tooltip on first
   // reveal so users see the "Konfidenz 89%" payload without needing to tap.
   const chartRef = useRef<HTMLDivElement>(null)
-  const inView = useInView(chartRef, { once: true, margin: "-30%" })
+  const chartRevealed = useInView(chartRef, { once: true, margin: "-30%" })
   const [forecastTooltipOpen, setForecastTooltipOpen] = useState<boolean | undefined>(
     mobileEmphasis ? false : undefined,
   )
   useEffect(() => {
-    if (!mobileEmphasis || !inView) return
+    if (!mobileEmphasis || !chartRevealed) return
     const showTimer = setTimeout(() => setForecastTooltipOpen(true), 1900)
     const hideTimer = setTimeout(() => setForecastTooltipOpen(false), 4400)
     return () => {
       clearTimeout(showTimer)
       clearTimeout(hideTimer)
     }
-  }, [mobileEmphasis, inView])
+  }, [mobileEmphasis, chartRevealed])
 
   return (
     <TooltipProvider delayDuration={80}>
-      <div className="flex h-full flex-col overflow-hidden rounded-[18px] p-2">
+      <div ref={ref} className="flex h-full flex-col overflow-hidden rounded-[18px] p-2">
         <div className="flex shrink-0 items-center justify-between">
           <div className="text-left">
             <p className="text-[0.72rem] font-semibold text-[#0B162D]">{t.sections.trend}</p>
@@ -610,7 +613,7 @@ function ProfitModule({
               {/* Live pulse on the latest actual data point */}
               <motion.div
                 initial={{ opacity: 0, scale: 1 }}
-                animate={{ opacity: [0, 0.7, 0], scale: [1, 4.5, 4.5] }}
+                animate={inView ? { opacity: [0, 0.7, 0], scale: [1, 4.5, 4.5] } : { opacity: 0, scale: 1 }}
                 transition={{ duration: 2.4, delay: 2.0, repeat: Infinity, repeatDelay: 1.4, ease: "easeOut" }}
                 className="pointer-events-none absolute h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full border-[1.5px] border-[#21569c]/50"
                 style={{ left: `${(lastActual.x / 510) * 100}%`, top: `${(lastActual.y / 150) * 100}%` }}
@@ -632,8 +635,9 @@ function AiModule({ t, data, radarStyle, lang }: { t: any; data: Dataset; radarS
   const forecastRiskValue = t.signalValues?.[data.signals.forecastRiskKey] ?? data.signals.forecastRiskKey
   const deviationDisplay = formatDelta(data.signals.deviationValue, data.signals.deviationDecimals, "%", lang)
   const trendStrengthDisplay = formatNumber(data.signals.trendStrengthValue, data.signals.trendStrengthDecimals, lang)
+  const { ref, inView } = useActiveInView()
   return (
-    <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-[18px]">
+    <div ref={ref} className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-[18px]">
       <div className="flex min-h-0 flex-1 flex-col p-2 sm:p-3">
         <p className="shrink-0 text-[0.72rem] font-semibold text-[#0B162D]">{t.sections.signals}</p>
         <div className="mt-1.5 shrink-0 sm:mt-2.5 grid grid-cols-2 gap-1.5 sm:gap-2">
@@ -669,7 +673,7 @@ function AiModule({ t, data, radarStyle, lang }: { t: any; data: Dataset; radarS
               >
                 <motion.div
                   initial={{ scaleY: 0.5 }}
-                  animate={{ scaleY: [0.5, 0.32 + (i % 3) * 0.12, 0.4 + (i % 4) * 0.08, 0.32 + (i % 3) * 0.12] }}
+                  animate={inView ? { scaleY: [0.5, 0.32 + (i % 3) * 0.12, 0.4 + (i % 4) * 0.08, 0.32 + (i % 3) * 0.12] } : { scaleY: 0.5 }}
                   transition={{ duration: 8, delay: 1.4 + i * 0.05, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
                   className="h-full w-full rounded-t-md bg-gradient-to-t from-[#21569c] to-[#7DBBFF] opacity-70"
                   style={{ transformOrigin: "bottom" }}

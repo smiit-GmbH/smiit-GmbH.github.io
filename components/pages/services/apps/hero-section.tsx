@@ -13,6 +13,7 @@ import {
   useSpring,
   useTransform,
 } from "framer-motion"
+import { useActiveInView } from "@/hooks/use-active-in-view"
 import {
   ArrowRight,
   BarChart3,
@@ -457,14 +458,15 @@ function AiModule({
   radarStyle?: any
   activities: { user: string; action: string; time: string }[]
 }) {
+  const { ref, inView } = useActiveInView()
   return (
-    <div className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-[18px]">
+    <div ref={ref} className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-[18px]">
       <div className="flex min-h-0 flex-1 flex-col p-2 sm:p-3">
         <div className="shrink-0 flex items-center justify-between">
           <p className="text-[0.72rem] font-semibold text-[#0B162D]">{t.sections?.activity}</p>
           <div className="flex items-center gap-1">
             <motion.span
-              animate={{ opacity: [1, 0.4, 1] }}
+              animate={inView ? { opacity: [1, 0.4, 1] } : { opacity: 1 }}
               transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
               className="h-1.5 w-1.5 rounded-full bg-emerald-500"
             />
@@ -570,6 +572,7 @@ const dashboardChildVariants = {
 
 export default function HeroSection({ lang, dict }: HeroSectionProps) {
   const containerRef = useRef<HTMLElement>(null)
+  const { ref: desktopInViewRef, inView: desktopInView } = useActiveInView<HTMLElement>()
   const shouldReduceMotion = useReducedMotion()
 
   // Toggle the scroll-driven dashboard growth. Flip to true to restore the cinematic morph.
@@ -843,7 +846,10 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
 
       {/* DESKTOP — >= lg */}
       <section
-        ref={containerRef}
+        ref={(el) => {
+          containerRef.current = el
+          desktopInViewRef.current = el
+        }}
         className={cx(
           "relative hidden lg:block",
           SCROLL_ANIMATIONS_ENABLED ? "lg:h-[420vh]" : "lg:h-screen",
@@ -944,7 +950,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
                     >
                       <Bell className="h-3.5 w-3.5" />
                       <motion.span
-                        animate={{ opacity: [1, 0.4, 1] }}
+                        animate={desktopInView ? { opacity: [1, 0.4, 1] } : { opacity: 1 }}
                         transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
                         className="absolute right-0.5 top-0.5 h-1.5 w-1.5 rounded-full bg-[#F703EB] ring-2 ring-white"
                       />

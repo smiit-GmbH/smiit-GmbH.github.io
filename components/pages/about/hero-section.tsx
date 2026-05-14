@@ -8,12 +8,6 @@ import { Spinner } from "@/components/ui/spinner"
 import type { Locale } from "@/lib/dictionary"
 import { useScroll, useMotionValueEvent } from "framer-motion"
 
-if (typeof window !== "undefined") {
-  void import("@/components/pages/about/globe")
-  void import("react-globe.gl")
-  void fetch("/data/world.geojson", { priority: "low" } as RequestInit).catch(() => {})
-}
-
 function GlobePlaceholder() {
   return <Spinner size={40} aria-label="Lade interaktiven Globus" />
 }
@@ -34,6 +28,7 @@ export function HeroSection({
   const [progress, setProgress] = useState(0)
   const [isDesktop, setIsDesktop] = useState(true)
   const [isMobileZoomedIn, setIsMobileZoomedIn] = useState(false)
+  const [shouldLoadGlobe, setShouldLoadGlobe] = useState(false)
   const progressRafRef = useRef<number | null>(null)
   const latestDesktopProgressRef = useRef(0)
   const committedDesktopProgressRef = useRef(0)
@@ -119,6 +114,23 @@ export function HeroSection({
     }
   }, [])
 
+  // Defer the WebGL globe (three.js / react-globe.gl, ~1.6 MB) until the
+  // browser is idle so it doesn't compete with hydration and LCP of the hero.
+  useEffect(() => {
+    if (shouldLoadGlobe) return
+
+    const load = () => setShouldLoadGlobe(true)
+    const ric = window.requestIdleCallback
+
+    if (typeof ric === "function") {
+      const id = ric(load, { timeout: 2500 })
+      return () => window.cancelIdleCallback?.(id)
+    }
+
+    const timeoutId = window.setTimeout(load, 1200)
+    return () => window.clearTimeout(timeoutId)
+  }, [shouldLoadGlobe])
+
   const a = dict.aboutPage
 
   return (
@@ -194,7 +206,7 @@ export function HeroSection({
                   </div>
                 )}
                 <div className="absolute inset-0 bg-gradient-to-tr from-[#16aea3]/5 to-transparent rounded-full blur-3xl -z-10 transform scale-110" />
-                <Globe progress={progress} />
+                {shouldLoadGlobe ? <Globe progress={progress} /> : <GlobePlaceholder />}
               </div>
               
               {!isDesktop && (

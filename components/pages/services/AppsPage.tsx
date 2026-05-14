@@ -1,14 +1,14 @@
-"use client"
-
+import dynamic from "next/dynamic"
 import type { Locale } from "@/lib/dictionary"
 import HeroSection from "@/components/pages/services/apps/hero-section"
-import PortfolioSection from "@/components/pages/services/apps/portfolio"
-import ManifestBand from "@/components/pages/services/apps/manifest-band"
-import ProcessSection from "@/components/pages/services/apps/process-section"
-import AppsCTA from "@/components/pages/services/apps/cta"
-import AppsReviews from "@/components/pages/services/apps/reviews"
-import FaqSection from "@/components/pages/shared/faq-section"
-import RelatedLinkBand from "@/components/pages/shared/related-link-band"
+
+const PortfolioSection = dynamic(() => import("@/components/pages/services/apps/portfolio"))
+const ManifestBand = dynamic(() => import("@/components/pages/services/apps/manifest-band"))
+const ProcessSection = dynamic(() => import("@/components/pages/services/apps/process-section"))
+const AppsReviews = dynamic(() => import("@/components/pages/services/apps/reviews"))
+const FaqSection = dynamic(() => import("@/components/pages/shared/faq-section"))
+const RelatedLinkBand = dynamic(() => import("@/components/pages/shared/related-link-band"))
+const AppsCTA = dynamic(() => import("@/components/pages/services/apps/cta"))
 
 export default function AppsPage({
   lang,

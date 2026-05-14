@@ -1,14 +1,14 @@
-"use client"
-
+import dynamic from "next/dynamic"
 import type { Locale } from "@/lib/dictionary"
 import HeroSection from "@/components/pages/services/strategy/hero-section"
-import PortfolioSection from "@/components/pages/services/strategy/portfolio"
-import ManifestBand from "@/components/pages/services/strategy/manifest-band"
-import ProcessSection from "@/components/pages/services/strategy/process-section"
-import StrategyCTA from "@/components/pages/services/strategy/cta"
-import StrategyReviews from "@/components/pages/services/strategy/reviews"
-import FaqSection from "@/components/pages/shared/faq-section"
-import RelatedLinkBand from "@/components/pages/shared/related-link-band"
+
+const PortfolioSection = dynamic(() => import("@/components/pages/services/strategy/portfolio"))
+const ManifestBand = dynamic(() => import("@/components/pages/services/strategy/manifest-band"))
+const ProcessSection = dynamic(() => import("@/components/pages/services/strategy/process-section"))
+const StrategyReviews = dynamic(() => import("@/components/pages/services/strategy/reviews"))
+const FaqSection = dynamic(() => import("@/components/pages/shared/faq-section"))
+const RelatedLinkBand = dynamic(() => import("@/components/pages/shared/related-link-band"))
+const StrategyCTA = dynamic(() => import("@/components/pages/services/strategy/cta"))
 
 export default function StrategyPage({
   lang,
