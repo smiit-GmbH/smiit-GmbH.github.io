@@ -102,7 +102,7 @@ export function IntroOverlay({
         }
         transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
       >
-        <Image src="/icon.png" alt="smiit" fill className="object-contain" priority />
+        <Image src="/icon_transparent.png" alt="smiit" fill className="object-contain" priority />
       </motion.div>
 
       <div className="mt-6 sm:mt-8 flex flex-col items-center">
