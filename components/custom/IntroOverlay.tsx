@@ -7,17 +7,20 @@ import { motion, useReducedMotion } from "framer-motion"
 
 type Phase = "initial" | "zoom" | "text" | "exit"
 
-const EXIT_MS = 650
-const ENTER_AT_MS = 100
-const TEXT_AT_MS = 1100
-const EXIT_AT_MS = 3200
+const EXIT_MS = 500
+
+// Mobile: short brand flash on a fixed timeline.
+const MOBILE = { enterAt: 50, textAt: 300, exitAt: 850 }
+// Desktop: stays until the hero video is actually playing, bounded by a
+// minimum (so it doesn't flash) and a maximum (so a slow video can't hang it).
+const DESKTOP = { enterAt: 100, textAt: 650, minExitAt: 1300, maxExitAt: 3600 }
 
 export function IntroOverlay({
   onDone,
-  onExitStart,
+  videoReady = false,
 }: {
   onDone: () => void
-  onExitStart?: () => void
+  videoReady?: boolean
 }) {
   const [phase, setPhase] = useState<Phase>("initial")
   const pathname = usePathname() || "/"
@@ -25,7 +28,9 @@ export function IntroOverlay({
   const prefersReducedMotion = useReducedMotion()
   const exitStartedRef = useRef(false)
   const onDoneRef = useRef(onDone)
-  const onExitStartRef = useRef(onExitStart)
+  const startExitRef = useRef<() => void>(() => {})
+  const isDesktopRef = useRef(false)
+  const mountTimeRef = useRef(0)
 
   const L =
     lang === "de"
@@ -41,43 +46,60 @@ export function IntroOverlay({
   }, [onDone])
 
   useEffect(() => {
-    onExitStartRef.current = onExitStart
-  }, [onExitStart])
-
-  useEffect(() => {
     const prevOverflow = document.body.style.overflow
     document.body.style.overflow = "hidden"
+    mountTimeRef.current = Date.now()
+
+    const timers: number[] = []
 
     const startExit = () => {
+      if (exitStartedRef.current) return
+      exitStartedRef.current = true
       setPhase("exit")
-      if (!exitStartedRef.current) {
-        exitStartedRef.current = true
-        onExitStartRef.current?.()
-      }
+      timers.push(window.setTimeout(() => onDoneRef.current(), EXIT_MS))
     }
+    startExitRef.current = startExit
 
     if (prefersReducedMotion) {
       startExit()
-      const timerDone = window.setTimeout(() => onDoneRef.current(), 50)
       return () => {
         document.body.style.overflow = prevOverflow
-        clearTimeout(timerDone)
+        timers.forEach((t) => clearTimeout(t))
       }
     }
 
-    const timer1 = window.setTimeout(() => setPhase("zoom"), ENTER_AT_MS)
-    const timer2 = window.setTimeout(() => setPhase("text"), TEXT_AT_MS)
-    const timer3 = window.setTimeout(() => startExit(), EXIT_AT_MS)
-    const timer4 = window.setTimeout(() => onDoneRef.current(), EXIT_AT_MS + EXIT_MS)
+    const isDesktop = window.matchMedia("(min-width: 768px)").matches
+    isDesktopRef.current = isDesktop
+    const cfg = isDesktop ? DESKTOP : MOBILE
+
+    timers.push(window.setTimeout(() => setPhase("zoom"), cfg.enterAt))
+    timers.push(window.setTimeout(() => setPhase("text"), cfg.textAt))
+
+    if (isDesktop) {
+      timers.push(window.setTimeout(startExit, DESKTOP.maxExitAt))
+    } else {
+      timers.push(window.setTimeout(startExit, MOBILE.exitAt))
+    }
 
     return () => {
       document.body.style.overflow = prevOverflow
-      clearTimeout(timer1)
-      clearTimeout(timer2)
-      clearTimeout(timer3)
-      clearTimeout(timer4)
+      timers.forEach((t) => clearTimeout(t))
     }
   }, [prefersReducedMotion])
+
+  // Desktop: leave as soon as the hero video is playing, but not before the
+  // minimum on-screen time has elapsed.
+  useEffect(() => {
+    if (!videoReady || !isDesktopRef.current || exitStartedRef.current) return
+
+    const elapsed = Date.now() - mountTimeRef.current
+    if (elapsed >= DESKTOP.minExitAt) {
+      startExitRef.current()
+      return
+    }
+    const t = window.setTimeout(startExitRef.current, DESKTOP.minExitAt - elapsed)
+    return () => clearTimeout(t)
+  }, [videoReady])
 
   return (
     <motion.div
@@ -135,8 +157,14 @@ export function IntroOverlay({
           <motion.div
             className="h-full bg-black/40"
             initial={{ width: "0%" }}
-            animate={{ width: phase === "text" || phase === "exit" ? "100%" : "0%" }}
-            transition={{ duration: 2.0, ease: "easeOut" }}
+            animate={{
+              width:
+                phase === "exit" ? "100%" : phase === "text" ? "90%" : "0%",
+            }}
+            transition={{
+              duration: phase === "exit" ? EXIT_MS / 1000 : 1.8,
+              ease: "easeOut",
+            }}
           />
         </motion.div>
       </div>

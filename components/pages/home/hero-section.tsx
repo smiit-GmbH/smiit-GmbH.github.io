@@ -3,8 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
-import { useCallback, useEffect, useRef, useState } from "react"
-import { motion } from "framer-motion"
+import { useEffect, useRef, useState } from "react"
 import { IntroOverlay } from "@/components/custom/IntroOverlay"
 import type { Locale } from "@/lib/dictionary"
 
@@ -16,11 +15,8 @@ interface HeroSectionProps {
 export default function HeroSection({ lang, dict }: HeroSectionProps) {
   const videoRef = useRef<HTMLVideoElement | null>(null)
   const [videoFailed, setVideoFailed] = useState(false)
+  const [videoReady, setVideoReady] = useState(false)
   const [introVisible, setIntroVisible] = useState(true)
-  const [contentVisible, setContentVisible] = useState(false)
-
-  const handleIntroExitStart = useCallback(() => setContentVisible(true), [])
-  const handleIntroDone = useCallback(() => setIntroVisible(false), [])
 
   useEffect(() => {
     const el = videoRef.current
@@ -28,19 +24,15 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
 
     const maybePromise = el.play()
     if (maybePromise && typeof (maybePromise as Promise<void>).catch === "function") {
-      ;(maybePromise as Promise<void>).catch(() => setVideoFailed(true))
+      ;(maybePromise as Promise<void>).catch(() => {
+        setVideoFailed(true)
+        setVideoReady(true)
+      })
     }
   }, [])
 
   return (
     <>
-      <motion.section
-        initial={false}
-        animate={contentVisible ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        style={{ pointerEvents: contentVisible ? "auto" : "none" }}
-        aria-hidden={!contentVisible}
-      >
         <section className="
           relative isolate overflow-hidden rounded-b-[1.75rem]
           h-[720px]
@@ -84,7 +76,11 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
               playsInline
               preload="metadata"
               poster="/assets/home/hero.webp"
-              onError={() => setVideoFailed(true)}
+              onPlaying={() => setVideoReady(true)}
+              onError={() => {
+                setVideoFailed(true)
+                setVideoReady(true)
+              }}
             >
               <source src="/assets/videos/hero.webm" type="video/webm" />
               <source src="/assets/videos/hero.mp4" type="video/mp4" />
@@ -137,12 +133,10 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
            </div>
          </section>
 
-      </motion.section>
-
       {introVisible && (
         <IntroOverlay
-          onExitStart={handleIntroExitStart}
-          onDone={handleIntroDone}
+          onDone={() => setIntroVisible(false)}
+          videoReady={videoReady}
         />
       )}
     </>
