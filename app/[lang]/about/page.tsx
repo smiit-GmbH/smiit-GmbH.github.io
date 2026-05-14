@@ -33,6 +33,9 @@ type FounderMember = {
   name: string
   role: string
   image: string
+  education: string[]
+  knowsAbout?: string[]
+  alumniOf?: string[]
   bio: string
   email: string
   cvLink?: string
@@ -62,6 +65,9 @@ export default async function Page({
       email: founder.email,
       description: founder.bio,
       knowsLanguage,
+      knowsAbout: founder.knowsAbout,
+      hasCredential: founder.education,
+      alumniOf: founder.alumniOf,
       sameAs: [founder.linkedIn, founder.cvLink].filter((u): u is string => Boolean(u)),
     }),
   )

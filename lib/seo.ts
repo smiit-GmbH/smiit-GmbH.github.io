@@ -109,6 +109,9 @@ type PersonJsonLdInput = {
   sameAs?: string[]
   description?: string
   knowsLanguage?: string[]
+  knowsAbout?: string[]
+  hasCredential?: string[]
+  alumniOf?: string[]
 }
 
 export function buildPersonJsonLd({
@@ -119,6 +122,9 @@ export function buildPersonJsonLd({
   sameAs,
   description,
   knowsLanguage,
+  knowsAbout,
+  hasCredential,
+  alumniOf,
 }: PersonJsonLdInput) {
   const absoluteImage = image
     ? image.startsWith("http")
@@ -135,6 +141,24 @@ export function buildPersonJsonLd({
     ...(email ? { email } : {}),
     ...(description ? { description } : {}),
     ...(knowsLanguage && knowsLanguage.length > 0 ? { knowsLanguage } : {}),
+    ...(knowsAbout && knowsAbout.length > 0 ? { knowsAbout } : {}),
+    ...(hasCredential && hasCredential.length > 0
+      ? {
+          hasCredential: hasCredential.map((credential) => ({
+            "@type": "EducationalOccupationalCredential",
+            credentialCategory: "degree",
+            name: credential,
+          })),
+        }
+      : {}),
+    ...(alumniOf && alumniOf.length > 0
+      ? {
+          alumniOf: alumniOf.map((institution) => ({
+            "@type": "CollegeOrUniversity",
+            name: institution,
+          })),
+        }
+      : {}),
     ...(sameAs && sameAs.length > 0 ? { sameAs } : {}),
     worksFor: {
       "@type": "Organization",
