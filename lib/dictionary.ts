@@ -1159,6 +1159,41 @@ const dictionaries = {
           },
         ],
       },
+      reviews: {
+        heading: { lead: "Was Kunden über", highlight: "smiit Analytics sagen" },
+        verifiedBadge: "Geprüfter Bewerter",
+        sourceLabel: "Verifiziert auf bexio Marketplace",
+        sourceUrl: "https://marketplace.bexio.com/de-CH/apps/128971/smiit-analytics/reviews",
+        items: [
+          {
+            author: "Sarah Zanuco",
+            company: "Zanuco Treuhand AG",
+            rating: 5,
+            date: "2025-08-11",
+            title: "Maximale Effizienz und aussagekräftige Analysen",
+            quote:
+              "Dank der Schnittstelle können wir als moderne Treuhandfirma die Finanzdaten unserer Kunden schneller und klarer aufbereiten. Die benutzerfreundliche Visualisierung ermöglicht es uns, Daten in Echtzeit auszuwerten und fundierte Entscheidungen schnell zu treffen. Die Implementierung verlief reibungslos und hat unsere Prozesse deutlich optimiert. Diese Lösung empfehlen wir jedem Unternehmen, das Wert auf effiziente, präzise und zeitnahe Finanzberichterstattung legt.",
+          },
+          {
+            author: "Florian Schär",
+            company: "Masterhomepage GmbH",
+            rating: 5,
+            date: "2025-06-30",
+            title: "flexibel, schnell und nett",
+            quote:
+              "Wir haben ein individuelles Dashboard von smiit erstellen lassen für die Auswertung der Zeiteinträge unserer Mitarbeiter mit Email Erinnerungsflows. Die Jungs sind sehr kompetent und äusserst freundlich. Super Service mit einem TOP Preis-/Leistungsverhältnis. Wir können smiit absolut weiterempfehlen!",
+          },
+          {
+            author: "Andreas Andermatt",
+            company: "ASW Engineering AG",
+            rating: 5,
+            date: "2025-03-14",
+            title: "Sehr kundenfreundlich - top Zusammenarbeit - finden immer eine Lösung",
+            quote:
+              "Wir haben ein individuelles Dashboard von smiit erstellen lassen und sind total happy! Wenn etwas kleines geändert werden muss, benötigt es nicht gleich einen Nachtrag, sie sind da super flexibel und sehr an einem guten Endresultat interessiert. In der heutigen Zeit leider nicht mehr selbstverständlich. Wir haben unsere Dashboards besprochen, sie haben super Input eingebracht und bei der Umsetzung noch ein paar coole Features eingebaut, welche die Dashboards noch besser machten, dies ohne Zusatzaufwand. Wir können smiit vollumfänglich weiterempfehlen!",
+          },
+        ],
+      },
       faq: {
         eyebrow: "HÄUFIGE FRAGEN",
         heading: { lead: "Antworten auf das, was", highlight: "oft gefragt wird" },
@@ -2355,6 +2390,42 @@ const dictionaries = {
             number: "04",
             title: "Launch & Training",
             text: "After launch, we train your employees on how to use the system.",
+          },
+        ],
+      },
+      reviews: {
+        heading: { lead: "What customers say about", highlight: "smiit Analytics" },
+        verifiedBadge: "Verified reviewer",
+        sourceLabel: "Verified on bexio Marketplace",
+        sourceUrl: "https://marketplace.bexio.com/en-GB/apps/128971/smiit-analytics/reviews",
+        translatedNote: "Translated from German",
+        items: [
+          {
+            author: "Sarah Zanuco",
+            company: "Zanuco Treuhand AG",
+            rating: 5,
+            date: "2025-08-11",
+            title: "Maximum efficiency and meaningful analyses",
+            quote:
+              "Thanks to the interface, we as a modern fiduciary firm can prepare our clients' financial data faster and more clearly. The user-friendly visualization lets us evaluate data in real time and make well-founded decisions quickly. The implementation went smoothly and significantly streamlined our processes. We recommend this solution to any company that values efficient, precise, and timely financial reporting.",
+          },
+          {
+            author: "Florian Schär",
+            company: "Masterhomepage GmbH",
+            rating: 5,
+            date: "2025-06-30",
+            title: "Flexible, fast, and friendly",
+            quote:
+              "We had smiit build a custom dashboard for evaluating our employees' time entries, including email reminder flows. The team is highly competent and extremely friendly. Great service with an excellent price-performance ratio. We can absolutely recommend smiit!",
+          },
+          {
+            author: "Andreas Andermatt",
+            company: "ASW Engineering AG",
+            rating: 5,
+            date: "2025-03-14",
+            title: "Very customer-friendly – great collaboration – they always find a solution",
+            quote:
+              "We had smiit build a custom dashboard and we're absolutely happy! When something small needs changing, it doesn't require a formal change request right away — they're super flexible and genuinely invested in a good end result. Sadly not a given these days. We discussed our dashboards, they contributed great input and even added a few cool features during implementation that made the dashboards even better, all at no extra cost. We can fully recommend smiit!",
           },
         ],
       },

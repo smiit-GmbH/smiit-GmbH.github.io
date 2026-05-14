@@ -41,13 +41,6 @@ export function buildBreadcrumbJsonLd(lang: Locale, items: BreadcrumbItem[]) {
   }
 }
 
-type ReviewInput = {
-  author: string
-  reviewBody: string
-  ratingValue?: number
-  datePublished?: string
-}
-
 type AggregateRatingInput = {
   ratingValue: number
   reviewCount: number
@@ -61,27 +54,6 @@ type ServiceJsonLdInput = {
   name: LocalizedText
   description: LocalizedText
   serviceType?: LocalizedText
-  reviews?: ReviewInput[]
-  aggregateRating?: AggregateRatingInput
-}
-
-function buildReviewNode({ author, reviewBody, ratingValue, datePublished }: ReviewInput) {
-  return {
-    "@type": "Review",
-    author: { "@type": "Organization", name: author },
-    reviewBody,
-    ...(ratingValue !== undefined
-      ? {
-          reviewRating: {
-            "@type": "Rating",
-            ratingValue,
-            bestRating: 5,
-            worstRating: 1,
-          },
-        }
-      : {}),
-    ...(datePublished ? { datePublished } : {}),
-  }
 }
 
 function buildAggregateRatingNode({ ratingValue, reviewCount, bestRating = 5, worstRating = 1 }: AggregateRatingInput) {
@@ -94,15 +66,7 @@ function buildAggregateRatingNode({ ratingValue, reviewCount, bestRating = 5, wo
   }
 }
 
-export function buildServiceJsonLd({
-  lang,
-  path,
-  name,
-  description,
-  serviceType,
-  reviews,
-  aggregateRating,
-}: ServiceJsonLdInput) {
+export function buildServiceJsonLd({ lang, path, name, description, serviceType }: ServiceJsonLdInput) {
   return {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -117,8 +81,6 @@ export function buildServiceJsonLd({
     },
     areaServed: ["DE", "AT", "CH", "EU"],
     inLanguage: lang === "de" ? "de-DE" : "en-US",
-    ...(reviews && reviews.length > 0 ? { review: reviews.map(buildReviewNode) } : {}),
-    ...(aggregateRating ? { aggregateRating: buildAggregateRatingNode(aggregateRating) } : {}),
   }
 }
 
@@ -182,15 +144,48 @@ export function buildPersonJsonLd({
   }
 }
 
+type ProductReviewInput = {
+  author: string
+  company?: string
+  reviewBody: string
+  ratingValue: number
+  datePublished: string
+}
+
+function buildProductReviewNode({ author, company, reviewBody, ratingValue, datePublished }: ProductReviewInput) {
+  return {
+    "@type": "Review",
+    author: {
+      "@type": "Person",
+      name: author,
+      ...(company ? { worksFor: { "@type": "Organization", name: company } } : {}),
+    },
+    reviewBody,
+    reviewRating: {
+      "@type": "Rating",
+      ratingValue,
+      bestRating: 5,
+      worstRating: 1,
+    },
+    datePublished,
+    publisher: {
+      "@type": "Organization",
+      name: "bexio Marketplace",
+    },
+  }
+}
+
 type ProductJsonLdInput = {
   lang: Locale
   path: string
   name: string
   description: LocalizedText
   image?: string
+  reviews?: ProductReviewInput[]
+  aggregateRating?: AggregateRatingInput
 }
 
-export function buildProductJsonLd({ lang, path, name, description, image }: ProductJsonLdInput) {
+export function buildProductJsonLd({ lang, path, name, description, image, reviews, aggregateRating }: ProductJsonLdInput) {
   return {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -202,6 +197,8 @@ export function buildProductJsonLd({ lang, path, name, description, image }: Pro
       "@type": "Brand",
       name: SITE_NAME,
     },
+    ...(reviews && reviews.length > 0 ? { review: reviews.map(buildProductReviewNode) } : {}),
+    ...(aggregateRating ? { aggregateRating: buildAggregateRatingNode(aggregateRating) } : {}),
   }
 }
 

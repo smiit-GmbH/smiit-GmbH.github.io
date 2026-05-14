@@ -37,6 +37,14 @@ export default async function Page({
   const { lang } = await params
   const dict = getDictionary(lang)
 
+  const reviewItems: {
+    author: string
+    company: string
+    rating: number
+    date: string
+    quote: string
+  }[] = dict.smiitAnalytics.reviews.items
+
   const productJsonLd = buildProductJsonLd({
     lang,
     path: "products/smiit-analytics",
@@ -44,6 +52,17 @@ export default async function Page({
     description: {
       de: "Plug-and-Play Analytics-Lösung mit vorgefertigten Dashboards und KPIs für den Mittelstand.",
       en: "Plug-and-play analytics solution with pre-built dashboards and KPIs for SMEs.",
+    },
+    reviews: reviewItems.map((r) => ({
+      author: r.author,
+      company: r.company,
+      reviewBody: r.quote,
+      ratingValue: r.rating,
+      datePublished: r.date,
+    })),
+    aggregateRating: {
+      ratingValue: 5,
+      reviewCount: reviewItems.length,
     },
   })
 
