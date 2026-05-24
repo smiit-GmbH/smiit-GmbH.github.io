@@ -24,7 +24,7 @@ export default function StrategyPage({
       <PortfolioSection dict={dict} />
       <ManifestBand dict={dict} />
       <ProcessSection dict={dict} />
-      <StrategyReviews dict={dict} />
+      <StrategyReviews dict={dict} lang={lang} />
       <RelatedLinkBand
         text={related.text}
         linkLabel={related.linkLabel}

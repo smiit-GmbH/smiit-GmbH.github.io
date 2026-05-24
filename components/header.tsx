@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/sheet"
 import { LanguageSwitcher } from "@/components/language-switcher"
 
-const DARK_HERO_PATHS = ["/products/smiit-analytics", "/services/analytics", "/services/apps", "/services/strategy"]
+const DARK_HERO_PATHS = ["/products/smiit-analytics", "/services/analytics", "/services/apps", "/services/strategy", "/case-studies"]
 
 export default function Header({ forceLang, darkHero: darkHeroProp }: { forceLang?: string; darkHero?: boolean }) {
   const [isProductsOpen, setIsProductsOpen] = useState(false)
@@ -90,6 +90,7 @@ export default function Header({ forceLang, darkHero: darkHeroProp }: { forceLan
           webappsWorkflows: "Apps & Workflows",
           analytics: "Datenanalyse",
           consulting: "Digitale Strategie",
+          caseStudies: "Case Studies",
         }
       : {
           home: "Home",
@@ -103,6 +104,7 @@ export default function Header({ forceLang, darkHero: darkHeroProp }: { forceLan
           webappsWorkflows: "Apps & Workflows",
           analytics: "Data Analytics",
           consulting: "Digital Strategy",
+          caseStudies: "Case Studies",
         }
 
   const homeHref = `${base}/`
@@ -113,6 +115,7 @@ export default function Header({ forceLang, darkHero: darkHeroProp }: { forceLan
   const productScoutHref = `${base}/product-scout`
   const aboutHref = `${base}/about`
   const contactHref = `${base}/contact`
+  const caseStudiesHref = `${base}/case-studies`
 
   const servicesLinks = [
     { href: webappsWorkflowsHref, label: L.webappsWorkflows },
@@ -370,6 +373,15 @@ export default function Header({ forceLang, darkHero: darkHeroProp }: { forceLan
                               className="block rounded-xl px-3 py-[clamp(0.4rem,1.2vh,0.5rem)] text-sm text-black/80 hover:bg-black/[0.04]"
                             >
                               {L.about}
+                            </Link>
+                          </SheetClose>
+                          <SheetClose asChild>
+                            <Link
+                              href={caseStudiesHref}
+                              scroll={false}
+                              className="block rounded-xl px-3 py-[clamp(0.4rem,1.2vh,0.5rem)] text-sm text-black/80 hover:bg-black/[0.04]"
+                            >
+                              {L.caseStudies}
                             </Link>
                           </SheetClose>
                         </div>

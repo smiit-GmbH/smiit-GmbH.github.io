@@ -7,6 +7,7 @@ import Image from "next/image"
 import LocalizedLink from "../../localized-link"
 import { Button } from "@/components/ui/button"
 import { ChevronRight } from "lucide-react"
+import type { Locale } from "@/lib/dictionary"
 
 const DotLottieReact = dynamic(
   () => import("@lottiefiles/dotlottie-react").then((m) => m.DotLottieReact),
@@ -15,6 +16,7 @@ const DotLottieReact = dynamic(
 
 interface ServicesProps {
   dict: any
+  lang: Locale
 }
 
 function TagPill({ label, variant = "default" }: { label: string; variant?: "default" | "glass" }) {
@@ -1032,7 +1034,7 @@ function DesktopServices({ items }: { items: any[] }) {
   )
 }
 
-export default function Services({ dict }: ServicesProps) {
+export default function Services({ dict, lang }: ServicesProps) {
   const items = (dict?.services?.items ?? []) as Array<{
     title: string
     text: string
@@ -1102,6 +1104,30 @@ export default function Services({ dict }: ServicesProps) {
         </div>
 
         <DesktopServices items={items} />
+
+        {/* Desktop (lg+): primary outline button — no booking CTA is shown here */}
+        <div className="mt-10 hidden justify-center md:mt-12 lg:flex">
+          <LocalizedLink href="/case-studies">
+            <Button
+              variant="outline"
+              className="group rounded-xl px-8 py-6 text-base border-black text-black hover:bg-black hover:text-white transition-all duration-300 hover:scale-105 cursor-pointer dark:border-white dark:text-white dark:hover:bg-white dark:hover:text-black"
+            >
+              {lang === "de" ? "Referenzen ansehen" : "View our case studies"}
+              <ChevronRight className="ml-2 h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+            </Button>
+          </LocalizedLink>
+        </div>
+
+        {/* Mobile/Tablet (<lg): subtle secondary link — the booking CTA above stays the primary action */}
+        <div className="mt-7 flex justify-center lg:hidden">
+          <LocalizedLink
+            href="/case-studies"
+            className="group inline-flex items-center gap-1 text-sm font-medium text-black/65 underline-offset-4 transition-colors hover:text-black hover:underline dark:text-white/65 dark:hover:text-white"
+          >
+            {lang === "de" ? "Referenzen ansehen" : "View our case studies"}
+            <ChevronRight className="ml-0.5 h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+          </LocalizedLink>
+        </div>
       </div>
     </section>
   )

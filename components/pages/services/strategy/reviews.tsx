@@ -11,6 +11,9 @@ import {
 } from "@/components/ui/carousel"
 import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
 import { useActiveInView } from "@/hooks/use-active-in-view"
+import type { Locale } from "@/lib/dictionary"
+import { getCaseStudyHrefByClient } from "@/lib/case-studies"
+import CaseStudyLink from "@/components/pages/case-studies/case-study-link"
 
 const LOGOS: Record<number, string> = {
   2: "/assets/logos/gb-logistics.webp",
@@ -26,6 +29,7 @@ interface Review {
   metric?: string
   metricSub?: string
   logoSrc?: string
+  caseStudyHref?: string
 }
 
 const ROTATE_MS = 6500
@@ -97,10 +101,12 @@ function ReviewSlide({
   review,
   isActive,
   reduceMotion,
+  lang,
 }: {
   review: Review
   isActive: boolean
   reduceMotion: boolean
+  lang: Locale
 }) {
   return (
     <article className="grid grid-cols-1 items-start gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] md:items-center md:gap-12">
@@ -144,6 +150,10 @@ function ReviewSlide({
             {review.subtitle}
           </span>
         </div>
+
+        {review.caseStudyHref && (
+          <CaseStudyLink href={review.caseStudyHref} lang={lang} className="mt-5" />
+        )}
       </div>
     </article>
   )
@@ -154,11 +164,13 @@ function MobileReviewsCarousel({
   reduceMotion,
   ariaLabel,
   swipeHint,
+  lang,
 }: {
   reviews: Review[]
   reduceMotion: boolean
   ariaLabel: string
   swipeHint: string
+  lang: Locale
 }) {
   const [api, setApi] = useState<CarouselApi | null>(null)
   const [selected, setSelected] = useState(0)
@@ -224,6 +236,7 @@ function MobileReviewsCarousel({
                 review={review}
                 isActive={idx === selected}
                 reduceMotion={reduceMotion}
+                lang={lang}
               />
             </CarouselItem>
           ))}
@@ -267,7 +280,7 @@ function MobileReviewsCarousel({
   )
 }
 
-export default function StrategyReviews({ dict }: { dict: any }) {
+export default function StrategyReviews({ dict, lang }: { dict: any; lang: Locale }) {
   const heading = useRevealOnScroll()
   const stage = useRevealOnScroll({ margin: "-80px" })
   const reduceMotion = useReducedMotion() ?? false
@@ -275,6 +288,7 @@ export default function StrategyReviews({ dict }: { dict: any }) {
   const reviews: Review[] = (dict.servicesStrategy.reviews ?? []).map((r: any) => ({
     ...r,
     logoSrc: LOGOS[r.id as keyof typeof LOGOS],
+    caseStudyHref: getCaseStudyHrefByClient(r.name, lang),
   }))
 
   // Desktop-only state for the cross-fade stack.
@@ -346,6 +360,7 @@ export default function StrategyReviews({ dict }: { dict: any }) {
               reduceMotion={reduceMotion}
               ariaLabel={ariaLabel}
               swipeHint={dict.servicesStrategy.reviewsHeading?.swipeHint ?? "wischen →"}
+              lang={lang}
             />
           </div>
 
@@ -408,6 +423,10 @@ export default function StrategyReviews({ dict }: { dict: any }) {
                         {r.subtitle}
                       </span>
                     </div>
+
+                    {r.caseStudyHref && (
+                      <CaseStudyLink href={r.caseStudyHref} lang={lang} className="mt-5" />
+                    )}
                   </div>
                 </motion.article>
               )

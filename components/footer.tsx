@@ -20,6 +20,7 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
           consulting: "Digitale Strategie",
           company: "Unternehmen",
           about: "Über uns",
+          caseStudies: "Case Studies",
           products: "Produkte",
           contactSection: "Kontakt",
           rights: "Alle Rechte vorbehalten.",
@@ -42,6 +43,7 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
           consulting: "Digital Strategy",
           company: "Company",
           about: "About",
+          caseStudies: "Case Studies",
           products: "Our Products",
           contactSection: "Contact",
           rights: "All rights reserved.",
@@ -63,6 +65,7 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
   const analyticsHref = `${base}/services/analytics`
   const consultingHref = `${base}/services/strategy`
   const aboutHref = `${base}/about`
+  const caseStudiesHref = `${base}/case-studies`
   const productsHref = `${base}/products`
   const imprintHref = `${base}/legal-notice`
   const privacyHref = `${base}/privacy`
@@ -113,6 +116,11 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
               <li>
                 <Link href={consultingHref} className="text-sm text-gray-700 hover:text-black transition-colors">
                   {L.consulting}
+                </Link>
+              </li>
+              <li>
+                <Link href={caseStudiesHref} className="text-sm text-gray-700 hover:text-black transition-colors">
+                  {L.caseStudies}
                 </Link>
               </li>
             </ul>

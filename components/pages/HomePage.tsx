@@ -21,7 +21,7 @@ export default function HomePage({
         <CustomerCards dict={dict} />
       </div>
 
-      <Services dict={dict} />
+      <Services dict={dict} lang={lang} />
 
       <About dict={dict} />
 

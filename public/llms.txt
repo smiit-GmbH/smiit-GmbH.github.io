@@ -31,6 +31,17 @@ Founders / Managing directors: Sebastian Grab, Noah Neßlauer
 - [smiit Analytics (DE)](https://www.smiit.de/de/products/smiit-analytics/): Plug-and-play analytics solution with pre-built dashboards and KPIs for a fast SME start.
 - [smiit Analytics (EN)](https://www.smiit.de/en/products/smiit-analytics/): Same in English.
 
+## Case Studies
+
+- [Case Studies overview (DE)](https://www.smiit.de/de/case-studies/): Selected client projects with real numbers across apps, data analytics and digital strategy.
+- [Case Studies overview (EN)](https://www.smiit.de/en/case-studies/): Same in English.
+- [Claimity AG (DE)](https://www.smiit.de/de/case-studies/claimity-ag/): How smiit built a secure multi-tenant SaaS platform for digital insurance claims on Azure in 6 weeks (InsurTech).
+- [Claimity AG (EN)](https://www.smiit.de/en/case-studies/claimity-ag/): Same in English.
+- [dy Project AG (DE)](https://www.smiit.de/de/case-studies/dy-project-ag/): Power BI management reporting on Azure Databricks (bronze/silver/gold) for a CHF 1bn+ construction project.
+- [dy Project AG (EN)](https://www.smiit.de/en/case-studies/dy-project-ag/): Same in English.
+- [G&B Logistics (DE)](https://www.smiit.de/de/case-studies/gb-logistics/): Digital strategy and process automation with Power Automate, AI Builder and Power BI for a logistics company.
+- [G&B Logistics (EN)](https://www.smiit.de/en/case-studies/gb-logistics/): Same in English.
+
 ## Legal
 
 - [Impressum / Legal notice (DE)](https://www.smiit.de/de/legal-notice/)

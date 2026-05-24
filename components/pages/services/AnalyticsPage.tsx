@@ -24,7 +24,7 @@ export default function AnalyticsPage({
       <PortfolioSection dict={dict} />
       <ManifestBand dict={dict} />
       <ProcessSection dict={dict} />
-      <AnalyticsReviews dict={dict} />
+      <AnalyticsReviews dict={dict} lang={lang} />
       <RelatedLinkBand text={related.text} linkLabel={related.linkLabel} href={related.href} />
       <AnalyticsCTA dict={dict} />
       <FaqSection dict={dict.servicesAnalytics.faq} />

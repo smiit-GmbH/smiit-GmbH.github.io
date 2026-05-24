@@ -26,9 +26,9 @@ type BuildPageMetadataInput = {
 
 type BreadcrumbItem = { name: string; path: string }
 
-export function buildBreadcrumbJsonLd(lang: Locale, items: BreadcrumbItem[]) {
+export function buildBreadcrumbJsonLd(lang: Locale, items: BreadcrumbItem[], includeHome = true) {
   const home = { name: lang === "de" ? "Start" : "Home", path: "" }
-  const all = [home, ...items]
+  const all = includeHome ? [home, ...items] : items
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
@@ -223,6 +223,45 @@ export function buildProductJsonLd({ lang, path, name, description, image, revie
     },
     ...(reviews && reviews.length > 0 ? { review: reviews.map(buildProductReviewNode) } : {}),
     ...(aggregateRating ? { aggregateRating: buildAggregateRatingNode(aggregateRating) } : {}),
+  }
+}
+
+type CaseStudyJsonLdInput = {
+  lang: Locale
+  slug: string
+  headline: string
+  description: string
+  datePublished: string
+  image?: string
+  about?: string
+  keywords?: string[]
+  articleSection?: string
+}
+
+export function buildCaseStudyJsonLd({ lang, slug, headline, description, datePublished, image, about, keywords, articleSection }: CaseStudyJsonLdInput) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline,
+    description,
+    datePublished,
+    inLanguage: lang === "de" ? "de-DE" : "en-US",
+    image: image ? `${SITE_URL}${image.startsWith("/") ? image : `/${image}`}` : `${SITE_URL}/og/home.png`,
+    mainEntityOfPage: `${SITE_URL}/${lang}/case-studies/${slug}/`,
+    ...(articleSection ? { articleSection } : {}),
+    ...(keywords && keywords.length > 0 ? { keywords: keywords.join(", ") } : {}),
+    ...(about ? { about: { "@type": "Organization", name: about } } : {}),
+    author: {
+      "@type": "Organization",
+      name: SITE_NAME,
+      url: SITE_URL,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: SITE_NAME,
+      url: SITE_URL,
+      logo: { "@type": "ImageObject", url: `${SITE_URL}/logo_black.png` },
+    },
   }
 }
 

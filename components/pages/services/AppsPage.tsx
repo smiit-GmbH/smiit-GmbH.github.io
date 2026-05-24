@@ -24,7 +24,7 @@ export default function AppsPage({
       <PortfolioSection dict={dict} />
       <ManifestBand dict={dict} />
       <ProcessSection dict={dict} />
-      <AppsReviews dict={dict} />
+      <AppsReviews dict={dict} lang={lang} />
       <RelatedLinkBand
         text={related.text}
         linkLabel={related.linkLabel}
