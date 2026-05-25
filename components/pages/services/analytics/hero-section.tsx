@@ -40,6 +40,31 @@ function cx(...classes: Array<string | false | null | undefined>) {
   return classes.filter(Boolean).join(" ")
 }
 
+function HeroPackages({ hero, align = "left" }: { hero: any; align?: "left" | "center" }) {
+  const packages = (hero?.packages ?? []) as string[]
+  if (packages.length === 0) return null
+
+  return (
+    <div className={cx("mt-5", align === "center" && "mx-auto max-w-[640px]") }>
+      {hero?.packagesLabel && (
+        <p className={cx("text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[#21569c]", align === "center" && "text-center")}>
+          {hero.packagesLabel}
+        </p>
+      )}
+      <ul className={cx("mt-2.5 flex flex-wrap gap-2", align === "center" ? "justify-center" : "justify-start")}>
+        {packages.map((item) => (
+          <li
+            key={item}
+            className="rounded-full border border-[#21569c]/15 bg-[#21569c]/[0.06] px-3 py-1.5 text-[0.76rem] font-medium leading-tight text-[#0B162D]/78"
+          >
+            {item}
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
 // ---------- Datasets ----------
 type PeriodKey = "q" | "h" | "y"
 type RiskLevelKey = "riskLow" | "riskMedium" | "riskHigh"
@@ -855,6 +880,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
             <p className="mx-auto mt-4 max-w-[58ch] text-[0.95rem] leading-relaxed text-[#0B162D]/70 sm:text-[1rem] md:mt-5 md:text-[1.05rem]">
               {hero?.description}
             </p>
+            <HeroPackages hero={hero} align="center" />
             <div className="mt-6 sm:mt-7">
               <Link
                 href={`/${lang}/contact#book`}
@@ -1039,6 +1065,8 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
                   {hero?.description}
                 </p>
 
+                <HeroPackages hero={hero} />
+
                 <div className="mt-9 flex justify-start">
                   <MagneticCta
                     href={`/${lang}/contact#book`}
@@ -1175,4 +1203,3 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
     </>
   )
 }
-

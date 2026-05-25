@@ -22,8 +22,8 @@ export async function generateMetadata({
       en: "smiit GmbH – Digital strategy consulting",
     },
     description: {
-      de: "Digitale Strategie und Beratung für den Mittelstand: vom Status quo zur tragfähigen Roadmap — pragmatisch, umsetzungsorientiert und ohne Berater-Theater.",
-      en: "Digital strategy consulting for SMEs: from status quo to a viable roadmap — pragmatic, hands-on, and free of consulting theatre or PowerPoint inflation.",
+      de: "Digitalisierungsberatung für Roadmaps, Datenstrategie, Azure Cloud Architektur, IT-Sicherheits-Checks, Prozessanalyse und Automatisierungsplanung.",
+      en: "Digitalization consulting for roadmaps, data strategy, Azure cloud architecture, IT security checks, process analysis and automation planning.",
     },
     ogImage: { url: "/og/services-strategy.png", width: 1200, height: 630, alt: "smiit GmbH – Digitale Strategie" },
   })
@@ -45,8 +45,8 @@ export default async function Page({
       en: "Digital business strategy",
     },
     description: {
-      de: "Strategie- und Transformationsbegleitung für den Mittelstand: vom Status quo bis zur umsetzbaren digitalen Roadmap.",
-      en: "Strategy and transformation guidance for SMEs: from status quo to an actionable digital roadmap.",
+      de: "Digitalisierungs-Roadmaps, Datenstrategie, Azure Cloud Architektur, IT-Sicherheits-Checks und Prozessautomatisierung für den Mittelstand.",
+      en: "Digitalization roadmaps, data strategy, Azure cloud architecture, IT security checks and process automation for SMEs.",
     },
     serviceType: {
       de: "Digitalstrategie",

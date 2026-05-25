@@ -22,8 +22,8 @@ export async function generateMetadata({
       en: "smiit GmbH – Power BI consulting for SMEs",
     },
     description: {
-      de: "Power BI Beratung für den Mittelstand: Dashboards, KPIs und Datenmodelle, die operative Entscheidungen beschleunigen — von Aufnahme bis Rollout.",
-      en: "Power BI consulting for SMEs: dashboards, KPIs and data models that accelerate operational decisions — from assessment through rollout to training.",
+      de: "Power BI Beratung für Dashboard-Erstellung, Health Checks, Reporting-Überarbeitung, Datenplattformen, Microsoft Fabric und Machine Learning.",
+      en: "Power BI consulting for dashboard creation, health checks, report redesign, data platforms, Microsoft Fabric and machine learning.",
     },
     ogImage: { url: "/og/services-analytics.png", width: 1200, height: 630, alt: "smiit GmbH – Datenanalyse" },
   })
@@ -45,8 +45,8 @@ export default async function Page({
       en: "Data analytics & business intelligence",
     },
     description: {
-      de: "Power BI Dashboards, KPIs und Analytics-Lösungen für mittelständische Unternehmen — von der Datenintegration bis zur operativen Steuerung.",
-      en: "Power BI dashboards, KPIs, and analytics solutions for mid-sized companies — from data integration to operational steering.",
+      de: "Power BI Dashboards erstellen, bestehende Reports prüfen und überarbeiten, Datenplattformen konzipieren und Analytics-Lösungen produktiv betreiben.",
+      en: "Create Power BI dashboards, review and redesign existing reports, design data platforms and operate analytics solutions in production.",
     },
     serviceType: {
       de: "Datenanalyse",

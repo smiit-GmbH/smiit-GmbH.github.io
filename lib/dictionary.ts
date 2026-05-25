@@ -54,6 +54,15 @@ const dictionaries = {
         description:
           "Wir verdichten verstreute Datenquellen zu einer klaren Entscheidungsebene – umgesetzt in Power BI und dem Microsoft-Stack, damit Teams schneller sehen, was passiert, was relevant wird und was als Nächstes zu tun ist.",
         primaryCta: "Jetzt Datenpotenziale entdecken",
+        packagesLabel: "Beliebte Leistungen",
+        packages: [
+          "Power BI Dashboard",
+          "Datenplattform & BI-Konzept",
+          "Power BI Health Check",
+          "Microsoft Fabric",
+          "Power BI Überarbeitung",
+          "Machine Learning & MLOps",
+        ],
         scrollHint: "Weiter scrollen",
         boardEyebrow: "Executive Intelligence Layer",
         boardTitle: "Von Datensilos zur Entscheidungsebene",
@@ -369,6 +378,14 @@ const dictionaries = {
         description:
           "Wir bringen Cloud, Sicherheit, Daten und Prozesse in eine kohärente Roadmap — mit ehrlichen Bestandsaufnahmen, klaren Prioritäten und der Umsetzungskraft, die Strategiepapiere meistens vermissen lassen.",
         primaryCta: "Strategie-Sparring vereinbaren",
+        packagesLabel: "Beliebte Leistungen",
+        packages: [
+          "Digitalisierungs-Roadmap",
+          "Datenstrategie & BI-Konzept",
+          "Azure Cloud Architektur",
+          "IT-Sicherheits-Check",
+          "Prozessanalyse & Automatisierungsplan",
+        ],
         scrollHint: "Weiter scrollen",
         boardEyebrow: "Executive Intelligence Layer",
         boardTitle: "Von Datensilos zur Entscheidungsebene",
@@ -617,6 +634,14 @@ const dictionaries = {
         description:
           "Wir entwickeln Individualsoftware und Web-Apps, die Ihre Prozesse automatisieren und Systeme über Schnittstellen verbinden – damit Ihr Team weniger klickt, sucht und wartet, und mehr liefert.",
         primaryCta: "Ideen jetzt besprechen",
+        packagesLabel: "Beliebte Leistungen",
+        packages: [
+          "Individuelle Web Apps",
+          "Prozessautomatisierung mit Power Automate",
+          "API-Integration",
+          "SaaS Plattformen",
+          "App Wartung & Weiterentwicklung",
+        ],
         appName: "OperationsHub",
         pageTitle: "Dashboard",
         searchPlaceholder: "Suche…",
@@ -1306,6 +1331,15 @@ const dictionaries = {
         description:
           "We turn fragmented data sources into a clear decision layer — built in Power BI and the Microsoft stack, so teams can see faster what is happening, what matters, and what to do next.",
         primaryCta: "Discover the potential of your data",
+        packagesLabel: "Popular services",
+        packages: [
+          "Power BI Dashboards",
+          "Data Platform & BI Concept",
+          "Power BI Health Check",
+          "Microsoft Fabric",
+          "Power BI Redesign",
+          "Machine Learning & MLOps",
+        ],
         scrollHint: "Scroll for more",
         boardEyebrow: "Executive Intelligence Layer",
         boardTitle: "From data silos to a decision layer",
@@ -1621,6 +1655,14 @@ const dictionaries = {
         description:
           "We turn cloud, security, data, and processes into a coherent roadmap — with honest assessments, clear priorities, and the execution power that strategy papers usually lack.",
         primaryCta: "Book a strategy session",
+        packagesLabel: "Popular services",
+        packages: [
+          "Digitalization Roadmap",
+          "Data Strategy & BI Concept",
+          "Azure Cloud Architecture",
+          "IT Security Check",
+          "Process Analysis & Automation Plan",
+        ],
         scrollHint: "Scroll for more",
         boardEyebrow: "Executive Intelligence Layer",
         boardTitle: "From data silos to a decision layer",
@@ -1869,6 +1911,14 @@ const dictionaries = {
         description:
           "We build custom software and web apps that automate your processes and connect your systems through clean interfaces and APIs – so your team clicks less, searches less, waits less, and delivers more.",
         primaryCta: "Let's talk about your idea",
+        packagesLabel: "Popular services",
+        packages: [
+          "Custom Web Apps",
+          "Process Automation with Power Automate",
+          "API Integration",
+          "SaaS Platforms",
+          "App Maintenance & Evolution",
+        ],
         appName: "OperationsHub",
         pageTitle: "Dashboard",
         searchPlaceholder: "Search…",
