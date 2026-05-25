@@ -1,5 +1,6 @@
 import dynamic from "next/dynamic"
 import type { Locale } from "@/lib/dictionary"
+import { listGlossaryCatalogByCluster } from "@/lib/glossary"
 import HeroSection from "@/components/pages/services/analytics/hero-section"
 
 const PortfolioSection = dynamic(() => import("@/components/pages/services/analytics/portfolio"))
@@ -8,6 +9,7 @@ const ProcessSection = dynamic(() => import("@/components/pages/services/analyti
 const AnalyticsReviews = dynamic(() => import("@/components/pages/services/analytics/reviews"))
 const FaqSection = dynamic(() => import("@/components/pages/shared/faq-section"))
 const RelatedLinkBand = dynamic(() => import("@/components/pages/shared/related-link-band"))
+const GlossaryLinksBand = dynamic(() => import("@/components/pages/shared/glossary-links-band"))
 const AnalyticsCTA = dynamic(() => import("@/components/pages/services/analytics/cta"))
 
 export default function AnalyticsPage({
@@ -28,6 +30,7 @@ export default function AnalyticsPage({
       <RelatedLinkBand text={related.text} linkLabel={related.linkLabel} href={related.href} />
       <AnalyticsCTA dict={dict} />
       <FaqSection dict={dict.servicesAnalytics.faq} />
+      <GlossaryLinksBand lang={lang} entries={listGlossaryCatalogByCluster("analytics")} />
     </main>
   )
 }

@@ -265,6 +265,107 @@ export function buildCaseStudyJsonLd({ lang, slug, headline, description, datePu
   }
 }
 
+type DefinedTermInput = { name: string; description: string; slug?: string }
+
+type DefinedTermSetJsonLdInput = {
+  lang: Locale
+  name: string
+  description: string
+  terms: DefinedTermInput[]
+}
+
+export function buildDefinedTermSetJsonLd({ lang, name, description, terms }: DefinedTermSetJsonLdInput) {
+  const setUrl = `${SITE_URL}/${lang}/glossary/`
+  return {
+    "@context": "https://schema.org",
+    "@type": "DefinedTermSet",
+    name,
+    description,
+    url: setUrl,
+    inLanguage: lang === "de" ? "de-DE" : "en-US",
+    hasDefinedTerm: terms.map((term) => ({
+      "@type": "DefinedTerm",
+      name: term.name,
+      description: term.description,
+      ...(term.slug ? { url: `${SITE_URL}/${lang}/glossary/${term.slug}/` } : {}),
+      inDefinedTermSet: setUrl,
+    })),
+  }
+}
+
+type DefinedTermJsonLdInput = {
+  lang: Locale
+  slug: string
+  name: string
+  description: string
+}
+
+export function buildDefinedTermJsonLd({ lang, slug, name, description }: DefinedTermJsonLdInput) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "DefinedTerm",
+    name,
+    description,
+    url: `${SITE_URL}/${lang}/glossary/${slug}/`,
+    inLanguage: lang === "de" ? "de-DE" : "en-US",
+    inDefinedTermSet: {
+      "@type": "DefinedTermSet",
+      name: lang === "de" ? "smiit Glossar" : "smiit glossary",
+      url: `${SITE_URL}/${lang}/glossary/`,
+    },
+  }
+}
+
+type GlossaryArticleJsonLdInput = {
+  lang: Locale
+  slug: string
+  headline: string
+  description: string
+  dateModified: string
+  /** Cluster label, used as articleSection. */
+  articleSection?: string
+  keywords?: string[]
+  image?: string
+}
+
+export function buildGlossaryArticleJsonLd({
+  lang,
+  slug,
+  headline,
+  description,
+  dateModified,
+  articleSection,
+  keywords,
+  image,
+}: GlossaryArticleJsonLdInput) {
+  const url = `${SITE_URL}/${lang}/glossary/${slug}/`
+  return {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    headline,
+    description,
+    datePublished: dateModified,
+    dateModified,
+    inLanguage: lang === "de" ? "de-DE" : "en-US",
+    image: image ? `${SITE_URL}${image.startsWith("/") ? image : `/${image}`}` : `${SITE_URL}/og/home.png`,
+    mainEntityOfPage: url,
+    url,
+    ...(articleSection ? { articleSection } : {}),
+    ...(keywords && keywords.length > 0 ? { keywords: keywords.join(", ") } : {}),
+    author: {
+      "@type": "Organization",
+      name: SITE_NAME,
+      url: SITE_URL,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: SITE_NAME,
+      url: SITE_URL,
+      logo: { "@type": "ImageObject", url: `${SITE_URL}/logo_black.png` },
+    },
+  }
+}
+
 export function buildPageMetadata({
   lang,
   path = "",

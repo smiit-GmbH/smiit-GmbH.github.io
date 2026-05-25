@@ -1,5 +1,6 @@
 import dynamic from "next/dynamic"
 import type { Locale } from "@/lib/dictionary"
+import { listGlossaryCatalogByCluster } from "@/lib/glossary"
 import HeroSection from "@/components/pages/services/apps/hero-section"
 
 const PortfolioSection = dynamic(() => import("@/components/pages/services/apps/portfolio"))
@@ -8,6 +9,7 @@ const ProcessSection = dynamic(() => import("@/components/pages/services/apps/pr
 const AppsReviews = dynamic(() => import("@/components/pages/services/apps/reviews"))
 const FaqSection = dynamic(() => import("@/components/pages/shared/faq-section"))
 const RelatedLinkBand = dynamic(() => import("@/components/pages/shared/related-link-band"))
+const GlossaryLinksBand = dynamic(() => import("@/components/pages/shared/glossary-links-band"))
 const AppsCTA = dynamic(() => import("@/components/pages/services/apps/cta"))
 
 export default function AppsPage({
@@ -34,6 +36,12 @@ export default function AppsPage({
       />
       <AppsCTA dict={dict} />
       <FaqSection dict={dict.servicesApps.faq} />
+      <GlossaryLinksBand
+        lang={lang}
+        entries={listGlossaryCatalogByCluster("apps")}
+        accent="#F703EB"
+        accentHover="#C002B7"
+      />
     </main>
   )
 }

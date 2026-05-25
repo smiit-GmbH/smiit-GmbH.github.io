@@ -1,5 +1,6 @@
 import type { MetadataRoute } from "next"
 import { caseStudySlugs, getCaseStudy } from "@/lib/case-studies"
+import { glossaryTermSlugs, getGlossaryTerm } from "@/lib/glossary"
 
 export const dynamic = "force-static"
 
@@ -20,6 +21,11 @@ const caseStudyDates = caseStudySlugs
   .filter((d): d is string => Boolean(d))
 const latestCaseStudyDate = caseStudyDates.slice().sort().pop()
 
+const glossaryDates = glossaryTermSlugs
+  .map((slug) => getGlossaryTerm(slug, "de")?.dateModified)
+  .filter((d): d is string => Boolean(d))
+const latestGlossaryDate = glossaryDates.slice().sort().pop()
+
 const routes: Route[] = [
   { path: "", priority: 1.0, changeFrequency: "monthly" },
   { path: "about", priority: 0.8, changeFrequency: "monthly" },
@@ -35,6 +41,15 @@ const routes: Route[] = [
       priority: 0.5,
       changeFrequency: "monthly",
       lastModified: getCaseStudy(slug, "de")?.datePublished,
+    }),
+  ),
+  { path: "glossary", priority: 0.6, changeFrequency: "monthly", lastModified: latestGlossaryDate },
+  ...glossaryTermSlugs.map(
+    (slug): Route => ({
+      path: `glossary/${slug}`,
+      priority: 0.5,
+      changeFrequency: "monthly",
+      lastModified: getGlossaryTerm(slug, "de")?.dateModified,
     }),
   ),
   { path: "legal-notice", priority: 0.2, changeFrequency: "yearly" },

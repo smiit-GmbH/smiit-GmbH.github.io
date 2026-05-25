@@ -45,8 +45,8 @@ export default async function Page({
       en: "Data analytics & business intelligence",
     },
     description: {
-      de: "Dashboards, KPIs und Analytics-Lösungen für mittelständische Unternehmen — von der Datenintegration bis zur operativen Steuerung.",
-      en: "Dashboards, KPIs, and analytics solutions for mid-sized companies — from data integration to operational steering.",
+      de: "Power BI Dashboards, KPIs und Analytics-Lösungen für mittelständische Unternehmen — von der Datenintegration bis zur operativen Steuerung.",
+      en: "Power BI dashboards, KPIs, and analytics solutions for mid-sized companies — from data integration to operational steering.",
     },
     serviceType: {
       de: "Datenanalyse",

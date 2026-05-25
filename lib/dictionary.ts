@@ -52,12 +52,13 @@ const dictionaries = {
       hero: {
         title: "Daten verstehen. Chancen erkennen. Besser entscheiden.",
         description:
-          "Wir verdichten verstreute Datenquellen zu einer klaren Entscheidungsebene – damit Teams schneller sehen, was passiert, was relevant wird und was als Nächstes zu tun ist.",
+          "Wir verdichten verstreute Datenquellen zu einer klaren Entscheidungsebene – umgesetzt in Power BI und dem Microsoft-Stack, damit Teams schneller sehen, was passiert, was relevant wird und was als Nächstes zu tun ist.",
         primaryCta: "Jetzt Datenpotenziale entdecken",
         scrollHint: "Weiter scrollen",
         boardEyebrow: "Executive Intelligence Layer",
         boardTitle: "Von Datensilos zur Entscheidungsebene",
         sourcesConnected: "5 Datenquellen verbunden",
+        platform: "Power BI",
         updated: "aktualisiert vor 2 Min.",
         inPractice: "In der Praxis",
         swipeHint: "← Wischen zum Wechseln →",
@@ -218,7 +219,7 @@ const dictionaries = {
       portfolio: {
         title: "Unser",
         titleHighlight: "Angebot",
-        subtitle: "Wir unterstützen Sie dabei, den maximalen Wert aus Ihren Daten zu schöpfen – von der Strategie bis zur produktiven Analytics-Lösung.",
+        subtitle: "Wir unterstützen Sie dabei, den maximalen Wert aus Ihren Daten zu schöpfen – von der Strategie bis zur produktiven Power-BI-Lösung.",
         visuals: {
           bi: { label: "Umsatz Q3", kpiRevenue: "Umsatz", target: "Ziel" },
           governance: { badge: "DSGVO" },
@@ -229,7 +230,7 @@ const dictionaries = {
         items: [
           {
             title: "Business Intelligence & Dashboarding",
-            shortDesc: "Wir verwandeln verteilte Daten in eine belastbare Entscheidungsgrundlage – mit sauberer Datenintegration, klaren Modellen und Dashboards, die wirklich genutzt werden. So entstehen Reports und Analysen, die Transparenz schaffen und Führung wirksam unterstützen.",
+            shortDesc: "Wir verwandeln verteilte Daten in eine belastbare Entscheidungsgrundlage – mit sauberer Datenintegration, klaren Modellen und Power-BI-Dashboards, die wirklich genutzt werden. So entstehen Reports und Analysen in Power BI und Microsoft Fabric, die Transparenz schaffen und Führung wirksam unterstützen.",
             details: "Wir begleiten den gesamten Weg von der Rohdatenquelle bis zur entscheidungsrelevanten Visualisierung. Dazu gehören die Integration und Aufbereitung von Daten, der Aufbau performanter Datenmodelle, die Entwicklung einer semantischen Schicht sowie die Gestaltung von Dashboards für Management, Controlling und operative Teams.\n\nTechnologisch arbeiten wir schwerpunktmäßig im Microsoft-Umfeld – unter anderem mit Power BI und Fabric. Dabei achten wir nicht nur auf Technik, sondern vor allem auf eine Struktur, die mit Ihrem Unternehmen mitwachsen kann."
           },
           {
@@ -258,7 +259,7 @@ const dictionaries = {
           {
             number: "02",
             title: "Konzipieren",
-            text: "Wir entwerfen Datenmodell, Dashboards und Governance, abgestimmt auf Ihre Entscheidungswege und Ihr Tooling.",
+            text: "Wir entwerfen Datenmodell, Power-BI-Dashboards und Governance, abgestimmt auf Ihre Entscheidungswege und Ihr Tooling.",
           },
           {
             number: "03",
@@ -614,7 +615,7 @@ const dictionaries = {
       hero: {
         title: "Workflows verstehen. Apps bauen. Teams entlasten.",
         description:
-          "Wir entwickeln individuelle Web-Apps, die Ihre Prozesse abbilden und Systeme verbinden – damit Ihr Team weniger klickt, sucht und wartet, und mehr liefert.",
+          "Wir entwickeln Individualsoftware und Web-Apps, die Ihre Prozesse automatisieren und Systeme über Schnittstellen verbinden – damit Ihr Team weniger klickt, sucht und wartet, und mehr liefert.",
         primaryCta: "Ideen jetzt besprechen",
         appName: "OperationsHub",
         pageTitle: "Dashboard",
@@ -764,7 +765,7 @@ const dictionaries = {
         items: [
           {
             title: "Web Applikationen & Plattformen",
-            shortDesc: "Wir bauen individuelle Web-Apps und Plattformen, die Ihre Workflows abbilden, Systeme über APIs verbinden und Anwendern wirklich Arbeit abnehmen. So entstehen digitale Werkzeuge, die im Alltag funktionieren – nicht nur in der Demo.",
+            shortDesc: "Wir bauen Individualsoftware – Web-Apps und Plattformen, die Ihre Workflows abbilden, Systeme über Schnittstellen (APIs) verbinden und Anwendern wirklich Arbeit abnehmen. So entstehen digitale Werkzeuge, die im Alltag funktionieren – nicht nur in der Demo.",
             details: "Wir entwickeln moderne Web-Anwendungen und SaaS-Plattformen entlang Ihres tatsächlichen Bedarfs – vom internen Tool bis zur Multi-Tenant-Lösung. Dabei verbinden wir bestehende Systeme über APIs, integrieren Authentifizierung und Berechtigungen sauber und sorgen dafür, dass Ihre App auch unter Last performt.\n\nTechnologisch setzen wir auf Next.js, React und .NET – mit klaren Architekturen, automatisierten Tests und CI/CD-Pipelines. So entstehen Anwendungen, die nicht nur in der ersten Version glänzen, sondern langfristig wartbar, sicher und skalierbar bleiben."
           },
           {
@@ -1303,12 +1304,13 @@ const dictionaries = {
       hero: {
         title: "Understand data. Spot opportunities. Decide better.",
         description:
-          "We turn fragmented data sources into a clear decision layer — so teams can see faster what is happening, what matters, and what to do next.",
+          "We turn fragmented data sources into a clear decision layer — built in Power BI and the Microsoft stack, so teams can see faster what is happening, what matters, and what to do next.",
         primaryCta: "Discover the potential of your data",
         scrollHint: "Scroll for more",
         boardEyebrow: "Executive Intelligence Layer",
         boardTitle: "From data silos to a decision layer",
         sourcesConnected: "5 connected data sources",
+        platform: "Power BI",
         updated: "updated 2 min ago",
         inPractice: "In practice",
         swipeHint: "← Swipe to switch →",
@@ -1469,7 +1471,7 @@ const dictionaries = {
       portfolio: {
         title: "Our",
         titleHighlight: "Portfolio",
-        subtitle: "We help you extract maximum value from your data – from strategy to productive analytics solutions.",
+        subtitle: "We help you extract maximum value from your data – from strategy to a productive Power BI solution.",
         visuals: {
           bi: { label: "Revenue Q3", kpiRevenue: "Revenue", target: "Target" },
           governance: { badge: "GDPR" },
@@ -1480,7 +1482,7 @@ const dictionaries = {
         items: [
           {
             title: "Business Intelligence & Dashboarding",
-            shortDesc: "We turn distributed data into a reliable basis for decision-making – with clean data integration, clear models, and dashboards that are actually used. This creates reports and analyses that provide transparency and effectively support leadership.",
+            shortDesc: "We turn distributed data into a reliable basis for decision-making – with clean data integration, clear models, and Power BI dashboards that are actually used. This creates reports and analyses in Power BI and Microsoft Fabric that provide transparency and effectively support leadership.",
             details: "We accompany the entire journey from the raw data source to decision-relevant visualization. This includes the integration and preparation of data, the construction of high-performance data models, the development of a semantic layer, and the design of dashboards for management, controlling, and operational teams.\n\nTechnologically, we focus primarily on the Microsoft environment – including Power BI and Fabric. We pay attention not only to technology but above all to a structure that can grow with your company."
           },
           {
@@ -1509,7 +1511,7 @@ const dictionaries = {
           {
             number: "02",
             title: "Design",
-            text: "We craft data model, dashboards and governance, tailored to your decision flows and tooling.",
+            text: "We craft data model, Power BI dashboards and governance, tailored to your decision flows and tooling.",
           },
           {
             number: "03",
@@ -1865,7 +1867,7 @@ const dictionaries = {
       hero: {
         title: "Understand workflows. Build apps. Free your team.",
         description:
-          "We build custom web apps that map your processes and connect your systems – so your team clicks less, searches less, waits less, and delivers more.",
+          "We build custom software and web apps that automate your processes and connect your systems through clean interfaces and APIs – so your team clicks less, searches less, waits less, and delivers more.",
         primaryCta: "Let's talk about your idea",
         appName: "OperationsHub",
         pageTitle: "Dashboard",
@@ -2015,7 +2017,7 @@ const dictionaries = {
         items: [
           {
             title: "Web Apps & Platforms",
-            shortDesc: "We build custom web apps and platforms that map your workflows, connect systems through APIs, and genuinely take work off your users' plates. Digital tools that work in daily use – not just in the demo.",
+            shortDesc: "We build custom software – web apps and platforms that map your workflows, connect systems through interfaces (APIs), and genuinely take work off your users' plates. Digital tools that work in daily use – not just in the demo.",
             details: "We develop modern web applications and SaaS platforms tailored to your actual needs – from internal tools to multi-tenant solutions. We connect existing systems through APIs, integrate authentication and permissions cleanly, and ensure your app performs under load.\n\nTechnologically we work with Next.js, React and .NET – with clean architectures, automated tests and CI/CD pipelines. The result: applications that don't just shine in their first version but stay maintainable, secure and scalable long-term."
           },
           {

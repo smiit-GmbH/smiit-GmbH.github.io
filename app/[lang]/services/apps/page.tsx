@@ -18,12 +18,12 @@ export async function generateMetadata({
     lang,
     path: "services/apps",
     title: {
-      de: "smiit GmbH – Web Apps für den Mittelstand",
-      en: "smiit GmbH – Web apps & automation for SMEs",
+      de: "smiit GmbH – Individualsoftware & Web-Apps für den Mittelstand",
+      en: "smiit GmbH – Custom software & web apps for SMEs",
     },
     description: {
-      de: "Web Apps & Workflow-Automatisierung für den Mittelstand: individuelle Apps, automatisierte Prozesse und API-Integrationen, die Ihre Routine spürbar entlasten.",
-      en: "Web apps & workflow automation for SMEs: custom apps, automated processes and API integrations that take routine work off your team's plate — measurably and fast.",
+      de: "Individualsoftware & Prozessautomatisierung für den Mittelstand: maßgeschneiderte Web-Apps, automatisierte Workflows und Schnittstellen (API-Integrationen), die Ihre Routine spürbar entlasten.",
+      en: "Custom software & process automation for SMEs: bespoke web apps, automated workflows and API integrations (interfaces) that take routine work off your team's plate — measurably and fast.",
     },
     ogImage: { url: "/og/services-apps.png", width: 1200, height: 630, alt: "smiit GmbH – Apps & Workflows" },
   })
@@ -45,8 +45,8 @@ export default async function Page({
       en: "Custom apps & workflow automation",
     },
     description: {
-      de: "Maßgeschneiderte Webapplikationen und automatisierte Workflows, die Prozesse im Mittelstand spürbar beschleunigen.",
-      en: "Custom web applications and automated workflows that meaningfully speed up SME processes.",
+      de: "Individualsoftware, maßgeschneiderte Webapplikationen und Prozessautomatisierung mit sauberen Schnittstellen, die Prozesse im Mittelstand spürbar beschleunigen.",
+      en: "Custom software, bespoke web applications and process automation with clean interfaces that meaningfully speed up SME processes.",
     },
     serviceType: {
       de: "Softwareentwicklung",

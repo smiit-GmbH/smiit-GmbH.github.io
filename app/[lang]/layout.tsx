@@ -103,7 +103,10 @@ const organizationJsonLd = {
       availableLanguage: ["German", "English"],
     },
   ],
-  sameAs: ["https://www.linkedin.com/company/smiit-gmbh/"],
+  "sameAs": [
+    "https://github.com/smiit-GmbH",
+    "https://www.linkedin.com/company/smiit-gmbh/"
+  ]
 }
 
 const localBusinessJsonLd = {

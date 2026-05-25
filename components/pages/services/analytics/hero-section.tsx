@@ -20,6 +20,7 @@ import {
   Filter,
   Layers3,
   TrendingUp,
+  Zap,
 } from "lucide-react"
 import {
   Tooltip,
@@ -734,6 +735,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
 
   const t = {
     sourcesConnected: hero?.sourcesConnected as string,
+    platform: (hero?.platform as string) ?? "Power BI",
     updated: hero?.updated as string,
     sections: (hero?.sections ?? {}) as any,
     months: (hero?.months ?? []) as string[],
@@ -907,9 +909,15 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
                     {t.dashboardTitle}
                   </h2>
                 </div>
-                <div className="hidden shrink-0 items-center gap-1 text-[0.6rem] text-[#0B162D]/48 sm:inline-flex">
-                  <span>{t.updated}</span>
-                  <ChevronDown className="h-3 w-3" />
+                <div className="flex shrink-0 items-center gap-2">
+                  <div className="hidden items-center gap-1 text-[0.6rem] text-[#0B162D]/48 sm:inline-flex">
+                    <span>{t.updated}</span>
+                    <ChevronDown className="h-3 w-3" />
+                  </div>
+                  <span className="inline-flex items-center gap-1 rounded-full border border-[#21569c]/20 bg-[#21569c]/[0.06] px-2 py-0.5 text-[0.6rem] font-semibold text-[#21569c]">
+                    <Zap className="h-3 w-3" />
+                    {t.platform}
+                  </span>
                 </div>
               </div>
 
@@ -1079,9 +1087,15 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
                       {t.dashboardTitle}
                     </h2>
                   </div>
-                  <div className="inline-flex items-center gap-1 text-[0.62rem] text-[#0B162D]/48">
-                    <span>{t.updated}</span>
-                    <ChevronDown className="h-3 w-3" />
+                  <div className="flex shrink-0 items-center gap-2">
+                    <div className="inline-flex items-center gap-1 text-[0.62rem] text-[#0B162D]/48">
+                      <span>{t.updated}</span>
+                      <ChevronDown className="h-3 w-3" />
+                    </div>
+                    <span className="inline-flex items-center gap-1 rounded-full border border-[#21569c]/20 bg-[#21569c]/[0.06] px-2 py-0.5 text-[0.62rem] font-semibold text-[#21569c]">
+                      <Zap className="h-3 w-3" />
+                      {t.platform}
+                    </span>
                   </div>
                 </div>
 

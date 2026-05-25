@@ -226,7 +226,7 @@ const claimity: LocalizedCaseStudy = {
     companySize: "Switzerland · Startup",
     title: "A production SaaS platform for digital claims in 6 weeks",
     summary:
-      "Claimity AG is a Swiss InsurTech digitising claims handling between insurers, claims adjusters and specialised experts. In just six weeks, smiit turned that into a production SaaS MVP — secure, multi-tenant and scalable from day one. Today, more than 1,000 cases run through the platform.",
+      "Claimity AG is a Swiss InsurTech digitizing claims handling between insurers, claims adjusters and specialized experts. In just six weeks, smiit turned that into a production SaaS MVP — secure, multi-tenant and scalable from day one. Today, more than 1,000 cases run through the platform.",
     heroMetric: { value: "6 weeks", label: "from kickoff to a live platform" },
 
     facts: [
@@ -265,7 +265,7 @@ const claimity: LocalizedCaseStudy = {
         heading: "Process architecture",
         paragraphs: [
           "At go-live the platform supported two core processes — vehicle damage and expert assessment — built not as rigid features but as extensible process logic.",
-          "That mattered because Claimity wasn't only digitising a single use case: after go-live, fraud investigation and specialist assessments for rail and bus were added, among others. New service areas can be added without rethinking the platform each time — lowering development effort and making the business model more resilient.",
+          "That mattered because Claimity wasn't only digitizing a single use case: after go-live, fraud investigation and specialist assessments for rail and bus were added, among others. New service areas can be added without rethinking the platform each time — lowering development effort and making the business model more resilient.",
         ],
       },
       {
@@ -282,9 +282,9 @@ const claimity: LocalizedCaseStudy = {
         ],
       },
       {
-        heading: "What we learned: MFA has to fit the reality of devices and organisations",
+        heading: "What we learned: MFA has to fit the reality of devices and organizations",
         paragraphs: [
-          "Our first assumption was that more security is automatically better — so we planned to enforce the strongest available MFA methods, including passkeys (WebAuthn). In practice, that would have locked out legitimate users. In insurance, many partners work on managed or restricted devices, shared workstations and under strict browser and organisational policies that don't allow passkeys, or only unreliably.",
+          "Our first assumption was that more security is automatically better — so we planned to enforce the strongest available MFA methods, including passkeys (WebAuthn). In practice, that would have locked out legitimate users. In insurance, many partners work on managed or restricted devices, shared workstations and under strict browser and organizational policies that don't allow passkeys, or only unreliably.",
           "Enforcing a passkey login would therefore have undermined the very goal of the security concept — trust and accessibility at go-live. So we deliberately re-scoped the MFA strategy: MFA is enforced via OTP (time-based one-time codes from an authenticator app), complemented by recovery codes for lockout situations. Passkeys were disabled for now — not discarded, but kept ready for a later optional rollout as a more convenient alternative, once the device and user landscape is clearer.",
         ],
         bullets: [
@@ -297,7 +297,7 @@ const claimity: LocalizedCaseStudy = {
         heading: "The result",
         paragraphs: [
           "Within six weeks, Claimity went live with a production SaaS MVP — launching with two claims processes and all the security-critical fundamentals: multi-tenant architecture, role-based access, MFA and a secured Azure infrastructure.",
-          "Since then the platform has been expanded continuously — with more process types, API interfaces, in-tenant structures and billing functions. More than 1,000 cases have already been handled, together with insurers, claims adjusters and specialised experts. A platform idea became a production-ready, scalable SaaS business model.",
+          "Since then the platform has been expanded continuously — with more process types, API interfaces, in-tenant structures and billing functions. More than 1,000 cases have already been handled, together with insurers, claims adjusters and specialized experts. A platform idea became a production-ready, scalable SaaS business model.",
         ],
       },
     ],
@@ -388,7 +388,7 @@ const dyProject: LocalizedCaseStudy = {
       {
         heading: "Datenintegration: SQL Server, Excel, Cloud-Systeme und REST-APIs",
         paragraphs: [
-          "Ein Kernstück der Umsetzung war die Integration sehr unterschiedlicher Quellen. Strukturierte Daten aus SQL Servern wurden direkt angebunden; ergänzend verarbeitete smiit Excel-Dateien, die in Projektorganisationen weiterhin eine wichtige Rolle spielen — etwa für Statuslisten und manuelle Ergänzungen. Cloud-Systeme und Fachanwendungen kamen über REST-APIs hinzu; wo Daten nicht in der benötigten Form vorlagen, erschloss und strukturierte smiit die Schnittstellen.",
+          "Ein Kernstück der Umsetzung war die Integration sehr unterschiedlicher Quellen. Strukturierte Daten aus SQL Servern wurden direkt angebunden; ergänzend verarbeitete smiit Excel-Dateien, die in Projektorganizationen weiterhin eine wichtige Rolle spielen — etwa für Statuslisten und manuelle Ergänzungen. Cloud-Systeme und Fachanwendungen kamen über REST-APIs hinzu; wo Daten nicht in der benötigten Form vorlagen, erschloss und strukturierte smiit die Schnittstellen.",
           "Diese Arbeit ist entscheidend, weil Power BI nur so gut ist wie die Datenbasis darunter: Ein Dashboard auf uneinheitlichen, manuell kopierten Daten erzeugt im Management schnell Misstrauen. Die vorgelagerte Plattform macht Datenflüsse transparenter und fachliche Definitionen konsistenter — weniger manuelle Zusammenführung, weniger Interpretationsspielraum, eine verlässlichere Grundlage für Projektentscheidungen.",
         ],
       },
@@ -502,53 +502,53 @@ const dyProject: LocalizedCaseStudy = {
         heading: "Starting point: many data sources, many stakeholders, no single picture",
         paragraphs: [
           "Large construction projects generate enormous amounts of data: progress, budget, timelines, delays, risks, meetings, actions and status rarely sit in a single system — they are spread across platforms, files and domain applications.",
-          "Here too, the relevant data came from very different system types — SQL Server databases, manually maintained Excel files, cloud systems and domain applications that had to be connected via REST interfaces. Some delivered structured data, others only partly standardised exports. Manageable for individual teams; at management level it became a problem: information had to be gathered, compared and interpreted from many sources, making a consistent, up-to-date overall picture hard to achieve.",
+          "Here too, the relevant data came from very different system types — SQL Server databases, manually maintained Excel files, cloud systems and domain applications that had to be connected via REST interfaces. Some delivered structured data, others only partly standardized exports. Manageable for individual teams; at management level it became a problem: information had to be gathered, compared and interpreted from many sources, making a consistent, up-to-date overall picture hard to achieve.",
           "Technically that meant: wiring individual Power BI reports straight to the sources isn't enough given this data volume, system diversity and number of users. First you need a solid data platform with clear data flows, defined models, role management and governance — and only then reporting that is performant, traceable and maintainable in the long run.",
         ],
       },
       {
         heading: "Solution: Azure Databricks as a central data platform ahead of Power BI",
         paragraphs: [
-          "smiit built a central data architecture in which data from the source systems is first consolidated in Azure Databricks — deliberately an upstream data-warehouse approach rather than complex transformation logic directly in Power BI. This keeps Power BI as the analytical surface for management and project control, while integration, harmonisation and quality logic happen in a scalable platform: more stable, faster and more maintainable reports.",
-          "The data passes through a multi-layer bronze/silver/gold architecture. In the bronze layer, raw data is ingested as unchanged as possible — providing traceability back to the source. In the silver layer it is cleaned and harmonised: consistent project and programme structures, consistent date logic, cleaned status values, and merged risk and schedule structures.",
-          "In the gold layer, curated data models optimised for analysis are created: management metrics, project status, budget development, schedule variances and risk categories are prepared so Power BI can evaluate them performantly and understandably. Data is no longer visualised ad hoc but systematically turned into a solid reporting foundation that grows with new requirements.",
+          "smiit built a central data architecture in which data from the source systems is first consolidated in Azure Databricks — deliberately an upstream data-warehouse approach rather than complex transformation logic directly in Power BI. This keeps Power BI as the analytical surface for management and project control, while integration, harmonization and quality logic happen in a scalable platform: more stable, faster and more maintainable reports.",
+          "The data passes through a multi-layer bronze/silver/gold architecture. In the bronze layer, raw data is ingested as unchanged as possible — providing traceability back to the source. In the silver layer it is cleaned and harmonized: consistent project and program structures, consistent date logic, cleaned status values, and merged risk and schedule structures.",
+          "In the gold layer, curated data models optimized for analysis are created: management metrics, project status, budget development, schedule variances and risk categories are prepared so Power BI can evaluate them performantly and understandably. Data is no longer visualized ad hoc but systematically turned into a solid reporting foundation that grows with new requirements.",
         ],
       },
       {
         heading: "Data integration: SQL Server, Excel, cloud systems and REST APIs",
         paragraphs: [
-          "A core part of the work was integrating very different sources. Structured data from SQL Servers was connected directly; in addition, smiit processed Excel files, which still play an important role in project organisations — for status lists and manual additions, for example. Cloud systems and domain applications were connected via REST APIs; where data wasn't available in the required form, smiit built and structured the interfaces.",
+          "A core part of the work was integrating very different sources. Structured data from SQL Servers was connected directly; in addition, smiit processed Excel files, which still play an important role in project organizations — for status lists and manual additions, for example. Cloud systems and domain applications were connected via REST APIs; where data wasn't available in the required form, smiit built and structured the interfaces.",
           "This work is decisive, because Power BI is only as good as the data beneath it: a dashboard built on inconsistent, manually copied data quickly breeds mistrust at management level. The upstream platform makes data flows more transparent and definitions more consistent — less manual consolidation, less room for interpretation, and a more reliable basis for project decisions.",
         ],
       },
       {
         heading: "Power BI: management dashboards instead of isolated reports",
         paragraphs: [
-          "Several Power BI reports were built on the curated gold data models — primarily for management, but also supporting programme and project leads. They cover progress, budget, schedules, delays, meetings, actions and risks, and relate them to one another: it becomes visible, for instance, which delays connect to critical risks or which budget developments trace back to which project areas.",
-          "The reporting structure is hierarchical — from the management view through programme and project levels down to detailed analyses — so the same landscape serves strategic steering sessions and operational detail questions. A key focus was performance: data modelling, measures, filter logic and report navigation were designed so the reports respond quickly and stay understandable with large data volumes, multiple hierarchy levels and many users.",
+          "Several Power BI reports were built on the curated gold data models — primarily for management, but also supporting program and project leads. They cover progress, budget, schedules, delays, meetings, actions and risks, and relate them to one another: it becomes visible, for instance, which delays connect to critical risks or which budget developments trace back to which project areas.",
+          "The reporting structure is hierarchical — from the management view through program and project levels down to detailed analyses — so the same landscape serves strategic steering sessions and operational detail questions. A key focus was performance: data modeling, measures, filter logic and report navigation were designed so the reports respond quickly and stay understandable with large data volumes, multiple hierarchy levels and many users.",
         ],
       },
       {
         heading: "Role management, governance and operations in the Power BI Service",
         paragraphs: [
-          "Because different user groups use the reports, governance was central — not everyone needs the same view of data and detail. A role-based structure organises access along responsibilities: clear workspace structures, agreed permissions, controlled publishing and, depending on context, row-level security, app distribution or separate development, test and production areas.",
-          "This keeps reporting from becoming an uncontrolled collection of individual files and turns it into a managed BI landscape where it's clear which reports are in production, which data models are used and which groups have access. At this scale that's decisive: management reporting has to be not only correct but organisationally robust.",
+          "Because different user groups use the reports, governance was central — not everyone needs the same view of data and detail. A role-based structure organizes access along responsibilities: clear workspace structures, agreed permissions, controlled publishing and, depending on context, row-level security, app distribution or separate development, test and production areas.",
+          "This keeps reporting from becoming an uncontrolled collection of individual files and turns it into a managed BI landscape where it's clear which reports are in production, which data models are used and which groups have access. At this scale that's decisive: management reporting has to be not only correct but organizationally robust.",
         ],
       },
       {
         heading: "Trade-off: quickly visible reports and a durable data architecture",
         paragraphs: [
-          "The central tension was between quickly visible results and a clean data architecture: a purely report-driven approach quickly leads to hard-to-maintain Power BI files, duplicated logic and inconsistent metrics. smiit resolved it iteratively — first MVP reports to make requirements visible and discussable with stakeholders, while professionalising the Databricks architecture in parallel. Management and business units worked with concrete visualisations early, while the technical foundation grew steadily more stable — fast progress without a long-term dead end.",
+          "The central tension was between quickly visible results and a clean data architecture: a purely report-driven approach quickly leads to hard-to-maintain Power BI files, duplicated logic and inconsistent metrics. smiit resolved it iteratively — first MVP reports to make requirements visible and discussable with stakeholders, while professionalizing the Databricks architecture in parallel. Management and business units worked with concrete visualizations early, while the technical foundation grew steadily more stable — fast progress without a long-term dead end.",
         ],
       },
       {
         heading: "What we learned: metric definitions beat beautiful dashboards",
         paragraphs: [
-          "The iterative MVP approach sped up collaboration — but it had a cost we underestimated. As soon as the first attractive dashboards were in place, stakeholders argued not about the visualisation but about the numbers themselves: what exactly counts as a 'delay', when is a work package 'behind schedule', how is a 'status' defined across different source systems? The same metric meant different things to different teams and systems.",
+          "The iterative MVP approach sped up collaboration — but it had a cost we underestimated. As soon as the first attractive dashboards were in place, stakeholders argued not about the visualization but about the numbers themselves: what exactly counts as a 'delay', when is a work package 'behind schedule', how is a 'status' defined across different source systems? The same metric meant different things to different teams and systems.",
           "So the apparent debate about whether the report was correct was really a debate about missing shared definitions — a data and semantics problem, not a tool problem. We learned to lock the business definitions down earlier: an agreed metric glossary as binding logic in the gold layer, before and while the dashboards are built. Only that single source of truth ended the recurring definition debates in the status meetings.",
         ],
         bullets: [
-          "With distributed data sources, the bottleneck is the business definition of a metric — not the visualisation.",
+          "With distributed data sources, the bottleneck is the business definition of a metric — not the visualization.",
           "A dashboard's credibility is decided by the consistency of its definitions, not the quality of its charts.",
           "Metric semantics belong in the gold layer as binding logic (a glossary as single source of truth) — otherwise management mistrusts even technically correct reports.",
         ],
@@ -556,8 +556,8 @@ const dyProject: LocalizedCaseStudy = {
       {
         heading: "Result: a consolidated picture for management and project control",
         paragraphs: [
-          "Over more than two years, a Power BI reporting landscape emerged that processes data from SQL databases, Excel files, cloud systems and manual status formats centrally and makes it available at management, programme and project level — instead of merging it case by case. The result is a more current, more consistent and more traceable picture of the overall project.",
-          "For a construction project worth over CHF 1 billion, this overview is a substantial benefit: progress, budget, schedules, delays, meetings and risks can be analysed across hierarchy levels, critical developments surface earlier and status meetings become more data-driven. Technically, the architecture ties together data integration, data-warehouse logic, Power BI reporting, governance and operations — and on the business side it creates the transparency needed to steer complex infrastructure projects.",
+          "Over more than two years, a Power BI reporting landscape emerged that processes data from SQL databases, Excel files, cloud systems and manual status formats centrally and makes it available at management, program and project level — instead of merging it case by case. The result is a more current, more consistent and more traceable picture of the overall project.",
+          "For a construction project worth over CHF 1 billion, this overview is a substantial benefit: progress, budget, schedules, delays, meetings and risks can be analyzed across hierarchy levels, critical developments surface earlier and status meetings become more data-driven. Technically, the architecture ties together data integration, data-warehouse logic, Power BI reporting, governance and operations — and on the business side it creates the transparency needed to steer complex infrastructure projects.",
         ],
       },
     ],
@@ -772,13 +772,13 @@ const gbLogistics: LocalizedCaseStudy = {
         paragraphs: [
           "As in many SMEs, G&B Logistics' IT landscape had grown over time: a local dispatch system, Microsoft Business Central, HubSpot, email-based order intake and manually maintained data all ran in parallel. Each system served its purpose — but the processes in between were often manual, time-consuming and hard to scale.",
           "Order processing was especially critical: orders arrived by email as PDFs and had to be read out manually and entered into the dispatch system. Every manual transfer costs time, introduces errors and ties staff to repetitive work — and it was hard to verify whether every incoming order had been fully processed.",
-          "On the data side there was no single foundation either: Business Central held ERP and accounting data, HubSpot the CRM-related processes, the dispatch system ran locally, and more information sat in files. There was no central source for analysis, automation or master-data harmonisation. The task wasn't to automate individual steps but to develop a digital strategy that connects existing systems sensibly without jeopardising day-to-day operations.",
+          "On the data side there was no single foundation either: Business Central held ERP and accounting data, HubSpot the CRM-related processes, the dispatch system ran locally, and more information sat in files. There was no central source for analysis, automation or master-data harmonization. The task wasn't to automate individual steps but to develop a digital strategy that connects existing systems sensibly without jeopardizing day-to-day operations.",
         ],
       },
       {
         heading: "Solution: a digital target architecture instead of isolated point automations",
         paragraphs: [
-          "smiit helped G&B Logistics build a digital target architecture for processes, data and systems — deliberately without rebuilding everything. Instead, existing systems were integrated, processes analysed and automated where it mattered. With grown SME IT landscapes, a full system replacement would be expensive, risky and operationally questionable.",
+          "smiit helped G&B Logistics build a digital target architecture for processes, data and systems — deliberately without rebuilding everything. Instead, existing systems were integrated, processes analyzed and automated where it mattered. With grown SME IT landscapes, a full system replacement would be expensive, risky and operationally questionable.",
           "The focus was therefore on connecting existing systems better — Business Central, HubSpot, the local dispatch system, email processes and a new cloud data platform. The result wasn't a theoretical digital strategy but an actionable roadmap with concrete day-to-day improvements, while especially error-prone processes were automated step by step.",
         ],
       },
@@ -791,17 +791,17 @@ const gbLogistics: LocalizedCaseStudy = {
         ],
       },
       {
-        heading: "Master data management: creditors, debtors and system harmonisation",
+        heading: "Master data management: creditors, debtors and system harmonization",
         paragraphs: [
-          "G&B Logistics maintains information on customers, suppliers, debtors and creditors across several systems. Without central logic, this quickly produces duplicates, inconsistent spellings or contradictory records. smiit therefore planned and implemented a structure to centralise and harmonise master data more strongly — focusing on creditor and debtor data, which is especially relevant for accounting, order processing and reporting.",
-          "Technically, this runs on a cloud-based data structure where information from different systems is consolidated and made usable for further processes — whether for harmonisation or for downstream checking and reporting. Master data is no longer viewed in isolation but checked, enriched and used across systems: better data quality, less manual coordination and a foundation for further automation.",
+          "G&B Logistics maintains information on customers, suppliers, debtors and creditors across several systems. Without central logic, this quickly produces duplicates, inconsistent spellings or contradictory records. smiit therefore planned and implemented a structure to centralize and harmonize master data more strongly — focusing on creditor and debtor data, which is especially relevant for accounting, order processing and reporting.",
+          "Technically, this runs on a cloud-based data structure where information from different systems is consolidated and made usable for further processes — whether for harmonization or for downstream checking and reporting. Master data is no longer viewed in isolation but checked, enriched and used across systems: better data quality, less manual coordination and a foundation for further automation.",
         ],
       },
       {
         heading: "Cloud data platform and Power BI reporting",
         paragraphs: [
           "Beyond automation and master data, a cloud-based analytics platform was built that makes data from Business Central, HubSpot, the dispatch system and other sources centrally available. On this basis smiit developed Power BI reports that make operational and commercial data more transparent.",
-          "A concrete use case is the automated creation of the BWA (business management report): instead of preparing it manually from accounting data, the relevant data is connected and evaluated automatically in Power BI. This creates a repeatable, traceable and faster-available report — financial and company metrics can be analysed without preparing them manually every time.",
+          "A concrete use case is the automated creation of the BWA (business management report): instead of preparing it manually from accounting data, the relevant data is connected and evaluated automatically in Power BI. This creates a repeatable, traceable and faster-available report — financial and company metrics can be analyzed without preparing them manually every time.",
         ],
       },
       {
@@ -814,13 +814,13 @@ const gbLogistics: LocalizedCaseStudy = {
       {
         heading: "Trade-off: keep using existing systems instead of rebuilding everything",
         paragraphs: [
-          "The central tension was between technical modernisation and operational stability. A completely new system landscape would be possible in theory, but in practice would mean high costs, long timelines and significant operational risk. smiit therefore chose a pragmatic path: keep using existing systems but improve the transitions between them — Power Automate and AI Builder for recurring steps, the cloud data platform for centralisation, Power BI for analysis, interfaces for connection. The result wasn't an abstract IT target picture but a step-by-step modernisation with measurable benefit.",
+          "The central tension was between technical modernization and operational stability. A completely new system landscape would be possible in theory, but in practice would mean high costs, long timelines and significant operational risk. smiit therefore chose a pragmatic path: keep using existing systems but improve the transitions between them — Power Automate and AI Builder for recurring steps, the cloud data platform for centralization, Power BI for analysis, interfaces for connection. The result wasn't an abstract IT target picture but a step-by-step modernization with measurable benefit.",
         ],
       },
       {
         heading: "Result: less manual work, a better data foundation, scalable processes",
         paragraphs: [
-          "G&B Logistics was able to automate core processes, make data available across systems and create the basis for further digitalisation. Automated order capture saves around 140 working hours per month and reduces manual transfers; master data management was strategically rebuilt and implemented in the cloud; data from Business Central, HubSpot, the dispatch system and other sources can be analysed centrally and used for automation.",
+          "G&B Logistics was able to automate core processes, make data available across systems and create the basis for further digitalization. Automated order capture saves around 140 working hours per month and reduces manual transfers; master data management was strategically rebuilt and implemented in the cloud; data from Business Central, HubSpot, the dispatch system and other sources can be analyzed centrally and used for automation.",
           "Power BI created a better basis for operational and commercial analysis, including an automated BWA — while the existing, partly business-critical local infrastructure continues to be supported. The greatest benefit lies in the combination: not individual automations, but a digital strategy connecting processes, data, cloud infrastructure and IT security.",
         ],
       },
@@ -841,14 +841,14 @@ const gbLogistics: LocalizedCaseStudy = {
       { name: "Power BI", description: "Operational, commercial & management analysis" },
       { name: "Cloud data platform", description: "Central consolidation of relevant company data" },
       { name: "Local dispatch system", description: "Still business-critical domain system" },
-      { name: "Master data harmonisation", description: "Creditor & debtor information" },
+      { name: "Master data harmonization", description: "Creditor & debtor information" },
       { name: "Hybrid IT infrastructure", description: "Cloud services & local server operation" },
       { name: "IT security & access concepts", description: "Controlled data flows & stable processes" },
     ],
 
     quote: {
       text:
-        "smiit helped us digitise grown processes step by step without disrupting our day-to-day operations. What mattered most was that they didn't just automate individual tasks but developed a clear understanding of our systems, data and workflows.",
+        "smiit helped us digitize grown processes step by step without disrupting our day-to-day operations. What mattered most was that they didn't just automate individual tasks but developed a clear understanding of our systems, data and workflows.",
       author: "G&B Logistics GmbH",
       role: "Logistics company",
     },

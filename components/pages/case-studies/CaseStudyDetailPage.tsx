@@ -1,5 +1,6 @@
 "use client"
 
+import React, { useMemo } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { ArrowRight, Quote } from "lucide-react"
@@ -12,8 +13,11 @@ import {
   type CaseStudyServiceArea,
 } from "@/lib/case-studies"
 import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
+import { listGlossaryCatalogForCaseStudy } from "@/lib/glossary"
+import { autolinkGlossary } from "@/lib/glossary-autolink"
 import Breadcrumb from "@/components/pages/case-studies/breadcrumb"
 import ChapterNav, { CHAPTERS_WRAPPER_ID, chapterId } from "@/components/pages/case-studies/chapter-nav"
+import GlossaryLinksBand from "@/components/pages/shared/glossary-links-band"
 
 function cx(...classes: Array<string | false | null | undefined>) {
   return classes.filter(Boolean).join(" ")
@@ -25,7 +29,15 @@ const AREA: Record<CaseStudyServiceArea, { label: { de: string; en: string }; co
   strategy: { label: { de: "Digitale Strategie", en: "Digital strategy" }, color: "#64748B" },
 }
 
-function NarrativeSection({ section, index }: { section: CaseStudySection; index: number }) {
+function NarrativeSection({
+  section,
+  index,
+  paragraphs,
+}: {
+  section: CaseStudySection
+  index: number
+  paragraphs: React.ReactNode[]
+}) {
   const reveal = useRevealOnScroll({ margin: "-60px" })
   return (
     <section
@@ -47,7 +59,7 @@ function NarrativeSection({ section, index }: { section: CaseStudySection; index
         {/* Body */}
         <div>
           <div className="space-y-4 text-[0.9rem] sm:text-[1.05rem] leading-[1.75] text-[#0B162D]/75 max-w-[68ch]">
-            {section.paragraphs.map((p, i) => (
+            {paragraphs.map((p, i) => (
               <p key={i}>{p}</p>
             ))}
           </div>
@@ -83,6 +95,14 @@ export default function CaseStudyDetailPage({
   const moreReveal = useRevealOnScroll({ margin: "-60px" })
   const serviceLabel = area.label[lang]
   const others = listOtherCaseStudies(study.slug, lang)
+  const glossaryEntries = listGlossaryCatalogForCaseStudy(study.slug)
+  // Auto-link the first mention of each glossary term across the narrative body.
+  const linkedSectionParagraphs = useMemo(() => {
+    const used = new Set<string>()
+    return study.sections.map((section) =>
+      section.paragraphs.map((p) => autolinkGlossary(p, { lang, used })),
+    )
+  }, [study, lang])
   const publishedDate = new Intl.DateTimeFormat(lang === "de" ? "de-DE" : "en-US", {
     day: "numeric",
     month: "long",
@@ -186,7 +206,7 @@ export default function CaseStudyDetailPage({
       <div id={CHAPTERS_WRAPPER_ID} className="max-w-[1400px] mx-auto mt-20 px-4 sm:mt-28 sm:px-6 lg:px-8">
         <div className="space-y-16 sm:space-y-20">
           {study.sections.map((section, i) => (
-            <NarrativeSection key={section.heading} section={section} index={i} />
+            <NarrativeSection key={section.heading} section={section} index={i} paragraphs={linkedSectionParagraphs[i]} />
           ))}
         </div>
       </div>
@@ -238,6 +258,19 @@ export default function CaseStudyDetailPage({
             </ul>
           </div>
         </section>
+      )}
+
+      {/* ── Fachbegriffe aus dem Glossar ── */}
+      {glossaryEntries.length > 0 && (
+        <div className="mt-20 sm:mt-24">
+          <GlossaryLinksBand
+            lang={lang}
+            entries={glossaryEntries}
+            accent={area.color}
+            accentHover={area.color}
+            maxItems={8}
+          />
+        </div>
       )}
 
       {/* ── O-Ton ── */}

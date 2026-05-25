@@ -21,6 +21,7 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
           company: "Unternehmen",
           about: "Über uns",
           caseStudies: "Case Studies",
+          glossary: "Glossar",
           products: "Produkte",
           contactSection: "Kontakt",
           rights: "Alle Rechte vorbehalten.",
@@ -44,6 +45,7 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
           company: "Company",
           about: "About",
           caseStudies: "Case Studies",
+          glossary: "Glossary",
           products: "Our Products",
           contactSection: "Contact",
           rights: "All rights reserved.",
@@ -66,6 +68,7 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
   const consultingHref = `${base}/services/strategy`
   const aboutHref = `${base}/about`
   const caseStudiesHref = `${base}/case-studies`
+  const glossaryHref = `${base}/glossary`
   const productsHref = `${base}/products`
   const imprintHref = `${base}/legal-notice`
   const privacyHref = `${base}/privacy`
@@ -132,6 +135,11 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
               <li>
                 <Link href={aboutHref} className="text-sm text-gray-700 hover:text-black transition-colors">
                   {L.about}
+                </Link>
+              </li>
+              <li>
+                <Link href={glossaryHref} className="text-sm text-gray-700 hover:text-black transition-colors">
+                  {L.glossary}
                 </Link>
               </li>
               {/* <li>
