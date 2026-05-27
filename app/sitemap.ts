@@ -1,6 +1,7 @@
 import type { MetadataRoute } from "next"
 import { caseStudySlugs, getCaseStudy } from "@/lib/case-studies"
 import { glossaryTermSlugs, getGlossaryTerm } from "@/lib/glossary"
+import { blogPostSlugsFor, getBlogPost } from "@/lib/blog"
 
 export const dynamic = "force-static"
 
@@ -26,6 +27,13 @@ const glossaryDates = glossaryTermSlugs
   .filter((d): d is string => Boolean(d))
 const latestGlossaryDate = glossaryDates.slice().sort().pop()
 
+// Blog posts can be locale-specific, so their URLs are emitted per language in
+// the default export below (not via the uniform `routes` × `languages` map).
+const blogDates = blogPostSlugsFor("de")
+  .map((slug) => getBlogPost(slug, "de")?.dateModified)
+  .filter((d): d is string => Boolean(d))
+const latestBlogDate = blogDates.slice().sort().pop()
+
 const routes: Route[] = [
   { path: "", priority: 1.0, changeFrequency: "monthly" },
   { path: "about", priority: 0.8, changeFrequency: "monthly" },
@@ -43,6 +51,7 @@ const routes: Route[] = [
       lastModified: getCaseStudy(slug, "de")?.datePublished,
     }),
   ),
+  { path: "blog", priority: 0.6, changeFrequency: "monthly", lastModified: latestBlogDate },
   { path: "glossary", priority: 0.6, changeFrequency: "monthly", lastModified: latestGlossaryDate },
   ...glossaryTermSlugs.map(
     (slug): Route => ({
@@ -61,7 +70,7 @@ const languages = ["de", "en"] as const
 export default function sitemap(): MetadataRoute.Sitemap {
   const buildLastModified = new Date()
 
-  return routes.flatMap((route) =>
+  const staticEntries = routes.flatMap((route) =>
     languages.map((lang) => {
       const url = `${SITE_URL}/${lang}${route.path ? `/${route.path}` : ""}/`
       return {
@@ -79,4 +88,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
       }
     }),
   )
+
+  // Blog posts: emitted only for the languages a post actually exists in, so a
+  // single-language post does not produce a 404 URL in the other locale.
+  const blogEntries: MetadataRoute.Sitemap = languages.flatMap((lang) =>
+    blogPostSlugsFor(lang).map((slug) => {
+      const post = getBlogPost(slug, lang)
+      return {
+        url: `${SITE_URL}/${lang}/blog/${slug}/`,
+        lastModified: post?.dateModified ? new Date(post.dateModified) : buildLastModified,
+        changeFrequency: "monthly" as const,
+        priority: 0.5,
+      }
+    }),
+  )
+
+  return [...staticEntries, ...blogEntries]
 }

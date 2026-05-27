@@ -111,7 +111,10 @@ export default function CaseStudyDetailPage({
 
   return (
     <main data-page="apps" style={{ ["--area" as string]: area.color }} className="pt-28 sm:pt-32">
-      <ChapterNav sections={study.sections} label={ui.chapterNavLabel} />
+      <ChapterNav
+        items={study.sections.map((s, i) => ({ id: chapterId(i), label: s.heading }))}
+        label={ui.chapterNavLabel}
+      />
 
       {/* ── Hero ── */}
       <section className="relative overflow-hidden">

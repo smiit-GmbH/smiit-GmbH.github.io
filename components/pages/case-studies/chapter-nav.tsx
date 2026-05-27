@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react"
 import { useLenis } from "@/components/smooth-scroll-provider"
-import type { CaseStudySection } from "@/lib/case-studies"
 
 function cx(...classes: Array<string | false | null | undefined>) {
   return classes.filter(Boolean).join(" ")
@@ -16,23 +15,28 @@ export function chapterId(index: number) {
 /** Id of the wrapper that holds all narrative chapters (used for visibility). */
 export const CHAPTERS_WRAPPER_ID = "case-study-chapters"
 
+export type ChapterNavItem = { id: string; label: string }
+
 /**
- * Discreet vertical anchor rail: one tick per numbered chapter, mirroring the
- * chapter count. Highlights the chapter currently in view, scrolls to a chapter
- * on click, and stays hidden unless the reader is inside the narrative section.
+ * Discreet vertical anchor rail: one tick per item, mirroring the section count.
+ * Highlights the section currently in view, scrolls to it on click, and stays
+ * hidden unless the reader is inside the wrapper element. Generic over the items
+ * + wrapper id so it works for case studies and blog posts alike.
  */
 export default function ChapterNav({
-  sections,
+  items,
   label,
+  wrapperId = CHAPTERS_WRAPPER_ID,
+  className,
 }: {
-  sections: CaseStudySection[]
+  items: ChapterNavItem[]
   label: string
+  wrapperId?: string
+  className?: string
 }) {
   const lenis = useLenis()
   const [active, setActive] = useState(0)
   const [visible, setVisible] = useState(false)
-  // Indices whose section is currently crossing the detection band.
-  const inViewRef = useRef<Set<number>>(new Set())
   const navRef = useRef<HTMLElement>(null)
   // Touch scrubbing: track whether the finger is down and has actually moved
   // (a real drag) so a drag doesn't also fire the button's tap handler.
@@ -41,30 +45,33 @@ export default function ChapterNav({
   const startYRef = useRef(0)
 
   useEffect(() => {
-    const els = sections
-      .map((_, i) => document.getElementById(chapterId(i)))
+    const els = items
+      .map((item) => document.getElementById(item.id))
       .filter((el): el is HTMLElement => el !== null)
     if (els.length === 0) return
 
-    // Scrollspy: a thin band near the vertical centre decides the active chapter.
-    const spy = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          const idx = els.indexOf(entry.target as HTMLElement)
-          if (idx === -1) continue
-          if (entry.isIntersecting) inViewRef.current.add(idx)
-          else inViewRef.current.delete(idx)
-        }
-        if (inViewRef.current.size > 0) {
-          setActive(Math.min(...inViewRef.current))
-        }
-      },
-      { rootMargin: "-45% 0px -50% 0px", threshold: 0 },
-    )
-    els.forEach((el) => spy.observe(el))
+    // Position-based scrollspy: the active section is the last heading whose top
+    // has scrolled above a line at ~40% of the viewport. Unlike a band-based
+    // observer, this stays correct while reading long sections and scrolling up.
+    let raf = 0
+    const updateActive = () => {
+      raf = 0
+      const line = window.innerHeight * 0.4
+      let current = 0
+      for (let i = 0; i < els.length; i++) {
+        if (els[i].getBoundingClientRect().top <= line) current = i
+        else break
+      }
+      const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2
+      if (atBottom) current = els.length - 1
+      setActive(current)
+    }
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(updateActive)
+    }
 
     // Visibility: show the rail only while the chapter block is on screen.
-    const wrapper = document.getElementById(CHAPTERS_WRAPPER_ID)
+    const wrapper = document.getElementById(wrapperId)
     let vis: IntersectionObserver | undefined
     if (wrapper) {
       vis = new IntersectionObserver(
@@ -76,12 +83,18 @@ export default function ChapterNav({
       vis.observe(wrapper)
     }
 
+    updateActive()
+    window.addEventListener("scroll", onScroll, { passive: true })
+    window.addEventListener("resize", onScroll)
+    lenis?.on("scroll", onScroll)
     return () => {
-      spy.disconnect()
+      window.removeEventListener("scroll", onScroll)
+      window.removeEventListener("resize", onScroll)
+      lenis?.off("scroll", onScroll)
+      if (raf) cancelAnimationFrame(raf)
       vis?.disconnect()
-      inViewRef.current.clear()
     }
-  }, [sections])
+  }, [items, wrapperId, lenis])
 
   // Keep the rail pinned to the centre of the *visible* area. `position: fixed`
   // alone tracks the layout viewport, which jumps when mobile browser chrome
@@ -104,7 +117,8 @@ export default function ChapterNav({
   }, [])
 
   const scrollToIndex = (i: number, immediate = false) => {
-    const el = document.getElementById(chapterId(i))
+    const target = items[i]
+    const el = target ? document.getElementById(target.id) : null
     if (!el) return
     setActive(i)
     if (lenis) lenis.scrollTo(el, { offset: -120, immediate })
@@ -172,6 +186,7 @@ export default function ChapterNav({
       className={cx(
         "group/nav fixed right-4 top-[50dvh] z-30 flex -translate-y-1/2 touch-none flex-col items-end transition-opacity duration-300 sm:right-6 lg:right-8 xl:right-12",
         visible ? "opacity-100" : "pointer-events-none opacity-0",
+        className,
       )}
     >
       {/* Frosted panel sitting only behind the tick column (anchored to the
@@ -180,7 +195,7 @@ export default function ChapterNav({
         aria-hidden
         className="pointer-events-none absolute -inset-y-3 -right-1 -z-10 w-8 rounded-full border border-white/25 bg-white/20 backdrop-blur-sm lg:border-white/40 lg:bg-white/30 lg:shadow-sm lg:backdrop-blur-md"
       />
-      {sections.map((section, i) => {
+      {items.map((item, i) => {
         const isActive = i === active
         const num = String(i + 1).padStart(2, "0")
         return (
@@ -188,7 +203,7 @@ export default function ChapterNav({
             key={i}
             type="button"
             onClick={() => onActivate(i)}
-            aria-label={`${num} — ${section.heading}`}
+            aria-label={`${num} — ${item.label}`}
             aria-current={isActive ? "true" : undefined}
             className="group flex items-center justify-end py-1.5 transition-all duration-300 lg:gap-3 group-hover/nav:py-2"
           >
@@ -197,7 +212,7 @@ export default function ChapterNav({
             <span className="hidden grid-cols-[0fr] grid-rows-[0fr] opacity-0 transition-all duration-300 group-hover/nav:grid-cols-[1fr] group-hover/nav:grid-rows-[1fr] group-hover/nav:opacity-100 lg:grid">
               <span className="overflow-hidden">
                 <span className="block whitespace-nowrap rounded-md bg-[#0B162D] py-1 pl-2 pr-3 text-[0.7rem] font-medium text-white shadow-md transition-all duration-200 group-hover:text-[0.78rem] group-hover:shadow-xl">
-                  <span className="text-slate-400">{num}</span> {section.heading}
+                  <span className="text-slate-400">{num}</span> {item.label}
                 </span>
               </span>
             </span>

@@ -22,6 +22,7 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
           about: "Über uns",
           caseStudies: "Case Studies",
           glossary: "Glossar",
+          blog: "Blog",
           products: "Produkte",
           contactSection: "Kontakt",
           rights: "Alle Rechte vorbehalten.",
@@ -46,6 +47,7 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
           about: "About",
           caseStudies: "Case Studies",
           glossary: "Glossary",
+          blog: "Blog",
           products: "Our Products",
           contactSection: "Contact",
           rights: "All rights reserved.",
@@ -69,6 +71,7 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
   const aboutHref = `${base}/about`
   const caseStudiesHref = `${base}/case-studies`
   const glossaryHref = `${base}/glossary`
+  const blogHref = `${base}/blog`
   const productsHref = `${base}/products`
   const imprintHref = `${base}/legal-notice`
   const privacyHref = `${base}/privacy`
@@ -121,11 +124,6 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
                   {L.consulting}
                 </Link>
               </li>
-              <li>
-                <Link href={caseStudiesHref} className="text-sm text-gray-700 hover:text-black transition-colors">
-                  {L.caseStudies}
-                </Link>
-              </li>
             </ul>
           </div>
 
@@ -138,6 +136,16 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
                 </Link>
               </li>
               <li>
+                <Link href={blogHref} className="text-sm text-gray-700 hover:text-black transition-colors">
+                  {L.blog}
+                </Link>
+              </li>
+              <li>
+                <Link href={caseStudiesHref} className="text-sm text-gray-700 hover:text-black transition-colors">
+                  {L.caseStudies}
+                </Link>
+              </li>
+              <li>
                 <Link href={glossaryHref} className="text-sm text-gray-700 hover:text-black transition-colors">
                   {L.glossary}
                 </Link>
@@ -146,7 +154,7 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
                 <Link href={productsHref} className="text-sm text-gray-700 hover:text-black transition-colors">
                   {L.products}
                 </Link>
-              </li> */}
+              </li>
               <li>
                 <Link
                   href={`https://grab.smiit.de/${lang}/`}
@@ -166,7 +174,7 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
                 >
                   Noah Neßlauer
                 </Link>
-              </li>
+              </li> */}
             </ul>
           </div>
 

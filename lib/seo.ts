@@ -366,6 +366,59 @@ export function buildGlossaryArticleJsonLd({
   }
 }
 
+type BlogArticleJsonLdInput = {
+  lang: Locale
+  slug: string
+  headline: string
+  description: string
+  datePublished: string
+  dateModified: string
+  author: string
+  image?: string
+  articleSection?: string
+  keywords?: string[]
+}
+
+export function buildBlogArticleJsonLd({
+  lang,
+  slug,
+  headline,
+  description,
+  datePublished,
+  dateModified,
+  author,
+  image,
+  articleSection,
+  keywords,
+}: BlogArticleJsonLdInput) {
+  const url = `${SITE_URL}/${lang}/blog/${slug}/`
+  return {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline,
+    description,
+    datePublished,
+    dateModified,
+    inLanguage: lang === "de" ? "de-DE" : "en-US",
+    image: image ? `${SITE_URL}${image.startsWith("/") ? image : `/${image}`}` : `${SITE_URL}/og/home.png`,
+    mainEntityOfPage: url,
+    url,
+    ...(articleSection ? { articleSection } : {}),
+    ...(keywords && keywords.length > 0 ? { keywords: keywords.join(", ") } : {}),
+    author: {
+      "@type": "Person",
+      name: author,
+      worksFor: { "@type": "Organization", name: SITE_NAME, url: SITE_URL },
+    },
+    publisher: {
+      "@type": "Organization",
+      name: SITE_NAME,
+      url: SITE_URL,
+      logo: { "@type": "ImageObject", url: `${SITE_URL}/logo_black.png` },
+    },
+  }
+}
+
 export function buildPageMetadata({
   lang,
   path = "",
