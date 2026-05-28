@@ -1,7 +1,7 @@
 import type { Metadata } from "next"
 import { getDictionary, Locale } from "@/lib/dictionary"
 import SmiitAnalyticsPage from "@/components/pages/products/SmiitAnalyticsPage"
-import { buildBreadcrumbJsonLd, buildFaqJsonLd, buildPageMetadata, buildProductJsonLd } from "@/lib/seo"
+import { buildBreadcrumbJsonLd, buildPageMetadata, buildProductJsonLd } from "@/lib/seo"
 import { JsonLd } from "@/components/seo/json-ld"
 
 export async function generateStaticParams() {
@@ -37,14 +37,6 @@ export default async function Page({
   const { lang } = await params
   const dict = getDictionary(lang)
 
-  const reviewItems: {
-    author: string
-    company: string
-    rating: number
-    date: string
-    quote: string
-  }[] = dict.smiitAnalytics.reviews.items
-
   const productJsonLd = buildProductJsonLd({
     lang,
     path: "products/smiit-analytics",
@@ -53,30 +45,16 @@ export default async function Page({
       de: "Plug-and-Play Analytics-Lösung mit vorgefertigten Dashboards und KPIs für den Mittelstand.",
       en: "Plug-and-play analytics solution with pre-built dashboards and KPIs for SMEs.",
     },
-    reviews: reviewItems.map((r) => ({
-      author: r.author,
-      company: r.company,
-      reviewBody: r.quote,
-      ratingValue: r.rating,
-      datePublished: r.date,
-    })),
-    aggregateRating: {
-      ratingValue: 5,
-      reviewCount: reviewItems.length,
-    },
   })
 
   const breadcrumbJsonLd = buildBreadcrumbJsonLd(lang, [
     { name: "smiit Analytics", path: "products/smiit-analytics" },
   ])
 
-  const faqJsonLd = buildFaqJsonLd(dict.smiitAnalytics.faq.items)
-
   return (
     <>
       <JsonLd data={productJsonLd} />
       <JsonLd data={breadcrumbJsonLd} />
-      <JsonLd data={faqJsonLd} />
       <SmiitAnalyticsPage lang={lang} dict={dict} />
     </>
   )
