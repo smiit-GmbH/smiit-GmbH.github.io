@@ -457,7 +457,7 @@ function BlogBlockRenderer({
           {block.items.map((item, i) => (
             <li key={i} className="flex items-start gap-3">
               <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--area)]" />
-              <span className="text-[0.98rem] sm:text-[1.05rem] leading-[1.7] text-[#0B162D]/80">
+              <span className="text-[0.9rem] sm:text-[1.05rem] leading-[1.75] text-[#0B162D]/80">
                 {Array.isArray(linked) ? linked[i] : item}
               </span>
             </li>

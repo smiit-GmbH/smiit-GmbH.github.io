@@ -134,7 +134,7 @@ export default function GlossaryTermPage({ lang, term }: { lang: Locale; term: G
               {term.misconceptions.map((item, i) => (
                 <li key={i} className="flex items-start gap-3">
                   <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--area)]" />
-                  <span className="text-[0.95rem] leading-relaxed text-[#0B162D]/80 max-w-[72ch]">{item}</span>
+                  <span className="text-[0.9rem] sm:text-[1.05rem] leading-[1.75] text-[#0B162D]/80 max-w-[72ch]">{item}</span>
                 </li>
               ))}
             </ul>
@@ -326,7 +326,7 @@ function GlossarySectionBlock({
               {bullets.map((b, i) => (
                 <li key={i} className="flex items-start gap-3">
                   <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--area)]" />
-                  <span className="text-[0.98rem] leading-relaxed text-[#0B162D]/80">{b}</span>
+                  <span className="text-[0.9rem] sm:text-[1.05rem] leading-[1.75] text-[#0B162D]/80">{b}</span>
                 </li>
               ))}
             </ul>
