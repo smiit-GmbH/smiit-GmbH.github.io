@@ -32,7 +32,7 @@ export async function generateMetadata({
     path: `blog/${slug}`,
     title: { de: post.metaTitle, en: post.metaTitle },
     description: { de: post.metaDescription, en: post.metaDescription },
-    ogImage: post.ogImage,
+    ogImage: post.ogImage ?? { url: "/og/blog.png", width: 1920, height: 999, alt: "smiit GmbH – Blog" },
   })
 }
 

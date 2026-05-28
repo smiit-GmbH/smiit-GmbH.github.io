@@ -114,9 +114,9 @@ const mlopsAzure: LocalizedBlogPost = {
     excerpt:
       "Ein gutes Modell zu trainieren ist nur der Anfang. Wie Unternehmen ML-Modelle mit Microsoft Azure wirklich produktionsreif betreiben – von der Zielarchitektur über CI/CD, Infrastructure as Code und Model Registry bis zu Monitoring und Governance.",
     ogImage: {
-      url: "/og/home.png",
-      width: 1200,
-      height: 630,
+      url: "/og/blog-mlops.png",
+      width: 1920,
+      height: 999,
       alt: "smiit GmbH – MLOps mit Microsoft Azure",
     },
     coverImage: {
@@ -846,9 +846,9 @@ const mlopsAzure: LocalizedBlogPost = {
     excerpt:
       "Training a good model is just the beginning. How companies actually get ML models production-ready on Microsoft Azure — from the target architecture through CI/CD, infrastructure as code and a model registry to monitoring and governance.",
     ogImage: {
-      url: "/og/home.png",
-      width: 1200,
-      height: 630,
+      url: "/og/blog-mlops.png",
+      width: 1920,
+      height: 999,
       alt: "smiit GmbH – MLOps on Microsoft Azure",
     },
     coverImage: {

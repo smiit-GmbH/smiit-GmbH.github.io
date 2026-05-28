@@ -26,7 +26,7 @@ export async function generateMetadata({
       de: "Praxiswissen aus echten Projekten: Datenanalyse, Cloud-Architektur, KI/MLOps und digitale Strategie für den Mittelstand — fundiert und ehrlich erklärt.",
       en: "Practical knowledge from real projects: data analytics, cloud architecture, AI/MLOps and digital strategy for SMEs — explained clearly and honestly.",
     },
-    ogImage: { url: "/og/home.png", width: 1200, height: 630, alt: "smiit GmbH – Blog" },
+    ogImage: { url: "/og/blog.png", width: 1920, height: 999, alt: "smiit GmbH – Blog" },
   })
 }
 
