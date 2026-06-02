@@ -18,13 +18,14 @@ export async function generateMetadata({
     lang,
     path: "website",
     title: {
-      de: "Webdesign für Industrie & Mittelstand | Hochwertige Unternehmenswebsites – smiit",
-      en: "Web design for industry & SMEs | High-quality corporate websites – smiit",
+      de: "smiit GmbH - Webdesign für Industrie & Mittelstand | Hochwertige Unternehmenswebsites",
+      en: "smiit GmbH - Web design for industry & SMEs | High-quality corporate websites",
     },
     description: {
       de: "Hochwertige Unternehmenswebsites, die Vertrauen schaffen und Anfragen bringen. Für Bau, Entsorgung, Logistik und Industrie. Website-Relaunch ab 5.000 € – jetzt kostenloses Erstkonzept sichern.",
       en: "High-quality corporate websites that build trust and generate enquiries. For construction, waste management, logistics and industry. Website relaunch from €5,000 – get your free initial concept now.",
     },
+    // TODO: dediziertes OG-Bild /og/services-website.png (1200×630) anlegen – nutzt vorerst home.png als Fallback statt 404.
     ogImage: { url: "/og/services-website.png", width: 1200, height: 630, alt: "smiit GmbH – Webdesign & Unternehmenswebsites" },
   })
 }
@@ -51,6 +52,12 @@ export default async function Page({
     serviceType: {
       de: "Webdesign",
       en: "Web design",
+    },
+    offers: {
+      priceCurrency: "EUR",
+      lowPrice: 5000,
+      highPrice: 15000,
+      offerCount: 3,
     },
   })
 

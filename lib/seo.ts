@@ -48,12 +48,21 @@ type AggregateRatingInput = {
   worstRating?: number
 }
 
+type ServiceOfferInput = {
+  priceCurrency: string
+  /** Lowest starting price (e.g. "ab 5.000 €"). */
+  lowPrice: number
+  highPrice?: number
+  offerCount?: number
+}
+
 type ServiceJsonLdInput = {
   lang: Locale
   path: string
   name: LocalizedText
   description: LocalizedText
   serviceType?: LocalizedText
+  offers?: ServiceOfferInput
 }
 
 function buildAggregateRatingNode({ ratingValue, reviewCount, bestRating = 5, worstRating = 1 }: AggregateRatingInput) {
@@ -66,7 +75,7 @@ function buildAggregateRatingNode({ ratingValue, reviewCount, bestRating = 5, wo
   }
 }
 
-export function buildServiceJsonLd({ lang, path, name, description, serviceType }: ServiceJsonLdInput) {
+export function buildServiceJsonLd({ lang, path, name, description, serviceType, offers }: ServiceJsonLdInput) {
   return {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -81,6 +90,18 @@ export function buildServiceJsonLd({ lang, path, name, description, serviceType 
     },
     areaServed: ["DE", "AT", "CH", "EU"],
     inLanguage: lang === "de" ? "de-DE" : "en-US",
+    ...(offers
+      ? {
+          offers: {
+            "@type": "AggregateOffer",
+            priceCurrency: offers.priceCurrency,
+            lowPrice: offers.lowPrice,
+            ...(offers.highPrice ? { highPrice: offers.highPrice } : {}),
+            ...(offers.offerCount ? { offerCount: offers.offerCount } : {}),
+            availability: "https://schema.org/InStock",
+          },
+        }
+      : {}),
   }
 }
 

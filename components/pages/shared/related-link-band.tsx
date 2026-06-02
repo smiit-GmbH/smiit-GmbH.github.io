@@ -28,7 +28,7 @@ export default function RelatedLinkBand({
 
   return (
     <section className="relative bg-transparent py-4 sm:py-6">
-      <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 mb-10">
+      <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 mb-6 sm:mb-10">
         <div className="flex flex-col items-start gap-3 border-y border-black/10 py-6 sm:flex-row sm:items-center sm:justify-between sm:gap-8 sm:py-8">
           <p className="text-sm sm:text-[0.95rem] leading-relaxed text-black/60 max-w-[60ch]">
             {text}

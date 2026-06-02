@@ -37,7 +37,7 @@ export default function ManifestBand({ dict }: { dict: any }) {
       <div aria-hidden className="pointer-events-none absolute inset-0 -z-0 opacity-[0.06]"
         style={{ backgroundImage: "linear-gradient(to right, rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.6) 1px, transparent 1px)", backgroundSize: "64px 64px" }} />
 
-      <div className="sticky top-0 flex min-h-[58vh] items-center justify-center px-5 py-16 sm:px-8 sm:py-20 lg:min-h-[80dvh] lg:py-24">
+      <div className="sticky top-0 flex min-h-[66vh] items-center justify-center px-5 py-16 sm:px-8 sm:py-20 lg:min-h-[90vh] lg:py-24">
         <div className="relative z-10 mx-auto max-w-[1200px] text-center">
 
           {/* Mobile */}

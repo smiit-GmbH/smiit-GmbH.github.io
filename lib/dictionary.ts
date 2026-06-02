@@ -1295,13 +1295,15 @@ const dictionaries = {
           "Wir entwickeln hochwertige Unternehmenswebsites, die Ihr Können sichtbar machen – technisch schnell, mobil stark und gebaut, um aus Besuchern echte Anfragen zu machen.",
         primaryCta: "Kostenloses Erstkonzept sichern",
         secondaryCta: "So arbeiten wir",
+        packagesLabel: "Beliebte Leistungen",
+        packages: ["Corporate Website", "Relaunch", "Mobile & SEO", "CMS-Pflege", "Conversion-Optimierung"],
         beforeLabel: "Vorher",
         afterLabel: "Nachher",
         sliderHint: "Ziehen Sie den Regler – so wirkt ein Relaunch von smiit",
       },
       logoStrip: {
         label: "Vertrauen aus Bau, Industrie, Logistik & Entsorgung",
-        names: ["RB Westkamp", "ASW Engineering", "Dy Project AG", "G&B Logistics", "SHW Schmiedetechnik"],
+        names: ["RB Westkamp GmbH", "ASW Engineering AG", "Dy Project AG", "G&B Logistics GmbH", "SHW Schmiedetechnik GmbH & Co. KG", "Malpur Facility Services AG", "D & W GmbH", "Wörner Automatisierungstechnik GmbH"],
       },
       problem: {
         title: "Viele gewachsene Unternehmen wirken online",
@@ -2796,13 +2798,15 @@ const dictionaries = {
           "We build high-quality corporate websites that make your expertise visible – technically fast, strong on mobile, and built to turn visitors into real enquiries.",
         primaryCta: "Get your free initial concept",
         secondaryCta: "How we work",
+        packagesLabel: "Popular services",
+        packages: ["Corporate website", "Relaunch", "Mobile & SEO", "CMS editing", "Conversion optimization"],
         beforeLabel: "Before",
         afterLabel: "After",
         sliderHint: "Drag the slider – this is what a relaunch by smiit looks like",
       },
       logoStrip: {
         label: "Trusted by construction, industry, logistics & waste management",
-        names: ["RB Westkamp", "ASW Engineering", "Dy Project AG", "G&B Logistics", "SHW Schmiedetechnik"],
+        names: ["RB Westkamp GmbH", "ASW Engineering AG", "Dy Project AG", "G&B Logistics GmbH", "SHW Schmiedetechnik GmbH & Co. KG", "Malpur Facility Services AG", "D & W GmbH", "Wörner Automatisierungstechnik GmbH"],
       },
       problem: {
         title: "Many established companies appear online",

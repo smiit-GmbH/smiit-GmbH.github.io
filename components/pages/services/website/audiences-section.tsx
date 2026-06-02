@@ -23,14 +23,14 @@ export default function AudiencesSection({ dict }: { dict: any }) {
   const grid = useRevealOnScroll({ margin: "-60px" })
 
   return (
-    <section id="branchen" className="relative bg-transparent pt-[clamp(72px,9vw,140px)] pb-[clamp(40px,5vw,80px)]">
-      <div className="mx-auto max-w-[1240px] px-8">
+    <section id="industries" className="relative bg-transparent pt-[clamp(72px,9vw,140px)] pb-[clamp(40px,5vw,80px)]">
+      <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
         {/* Heading */}
         <div ref={heading.ref} className={`reveal-fade-up ${heading.isRevealed ? "revealed" : ""}`}>
           <span className="section-eyebrow">{eyebrow}</span>
-          <h2 className="mt-[22px] font-serif text-[clamp(2.1rem,4.4vw,3.7rem)] leading-[1.02] tracking-[-0.02em] max-w-[20ch] text-[#15151a]">
+          <h2 className="mt-[22px] font-serif text-[2.2rem] sm:text-[2.4rem] md:text-[3rem] leading-[1.1] tracking-tight max-w-[20ch] text-[#15151a]">
             {audiences.title}{" "}
-            <em className="not-italic text-[#e6009b]">{audiences.titleHighlight}</em>
+            <em className="not-italic text-[#F703EB]">{audiences.titleHighlight}</em>
           </h2>
         </div>
 
@@ -51,11 +51,11 @@ export default function AudiencesSection({ dict }: { dict: any }) {
                 className="group relative overflow-hidden rounded-[26px] bg-white border border-[rgba(21,21,26,0.06)] p-[26px] min-h-[220px] flex flex-col justify-between transition-all duration-300 hover:-translate-y-[5px] hover:shadow-[0_30px_70px_-20px_rgba(21,21,26,0.22)]"
               >
                 {/* Number */}
-                <span className="absolute top-[18px] right-[22px] font-serif text-[1.5rem] text-[#8a8a96] group-hover:text-[#e6009b] transition-colors duration-300">
+                <span className="absolute top-[18px] right-[22px] font-serif text-[1.5rem] text-[#8a8a96] group-hover:text-[#F703EB] transition-colors duration-300">
                   {item.number}
                 </span>
                 {/* Badge */}
-                <div className="w-[52px] h-[52px] rounded-[15px] bg-[#e9f0fb] text-[#2160b8] grid place-items-center border border-[rgba(21,21,26,0.06)]">
+                <div className="w-[52px] h-[52px] rounded-[15px] bg-[#F703EB]/[0.08] text-[#F703EB] grid place-items-center border border-[rgba(21,21,26,0.06)]">
                   <Icon className="w-[24px] h-[24px]" />
                 </div>
                 {/* Content */}

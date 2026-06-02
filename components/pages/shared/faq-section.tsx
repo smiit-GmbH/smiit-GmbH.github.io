@@ -30,7 +30,7 @@ export default function FaqSection({
 
   const sectionPadding = compact
     ? "pt-2 pb-10 sm:pt-4 sm:pb-32"
-    : "pt-16 pb-10 sm:pt-20 sm:pb-32"
+    : "pt-10 pb-10 sm:pt-20 sm:pb-32"
 
   return (
     <section className={`relative bg-transparent ${sectionPadding}`}>

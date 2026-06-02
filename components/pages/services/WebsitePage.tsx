@@ -29,17 +29,17 @@ export default function WebsitePage({
       <LogoStrip label={logoStrip.label} names={logoStrip.names} />
       <ProblemSection dict={dict} />
       <ManifestBand dict={dict} />
-      <AudiencesSection dict={dict} />
+      {/* <AudiencesSection dict={dict} /> */}
       <ReferencesSection dict={dict} />
       <ProcessSection dict={dict} />
       <PricingSection dict={dict} />
-      <RelatedLinkBand
+      {/* <RelatedLinkBand
         text={related.text}
         linkLabel={related.linkLabel}
         href={related.href}
-        accent="#e6009b"
-        accentHover="#c5008a"
-      />
+        accent="#F703EB"
+        accentHover="#C002B7"
+      /> */}
       <FaqSection dict={dict.servicesWebsite.faq} />
     </main>
   )

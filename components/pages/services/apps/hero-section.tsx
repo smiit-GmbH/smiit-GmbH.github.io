@@ -930,11 +930,11 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
           {/* SINGLE APP FRAME */}
           <motion.div
             style={dashboardWrapperStyle}
-            className="absolute inset-0 z-20 flex items-center justify-center"
+            className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center"
           >
             <motion.div
               style={dashboardStyle}
-              className="relative overflow-hidden rounded-[28px] border border-white/70 bg-white/84 shadow-[0_34px_100px_rgba(15,23,42,0.12)] backdrop-blur-2xl"
+              className="pointer-events-auto relative overflow-hidden rounded-[28px] border border-white/70 bg-white/84 shadow-[0_34px_100px_rgba(15,23,42,0.12)] backdrop-blur-2xl"
             >
               {/* Light-sweep / glass-reflex */}
               <motion.div
