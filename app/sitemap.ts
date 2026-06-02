@@ -41,6 +41,7 @@ const routes: Route[] = [
   { path: "services/analytics", priority: 0.9, changeFrequency: "monthly" },
   { path: "services/strategy", priority: 0.9, changeFrequency: "monthly" },
   { path: "services/apps", priority: 0.9, changeFrequency: "monthly" },
+  { path: "website", priority: 0.9, changeFrequency: "monthly" },
   { path: "products/smiit-analytics", priority: 0.9, changeFrequency: "monthly" },
   { path: "case-studies", priority: 0.6, changeFrequency: "monthly", lastModified: latestCaseStudyDate },
   ...caseStudySlugs.map(

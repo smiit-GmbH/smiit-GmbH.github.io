@@ -392,6 +392,12 @@
 [data-page="strategy"] .section-eyebrow::before {
   background: linear-gradient(to right, transparent, #64748B);
 }
+[data-page="website"] .section-eyebrow {
+  color: #F703EB;
+}
+[data-page="website"] .section-eyebrow::before {
+  background: linear-gradient(to right, transparent, #F703EB);
+}
 
 /* Heading highlight word — picks up per-page accent automatically */
 .section-highlight {
@@ -402,6 +408,9 @@
 }
 [data-page="strategy"] .section-highlight {
   color: #64748B;
+}
+[data-page="website"] .section-highlight {
+  color: #F703EB;
 }
 
 /* Hero scroll-indicator pulse */
@@ -478,4 +487,13 @@
 @media (prefers-reduced-motion: reduce) {
   .pipeline-node-halo { animation: none; opacity: 0; }
   .pipeline-packet    { display: none; }
+}
+
+/* Logo strip – continuous marquee */
+@keyframes logoMarquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .logo-marquee-track { animation: none; }
 }

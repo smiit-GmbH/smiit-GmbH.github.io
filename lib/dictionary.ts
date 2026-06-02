@@ -1278,6 +1278,231 @@ const dictionaries = {
         href: "/services/analytics",
       },
     },
+    servicesWebsite: {
+      eyebrows: {
+        hero: "WEBDESIGN FÜR DEN MITTELSTAND",
+        problem: "PROBLEME & LÖSUNGEN",
+        process: "UNSER VORGEHEN",
+        audiences: "FÜR IHRE BRANCHE",
+        references: "REFERENZEN",
+        pricing: "INVESTITION",
+        cta: "KOSTENLOSES ERSTKONZEPT",
+      },
+      hero: {
+        title: "Ihr Unternehmen ist stark. Ihre Website sollte das",
+        titleHighlight: "zeigen.",
+        description:
+          "Wir entwickeln hochwertige Unternehmenswebsites, die Ihr Können sichtbar machen – technisch schnell, mobil stark und gebaut, um aus Besuchern echte Anfragen zu machen.",
+        primaryCta: "Kostenloses Erstkonzept sichern",
+        secondaryCta: "So arbeiten wir",
+        packagesLabel: "Beliebte Leistungen",
+        packages: ["Corporate Website", "Relaunch", "Mobile & SEO", "CMS-Pflege", "Conversion-Optimierung"],
+        beforeLabel: "Vorher",
+        afterLabel: "Nachher",
+        sliderHint: "Ziehen Sie den Regler – so wirkt ein Relaunch von smiit",
+      },
+      logoStrip: {
+        label: "Vertrauen aus Bau, Industrie, Logistik & Entsorgung",
+        names: ["RB Westkamp GmbH", "ASW Engineering AG", "Dy Project AG", "G&B Logistics GmbH", "SHW Schmiedetechnik GmbH & Co. KG", "Malpur Facility Services AG", "D & W GmbH", "Wörner Automatisierungstechnik GmbH"],
+      },
+      problem: {
+        title: "Viele gewachsene Unternehmen wirken online",
+        titleHighlight: "kleiner, als sie tatsächlich sind.",
+        subtitle:
+          "Die Arbeit ist erstklassig – die Website hängt zehn Jahre hinterher. Das kostet Anfragen, Bewerber und Vertrauen.",
+        problemLabel: "Das Problem",
+        solutionLabel: "Was wir machen",
+        items: [
+          {
+            title: "Website wirkt veraltet",
+            solution: "Modernes Corporate Design",
+            solutionDetail: "Zeitloses, professionelles Layout – auf Ihre Marke zugeschnitten.",
+          },
+          {
+            title: "Leistungen sind unklar",
+            solution: "Klare Struktur & Inhaltsführung",
+            solutionDetail: "Besucher verstehen sofort, was Sie können – und fragen an.",
+          },
+          {
+            title: "Kaum Anfragen",
+            solution: "Conversion-Optimierung & starke CTAs",
+            solutionDetail: "Strategisch platzierte Handlungsaufforderungen, die Besucher in Anfragen verwandeln.",
+          },
+          {
+            title: "Langsam & mobil schwach",
+            solution: "Mobile-first, SEO & CMS",
+            solutionDetail: "Schnell auf jedem Gerät, gefunden bei Google – eigenständig pflegbar.",
+          },
+        ],
+      },
+      manifest: {
+        lead: "Ihre Website soll verkaufen.",
+        emphasis: "Nicht nur gut aussehen.",
+        subtitle:
+          "Eine smiit-Website ist ein Werkzeug aus Struktur, Technik und Inhalten — gebaut, damit aus Besuchern Anfragen und Bewerbungen werden.",
+      },
+      process: {
+        title: "So entsteht aus Ihrer Idee",
+        titleHighlight: "eine starke Website.",
+        subtitle: "Vier klare Schritte — von der ersten Idee bis zum laufenden Betrieb.",
+        stepLabel: "Schritt",
+        steps: [
+          {
+            number: "01",
+            title: "Erstkonzept",
+            text: "Wir analysieren Ihren Markt, Ihre Ziele und Ihre Wettbewerber — und liefern ein konkretes Konzept für Ihre neue Website. Kostenlos & unverbindlich.",
+          },
+          {
+            number: "02",
+            title: "Design",
+            text: "Wir gestalten Ihr Corporate Design und Seitenstruktur in einem modernen, conversionstarken Layout — abgestimmt auf Ihre Marke und Zielgruppe.",
+          },
+          {
+            number: "03",
+            title: "Umsetzung",
+            text: "Wir entwickeln Ihre Website technisch sauber: schnell, mobil optimiert, SEO-ready und mit einem CMS, das Ihr Team selbst befüllen kann.",
+          },
+          {
+            number: "04",
+            title: "Go-Live & Pflege",
+            text: "Wir begleiten Sie beim Launch, schulen Ihr Team ein und stehen für Pflege, Updates und Weiterentwicklung bereit.",
+          },
+        ],
+      },
+      audiences: {
+        title: "Gemacht für Betriebe, die",
+        titleHighlight: "anpacken.",
+        items: [
+          {
+            number: "01",
+            title: "Bauunternehmen",
+            text: "Hoch-, Tief- & Ausbau hochwertig präsentiert – mit Projekten, die Eindruck machen.",
+          },
+          {
+            number: "02",
+            title: "Entsorgungsbetriebe",
+            text: "Komplexe Leistungen klar erklärt – seriös, vertrauenswürdig und verständlich.",
+          },
+          {
+            number: "03",
+            title: "Logistikunternehmen",
+            text: "Fuhrpark, Standorte und Services in Szene gesetzt – stark für Kunden und Bewerber.",
+          },
+          {
+            number: "04",
+            title: "Maschinenbau & Industrie",
+            text: "Technische Tiefe verständlich kommuniziert – für Entscheider und Fachkräfte.",
+          },
+        ],
+      },
+      references: {
+        title: "Ergebnisse, die Ihr Team und Ihre Kunden",
+        titleHighlight: "tatsächlich spüren.",
+        items: [
+          {
+            tag: "Bau · Relaunch",
+            title: "Komplett-Relaunch mit Projektwelt",
+            text: "Von der veralteten Seite zur Referenz-Plattform – mehr qualifizierte Anfragen.",
+          },
+          {
+            tag: "Logistik · Karriere",
+            title: "Recruiting-Website mit Wirkung",
+            text: "Starke Karriereseite, die Bewerbungen statt Absprünge erzeugt.",
+          },
+          {
+            tag: "Industrie · Performance",
+            title: "Schnell, mobil, sichtbar",
+            text: "Technisch optimiert für Tempo, SEO und einen modernen Auftritt.",
+          },
+        ],
+        stats: [
+          { value: "5+", label: "Jahre Erfahrung", detail: "Standardisierte Prozesse und klare Strukturen bei jedem Projekt." },
+          { value: "70+", label: "Erfolgreiche Projekte", detail: "Umgesetzt für Kunden aus Bau, Industrie, Logistik & mehr." },
+          { value: "Ø 3,6", label: "Projekte je Kunde", detail: "Unsere Kunden bleiben – weil die Ergebnisse stimmen." },
+          { value: "100%", label: "DSGVO-konform", detail: "Rechtssichere Umsetzung – sauber dokumentiert." },
+        ],
+      },
+      pricing: {
+        title: "Planbar. Transparent.",
+        titleHighlight: "Wertig.",
+        subtitle: "Klare Rahmen statt versteckter Kosten — Sie wissen jederzeit genau, woran Sie sind.",
+        note: "Finaler Preis erst nach dem kostenlosen Erstkonzept — ohne Verpflichtung.",
+        cta: "Kostenloses Erstkonzept",
+        tiers: [
+          {
+            label: "Website-Relaunch",
+            value: "ab 5.000",
+            currency: "€",
+            desc: "Hochwertiger Neustart Ihres Auftritts",
+          },
+          {
+            label: "Typische Projekte",
+            value: "5–15",
+            currency: "T€",
+            desc: "Je nach Umfang, Seitenanzahl & CMS",
+          },
+          {
+            label: "Erstkonzept",
+            value: "0",
+            currency: "€",
+            desc: "Unverbindlich für ausgewählte Unternehmen",
+            featured: true,
+            featuredLabel: "Empfohlener Start",
+          },
+        ],
+      },
+      cta: {
+        title: "Sehen Sie, zu was Ihre Website",
+        titleHighlight: "in der Lage ist.",
+        subtitle:
+          "In einem kostenlosen Erstgespräch zeigen wir konkret, wo Ihre Website Potenzial verschenkt – und wie ein Relaunch aussehen könnte. Unverbindlich und ohne Verkaufsdruck.",
+        checks: [],
+        bookTitle: "Termin buchen",
+        bookSubtitle: "30-minütiges Erstgespräch – telefonisch oder per Video.",
+        bookEmail: "E-Mail schreiben",
+        primaryButton: "Kostenloses Erstkonzept sichern",
+        secondaryButton: "Kontakt aufnehmen",
+      },
+      faq: {
+        eyebrow: "FAQ",
+        heading: {
+          lead: "Häufige Fragen zu",
+          highlight: "Webdesign & Relaunch",
+        },
+        items: [
+          {
+            question: "Was kostet eine neue Unternehmenswebsite?",
+            answer:
+              "Ein Website-Relaunch bei smiit startet ab 5.000 €. Die meisten Projekte liegen zwischen 5.000 € und 15.000 €, je nach Umfang, Seitenanzahl und CMS-Anforderungen. Den finalen Preis erhalten Sie nach dem kostenlosen Erstkonzept – ohne Verpflichtung.",
+          },
+          {
+            question: "Wie lange dauert ein Website-Relaunch?",
+            answer:
+              "Typischerweise 6–12 Wochen vom Kickoff bis zum Go-Live. Die Dauer hängt vom Umfang, der Verfügbarkeit von Inhalten und Ihren Feedback-Zyklen ab. Im Erstkonzept bekommen Sie eine realistische Zeitplanung.",
+          },
+          {
+            question: "Kann ich die Inhalte später selbst bearbeiten?",
+            answer:
+              "Ja. Wir bauen Ihre Website mit einem CMS (z. B. Sanity oder ähnlichem), das Ihr Team ohne Programmierkenntnisse bedienen kann. Texte, Bilder und Seiten pflegen Sie selbständig.",
+          },
+          {
+            question: "Bietet smiit auch laufende Betreuung nach dem Launch?",
+            answer:
+              "Ja. Wir begleiten Sie auch nach dem Go-Live: Updates, technische Wartung, Content-Änderungen und Weiterentwicklungen. Die Konditionen klären wir im Erstgespräch.",
+          },
+          {
+            question: "Was ist im kostenlosen Erstkonzept enthalten?",
+            answer:
+              "Wir analysieren Ihre aktuelle Website, schauen uns Ihre Wettbewerber an und erarbeiten eine erste Konzeptidee – inklusive grober Struktur, Empfehlungen zu Design und Technik sowie einer Einschätzung zu Aufwand und Budget.",
+          },
+        ],
+      },
+      relatedLink: {
+        text: "Brauchen Sie auch individuelle Web-Apps oder Prozessautomatisierung? Schauen Sie sich unsere App-Entwicklung an.",
+        linkLabel: "Zu Apps & Workflows",
+        href: "/services/apps",
+      },
+    },
   },
   en: {
     hero: {
@@ -2554,6 +2779,231 @@ const dictionaries = {
         text: "Need data analytics beyond bexio? Learn more about our tailored analytics services.",
         linkLabel: "Explore our analytics services",
         href: "/services/analytics",
+      },
+    },
+    servicesWebsite: {
+      eyebrows: {
+        hero: "WEB DESIGN FOR SMEs",
+        problem: "PROBLEMS & SOLUTIONS",
+        process: "HOW WE WORK",
+        audiences: "FOR YOUR INDUSTRY",
+        references: "REFERENCES",
+        pricing: "INVESTMENT",
+        cta: "FREE INITIAL CONCEPT",
+      },
+      hero: {
+        title: "Your company is strong. Your website should",
+        titleHighlight: "show it.",
+        description:
+          "We build high-quality corporate websites that make your expertise visible – technically fast, strong on mobile, and built to turn visitors into real enquiries.",
+        primaryCta: "Get your free initial concept",
+        secondaryCta: "How we work",
+        packagesLabel: "Popular services",
+        packages: ["Corporate website", "Relaunch", "Mobile & SEO", "CMS editing", "Conversion optimization"],
+        beforeLabel: "Before",
+        afterLabel: "After",
+        sliderHint: "Drag the slider – this is what a relaunch by smiit looks like",
+      },
+      logoStrip: {
+        label: "Trusted by construction, industry, logistics & waste management",
+        names: ["RB Westkamp GmbH", "ASW Engineering AG", "Dy Project AG", "G&B Logistics GmbH", "SHW Schmiedetechnik GmbH & Co. KG", "Malpur Facility Services AG", "D & W GmbH", "Wörner Automatisierungstechnik GmbH"],
+      },
+      problem: {
+        title: "Many established companies appear online",
+        titleHighlight: "smaller than they really are.",
+        subtitle:
+          "The work is first-class – but the website is ten years behind. That costs enquiries, applicants and trust.",
+        problemLabel: "The problem",
+        solutionLabel: "What we do",
+        items: [
+          {
+            title: "Website looks outdated",
+            solution: "Modern corporate design",
+            solutionDetail: "Timeless, professional layout – tailored to your brand.",
+          },
+          {
+            title: "Services are unclear",
+            solution: "Clear structure & content hierarchy",
+            solutionDetail: "Visitors understand what you do within seconds – and get in touch.",
+          },
+          {
+            title: "Barely any enquiries",
+            solution: "Conversion optimisation & strong CTAs",
+            solutionDetail: "Strategically placed calls-to-action that turn visitors into leads.",
+          },
+          {
+            title: "Slow & poor on mobile",
+            solution: "Mobile-first, SEO & CMS",
+            solutionDetail: "Fast on every device, found on Google – independently manageable.",
+          },
+        ],
+      },
+      manifest: {
+        lead: "Your website should sell.",
+        emphasis: "Not just look good.",
+        subtitle:
+          "A smiit website is a tool of structure, technology and content — built to turn visitors into enquiries and applications.",
+      },
+      process: {
+        title: "How we turn your idea into",
+        titleHighlight: "a strong website.",
+        subtitle: "Four clear steps — from the first idea to live operation.",
+        stepLabel: "Step",
+        steps: [
+          {
+            number: "01",
+            title: "Initial concept",
+            text: "We analyse your market, goals and competitors — and deliver a concrete concept for your new website. Free and non-binding.",
+          },
+          {
+            number: "02",
+            title: "Design",
+            text: "We create your corporate design and page structure in a modern, conversion-optimised layout — tailored to your brand and target audience.",
+          },
+          {
+            number: "03",
+            title: "Development",
+            text: "We build your website to a high technical standard: fast, mobile-optimised, SEO-ready and with a CMS your team can manage themselves.",
+          },
+          {
+            number: "04",
+            title: "Go-live & maintenance",
+            text: "We support you at launch, train your team and remain available for maintenance, updates and further development.",
+          },
+        ],
+      },
+      audiences: {
+        title: "Built for businesses that",
+        titleHighlight: "get things done.",
+        items: [
+          {
+            number: "01",
+            title: "Construction companies",
+            text: "Commercial, civil & fit-out construction presented at its best – with projects that make an impression.",
+          },
+          {
+            number: "02",
+            title: "Waste management firms",
+            text: "Complex services explained clearly – professional, trustworthy and easy to understand.",
+          },
+          {
+            number: "03",
+            title: "Logistics companies",
+            text: "Fleet, locations and services presented with impact – strong for clients and job seekers.",
+          },
+          {
+            number: "04",
+            title: "Mechanical engineering & industry",
+            text: "Technical depth communicated clearly – for decision-makers and specialists.",
+          },
+        ],
+      },
+      references: {
+        title: "Results that your team and clients",
+        titleHighlight: "actually feel.",
+        items: [
+          {
+            tag: "Construction · Relaunch",
+            title: "Complete relaunch with project showcase",
+            text: "From an outdated site to a reference platform – more qualified enquiries.",
+          },
+          {
+            tag: "Logistics · Careers",
+            title: "Recruitment website that works",
+            text: "A strong careers page that generates applications instead of bounces.",
+          },
+          {
+            tag: "Industry · Performance",
+            title: "Fast, mobile, visible",
+            text: "Technically optimised for speed, SEO and a modern presence.",
+          },
+        ],
+        stats: [
+          { value: "5+", label: "Years of experience", detail: "Standardised processes and clear structures on every project." },
+          { value: "70+", label: "Successful projects", detail: "Delivered for clients in construction, industry, logistics & more." },
+          { value: "Ø 3.6", label: "Projects per client", detail: "Our clients stay – because the results speak for themselves." },
+          { value: "100%", label: "GDPR compliant", detail: "Legally sound implementation – thoroughly documented." },
+        ],
+      },
+      pricing: {
+        title: "Predictable. Transparent.",
+        titleHighlight: "Worthwhile.",
+        subtitle: "Clear frames instead of hidden costs — you always know exactly where you stand.",
+        note: "Final price only after the free initial concept — no obligation.",
+        cta: "Free initial concept",
+        tiers: [
+          {
+            label: "Website relaunch",
+            value: "from €5,000",
+            currency: "",
+            desc: "A high-quality restart for your online presence",
+          },
+          {
+            label: "Typical projects",
+            value: "5–15",
+            currency: "k€",
+            desc: "Depending on scope, page count & CMS",
+          },
+          {
+            label: "Initial concept",
+            value: "0",
+            currency: "€",
+            desc: "Non-binding for selected companies",
+            featured: true,
+            featuredLabel: "Recommended first step",
+          },
+        ],
+      },
+      cta: {
+        title: "See what your website is",
+        titleHighlight: "capable of.",
+        subtitle:
+          "In a free initial consultation we show you concretely where your website is leaving potential on the table – and what a relaunch could look like. Non-binding and without any sales pressure.",
+        checks: [],
+        bookTitle: "Book a call",
+        bookSubtitle: "30-minute initial call – by phone or video.",
+        bookEmail: "Send an email",
+        primaryButton: "Get your free initial concept",
+        secondaryButton: "Get in touch",
+      },
+      faq: {
+        eyebrow: "FAQ",
+        heading: {
+          lead: "Common questions about",
+          highlight: "web design & relaunch",
+        },
+        items: [
+          {
+            question: "How much does a new corporate website cost?",
+            answer:
+              "A website relaunch at smiit starts from €5,000. Most projects fall between €5,000 and €15,000, depending on scope, page count and CMS requirements. You receive the final price after the free initial concept – no obligation.",
+          },
+          {
+            question: "How long does a website relaunch take?",
+            answer:
+              "Typically 6–12 weeks from kickoff to go-live. The duration depends on scope, content availability and your feedback cycles. The initial concept will include a realistic timeline.",
+          },
+          {
+            question: "Can I edit the content myself afterwards?",
+            answer:
+              "Yes. We build your website with a CMS (e.g. Sanity or similar) that your team can use without any coding knowledge. You can manage texts, images and pages independently.",
+          },
+          {
+            question: "Does smiit offer ongoing support after launch?",
+            answer:
+              "Yes. We support you after go-live too: updates, technical maintenance, content changes and further development. We'll discuss the terms during the initial consultation.",
+          },
+          {
+            question: "What is included in the free initial concept?",
+            answer:
+              "We analyse your current website, review your competitors and develop a first concept idea – including a rough structure, design and technology recommendations, and an assessment of effort and budget.",
+          },
+        ],
+      },
+      relatedLink: {
+        text: "Do you also need custom web apps or process automation? Check out our app development services.",
+        linkLabel: "Explore Apps & Workflows",
+        href: "/services/apps",
       },
     },
   },
