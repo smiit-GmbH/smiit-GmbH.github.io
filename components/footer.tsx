@@ -4,6 +4,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
 import { Mail, MapPin, Phone } from "lucide-react"
+import { openCookieSettings } from "@/lib/gtag"
 
 export default function Footer({ forceLang }: { forceLang?: string }) {
   const pathname = usePathname() || "/"
@@ -29,6 +30,7 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
           privacy: "Datenschutzerklärung",
           terms: "Nutzungsbedingungen",
           imprint: "Impressum",
+          cookieSettings: "Cookie-Einstellungen",
           companyName: "smiit GmbH",
           street: "Reiherweg 96",
           city: "89584 Ehingen",
@@ -54,6 +56,7 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
           privacy: "Privacy Policy",
           terms: "Terms of Service",
           imprint: "Legal Notice",
+          cookieSettings: "Cookie settings",
           companyName: "smiit GmbH",
           street: "Reiherweg 96",
           city: "89584 Ehingen",
@@ -221,6 +224,13 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
             <Link href={privacyHref} className="text-sm text-gray-700 hover:text-black transition-colors">
               {L.privacy}
             </Link>
+            <button
+              type="button"
+              onClick={openCookieSettings}
+              className="text-sm text-gray-700 hover:text-black transition-colors"
+            >
+              {L.cookieSettings}
+            </button>
           </div>
         </div>
       </div>

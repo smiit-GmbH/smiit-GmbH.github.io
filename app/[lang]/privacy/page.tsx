@@ -94,6 +94,15 @@ export default async function PrivacyPage({
                   "Rechtsgrundlage: Art. 6 Abs. 1 lit. b und f DSGVO.",
                 ],
               },
+              {
+                label: "d) Google Ads – Conversion-Tracking",
+                paragraphs: [
+                  "Wir nutzen den Dienst Google Ads der Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland („Google“), um die Wirksamkeit unserer Online-Werbung zu messen (Conversion-Tracking). Dabei wird bei bestimmten Interaktionen (z. B. Klick auf eine E-Mail-Adresse, Start einer Terminvereinbarung über Calendly oder Aufruf unseres LinkedIn-Profils) erfasst, ob Sie zuvor über eine unserer Anzeigen auf die Website gelangt sind.",
+                  "Hierzu setzt Google Cookies bzw. vergleichbare Technologien ein und überträgt Daten (insbesondere IP-Adresse, Informationen zur Interaktion sowie eine eindeutige Kennung) an Google. Eine Verknüpfung mit Ihrer Identität durch uns findet nicht statt.",
+                  "Diese Verarbeitung erfolgt ausschließlich, wenn Sie hierzu über unser Cookie-Banner Ihre Einwilligung erteilt haben. Bis zu Ihrer Einwilligung werden keine Marketing-Cookies gesetzt; Daten werden allenfalls cookielos und ohne eindeutige Kennung übertragen (Google Consent Mode v2). Sie können Ihre Einwilligung jederzeit mit Wirkung für die Zukunft widerrufen, indem Sie das Cookie-Banner über den Link „Cookie-Einstellungen“ im Footer erneut öffnen und Ihre Auswahl ändern.",
+                  "Rechtsgrundlage: Art. 6 Abs. 1 lit. a DSGVO i. V. m. § 25 Abs. 1 TDDDG (Einwilligung).",
+                ],
+              },
             ],
           },
           {
@@ -105,6 +114,7 @@ export default async function PrivacyPage({
               "GitHub Pages (Hosting)",
               "EmailJS (Versand von Formularnachrichten)",
               "Calendly (Terminverwaltung)",
+              "Google Ads (Conversion-Tracking, nur mit Einwilligung)",
             ],
           },
           {
@@ -114,12 +124,14 @@ export default async function PrivacyPage({
               "GitHub verarbeitet Daten auch in den USA. Die Datenübermittlung erfolgt auf Grundlage der EU-Standardvertragsklauseln.",
               "Eine Datenübermittlung in Drittländer (außerhalb der EU) kann nicht ausgeschlossen werden. EmailJS verwendet geeignete Garantien gemäß Art. 46 DSGVO.",
               "Die Datenübermittlung in die USA im Zusammenhang mit Calendly erfolgt auf Grundlage der EU-Standardvertragsklauseln.",
+              "Im Zusammenhang mit Google Ads kann eine Datenübermittlung an Google in die USA erfolgen. Google LLC ist unter dem EU‑US Data Privacy Framework zertifiziert; ergänzend werden EU-Standardvertragsklauseln herangezogen.",
             ],
           },
           {
             title: "6. Cookies und ähnliche Technologien",
             paragraphs: [
-              "Wir setzen selbst keine Analytics-, Tracking- oder Marketing-Cookies ein. Technisch notwendige Datenverarbeitungen erfolgen ausschließlich durch den Hosting-Dienstleister.",
+              "Technisch notwendige Datenverarbeitungen erfolgen durch den Hosting-Dienstleister sowie zur Bereitstellung der Grundfunktionen der Website; hierfür ist keine Einwilligung erforderlich.",
+              "Marketing- bzw. Conversion-Cookies im Rahmen von Google Ads setzen wir ausschließlich auf Grundlage Ihrer Einwilligung ein. Beim ersten Aufruf der Website können Sie über unser Cookie-Banner entscheiden, ob Sie diese zulassen; ohne Einwilligung werden keine Marketing-Cookies gesetzt (Google Consent Mode v2). Ihre Auswahl wird lokal in Ihrem Browser gespeichert und kann jederzeit geändert werden.",
               "Bei Einbettung externer Dienste (z. B. Calendly) können durch diese Anbieter Cookies oder ähnliche Technologien eingesetzt werden.",
             ],
           },
@@ -205,6 +217,15 @@ export default async function PrivacyPage({
                   "Legal basis: Art. 6(1)(b) and (f) GDPR.",
                 ],
               },
+              {
+                label: "d) Google Ads – conversion tracking",
+                paragraphs: [
+                  "We use the service Google Ads provided by Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland (“Google”) to measure the effectiveness of our online advertising (conversion tracking). On certain interactions (e.g. clicking an email address, starting an appointment booking via Calendly, or opening our LinkedIn profile), it is recorded whether you previously reached the website via one of our ads.",
+                  "For this purpose, Google sets cookies or comparable technologies and transmits data (in particular the IP address, information about the interaction, and a unique identifier) to Google. We do not link this data to your identity.",
+                  "This processing only takes place if you have given your consent via our cookie banner. Until you consent, no marketing cookies are set; data is transmitted, if at all, without cookies and without a unique identifier (Google Consent Mode v2). You can withdraw your consent at any time with effect for the future by reopening the cookie banner via the “Cookie settings” link in the footer and changing your choice.",
+                  "Legal basis: Art. 6(1)(a) GDPR in conjunction with Section 25(1) TDDDG (consent).",
+                ],
+              },
             ],
           },
           {
@@ -216,6 +237,7 @@ export default async function PrivacyPage({
               "GitHub Pages (hosting)",
               "EmailJS (delivery of contact form messages)",
               "Calendly (appointment management)",
+              "Google Ads (conversion tracking, only with consent)",
             ],
           },
           {
@@ -225,12 +247,14 @@ export default async function PrivacyPage({
               "GitHub also processes data in the United States. Data transfers are based on the EU Standard Contractual Clauses.",
               "A transfer of data to third countries (outside the EU) cannot be ruled out. EmailJS uses appropriate safeguards pursuant to Art. 46 GDPR.",
               "Data transfers to the United States in connection with Calendly are based on the EU Standard Contractual Clauses.",
+              "In connection with Google Ads, data may be transferred to Google in the United States. Google LLC is certified under the EU‑US Data Privacy Framework; in addition, the EU Standard Contractual Clauses are relied upon.",
             ],
           },
           {
             title: "6. Cookies and similar technologies",
             paragraphs: [
-              "We ourselves do not use analytics, tracking, or marketing cookies. Technically necessary processing is carried out exclusively by the hosting provider.",
+              "Technically necessary processing is carried out by the hosting provider and to provide the basic functions of the website; no consent is required for this.",
+              "We use marketing and conversion cookies in connection with Google Ads exclusively on the basis of your consent. When you first visit the website, you can decide via our cookie banner whether to allow them; without consent, no marketing cookies are set (Google Consent Mode v2). Your choice is stored locally in your browser and can be changed at any time.",
               "When embedding external services (e.g. Calendly), these providers may use cookies or similar technologies.",
             ],
           },

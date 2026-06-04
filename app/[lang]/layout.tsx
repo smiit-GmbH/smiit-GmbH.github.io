@@ -8,6 +8,7 @@ import { ScrollToTop } from "@/components/scroll-to-top"
 import { CalendlyHandler } from "@/components/calendly-handler"
 import { SmoothScrollProvider } from "@/components/smooth-scroll-provider"
 import { MobileCalendlyFab } from "@/components/mobile-calendly-fab"
+import { Analytics } from "@/components/analytics"
 import { SITE_NAME, SITE_URL, buildPageMetadata } from "@/lib/seo"
 
 const geist = Geist({
@@ -147,6 +148,7 @@ export default async function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
         />
+        <Analytics lang={lang === "en" ? "en" : "de"} />
         <SmoothScrollProvider>
           <ScrollToTop />
           <CalendlyHandler />
