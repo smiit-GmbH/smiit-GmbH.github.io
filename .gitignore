@@ -21,6 +21,7 @@ yarn-error.log*
 # env files
 .env
 todos.txt
+styles.md
 /.kilo
 
 # typescript

@@ -1,4 +1,7 @@
-// Google Ads (gtag.js) configuration + consent helpers.
+// Google tag (gtag.js) configuration + consent helpers.
+//
+// Two products share a single gtag.js load: Google Ads (AW-, conversion
+// tracking) and Google Analytics 4 (G-, website analytics).
 //
 // Consent is handled via Google Consent Mode v2: gtag.js loads on every page,
 // but ad/analytics storage defaults to "denied" until the visitor opts in via
@@ -6,6 +9,9 @@
 // gtag sends cookieless pings for conversion modeling instead of setting cookies.
 
 export const GA_ADS_ID = "AW-11425209019"
+
+/** Google Analytics 4 measurement ID. */
+export const GA4_ID = "G-RWP11EYHX2"
 
 /** Click-based conversion actions configured in the Google Ads account. */
 export const CONVERSIONS = {
