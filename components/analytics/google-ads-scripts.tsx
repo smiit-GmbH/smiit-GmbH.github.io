@@ -1,7 +1,7 @@
 "use client"
 
 import Script from "next/script"
-import { GA_ADS_ID, CONSENT_STORAGE_KEY } from "@/lib/gtag"
+import { GA_ADS_ID, GA4_ID, CONSENT_STORAGE_KEY } from "@/lib/gtag"
 
 // Inline bootstrap: sets up the dataLayer, declares the default consent state
 // (everything denied) BEFORE the config command, then restores a previously
@@ -30,6 +30,7 @@ try {
 } catch (e) {}
 gtag('js', new Date());
 gtag('config', '${GA_ADS_ID}');
+gtag('config', '${GA4_ID}');
 `
 
 export function GoogleAdsScripts() {

@@ -12,14 +12,14 @@ import {
 
 const COPY = {
   de: {
-    text: "Wir setzen Cookies für Marketing- und Conversion-Messung (Google Ads) ein, um die Wirksamkeit unserer Werbung zu erfassen. Technisch notwendige Daten verarbeiten wir unabhängig davon. Näheres in unserer",
+    text: "Wir setzen Cookies für Statistik und Marketing (Google Analytics & Google Ads) ein, um die Nutzung unserer Website und die Wirksamkeit unserer Werbung zu messen. Technisch notwendige Daten verarbeiten wir unabhängig davon. Näheres in unserer",
     privacy: "Datenschutzerklärung",
     accept: "Akzeptieren",
     decline: "Ablehnen",
     aria: "Cookie-Einwilligung",
   },
   en: {
-    text: "We use cookies for marketing and conversion measurement (Google Ads) to gauge the effectiveness of our advertising. Technically necessary data is processed regardless. More in our",
+    text: "We use cookies for analytics and marketing (Google Analytics & Google Ads) to measure how our website is used and the effectiveness of our advertising. Technically necessary data is processed regardless. More in our",
     privacy: "privacy policy",
     accept: "Accept",
     decline: "Decline",
