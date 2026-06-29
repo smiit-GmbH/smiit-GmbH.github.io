@@ -1631,6 +1631,15 @@ const platformEconomy: LocalizedBlogPost = {
         refs: [1, 2],
       },
       {
+        type: "image",
+        src: "/assets/blog/platform-economy/cost-development.webp",
+        width: 3200,
+        height: 1413,
+        maxWidth: 940,
+        alt: "Diagramm: Skalierungspotenzial über Wachstum bzw. Kundenzahl. Das Projektgeschäft verläuft linear, da der Umsatz an Arbeitszeit gekoppelt ist und die variablen Kosten je Projekt steigen; die SaaS-/Plattformkurve steigt nach hohen Anfangs-Fixkosten und geringen Grenzkosten überproportional an.",
+        caption: "Skalierung im Vergleich: Im Projektgeschäft ist der Umsatz an Arbeitszeit gekoppelt und die variablen Kosten steigen mit jedem Projekt. SaaS- und Plattformmodelle haben hohe Anfangs-Fixkosten, danach aber geringe Grenzkosten – und damit deutlich mehr Skalierungspotenzial.",
+      },
+      {
         type: "paragraph",
         text: "Das bedeutet nicht, dass ein SaaS-Produkt automatisch profitabel wird. Im Gegenteil: Die Vorleistung verschiebt sich. Während im Projektgeschäft einzelne Kundenaufträge früh Umsatz erzeugen, müssen Plattformanbieter häufig zunächst in Produktentwicklung, Markteintritt, Vertrieb, Sicherheit und Betriebsfähigkeit investieren.",
         refs: [3],
@@ -1738,6 +1747,15 @@ const platformEconomy: LocalizedBlogPost = {
       {
         type: "paragraph",
         text: "Der Aufbau eines erfolgreichen Plattform- oder SaaS-Geschäfts lässt sich nicht auf Produktentwicklung reduzieren. Besonders relevant sind vier miteinander verbundene Ebenen: Strategie, Organisation, Technologie und Vertrieb.",
+      },
+      {
+        type: "image",
+        src: "/assets/blog/platform-economy/platform.webp",
+        width: 2499,
+        height: 942,
+        maxWidth: 820,
+        alt: "Donut-Diagramm mit „Platform“ im Zentrum und den vier Handlungsfeldern Strategie, Organisation, Technologie und Vertrieb.",
+        caption: "Die vier zentralen Handlungsfelder eines Plattform- oder SaaS-Geschäfts: Strategie, Organisation, Technologie und Vertrieb.",
       },
 
       { type: "subheading", text: "1. Strategische Ebene: Zielgruppe, Markt und Geschäftsmodell" },
@@ -2144,6 +2162,15 @@ const platformEconomy: LocalizedBlogPost = {
         refs: [1, 2],
       },
       {
+        type: "image",
+        src: "/assets/blog/platform-economy/cost-development.webp",
+        width: 3200,
+        height: 1413,
+        maxWidth: 940,
+        alt: "Chart: scaling potential over growth and number of customers. Project-based business grows linearly, because revenue is tied to working hours and variable costs rise per project; the SaaS/platform curve rises disproportionately after high initial fixed costs and low marginal costs.",
+        caption: "Scaling compared: in project business, revenue is tied to working hours and variable costs rise with every project. SaaS and platform models have high initial fixed costs but then low marginal costs — and therefore far greater scaling potential.",
+      },
+      {
         type: "paragraph",
         text: "That doesn't mean a SaaS product becomes profitable automatically. On the contrary: the upfront investment shifts. While in project business individual customer engagements generate revenue early, platform providers often first have to invest in product development, market entry, sales, security and operational readiness.",
         refs: [3],
@@ -2251,6 +2278,15 @@ const platformEconomy: LocalizedBlogPost = {
       {
         type: "paragraph",
         text: "Building a successful platform or SaaS business cannot be reduced to product development. Four interconnected levels are particularly relevant: strategy, organisation, technology and sales.",
+      },
+      {
+        type: "image",
+        src: "/assets/blog/platform-economy/platform.webp",
+        width: 2499,
+        height: 942,
+        maxWidth: 820,
+        alt: "Donut chart with “Platform” at the centre and the four fields of action: strategy, organisation, technology and sales.",
+        caption: "The four central fields of action of a platform or SaaS business: strategy, organisation, technology and sales.",
       },
 
       { type: "subheading", text: "1. Strategy: target group, market and business model" },
