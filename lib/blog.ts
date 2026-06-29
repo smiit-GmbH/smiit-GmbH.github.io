@@ -1658,7 +1658,7 @@ const platformEconomy: LocalizedBlogPost = {
       {
         type: "paragraph",
         text: "Für IT-Dienstleister ist jedoch eine breitere Perspektive relevant. Plattformökonomie beschreibt Geschäftsmodelle, bei denen digitale Infrastruktur, standardisierte Leistungen und wiederholbare Prozesse einen überproportionalen Skalierungseffekt ermöglichen.",
-        refs: [5, 13, 16],
+        refs: [5],
       },
       { type: "paragraph", text: "Dabei lassen sich unter anderem vier Typen unterscheiden:" },
       {
@@ -1678,7 +1678,6 @@ const platformEconomy: LocalizedBlogPost = {
       {
         type: "paragraph",
         text: "Der Unterschied zur Individualentwicklung liegt nicht nur in der Bereitstellung über die Cloud. Entscheidend ist die Produktlogik: Statt einzelne Kundenanforderungen vollständig neu umzusetzen, wird ein wiederverwendbarer Kern geschaffen, der für eine klar definierte Zielgruppe ausreichend wertvoll ist.",
-        refs: [15],
       },
 
       { type: "heading", text: "SaaS ist nicht automatisch eine Plattform" },
@@ -1689,12 +1688,11 @@ const platformEconomy: LocalizedBlogPost = {
       {
         type: "paragraph",
         text: "Eine klassische Plattform profitiert typischerweise von Netzwerkeffekten: Der Nutzen für einzelne Nutzer steigt, wenn weitere Nutzer, Anbieter, Partner oder Integrationen hinzukommen. Bei Marktplätzen ist dieser Zusammenhang besonders sichtbar. Je mehr Anbieter aktiv sind, desto attraktiver wird die Plattform für Kunden – und umgekehrt.",
-        refs: [12, 17],
       },
       {
         type: "paragraph",
         text: "Bei SaaS-Produkten sind diese Effekte oft schwächer ausgeprägt. Eine Buchhaltungssoftware wird nicht zwangsläufig besser, nur weil viele andere Unternehmen sie nutzen. Dennoch können auch SaaS-Produkte Plattformcharakter entwickeln:",
-        refs: [2, 14],
+        refs: [2],
       },
       {
         type: "grid",
@@ -1784,7 +1782,7 @@ const platformEconomy: LocalizedBlogPost = {
       {
         type: "paragraph",
         text: "In der Plattformökonomie ist der Markteintritt besonders sensibel. Märkte mit geringen Grenzkosten und ausgeprägten Netzwerkeffekten können sich schnell konzentrieren. Sobald wenige Anbieter eine starke Marktposition aufgebaut haben, steigen die Eintrittsbarrieren erheblich.",
-        refs: [2, 3, 19],
+        refs: [2, 3],
       },
       {
         type: "paragraph",
@@ -1883,7 +1881,6 @@ const platformEconomy: LocalizedBlogPost = {
       {
         type: "paragraph",
         text: "Nutzerfeedback ist dabei kein einmaliger Validierungsschritt. Es muss Teil eines kontinuierlichen Produktprozesses werden. Plattformen entwickeln sich selten erfolgreich entlang eines vollständig im Voraus definierten Plans. Sie entstehen durch wiederholte Zyklen aus Annahme, Feedback, Priorisierung und Verbesserung.",
-        refs: [18],
       },
       {
         type: "flow",
@@ -2059,30 +2056,6 @@ const platformEconomy: LocalizedBlogPost = {
       {
         title: "Neßlauer, N.: Plattformökonomie für IT-Dienstleister – empirische Untersuchung (Masterarbeit, smiit GmbH). Auf Anfrage erhältlich.",
       },
-      {
-        title: "Eisenmann, T., Parker, G. & Van Alstyne, M. W. (2006): Strategies for Two-Sided Markets. Harvard Business Review, 84(10), 92–101.",
-      },
-      {
-        title: "Gawer, A. & Cusumano, M. A. (2014): Industry Platforms and Ecosystem Innovation. Journal of Product Innovation Management, 31(3), 417–433.",
-      },
-      {
-        title: "Cusumano, M. A., Gawer, A. & Yoffie, D. B. (2019): The Business of Platforms – Strategy in the Age of Digital Competition, Innovation, and Power. Harper Business.",
-      },
-      {
-        title: "Tiwana, A. (2014): Platform Ecosystems – Aligning Architecture, Governance, and Strategy. Morgan Kaufmann.",
-      },
-      {
-        title: "de Reuver, M., Sørensen, C. & Basole, R. C. (2018): The Digital Platform – A Research Agenda. Journal of Information Technology, 33(2), 124–135.",
-      },
-      {
-        title: "Katz, M. L. & Shapiro, C. (1985): Network Externalities, Competition, and Compatibility. The American Economic Review, 75(3), 424–440.",
-      },
-      {
-        title: "Ries, E. (2011): The Lean Startup – How Today's Entrepreneurs Use Continuous Innovation to Create Radically Successful Businesses. Crown Business.",
-      },
-      {
-        title: "Teece, D. J. (2018): Profiting from Innovation in the Digital Economy – Enabling Technologies, Standards, and Licensing Models. Research Policy, 47(8), 1367–1387.",
-      },
     ],
 
     relatedServicePath: "services/apps",
@@ -2189,7 +2162,7 @@ const platformEconomy: LocalizedBlogPost = {
       {
         type: "paragraph",
         text: "For IT service providers, however, a broader perspective is relevant. The platform economy describes business models in which digital infrastructure, standardised services and repeatable processes enable a disproportionate scaling effect.",
-        refs: [5, 13, 16],
+        refs: [5],
       },
       { type: "paragraph", text: "Among others, four types can be distinguished:" },
       {
@@ -2209,7 +2182,6 @@ const platformEconomy: LocalizedBlogPost = {
       {
         type: "paragraph",
         text: "The difference from bespoke development is not only delivery via the cloud. What matters is the product logic: instead of fully re-implementing individual customer requirements, a reusable core is created that is valuable enough for a clearly defined target group.",
-        refs: [15],
       },
 
       { type: "heading", text: "SaaS is not automatically a platform" },
@@ -2220,12 +2192,11 @@ const platformEconomy: LocalizedBlogPost = {
       {
         type: "paragraph",
         text: "A classic platform typically benefits from network effects: the value for individual users increases as further users, providers, partners or integrations are added. With marketplaces this relationship is especially visible. The more providers are active, the more attractive the platform becomes for customers — and vice versa.",
-        refs: [12, 17],
       },
       {
         type: "paragraph",
         text: "With SaaS products these effects are often weaker. Accounting software doesn't necessarily get better just because many other companies use it. Nevertheless, SaaS products can also develop platform characteristics:",
-        refs: [2, 14],
+        refs: [2],
       },
       {
         type: "grid",
@@ -2315,7 +2286,7 @@ const platformEconomy: LocalizedBlogPost = {
       {
         type: "paragraph",
         text: "In the platform economy, market entry is particularly sensitive. Markets with low marginal costs and pronounced network effects can concentrate quickly. Once a few providers have built a strong market position, the barriers to entry rise considerably.",
-        refs: [2, 3, 19],
+        refs: [2, 3],
       },
       {
         type: "paragraph",
@@ -2414,7 +2385,6 @@ const platformEconomy: LocalizedBlogPost = {
       {
         type: "paragraph",
         text: "User feedback is not a one-off validation step here. It has to become part of a continuous product process. Platforms rarely develop successfully along a plan defined entirely in advance. They emerge through repeated cycles of assumption, feedback, prioritisation and improvement.",
-        refs: [18],
       },
       {
         type: "flow",
@@ -2589,30 +2559,6 @@ const platformEconomy: LocalizedBlogPost = {
       },
       {
         title: "Neßlauer, N.: Platform economy for IT service providers – empirical study (master's thesis, smiit GmbH). Available on request.",
-      },
-      {
-        title: "Eisenmann, T., Parker, G. & Van Alstyne, M. W. (2006): Strategies for Two-Sided Markets. Harvard Business Review, 84(10), 92–101.",
-      },
-      {
-        title: "Gawer, A. & Cusumano, M. A. (2014): Industry Platforms and Ecosystem Innovation. Journal of Product Innovation Management, 31(3), 417–433.",
-      },
-      {
-        title: "Cusumano, M. A., Gawer, A. & Yoffie, D. B. (2019): The Business of Platforms – Strategy in the Age of Digital Competition, Innovation, and Power. Harper Business.",
-      },
-      {
-        title: "Tiwana, A. (2014): Platform Ecosystems – Aligning Architecture, Governance, and Strategy. Morgan Kaufmann.",
-      },
-      {
-        title: "de Reuver, M., Sørensen, C. & Basole, R. C. (2018): The Digital Platform – A Research Agenda. Journal of Information Technology, 33(2), 124–135.",
-      },
-      {
-        title: "Katz, M. L. & Shapiro, C. (1985): Network Externalities, Competition, and Compatibility. The American Economic Review, 75(3), 424–440.",
-      },
-      {
-        title: "Ries, E. (2011): The Lean Startup – How Today's Entrepreneurs Use Continuous Innovation to Create Radically Successful Businesses. Crown Business.",
-      },
-      {
-        title: "Teece, D. J. (2018): Profiting from Innovation in the Digital Economy – Enabling Technologies, Standards, and Licensing Models. Research Policy, 47(8), 1367–1387.",
       },
     ],
 
