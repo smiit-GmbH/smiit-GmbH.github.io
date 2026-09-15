@@ -21,8 +21,8 @@ export async function generateMetadata({
       en: "smiit GmbH – Legal notice",
     },
     description: {
-      de: "Impressum der smiit GmbH: Anschrift, Geschäftsführer, Handelsregister und Verantwortliche gemäß §5 TMG.",
-      en: "Legal notice of smiit GmbH: company address, managing director, commercial register and responsible parties under §5 TMG.",
+      de: "Impressum der smiit GmbH: Anschrift, Geschäftsführer, Handelsregister und Verantwortliche gemäß § 5 DDG.",
+      en: "Legal notice of smiit GmbH: company address, managing directors, commercial register and responsible parties under Section 5 DDG.",
     },
   })
 }
@@ -38,7 +38,7 @@ export default async function LegalNoticePage({
   const L = isDe
     ? {
         title: "Impressum",
-        subtitle: "Angaben gemäß § 5 TMG",
+        subtitle: "Angaben gemäß § 5 DDG",
         contact: "Kontakt",
         representedBy: "Vertreten durch",
         register: "Handelsregister",
@@ -50,7 +50,7 @@ export default async function LegalNoticePage({
       }
     : {
         title: "Legal notice",
-        subtitle: "Information pursuant to Section 5 German Telemedia Act (TMG)",
+        subtitle: "Information pursuant to Section 5 German Digital Services Act (DDG)",
         contact: "Contact",
         representedBy: "Represented by",
         register: "Commercial register",

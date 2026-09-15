@@ -3,10 +3,10 @@
 // Two products share a single gtag.js load: Google Ads (AW-, conversion
 // tracking) and Google Analytics 4 (G-, website analytics).
 //
-// Consent is handled via Google Consent Mode v2: gtag.js loads on every page,
-// but ad/analytics storage defaults to "denied" until the visitor opts in via
-// the consent banner. Conversions may still be fired – when consent is denied,
-// gtag sends cookieless pings for conversion modeling instead of setting cookies.
+// Consent is handled via Google Consent Mode v2 in *basic* mode: gtag.js is
+// not loaded at all until the visitor opts in via the consent banner, so no
+// data (not even cookieless pings) reaches Google without consent. On
+// withdrawal, measurement is disabled and Google cookies are removed.
 
 export const GA_ADS_ID = "AW-11425209019"
 
@@ -27,6 +27,9 @@ export const CONSENT_STORAGE_KEY = "smiit-consent-v1"
 
 /** Dispatched (e.g. from the footer link) to re-open the consent banner. */
 export const COOKIE_SETTINGS_EVENT = "smiit:open-cookie-settings"
+
+/** Dispatched with the new ConsentChoice as `detail` whenever it changes. */
+export const CONSENT_CHANGE_EVENT = "smiit:consent-change"
 
 export type ConsentChoice = "granted" | "denied"
 
@@ -60,11 +63,40 @@ export function setStoredConsent(choice: ConsentChoice): void {
   } catch {
     /* storage unavailable (private mode, blocked) – ignore */
   }
+  window.dispatchEvent(new CustomEvent<ConsentChoice>(CONSENT_CHANGE_EVENT, { detail: choice }))
 }
 
-/** Push a Consent Mode v2 update for all ad/analytics signals. */
+/** Remove first-party Google Analytics / Ads cookies (_ga, _ga_*, _gid, _gat*, _gcl_*). */
+function clearGoogleCookies(): void {
+  const names = document.cookie
+    .split(";")
+    .map((c) => c.split("=")[0].trim())
+    .filter((n) => /^(_ga|_gid|_gat|_gcl_)/.test(n))
+  if (names.length === 0) return
+
+  // Cookies may be scoped to the host or any parent domain (gtag uses the
+  // top-level domain by default), so expire them on every candidate domain.
+  const parts = window.location.hostname.split(".")
+  const domains = [""]
+  for (let i = 0; i < parts.length - 1; i++) domains.push(`; domain=.${parts.slice(i).join(".")}`)
+
+  for (const name of names) {
+    for (const domain of domains) {
+      document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/${domain}`
+    }
+  }
+}
+
+/**
+ * Apply a consent decision to an already loaded gtag.js. On withdrawal, GA4 is
+ * disabled for the rest of the session and Google cookies are deleted.
+ */
 export function updateConsent(granted: boolean): void {
-  if (typeof window === "undefined" || typeof window.gtag !== "function") return
+  if (typeof window === "undefined") return
+  ;(window as unknown as Record<string, boolean>)[`ga-disable-${GA4_ID}`] = !granted
+  if (!granted) clearGoogleCookies()
+
+  if (typeof window.gtag !== "function") return
   const value: ConsentChoice = granted ? "granted" : "denied"
   window.gtag("consent", "update", {
     ad_storage: value,
@@ -74,8 +106,9 @@ export function updateConsent(granted: boolean): void {
   })
 }
 
-/** Fire a Google Ads conversion. Respects the current Consent Mode state. */
+/** Fire a Google Ads conversion – only when the visitor has consented. */
 export function fireConversion(name: ConversionName): void {
   if (typeof window === "undefined" || typeof window.gtag !== "function") return
+  if (getStoredConsent() !== "granted") return
   window.gtag("event", "conversion", { send_to: CONVERSIONS[name] })
 }

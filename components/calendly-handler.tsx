@@ -1,6 +1,6 @@
 "use client"
 
-import { useCallback, useEffect, useRef } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 import Script from "next/script"
 
 declare global {
@@ -19,10 +19,15 @@ type Props = {
   url?: string
 }
 
+// Calendly assets are loaded lazily: nothing is requested from calendly.com
+// until the visitor actively starts a booking (pointerdown/click on a booking
+// trigger, the "open-calendly" event, or a "#book" link). This keeps visitor
+// data from reaching Calendly on a plain page view (see privacy policy).
 export function CalendlyHandler({ url }: Props) {
   const pendingOpenRef = useRef(false)
   const scriptLoadedRef = useRef(false)
   const warmupDoneRef = useRef(false)
+  const [loadAssets, setLoadAssets] = useState(false)
 
   const getLang = useCallback((): string => {
     try {
@@ -71,6 +76,7 @@ export function CalendlyHandler({ url }: Props) {
       window.Calendly.initPopupWidget({ url: finalUrl })
     } else {
       pendingOpenRef.current = true
+      setLoadAssets(true)
     }
   }, [buildCalendlyUrl])
 
@@ -78,6 +84,7 @@ export function CalendlyHandler({ url }: Props) {
     if (warmupDoneRef.current) return
 
     warmupDoneRef.current = true
+    setLoadAssets(true)
 
     const appendLink = (rel: string, href: string, crossOrigin?: boolean) => {
       if (!href || typeof document === "undefined") return
@@ -157,16 +164,14 @@ export function CalendlyHandler({ url }: Props) {
       warmup()
     }
 
+    // Only deliberate interactions warm up – hover/focus alone must not
+    // contact Calendly.
     document.addEventListener("pointerdown", onWarmIntent, true)
     document.addEventListener("touchstart", onWarmIntent, true)
-    document.addEventListener("focusin", onWarmIntent, true)
-    document.addEventListener("mouseenter", onWarmIntent, true)
 
     return () => {
       document.removeEventListener("pointerdown", onWarmIntent, true)
       document.removeEventListener("touchstart", onWarmIntent, true)
-      document.removeEventListener("focusin", onWarmIntent, true)
-      document.removeEventListener("mouseenter", onWarmIntent, true)
     }
   }, [warmup])
 
@@ -193,14 +198,14 @@ export function CalendlyHandler({ url }: Props) {
     return () => document.removeEventListener("click", onClick, true)
   }, [open, cleanHash, warmup])
 
+  if (!loadAssets) return null
+
   return (
     <>
       <link
         rel="stylesheet"
         href="https://assets.calendly.com/assets/external/widget.css"
       />
-      <link rel="preconnect" href="https://assets.calendly.com" crossOrigin="anonymous" />
-      <link rel="dns-prefetch" href="https://assets.calendly.com" />
 
       <Script
         src="https://assets.calendly.com/assets/external/widget.js"
