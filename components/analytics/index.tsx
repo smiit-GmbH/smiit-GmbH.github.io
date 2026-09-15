@@ -3,8 +3,8 @@ import { GoogleAdsScripts } from "./google-ads-scripts"
 import { ConversionTracker } from "./conversion-tracker"
 import { ConsentBanner } from "./consent-banner"
 
-// Bundles Google Ads tracking: gtag.js + Consent Mode v2, click-conversion
-// tracking, and the opt-in consent banner.
+// Bundles Google Ads / Analytics tracking: gtag.js (loaded only after opt-in,
+// basic Consent Mode v2), click-conversion tracking, and the consent banner.
 export function Analytics({ lang }: { lang: Locale }) {
   return (
     <>
