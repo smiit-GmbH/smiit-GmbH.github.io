@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useMemo, useState, type CSSProperties, type ReactNode } from "react"
+import { Fragment, useEffect, useMemo, useState, type CSSProperties, type ReactNode } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { ArrowRight, ArrowUpRight, ChevronDown, ChevronRight, ExternalLink, File, Folder, FolderOpen } from "lucide-react"
@@ -24,6 +24,28 @@ const SERVICE_LABEL: Record<string, { de: string; en: string }> = {
 }
 
 type TocItem = { id: string; text: string; number: number }
+
+/** Renders `**bold**` and `` `code` `` spans; glossary auto-linking applies to the plain segments only. */
+function withEmphasis(text: string, link: (plain: string) => ReactNode): ReactNode {
+  if (!text.includes("**") && !text.includes("`")) return link(text)
+  return text.split(/(\*\*.+?\*\*|`[^`]+`)/g).map((part, i) => {
+    if (part.startsWith("**") && part.endsWith("**") && part.length > 4) {
+      return (
+        <strong key={i} className="font-semibold text-[#0B162D]">
+          {part.slice(2, -2)}
+        </strong>
+      )
+    }
+    if (part.startsWith("`") && part.endsWith("`") && part.length > 2) {
+      return (
+        <code key={i} className="rounded bg-[#0B162D]/[0.06] px-1.5 py-0.5 font-mono text-[0.85em] text-[#0B162D]">
+          {part.slice(1, -1)}
+        </code>
+      )
+    }
+    return <Fragment key={i}>{part && link(part)}</Fragment>
+  })
+}
 
 export default function BlogPostPage({ lang, post }: { lang: Locale; post: BlogPostContent }) {
   const ui = getBlogUi(lang)
@@ -74,9 +96,9 @@ export default function BlogPostPage({ lang, post }: { lang: Locale; post: BlogP
         id = `abschnitt-${h}`
         number = h
       } else if (block.type === "paragraph") {
-        linked = autolinkGlossary(block.text, { lang, used })
+        linked = withEmphasis(block.text, (plain) => autolinkGlossary(plain, { lang, used }))
       } else if (block.type === "bullets") {
-        linked = block.items.map((item) => autolinkGlossary(item, { lang, used }))
+        linked = block.items.map((item) => withEmphasis(item, (plain) => autolinkGlossary(plain, { lang, used })))
       }
       return { block, id, number, linked }
     })
@@ -430,25 +452,7 @@ function BlogBlockRenderer({
       return (
         <p className="mb-5 text-[0.9rem] sm:text-[1.05rem] leading-[1.75] text-[#0B162D]/80">
           {linked ?? block.text}
-          {block.refs && block.refs.length > 0 && (
-            <sup className="ml-0.5 font-semibold">
-              {block.refs.map((n) => (
-                <a
-                  key={n}
-                  href={`#ref-${n}`}
-                  onClick={(e) => {
-                    if (onCite) {
-                      e.preventDefault()
-                      onCite(n)
-                    }
-                  }}
-                  className="text-[var(--area)] no-underline hover:underline"
-                >
-                  [{n}]
-                </a>
-              ))}
-            </sup>
-          )}
+          <Citations refs={block.refs} onCite={onCite} />
         </p>
       )
     case "bullets":
@@ -459,10 +463,47 @@ function BlogBlockRenderer({
               <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--area)]" />
               <span className="text-[0.9rem] sm:text-[1.05rem] leading-[1.75] text-[#0B162D]/80">
                 {Array.isArray(linked) ? linked[i] : item}
+                <Citations refs={block.itemRefs?.[i]} onCite={onCite} />
               </span>
             </li>
           ))}
         </ul>
+      )
+    case "table":
+      return (
+        <div className="my-8 overflow-x-auto rounded-[16px] border border-black/10 bg-white">
+          <table className="w-full min-w-[620px] border-collapse text-left">
+            <thead>
+              <tr className="bg-[#0B162D]/[0.03]">
+                {block.headers.map((header) => (
+                  <th
+                    key={header}
+                    className="border-b border-black/10 px-4 py-3 text-[0.7rem] font-semibold uppercase tracking-wider text-[#0B162D]/55"
+                  >
+                    {header}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {block.rows.map((row, r) => (
+                <tr key={r} className="border-b border-black/[0.06] last:border-b-0">
+                  {row.map((cell, c) => (
+                    <td
+                      key={c}
+                      className={cx(
+                        "px-4 py-3 align-top text-[0.86rem] leading-snug",
+                        c === 0 ? "font-semibold text-[#0B162D]" : "text-[#0B162D]/70",
+                      )}
+                    >
+                      {cell}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )
     case "code":
       return (
@@ -564,6 +605,30 @@ function BlogBlockRenderer({
     default:
       return null
   }
+}
+
+/** Superscript citation links into the (collapsed) sources list. */
+function Citations({ refs, onCite }: { refs?: number[]; onCite?: (n: number) => void }) {
+  if (!refs || refs.length === 0) return null
+  return (
+    <sup className="ml-0.5 font-semibold">
+      {refs.map((n) => (
+        <a
+          key={n}
+          href={`#ref-${n}`}
+          onClick={(e) => {
+            if (onCite) {
+              e.preventDefault()
+              onCite(n)
+            }
+          }}
+          className="text-[var(--area)] no-underline hover:underline"
+        >
+          [{n}]
+        </a>
+      ))}
+    </sup>
+  )
 }
 
 /** Numbered process steps in a tidy fixed grid (light alternative to a code block). */
