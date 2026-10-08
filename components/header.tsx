@@ -97,7 +97,7 @@ export default function Header({ forceLang, darkHero: darkHeroProp }: { forceLan
           products: "Our products",
           services: "Our services",
           about: "About us",
-          talkToExpert: "Talk to a digital expert",
+          talkToExpert: "Talk to an expert",
           smiitAnalytics: "smiit Analytics for bexio",
           productScout: "Product Scout",
           azaiElevate: "Azai Elevate",
