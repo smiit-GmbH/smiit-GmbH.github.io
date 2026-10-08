@@ -1,37 +1,16 @@
 "use client"
 
-import { useCallback, useMemo, useState } from "react"
 import { usePathname, useRouter } from "next/navigation"
 import { ChevronDown } from "lucide-react"
 import ReactCountryFlag from "react-country-flag"
+import type { Locale } from "@/lib/dictionary"
+import { buildPathForLang, localeFromPath } from "@/lib/locale-path"
+import { NavDropdown } from "@/components/nav-dropdown"
 
-type Lang = "de" | "en"
-
-const languages: Array<{ code: Lang; label: string; country: string, countryShort?: string }> = [
+const languages: Array<{ code: Locale; label: string; country: string; countryShort: string }> = [
   { code: "de", label: "Deutsch", country: "DE", countryShort: "DE" },
   { code: "en", label: "English", country: "GB", countryShort: "EN" },
 ]
-
-function computeLangFromPath(pathname: string | null | undefined): Lang {
-  if (!pathname) return "de"
-  if (pathname.startsWith("/en")) return "en"
-  return "de"
-}
-
-function buildPathForLang(pathname: string, target: Lang): string {
-  if (pathname === "/" || pathname === "") {
-    return `/${target}/`
-  }
-
-  if (pathname.startsWith("/de/") || pathname === "/de") {
-    return pathname.replace(/^\/de(\/|$)/, `/${target}/`)
-  }
-  if (pathname.startsWith("/en/") || pathname === "/en") {
-    return pathname.replace(/^\/en(\/|$)/, `/${target}/`)
-  }
-
-  return `/${target}${pathname.endsWith("/") ? "" : "/"}`
-}
 
 const Flag = ({ country }: { country: string }) => (
   <ReactCountryFlag
@@ -45,54 +24,47 @@ const Flag = ({ country }: { country: string }) => (
 export function LanguageSwitcher({ light = false }: { light?: boolean }) {
   const router = useRouter()
   const pathname = usePathname() || "/"
-  const current = useMemo(() => computeLangFromPath(pathname), [pathname])
-  const [isOpen, setIsOpen] = useState(false)
+  const current = localeFromPath(pathname)
+  const currentLang = languages.find((l) => l.code === current) ?? languages[0]
 
-  const selectLang = useCallback(
-    (target: Lang) => {
-      if (target === current) return
-      const nextPath = buildPathForLang(pathname, target)
-      const search = typeof window !== "undefined" ? window.location.search : ""
-      const hash = typeof window !== "undefined" ? window.location.hash : ""
-      router.push(`${nextPath}${search}${hash}`)
-      setIsOpen(false)
-    },
-    [current, pathname, router]
-  )
-
-  const currentLang = languages.find((l) => l.code === current) || languages[0]
+  const selectLang = (target: Locale) => {
+    if (target === current) return
+    const { search, hash } = window.location
+    router.push(`${buildPathForLang(pathname, target)}${search}${hash}`)
+  }
 
   return (
-    <div className="relative" onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
-      <button
-        className={`flex items-center gap-2 px-2 py-2 text-sm font-medium transition-colors cursor-pointer bg-transparent border-none outline-none ${
-          light ? "text-white hover:text-white/70" : "text-black hover:text-black/70"
-        }`}
-        aria-label="Language selection"
-      >
-        {/* <Flag country={currentLang.country} /> */}
-        {currentLang.countryShort}
-        <ChevronDown className="w-4 h-4 opacity-60" />
-      </button>
-      
-      <div
-        className={`absolute right-0 mt-2 w-40 bg-white/95 backdrop-blur-md border border-black/10 rounded-xl shadow-xl transition-all duration-200 z-50 ${isOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-2"}`}
-      >
-        <div className="p-1">
-          {languages.map((lang) => (
-            <button
-              key={lang.code}
-              onClick={() => selectLang(lang.code)}
-              className={`w-full flex items-center gap-3 px-3 py-2 text-sm rounded-lg transition-colors cursor-pointer ${
-                lang.code === current ? "bg-black/5 text-black font-medium" : "text-gray-700 hover:bg-black/5"
-              }`}
-            >
-              <Flag country={lang.country} />
-              <span>{lang.label}</span>
-            </button>
-          ))}
-        </div>
+    <NavDropdown
+      className="relative"
+      triggerLabel="Language selection"
+      triggerClassName={`flex items-center gap-2 px-2 py-2 text-sm font-medium transition-colors cursor-pointer bg-transparent border-none outline-none focus-visible:ring-2 focus-visible:ring-current/40 rounded-md ${
+        light ? "text-white hover:text-white/70" : "text-black hover:text-black/70"
+      }`}
+      trigger={
+        <>
+          {currentLang.countryShort}
+          <ChevronDown className="w-4 h-4 opacity-60" />
+        </>
+      }
+      panelClassName="absolute right-0 mt-2 w-40 bg-white/95 backdrop-blur-md border border-black/10 rounded-xl shadow-xl z-50"
+    >
+      <div className="p-1">
+        {languages.map((lang) => (
+          <button
+            key={lang.code}
+            type="button"
+            lang={lang.code}
+            aria-current={lang.code === current ? "true" : undefined}
+            onClick={() => selectLang(lang.code)}
+            className={`w-full flex items-center gap-3 px-3 py-2 text-sm rounded-lg transition-colors cursor-pointer ${
+              lang.code === current ? "bg-black/5 text-black font-medium" : "text-gray-700 hover:bg-black/5"
+            }`}
+          >
+            <Flag country={lang.country} />
+            <span>{lang.label}</span>
+          </button>
+        ))}
       </div>
-    </div>
+    </NavDropdown>
   )
 }

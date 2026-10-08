@@ -50,10 +50,7 @@ const FlipCard = memo(function FlipCard({
       className="w-full max-w-[340px] sm:max-w-[360px] mx-auto"
     >
       {/* Card container with perspective */}
-      <div
-        className="perspective-1000 cursor-pointer group"
-        onClick={() => setIsFlipped(!isFlipped)}
-      >
+      <div className="perspective-1000 cursor-pointer group" onClick={() => setIsFlipped(!isFlipped)}>
         <div
           className="relative w-full aspect-[3/4] transition-transform duration-700 ease-in-out transform-style-3d"
           style={{
@@ -78,12 +75,8 @@ const FlipCard = memo(function FlipCard({
 
               {/* Text on front */}
               <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6 text-white">
-                <h3 className="font-serif text-xl sm:text-2xl leading-tight tracking-tight">
-                  {founder.name}
-                </h3>
-                <p className="mt-1 text-sm sm:text-base text-white/80">
-                  {founder.role}
-                </p>
+                <h3 className="font-serif text-xl sm:text-2xl leading-tight tracking-tight">{founder.name}</h3>
+                <p className="mt-1 text-sm sm:text-base text-white/80">{founder.role}</p>
                 <p className="mt-3 text-xs text-white/50 flex items-center gap-1.5">
                   <span className="inline-block w-4 h-[1px] bg-white/40" />
                   {flipHint}
@@ -127,9 +120,7 @@ const FlipCard = memo(function FlipCard({
                 </div>
 
                 {/* Bio */}
-                <p className="mt-4 text-sm sm:text-base leading-relaxed text-black/75">
-                  {founder.bio}
-                </p>
+                <p className="mt-4 text-sm sm:text-base leading-relaxed text-black/75">{founder.bio}</p>
               </div>
 
               {/* Bottom: Links */}
@@ -207,12 +198,7 @@ export function FoundersSection({ lang, dict }: { lang: Locale; dict: Dictionary
           variants={staggerContainer}
         >
           {f.members.map((member: Founder) => (
-            <FlipCard
-              key={member.name}
-              founder={member}
-              cvLinkText={f.cvLinkText}
-              flipHint={f.flipHint}
-            />
+            <FlipCard key={member.name} founder={member} cvLinkText={f.cvLinkText} flipHint={f.flipHint} />
           ))}
         </motion.div>
 
@@ -225,9 +211,7 @@ export function FoundersSection({ lang, dict }: { lang: Locale; dict: Dictionary
           variants={fadeUpVariants}
           transition={{ duration: 0.45, ease: "easeOut", delay: 0.1 }}
         >
-          <p className="text-sm sm:text-base leading-relaxed text-black/75 max-w-[48ch] mx-auto">
-            {f.ctaText}
-          </p>
+          <p className="text-sm sm:text-base leading-relaxed text-black/75 max-w-[48ch] mx-auto">{f.ctaText}</p>
           <Link
             href={`/${lang}/about/#book`}
             className="mt-5 inline-flex items-center justify-center px-5 py-3 sm:px-6 sm:py-3.5 text-sm sm:text-base font-medium text-white bg-[#21569c] hover:bg-[#21569c]/85 rounded-xl transition-colors duration-200"

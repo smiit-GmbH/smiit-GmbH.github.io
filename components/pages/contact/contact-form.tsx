@@ -24,16 +24,17 @@ export default function ContactForm({ dict, lang }: ContactFormProps) {
 
     setStatus("sending")
 
-    const templateId = lang === "en" && process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID_EN
-      ? process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID_EN
-      : process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID_DE!
+    const templateId =
+      lang === "en" && process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID_EN
+        ? process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID_EN
+        : process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID_DE!
 
     try {
       await emailjs.sendForm(
         process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID!,
         templateId,
         formRef.current,
-        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY!,
       )
       setStatus("success")
       formRef.current.reset()
@@ -71,7 +72,8 @@ export default function ContactForm({ dict, lang }: ContactFormProps) {
     )
   }
 
-  const inputClasses = "w-full px-3 sm:px-4 py-2.5 lg:py-2 xl:py-2.5 rounded-xl border border-black/10 bg-white text-[13px] sm:text-sm text-black placeholder:text-black/40 focus:outline-none focus:ring-2 focus:ring-[#F703EB]/40 focus:border-[#F703EB] transition-all"
+  const inputClasses =
+    "w-full px-3 sm:px-4 py-2.5 lg:py-2 xl:py-2.5 rounded-xl border border-black/10 bg-white text-[13px] sm:text-sm text-black placeholder:text-black/40 focus:outline-none focus:ring-2 focus:ring-[#F703EB]/40 focus:border-[#F703EB] transition-all"
   const labelClasses = "block text-[13px] sm:text-sm font-semibold text-black mb-1 lg:mb-1"
 
   return (
@@ -79,7 +81,7 @@ export default function ContactForm({ dict, lang }: ContactFormProps) {
       <form ref={formRef} onSubmit={handleSubmit} className="space-y-4 lg:space-y-3 xl:space-y-4">
         <input type="hidden" name="from_name" value={`${firstName} ${lastName}`.trim()} />
         <input type="hidden" name="lang" value={lang} />
-        
+
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-3 xl:gap-4">
           <div>
             <label className={labelClasses}>
@@ -115,25 +117,14 @@ export default function ContactForm({ dict, lang }: ContactFormProps) {
           <label className={labelClasses}>
             {f.email} <span className="text-red-500">*</span>
           </label>
-          <input
-            type="email"
-            name="from_email"
-            placeholder="beispiel@email.com"
-            required
-            className={inputClasses}
-          />
+          <input type="email" name="from_email" placeholder="beispiel@email.com" required className={inputClasses} />
         </div>
 
         <div>
           <label className={labelClasses}>
             {f.phone} <span className="text-black/50 font-normal ml-1">{f.optional}</span>
           </label>
-          <input
-            type="tel"
-            name="phone"
-            placeholder="+41 123 456 789"
-            className={inputClasses}
-          />
+          <input type="tel" name="phone" placeholder="+41 123 456 789" className={inputClasses} />
         </div>
 
         <div>
@@ -161,7 +152,13 @@ export default function ContactForm({ dict, lang }: ContactFormProps) {
               ))}
             </select>
             <div className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2">
-              <svg className="w-4 h-4 text-black/40" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <svg
+                className="w-4 h-4 text-black/40"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
               </svg>
             </div>
@@ -182,9 +179,7 @@ export default function ContactForm({ dict, lang }: ContactFormProps) {
         </div>
 
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 sm:gap-4 pt-1 sm:pt-2">
-          <p className="text-[11px] sm:text-xs text-black/50 max-w-[250px] leading-relaxed">
-            {f.disclaimer}
-          </p>
+          <p className="text-[11px] sm:text-xs text-black/50 max-w-[250px] leading-relaxed">{f.disclaimer}</p>
           <button
             type="submit"
             disabled={status === "sending"}

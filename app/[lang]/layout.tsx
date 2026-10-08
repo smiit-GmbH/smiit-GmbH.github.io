@@ -76,10 +76,7 @@ const organizationJsonLd = {
       jobTitle: "Co-Founder & Software Engineer",
       image: `${SITE_URL}/assets/people/sebastian.webp`,
       email: "sebastian.grab@smiit.de",
-      sameAs: [
-        "https://www.linkedin.com/in/sebastian-grab/",
-        "https://grab.smiit.de",
-      ],
+      sameAs: ["https://www.linkedin.com/in/sebastian-grab/", "https://grab.smiit.de"],
     },
     {
       "@type": "Person",
@@ -87,10 +84,7 @@ const organizationJsonLd = {
       jobTitle: "Co-Founder & Business Analyst",
       image: `${SITE_URL}/assets/people/noah.webp`,
       email: "noah.nesslauer@smiit.de",
-      sameAs: [
-        "https://www.linkedin.com/in/noah-nesslauer/",
-        "https://nesslauer.smiit.de",
-      ],
+      sameAs: ["https://www.linkedin.com/in/noah-nesslauer/", "https://nesslauer.smiit.de"],
     },
   ],
   contactPoint: [
@@ -103,10 +97,7 @@ const organizationJsonLd = {
       availableLanguage: ["German", "English"],
     },
   ],
-  "sameAs": [
-    "https://github.com/smiit-GmbH",
-    "https://www.linkedin.com/company/smiit-gmbh/"
-  ]
+  sameAs: ["https://github.com/smiit-GmbH", "https://www.linkedin.com/company/smiit-gmbh/"],
 }
 
 const localBusinessJsonLd = {
@@ -139,20 +130,13 @@ export default async function RootLayout({
   return (
     <html lang={lang}>
       <body className={`${geist.variable} ${geistMono.variable} ${playfair.variable} font-sans antialiased`}>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
-        />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }}
-        />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }} />
         <Analytics lang={lang === "en" ? "en" : "de"} />
         <SmoothScrollProvider>
           <ScrollToTop />
           <CalendlyHandler />
           <Header forceLang={lang} />
-          {/* <MobileCalendlyFab /> */}
           {children}
           <Footer forceLang={lang} />
         </SmoothScrollProvider>

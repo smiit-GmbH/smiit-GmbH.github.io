@@ -15,20 +15,8 @@ import {
   useTransform,
   type MotionStyle,
 } from "framer-motion"
-import {
-  ArrowRight,
-  ChevronDown,
-  Filter,
-  Layers3,
-  TrendingUp,
-  Zap,
-} from "lucide-react"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip"
+import { ArrowRight, ChevronDown, Filter, Layers3, TrendingUp, Zap } from "lucide-react"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { useActiveInView } from "@/hooks/use-active-in-view"
 import type { Locale, Dictionary } from "@/lib/dictionary"
 
@@ -41,14 +29,25 @@ function cx(...classes: Array<string | false | null | undefined>) {
   return classes.filter(Boolean).join(" ")
 }
 
-function HeroPackages({ hero, align = "left" }: { hero: Dictionary["servicesAnalytics"]["hero"]; align?: "left" | "center" }) {
+function HeroPackages({
+  hero,
+  align = "left",
+}: {
+  hero: Dictionary["servicesAnalytics"]["hero"]
+  align?: "left" | "center"
+}) {
   const packages = (hero?.packages ?? []) as string[]
   if (packages.length === 0) return null
 
   return (
-    <div className={cx("mt-5", align === "center" && "mx-auto max-w-[640px]") }>
+    <div className={cx("mt-5", align === "center" && "mx-auto max-w-[640px]")}>
       {hero?.packagesLabel && (
-        <p className={cx("text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[#21569c]", align === "center" && "text-center")}>
+        <p
+          className={cx(
+            "text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[#21569c]",
+            align === "center" && "text-center",
+          )}
+        >
           {hero.packagesLabel}
         </p>
       )}
@@ -122,20 +121,88 @@ interface Dataset {
 const DATASETS: Record<PeriodKey, Dataset> = {
   y: {
     kpis: {
-      revenue: { to: 4.86, decimals: 2, suffix: { type: "million" }, bar: 78, deltaValue: 18.4, deltaDecimals: 1, deltaUnit: "%" },
-      margin: { to: 18.4, decimals: 1, suffix: { type: "percent" }, bar: 64, deltaValue: 1.2, deltaDecimals: 1, deltaUnit: "pp" },
-      forecastConfidence: { to: 89, suffix: { type: "percent" }, bar: 89, deltaValue: 3, deltaDecimals: 0, deltaUnit: "pp" },
+      revenue: {
+        to: 4.86,
+        decimals: 2,
+        suffix: { type: "million" },
+        bar: 78,
+        deltaValue: 18.4,
+        deltaDecimals: 1,
+        deltaUnit: "%",
+      },
+      margin: {
+        to: 18.4,
+        decimals: 1,
+        suffix: { type: "percent" },
+        bar: 64,
+        deltaValue: 1.2,
+        deltaDecimals: 1,
+        deltaUnit: "pp",
+      },
+      forecastConfidence: {
+        to: 89,
+        suffix: { type: "percent" },
+        bar: 89,
+        deltaValue: 3,
+        deltaDecimals: 0,
+        deltaUnit: "pp",
+      },
       activeProjects: { to: 27, suffix: { type: "none" }, bar: 54, deltaValue: 5, deltaDecimals: 0, deltaUnit: "" },
     },
     trendHeaderValue: 18.4,
     trendHeaderDecimals: 1,
     trendHeaderUnit: "%",
     linePoints: [
-      { x: 18, y: 118, valueNumber: 0.28, valueDecimals: 2, valueSuffix: { type: "million" }, deltaValue: 4.1, deltaDecimals: 1, deltaUnit: "%" },
-      { x: 112, y: 102, valueNumber: 1.12, valueDecimals: 2, valueSuffix: { type: "million" }, deltaValue: 9.6, deltaDecimals: 1, deltaUnit: "%" },
-      { x: 208, y: 86, valueNumber: 2.04, valueDecimals: 2, valueSuffix: { type: "million" }, deltaValue: 12.2, deltaDecimals: 1, deltaUnit: "%" },
-      { x: 304, y: 68, valueNumber: 3.18, valueDecimals: 2, valueSuffix: { type: "million" }, deltaValue: 14.8, deltaDecimals: 1, deltaUnit: "%" },
-      { x: 398, y: 48, valueNumber: 4.12, valueDecimals: 2, valueSuffix: { type: "million" }, deltaValue: 18.4, deltaDecimals: 1, deltaUnit: "%" },
+      {
+        x: 18,
+        y: 118,
+        valueNumber: 0.28,
+        valueDecimals: 2,
+        valueSuffix: { type: "million" },
+        deltaValue: 4.1,
+        deltaDecimals: 1,
+        deltaUnit: "%",
+      },
+      {
+        x: 112,
+        y: 102,
+        valueNumber: 1.12,
+        valueDecimals: 2,
+        valueSuffix: { type: "million" },
+        deltaValue: 9.6,
+        deltaDecimals: 1,
+        deltaUnit: "%",
+      },
+      {
+        x: 208,
+        y: 86,
+        valueNumber: 2.04,
+        valueDecimals: 2,
+        valueSuffix: { type: "million" },
+        deltaValue: 12.2,
+        deltaDecimals: 1,
+        deltaUnit: "%",
+      },
+      {
+        x: 304,
+        y: 68,
+        valueNumber: 3.18,
+        valueDecimals: 2,
+        valueSuffix: { type: "million" },
+        deltaValue: 14.8,
+        deltaDecimals: 1,
+        deltaUnit: "%",
+      },
+      {
+        x: 398,
+        y: 48,
+        valueNumber: 4.12,
+        valueDecimals: 2,
+        valueSuffix: { type: "million" },
+        deltaValue: 18.4,
+        deltaDecimals: 1,
+        deltaUnit: "%",
+      },
     ],
     forecastPoint: { x: 492, y: 24, valueNumber: 4.86, valueDecimals: 2, valueSuffix: { type: "million" } },
     signals: {
@@ -156,20 +223,88 @@ const DATASETS: Record<PeriodKey, Dataset> = {
   },
   h: {
     kpis: {
-      revenue: { to: 2.41, decimals: 2, suffix: { type: "million" }, bar: 52, deltaValue: 12.8, deltaDecimals: 1, deltaUnit: "%" },
-      margin: { to: 17.1, decimals: 1, suffix: { type: "percent" }, bar: 58, deltaValue: 0.8, deltaDecimals: 1, deltaUnit: "pp" },
-      forecastConfidence: { to: 86, suffix: { type: "percent" }, bar: 86, deltaValue: 2, deltaDecimals: 0, deltaUnit: "pp" },
+      revenue: {
+        to: 2.41,
+        decimals: 2,
+        suffix: { type: "million" },
+        bar: 52,
+        deltaValue: 12.8,
+        deltaDecimals: 1,
+        deltaUnit: "%",
+      },
+      margin: {
+        to: 17.1,
+        decimals: 1,
+        suffix: { type: "percent" },
+        bar: 58,
+        deltaValue: 0.8,
+        deltaDecimals: 1,
+        deltaUnit: "pp",
+      },
+      forecastConfidence: {
+        to: 86,
+        suffix: { type: "percent" },
+        bar: 86,
+        deltaValue: 2,
+        deltaDecimals: 0,
+        deltaUnit: "pp",
+      },
       activeProjects: { to: 19, suffix: { type: "none" }, bar: 38, deltaValue: 3, deltaDecimals: 0, deltaUnit: "" },
     },
     trendHeaderValue: 12.8,
     trendHeaderDecimals: 1,
     trendHeaderUnit: "%",
     linePoints: [
-      { x: 18, y: 122, valueNumber: 0.22, valueDecimals: 2, valueSuffix: { type: "million" }, deltaValue: 3.4, deltaDecimals: 1, deltaUnit: "%" },
-      { x: 112, y: 108, valueNumber: 0.68, valueDecimals: 2, valueSuffix: { type: "million" }, deltaValue: 6.1, deltaDecimals: 1, deltaUnit: "%" },
-      { x: 208, y: 92, valueNumber: 1.18, valueDecimals: 2, valueSuffix: { type: "million" }, deltaValue: 8.9, deltaDecimals: 1, deltaUnit: "%" },
-      { x: 304, y: 78, valueNumber: 1.72, valueDecimals: 2, valueSuffix: { type: "million" }, deltaValue: 10.5, deltaDecimals: 1, deltaUnit: "%" },
-      { x: 398, y: 60, valueNumber: 2.12, valueDecimals: 2, valueSuffix: { type: "million" }, deltaValue: 12.8, deltaDecimals: 1, deltaUnit: "%" },
+      {
+        x: 18,
+        y: 122,
+        valueNumber: 0.22,
+        valueDecimals: 2,
+        valueSuffix: { type: "million" },
+        deltaValue: 3.4,
+        deltaDecimals: 1,
+        deltaUnit: "%",
+      },
+      {
+        x: 112,
+        y: 108,
+        valueNumber: 0.68,
+        valueDecimals: 2,
+        valueSuffix: { type: "million" },
+        deltaValue: 6.1,
+        deltaDecimals: 1,
+        deltaUnit: "%",
+      },
+      {
+        x: 208,
+        y: 92,
+        valueNumber: 1.18,
+        valueDecimals: 2,
+        valueSuffix: { type: "million" },
+        deltaValue: 8.9,
+        deltaDecimals: 1,
+        deltaUnit: "%",
+      },
+      {
+        x: 304,
+        y: 78,
+        valueNumber: 1.72,
+        valueDecimals: 2,
+        valueSuffix: { type: "million" },
+        deltaValue: 10.5,
+        deltaDecimals: 1,
+        deltaUnit: "%",
+      },
+      {
+        x: 398,
+        y: 60,
+        valueNumber: 2.12,
+        valueDecimals: 2,
+        valueSuffix: { type: "million" },
+        deltaValue: 12.8,
+        deltaDecimals: 1,
+        deltaUnit: "%",
+      },
     ],
     forecastPoint: { x: 492, y: 38, valueNumber: 2.41, valueDecimals: 2, valueSuffix: { type: "million" } },
     signals: {
@@ -190,20 +325,88 @@ const DATASETS: Record<PeriodKey, Dataset> = {
   },
   q: {
     kpis: {
-      revenue: { to: 1.18, decimals: 2, suffix: { type: "million" }, bar: 38, deltaValue: 9.6, deltaDecimals: 1, deltaUnit: "%" },
-      margin: { to: 19.2, decimals: 1, suffix: { type: "percent" }, bar: 70, deltaValue: 0.4, deltaDecimals: 1, deltaUnit: "pp" },
-      forecastConfidence: { to: 92, suffix: { type: "percent" }, bar: 92, deltaValue: 1, deltaDecimals: 0, deltaUnit: "pp" },
+      revenue: {
+        to: 1.18,
+        decimals: 2,
+        suffix: { type: "million" },
+        bar: 38,
+        deltaValue: 9.6,
+        deltaDecimals: 1,
+        deltaUnit: "%",
+      },
+      margin: {
+        to: 19.2,
+        decimals: 1,
+        suffix: { type: "percent" },
+        bar: 70,
+        deltaValue: 0.4,
+        deltaDecimals: 1,
+        deltaUnit: "pp",
+      },
+      forecastConfidence: {
+        to: 92,
+        suffix: { type: "percent" },
+        bar: 92,
+        deltaValue: 1,
+        deltaDecimals: 0,
+        deltaUnit: "pp",
+      },
       activeProjects: { to: 14, suffix: { type: "none" }, bar: 30, deltaValue: 2, deltaDecimals: 0, deltaUnit: "" },
     },
     trendHeaderValue: 9.6,
     trendHeaderDecimals: 1,
     trendHeaderUnit: "%",
     linePoints: [
-      { x: 18, y: 116, valueNumber: 0.18, valueDecimals: 2, valueSuffix: { type: "million" }, deltaValue: 2.1, deltaDecimals: 1, deltaUnit: "%" },
-      { x: 112, y: 110, valueNumber: 0.42, valueDecimals: 2, valueSuffix: { type: "million" }, deltaValue: 4.4, deltaDecimals: 1, deltaUnit: "%" },
-      { x: 208, y: 96, valueNumber: 0.68, valueDecimals: 2, valueSuffix: { type: "million" }, deltaValue: 6.8, deltaDecimals: 1, deltaUnit: "%" },
-      { x: 304, y: 82, valueNumber: 0.92, valueDecimals: 2, valueSuffix: { type: "million" }, deltaValue: 8.2, deltaDecimals: 1, deltaUnit: "%" },
-      { x: 398, y: 70, valueNumber: 1.08, valueDecimals: 2, valueSuffix: { type: "million" }, deltaValue: 9.6, deltaDecimals: 1, deltaUnit: "%" },
+      {
+        x: 18,
+        y: 116,
+        valueNumber: 0.18,
+        valueDecimals: 2,
+        valueSuffix: { type: "million" },
+        deltaValue: 2.1,
+        deltaDecimals: 1,
+        deltaUnit: "%",
+      },
+      {
+        x: 112,
+        y: 110,
+        valueNumber: 0.42,
+        valueDecimals: 2,
+        valueSuffix: { type: "million" },
+        deltaValue: 4.4,
+        deltaDecimals: 1,
+        deltaUnit: "%",
+      },
+      {
+        x: 208,
+        y: 96,
+        valueNumber: 0.68,
+        valueDecimals: 2,
+        valueSuffix: { type: "million" },
+        deltaValue: 6.8,
+        deltaDecimals: 1,
+        deltaUnit: "%",
+      },
+      {
+        x: 304,
+        y: 82,
+        valueNumber: 0.92,
+        valueDecimals: 2,
+        valueSuffix: { type: "million" },
+        deltaValue: 8.2,
+        deltaDecimals: 1,
+        deltaUnit: "%",
+      },
+      {
+        x: 398,
+        y: 70,
+        valueNumber: 1.08,
+        valueDecimals: 2,
+        valueSuffix: { type: "million" },
+        deltaValue: 9.6,
+        deltaDecimals: 1,
+        deltaUnit: "%",
+      },
     ],
     forecastPoint: { x: 492, y: 52, valueNumber: 1.18, valueDecimals: 2, valueSuffix: { type: "million" } },
     signals: {
@@ -383,8 +586,18 @@ function ClarityModule({
   const items = [
     { key: "revenue", label: t.kpiLabels?.revenue, kpi: data.kpis.revenue, deltaLabel: t.kpiDeltaLabels?.revenue },
     { key: "margin", label: t.kpiLabels?.margin, kpi: data.kpis.margin, deltaLabel: t.kpiDeltaLabels?.margin },
-    { key: "forecastConfidence", label: t.kpiLabels?.forecastConfidence, kpi: data.kpis.forecastConfidence, deltaLabel: t.kpiDeltaLabels?.forecastConfidence },
-    { key: "activeProjects", label: t.kpiLabels?.activeProjects, kpi: data.kpis.activeProjects, deltaLabel: t.kpiDeltaLabels?.activeProjects },
+    {
+      key: "forecastConfidence",
+      label: t.kpiLabels?.forecastConfidence,
+      kpi: data.kpis.forecastConfidence,
+      deltaLabel: t.kpiDeltaLabels?.forecastConfidence,
+    },
+    {
+      key: "activeProjects",
+      label: t.kpiLabels?.activeProjects,
+      kpi: data.kpis.activeProjects,
+      deltaLabel: t.kpiDeltaLabels?.activeProjects,
+    },
   ]
   return (
     <div className="overflow-hidden rounded-[18px]">
@@ -581,30 +794,30 @@ function ProfitModule({
                 )
                 const pointDeltaDisplay = formatDelta(p.deltaValue, p.deltaDecimals, p.deltaUnit, lang)
                 return (
-                <Tooltip key={`pp-${idx}-${p.x}-${p.y}`}>
-                  <TooltipTrigger asChild>
-                    <motion.button
-                      type="button"
-                      aria-label={`${pointLabel}: ${pointValueDisplay}`}
-                      initial={{ opacity: 0, scale: 0.6 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ duration: 0.35, delay: 0.5 + idx * 0.1, ease: "easeOut" }}
-                      className="absolute h-2 w-2 -translate-x-1/2 -translate-y-1/2 cursor-pointer rounded-full bg-[#21569c] ring-4 ring-[#21569c]/10 transition-[box-shadow,filter] hover:brightness-110 hover:ring-[5px] hover:ring-[#21569c]/30 focus-visible:outline-none focus-visible:ring-[#21569c]/40"
-                      style={{ left: `${(p.x / 510) * 100}%`, top: `${(p.y / 150) * 100}%` }}
-                    />
-                  </TooltipTrigger>
-                  <TooltipContent side="top" className="bg-[#0B162D] text-white">
-                    <div className="flex flex-col gap-0.5 text-[0.66rem] leading-tight">
-                      <span className="font-semibold">{pointLabel}</span>
-                      <span className="text-white/70">
-                        {t.trendTooltip?.revenueLabel}: {pointValueDisplay}
-                      </span>
-                      <span className="text-[#7DBBFF]">
-                        {t.trendTooltip?.deltaLabel} {pointDeltaDisplay}
-                      </span>
-                    </div>
-                  </TooltipContent>
-                </Tooltip>
+                  <Tooltip key={`pp-${idx}-${p.x}-${p.y}`}>
+                    <TooltipTrigger asChild>
+                      <motion.button
+                        type="button"
+                        aria-label={`${pointLabel}: ${pointValueDisplay}`}
+                        initial={{ opacity: 0, scale: 0.6 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.35, delay: 0.5 + idx * 0.1, ease: "easeOut" }}
+                        className="absolute h-2 w-2 -translate-x-1/2 -translate-y-1/2 cursor-pointer rounded-full bg-[#21569c] ring-4 ring-[#21569c]/10 transition-[box-shadow,filter] hover:brightness-110 hover:ring-[5px] hover:ring-[#21569c]/30 focus-visible:outline-none focus-visible:ring-[#21569c]/40"
+                        style={{ left: `${(p.x / 510) * 100}%`, top: `${(p.y / 150) * 100}%` }}
+                      />
+                    </TooltipTrigger>
+                    <TooltipContent side="top" className="bg-[#0B162D] text-white">
+                      <div className="flex flex-col gap-0.5 text-[0.66rem] leading-tight">
+                        <span className="font-semibold">{pointLabel}</span>
+                        <span className="text-white/70">
+                          {t.trendTooltip?.revenueLabel}: {pointValueDisplay}
+                        </span>
+                        <span className="text-[#7DBBFF]">
+                          {t.trendTooltip?.deltaLabel} {pointDeltaDisplay}
+                        </span>
+                      </div>
+                    </TooltipContent>
+                  </Tooltip>
                 )
               })}
 
@@ -659,7 +872,17 @@ function ProfitModule({
   )
 }
 
-function AiModule({ t, data, radarStyle, lang }: { t: HeroCopy; data: Dataset; radarStyle?: MotionStyle; lang: Locale }) {
+function AiModule({
+  t,
+  data,
+  radarStyle,
+  lang,
+}: {
+  t: HeroCopy
+  data: Dataset
+  radarStyle?: MotionStyle
+  lang: Locale
+}) {
   const forecastRiskValue = t.signalValues?.[data.signals.forecastRiskKey] ?? data.signals.forecastRiskKey
   const deviationDisplay = formatDelta(data.signals.deviationValue, data.signals.deviationDecimals, "%", lang)
   const trendStrengthDisplay = formatNumber(data.signals.trendStrengthValue, data.signals.trendStrengthDecimals, lang)
@@ -677,7 +900,9 @@ function AiModule({ t, data, radarStyle, lang }: { t: HeroCopy; data: Dataset; r
           ].map((item) => (
             <div key={item.label} className="rounded-[14px] bg-[#F8FBFE] p-1.5 sm:p-2.5">
               <p className="text-[0.52rem] font-medium uppercase tracking-[0.14em] text-[#0B162D]/38">{item.label}</p>
-              <p className="mt-1 text-[0.82rem] font-semibold text-[#0B162D] sm:mt-1.5 sm:text-[0.9rem]">{item.value}</p>
+              <p className="mt-1 text-[0.82rem] font-semibold text-[#0B162D] sm:mt-1.5 sm:text-[0.9rem]">
+                {item.value}
+              </p>
             </div>
           ))}
         </div>
@@ -701,8 +926,18 @@ function AiModule({ t, data, radarStyle, lang }: { t: HeroCopy; data: Dataset; r
               >
                 <motion.div
                   initial={{ scaleY: 0.5 }}
-                  animate={inView ? { scaleY: [0.5, 0.32 + (i % 3) * 0.12, 0.4 + (i % 4) * 0.08, 0.32 + (i % 3) * 0.12] } : { scaleY: 0.5 }}
-                  transition={{ duration: 8, delay: 1.4 + i * 0.05, repeat: Infinity, repeatType: "reverse", ease: "easeInOut" }}
+                  animate={
+                    inView
+                      ? { scaleY: [0.5, 0.32 + (i % 3) * 0.12, 0.4 + (i % 4) * 0.08, 0.32 + (i % 3) * 0.12] }
+                      : { scaleY: 0.5 }
+                  }
+                  transition={{
+                    duration: 8,
+                    delay: 1.4 + i * 0.05,
+                    repeat: Infinity,
+                    repeatType: "reverse",
+                    ease: "easeInOut",
+                  }}
                   className="h-full w-full rounded-t-md bg-gradient-to-t from-[#21569c] to-[#7DBBFF] opacity-70"
                   style={{ transformOrigin: "bottom" }}
                 />
@@ -806,11 +1041,11 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
   const dashboardWidth = useTransform(scrollYProgress, [0.05, 0.32], ["680px", "1180px"], { ease: easeOutCubic })
   const dashboardHeight = useTransform(scrollYProgress, [0.05, 0.32], ["540px", "660px"], { ease: easeOutCubic })
   const dashboardX = useTransform(scrollYProgress, [0.05, 0.32], ["20vw", "0vw"], { ease: easeOutCubic })
-  const dashboardScale = useTransform(scrollYProgress, [0.05, 0.30], [0.94, 1], { ease: easeOutCubic })
-  const dashboardZ = useTransform(scrollYProgress, [0.05, 0.30], [-160, 0], { ease: easeOutCubic })
-  const aiHeight = useTransform(scrollYProgress, [0.05, 0.30], ["230px", "360px"], { ease: easeOutCubic })
+  const dashboardScale = useTransform(scrollYProgress, [0.05, 0.3], [0.94, 1], { ease: easeOutCubic })
+  const dashboardZ = useTransform(scrollYProgress, [0.05, 0.3], [-160, 0], { ease: easeOutCubic })
+  const aiHeight = useTransform(scrollYProgress, [0.05, 0.3], ["230px", "360px"], { ease: easeOutCubic })
   const radarOpacity = useTransform(scrollYProgress, [0.12, 0.28], [0, 1], { ease: easeOutCubic })
-  const lightSweepOpacity = useTransform(scrollYProgress, [0.28, 0.34, 0.40], [0, 1, 0])
+  const lightSweepOpacity = useTransform(scrollYProgress, [0.28, 0.34, 0.4], [0, 1, 0])
   const lightSweepX = useTransform(scrollYProgress, [0.28, 0.42], ["-40%", "140%"], { ease: easeOutCubic })
 
   const useStaticIdleLayout = !SCROLL_ANIMATIONS_ENABLED
@@ -820,11 +1055,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
     : useStaticIdleLayout
       ? { opacity: 1, y: 0 }
       : { opacity: heroTextOpacity, y: heroTextY }
-  const dashboardWrapperStyle = shouldReduceMotion
-    ? undefined
-    : useStaticIdleLayout
-      ? { x: "20vw" }
-      : { x: dashboardX }
+  const dashboardWrapperStyle = shouldReduceMotion ? undefined : useStaticIdleLayout ? { x: "20vw" } : { x: dashboardX }
   const dashboardStyle = shouldReduceMotion
     ? { width: "1180px", height: "660px" }
     : useStaticIdleLayout
@@ -845,9 +1076,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
           maxWidth: "calc(100vw - 96px)",
         }
   const lightSweepStyle =
-    shouldReduceMotion || useStaticIdleLayout
-      ? { opacity: 0 }
-      : { opacity: lightSweepOpacity, x: lightSweepX }
+    shouldReduceMotion || useStaticIdleLayout ? { opacity: 0 } : { opacity: lightSweepOpacity, x: lightSweepX }
   const aiWrapperStyle = shouldReduceMotion
     ? { height: "360px" }
     : useStaticIdleLayout
@@ -1013,7 +1242,14 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
                 variants={dashboardChildVariants}
                 className="overflow-hidden rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)]"
               >
-                <ClarityModule t={t} data={data} reduceMotion={shouldReduceMotion} mobileEmphasis lang={lang} millionSuffix={t.millionSuffix} />
+                <ClarityModule
+                  t={t}
+                  data={data}
+                  reduceMotion={shouldReduceMotion}
+                  mobileEmphasis
+                  lang={lang}
+                  millionSuffix={t.millionSuffix}
+                />
               </motion.div>
 
               {/* Trend chart — money shot */}
@@ -1021,7 +1257,16 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
                 variants={dashboardChildVariants}
                 className="flex flex-col overflow-hidden rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)] sm:min-h-[320px] md:min-h-[360px]"
               >
-                <ProfitModule t={t} data={data} mobileEmphasis lang={lang} millionSuffix={t.millionSuffix} bottomLabels={bottomLabels} linePointLabels={linePointLabels} forecastPointLabel={forecastPointLabel} />
+                <ProfitModule
+                  t={t}
+                  data={data}
+                  mobileEmphasis
+                  lang={lang}
+                  millionSuffix={t.millionSuffix}
+                  bottomLabels={bottomLabels}
+                  linePointLabels={linePointLabels}
+                  forecastPointLabel={forecastPointLabel}
+                />
               </motion.div>
 
               {/* AI signals — tablet only */}
@@ -1039,175 +1284,180 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
       {/* DESKTOP — >= lg (existing pinned hero) */}
       <section
         ref={containerRef}
-        className={cx(
-          "relative hidden lg:block",
-          SCROLL_ANIMATIONS_ENABLED ? "lg:h-[420vh]" : "lg:h-screen",
-        )}
+        className={cx("relative hidden lg:block", SCROLL_ANIMATIONS_ENABLED ? "lg:h-[420vh]" : "lg:h-screen")}
       >
         <div className="sticky top-0 h-[100dvh] overflow-hidden">
-        {/* Background glow — right side, behind the dashboard */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute right-[5%] top-1/2 -z-10 h-[480px] w-[680px] -translate-y-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,_rgba(33,86,156,0.10),_transparent_62%)] blur-2xl"
-        />
+          {/* Background glow — right side, behind the dashboard */}
+          <div
+            aria-hidden
+            className="pointer-events-none absolute right-[5%] top-1/2 -z-10 h-[480px] w-[680px] -translate-y-1/2 rounded-full bg-[radial-gradient(ellipse_at_center,_rgba(33,86,156,0.10),_transparent_62%)] blur-2xl"
+          />
 
-        {/* HERO TEXT — left column */}
-        <motion.div
-          style={heroTextStyle}
-          className="pointer-events-none absolute inset-0 z-10 flex items-center"
-        >
-          <div className="mx-auto w-full max-w-[1380px] px-10">
-            <div className="grid grid-cols-[1fr_1.25fr] items-center gap-10">
-              <div className="pointer-events-auto text-left">
-                <span className="section-eyebrow">{eyebrowLabel}</span>
+          {/* HERO TEXT — left column */}
+          <motion.div style={heroTextStyle} className="pointer-events-none absolute inset-0 z-10 flex items-center">
+            <div className="mx-auto w-full max-w-[1380px] px-10">
+              <div className="grid grid-cols-[1fr_1.25fr] items-center gap-10">
+                <div className="pointer-events-auto text-left">
+                  <span className="section-eyebrow">{eyebrowLabel}</span>
 
-                <div
-                  role="presentation"
-                  aria-hidden="true"
-                  className="mx-0 mt-2 max-w-[15ch] font-serif text-[2.8rem] leading-[1.05] text-[#0B162D] xl:text-[3.2rem] 2xl:text-[3.6rem]"
-                >
-                  {hero?.title}
-                </div>
-
-                <p className="mx-0 mt-5 max-w-[56ch] text-[0.98rem] leading-relaxed text-[#0B162D]/70 xl:text-[1.05rem]">
-                  {hero?.description}
-                </p>
-
-                <HeroPackages hero={hero} />
-
-                <div className="mt-9 flex justify-start">
-                  <MagneticCta
-                    href={`/${lang}/contact#book`}
-                    className="group inline-flex items-center justify-center rounded-lg bg-[#21569c] px-5 py-3 text-[0.88rem] font-medium text-white shadow-[0_14px_28px_rgba(33,86,156,0.20)] transition-colors duration-300 hover:bg-[#1d4d8b]"
+                  <div
+                    role="presentation"
+                    aria-hidden="true"
+                    className="mx-0 mt-2 max-w-[15ch] font-serif text-[2.8rem] leading-[1.05] text-[#0B162D] xl:text-[3.2rem] 2xl:text-[3.6rem]"
                   >
-                    {hero?.primaryCta}
-                    <ArrowRight className="ml-1.5 h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-                  </MagneticCta>
-                </div>
-              </div>
-              <div />
-            </div>
-          </div>
-        </motion.div>
-
-        {/* SINGLE DASHBOARD FRAME */}
-        <motion.div
-          style={dashboardWrapperStyle}
-          className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center"
-        >
-          <motion.div
-            style={dashboardStyle}
-            className="pointer-events-auto relative overflow-hidden rounded-[28px] border border-white/70 bg-white/84 shadow-[0_34px_100px_rgba(15,23,42,0.12)] backdrop-blur-2xl"
-          >
-            {/* Light-sweep / glass-reflex */}
-            <motion.div
-              style={lightSweepStyle}
-              aria-hidden
-              className="pointer-events-none absolute inset-y-0 left-0 z-30 w-[45%] -skew-x-12 bg-gradient-to-r from-transparent via-white/95 to-transparent mix-blend-screen"
-            />
-
-            <div className="flex h-full min-h-0 flex-col">
-              {/* Dashboard Header */}
-              <div className="border-b border-slate-100 px-3.5 py-3 sm:px-4">
-                <div className="flex items-center justify-between gap-4">
-                  <div className="flex items-center gap-2 shrink-0">
-                    <Image
-                      src="/logo_black.webp"
-                      alt="smiit"
-                      width={64}
-                      height={24}
-                      className="h-[22px] w-auto object-contain opacity-80"
-                    />
-                    <div className="h-3.5 w-px bg-slate-200" />
-                    <h2 className="whitespace-nowrap text-[0.88rem] font-semibold text-[#0B162D]">
-                      {t.dashboardTitle}
-                    </h2>
+                    {hero?.title}
                   </div>
-                  <div className="flex shrink-0 items-center gap-2">
-                    <div className="inline-flex items-center gap-1 text-[0.62rem] text-[#0B162D]/48">
-                      <span>{t.updated}</span>
-                      <ChevronDown className="h-3 w-3" />
+
+                  <p className="mx-0 mt-5 max-w-[56ch] text-[0.98rem] leading-relaxed text-[#0B162D]/70 xl:text-[1.05rem]">
+                    {hero?.description}
+                  </p>
+
+                  <HeroPackages hero={hero} />
+
+                  <div className="mt-9 flex justify-start">
+                    <MagneticCta
+                      href={`/${lang}/contact#book`}
+                      className="group inline-flex items-center justify-center rounded-lg bg-[#21569c] px-5 py-3 text-[0.88rem] font-medium text-white shadow-[0_14px_28px_rgba(33,86,156,0.20)] transition-colors duration-300 hover:bg-[#1d4d8b]"
+                    >
+                      {hero?.primaryCta}
+                      <ArrowRight className="ml-1.5 h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
+                    </MagneticCta>
+                  </div>
+                </div>
+                <div />
+              </div>
+            </div>
+          </motion.div>
+
+          {/* SINGLE DASHBOARD FRAME */}
+          <motion.div
+            style={dashboardWrapperStyle}
+            className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center"
+          >
+            <motion.div
+              style={dashboardStyle}
+              className="pointer-events-auto relative overflow-hidden rounded-[28px] border border-white/70 bg-white/84 shadow-[0_34px_100px_rgba(15,23,42,0.12)] backdrop-blur-2xl"
+            >
+              {/* Light-sweep / glass-reflex */}
+              <motion.div
+                style={lightSweepStyle}
+                aria-hidden
+                className="pointer-events-none absolute inset-y-0 left-0 z-30 w-[45%] -skew-x-12 bg-gradient-to-r from-transparent via-white/95 to-transparent mix-blend-screen"
+              />
+
+              <div className="flex h-full min-h-0 flex-col">
+                {/* Dashboard Header */}
+                <div className="border-b border-slate-100 px-3.5 py-3 sm:px-4">
+                  <div className="flex items-center justify-between gap-4">
+                    <div className="flex items-center gap-2 shrink-0">
+                      <Image
+                        src="/logo_black.webp"
+                        alt="smiit"
+                        width={64}
+                        height={24}
+                        className="h-[22px] w-auto object-contain opacity-80"
+                      />
+                      <div className="h-3.5 w-px bg-slate-200" />
+                      <h2 className="whitespace-nowrap text-[0.88rem] font-semibold text-[#0B162D]">
+                        {t.dashboardTitle}
+                      </h2>
                     </div>
-                    <span className="inline-flex items-center gap-1 rounded-full border border-[#21569c]/20 bg-[#21569c]/[0.06] px-2 py-0.5 text-[0.62rem] font-semibold text-[#21569c]">
-                      <Zap className="h-3 w-3" />
-                      {t.platform}
+                    <div className="flex shrink-0 items-center gap-2">
+                      <div className="inline-flex items-center gap-1 text-[0.62rem] text-[#0B162D]/48">
+                        <span>{t.updated}</span>
+                        <ChevronDown className="h-3 w-3" />
+                      </div>
+                      <span className="inline-flex items-center gap-1 rounded-full border border-[#21569c]/20 bg-[#21569c]/[0.06] px-2 py-0.5 text-[0.62rem] font-semibold text-[#21569c]">
+                        <Zap className="h-3 w-3" />
+                        {t.platform}
+                      </span>
+                    </div>
+                  </div>
+
+                  {/* Status row */}
+                  <div className="mt-2 flex items-center gap-2 overflow-hidden text-[0.62rem] text-[#0B162D]/48">
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[#F7FAFF] px-2 py-1">
+                      <Layers3 className="h-3 w-3 text-[#21569c]" />
+                      {t.sourcesConnected}
+                    </span>
+
+                    {/* Period toggle group — replaces static date pill */}
+                    <div
+                      role="tablist"
+                      aria-label={t.ariaLabels?.timeRange}
+                      className="inline-flex items-center gap-0.5 rounded-full bg-[#F7FAFF] p-0.5"
+                    >
+                      {(["q", "h", "y"] as const).map((key) => {
+                        const active = periodKey === key
+                        return (
+                          <button
+                            key={key}
+                            type="button"
+                            role="tab"
+                            aria-selected={active}
+                            onClick={() => setPeriodKey(key)}
+                            className={cx(
+                              "rounded-full px-2 py-0.5 text-[0.62rem] font-medium transition-all duration-200",
+                              active ? "bg-[#21569c] text-white shadow-sm" : "text-[#0B162D]/60 hover:text-[#0B162D]",
+                            )}
+                          >
+                            {t.periods?.[key]}
+                          </button>
+                        )
+                      })}
+                    </div>
+
+                    <span className="inline-flex items-center gap-1 rounded-full bg-[#F7FAFF] px-2 py-1">
+                      <Filter className="h-3 w-3 text-[#21569c]" />
+                      {t.sections.filters}
                     </span>
                   </div>
                 </div>
 
-                {/* Status row */}
-                <div className="mt-2 flex items-center gap-2 overflow-hidden text-[0.62rem] text-[#0B162D]/48">
-                  <span className="inline-flex items-center gap-1 rounded-full bg-[#F7FAFF] px-2 py-1">
-                    <Layers3 className="h-3 w-3 text-[#21569c]" />
-                    {t.sourcesConnected}
-                  </span>
-
-                  {/* Period toggle group — replaces static date pill */}
-                  <div
-                    role="tablist"
-                    aria-label={t.ariaLabels?.timeRange}
-                    className="inline-flex items-center gap-0.5 rounded-full bg-[#F7FAFF] p-0.5"
-                  >
-                    {(["q", "h", "y"] as const).map((key) => {
-                      const active = periodKey === key
-                      return (
-                        <button
-                          key={key}
-                          type="button"
-                          role="tab"
-                          aria-selected={active}
-                          onClick={() => setPeriodKey(key)}
-                          className={cx(
-                            "rounded-full px-2 py-0.5 text-[0.62rem] font-medium transition-all duration-200",
-                            active
-                              ? "bg-[#21569c] text-white shadow-sm"
-                              : "text-[#0B162D]/60 hover:text-[#0B162D]",
-                          )}
-                        >
-                          {t.periods?.[key]}
-                        </button>
-                      )
-                    })}
+                {/* Dashboard Body */}
+                <div className="flex min-h-0 flex-1 flex-row gap-2.5 overflow-hidden p-3">
+                  {/* Left column */}
+                  <div className="flex min-h-0 flex-1 flex-col gap-2.5">
+                    <div className="relative shrink-0 overflow-visible rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)]">
+                      <ClarityModule
+                        t={t}
+                        data={data}
+                        reduceMotion={shouldReduceMotion}
+                        lang={lang}
+                        millionSuffix={t.millionSuffix}
+                      />
+                    </div>
+                    <div className="relative flex min-h-0 flex-1 flex-col overflow-visible rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)]">
+                      <ProfitModule
+                        t={t}
+                        data={data}
+                        lang={lang}
+                        millionSuffix={t.millionSuffix}
+                        bottomLabels={bottomLabels}
+                        linePointLabels={linePointLabels}
+                        forecastPointLabel={forecastPointLabel}
+                      />
+                    </div>
                   </div>
 
-                  <span className="inline-flex items-center gap-1 rounded-full bg-[#F7FAFF] px-2 py-1">
-                    <Filter className="h-3 w-3 text-[#21569c]" />
-                    {t.sections.filters}
-                  </span>
-                </div>
-              </div>
-
-              {/* Dashboard Body */}
-              <div className="flex min-h-0 flex-1 flex-row gap-2.5 overflow-hidden p-3">
-                {/* Left column */}
-                <div className="flex min-h-0 flex-1 flex-col gap-2.5">
-                  <div className="relative shrink-0 overflow-visible rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)]">
-                    <ClarityModule t={t} data={data} reduceMotion={shouldReduceMotion} lang={lang} millionSuffix={t.millionSuffix} />
-                  </div>
-                  <div className="relative flex min-h-0 flex-1 flex-col overflow-visible rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)]">
-                    <ProfitModule t={t} data={data} lang={lang} millionSuffix={t.millionSuffix} bottomLabels={bottomLabels} linePointLabels={linePointLabels} forecastPointLabel={forecastPointLabel} />
-                  </div>
-                </div>
-
-                {/* Right column */}
-                <div className="flex shrink-0 basis-[33%] flex-col gap-2.5 overflow-hidden">
-                  <motion.div
-                    style={aiWrapperStyle}
-                    className="relative flex shrink-0 flex-col overflow-visible rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)]"
-                  >
-                    <AiModule t={t} data={data} radarStyle={radarStyle} lang={lang} />
-                  </motion.div>
-                  <div className="relative flex min-h-0 flex-1 flex-col overflow-visible rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)]">
-                    <SpeedModule t={t} data={data} />
+                  {/* Right column */}
+                  <div className="flex shrink-0 basis-[33%] flex-col gap-2.5 overflow-hidden">
+                    <motion.div
+                      style={aiWrapperStyle}
+                      className="relative flex shrink-0 flex-col overflow-visible rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)]"
+                    >
+                      <AiModule t={t} data={data} radarStyle={radarStyle} lang={lang} />
+                    </motion.div>
+                    <div className="relative flex min-h-0 flex-1 flex-col overflow-visible rounded-[18px] border border-slate-200/80 bg-white shadow-[0_14px_36px_rgba(18,38,63,0.07)]">
+                      <SpeedModule t={t} data={data} />
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           </motion.div>
-        </motion.div>
-
-      </div>
-    </section>
+        </div>
+      </section>
     </>
   )
 }

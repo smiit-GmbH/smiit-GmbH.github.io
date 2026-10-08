@@ -33,15 +33,32 @@ const medallionArchitektur: LocalizedGlossaryTerm = {
       },
     ],
     faq: [
-      { question: "Was bedeuten Bronze, Silver und Gold?", answer: "Bronze ist die Rohdatenschicht möglichst unverändert, Silver die bereinigte und integrierte Schicht, Gold die für Reporting und Analyse aufbereitete Schicht, auf der Werkzeuge wie Power BI direkt aufsetzen." },
-      { question: "Ist die Medallion-Architektur dasselbe wie ETL?", answer: "Nicht ganz. Die Medallion-Architektur ist ein Schichtungsmuster für die stufenweise Veredelung im Lakehouse. ETL beziehungsweise ELT beschreibt den eigentlichen Extraktions-, Transformations- und Ladeprozess, der die Schichten befüllt." },
-      { question: "Müssen es immer genau drei Schichten sein?", answer: "Drei Schichten (Bronze, Silver, Gold) sind das verbreitete Grundmuster, aber kein Dogma. Je nach Bedarf können Zwischenstufen ergänzt oder bei einfachen Fällen Schichten zusammengefasst werden. Entscheidend ist das Prinzip der nachvollziehbaren, stufenweisen Veredelung." },
-      { question: "Welche Plattform braucht man für eine Medallion-Architektur?", answer: "Sie wird typischerweise in einem Lakehouse umgesetzt, etwa auf Azure Databricks oder Microsoft Fabric, oft auf Basis offener Tabellenformate wie Delta Lake. Das Prinzip der gestuften Veredelung lässt sich aber auch in klassischen Data-Warehouse-Umgebungen anwenden." },
+      {
+        question: "Was bedeuten Bronze, Silver und Gold?",
+        answer:
+          "Bronze ist die Rohdatenschicht möglichst unverändert, Silver die bereinigte und integrierte Schicht, Gold die für Reporting und Analyse aufbereitete Schicht, auf der Werkzeuge wie Power BI direkt aufsetzen.",
+      },
+      {
+        question: "Ist die Medallion-Architektur dasselbe wie ETL?",
+        answer:
+          "Nicht ganz. Die Medallion-Architektur ist ein Schichtungsmuster für die stufenweise Veredelung im Lakehouse. ETL beziehungsweise ELT beschreibt den eigentlichen Extraktions-, Transformations- und Ladeprozess, der die Schichten befüllt.",
+      },
+      {
+        question: "Müssen es immer genau drei Schichten sein?",
+        answer:
+          "Drei Schichten (Bronze, Silver, Gold) sind das verbreitete Grundmuster, aber kein Dogma. Je nach Bedarf können Zwischenstufen ergänzt oder bei einfachen Fällen Schichten zusammengefasst werden. Entscheidend ist das Prinzip der nachvollziehbaren, stufenweisen Veredelung.",
+      },
+      {
+        question: "Welche Plattform braucht man für eine Medallion-Architektur?",
+        answer:
+          "Sie wird typischerweise in einem Lakehouse umgesetzt, etwa auf Azure Databricks oder Microsoft Fabric, oft auf Basis offener Tabellenformate wie Delta Lake. Das Prinzip der gestuften Veredelung lässt sich aber auch in klassischen Data-Warehouse-Umgebungen anwenden.",
+      },
     ],
     relatedServicePath: "services/analytics",
     relatedCaseStudySlug: "dy-project-ag",
     metaTitle: "Medallion-Architektur (Bronze/Silver/Gold) erklärt | smiit Glossar",
-    metaDescription: "Medallion-Architektur einfach erklärt: Bronze, Silver und Gold, Anwendungsfälle und Abgrenzung zu ETL und Datenmodellierung – mit Praxisbezug von smiit.",
+    metaDescription:
+      "Medallion-Architektur einfach erklärt: Bronze, Silver und Gold, Anwendungsfälle und Abgrenzung zu ETL und Datenmodellierung – mit Praxisbezug von smiit.",
   },
   en: {
     slug: "medallion-architecture",
@@ -74,15 +91,32 @@ const medallionArchitektur: LocalizedGlossaryTerm = {
       },
     ],
     faq: [
-      { question: "What do bronze, silver and gold mean?", answer: "Bronze is the raw data layer kept as unchanged as possible, silver is the cleansed and integrated layer, and gold is the layer prepared for reporting and analysis on which tools such as Power BI build directly." },
-      { question: "Is the medallion architecture the same as ETL?", answer: "Not quite. The medallion architecture is a layering pattern for step-by-step refinement in the lakehouse. ETL or ELT describes the actual extraction, transformation and loading process that fills the layers." },
-      { question: "Does it always have to be exactly three layers?", answer: "Three layers (bronze, silver, gold) are the common base pattern, but not a dogma. Depending on needs, intermediate stages can be added or, in simple cases, layers merged. What matters is the principle of traceable, step-by-step refinement." },
-      { question: "What platform do you need for a medallion architecture?", answer: "It is typically implemented in a lakehouse, for example on Azure Databricks or Microsoft Fabric, often based on open table formats such as Delta Lake. The principle of staged refinement can, however, also be applied in classic data warehouse environments." },
+      {
+        question: "What do bronze, silver and gold mean?",
+        answer:
+          "Bronze is the raw data layer kept as unchanged as possible, silver is the cleansed and integrated layer, and gold is the layer prepared for reporting and analysis on which tools such as Power BI build directly.",
+      },
+      {
+        question: "Is the medallion architecture the same as ETL?",
+        answer:
+          "Not quite. The medallion architecture is a layering pattern for step-by-step refinement in the lakehouse. ETL or ELT describes the actual extraction, transformation and loading process that fills the layers.",
+      },
+      {
+        question: "Does it always have to be exactly three layers?",
+        answer:
+          "Three layers (bronze, silver, gold) are the common base pattern, but not a dogma. Depending on needs, intermediate stages can be added or, in simple cases, layers merged. What matters is the principle of traceable, step-by-step refinement.",
+      },
+      {
+        question: "What platform do you need for a medallion architecture?",
+        answer:
+          "It is typically implemented in a lakehouse, for example on Azure Databricks or Microsoft Fabric, often based on open table formats such as Delta Lake. The principle of staged refinement can, however, also be applied in classic data warehouse environments.",
+      },
     ],
     relatedServicePath: "services/analytics",
     relatedCaseStudySlug: "dy-project-ag",
     metaTitle: "Medallion architecture (bronze/silver/gold) | smiit glossary",
-    metaDescription: "Medallion architecture explained simply: bronze, silver and gold, use cases and how it differs from ETL and data modeling – with practical insight from smiit.",
+    metaDescription:
+      "Medallion architecture explained simply: bronze, silver and gold, use cases and how it differs from ETL and data modeling – with practical insight from smiit.",
   },
 }
 
@@ -97,8 +131,14 @@ export const extras: Record<Locale, GlossaryExtra> = {
       "Ein verbreiteter Irrtum ist, Bronze speichere bereits bereinigte Daten. Bronze enthält bewusst die Rohdaten, erst Silber und Gold bereiten sie auf und aggregieren.",
     ],
     sources: [
-      { title: "Microsoft Learn – Medallion-Lakehouse-Architektur (Azure Databricks)", url: "https://learn.microsoft.com/azure/databricks/lakehouse/medallion" },
-      { title: "Databricks – Medallion Architecture", url: "https://www.databricks.com/glossary/medallion-architecture" },
+      {
+        title: "Microsoft Learn – Medallion-Lakehouse-Architektur (Azure Databricks)",
+        url: "https://learn.microsoft.com/azure/databricks/lakehouse/medallion",
+      },
+      {
+        title: "Databricks – Medallion Architecture",
+        url: "https://www.databricks.com/glossary/medallion-architecture",
+      },
     ],
   },
   en: {
@@ -108,8 +148,14 @@ export const extras: Record<Locale, GlossaryExtra> = {
       "A common error is to assume bronze already holds cleaned data. Bronze deliberately keeps raw data, while silver and gold clean and aggregate it.",
     ],
     sources: [
-      { title: "Microsoft Learn – Medallion lakehouse architecture (Azure Databricks)", url: "https://learn.microsoft.com/azure/databricks/lakehouse/medallion" },
-      { title: "Databricks – Medallion Architecture", url: "https://www.databricks.com/glossary/medallion-architecture" },
+      {
+        title: "Microsoft Learn – Medallion lakehouse architecture (Azure Databricks)",
+        url: "https://learn.microsoft.com/azure/databricks/lakehouse/medallion",
+      },
+      {
+        title: "Databricks – Medallion Architecture",
+        url: "https://www.databricks.com/glossary/medallion-architecture",
+      },
     ],
   },
 }

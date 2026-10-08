@@ -79,13 +79,7 @@ function NarrativeSection({
   )
 }
 
-export default function CaseStudyDetailPage({
-  lang,
-  study,
-}: {
-  lang: Locale
-  study: CaseStudyContent
-}) {
+export default function CaseStudyDetailPage({ lang, study }: { lang: Locale; study: CaseStudyContent }) {
   const ui = getCaseStudiesUi(lang)
   const base = `/${lang}`
   const area = AREA[study.serviceArea]
@@ -99,9 +93,7 @@ export default function CaseStudyDetailPage({
   // Auto-link the first mention of each glossary term across the narrative body.
   const linkedSectionParagraphs = useMemo(() => {
     const used = new Set<string>()
-    return study.sections.map((section) =>
-      section.paragraphs.map((p) => autolinkGlossary(p, { lang, used })),
-    )
+    return study.sections.map((section) => section.paragraphs.map((p) => autolinkGlossary(p, { lang, used })))
   }, [study, lang])
   const publishedDate = new Intl.DateTimeFormat(lang === "de" ? "de-DE" : "en-US", {
     day: "numeric",
@@ -121,10 +113,7 @@ export default function CaseStudyDetailPage({
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <Breadcrumb
             lang={lang}
-            items={[
-              { label: ui.breadcrumbLabel, href: `${base}/case-studies` },
-              { label: study.client },
-            ]}
+            items={[{ label: ui.breadcrumbLabel, href: `${base}/case-studies` }, { label: study.client }]}
           />
 
           <div
@@ -185,7 +174,9 @@ export default function CaseStudyDetailPage({
                 </div>
                 <div className="absolute -bottom-6 left-6 rounded-2xl border border-black/[0.06] bg-white/95 px-5 py-3.5 shadow-[0_16px_40px_rgba(18,38,63,0.14)] backdrop-blur">
                   <p className="font-serif text-[1.9rem] leading-none text-[var(--area)]">{study.heroMetric.value}</p>
-                  <p className="mt-1.5 max-w-[24ch] text-[0.7rem] leading-snug text-[#0B162D]/55">{study.heroMetric.label}</p>
+                  <p className="mt-1.5 max-w-[24ch] text-[0.7rem] leading-snug text-[#0B162D]/55">
+                    {study.heroMetric.label}
+                  </p>
                 </div>
               </div>
             )}
@@ -196,7 +187,12 @@ export default function CaseStudyDetailPage({
             {study.facts.map((fact) => (
               <div key={fact.label} className="bg-background p-4 sm:p-5">
                 <dt className="text-[0.66rem] font-medium uppercase tracking-wider text-[#0B162D]/45">{fact.label}</dt>
-                <dd lang={lang} className="mt-1.5 text-[0.92rem] font-semibold leading-snug text-[#0B162D] hyphens-auto break-words">{fact.value}</dd>
+                <dd
+                  lang={lang}
+                  className="mt-1.5 text-[0.92rem] font-semibold leading-snug text-[#0B162D] hyphens-auto break-words"
+                >
+                  {fact.value}
+                </dd>
               </div>
             ))}
             {/* Filler so the trailing empty grid cell matches the card bg instead of showing the divider colour (5 facts → 1 empty cell at 2/3 cols, none at 5 cols). */}
@@ -209,7 +205,12 @@ export default function CaseStudyDetailPage({
       <div id={CHAPTERS_WRAPPER_ID} className="max-w-[1400px] mx-auto mt-20 px-4 sm:mt-28 sm:px-6 lg:px-8">
         <div className="space-y-16 sm:space-y-20">
           {study.sections.map((section, i) => (
-            <NarrativeSection key={section.heading} section={section} index={i} paragraphs={linkedSectionParagraphs[i]} />
+            <NarrativeSection
+              key={section.heading}
+              section={section}
+              index={i}
+              paragraphs={linkedSectionParagraphs[i]}
+            />
           ))}
         </div>
       </div>

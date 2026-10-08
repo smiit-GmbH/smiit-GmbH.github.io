@@ -9,10 +9,10 @@ import { Button } from "@/components/ui/button"
 import { ChevronRight } from "lucide-react"
 import type { Locale, Dictionary } from "@/lib/dictionary"
 
-const DotLottieReact = dynamic(
-  () => import("@lottiefiles/dotlottie-react").then((m) => m.DotLottieReact),
-  { ssr: false, loading: () => null },
-)
+const DotLottieReact = dynamic(() => import("@lottiefiles/dotlottie-react").then((m) => m.DotLottieReact), {
+  ssr: false,
+  loading: () => null,
+})
 
 interface ServicesProps {
   dict: Dictionary
@@ -260,20 +260,11 @@ function ServiceCinemaLayer({
     idx === 0 ? [1, 1, 1, 0] : idx === total - 1 ? [0, 1, 1, 1] : [0, 1, 1, 0]
   const layerOpacity = useTransform(scrollYProgress, fadeStops, fadeValues)
   const slideValues: [number, number, number, number] =
-    idx === 0
-      ? [0, 0, 0, -22]
-      : idx === total - 1
-        ? [22, 0, 0, 0]
-        : [22, 0, 0, -22]
+    idx === 0 ? [0, 0, 0, -22] : idx === total - 1 ? [22, 0, 0, 0] : [22, 0, 0, -22]
   const layerY = useTransform(scrollYProgress, fadeStops, slideValues)
-  const layerPointerEvents = useTransform(layerOpacity, (v) =>
-    v >= 0.5 ? "auto" : "none",
-  )
+  const layerPointerEvents = useTransform(layerOpacity, (v) => (v >= 0.5 ? "auto" : "none"))
 
-  const r = (s: number, e: number): [number, number] => [
-    sliceStart + sliceLen * s,
-    sliceStart + sliceLen * e,
-  ]
+  const r = (s: number, e: number): [number, number] => [sliceStart + sliceLen * s, sliceStart + sliceLen * e]
 
   const eyebrowOpacity = useTransform(scrollYProgress, r(0, 0.02), [0, 1])
   const titleScale = useTransform(scrollYProgress, r(0, 0.06), [1.08, 1])
@@ -421,11 +412,7 @@ function ServiceCinemaLayer({
   )
 }
 
-function MobileServicesCinemaPinned({
-  items,
-}: {
-  items: Array<{ title: string; text: string; tags: string[] }>
-}) {
+function MobileServicesCinemaPinned({ items }: { items: Array<{ title: string; text: string; tags: string[] }> }) {
   const trackRef = useRef<HTMLDivElement | null>(null)
   const { scrollYProgress } = useScroll({
     target: trackRef,
@@ -434,11 +421,7 @@ function MobileServicesCinemaPinned({
 
   const revealVh = 85 * items.length
   return (
-    <div
-      ref={trackRef}
-      className="relative -mx-4 sm:-mx-6"
-      style={{ minHeight: `${100 + revealVh}vh` }}
-    >
+    <div ref={trackRef} className="relative -mx-4 sm:-mx-6" style={{ minHeight: `${100 + revealVh}vh` }}>
       <div className="sticky top-0 h-screen overflow-hidden">
         {items.map((item, idx) => (
           <ServiceCinemaLayer
@@ -454,21 +437,14 @@ function MobileServicesCinemaPinned({
   )
 }
 
-function MobileServicesCinemaStatic({
-  items,
-}: {
-  items: Array<{ title: string; text: string; tags: string[] }>
-}) {
+function MobileServicesCinemaStatic({ items }: { items: Array<{ title: string; text: string; tags: string[] }> }) {
   return (
     <ul className="border-t border-black/10 dark:border-white/10">
       {items.map((item, idx) => {
         const link = getLink(item.title)
         const accent = getAccent(item.title)
         return (
-          <li
-            key={item.title}
-            className="border-b border-black/10 dark:border-white/10 py-10"
-          >
+          <li key={item.title} className="border-b border-black/10 dark:border-white/10 py-10">
             <div className="text-[0.68rem] font-medium uppercase tracking-[0.22em] tabular-nums">
               <span style={{ color: accent.hex }}>{String(idx + 1).padStart(2, "0")}</span>
               <span className="mx-2 text-black/30 dark:text-white/30">/</span>
@@ -482,9 +458,7 @@ function MobileServicesCinemaStatic({
                 <TagPill key={t} label={t} />
               ))}
             </div>
-            <p className="mt-4 text-[0.96rem] leading-relaxed text-black/85 dark:text-white/85">
-              {item.text}
-            </p>
+            <p className="mt-4 text-[0.96rem] leading-relaxed text-black/85 dark:text-white/85">{item.text}</p>
             {link && (
               <div className="mt-5">
                 <LocalizedLink
@@ -540,13 +514,8 @@ function MobileServicesCinema({
       ) : (
         <>
           {header && (
-            <div
-              className="relative pointer-events-none"
-              style={{ height: "285vh", marginBottom: "-285vh" }}
-            >
-              <div className="sticky top-16 z-30 py-3 pointer-events-auto">
-                {header}
-              </div>
+            <div className="relative pointer-events-none" style={{ height: "285vh", marginBottom: "-285vh" }}>
+              <div className="sticky top-16 z-30 py-3 pointer-events-auto">{header}</div>
             </div>
           )}
           <MobileServicesCinemaPinned items={items} />
@@ -561,9 +530,7 @@ function MobileServicesCinema({
           transition={{ duration: 0.5, ease: "easeOut" }}
           className="relative -mt-[10vh] text-center"
         >
-          <p className="text-sm leading-relaxed text-black/75 dark:text-white/75 max-w-[54ch] mx-auto">
-            {ctaText}
-          </p>
+          <p className="text-sm leading-relaxed text-black/75 dark:text-white/75 max-w-[54ch] mx-auto">{ctaText}</p>
           <div className="mt-4 flex justify-center">
             <a href="#book">
               <Button
@@ -630,7 +597,11 @@ function DirectionalWaves({
   }
 
   return (
-    <svg className="absolute inset-0 w-full h-full pointer-events-none" viewBox="0 0 1000 1000" preserveAspectRatio="none">
+    <svg
+      className="absolute inset-0 w-full h-full pointer-events-none"
+      viewBox="0 0 1000 1000"
+      preserveAspectRatio="none"
+    >
       <defs>
         <mask id={`${id}-mask`}>
           <rect width="100%" height="100%" fill="black" />
@@ -645,7 +616,14 @@ function DirectionalWaves({
           />
         </mask>
 
-        <linearGradient id={`${id}-grad`} gradientUnits="userSpaceOnUse" x1={center.x} y1={center.y} x2={target.x} y2={target.y}>
+        <linearGradient
+          id={`${id}-grad`}
+          gradientUnits="userSpaceOnUse"
+          x1={center.x}
+          y1={center.y}
+          x2={target.x}
+          y2={target.y}
+        >
           <stop offset="0%" stopColor="rgba(176, 101, 246, 0.75)" />
           <stop offset="55%" stopColor="rgba(116, 71, 189, 0.65)" />
           <stop offset="100%" stopColor="rgba(25, 28, 201, 0.55)" />
@@ -907,10 +885,7 @@ function DesktopServices({ items }: { items: Array<{ title: string; text: string
   }
 
   return (
-    <div
-      ref={containerRef}
-      className="relative w-full min-h-[500px] lg:min-h-[600px] hidden lg:block overflow-visible"
-    >
+    <div ref={containerRef} className="relative w-full min-h-[500px] lg:min-h-[600px] hidden lg:block overflow-visible">
       {/* Nebula gradient background */}
       <div
         aria-hidden
@@ -925,9 +900,33 @@ function DesktopServices({ items }: { items: Array<{ title: string; text: string
       />
 
       {/* Waves */}
-      {geometry.targets[0] && <DirectionalWaves id="wave-left" center={geometry.center} target={geometry.targets[0]} pulseToken={pulseTokens[0]} delayMs={0} />}
-      {geometry.targets[1] && <DirectionalWaves id="wave-right" center={geometry.center} target={geometry.targets[1]} pulseToken={pulseTokens[1]} delayMs={90} />}
-      {geometry.targets[2] && <DirectionalWaves id="wave-bottom" center={geometry.center} target={geometry.targets[2]} pulseToken={pulseTokens[2]} delayMs={150} />}
+      {geometry.targets[0] && (
+        <DirectionalWaves
+          id="wave-left"
+          center={geometry.center}
+          target={geometry.targets[0]}
+          pulseToken={pulseTokens[0]}
+          delayMs={0}
+        />
+      )}
+      {geometry.targets[1] && (
+        <DirectionalWaves
+          id="wave-right"
+          center={geometry.center}
+          target={geometry.targets[1]}
+          pulseToken={pulseTokens[1]}
+          delayMs={90}
+        />
+      )}
+      {geometry.targets[2] && (
+        <DirectionalWaves
+          id="wave-bottom"
+          center={geometry.center}
+          target={geometry.targets[2]}
+          pulseToken={pulseTokens[2]}
+          delayMs={150}
+        />
+      )}
 
       {/* Center Satellite */}
       <motion.div
@@ -938,7 +937,9 @@ function DesktopServices({ items }: { items: Array<{ title: string; text: string
         ].join(" ")}
         ref={satelliteRef}
         initial={{ scale: 0.88, opacity: 0, filter: "blur(6px)" }}
-        animate={step >= 1 ? { scale: 1, opacity: 1, filter: "blur(0px)" } : { scale: 0.88, opacity: 0, filter: "blur(6px)" }}
+        animate={
+          step >= 1 ? { scale: 1, opacity: 1, filter: "blur(0px)" } : { scale: 0.88, opacity: 0, filter: "blur(6px)" }
+        }
         transition={{ type: "spring", stiffness: 240, damping: 22 }}
       >
         <div className="w-full h-full">
@@ -1133,4 +1134,3 @@ export default function Services({ dict, lang }: ServicesProps) {
     </section>
   )
 }
-

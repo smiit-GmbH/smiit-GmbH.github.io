@@ -37,9 +37,7 @@ const cloudComputing: LocalizedGlossaryTerm = {
       },
       {
         heading: "Cloud-Arten: Public, Private, Hybrid & Multi-Cloud",
-        paragraphs: [
-          "Neben den Service-Modellen unterscheidet man die Betriebsmodelle (Deployment-Modelle):",
-        ],
+        paragraphs: ["Neben den Service-Modellen unterscheidet man die Betriebsmodelle (Deployment-Modelle):"],
         bullets: [
           "Public Cloud: geteilte Infrastruktur eines Anbieters (z. B. Microsoft Azure) – maximal skalierbar und kosteneffizient.",
           "Private Cloud: dediziert für ein Unternehmen betrieben – mehr Kontrolle und Isolation, oft für sensible Daten oder regulatorische Anforderungen.",
@@ -139,9 +137,7 @@ const cloudComputing: LocalizedGlossaryTerm = {
       },
       {
         heading: "Cloud types: public, private, hybrid & multi-cloud",
-        paragraphs: [
-          "Beyond the service models, clouds are distinguished by their deployment models:",
-        ],
+        paragraphs: ["Beyond the service models, clouds are distinguished by their deployment models:"],
         bullets: [
           "Public cloud: a provider's shared infrastructure (e.g. Microsoft Azure) – highly scalable and cost-efficient.",
           "Private cloud: operated dedicated to one company – more control and isolation, often for sensitive data or regulatory needs.",
@@ -151,9 +147,7 @@ const cloudComputing: LocalizedGlossaryTerm = {
       },
       {
         heading: "Benefits & typical use cases",
-        paragraphs: [
-          "Cloud computing pays off wherever flexibility, fast provisioning and scalability matter.",
-        ],
+        paragraphs: ["Cloud computing pays off wherever flexibility, fast provisioning and scalability matter."],
         bullets: [
           "Launching new applications quickly without procuring hardware",
           "Elastic scaling for fluctuating load (e.g. seasonal business)",
@@ -220,8 +214,14 @@ export const extras: Record<Locale, GlossaryExtra> = {
       "Hybrid Cloud ist nicht „ein bisschen Cloud und ein bisschen On-Premise“, sondern eine bewusste Verteilung von Workloads anhand von Anforderungen wie Datenschutz, Latenz und Kosten.",
     ],
     sources: [
-      { title: "NIST – The NIST Definition of Cloud Computing (SP 800-145)", url: "https://csrc.nist.gov/pubs/sp/800/145/final" },
-      { title: "Microsoft Azure – Was ist Cloud Computing? (Cloud Computing Dictionary)", url: "https://azure.microsoft.com/resources/cloud-computing-dictionary/what-is-cloud-computing/" },
+      {
+        title: "NIST – The NIST Definition of Cloud Computing (SP 800-145)",
+        url: "https://csrc.nist.gov/pubs/sp/800/145/final",
+      },
+      {
+        title: "Microsoft Azure – Was ist Cloud Computing? (Cloud Computing Dictionary)",
+        url: "https://azure.microsoft.com/resources/cloud-computing-dictionary/what-is-cloud-computing/",
+      },
     ],
   },
   en: {
@@ -231,8 +231,14 @@ export const extras: Record<Locale, GlossaryExtra> = {
       "Hybrid cloud is not a bit of cloud and a bit of on-premise, but a deliberate placement of workloads based on requirements such as data protection, latency and cost.",
     ],
     sources: [
-      { title: "NIST – The NIST Definition of Cloud Computing (SP 800-145)", url: "https://csrc.nist.gov/pubs/sp/800/145/final" },
-      { title: "Microsoft Azure – What is cloud computing? (Cloud Computing Dictionary)", url: "https://azure.microsoft.com/resources/cloud-computing-dictionary/what-is-cloud-computing/" },
+      {
+        title: "NIST – The NIST Definition of Cloud Computing (SP 800-145)",
+        url: "https://csrc.nist.gov/pubs/sp/800/145/final",
+      },
+      {
+        title: "Microsoft Azure – What is cloud computing? (Cloud Computing Dictionary)",
+        url: "https://azure.microsoft.com/resources/cloud-computing-dictionary/what-is-cloud-computing/",
+      },
     ],
   },
 }

@@ -21,18 +21,14 @@ export function FeaturesSection({ dict }: FeaturesSectionProps) {
   const [embedRef, embedRevealed] = useRevealOnScroll()
 
   return (
-    <section
-      id="features"
-      className="relative py-14 md:py-18"
-    >
+    <section id="features" className="relative py-14 md:py-18">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div
           ref={headingRef}
           className={`text-center mb-12 md:mb-16 reveal-fade-up ${headingRevealed ? "revealed" : ""}`}
         >
           <h2 className="font-serif text-[2rem] sm:text-[2.8rem] md:text-[3.4rem] leading-[1.1] tracking-tight text-black">
-            {features.title}{" "}
-            <span className="text-[#21569c]">{features.titleHighlight}</span>
+            {features.title} <span className="text-[#21569c]">{features.titleHighlight}</span>
           </h2>
 
           <p className="mt-4 md:mt-5 text-sm md:text-base leading-relaxed text-black/55 max-w-[55ch] mx-auto">
@@ -65,10 +61,7 @@ export function FeaturesSection({ dict }: FeaturesSectionProps) {
           </div>
 
           {/* Power BI Report preview */}
-          <div
-            ref={embedRef}
-            className={`reveal-fade-up reveal-delay-2 ${embedRevealed ? "revealed" : ""}`}
-          >
+          <div ref={embedRef} className={`reveal-fade-up reveal-delay-2 ${embedRevealed ? "revealed" : ""}`}>
             <a
               href={POWER_BI_URL}
               target="_blank"

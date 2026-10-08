@@ -24,7 +24,10 @@ export default function Breadcrumb({ lang, items }: { lang: Locale; items: Crumb
                   {crumb.label}
                 </Link>
               ) : (
-                <span className={isLast ? "font-medium text-[#0B162D]/80" : undefined} aria-current={isLast ? "page" : undefined}>
+                <span
+                  className={isLast ? "font-medium text-[#0B162D]/80" : undefined}
+                  aria-current={isLast ? "page" : undefined}
+                >
                   {crumb.label}
                 </span>
               )}

@@ -213,9 +213,7 @@ export default function ReferencesSection({ dict }: { dict: Dictionary }) {
                   strokeLinecap="round"
                   fill="none"
                   initial={{ pathLength: 0, opacity: 0 }}
-                  animate={
-                    showTitleUnderline ? { pathLength: 1, opacity: 1 } : { pathLength: 0, opacity: 0 }
-                  }
+                  animate={showTitleUnderline ? { pathLength: 1, opacity: 1 } : { pathLength: 0, opacity: 0 }}
                   transition={{
                     pathLength: { duration: 0.85, ease: "easeOut" },
                     opacity: { duration: 0.2 },

@@ -177,8 +177,14 @@ export const extras: Record<Locale, GlossaryExtra> = {
       "Viele unterschätzen das Henne-Ei-Problem, also dass eine Plattform für die eine Seite erst attraktiv wird, wenn genügend Teilnehmer der anderen Seite vorhanden sind.",
     ],
     sources: [
-      { title: "Harvard Business Review – Pipelines, Platforms, and the New Rules of Strategy", url: "https://hbr.org/2016/04/pipelines-platforms-and-the-new-rules-of-strategy" },
-      { title: "Microsoft Learn – Architektur für mandantenfähige (Multi-Tenant-)Lösungen", url: "https://learn.microsoft.com/azure/architecture/guide/multitenant/overview" },
+      {
+        title: "Harvard Business Review – Pipelines, Platforms, and the New Rules of Strategy",
+        url: "https://hbr.org/2016/04/pipelines-platforms-and-the-new-rules-of-strategy",
+      },
+      {
+        title: "Microsoft Learn – Architektur für mandantenfähige (Multi-Tenant-)Lösungen",
+        url: "https://learn.microsoft.com/azure/architecture/guide/multitenant/overview",
+      },
     ],
   },
   en: {
@@ -188,8 +194,14 @@ export const extras: Record<Locale, GlossaryExtra> = {
       "Many underestimate the chicken-and-egg problem, namely that a platform only becomes attractive to one side once enough participants on the other side are present.",
     ],
     sources: [
-      { title: "Harvard Business Review – Pipelines, Platforms, and the New Rules of Strategy", url: "https://hbr.org/2016/04/pipelines-platforms-and-the-new-rules-of-strategy" },
-      { title: "Microsoft Learn – Architecting multitenant solutions on Azure", url: "https://learn.microsoft.com/azure/architecture/guide/multitenant/overview" },
+      {
+        title: "Harvard Business Review – Pipelines, Platforms, and the New Rules of Strategy",
+        url: "https://hbr.org/2016/04/pipelines-platforms-and-the-new-rules-of-strategy",
+      },
+      {
+        title: "Microsoft Learn – Architecting multitenant solutions on Azure",
+        url: "https://learn.microsoft.com/azure/architecture/guide/multitenant/overview",
+      },
     ],
   },
 }

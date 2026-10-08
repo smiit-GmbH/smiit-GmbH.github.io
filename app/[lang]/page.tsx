@@ -7,11 +7,7 @@ export async function generateStaticParams() {
   return [{ lang: "de" }, { lang: "en" }]
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ lang: Locale }>
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ lang: Locale }> }): Promise<Metadata> {
   const { lang } = await params
   return buildPageMetadata({
     lang,
@@ -26,11 +22,7 @@ export async function generateMetadata({
   })
 }
 
-export default async function Page({
-  params,
-}: {
-  params: Promise<{ lang: Locale }>
-}) {
+export default async function Page({ params }: { params: Promise<{ lang: Locale }> }) {
   const { lang } = await params
   const dict = getDictionary(lang)
 

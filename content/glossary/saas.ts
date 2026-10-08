@@ -177,8 +177,14 @@ export const extras: Record<Locale, GlossaryExtra> = {
       "SaaS gilt fälschlich als grundsätzlich günstiger, dabei können viele Einzel-Abonnements, ungenutzte Lizenzen und Integrationsaufwand die Gesamtkosten über die Zeit deutlich erhöhen.",
     ],
     sources: [
-      { title: "Microsoft Azure – Was ist SaaS? (Cloud Computing Dictionary)", url: "https://azure.microsoft.com/resources/cloud-computing-dictionary/what-is-saas/" },
-      { title: "NIST – The NIST Definition of Cloud Computing (SP 800-145)", url: "https://csrc.nist.gov/pubs/sp/800/145/final" },
+      {
+        title: "Microsoft Azure – Was ist SaaS? (Cloud Computing Dictionary)",
+        url: "https://azure.microsoft.com/resources/cloud-computing-dictionary/what-is-saas/",
+      },
+      {
+        title: "NIST – The NIST Definition of Cloud Computing (SP 800-145)",
+        url: "https://csrc.nist.gov/pubs/sp/800/145/final",
+      },
     ],
   },
   en: {
@@ -188,8 +194,14 @@ export const extras: Record<Locale, GlossaryExtra> = {
       "SaaS is wrongly seen as inherently cheaper, yet many individual subscriptions, unused licenses and integration effort can significantly raise the total cost over time.",
     ],
     sources: [
-      { title: "Microsoft Azure – What is SaaS? (Cloud Computing Dictionary)", url: "https://azure.microsoft.com/resources/cloud-computing-dictionary/what-is-saas/" },
-      { title: "NIST – The NIST Definition of Cloud Computing (SP 800-145)", url: "https://csrc.nist.gov/pubs/sp/800/145/final" },
+      {
+        title: "Microsoft Azure – What is SaaS? (Cloud Computing Dictionary)",
+        url: "https://azure.microsoft.com/resources/cloud-computing-dictionary/what-is-saas/",
+      },
+      {
+        title: "NIST – The NIST Definition of Cloud Computing (SP 800-145)",
+        url: "https://csrc.nist.gov/pubs/sp/800/145/final",
+      },
     ],
   },
 }

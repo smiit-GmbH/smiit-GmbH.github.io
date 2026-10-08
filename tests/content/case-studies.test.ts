@@ -49,24 +49,39 @@ describe("case study content", () => {
 
   test("required text fields are non-empty", () => {
     for (const { slug, lang, study } of variants) {
-      for (const key of ["client", "industry", "companySize", "title", "summary", "metaTitle", "metaDescription"] as const) {
+      for (const key of [
+        "client",
+        "industry",
+        "companySize",
+        "title",
+        "summary",
+        "metaTitle",
+        "metaDescription",
+      ] as const) {
         assert.ok(isNonEmpty(study[key]), `${slug} (${lang}): empty ${key}`)
       }
-      assert.ok(isNonEmpty(study.heroMetric.value) && isNonEmpty(study.heroMetric.label), `${slug} (${lang}): empty heroMetric`)
+      assert.ok(
+        isNonEmpty(study.heroMetric.value) && isNonEmpty(study.heroMetric.label),
+        `${slug} (${lang}): empty heroMetric`,
+      )
       assert.ok(study.sections.length > 0, `${slug} (${lang}): no sections`)
       for (const section of study.sections) {
         assert.ok(isNonEmpty(section.heading), `${slug} (${lang}): section without heading`)
         assert.ok(section.paragraphs.every(isNonEmpty), `${slug} (${lang}): "${section.heading}" has empty paragraphs`)
       }
-      for (const metric of study.metrics) assert.ok(isNonEmpty(metric.value) && isNonEmpty(metric.label), `${slug} (${lang}): empty metric`)
-      for (const fact of study.facts) assert.ok(isNonEmpty(fact.label) && isNonEmpty(fact.value), `${slug} (${lang}): empty fact`)
-      for (const item of study.techStack) assert.ok(isNonEmpty(item.name) && isNonEmpty(item.description), `${slug} (${lang}): empty tech item`)
+      for (const metric of study.metrics)
+        assert.ok(isNonEmpty(metric.value) && isNonEmpty(metric.label), `${slug} (${lang}): empty metric`)
+      for (const fact of study.facts)
+        assert.ok(isNonEmpty(fact.label) && isNonEmpty(fact.value), `${slug} (${lang}): empty fact`)
+      for (const item of study.techStack)
+        assert.ok(isNonEmpty(item.name) && isNonEmpty(item.description), `${slug} (${lang}): empty tech item`)
       assert.ok(isNonEmpty(study.quote.text) && isNonEmpty(study.quote.author), `${slug} (${lang}): empty quote`)
     }
   })
 
   test("datePublished is a valid ISO date", () => {
-    for (const { slug, lang, study } of variants) assert.ok(isIsoDate(study.datePublished), `${slug} (${lang}): ${study.datePublished}`)
+    for (const { slug, lang, study } of variants)
+      assert.ok(isIsoDate(study.datePublished), `${slug} (${lang}): ${study.datePublished}`)
   })
 
   test("relatedServicePath points to an existing service route", () => {

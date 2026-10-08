@@ -41,19 +41,10 @@ export default function ServicePage({
       <ServiceManifestBand dict={dict} service={service} />
       <ServiceProcessSection dict={dict} service={service} />
       <ServiceReviews dict={dict} lang={lang} service={service} />
-      <RelatedLinkBand
-        text={related.text}
-        linkLabel={related.linkLabel}
-        href={related.href}
-        {...theme.linkAccent}
-      />
+      <RelatedLinkBand text={related.text} linkLabel={related.linkLabel} href={related.href} {...theme.linkAccent} />
       <ServiceCTA dict={dict} service={service} />
       <FaqSection dict={serviceDict.faq} />
-      <GlossaryLinksBand
-        lang={lang}
-        entries={listGlossaryCatalogByCluster(service)}
-        {...theme.linkAccent}
-      />
+      <GlossaryLinksBand lang={lang} entries={listGlossaryCatalogByCluster(service)} {...theme.linkAccent} />
     </main>
   )
 }

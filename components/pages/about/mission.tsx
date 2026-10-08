@@ -74,9 +74,7 @@ export function MissionSection({ dict }: { dict: Dictionary }) {
                 <h2 className="font-serif text-2xl sm:text-3xl leading-tight tracking-tight text-black">
                   {value.title}
                 </h2>
-                <p className="mt-3 text-sm sm:text-base leading-relaxed text-black/75">
-                  {value.text}
-                </p>
+                <p className="mt-3 text-sm sm:text-base leading-relaxed text-black/75">{value.text}</p>
               </div>
             </motion.div>
           ))}
@@ -115,9 +113,7 @@ export function MissionSection({ dict }: { dict: Dictionary }) {
             <h2 className="font-serif text-2xl xl:text-[1.75rem] leading-tight tracking-tight text-black">
               {m.values[1].title}
             </h2>
-            <p className="mt-3 text-sm xl:text-base leading-relaxed text-black/75">
-              {m.values[1].text}
-            </p>
+            <p className="mt-3 text-sm xl:text-base leading-relaxed text-black/75">{m.values[1].text}</p>
           </motion.div>
           <motion.div
             className="flex items-center justify-center"
@@ -145,9 +141,7 @@ export function MissionSection({ dict }: { dict: Dictionary }) {
             <h2 className="font-serif text-2xl xl:text-[1.75rem] leading-tight tracking-tight text-black">
               {m.values[0].title}
             </h2>
-            <p className="mt-3 text-sm xl:text-base leading-relaxed text-black/75">
-              {m.values[0].text}
-            </p>
+            <p className="mt-3 text-sm xl:text-base leading-relaxed text-black/75">{m.values[0].text}</p>
           </motion.div>
           <motion.div
             className="flex items-center justify-center"
@@ -174,9 +168,7 @@ export function MissionSection({ dict }: { dict: Dictionary }) {
             <h2 className="font-serif text-2xl xl:text-[1.75rem] leading-tight tracking-tight text-black">
               {m.values[2].title}
             </h2>
-            <p className="mt-3 text-sm xl:text-base leading-relaxed text-black/75">
-              {m.values[2].text}
-            </p>
+            <p className="mt-3 text-sm xl:text-base leading-relaxed text-black/75">{m.values[2].text}</p>
           </motion.div>
         </motion.div>
       </div>

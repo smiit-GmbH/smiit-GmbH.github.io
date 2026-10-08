@@ -33,12 +33,52 @@ test("unknown route shows the 404 page", async ({ page }) => {
   expect(response?.status()).toBe(404)
 })
 
-test("language switcher keeps the current page", async ({ page, isMobile }) => {
-  test.skip(isMobile, "switcher lives in the mobile menu sheet")
-  await page.goto("/de/services/apps/")
-  await page.waitForLoadState("load")
-  // The dropdown opens on hover (desktop header).
-  await page.getByRole("button", { name: "Language selection" }).first().hover()
-  await page.getByRole("button", { name: "English" }).first().click()
-  await expect(page).toHaveURL(/\/en\/services\/apps\/$/)
+test.describe("desktop header dropdowns", () => {
+  test.skip(({ isMobile }) => isMobile, "the mobile header uses the menu sheet instead")
+
+  test.beforeEach(async ({ page }) => {
+    await page.goto("/de/services/apps/")
+    await page.waitForLoadState("load")
+  })
+
+  test("language switcher opens on hover and keeps the current page", async ({ page }) => {
+    await page.getByRole("button", { name: "Language selection" }).hover()
+    await page.getByRole("button", { name: "English" }).click()
+    await expect(page).toHaveURL(/\/en\/services\/apps\/$/)
+  })
+
+  test("language switcher works with the keyboard", async ({ page }) => {
+    const trigger = page.getByRole("button", { name: "Language selection" })
+    await trigger.focus()
+    await page.keyboard.press("Enter")
+    await expect(trigger).toHaveAttribute("aria-expanded", "true")
+
+    await page.keyboard.press("Escape")
+    await expect(trigger).toHaveAttribute("aria-expanded", "false")
+    await expect(trigger).toBeFocused()
+
+    await page.keyboard.press("Enter")
+    await expect(page.getByRole("button", { name: "English" })).toBeVisible() // wait for the fade-in
+    await page.keyboard.press("Tab") // Deutsch
+    await page.keyboard.press("Tab") // English
+    await page.keyboard.press("Enter")
+    await expect(page).toHaveURL(/\/en\/services\/apps\/$/)
+  })
+
+  test("menus open on tap (touch screens at desktop width)", async ({ browser }) => {
+    const context = await browser.newContext({ hasTouch: true, viewport: { width: 1280, height: 800 } })
+    const page = await context.newPage()
+    await page.goto("/de/services/apps/")
+    await page.waitForLoadState("load")
+
+    const services = page.getByRole("button", { name: "Dienstleistungen" })
+    await services.tap()
+    await expect(services).toHaveAttribute("aria-expanded", "true")
+    await expect(page.getByRole("link", { name: "Datenanalyse" }).first()).toBeVisible()
+
+    // Tapping elsewhere closes it again.
+    await page.locator("main").tap({ position: { x: 10, y: 400 } })
+    await expect(services).toHaveAttribute("aria-expanded", "false")
+    await context.close()
+  })
 })

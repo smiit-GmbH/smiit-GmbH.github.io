@@ -30,7 +30,9 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
 
   const lenis = useLenis()
   const lenisRef = useRef(lenis)
-  useEffect(() => { lenisRef.current = lenis }, [lenis])
+  useEffect(() => {
+    lenisRef.current = lenis
+  }, [lenis])
 
   useEffect(() => {
     if (typeof window === "undefined") return
@@ -49,8 +51,12 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
     const lastTsRef = { current: 0 }
     const velocityRef = { current: 0 }
 
-    const pauseLenis = () => { lenisRef.current?.stop() }
-    const resumeLenis = () => { lenisRef.current?.start() }
+    const pauseLenis = () => {
+      lenisRef.current?.stop()
+    }
+    const resumeLenis = () => {
+      lenisRef.current?.start()
+    }
 
     const isScrollable = () => {
       const scrollerEl = scrollerRef.current
@@ -154,7 +160,10 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
 
     const scrollSectionToCenter = (onDone?: () => void) => {
       const sectionEl = sectionRef.current
-      if (!sectionEl) { onDone?.(); return }
+      if (!sectionEl) {
+        onDone?.()
+        return
+      }
 
       if (reducedMotionMql.matches && lenisRef.current) {
         const rect = sectionEl.getBoundingClientRect()
@@ -186,14 +195,17 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
 
       const totalOffset = sectionCenter - viewportCenter
 
-      if (Math.abs(totalOffset) < 2) { onDone?.(); return }
+      if (Math.abs(totalOffset) < 2) {
+        onDone?.()
+        return
+      }
 
       const startScrollY = window.scrollY
       const targetScrollY = startScrollY + totalOffset
       const duration = Math.min(1200, Math.max(600, Math.abs(totalOffset) * 2.0))
       const startTime = performance.now()
 
-      const easeInOutCubic = (t: number) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2
+      const easeInOutCubic = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2)
 
       if (centerRafRef.current) window.cancelAnimationFrame(centerRafRef.current)
 
@@ -202,7 +214,11 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
         const progress = Math.min(1, elapsed / duration)
         const eased = easeInOutCubic(progress)
 
-        window.scrollTo({ left: window.scrollX, top: startScrollY + totalOffset * eased, behavior: "instant" as ScrollBehavior })
+        window.scrollTo({
+          left: window.scrollX,
+          top: startScrollY + totalOffset * eased,
+          behavior: "instant" as ScrollBehavior,
+        })
 
         if (progress < 1) {
           centerRafRef.current = window.requestAnimationFrame(animate)
@@ -357,7 +373,7 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
       {
         threshold: [0, 0.1, 0.25, 0.5, 0.75, 1],
         rootMargin: "50px 0px 50px 0px",
-      }
+      },
     )
 
     const sectionEl = sectionRef.current
@@ -414,9 +430,7 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
                       {customer.name}
                     </h3>
                   </div>
-                  <p className="text-[0.78rem] text-black/55 leading-snug mt-0.5">
-                    {customer.subtitle}
-                  </p>
+                  <p className="text-[0.78rem] text-black/55 leading-snug mt-0.5">{customer.subtitle}</p>
                   <p className="text-[0.82rem] text-black/70 leading-relaxed mt-2 font-medium italic">
                     &ldquo;{customer.feedback}&rdquo;
                   </p>
@@ -434,12 +448,9 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
         className="hidden md:block overflow-x-auto pb-6 md:pb-8 no-scrollbar snap-x snap-mandatory md:snap-none"
       >
         <div
-          className={[
-            "flex min-w-max",
-            "gap-3 md:gap-3 lg:gap-4",
-            "px-4 sm:px-6",
-            "md:px-8 lg:px-12 xl:px-16",
-          ].join(" ")}
+          className={["flex min-w-max", "gap-3 md:gap-3 lg:gap-4", "px-4 sm:px-6", "md:px-8 lg:px-12 xl:px-16"].join(
+            " ",
+          )}
         >
           {customers.map((customer, index) => {
             return (

@@ -3,12 +3,7 @@
 import { useEffect, useState } from "react"
 import Link from "next/link"
 import type { Locale } from "@/lib/dictionary"
-import {
-  COOKIE_SETTINGS_EVENT,
-  getStoredConsent,
-  setStoredConsent,
-  updateConsent,
-} from "@/lib/gtag"
+import { COOKIE_SETTINGS_EVENT, getStoredConsent, setStoredConsent, updateConsent } from "@/lib/gtag"
 
 const COPY = {
   de: {

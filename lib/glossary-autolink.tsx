@@ -19,7 +19,10 @@ function escapeRegExp(s: string): string {
  * "Bronze Silver Gold" matches "Bronze-/Silver-/Gold".
  */
 function buildPattern(text: string): string {
-  const tokens = text.split(/[\s/\-]+/).filter(Boolean).map(escapeRegExp)
+  const tokens = text
+    .split(/[\s/\-]+/)
+    .filter(Boolean)
+    .map(escapeRegExp)
   return tokens.join("[\\s/\\-]+")
 }
 
@@ -93,10 +96,7 @@ export function autolinkGlossary(
     return (
       <Tooltip key={i} delayDuration={250}>
         <TooltipTrigger asChild>{link}</TooltipTrigger>
-        <TooltipContent
-          sideOffset={6}
-          className="max-w-[20rem] text-[0.78rem] font-normal leading-relaxed"
-        >
+        <TooltipContent sideOffset={6} className="max-w-[20rem] text-[0.78rem] font-normal leading-relaxed">
           {definition}
         </TooltipContent>
       </Tooltip>

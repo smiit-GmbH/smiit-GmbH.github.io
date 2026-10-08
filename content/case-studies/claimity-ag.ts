@@ -119,8 +119,7 @@ const claimity: LocalizedCaseStudy = {
     ],
 
     quote: {
-      text:
-        "smiit hat uns geholfen, unsere Plattformidee in sehr kurzer Zeit in ein produktives SaaS-Produkt zu überführen. Besonders wertvoll war, dass von Anfang an eine stabile Grundlage für Sicherheit, Wachstum und weitere Prozesse entstanden ist — nicht nur einzelne Funktionen.",
+      text: "smiit hat uns geholfen, unsere Plattformidee in sehr kurzer Zeit in ein produktives SaaS-Produkt zu überführen. Besonders wertvoll war, dass von Anfang an eine stabile Grundlage für Sicherheit, Wachstum und weitere Prozesse entstanden ist — nicht nur einzelne Funktionen.",
       author: "Claimity AG",
       role: "InsurTech · SaaS-Plattform für digitale Schadenabwicklung",
     },
@@ -247,8 +246,7 @@ const claimity: LocalizedCaseStudy = {
     ],
 
     quote: {
-      text:
-        "smiit helped us turn our platform idea into a production SaaS product in a very short time. What mattered most was that, from the start, we got a stable foundation for security, growth and further processes — not just individual features.",
+      text: "smiit helped us turn our platform idea into a production SaaS product in a very short time. What mattered most was that, from the start, we got a stable foundation for security, growth and further processes — not just individual features.",
       author: "Claimity AG",
       role: "InsurTech · SaaS platform for digital claims handling",
     },

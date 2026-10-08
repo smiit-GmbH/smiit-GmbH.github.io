@@ -189,7 +189,8 @@ const blogUi: Record<Locale, BlogUi> = {
     relatedServiceLabel: "Passende Leistung",
     relatedCaseStudyLabel: "Passende Case Study",
     ctaHeading: "Klingt das nach Ihrem nächsten Projekt?",
-    ctaSubtitle: "Erzählen Sie uns von Ihrem Vorhaben — wir zeigen Ihnen, was technisch und wirtschaftlich sinnvoll ist.",
+    ctaSubtitle:
+      "Erzählen Sie uns von Ihrem Vorhaben — wir zeigen Ihnen, was technisch und wirtschaftlich sinnvoll ist.",
     ctaButton: "Kostenloses Erstgespräch",
     breadcrumbLabel: "Blog",
     emptyState: "Hier entstehen gerade die ersten Beiträge. Schauen Sie bald wieder vorbei.",

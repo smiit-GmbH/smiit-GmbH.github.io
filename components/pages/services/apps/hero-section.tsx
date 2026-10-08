@@ -49,7 +49,12 @@ function HeroPackages({ hero, align = "left" }: { hero: AppsHero; align?: "left"
   return (
     <div className={cx("mt-5", align === "center" && "mx-auto max-w-[640px]")}>
       {hero?.packagesLabel && (
-        <p className={cx("text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[#F703EB]", align === "center" && "text-center")}>
+        <p
+          className={cx(
+            "text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[#F703EB]",
+            align === "center" && "text-center",
+          )}
+        >
           {hero.packagesLabel}
         </p>
       )}
@@ -149,12 +154,7 @@ const DATASETS: Record<ViewKey, Dataset> = {
       { initials: "TW", color: "#94A3B8" },
       { initials: "MB", color: "#0B162D" },
     ],
-    taskVisuals: [
-      { priority: "high" },
-      { priority: "high" },
-      { priority: "med" },
-      { priority: "low" },
-    ],
+    taskVisuals: [{ priority: "high" }, { priority: "high" }, { priority: "med" }, { priority: "low" }],
   },
   week: {
     stats: {
@@ -197,12 +197,7 @@ const DATASETS: Record<ViewKey, Dataset> = {
       { initials: "AS", color: "#94A3B8" },
       { initials: "MB", color: "#0B162D" },
     ],
-    taskVisuals: [
-      { priority: "high" },
-      { priority: "high" },
-      { priority: "med" },
-      { priority: "low" },
-    ],
+    taskVisuals: [{ priority: "high" }, { priority: "high" }, { priority: "med" }, { priority: "low" }],
   },
   month: {
     stats: {
@@ -245,12 +240,7 @@ const DATASETS: Record<ViewKey, Dataset> = {
       { initials: "AS", color: "#94A3B8" },
       { initials: "MB", color: "#0B162D" },
     ],
-    taskVisuals: [
-      { priority: "high" },
-      { priority: "high" },
-      { priority: "med" },
-      { priority: "low" },
-    ],
+    taskVisuals: [{ priority: "high" }, { priority: "high" }, { priority: "med" }, { priority: "low" }],
   },
 }
 
@@ -364,7 +354,12 @@ function ClarityModule({
 }) {
   const items = [
     { key: "orders", label: t.statLabels?.orders, kpi: data.stats.orders, deltaLabel: t.statDeltas?.orders },
-    { key: "customers", label: t.statLabels?.customers, kpi: data.stats.customers, deltaLabel: t.statDeltas?.customers },
+    {
+      key: "customers",
+      label: t.statLabels?.customers,
+      kpi: data.stats.customers,
+      deltaLabel: t.statDeltas?.customers,
+    },
     { key: "tasks", label: t.statLabels?.tasks, kpi: data.stats.tasks, deltaLabel: t.statDeltas?.tasks },
     { key: "revenue", label: t.statLabels?.revenue, kpi: data.stats.revenue, deltaLabel: t.statDeltas?.revenue },
   ]
@@ -381,7 +376,9 @@ function ClarityModule({
               transition={{ type: "spring", stiffness: 320, damping: 22 }}
               className="group relative rounded-[14px] bg-[#FEF8FE] p-2.5"
             >
-              <p className="break-words text-[0.5rem] font-medium uppercase leading-tight tracking-[0.08em] text-[#0B162D]/40">{item.label}</p>
+              <p className="break-words text-[0.5rem] font-medium uppercase leading-tight tracking-[0.08em] text-[#0B162D]/40">
+                {item.label}
+              </p>
               <p className="mt-1.5 text-[0.82rem] font-semibold text-[#0B162D] sm:text-[0.86rem]">
                 <CountUp
                   to={item.kpi.to}
@@ -414,14 +411,7 @@ function ClarityModule({
 }
 
 // Pipeline kanban (3 columns)
-function ProfitModule({
-  t,
-  data,
-}: {
-  t: HeroCopy
-  data: Dataset
-  mobileEmphasis?: boolean
-}) {
+function ProfitModule({ t, data }: { t: HeroCopy; data: Dataset; mobileEmphasis?: boolean }) {
   return (
     <div className="flex h-full flex-col overflow-hidden rounded-[18px] p-2">
       <div className="flex shrink-0 items-center justify-between">
@@ -509,27 +499,27 @@ function AiModule({
           {data.activityVisuals.map((visual, i) => {
             const content = activities[i] ?? { user: "", action: "", time: "" }
             return (
-            <motion.div
-              key={`${content.user}-${i}`}
-              initial={{ opacity: 0, x: -8 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.45, delay: 0.5 + i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="flex shrink-0 items-start gap-1.5 rounded-[10px] bg-[#FEF8FE] p-1.5"
-            >
-              <div
-                className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[0.5rem] font-bold text-white"
-                style={{ backgroundColor: visual.color }}
+              <motion.div
+                key={`${content.user}-${i}`}
+                initial={{ opacity: 0, x: -8 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.45, delay: 0.5 + i * 0.1, ease: [0.22, 1, 0.36, 1] }}
+                className="flex shrink-0 items-start gap-1.5 rounded-[10px] bg-[#FEF8FE] p-1.5"
               >
-                {visual.initials}
-              </div>
-              <div className="min-w-0 flex-1">
-                <div className="truncate text-[0.58rem] leading-tight text-[#0B162D]">
-                  <span className="font-semibold">{content.user}</span>{" "}
-                  <span className="text-[#0B162D]/65">{content.action}</span>
+                <div
+                  className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[0.5rem] font-bold text-white"
+                  style={{ backgroundColor: visual.color }}
+                >
+                  {visual.initials}
                 </div>
-                <div className="mt-0.5 text-[0.5rem] text-[#0B162D]/40">{content.time}</div>
-              </div>
-            </motion.div>
+                <div className="min-w-0 flex-1">
+                  <div className="truncate text-[0.58rem] leading-tight text-[#0B162D]">
+                    <span className="font-semibold">{content.user}</span>{" "}
+                    <span className="text-[#0B162D]/65">{content.action}</span>
+                  </div>
+                  <div className="mt-0.5 text-[0.5rem] text-[#0B162D]/40">{content.time}</div>
+                </div>
+              </motion.div>
             )
           })}
         </div>
@@ -539,15 +529,7 @@ function AiModule({
 }
 
 // Open tasks list
-function SpeedModule({
-  t,
-  data,
-  tasks,
-}: {
-  t: HeroCopy
-  data: Dataset
-  tasks: { label: string; due: string }[]
-}) {
+function SpeedModule({ t, data, tasks }: { t: HeroCopy; data: Dataset; tasks: { label: string; due: string }[] }) {
   const priorityColors: Record<Priority, string> = {
     high: "#F703EB",
     med: "#FA85F4",
@@ -670,10 +652,10 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
   const dashboardWidth = useTransform(scrollYProgress, [0.05, 0.32], ["680px", "1180px"], { ease: easeOutCubic })
   const dashboardHeight = useTransform(scrollYProgress, [0.05, 0.32], ["540px", "660px"], { ease: easeOutCubic })
   const dashboardX = useTransform(scrollYProgress, [0.05, 0.32], ["20vw", "0vw"], { ease: easeOutCubic })
-  const dashboardScale = useTransform(scrollYProgress, [0.05, 0.30], [0.94, 1], { ease: easeOutCubic })
-  const dashboardZ = useTransform(scrollYProgress, [0.05, 0.30], [-160, 0], { ease: easeOutCubic })
-  const aiHeight = useTransform(scrollYProgress, [0.05, 0.30], ["230px", "360px"], { ease: easeOutCubic })
-  const lightSweepOpacity = useTransform(scrollYProgress, [0.28, 0.34, 0.40], [0, 1, 0])
+  const dashboardScale = useTransform(scrollYProgress, [0.05, 0.3], [0.94, 1], { ease: easeOutCubic })
+  const dashboardZ = useTransform(scrollYProgress, [0.05, 0.3], [-160, 0], { ease: easeOutCubic })
+  const aiHeight = useTransform(scrollYProgress, [0.05, 0.3], ["230px", "360px"], { ease: easeOutCubic })
+  const lightSweepOpacity = useTransform(scrollYProgress, [0.28, 0.34, 0.4], [0, 1, 0])
   const lightSweepX = useTransform(scrollYProgress, [0.28, 0.42], ["-40%", "140%"], { ease: easeOutCubic })
 
   const useStaticIdleLayout = !SCROLL_ANIMATIONS_ENABLED
@@ -683,11 +665,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
     : useStaticIdleLayout
       ? { opacity: 1, y: 0 }
       : { opacity: heroTextOpacity, y: heroTextY }
-  const dashboardWrapperStyle = shouldReduceMotion
-    ? undefined
-    : useStaticIdleLayout
-      ? { x: "20vw" }
-      : { x: dashboardX }
+  const dashboardWrapperStyle = shouldReduceMotion ? undefined : useStaticIdleLayout ? { x: "20vw" } : { x: dashboardX }
   const dashboardStyle = shouldReduceMotion
     ? { width: "1180px", height: "660px" }
     : useStaticIdleLayout
@@ -708,9 +686,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
           maxWidth: "calc(100vw - 96px)",
         }
   const lightSweepStyle =
-    shouldReduceMotion || useStaticIdleLayout
-      ? { opacity: 0 }
-      : { opacity: lightSweepOpacity, x: lightSweepX }
+    shouldReduceMotion || useStaticIdleLayout ? { opacity: 0 } : { opacity: lightSweepOpacity, x: lightSweepX }
   const aiWrapperStyle = shouldReduceMotion
     ? { height: "360px" }
     : useStaticIdleLayout
@@ -887,10 +863,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
           containerRef.current = el
           desktopInViewRef(el)
         }}
-        className={cx(
-          "relative hidden lg:block",
-          SCROLL_ANIMATIONS_ENABLED ? "lg:h-[420vh]" : "lg:h-screen",
-        )}
+        className={cx("relative hidden lg:block", SCROLL_ANIMATIONS_ENABLED ? "lg:h-[420vh]" : "lg:h-screen")}
       >
         <div className="sticky top-0 h-[100dvh] overflow-hidden">
           {/* Background glow */}
@@ -900,10 +873,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
           />
 
           {/* HERO TEXT — left column */}
-          <motion.div
-            style={heroTextStyle}
-            className="pointer-events-none absolute inset-0 z-10 flex items-center"
-          >
+          <motion.div style={heroTextStyle} className="pointer-events-none absolute inset-0 z-10 flex items-center">
             <div className="mx-auto w-full max-w-[1380px] px-10">
               <div className="grid grid-cols-[1fr_1.25fr] items-center gap-10">
                 <div className="pointer-events-auto text-left">
@@ -967,9 +937,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
                       className="h-[20px] w-auto object-contain opacity-80"
                     />
                     <div className="h-3 w-px bg-slate-200" />
-                    <h2 className="whitespace-nowrap text-[0.8rem] font-semibold text-[#0B162D]">
-                      {t.appName}
-                    </h2>
+                    <h2 className="whitespace-nowrap text-[0.8rem] font-semibold text-[#0B162D]">{t.appName}</h2>
                   </div>
 
                   {/* Search */}

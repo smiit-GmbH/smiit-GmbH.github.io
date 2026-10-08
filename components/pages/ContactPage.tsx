@@ -3,13 +3,7 @@ import ContactForm from "@/components/pages/contact/contact-form"
 import ContactInfo from "@/components/pages/contact/contact-info"
 import type { Locale, Dictionary } from "@/lib/dictionary"
 
-export default function ContactPage({
-  lang,
-  dict,
-}: {
-  lang: Locale
-  dict: Dictionary
-}) {
+export default function ContactPage({ lang, dict }: { lang: Locale; dict: Dictionary }) {
   return (
     <main className="min-h-screen pt-20 lg:pt-24 pb-12 lg:pb-16 flex items-center">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
@@ -19,7 +13,10 @@ export default function ContactPage({
             <ContactInfo dict={dict} />
           </div>
 
-          <div id="book" className="relative z-30 lg:self-center rounded-2xl md:rounded-[1.75rem] border border-black/10 bg-[#F4F4F5] shadow-xl ring-1 ring-black/5 p-5 sm:p-7 lg:p-7 xl:p-8">
+          <div
+            id="book"
+            className="relative z-30 lg:self-center rounded-2xl md:rounded-[1.75rem] border border-black/10 bg-[#F4F4F5] shadow-xl ring-1 ring-black/5 p-5 sm:p-7 lg:p-7 xl:p-8"
+          >
             <ContactForm dict={dict} lang={lang} />
           </div>
         </div>

@@ -128,8 +128,7 @@ const gbLogistics: LocalizedCaseStudy = {
     ],
 
     quote: {
-      text:
-        "smiit hat uns geholfen, gewachsene Prozesse Schritt für Schritt zu digitalisieren, ohne unseren laufenden Betrieb zu stören. Besonders wertvoll war, dass nicht nur einzelne Aufgaben automatisiert wurden, sondern ein klares Verständnis für unsere Systeme, Daten und Abläufe entstanden ist.",
+      text: "smiit hat uns geholfen, gewachsene Prozesse Schritt für Schritt zu digitalisieren, ohne unseren laufenden Betrieb zu stören. Besonders wertvoll war, dass nicht nur einzelne Aufgaben automatisiert wurden, sondern ein klares Verständnis für unsere Systeme, Daten und Abläufe entstanden ist.",
       author: "G&B Logistics GmbH",
       role: "Logistikunternehmen",
     },
@@ -253,8 +252,7 @@ const gbLogistics: LocalizedCaseStudy = {
     ],
 
     quote: {
-      text:
-        "smiit helped us digitize grown processes step by step without disrupting our day-to-day operations. What mattered most was that they didn't just automate individual tasks but developed a clear understanding of our systems, data and workflows.",
+      text: "smiit helped us digitize grown processes step by step without disrupting our day-to-day operations. What mattered most was that they didn't just automate individual tasks but developed a clear understanding of our systems, data and workflows.",
       author: "G&B Logistics GmbH",
       role: "Logistics company",
     },

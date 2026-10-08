@@ -39,11 +39,11 @@ smiit GmbH supports small and medium-sized companies in turning manual processes
 
 The website communicates three core service areas:
 
-| Service area | Description |
-|---|---|
-| **Digital Strategy** | Process analysis, automation roadmaps, architecture decisions and technical project support |
-| **Data Analytics** | Power BI dashboards, semantic models, KPI systems, data integration and management reporting |
-| **Web Apps & Workflows** | Custom applications, SaaS platforms, API integrations and workflow automation |
+| Service area             | Description                                                                                  |
+| ------------------------ | -------------------------------------------------------------------------------------------- |
+| **Digital Strategy**     | Process analysis, automation roadmaps, architecture decisions and technical project support  |
+| **Data Analytics**       | Power BI dashboards, semantic models, KPI systems, data integration and management reporting |
+| **Web Apps & Workflows** | Custom applications, SaaS platforms, API integrations and workflow automation                |
 
 The content is designed for companies that want more than a standard website or isolated dashboard. The focus is on scalable systems that combine business understanding with modern technology.
 
@@ -53,14 +53,14 @@ The content is designed for companies that want more than a standard website or 
 
 The project is built with a modern TypeScript-based frontend stack.
 
-| Layer | Technology |
-|---|---|
-| **Framework** | Next.js 16 (static export) |
-| **Language** | TypeScript |
-| **UI** | React 19 components |
-| **Styling** | Tailwind CSS 4 |
-| **Structure** | App-based routing and reusable components |
-| **Deployment target** | Public web deployment for smiit.de |
+| Layer                 | Technology                                |
+| --------------------- | ----------------------------------------- |
+| **Framework**         | Next.js 16 (static export)                |
+| **Language**          | TypeScript                                |
+| **UI**                | React 19 components                       |
+| **Styling**           | Tailwind CSS 4                            |
+| **Structure**         | App-based routing and reusable components |
+| **Deployment target** | Public web deployment for smiit.de        |
 
 The repository structure includes application routes, reusable components, hooks, shared libraries and public assets.
 
@@ -102,16 +102,16 @@ Copy `.env.example` to `.env` for the contact form and Calendly integration.
 
 ### Quality checks
 
-| Command | What it checks |
-|---|---|
-| `npm run check` | Everything that runs without a build: typecheck, lint, knip, content tests |
-| `npm run typecheck` | TypeScript (strict) |
-| `npm run lint` | ESLint incl. React Compiler rules |
-| `npm run knip` | Unused files and dependencies |
-| `npm run test:content` | Blog / glossary / case-study data integrity (slugs, locales, references, images) |
-| `npm run test:links` | Every internal link and asset in `out/` resolves (after `build`) |
-| `npm run test:e2e` | Playwright: every sitemap page renders + axe accessibility scan (after `build`; once: `npx playwright install chromium`) |
-| `npm run format` | Prettier |
+| Command                | What it checks                                                                                                           |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------ |
+| `npm run check`        | Everything that runs without a build: typecheck, lint, knip, content tests                                               |
+| `npm run typecheck`    | TypeScript (strict)                                                                                                      |
+| `npm run lint`         | ESLint incl. React Compiler rules                                                                                        |
+| `npm run knip`         | Unused files and dependencies                                                                                            |
+| `npm run test:content` | Blog / glossary / case-study data integrity (slugs, locales, references, images)                                         |
+| `npm run test:links`   | Every internal link and asset in `out/` resolves (after `build`)                                                         |
+| `npm run test:e2e`     | Playwright: every sitemap page renders + axe accessibility scan (after `build`; once: `npx playwright install chromium`) |
+| `npm run format`       | Prettier                                                                                                                 |
 
 CI (`.github/workflows/ci.yml`) runs all of these on every pull request, plus Lighthouse. Deploys to GitHub Pages only happen from `main`, after the same checks pass.
 

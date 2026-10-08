@@ -37,11 +37,7 @@ export async function generateMetadata({
   })
 }
 
-export default async function Page({
-  params,
-}: {
-  params: Promise<{ lang: Locale; slug: string }>
-}) {
+export default async function Page({ params }: { params: Promise<{ lang: Locale; slug: string }> }) {
   const { lang, slug } = await params
   const term = getGlossaryTerm(slug, lang)
   if (!term) notFound()

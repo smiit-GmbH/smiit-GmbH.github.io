@@ -50,7 +50,8 @@ export default function PricingSection({ dict }: { dict: Dictionary }) {
             aria-hidden
             className="pointer-events-none absolute inset-0"
             style={{
-              backgroundImage: "linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)",
+              backgroundImage:
+                "linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)",
               backgroundSize: "60px 60px",
               backgroundPosition: "center top",
               WebkitMaskImage: "radial-gradient(ellipse 80% 60% at 50% 0%, #000 30%, transparent 100%)",
@@ -88,7 +89,9 @@ export default function PricingSection({ dict }: { dict: Dictionary }) {
               {factTiers.map((tier, idx) => (
                 <motion.div key={idx} variants={tierItem} className="flex items-center justify-between gap-4 py-[14px]">
                   <div className="min-w-0">
-                    <p className="text-[0.78rem] font-semibold tracking-[0.14em] uppercase text-[#adadb8]">{tier.label}</p>
+                    <p className="text-[0.78rem] font-semibold tracking-[0.14em] uppercase text-[#adadb8]">
+                      {tier.label}
+                    </p>
                     <p className="mt-[3px] text-[0.8rem] leading-snug text-[#9a9aa6]">{tier.desc}</p>
                   </div>
                   <span className="shrink-0 font-serif text-[1.6rem] leading-none tracking-[-0.02em] text-white">
@@ -106,17 +109,24 @@ export default function PricingSection({ dict }: { dict: Dictionary }) {
                 className="relative mt-6 overflow-hidden rounded-[22px] border border-[rgba(255,69,186,0.5)] bg-gradient-to-br from-[rgba(247,3,235,0.22)] to-[rgba(247,3,235,0.08)] p-[22px] shadow-[0_20px_50px_-18px_rgba(247,3,235,0.45)]"
               >
                 {/* Soft inner glow */}
-                <div aria-hidden className="pointer-events-none absolute -right-8 -top-10 h-[120px] w-[120px] rounded-full bg-[radial-gradient(circle,rgba(247,3,235,0.45),transparent_70%)] blur-2xl" />
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute -right-8 -top-10 h-[120px] w-[120px] rounded-full bg-[radial-gradient(circle,rgba(247,3,235,0.45),transparent_70%)] blur-2xl"
+                />
                 {featuredTier.featuredLabel && (
                   <span className="relative inline-block text-[0.6rem] font-bold uppercase tracking-[0.1em] text-white bg-[#F703EB] px-[10px] py-[4px] rounded-full">
                     {featuredTier.featuredLabel}
                   </span>
                 )}
                 <div className="relative mt-3 flex items-baseline justify-between gap-4">
-                  <span className="text-[0.82rem] font-semibold tracking-[0.14em] uppercase text-[#ffc8e8]">{featuredTier.label}</span>
+                  <span className="text-[0.82rem] font-semibold tracking-[0.14em] uppercase text-[#ffc8e8]">
+                    {featuredTier.label}
+                  </span>
                   <span className="shrink-0 font-serif text-[2.4rem] leading-none tracking-[-0.02em] text-white">
                     {featuredTier.value}
-                    {featuredTier.currency && <span className="text-[0.5em] text-[#ffc8e8] ml-[2px]">{featuredTier.currency}</span>}
+                    {featuredTier.currency && (
+                      <span className="text-[0.5em] text-[#ffc8e8] ml-[2px]">{featuredTier.currency}</span>
+                    )}
                   </span>
                 </div>
                 <p className="relative mt-2 text-[0.85rem] leading-snug text-[#e7c3dd]">{featuredTier.desc}</p>
@@ -140,16 +150,18 @@ export default function PricingSection({ dict }: { dict: Dictionary }) {
                     {tier.featuredLabel}
                   </span>
                 )}
-                <span className={`text-[0.82rem] font-semibold tracking-[0.14em] uppercase ${tier.featured ? "text-[#ffc8e8] mt-[6px]" : "text-[#adadb8]"}`}>
+                <span
+                  className={`text-[0.82rem] font-semibold tracking-[0.14em] uppercase ${tier.featured ? "text-[#ffc8e8] mt-[6px]" : "text-[#adadb8]"}`}
+                >
                   {tier.label}
                 </span>
                 <span className="mt-[16px] font-serif text-[clamp(2.2rem,3.4vw,3rem)] leading-none tracking-[-0.02em] text-white">
                   {tier.value}
-                  {tier.currency && (
-                    <span className="text-[0.5em] text-[#adadb8] ml-[2px]">{tier.currency}</span>
-                  )}
+                  {tier.currency && <span className="text-[0.5em] text-[#adadb8] ml-[2px]">{tier.currency}</span>}
                 </span>
-                <span className={`mt-[14px] text-[0.95rem] leading-[1.45] ${tier.featured ? "text-[#e7c3dd]" : "text-[#9a9aa6]"}`}>
+                <span
+                  className={`mt-[14px] text-[0.95rem] leading-[1.45] ${tier.featured ? "text-[#e7c3dd]" : "text-[#9a9aa6]"}`}
+                >
                   {tier.desc}
                 </span>
               </div>
@@ -167,8 +179,16 @@ export default function PricingSection({ dict }: { dict: Dictionary }) {
               className="inline-flex items-center gap-2 font-medium text-[0.9rem] px-5 py-3 rounded-lg bg-[#F703EB] text-white transition-all hover:bg-[#D802CD] hover:-translate-y-[2px] whitespace-nowrap"
             >
               {pricing.cta}
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4">
-                <path d="M5 12h14M13 6l6 6-6 6"/>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="w-4 h-4"
+              >
+                <path d="M5 12h14M13 6l6 6-6 6" />
               </svg>
             </a>
           </div>

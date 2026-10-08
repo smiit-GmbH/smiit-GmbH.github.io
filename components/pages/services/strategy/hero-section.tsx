@@ -14,21 +14,8 @@ import {
   useTransform,
   type MotionStyle,
 } from "framer-motion"
-import {
-  ArrowRight,
-  ChevronDown,
-  Filter,
-  Layers3,
-  Minus,
-  TrendingDown,
-  TrendingUp,
-} from "lucide-react"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip"
+import { ArrowRight, ChevronDown, Filter, Layers3, Minus, TrendingDown, TrendingUp } from "lucide-react"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import type { Locale, Dictionary } from "@/lib/dictionary"
 
 interface HeroSectionProps {
@@ -40,14 +27,25 @@ function cx(...classes: Array<string | false | null | undefined>) {
   return classes.filter(Boolean).join(" ")
 }
 
-function HeroPackages({ hero, align = "left" }: { hero: Dictionary["servicesStrategy"]["hero"]; align?: "left" | "center" }) {
+function HeroPackages({
+  hero,
+  align = "left",
+}: {
+  hero: Dictionary["servicesStrategy"]["hero"]
+  align?: "left" | "center"
+}) {
   const packages = (hero?.packages ?? []) as string[]
   if (packages.length === 0) return null
 
   return (
     <div className={cx("mt-5", align === "center" && "mx-auto max-w-[640px]")}>
       {hero?.packagesLabel && (
-        <p className={cx("text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[#64748B]", align === "center" && "text-center")}>
+        <p
+          className={cx(
+            "text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[#64748B]",
+            align === "center" && "text-center",
+          )}
+        >
           {hero.packagesLabel}
         </p>
       )}
@@ -452,9 +450,7 @@ function MaturityModule({
                 transition={{ type: "spring", stiffness: 320, damping: 22 }}
                 className="group relative rounded-[14px] bg-[#F8FAFC] p-2.5"
               >
-                <p className="text-[0.5rem] font-medium uppercase tracking-[0.08em] text-[#0B162D]/40">
-                  {item.label}
-                </p>
+                <p className="text-[0.5rem] font-medium uppercase tracking-[0.08em] text-[#0B162D]/40">{item.label}</p>
                 <div className="mt-1.5 flex items-baseline gap-1">
                   <CountUp
                     to={item.score.current}
@@ -464,9 +460,7 @@ function MaturityModule({
                     className="text-[0.92rem] font-semibold text-[#0B162D] sm:text-[0.96rem]"
                   />
                   <span className="text-[0.55rem] text-[#0B162D]/40">/ 5</span>
-                  <span className="ml-auto text-[0.55rem] font-medium text-[#64748B]">
-                    → {targetDisplay}
-                  </span>
+                  <span className="ml-auto text-[0.55rem] font-medium text-[#64748B]">→ {targetDisplay}</span>
                 </div>
                 <div className="relative mt-2 h-1">
                   <div className="absolute inset-x-0 top-0 h-1 overflow-hidden rounded-full bg-slate-100">
@@ -570,36 +564,36 @@ function RoadmapModule({
                     {lane.milestones.map((m, mIdx) => {
                       const milestoneLabel = t.milestoneLabels?.[m.labelKey] ?? m.labelKey
                       return (
-                      <Tooltip key={`m-${theme}-${mIdx}`}>
-                        <TooltipTrigger asChild>
-                          <motion.button
-                            type="button"
-                            initial={{ opacity: 0, scale: 0.5 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.35, delay: 0.4 + laneIdx * 0.06 + mIdx * 0.08 }}
-                            className={cx(
-                              "absolute top-1/2 box-border h-3 w-3 -translate-x-1/2 -translate-y-1/2 cursor-pointer rounded-full border-[#64748B] transition-transform hover:scale-125 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#64748B]/40",
-                              m.status === "done" && "border-[1.5px] bg-[#64748B]",
-                              m.status === "progress" && "border-[3px] bg-white",
-                              m.status === "planned" && "border-[1.5px] bg-white",
-                            )}
-                            style={{ left: `${m.x}%` }}
-                            aria-label={`${milestoneLabel} (${m.status})`}
-                          />
-                        </TooltipTrigger>
-                        <TooltipContent side="top" className="bg-[#0B162D] text-white">
-                          <div className="flex flex-col gap-0.5 text-[0.66rem] leading-tight">
-                            <span className="font-semibold">{milestoneLabel}</span>
-                            <span className="text-white/70">
-                              {m.status === "done"
-                                ? t.trendTooltip?.statusDone
-                                : m.status === "progress"
-                                  ? t.trendTooltip?.statusProgress
-                                  : t.trendTooltip?.statusPlanned}
-                            </span>
-                          </div>
-                        </TooltipContent>
-                      </Tooltip>
+                        <Tooltip key={`m-${theme}-${mIdx}`}>
+                          <TooltipTrigger asChild>
+                            <motion.button
+                              type="button"
+                              initial={{ opacity: 0, scale: 0.5 }}
+                              animate={{ opacity: 1, scale: 1 }}
+                              transition={{ duration: 0.35, delay: 0.4 + laneIdx * 0.06 + mIdx * 0.08 }}
+                              className={cx(
+                                "absolute top-1/2 box-border h-3 w-3 -translate-x-1/2 -translate-y-1/2 cursor-pointer rounded-full border-[#64748B] transition-transform hover:scale-125 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#64748B]/40",
+                                m.status === "done" && "border-[1.5px] bg-[#64748B]",
+                                m.status === "progress" && "border-[3px] bg-white",
+                                m.status === "planned" && "border-[1.5px] bg-white",
+                              )}
+                              style={{ left: `${m.x}%` }}
+                              aria-label={`${milestoneLabel} (${m.status})`}
+                            />
+                          </TooltipTrigger>
+                          <TooltipContent side="top" className="bg-[#0B162D] text-white">
+                            <div className="flex flex-col gap-0.5 text-[0.66rem] leading-tight">
+                              <span className="font-semibold">{milestoneLabel}</span>
+                              <span className="text-white/70">
+                                {m.status === "done"
+                                  ? t.trendTooltip?.statusDone
+                                  : m.status === "progress"
+                                    ? t.trendTooltip?.statusProgress
+                                    : t.trendTooltip?.statusPlanned}
+                              </span>
+                            </div>
+                          </TooltipContent>
+                        </Tooltip>
                       )
                     })}
                   </div>
@@ -791,11 +785,11 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
   const dashboardWidth = useTransform(scrollYProgress, [0.05, 0.32], ["680px", "1180px"], { ease: easeOutCubic })
   const dashboardHeight = useTransform(scrollYProgress, [0.05, 0.32], ["540px", "660px"], { ease: easeOutCubic })
   const dashboardX = useTransform(scrollYProgress, [0.05, 0.32], ["20vw", "0vw"], { ease: easeOutCubic })
-  const dashboardScale = useTransform(scrollYProgress, [0.05, 0.30], [0.94, 1], { ease: easeOutCubic })
-  const dashboardZ = useTransform(scrollYProgress, [0.05, 0.30], [-160, 0], { ease: easeOutCubic })
-  const aiHeight = useTransform(scrollYProgress, [0.05, 0.30], ["230px", "360px"], { ease: easeOutCubic })
+  const dashboardScale = useTransform(scrollYProgress, [0.05, 0.3], [0.94, 1], { ease: easeOutCubic })
+  const dashboardZ = useTransform(scrollYProgress, [0.05, 0.3], [-160, 0], { ease: easeOutCubic })
+  const aiHeight = useTransform(scrollYProgress, [0.05, 0.3], ["230px", "360px"], { ease: easeOutCubic })
   const radarOpacity = useTransform(scrollYProgress, [0.12, 0.28], [0, 1], { ease: easeOutCubic })
-  const lightSweepOpacity = useTransform(scrollYProgress, [0.28, 0.34, 0.40], [0, 1, 0])
+  const lightSweepOpacity = useTransform(scrollYProgress, [0.28, 0.34, 0.4], [0, 1, 0])
   const lightSweepX = useTransform(scrollYProgress, [0.28, 0.42], ["-40%", "140%"], { ease: easeOutCubic })
 
   const useStaticIdleLayout = !SCROLL_ANIMATIONS_ENABLED
@@ -805,11 +799,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
     : useStaticIdleLayout
       ? { opacity: 1, y: 0 }
       : { opacity: heroTextOpacity, y: heroTextY }
-  const dashboardWrapperStyle = shouldReduceMotion
-    ? undefined
-    : useStaticIdleLayout
-      ? { x: "20vw" }
-      : { x: dashboardX }
+  const dashboardWrapperStyle = shouldReduceMotion ? undefined : useStaticIdleLayout ? { x: "20vw" } : { x: dashboardX }
   const dashboardStyle = shouldReduceMotion
     ? { width: "1180px", height: "660px" }
     : useStaticIdleLayout
@@ -830,9 +820,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
           maxWidth: "calc(100vw - 96px)",
         }
   const lightSweepStyle =
-    shouldReduceMotion || useStaticIdleLayout
-      ? { opacity: 0 }
-      : { opacity: lightSweepOpacity, x: lightSweepX }
+    shouldReduceMotion || useStaticIdleLayout ? { opacity: 0 } : { opacity: lightSweepOpacity, x: lightSweepX }
   const aiWrapperStyle = shouldReduceMotion
     ? { height: "360px" }
     : useStaticIdleLayout
@@ -1010,10 +998,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
       {/* DESKTOP — >= lg (existing pinned hero) */}
       <section
         ref={containerRef}
-        className={cx(
-          "relative hidden lg:block",
-          SCROLL_ANIMATIONS_ENABLED ? "lg:h-[420vh]" : "lg:h-screen",
-        )}
+        className={cx("relative hidden lg:block", SCROLL_ANIMATIONS_ENABLED ? "lg:h-[420vh]" : "lg:h-screen")}
       >
         <div className="sticky top-0 h-[100dvh] overflow-hidden">
           {/* Background glow — right side, behind the dashboard */}
@@ -1023,10 +1008,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
           />
 
           {/* HERO TEXT — left column */}
-          <motion.div
-            style={heroTextStyle}
-            className="pointer-events-none absolute inset-0 z-10 flex items-center"
-          >
+          <motion.div style={heroTextStyle} className="pointer-events-none absolute inset-0 z-10 flex items-center">
             <div className="mx-auto w-full max-w-[1380px] px-10">
               <div className="grid grid-cols-[1fr_1.25fr] items-center gap-10">
                 <div className="pointer-events-auto text-left">
@@ -1124,9 +1106,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
                             onClick={() => setPeriodKey(key)}
                             className={cx(
                               "rounded-full px-2 py-0.5 text-[0.62rem] font-medium transition-all duration-200",
-                              active
-                                ? "bg-[#64748B] text-white shadow-sm"
-                                : "text-[#0B162D]/60 hover:text-[#0B162D]",
+                              active ? "bg-[#64748B] text-white shadow-sm" : "text-[#0B162D]/60 hover:text-[#0B162D]",
                             )}
                           >
                             {t.periods?.[key]}

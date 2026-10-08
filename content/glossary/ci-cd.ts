@@ -141,7 +141,10 @@ export const extras: Record<Locale, GlossaryExtra> = {
       "Es wird angenommen, Continuous Deployment passe für jedes Team; ohne ausgereifte Tests, Monitoring und Rollback-Strategien ist automatisches Ausspielen in Produktion riskant.",
     ],
     sources: [
-      { title: "Martin Fowler – Continuous Integration", url: "https://martinfowler.com/articles/continuousIntegration.html" },
+      {
+        title: "Martin Fowler – Continuous Integration",
+        url: "https://martinfowler.com/articles/continuousIntegration.html",
+      },
       { title: "Microsoft Learn – Azure Pipelines", url: "https://learn.microsoft.com/azure/devops/pipelines/" },
     ],
   },
@@ -152,7 +155,10 @@ export const extras: Record<Locale, GlossaryExtra> = {
       "People assume continuous deployment fits every team; without mature tests, monitoring and rollback strategies, automatically shipping to production is risky.",
     ],
     sources: [
-      { title: "Martin Fowler – Continuous Integration", url: "https://martinfowler.com/articles/continuousIntegration.html" },
+      {
+        title: "Martin Fowler – Continuous Integration",
+        url: "https://martinfowler.com/articles/continuousIntegration.html",
+      },
       { title: "Microsoft Learn – Azure Pipelines", url: "https://learn.microsoft.com/azure/devops/pipelines/" },
     ],
   },

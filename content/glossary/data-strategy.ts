@@ -52,16 +52,37 @@ const datenstrategie: LocalizedGlossaryTerm = {
       },
     ],
     faq: [
-      { question: "Was gehört in eine Datenstrategie?", answer: "Geschäftsziele und Anwendungsfälle, eine Bestandsaufnahme der Datenquellen, eine Zielarchitektur, Rollen und Verantwortlichkeiten, Governance- und Datenschutzregeln sowie eine priorisierte Roadmap." },
-      { question: "Lohnt sich eine Datenstrategie auch für kleinere Unternehmen?", answer: "Ja. Gerade bei begrenzten Ressourcen hilft eine Strategie, die wenigen Initiativen auf den größten Nutzen auszurichten und teure Fehlinvestitionen in unpassende Tools zu vermeiden." },
-      { question: "Wie lange dauert es, eine Datenstrategie zu erstellen?", answer: "Eine erste belastbare Strategie mit Roadmap entsteht je nach Größe und Komplexität oft in einigen Wochen. Sie wird danach regelmäßig überprüft und an neue Ziele angepasst." },
-      { question: "Müssen wir erst eine Datenstrategie haben, bevor wir mit Reporting oder Automatisierung starten?", answer: "Nicht zwingend. Erste konkrete Verbesserungen können parallel beginnen und liefern oft schnelle Erfolge. Eine Strategie sorgt jedoch dafür, dass diese Einzelschritte aufeinander einzahlen, statt zu isolierten Insellösungen zu werden." },
-      { question: "Wer sollte an einer Datenstrategie mitarbeiten?", answer: "Sinnvoll ist eine Mischung aus Geschäftsführung beziehungsweise Fachbereichen, die die Ziele kennen, und technischen Rollen, die Quellen und Machbarkeit einschätzen. Datenstrategie ist keine reine IT-Aufgabe, weil die wichtigsten Fragen aus dem Geschäft kommen." },
+      {
+        question: "Was gehört in eine Datenstrategie?",
+        answer:
+          "Geschäftsziele und Anwendungsfälle, eine Bestandsaufnahme der Datenquellen, eine Zielarchitektur, Rollen und Verantwortlichkeiten, Governance- und Datenschutzregeln sowie eine priorisierte Roadmap.",
+      },
+      {
+        question: "Lohnt sich eine Datenstrategie auch für kleinere Unternehmen?",
+        answer:
+          "Ja. Gerade bei begrenzten Ressourcen hilft eine Strategie, die wenigen Initiativen auf den größten Nutzen auszurichten und teure Fehlinvestitionen in unpassende Tools zu vermeiden.",
+      },
+      {
+        question: "Wie lange dauert es, eine Datenstrategie zu erstellen?",
+        answer:
+          "Eine erste belastbare Strategie mit Roadmap entsteht je nach Größe und Komplexität oft in einigen Wochen. Sie wird danach regelmäßig überprüft und an neue Ziele angepasst.",
+      },
+      {
+        question: "Müssen wir erst eine Datenstrategie haben, bevor wir mit Reporting oder Automatisierung starten?",
+        answer:
+          "Nicht zwingend. Erste konkrete Verbesserungen können parallel beginnen und liefern oft schnelle Erfolge. Eine Strategie sorgt jedoch dafür, dass diese Einzelschritte aufeinander einzahlen, statt zu isolierten Insellösungen zu werden.",
+      },
+      {
+        question: "Wer sollte an einer Datenstrategie mitarbeiten?",
+        answer:
+          "Sinnvoll ist eine Mischung aus Geschäftsführung beziehungsweise Fachbereichen, die die Ziele kennen, und technischen Rollen, die Quellen und Machbarkeit einschätzen. Datenstrategie ist keine reine IT-Aufgabe, weil die wichtigsten Fragen aus dem Geschäft kommen.",
+      },
     ],
     relatedServicePath: "services/analytics",
     relatedCaseStudySlug: "gb-logistics-gmbh",
     metaTitle: "Datenstrategie: Definition, Bausteine & Praxis | smiit Glossar",
-    metaDescription: "Datenstrategie einfach erklärt: Definition, Bausteine, Anwendungsfälle und Abgrenzung zu Data Governance und Data Warehouse – mit Praxisbezug von smiit.",
+    metaDescription:
+      "Datenstrategie einfach erklärt: Definition, Bausteine, Anwendungsfälle und Abgrenzung zu Data Governance und Data Warehouse – mit Praxisbezug von smiit.",
   },
   en: {
     slug: "data-strategy",
@@ -113,16 +134,37 @@ const datenstrategie: LocalizedGlossaryTerm = {
       },
     ],
     faq: [
-      { question: "What belongs in a data strategy?", answer: "Business goals and use cases, an inventory of data sources, a target architecture, roles and responsibilities, governance and data protection rules, and a prioritized roadmap." },
-      { question: "Is a data strategy worthwhile for smaller companies too?", answer: "Yes. Especially with limited resources, a strategy helps focus the few initiatives on the greatest value and avoid expensive investments in unsuitable tools." },
-      { question: "How long does it take to create a data strategy?", answer: "A first robust strategy with a roadmap often emerges within a few weeks, depending on size and complexity. It is then reviewed regularly and adapted to new goals." },
-      { question: "Do we need a data strategy before starting with reporting or automation?", answer: "Not necessarily. First concrete improvements can begin in parallel and often deliver quick wins. A strategy, however, ensures that these individual steps build on one another instead of becoming isolated point solutions." },
-      { question: "Who should be involved in a data strategy?", answer: "A mix works best: management or business units who know the goals, and technical roles who can assess sources and feasibility. A data strategy is not a pure IT task, because the most important questions come from the business." },
+      {
+        question: "What belongs in a data strategy?",
+        answer:
+          "Business goals and use cases, an inventory of data sources, a target architecture, roles and responsibilities, governance and data protection rules, and a prioritized roadmap.",
+      },
+      {
+        question: "Is a data strategy worthwhile for smaller companies too?",
+        answer:
+          "Yes. Especially with limited resources, a strategy helps focus the few initiatives on the greatest value and avoid expensive investments in unsuitable tools.",
+      },
+      {
+        question: "How long does it take to create a data strategy?",
+        answer:
+          "A first robust strategy with a roadmap often emerges within a few weeks, depending on size and complexity. It is then reviewed regularly and adapted to new goals.",
+      },
+      {
+        question: "Do we need a data strategy before starting with reporting or automation?",
+        answer:
+          "Not necessarily. First concrete improvements can begin in parallel and often deliver quick wins. A strategy, however, ensures that these individual steps build on one another instead of becoming isolated point solutions.",
+      },
+      {
+        question: "Who should be involved in a data strategy?",
+        answer:
+          "A mix works best: management or business units who know the goals, and technical roles who can assess sources and feasibility. A data strategy is not a pure IT task, because the most important questions come from the business.",
+      },
     ],
     relatedServicePath: "services/analytics",
     relatedCaseStudySlug: "gb-logistics-gmbh",
     metaTitle: "Data strategy: definition & building blocks | smiit glossary",
-    metaDescription: "Data strategy explained simply: definition, building blocks, use cases and how it differs from data governance and a data warehouse – with practical insight from smiit.",
+    metaDescription:
+      "Data strategy explained simply: definition, building blocks, use cases and how it differs from data governance and a data warehouse – with practical insight from smiit.",
   },
 }
 
@@ -138,7 +180,10 @@ export const extras: Record<Locale, GlossaryExtra> = {
     ],
     sources: [
       { title: "DAMA International – Data Management Body of Knowledge (DMBOK)", url: "https://www.dama.org/" },
-      { title: "Microsoft Learn – Cloud Adoption Framework für Azure", url: "https://learn.microsoft.com/azure/cloud-adoption-framework/" },
+      {
+        title: "Microsoft Learn – Cloud Adoption Framework für Azure",
+        url: "https://learn.microsoft.com/azure/cloud-adoption-framework/",
+      },
     ],
   },
   en: {
@@ -149,7 +194,10 @@ export const extras: Record<Locale, GlossaryExtra> = {
     ],
     sources: [
       { title: "DAMA International – Data Management Body of Knowledge (DMBOK)", url: "https://www.dama.org/" },
-      { title: "Microsoft Learn – Cloud Adoption Framework for Azure", url: "https://learn.microsoft.com/azure/cloud-adoption-framework/" },
+      {
+        title: "Microsoft Learn – Cloud Adoption Framework for Azure",
+        url: "https://learn.microsoft.com/azure/cloud-adoption-framework/",
+      },
     ],
   },
 }

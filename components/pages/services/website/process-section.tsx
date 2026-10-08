@@ -43,7 +43,9 @@ export default function ProcessSection({ dict }: { dict: Dictionary }) {
     if (!nodes.length) return
     const observers = nodes.map((node, idx) => {
       const obs = new IntersectionObserver(
-        ([entry]) => { if (entry.isIntersecting) setActiveIndex(idx) },
+        ([entry]) => {
+          if (entry.isIntersecting) setActiveIndex(idx)
+        },
         { rootMargin: "-50% 0px -50% 0px", threshold: 0 },
       )
       obs.observe(node)
@@ -62,8 +64,7 @@ export default function ProcessSection({ dict }: { dict: Dictionary }) {
           <div ref={headingRef} className={`text-center reveal-fade-up ${headingRevealed ? "revealed" : ""}`}>
             <span className="section-eyebrow justify-center">{eyebrowLabel}</span>
             <h2 className="mx-auto max-w-[22ch] font-serif text-[2.2rem] sm:text-[2.4rem] md:text-[3rem] leading-[1.1] tracking-tight text-black">
-              {process?.title}{" "}
-              <span className="text-[#F703EB]">{process?.titleHighlight}</span>
+              {process?.title} <span className="text-[#F703EB]">{process?.titleHighlight}</span>
             </h2>
             {process?.subtitle && (
               <p className="mx-auto mt-4 max-w-[58ch] text-[0.9rem] sm:text-base leading-relaxed text-black/60">
@@ -109,8 +110,7 @@ export default function ProcessSection({ dict }: { dict: Dictionary }) {
         <div>
           <span className="section-eyebrow">{eyebrowLabel}</span>
           <h2 className="mt-1 max-w-[26ch] font-serif text-[2rem] leading-[1.05] tracking-tight text-black sm:text-[2.4rem] md:text-[3rem]">
-            {process?.title}{" "}
-            <span className="text-[#F703EB]">{process?.titleHighlight}</span>
+            {process?.title} <span className="text-[#F703EB]">{process?.titleHighlight}</span>
           </h2>
           {process?.subtitle && (
             <p className="mt-3 max-w-[64ch] text-[1rem] leading-relaxed text-black/60">{process.subtitle}</p>
@@ -128,7 +128,9 @@ export default function ProcessSection({ dict }: { dict: Dictionary }) {
               return (
                 <div
                   key={idx}
-                  ref={(n) => { stepRefs.current[idx] = n }}
+                  ref={(n) => {
+                    stepRefs.current[idx] = n
+                  }}
                   className={`flex min-h-[40vh] items-center transition-all duration-300 ease-out ${isActive ? "opacity-100" : "opacity-40"}`}
                 >
                   <div className="w-full">
@@ -190,7 +192,13 @@ function Mindmap({ items, activeIndex }: { items: Step[]; activeIndex: number })
       </svg>
 
       <div className="absolute left-0 top-1/2 z-10 flex h-[100px] w-[140px] -translate-y-1/2 items-center justify-center rounded-xl bg-white">
-        <Image src="/logo_black.webp" alt="smiit" width={200} height={100} className="h-12 w-auto object-contain px-3" />
+        <Image
+          src="/logo_black.webp"
+          alt="smiit"
+          width={200}
+          height={100}
+          className="h-12 w-auto object-contain px-3"
+        />
       </div>
 
       {items.map((item, idx) => {
@@ -207,7 +215,9 @@ function Mindmap({ items, activeIndex }: { items: Step[]; activeIndex: number })
                 : "border-slate-200/80 bg-white/90 text-[#0B162D]/75 backdrop-blur-sm"
             }`}
           >
-            <div className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg transition-colors duration-300 ${isActive ? "bg-white/20 text-white" : "bg-[#F703EB]/10 text-[#F703EB]"}`}>
+            <div
+              className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-lg transition-colors duration-300 ${isActive ? "bg-white/20 text-white" : "bg-[#F703EB]/10 text-[#F703EB]"}`}
+            >
               <Icon className="h-3.5 w-3.5" />
             </div>
             <span className="truncate text-[0.85rem] font-medium">{item.title}</span>
@@ -265,14 +275,14 @@ function MobileProcessStep({
       >
         <Icon className="h-4 w-4" />
       </motion.div>
-      <div className={`rounded-2xl border bg-white p-5 transition-[border-color,box-shadow] duration-300 ${isActive ? "border-[#F703EB]/35 shadow-[0_18px_44px_rgba(247,3,235,0.12)]" : "border-slate-200/70 shadow-[0_8px_22px_rgba(15,23,42,0.04)]"}`}>
+      <div
+        className={`rounded-2xl border bg-white p-5 transition-[border-color,box-shadow] duration-300 ${isActive ? "border-[#F703EB]/35 shadow-[0_18px_44px_rgba(247,3,235,0.12)]" : "border-slate-200/70 shadow-[0_8px_22px_rgba(15,23,42,0.04)]"}`}
+      >
         <div className="flex items-baseline justify-between gap-3">
           <span className="text-[0.62rem] font-semibold uppercase tracking-[0.22em] text-[#F703EB]">
             {stepLabel ?? "Schritt"} {step.number}
           </span>
-          <span className="font-serif text-[1.6rem] font-semibold leading-none text-[#F703EB]/20">
-            {step.number}
-          </span>
+          <span className="font-serif text-[1.6rem] font-semibold leading-none text-[#F703EB]/20">{step.number}</span>
         </div>
         <h3 className="mt-2 font-serif text-lg font-semibold leading-tight text-[#0B162D]">{step.title}</h3>
         <p className="mt-2 text-[0.9rem] leading-relaxed text-black/60">{step.text}</p>
@@ -281,7 +291,15 @@ function MobileProcessStep({
   )
 }
 
-function MobileProcessTimeline({ steps, reduceMotion, stepLabel }: { steps: Step[]; reduceMotion: boolean; stepLabel?: string }) {
+function MobileProcessTimeline({
+  steps,
+  reduceMotion,
+  stepLabel,
+}: {
+  steps: Step[]
+  reduceMotion: boolean
+  stepLabel?: string
+}) {
   const containerRef = useRef<HTMLDivElement>(null)
   const stepRefs = useRef<(HTMLDivElement | null)[]>([])
   const [activeIndex, setActiveIndex] = useState(0)
@@ -296,7 +314,9 @@ function MobileProcessTimeline({ steps, reduceMotion, stepLabel }: { steps: Step
     if (!nodes.length) return
     const observers = nodes.map((node, idx) => {
       const obs = new IntersectionObserver(
-        ([entry]) => { if (entry.isIntersecting) setActiveIndex(idx) },
+        ([entry]) => {
+          if (entry.isIntersecting) setActiveIndex(idx)
+        },
         { rootMargin: "-45% 0px -45% 0px", threshold: 0 },
       )
       obs.observe(node)
@@ -307,7 +327,10 @@ function MobileProcessTimeline({ steps, reduceMotion, stepLabel }: { steps: Step
 
   return (
     <div ref={containerRef} className="relative mt-12">
-      <div aria-hidden className="pointer-events-none absolute left-[19px] top-2 bottom-2 w-[2px] rounded-full bg-slate-200/80" />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute left-[19px] top-2 bottom-2 w-[2px] rounded-full bg-slate-200/80"
+      />
       <motion.div
         aria-hidden
         style={reduceMotion ? { height: "100%" } : { height: railHeight }}
@@ -322,7 +345,9 @@ function MobileProcessTimeline({ steps, reduceMotion, stepLabel }: { steps: Step
             isActive={activeIndex === idx}
             reduceMotion={reduceMotion}
             stepLabel={stepLabel}
-            registerRef={(n) => { stepRefs.current[idx] = n }}
+            registerRef={(n) => {
+              stepRefs.current[idx] = n
+            }}
           />
         ))}
       </div>

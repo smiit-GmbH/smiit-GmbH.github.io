@@ -26,14 +26,25 @@ function cx(...classes: Array<string | false | null | undefined>) {
 
 // ---------- Hero Packages (pill chips) ----------
 
-function HeroPackages({ hero, align = "left" }: { hero: Dictionary["servicesWebsite"]["hero"]; align?: "left" | "center" }) {
+function HeroPackages({
+  hero,
+  align = "left",
+}: {
+  hero: Dictionary["servicesWebsite"]["hero"]
+  align?: "left" | "center"
+}) {
   const packages = (hero?.packages ?? []) as string[]
   if (packages.length === 0) return null
 
   return (
     <div className={cx("mt-5", align === "center" && "mx-auto max-w-[640px]")}>
       {hero?.packagesLabel && (
-        <p className={cx("text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[#F703EB]", align === "center" && "text-center")}>
+        <p
+          className={cx(
+            "text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[#F703EB]",
+            align === "center" && "text-center",
+          )}
+        >
           {hero.packagesLabel}
         </p>
       )}
@@ -56,15 +67,7 @@ function HeroPackages({ hero, align = "left" }: { hero: Dictionary["servicesWebs
 
 // ---------- Magnetic CTA ----------
 
-function MagneticCta({
-  href,
-  children,
-  className,
-}: {
-  href: string
-  children: React.ReactNode
-  className?: string
-}) {
+function MagneticCta({ href, children, className }: { href: string; children: React.ReactNode; className?: string }) {
   const ref = useRef<HTMLDivElement>(null)
   const shouldReduceMotion = useReducedMotion()
   const mvX = useMotionValue(0)
@@ -105,7 +108,15 @@ function MagneticCta({
 
 // ---------- CTA Row (primary Calendly + secondary #process) ----------
 
-function CtaRow({ hero, align, magnetic }: { hero: Dictionary["servicesWebsite"]["hero"]; align: "left" | "center"; magnetic: boolean }) {
+function CtaRow({
+  hero,
+  align,
+  magnetic,
+}: {
+  hero: Dictionary["servicesWebsite"]["hero"]
+  align: "left" | "center"
+  magnetic: boolean
+}) {
   const primaryClass =
     "group inline-flex items-center justify-center rounded-lg bg-[#F703EB] px-5 py-3 text-[0.88rem] font-medium text-white shadow-[0_14px_28px_rgba(247,3,235,0.20)] transition-colors duration-300 hover:bg-[#D802CD]"
 
@@ -134,7 +145,17 @@ function CtaRow({ hero, align, magnetic }: { hero: Dictionary["servicesWebsite"]
 
 // ---------- Before/After Slider ----------
 
-function BeforeAfterSlider({ beforeLabel, afterLabel, sliderHint, fill = false }: { beforeLabel: string; afterLabel: string; sliderHint: string; fill?: boolean }) {
+function BeforeAfterSlider({
+  beforeLabel,
+  afterLabel,
+  sliderHint,
+  fill = false,
+}: {
+  beforeLabel: string
+  afterLabel: string
+  sliderHint: string
+  fill?: boolean
+}) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [pos, setPos] = useState(50)
   const dragging = useRef(false)
@@ -164,11 +185,11 @@ function BeforeAfterSlider({ beforeLabel, afterLabel, sliderHint, fill = false }
   useEffect(() => {
     if (shouldReduceMotion || !inView) return
 
-    const easeInOut = (t: number) => t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t
+    const easeInOut = (t: number) => (t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t)
 
     const keyframes: [number, number][] = [
-      [0,    50],
-      [320,  80],
+      [0, 50],
+      [320, 80],
       [1500, 20],
       [2700, 50],
     ]
@@ -208,8 +229,13 @@ function BeforeAfterSlider({ beforeLabel, afterLabel, sliderHint, fill = false }
   }, [shouldReduceMotion, inView])
 
   useEffect(() => {
-    const onMove = (e: MouseEvent) => { if (dragging.current) updatePos(e.clientX) }
-    const onUp = () => { dragging.current = false; touchStart.current = null }
+    const onMove = (e: MouseEvent) => {
+      if (dragging.current) updatePos(e.clientX)
+    }
+    const onUp = () => {
+      dragging.current = false
+      touchStart.current = null
+    }
 
     const onTouchMove = (e: TouchEvent) => {
       if (!dragging.current) return
@@ -219,7 +245,11 @@ function BeforeAfterSlider({ beforeLabel, afterLabel, sliderHint, fill = false }
         const dx = Math.abs(touch.clientX - start.x)
         const dy = Math.abs(touch.clientY - start.y)
         if (dx + dy < 3) return
-        if (dy > dx) { dragging.current = false; touchStart.current = null; return }
+        if (dy > dx) {
+          dragging.current = false
+          touchStart.current = null
+          return
+        }
         touchStart.current = null
       }
       e.preventDefault()
@@ -250,7 +280,11 @@ function BeforeAfterSlider({ beforeLabel, afterLabel, sliderHint, fill = false }
             ? "min-h-0 flex-1 rounded-[22px]"
             : "rounded-[10px] md:rounded-[16px] shadow-[0_30px_70px_-20px_rgba(21,21,26,0.22)] aspect-[4/5] lg:aspect-[5/4]",
         )}
-        onMouseDown={(e) => { hasInteracted.current = true; dragging.current = true; updatePos(e.clientX) }}
+        onMouseDown={(e) => {
+          hasInteracted.current = true
+          dragging.current = true
+          updatePos(e.clientX)
+        }}
         onTouchStart={(e) => {
           hasInteracted.current = true
           dragging.current = true
@@ -265,22 +299,31 @@ function BeforeAfterSlider({ beforeLabel, afterLabel, sliderHint, fill = false }
           <span
             aria-hidden
             className="pointer-events-none absolute z-[4] font-black text-[clamp(0.75rem,4.5cqw,2.1rem)] tracking-[0.16em] uppercase leading-none"
-            style={{ top: "50%", left: "25%", transform: "translate(-50%, -50%)", color: "rgba(21,21,26,0.62)", textShadow: "0 1px 16px rgba(255,255,255,0.7)" }}
+            style={{
+              top: "50%",
+              left: "25%",
+              transform: "translate(-50%, -50%)",
+              color: "rgba(21,21,26,0.62)",
+              textShadow: "0 1px 16px rgba(255,255,255,0.7)",
+            }}
           >
             {beforeLabel}
           </span>
         </div>
 
         {/* AFTER layer */}
-        <div
-          className="absolute inset-0 overflow-hidden z-[2]"
-          style={{ clipPath: `inset(0 0 0 ${pos}%)` }}
-        >
+        <div className="absolute inset-0 overflow-hidden z-[2]" style={{ clipPath: `inset(0 0 0 ${pos}%)` }}>
           <AfterWebsite />
           <span
             aria-hidden
             className="pointer-events-none absolute z-[4] font-black text-[clamp(0.75rem,4.5cqw,2.1rem)] tracking-[0.16em] uppercase leading-none"
-            style={{ top: "50%", left: "75%", transform: "translate(-50%, -50%)", color: "rgba(21,21,26,0.9)", textShadow: "0 1px 16px rgba(255,255,255,0.85)" }}
+            style={{
+              top: "50%",
+              left: "75%",
+              transform: "translate(-50%, -50%)",
+              color: "rgba(21,21,26,0.9)",
+              textShadow: "0 1px 16px rgba(255,255,255,0.85)",
+            }}
           >
             {afterLabel}
           </span>
@@ -302,17 +345,38 @@ function BeforeAfterSlider({ beforeLabel, afterLabel, sliderHint, fill = false }
             }}
             className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[44px] h-[44px] sm:w-[52px] sm:h-[52px] rounded-full bg-[#F703EB] text-white grid place-items-center shadow-[0_18px_40px_-12px_rgba(247,3,235,0.45)] cursor-ew-resize"
           >
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" className="w-[18px] h-[18px] sm:w-[22px] sm:h-[22px]">
-              <path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/>
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2.4"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="w-[18px] h-[18px] sm:w-[22px] sm:h-[22px]"
+            >
+              <path d="M9 6l-6 6 6 6M15 6l6 6-6 6" />
             </svg>
           </button>
         </div>
       </div>
 
       {/* Hint */}
-      <p className={cx("flex items-center justify-center gap-2 text-[0.72rem] sm:text-[0.82rem] text-[#8a8a96]", fill ? "mt-3 shrink-0" : "mt-3")}>
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-4 h-4 shrink-0">
-          <path d="M9 6l-6 6 6 6M15 6l6 6-6 6"/>
+      <p
+        className={cx(
+          "flex items-center justify-center gap-2 text-[0.72rem] sm:text-[0.82rem] text-[#8a8a96]",
+          fill ? "mt-3 shrink-0" : "mt-3",
+        )}
+      >
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="w-4 h-4 shrink-0"
+        >
+          <path d="M9 6l-6 6 6 6M15 6l6 6-6 6" />
         </svg>
         {sliderHint}
       </p>
@@ -338,7 +402,7 @@ function BeforeWebsite() {
           Muster<span className="text-[#8a6d3b]">Bau</span> GmbH
         </span>
         <div className="flex items-center gap-[0.6cqw] text-[1cqw] text-[#666]">
-          {["Startseite","Über uns","Leistungen","Referenzen","Karriere","Presse","Kontakt"].map((item, i) => (
+          {["Startseite", "Über uns", "Leistungen", "Referenzen", "Karriere", "Presse", "Kontakt"].map((item, i) => (
             <span key={item} className="flex items-center gap-[0.6cqw] whitespace-nowrap">
               {i > 0 && <span className="text-[#ccc]">|</span>}
               {item}
@@ -349,19 +413,29 @@ function BeforeWebsite() {
       {/* Thin hero banner */}
       <div className="h-[12cqw] bg-[repeating-linear-gradient(45deg,#cfccc3,#cfccc3_5px,#c4c0b6_5px,#c4c0b6_10px)] flex items-center px-[2cqw] gap-[2cqw] shrink-0">
         <div className="flex-1">
-          <div className="text-[1.8cqw] font-serif font-bold text-[#444] leading-[1.2]">Ihr zuverlässiger Baupartner seit 1998</div>
+          <div className="text-[1.8cqw] font-serif font-bold text-[#444] leading-[1.2]">
+            Ihr zuverlässiger Baupartner seit 1998
+          </div>
           <div className="text-[1.1cqw] text-[#666] mt-[0.5cqw]">Hochbau · Tiefbau · Sanierung · Abbruch</div>
         </div>
-        <div className="shrink-0 bg-[#8a6d3b] text-white text-[1cqw] px-[1.5cqw] py-[0.8cqw] whitespace-nowrap">Kontakt aufnehmen</div>
+        <div className="shrink-0 bg-[#8a6d3b] text-white text-[1cqw] px-[1.5cqw] py-[0.8cqw] whitespace-nowrap">
+          Kontakt aufnehmen
+        </div>
       </div>
       {/* 3-column desktop layout */}
       <div className="flex flex-1 overflow-hidden text-[1.1cqw]">
         {/* Left sidebar: navigation */}
         <div className="w-[22%] bg-[#dedad3] border-r border-[#ccc] shrink-0 px-[1.2cqw] py-[1.5cqw]">
-          <div className="font-bold text-[1.3cqw] text-[#555] mb-[0.8cqw] pb-[0.5cqw] border-b border-[#bbb]">Leistungen</div>
-          {["Hochbau","Tiefbau","Sanierung","Abbruch","Erdbau","Rohbau","Pflaster","Fassade","Innenausbau"].map(s => (
-            <div key={s} className="py-[0.45cqw] border-b border-[#d0ccc4] text-[#777] text-[1cqw]">{s}</div>
-          ))}
+          <div className="font-bold text-[1.3cqw] text-[#555] mb-[0.8cqw] pb-[0.5cqw] border-b border-[#bbb]">
+            Leistungen
+          </div>
+          {["Hochbau", "Tiefbau", "Sanierung", "Abbruch", "Erdbau", "Rohbau", "Pflaster", "Fassade", "Innenausbau"].map(
+            (s) => (
+              <div key={s} className="py-[0.45cqw] border-b border-[#d0ccc4] text-[#777] text-[1cqw]">
+                {s}
+              </div>
+            ),
+          )}
         </div>
         {/* Main content */}
         <div className="flex-1 px-[1.5cqw] py-[1.5cqw] overflow-hidden">
@@ -374,7 +448,7 @@ function BeforeWebsite() {
             {[
               { t: "Neues Projekt", d: "Wohnanlage Feldstraße fertiggestellt" },
               { t: "Stellenangebot", d: "Polier (m/w/d) ab sofort gesucht" },
-            ].map(item => (
+            ].map((item) => (
               <div key={item.t} className="border border-[#ccc] bg-white p-[0.8cqw]">
                 <div className="bg-[repeating-linear-gradient(45deg,#eee,#eee_3px,#e5e3dc_3px,#e5e3dc_6px)] h-[5cqw] mb-[0.6cqw]" />
                 <div className="font-bold text-[1.1cqw] text-[#8a6d3b]">{item.t}</div>
@@ -393,17 +467,27 @@ function BeforeWebsite() {
           {/* Wide table — causes visual overflow */}
           <div className="mt-[1.5cqw] border border-[#ccc] overflow-hidden">
             <div className="flex bg-[#8a6d3b] text-white text-[0.9cqw]">
-              {["Leistung","Ort","Status","Auftraggeber","Fertigstellung"].map(h => (
-                <div key={h} className="flex-1 px-[0.7cqw] py-[0.5cqw] border-r border-[#9a7d4b] last:border-0 whitespace-nowrap">{h}</div>
+              {["Leistung", "Ort", "Status", "Auftraggeber", "Fertigstellung"].map((h) => (
+                <div
+                  key={h}
+                  className="flex-1 px-[0.7cqw] py-[0.5cqw] border-r border-[#9a7d4b] last:border-0 whitespace-nowrap"
+                >
+                  {h}
+                </div>
               ))}
             </div>
             {[
-              ["Tiefbau A1","München","laufend","Stadt München","Q3 2024"],
-              ["Hochbau B2","Augsburg","geplant","Privat","Q1 2025"],
+              ["Tiefbau A1", "München", "laufend", "Stadt München", "Q3 2024"],
+              ["Hochbau B2", "Augsburg", "geplant", "Privat", "Q1 2025"],
             ].map((row, i) => (
               <div key={i} className={`flex text-[0.9cqw] ${i % 2 === 0 ? "bg-white" : "bg-[#f5f3ee]"}`}>
-                {row.map(cell => (
-                  <div key={cell} className="flex-1 px-[0.7cqw] py-[0.5cqw] border-r border-[#ddd] last:border-0 text-[#666] whitespace-nowrap">{cell}</div>
+                {row.map((cell) => (
+                  <div
+                    key={cell}
+                    className="flex-1 px-[0.7cqw] py-[0.5cqw] border-r border-[#ddd] last:border-0 text-[#666] whitespace-nowrap"
+                  >
+                    {cell}
+                  </div>
                 ))}
               </div>
             ))}
@@ -425,7 +509,9 @@ function BeforeWebsite() {
         </div>
         {/* Right sidebar: contact */}
         <div className="w-[26%] bg-[#f0ece5] border-l border-[#ccc] shrink-0 px-[1.2cqw] py-[1.5cqw]">
-          <div className="font-bold text-[1.3cqw] text-[#555] mb-[0.8cqw] pb-[0.5cqw] border-b border-[#bbb]">Kontakt</div>
+          <div className="font-bold text-[1.3cqw] text-[#555] mb-[0.8cqw] pb-[0.5cqw] border-b border-[#bbb]">
+            Kontakt
+          </div>
           <div className="text-[1.1cqw] text-[#666] leading-[1.8]">
             <div>MusterBau GmbH</div>
             <div>Baustraße 12</div>
@@ -437,19 +523,26 @@ function BeforeWebsite() {
             Jetzt anfragen
           </div>
           <div className="font-bold text-[1.3cqw] text-[#555] mt-[1.5cqw] mb-[0.7cqw]">Aktuelles</div>
-          {["Neues Projekt in München...","Offene Stellen 2024...","Messe Stuttgart..."].map(n => (
-            <div key={n} className="text-[1cqw] text-[#8a6d3b] underline mb-[0.5cqw]">{n}</div>
+          {["Neues Projekt in München...", "Offene Stellen 2024...", "Messe Stuttgart..."].map((n) => (
+            <div key={n} className="text-[1cqw] text-[#8a6d3b] underline mb-[0.5cqw]">
+              {n}
+            </div>
           ))}
           <div className="font-bold text-[1.3cqw] text-[#555] mt-[1.5cqw] mb-[0.7cqw]">Zertifizierungen</div>
           <div className="grid grid-cols-2 gap-[0.7cqw]">
-            {[1,2,3,4].map(i => (
+            {[1, 2, 3, 4].map((i) => (
               <div key={i} className="h-[4cqw] bg-[#d8d3ca] border border-[#bbb]" />
             ))}
           </div>
           <div className="font-bold text-[1.3cqw] text-[#555] mt-[1.5cqw] mb-[0.7cqw]">Folgen Sie uns</div>
           <div className="flex gap-[0.7cqw]">
-            {["f","in","xing"].map(s => (
-              <div key={s} className="w-[4cqw] h-[4cqw] bg-[#8a6d3b] text-white text-[1cqw] grid place-items-center font-bold">{s}</div>
+            {["f", "in", "xing"].map((s) => (
+              <div
+                key={s}
+                className="w-[4cqw] h-[4cqw] bg-[#8a6d3b] text-white text-[1cqw] grid place-items-center font-bold"
+              >
+                {s}
+              </div>
             ))}
           </div>
           <div className="mt-[1.5cqw] border border-[#ccc] bg-[#eae8e0] p-[0.7cqw]">
@@ -463,7 +556,9 @@ function BeforeWebsite() {
             </div>
           </div>
           <div className="font-bold text-[1.3cqw] text-[#555] mt-[1.5cqw] mb-[0.7cqw]">Newsletter</div>
-          <div className="border border-[#bbb] bg-white text-[1cqw] text-[#aaa] px-[0.7cqw] py-[0.6cqw] mb-[0.5cqw]">E-Mail-Adresse eingeben</div>
+          <div className="border border-[#bbb] bg-white text-[1cqw] text-[#aaa] px-[0.7cqw] py-[0.6cqw] mb-[0.5cqw]">
+            E-Mail-Adresse eingeben
+          </div>
           <div className="bg-[#8a6d3b] text-white text-[1cqw] text-center py-[0.6cqw]">Anmelden</div>
         </div>
       </div>
@@ -471,7 +566,10 @@ function BeforeWebsite() {
       <div className="bg-[#444] text-white px-[2cqw] py-[1.5cqw] flex justify-between items-center text-[1cqw] shrink-0">
         <span>© 2014 MusterBau GmbH – Alle Rechte vorbehalten</span>
         <span className="flex gap-[1.5cqw]">
-          <span>Impressum</span><span>Datenschutz</span><span>AGB</span><span>Sitemap</span>
+          <span>Impressum</span>
+          <span>Datenschutz</span>
+          <span>AGB</span>
+          <span>Sitemap</span>
         </span>
       </div>
     </div>
@@ -483,7 +581,6 @@ function BeforeWebsite() {
 function AfterWebsite() {
   return (
     <div className="absolute inset-0 isolate flex flex-col bg-[#f4f2ec] font-sans overflow-hidden">
-
       {/* Status bar — dark icons on light */}
       <div className="flex items-center justify-between px-[4cqw] h-[5.5cqw] shrink-0">
         <span className="text-[1.6cqw] font-semibold text-[#15151a]">9:41</span>
@@ -517,10 +614,11 @@ function AfterWebsite() {
 
       {/* ===== Body ===== */}
       <div className="flex min-h-0 flex-1 flex-col overflow-hidden">
-
         {/* Hero copy — editorial, generous space */}
         <div className="px-[7cqw] pt-[2.5cqw]">
-          <p className="text-[1.45cqw] font-bold tracking-[0.24em] text-[#F703EB] uppercase mb-[1.4cqw]">Bauen mit Weitblick</p>
+          <p className="text-[1.45cqw] font-bold tracking-[0.24em] text-[#F703EB] uppercase mb-[1.4cqw]">
+            Bauen mit Weitblick
+          </p>
           <p className="font-serif text-[5.4cqw] leading-[1.12] text-[#15151a] tracking-[-0.02em] mb-[1.6cqw]">
             Wir bauen, worauf <em className="not-italic text-[#F703EB]">Sie</em> sich verlassen.
           </p>
@@ -536,9 +634,15 @@ function AfterWebsite() {
         {/* Architectural "photo" — glass tower at golden hour, built in CSS */}
         <div className="relative mx-[5cqw] mt-[3.5cqw] overflow-hidden rounded-[3cqw] h-[40cqw] shadow-[0_5cqw_16cqw_-6cqw_rgba(21,21,26,0.34)]">
           {/* Sky */}
-          <div className="absolute inset-0" style={{ background: "linear-gradient(180deg,#8ea2b6 0%,#b7c4cf 34%,#d8dde0 60%,#ece7df 100%)" }} />
+          <div
+            className="absolute inset-0"
+            style={{ background: "linear-gradient(180deg,#8ea2b6 0%,#b7c4cf 34%,#d8dde0 60%,#ece7df 100%)" }}
+          />
           {/* Soft sun glow (golden hour) */}
-          <div className="absolute inset-0" style={{ background: "radial-gradient(38% 30% at 80% 16%, rgba(255,243,222,0.85), transparent 68%)" }} />
+          <div
+            className="absolute inset-0"
+            style={{ background: "radial-gradient(38% 30% at 80% 16%, rgba(255,243,222,0.85), transparent 68%)" }}
+          />
 
           {/* Rear, lower volume — depth on the left */}
           <div
@@ -565,9 +669,17 @@ function AfterWebsite() {
             }}
           >
             {/* Glass reflection sweep */}
-            <div className="absolute inset-0" style={{ background: "linear-gradient(118deg, transparent 36%, rgba(255,255,255,0.34) 47%, transparent 56%)" }} />
+            <div
+              className="absolute inset-0"
+              style={{
+                background: "linear-gradient(118deg, transparent 36%, rgba(255,255,255,0.34) 47%, transparent 56%)",
+              }}
+            />
             {/* Bright left corner edge */}
-            <div className="absolute inset-y-0 left-0 w-[2.5%]" style={{ background: "linear-gradient(90deg, rgba(255,255,255,0.55), transparent)" }} />
+            <div
+              className="absolute inset-y-0 left-0 w-[2.5%]"
+              style={{ background: "linear-gradient(90deg, rgba(255,255,255,0.55), transparent)" }}
+            />
             {/* Lit windows — a few warm/cool highlights */}
             {[
               { l: "10%", t: "20%", warm: true },
@@ -586,19 +698,23 @@ function AfterWebsite() {
                   width: "5.5%",
                   height: "6%",
                   background: w.warm ? "rgba(255,225,170,0.85)" : "rgba(215,235,250,0.8)",
-                  boxShadow: w.warm
-                    ? "0 0 1.4cqw rgba(255,214,150,0.7)"
-                    : "0 0 1.2cqw rgba(200,228,250,0.6)",
+                  boxShadow: w.warm ? "0 0 1.4cqw rgba(255,214,150,0.7)" : "0 0 1.2cqw rgba(200,228,250,0.6)",
                 }}
               />
             ))}
           </div>
 
           {/* Roofline highlight where sky meets facade */}
-          <div className="absolute left-[20%] right-[-4%] top-[30%] h-px" style={{ background: "rgba(255,255,255,0.4)" }} />
+          <div
+            className="absolute left-[20%] right-[-4%] top-[30%] h-px"
+            style={{ background: "rgba(255,255,255,0.4)" }}
+          />
 
           {/* Atmospheric haze at the base */}
-          <div className="absolute inset-x-0 bottom-0 h-[34%]" style={{ background: "linear-gradient(to top, rgba(236,231,223,0.7), transparent)" }} />
+          <div
+            className="absolute inset-x-0 bottom-0 h-[34%]"
+            style={{ background: "linear-gradient(to top, rgba(236,231,223,0.7), transparent)" }}
+          />
           {/* Grain texture for a photographic finish */}
           <div
             aria-hidden
@@ -606,11 +722,20 @@ function AfterWebsite() {
             style={{ backgroundImage: "url(/assets/grain.webp)", backgroundSize: "160px" }}
           />
           {/* Vignette */}
-          <div aria-hidden className="absolute inset-0" style={{ boxShadow: "inset 0 0 10cqw 2cqw rgba(18,26,36,0.34)" }} />
+          <div
+            aria-hidden
+            className="absolute inset-0"
+            style={{ boxShadow: "inset 0 0 10cqw 2cqw rgba(18,26,36,0.34)" }}
+          />
 
           {/* Label */}
-          <div className="absolute inset-0" style={{ background: "linear-gradient(to top, rgba(15,19,26,0.6), transparent 44%)" }} />
-          <span className="absolute top-[2.4cqw] left-[2.4cqw] bg-white/85 text-[#15151a] text-[1.1cqw] font-semibold tracking-[0.08em] uppercase px-[1.8cqw] py-[0.7cqw] rounded-full">Referenzprojekt</span>
+          <div
+            className="absolute inset-0"
+            style={{ background: "linear-gradient(to top, rgba(15,19,26,0.6), transparent 44%)" }}
+          />
+          <span className="absolute top-[2.4cqw] left-[2.4cqw] bg-white/85 text-[#15151a] text-[1.1cqw] font-semibold tracking-[0.08em] uppercase px-[1.8cqw] py-[0.7cqw] rounded-full">
+            Referenzprojekt
+          </span>
           <div className="absolute bottom-[2.6cqw] left-[3cqw] right-[3cqw]">
             <p className="text-[2cqw] font-bold text-white leading-none">Verwaltungsgebäude Süd</p>
             <p className="text-[1.2cqw] text-white/75 mt-[0.6cqw]">Hochbau · 2024</p>
@@ -650,7 +775,10 @@ function AfterWebsite() {
             { v: "15 J.", l: "Erfahrung" },
             { v: "98 %", l: "Weiterempfehlung" },
           ].map(({ v, l }) => (
-            <div key={l} className="bg-white border border-[rgba(21,21,26,0.06)] rounded-[2cqw] py-[2.5cqw] px-[1cqw] text-center shadow-sm">
+            <div
+              key={l}
+              className="bg-white border border-[rgba(21,21,26,0.06)] rounded-[2cqw] py-[2.5cqw] px-[1cqw] text-center shadow-sm"
+            >
               <p className="font-serif text-[3cqw] text-[#15151a] leading-none">{v}</p>
               <p className="text-[1.2cqw] text-[#6b6b73] mt-[0.7cqw] leading-tight">{l}</p>
             </div>
@@ -659,7 +787,9 @@ function AfterWebsite() {
 
         {/* Testimonial */}
         <div className="mx-[5cqw] mt-[5cqw] rounded-[2.5cqw] border border-[rgba(21,21,26,0.06)] bg-white p-[3.2cqw] shadow-sm">
-          <p className="font-serif text-[1.9cqw] leading-[1.4] text-[#15151a]">„Termintreu, sauber, transparent — genau so stellt man sich einen Baupartner vor.“</p>
+          <p className="font-serif text-[1.9cqw] leading-[1.4] text-[#15151a]">
+            „Termintreu, sauber, transparent — genau so stellt man sich einen Baupartner vor.“
+          </p>
           <div className="mt-[2cqw] flex items-center gap-[1.6cqw]">
             <div className="h-[4cqw] w-[4cqw] shrink-0 rounded-full bg-[#cdd3da]" />
             <div>
@@ -671,12 +801,14 @@ function AfterWebsite() {
 
         {/* Footer */}
         <div className="px-[7cqw] pt-[4cqw] pb-[3cqw] mt-auto flex items-center justify-between shrink-0">
-          <span className="font-extrabold text-[2cqw] tracking-[-0.02em] text-[#15151a]">muster<b className="text-[#F703EB]">bau</b></span>
+          <span className="font-extrabold text-[2cqw] tracking-[-0.02em] text-[#15151a]">
+            muster<b className="text-[#F703EB]">bau</b>
+          </span>
           <span className="flex gap-[2cqw] text-[1.4cqw] text-[#8a8a92]">
-            <span>Impressum</span><span>Datenschutz</span>
+            <span>Impressum</span>
+            <span>Datenschutz</span>
           </span>
         </div>
-
       </div>
     </div>
   )
@@ -691,7 +823,9 @@ export function LogoStrip({ label, names }: { label: string; names: string[] }) 
   return (
     <section className="py-5 sm:py-[30px] border-y border-[rgba(21,21,26,0.06)] overflow-hidden">
       <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
-        <p className="text-center text-[0.8rem] text-[#8a8a96] tracking-[0.1em] mb-4 sm:mb-6 uppercase font-semibold">{label}</p>
+        <p className="text-center text-[0.8rem] text-[#8a8a96] tracking-[0.1em] mb-4 sm:mb-6 uppercase font-semibold">
+          {label}
+        </p>
       </div>
       <div
         className="relative overflow-hidden"
@@ -769,11 +903,7 @@ export default function HeroSection({ dict }: HeroSectionProps) {
     : useStaticIdleLayout
       ? { opacity: 1, y: 0 }
       : { opacity: heroTextOpacity, y: heroTextY }
-  const frameWrapperStyle = shouldReduceMotion
-    ? { x: "20vw" }
-    : useStaticIdleLayout
-      ? { x: "20vw" }
-      : { x: frameX }
+  const frameWrapperStyle = shouldReduceMotion ? { x: "20vw" } : useStaticIdleLayout ? { x: "20vw" } : { x: frameX }
   // NOTE: the idle frame renders at its final size with NO scale/z/perspective.
   // A 3D transform (z + perspective) or sub-1 scale would rasterise the frame as a
   // GPU layer and downscale the texture — which smears the tiny cqw text inside the
@@ -813,12 +943,19 @@ export default function HeroSection({ dict }: HeroSectionProps) {
             variants={heroTextContainer}
             className="text-center"
           >
-            <motion.span variants={heroTextItem} className="section-eyebrow">{eyebrow}</motion.span>
-            <motion.h1 variants={heroTextItem} className="mx-auto mt-3 max-w-[20ch] font-serif text-[2.05rem] leading-[1.05] tracking-tight text-[#15151a] sm:text-[2.5rem] md:text-[3rem]">
-              {hero.title}{" "}
-              <em className="not-italic text-[#F703EB]">{hero.titleHighlight}</em>
+            <motion.span variants={heroTextItem} className="section-eyebrow">
+              {eyebrow}
+            </motion.span>
+            <motion.h1
+              variants={heroTextItem}
+              className="mx-auto mt-3 max-w-[20ch] font-serif text-[2.05rem] leading-[1.05] tracking-tight text-[#15151a] sm:text-[2.5rem] md:text-[3rem]"
+            >
+              {hero.title} <em className="not-italic text-[#F703EB]">{hero.titleHighlight}</em>
             </motion.h1>
-            <motion.p variants={heroTextItem} className="mx-auto mt-4 max-w-[58ch] text-[0.95rem] leading-relaxed text-[#50505c] sm:text-[1rem] md:mt-5 md:text-[1.05rem]">
+            <motion.p
+              variants={heroTextItem}
+              className="mx-auto mt-4 max-w-[58ch] text-[0.95rem] leading-relaxed text-[#50505c] sm:text-[1rem] md:mt-5 md:text-[1.05rem]"
+            >
               {hero.description}
             </motion.p>
             <motion.div variants={heroTextItem}>
@@ -871,10 +1008,7 @@ export default function HeroSection({ dict }: HeroSectionProps) {
       {/* DESKTOP — >= lg (pinned hero) */}
       <section
         ref={containerRef}
-        className={cx(
-          "relative hidden lg:block",
-          SCROLL_ANIMATIONS_ENABLED ? "lg:h-[420vh]" : "lg:h-screen",
-        )}
+        className={cx("relative hidden lg:block", SCROLL_ANIMATIONS_ENABLED ? "lg:h-[420vh]" : "lg:h-screen")}
       >
         <div className="sticky top-0 h-[100dvh] overflow-hidden">
           {/* Background glow — right side, behind the frame */}
@@ -884,10 +1018,7 @@ export default function HeroSection({ dict }: HeroSectionProps) {
           />
 
           {/* HERO TEXT — left column */}
-          <motion.div
-            style={heroTextStyle}
-            className="pointer-events-none absolute inset-0 z-10 flex items-center"
-          >
+          <motion.div style={heroTextStyle} className="pointer-events-none absolute inset-0 z-10 flex items-center">
             <div className="mx-auto w-full max-w-[1380px] px-10">
               <div className="grid grid-cols-[1fr_1.25fr] items-center gap-10">
                 <div className="pointer-events-auto text-left">
@@ -898,8 +1029,7 @@ export default function HeroSection({ dict }: HeroSectionProps) {
                     aria-hidden="true"
                     className="mx-0 mt-2 max-w-[16ch] font-serif text-[2.8rem] leading-[1.05] text-[#15151a] xl:text-[3.2rem] 2xl:text-[3.6rem]"
                   >
-                    {hero.title}{" "}
-                    <em className="not-italic text-[#F703EB]">{hero.titleHighlight}</em>
+                    {hero.title} <em className="not-italic text-[#F703EB]">{hero.titleHighlight}</em>
                   </div>
 
                   <p className="mx-0 mt-5 max-w-[52ch] text-[0.98rem] leading-relaxed text-[#50505c] xl:text-[1.05rem]">

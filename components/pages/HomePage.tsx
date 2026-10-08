@@ -6,13 +6,7 @@ import Results from "@/components/pages/home/results"
 import Services from "@/components/pages/home/services"
 import type { Locale, Dictionary } from "@/lib/dictionary"
 
-export default function HomePage({
-  lang,
-  dict,
-}: {
-  lang: Locale
-  dict: Dictionary
-}) {
+export default function HomePage({ lang, dict }: { lang: Locale; dict: Dictionary }) {
   return (
     <>
       <HeroSection lang={lang} dict={dict} />
@@ -31,4 +25,3 @@ export default function HomePage({
     </>
   )
 }
-

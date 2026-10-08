@@ -6,10 +6,10 @@ import { useEffect, useRef, useState } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
 import type { Dictionary } from "@/lib/dictionary"
 
-const DotLottieReact = dynamic(
-  () => import("@lottiefiles/dotlottie-react").then((m) => m.DotLottieReact),
-  { ssr: false, loading: () => null },
-)
+const DotLottieReact = dynamic(() => import("@lottiefiles/dotlottie-react").then((m) => m.DotLottieReact), {
+  ssr: false,
+  loading: () => null,
+})
 
 interface AboutProps {
   dict: Dictionary
@@ -30,9 +30,7 @@ export default function About({ dict }: AboutProps) {
   useEffect(() => {
     if (!sectionRef.current) return
 
-    const reduce =
-      typeof window !== "undefined" &&
-      window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches
+    const reduce = typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches
     if (reduce) {
       // eslint-disable-next-line react-hooks/set-state-in-effect -- prefers-reduced-motion is browser-only; reading it after hydration keeps the static HTML identical
       setPlay(true)
@@ -43,7 +41,7 @@ export default function About({ dict }: AboutProps) {
       ([entry]) => {
         if (entry.isIntersecting) setPlay(true)
       },
-      { threshold: 0.35 }
+      { threshold: 0.35 },
     )
 
     obs.observe(sectionRef.current)
@@ -74,10 +72,7 @@ export default function About({ dict }: AboutProps) {
           />
 
           {/* Background image – Desktop (with parallax) */}
-          <motion.div
-            className="hidden md:block absolute inset-[-12%] will-change-transform"
-            style={{ y: imageY }}
-          >
+          <motion.div className="hidden md:block absolute inset-[-12%] will-change-transform" style={{ y: imageY }}>
             <Image
               src="/assets/home/about.webp"
               alt=""
@@ -110,14 +105,7 @@ export default function About({ dict }: AboutProps) {
             ].join(" ")}
             aria-hidden="true"
           >
-            {play && (
-              <DotLottieReact
-                src="/assets/lottie/satelite.lottie"
-                autoplay
-                loop
-                speed={3}
-              />
-            )}
+            {play && <DotLottieReact src="/assets/lottie/satelite.lottie" autoplay loop speed={3} />}
           </div>
         </div>
       </div>

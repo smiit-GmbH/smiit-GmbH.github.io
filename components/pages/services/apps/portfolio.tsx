@@ -12,15 +12,7 @@ import {
   useTransform,
   type MotionValue,
 } from "framer-motion"
-import {
-  AppWindow,
-  CalendarCheck,
-  ChevronDown,
-  Cloud,
-  Palette,
-  ShieldCheck,
-  X,
-} from "lucide-react"
+import { AppWindow, CalendarCheck, ChevronDown, Cloud, Palette, ShieldCheck, X } from "lucide-react"
 import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
 import { useActiveInView } from "@/hooks/use-active-in-view"
 import { useLenis } from "@/components/smooth-scroll-provider"
@@ -112,12 +104,10 @@ function BIVisual({ isRevealed, labels }: { isRevealed: boolean; labels?: Visual
   return (
     <VisualShell shellRef={ref}>
       <div className="flex items-baseline justify-between">
-        <span className="text-[0.65rem] uppercase tracking-[0.18em] text-black/40 font-medium">{labels?.bi?.label ?? "Aktive Nutzer"}</span>
-        <CountUp
-          to={1247}
-          isRevealed={isRevealed}
-          className="font-serif text-2xl font-semibold text-[#F703EB]"
-        />
+        <span className="text-[0.65rem] uppercase tracking-[0.18em] text-black/40 font-medium">
+          {labels?.bi?.label ?? "Aktive Nutzer"}
+        </span>
+        <CountUp to={1247} isRevealed={isRevealed} className="font-serif text-2xl font-semibold text-[#F703EB]" />
       </div>
 
       {/* Window-style mockup */}
@@ -139,9 +129,7 @@ function BIVisual({ isRevealed, labels }: { isRevealed: boolean; labels?: Visual
               animate={isRevealed ? { opacity: 1, y: 0 } : { opacity: 0, y: -3 }}
               transition={{ duration: 0.35, delay: 0.1 + i * 0.06 }}
               className={`rounded-sm px-1.5 py-0.5 text-[0.5rem] font-semibold ${
-                i === 0
-                  ? "bg-[#F703EB]/10 text-[#F703EB]"
-                  : "bg-white text-black/40"
+                i === 0 ? "bg-[#F703EB]/10 text-[#F703EB]" : "bg-white text-black/40"
               }`}
             >
               {tab}
@@ -459,9 +447,7 @@ function MobileVisualShell({
         }}
       />
       <div className="relative mb-3 flex items-center justify-between">
-        <span className="text-[0.5rem] font-semibold uppercase tracking-[0.22em] text-black/40">
-          {label}
-        </span>
+        <span className="text-[0.5rem] font-semibold uppercase tracking-[0.22em] text-black/40">{label}</span>
         {badge}
       </div>
       <div className="relative">{children}</div>
@@ -469,7 +455,15 @@ function MobileVisualShell({
   )
 }
 
-function MobileBIVisual({ isRevealed, accent, labels }: { isRevealed: boolean; accent: string; labels?: VisualLabels }) {
+function MobileBIVisual({
+  isRevealed,
+  accent,
+  labels,
+}: {
+  isRevealed: boolean
+  accent: string
+  labels?: VisualLabels
+}) {
   const modules: string[] = labels?.bi?.modules ?? ["Vertrieb", "Lager", "Kunden"]
   return (
     <MobileVisualShell
@@ -489,11 +483,7 @@ function MobileBIVisual({ isRevealed, accent, labels }: { isRevealed: boolean; a
     >
       <div className="flex items-end justify-between">
         <span style={{ color: accent }}>
-          <CountUp
-            to={1247}
-            isRevealed={isRevealed}
-            className="font-serif text-[1.85rem] font-semibold leading-none"
-          />
+          <CountUp to={1247} isRevealed={isRevealed} className="font-serif text-[1.85rem] font-semibold leading-none" />
         </span>
         <span className="pb-0.5 text-[0.55rem] uppercase tracking-wider text-black/40">
           {labels?.bi?.moduleCount ?? "3 Module"}
@@ -686,7 +676,6 @@ function MobileMLVisual({ isRevealed, accent }: { isRevealed: boolean; accent: s
           </motion.div>
         ))}
       </div>
-
     </MobileVisualShell>
   )
 }
@@ -801,13 +790,7 @@ function MobileServiceDetailsSheet({
   )
 }
 
-function StageProgressRail({
-  progress,
-  activeIndex,
-}: {
-  progress: MotionValue<number>
-  activeIndex: number
-}) {
+function StageProgressRail({ progress, activeIndex }: { progress: MotionValue<number>; activeIndex: number }) {
   const w0 = useTransform(progress, [0, 0.33], ["0%", "100%"])
   const w1 = useTransform(progress, [0.33, 0.66], ["0%", "100%"])
   const w2 = useTransform(progress, [0.66, 1], ["0%", "100%"])
@@ -818,10 +801,7 @@ function StageProgressRail({
     <div className="flex items-center gap-3">
       <div className="flex flex-1 items-center gap-1.5">
         {widths.map((w, i) => (
-          <div
-            key={i}
-            className="relative h-[3px] flex-1 overflow-hidden rounded-full bg-black/[0.08]"
-          >
+          <div key={i} className="relative h-[3px] flex-1 overflow-hidden rounded-full bg-black/[0.08]">
             <motion.span
               className="absolute inset-y-0 left-0 rounded-full"
               style={{ width: w, backgroundColor: STRAND_COLORS[i] }}
@@ -829,10 +809,7 @@ function StageProgressRail({
           </div>
         ))}
       </div>
-      <span
-        className="font-mono text-[0.65rem] font-semibold tracking-[0.18em]"
-        style={{ color: accent }}
-      >
+      <span className="font-mono text-[0.65rem] font-semibold tracking-[0.18em]" style={{ color: accent }}>
         {`0${activeIndex + 1}`}
         <span className="text-black/35"> / 03</span>
       </span>
@@ -881,13 +858,7 @@ function StageVisualLayer({
   )
 }
 
-function StageTextLayer({
-  items,
-  activeIndex,
-}: {
-  items: PortfolioItem[]
-  activeIndex: number
-}) {
+function StageTextLayer({ items, activeIndex }: { items: PortfolioItem[]; activeIndex: number }) {
   const item = items[activeIndex]
   const Icon = ICONS[activeIndex] ?? AppWindow
   const accent = STRAND_COLORS[activeIndex] ?? STRAND_COLORS[0]
@@ -919,9 +890,7 @@ function StageTextLayer({
           <h3 className="mt-3 font-serif text-[1.6rem] leading-[1.1] tracking-tight text-black text-balance">
             {item.title}
           </h3>
-          <p className="mt-2 text-[0.9rem] leading-relaxed text-black/65 text-balance">
-            {item.shortDesc}
-          </p>
+          <p className="mt-2 text-[0.9rem] leading-relaxed text-black/65 text-balance">{item.shortDesc}</p>
         </motion.div>
       </AnimatePresence>
     </div>
@@ -992,10 +961,7 @@ function MobileFallbackStack({
         const accent = STRAND_COLORS[i] ?? STRAND_COLORS[0]
         const Visual = MOBILE_VISUALS[i] ?? MobileBIVisual
         return (
-          <article
-            key={i}
-            className="rounded-[1.5rem] border border-slate-200/70 bg-white p-5"
-          >
+          <article key={i} className="rounded-[1.5rem] border border-slate-200/70 bg-white p-5">
             <Visual isRevealed accent={accent} labels={t.visuals} />
             <div className="mt-4 flex items-center gap-3">
               <div
@@ -1004,19 +970,12 @@ function MobileFallbackStack({
               >
                 <Icon className="h-5 w-5" style={{ color: accent }} />
               </div>
-              <span
-                className="text-[0.62rem] font-semibold uppercase tracking-[0.24em]"
-                style={{ color: accent }}
-              >
+              <span className="text-[0.62rem] font-semibold uppercase tracking-[0.24em]" style={{ color: accent }}>
                 {`0${i + 1}`} <span className="text-black/30">/ 03</span>
               </span>
             </div>
-            <h3 className="mt-3 font-serif text-[1.55rem] leading-[1.1] tracking-tight text-black">
-              {item.title}
-            </h3>
-            <p className="mt-2 text-[0.92rem] leading-relaxed text-black/65">
-              {item.shortDesc}
-            </p>
+            <h3 className="mt-3 font-serif text-[1.55rem] leading-[1.1] tracking-tight text-black">{item.title}</h3>
+            <p className="mt-2 text-[0.92rem] leading-relaxed text-black/65">{item.shortDesc}</p>
             <button
               type="button"
               onClick={() => onOpenDetails(i)}
@@ -1040,13 +999,7 @@ function MobileFallbackStack({
   )
 }
 
-function MobileScrollytellingSection({
-  items,
-  dict,
-}: {
-  items: PortfolioItem[]
-  dict: Dictionary
-}) {
+function MobileScrollytellingSection({ items, dict }: { items: PortfolioItem[]; dict: Dictionary }) {
   const sectionRef = useRef<HTMLDivElement | null>(null)
   const [revealRef, revealed] = useRevealOnScroll({ margin: "-15%" })
   const reducedMotion = useReducedMotion() ?? false
@@ -1055,11 +1008,7 @@ function MobileScrollytellingSection({
     offset: ["start start", "end end"],
   })
 
-  const indexMV = useTransform(
-    scrollYProgress,
-    [0, 0.33, 0.34, 0.66, 0.67, 1],
-    [0, 0, 1, 1, 2, 2],
-  )
+  const indexMV = useTransform(scrollYProgress, [0, 0.33, 0.34, 0.66, 0.67, 1], [0, 0, 1, 1, 2, 2])
   const [activeIndex, setActiveIndex] = useState(0)
   useMotionValueEvent(indexMV, "change", (v) => {
     const next = Math.max(0, Math.min(2, Math.round(v)))
@@ -1068,19 +1017,12 @@ function MobileScrollytellingSection({
 
   const [openIndex, setOpenIndex] = useState<number | null>(null)
   const openItem = openIndex !== null ? items[openIndex] : null
-  const openAccent =
-    openIndex !== null
-      ? STRAND_COLORS[openIndex] ?? STRAND_COLORS[0]
-      : STRAND_COLORS[0]
+  const openAccent = openIndex !== null ? (STRAND_COLORS[openIndex] ?? STRAND_COLORS[0]) : STRAND_COLORS[0]
 
   return (
     <>
       {reducedMotion ? (
-        <MobileFallbackStack
-          items={items}
-          dict={dict}
-          onOpenDetails={(i) => setOpenIndex(i)}
-        />
+        <MobileFallbackStack items={items} dict={dict} onOpenDetails={(i) => setOpenIndex(i)} />
       ) : (
         <div
           ref={(el) => {

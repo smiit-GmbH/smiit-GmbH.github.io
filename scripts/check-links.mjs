@@ -49,7 +49,9 @@ if (broken.size > 0) {
   console.error(`Found ${broken.size} broken internal link(s):`)
   for (const [url, pages] of broken) {
     const list = [...pages]
-    console.error(`  ${url}\n    on ${list.slice(0, 3).join(", ")}${list.length > 3 ? ` (+${list.length - 3} more)` : ""}`)
+    console.error(
+      `  ${url}\n    on ${list.slice(0, 3).join(", ")}${list.length > 3 ? ` (+${list.length - 3} more)` : ""}`,
+    )
   }
   process.exit(1)
 }

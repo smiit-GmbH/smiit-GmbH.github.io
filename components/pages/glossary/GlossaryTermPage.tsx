@@ -44,8 +44,7 @@ export default function GlossaryTermPage({ lang, term }: { lang: Locale; term: G
   }, [term, lang])
   const related = listRelatedGlossaryTerms(term.slug, term.cluster)
   const Diagram = glossaryDiagrams[term.slug] as
-    | ((props: { lang: Locale; color: string }) => React.ReactNode)
-    | undefined
+    ((props: { lang: Locale; color: string }) => React.ReactNode) | undefined
   const caseStudy = term.relatedCaseStudySlug ? getCaseStudy(term.relatedCaseStudySlug, lang) : undefined
   const serviceLabel = SERVICE_LABEL[term.relatedServicePath]?.[lang]
   const updatedDate = new Intl.DateTimeFormat(lang === "de" ? "de-DE" : "en-US", {
@@ -61,10 +60,7 @@ export default function GlossaryTermPage({ lang, term }: { lang: Locale; term: G
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <Breadcrumb
             lang={lang}
-            items={[
-              { label: ui.breadcrumbLabel, href: `${base}/glossary` },
-              { label: term.term },
-            ]}
+            items={[{ label: ui.breadcrumbLabel, href: `${base}/glossary` }, { label: term.term }]}
           />
 
           <div
@@ -91,14 +87,16 @@ export default function GlossaryTermPage({ lang, term }: { lang: Locale; term: G
                 {term.title}
               </h1>
 
-              <p className="mt-6 border-l-2 pl-5 text-[0.92rem] sm:text-[1.18rem] leading-relaxed text-[#0B162D]/85" style={{ borderColor: color }}>
+              <p
+                className="mt-6 border-l-2 pl-5 text-[0.92rem] sm:text-[1.18rem] leading-relaxed text-[#0B162D]/85"
+                style={{ borderColor: color }}
+              >
                 {term.shortDefinition}
               </p>
 
               {term.synonyms.length > 0 && (
                 <p className="mt-5 text-[0.82rem] text-[#0B162D]/55">
-                  <span className="font-medium text-[#0B162D]/70">{ui.synonymsLabel}:</span>{" "}
-                  {term.synonyms.join(" · ")}
+                  <span className="font-medium text-[#0B162D]/70">{ui.synonymsLabel}:</span> {term.synonyms.join(" · ")}
                 </p>
               )}
             </div>
@@ -117,7 +115,13 @@ export default function GlossaryTermPage({ lang, term }: { lang: Locale; term: G
       <div className="max-w-[1400px] mx-auto mt-16 px-4 sm:mt-20 sm:px-6 lg:px-8">
         <div className="space-y-14 sm:space-y-16">
           {term.sections.map((section, i) => (
-            <GlossarySectionBlock key={section.heading} heading={section.heading} index={i} paragraphs={linkedParagraphs[i]} bullets={section.bullets} />
+            <GlossarySectionBlock
+              key={section.heading}
+              heading={section.heading}
+              index={i}
+              paragraphs={linkedParagraphs[i]}
+              bullets={section.bullets}
+            />
           ))}
         </div>
       </div>
@@ -134,7 +138,9 @@ export default function GlossaryTermPage({ lang, term }: { lang: Locale; term: G
               {term.misconceptions.map((item, i) => (
                 <li key={i} className="flex items-start gap-3">
                   <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--area)]" />
-                  <span className="text-[0.9rem] sm:text-[1.05rem] leading-[1.75] text-[#0B162D]/80 max-w-[72ch]">{item}</span>
+                  <span className="text-[0.9rem] sm:text-[1.05rem] leading-[1.75] text-[#0B162D]/80 max-w-[72ch]">
+                    {item}
+                  </span>
                 </li>
               ))}
             </ul>
@@ -247,7 +253,10 @@ export default function GlossaryTermPage({ lang, term }: { lang: Locale; term: G
                   rel="noopener noreferrer"
                   className="group inline-flex items-start gap-2 text-[0.92rem] leading-relaxed text-[#0B162D]/75 transition-colors hover:text-[var(--area)]"
                 >
-                  <ExternalLink className="mt-0.5 h-4 w-4 shrink-0 text-[#0B162D]/40 transition-colors group-hover:text-[var(--area)]" aria-hidden />
+                  <ExternalLink
+                    className="mt-0.5 h-4 w-4 shrink-0 text-[#0B162D]/40 transition-colors group-hover:text-[var(--area)]"
+                    aria-hidden
+                  />
                   <span className="underline decoration-[#0B162D]/20 underline-offset-4 group-hover:decoration-[var(--area)]">
                     {source.title}
                   </span>
@@ -302,10 +311,7 @@ function GlossarySectionBlock({
 }) {
   const [revealRef, revealed] = useRevealOnScroll({ margin: "-60px" })
   return (
-    <section
-      ref={revealRef}
-      className={cx("scroll-mt-28 reveal-fade-up", revealed && "revealed")}
-    >
+    <section ref={revealRef} className={cx("scroll-mt-28 reveal-fade-up", revealed && "revealed")}>
       <div className="grid gap-y-4 lg:grid-cols-[minmax(0,0.4fr)_minmax(0,1.6fr)] lg:gap-x-20 xl:gap-x-28">
         <div className="lg:pt-1">
           <span className="font-mono text-[0.8rem] font-semibold tracking-[0.2em] text-[var(--area)]">

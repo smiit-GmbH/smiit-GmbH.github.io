@@ -187,10 +187,7 @@ export default function ServiceCTA({ dict, service }: { dict: Dictionary; servic
             transition={{ duration: 0.5, ease: "easeOut" }}
           >
             <LocalizedLink href="/contact" className="block w-full sm:w-auto">
-              <motion.div
-                whileTap={{ scale: 0.97 }}
-                transition={{ type: "spring", stiffness: 420, damping: 26 }}
-              >
+              <motion.div whileTap={{ scale: 0.97 }} transition={{ type: "spring", stiffness: 420, damping: 26 }}>
                 <Button
                   variant="outline"
                   className="w-full rounded-xl px-6 py-6 text-sm font-medium border border-white/25 bg-transparent text-white hover:bg-white/10 hover:text-white transition-all duration-300 cursor-pointer"

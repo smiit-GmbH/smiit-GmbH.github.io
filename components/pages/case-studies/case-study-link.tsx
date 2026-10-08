@@ -7,15 +7,7 @@ import type { Locale } from "@/lib/dictionary"
  * cards and other marketing surfaces to point at the matching case study.
  * Kept colour-neutral so it fits the per-page accent contexts.
  */
-export default function CaseStudyLink({
-  href,
-  lang,
-  className,
-}: {
-  href: string
-  lang: Locale
-  className?: string
-}) {
+export default function CaseStudyLink({ href, lang, className }: { href: string; lang: Locale; className?: string }) {
   return (
     <Link
       href={href}

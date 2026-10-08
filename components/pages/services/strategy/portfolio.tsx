@@ -12,14 +12,7 @@ import {
   useTransform,
   type MotionValue,
 } from "framer-motion"
-import {
-  CalendarCheck,
-  ChevronDown,
-  Cloud,
-  ShieldCheck,
-  Workflow,
-  X,
-} from "lucide-react"
+import { CalendarCheck, ChevronDown, Cloud, ShieldCheck, Workflow, X } from "lucide-react"
 import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
 import { useActiveInView } from "@/hooks/use-active-in-view"
 import { useLenis } from "@/components/smooth-scroll-provider"
@@ -119,7 +112,9 @@ function ProcessFlowVisual({ isRevealed, labels }: { isRevealed: boolean; labels
   return (
     <VisualShell shellRef={ref}>
       <div className="flex items-baseline justify-between">
-        <span className="text-[0.65rem] uppercase tracking-[0.18em] text-black/40 font-medium">{labels?.process?.label ?? "Genehmigungslauf"}</span>
+        <span className="text-[0.65rem] uppercase tracking-[0.18em] text-black/40 font-medium">
+          {labels?.process?.label ?? "Genehmigungslauf"}
+        </span>
         <span className="text-[0.65rem] font-medium text-[#64748B]">BPMN</span>
       </div>
       <div className="relative mt-3 flex-1 h-[78%]">
@@ -528,14 +523,7 @@ function CloudTopologyVisual({ isRevealed }: { isRevealed: boolean; labels?: Vis
             transition={{ duration: 0.5, delay: 1.0, ease: "easeOut" }}
             style={{ transformOrigin: `${hubX}px ${hubY}px` }}
           >
-            <rect
-              x={hubX - 28}
-              y={hubY - 14}
-              width={56}
-              height={28}
-              rx={8}
-              fill="#64748B"
-            />
+            <rect x={hubX - 28} y={hubY - 14} width={56} height={28} rx={8} fill="#64748B" />
             <text
               x={hubX}
               y={hubY + 4}
@@ -602,9 +590,19 @@ function SecurityRingsVisual({ isRevealed, labels }: { isRevealed: boolean; labe
   const events = [
     { type: "ok" as const, title: "MFA-Login", source: "J. Müller · Berlin", time: "2 s", isNew: true },
     { type: "warn" as const, title: "Brute-Force blocked", source: "Edge-Gateway", time: "14 s" },
-    { type: "ok" as const, title: labels?.security?.eventBackupVerified ?? "Backup verifiziert", source: "Azure Vault", time: "1 min" },
+    {
+      type: "ok" as const,
+      title: labels?.security?.eventBackupVerified ?? "Backup verifiziert",
+      source: "Azure Vault",
+      time: "1 min",
+    },
     { type: "ok" as const, title: "Patches deployed", source: "3 Hosts · WSUS", time: "5 min" },
-    { type: "warn" as const, title: labels?.security?.eventAnomalyDetected ?? "Anomalie erkannt", source: "ML-Server · Logs", time: "12 min" },
+    {
+      type: "warn" as const,
+      title: labels?.security?.eventAnomalyDetected ?? "Anomalie erkannt",
+      source: "ML-Server · Logs",
+      time: "12 min",
+    },
   ]
 
   const typeStyles: Record<"ok" | "warn" | "err", { color: string; bg: string; glyph: string }> = {
@@ -639,9 +637,7 @@ function SecurityRingsVisual({ isRevealed, labels }: { isRevealed: boolean; labe
         className="mt-2.5 flex items-center justify-between rounded-md border border-slate-200/80 bg-gradient-to-br from-emerald-50/60 via-white to-transparent p-2"
       >
         <div className="flex flex-col">
-          <span className="text-[0.5rem] font-semibold uppercase tracking-wider text-black/50">
-            Security Score
-          </span>
+          <span className="text-[0.5rem] font-semibold uppercase tracking-wider text-black/50">Security Score</span>
           <span className="text-[0.5rem] text-black/40">NIS2 · ISO 27001</span>
         </div>
         <div className="flex items-baseline gap-1">
@@ -734,9 +730,7 @@ function MobileVisualShell({
         }}
       />
       <div className="relative mb-3 flex items-center justify-between">
-        <span className="text-[0.5rem] font-semibold uppercase tracking-[0.22em] text-black/40">
-          {label}
-        </span>
+        <span className="text-[0.5rem] font-semibold uppercase tracking-[0.22em] text-black/40">{label}</span>
         {badge}
       </div>
       <div className="relative">{children}</div>
@@ -744,7 +738,15 @@ function MobileVisualShell({
   )
 }
 
-function MobileProcessFlowVisual({ isRevealed, accent, labels }: { isRevealed: boolean; accent: string; labels?: VisualLabels }) {
+function MobileProcessFlowVisual({
+  isRevealed,
+  accent,
+  labels,
+}: {
+  isRevealed: boolean
+  accent: string
+  labels?: VisualLabels
+}) {
   // Forked BPMN flow on mobile:
   //   Start → Task → Gateway ┬→ Approve → Done   (success, token follows)
   //                          └→ Rework            (rejection, dashed)
@@ -1056,12 +1058,25 @@ function MobileCloudTopologyVisual({
   )
 }
 
-function MobileSecurityRingsVisual({ isRevealed, accent, labels }: { isRevealed: boolean; accent: string; labels?: VisualLabels }) {
+function MobileSecurityRingsVisual({
+  isRevealed,
+  accent,
+  labels,
+}: {
+  isRevealed: boolean
+  accent: string
+  labels?: VisualLabels
+}) {
   // Live SIEM-style feed: security score + 3 recent events.
   const events = [
     { type: "ok" as const, title: "MFA-Login", source: "J. Müller", time: "2 s", isNew: true },
     { type: "warn" as const, title: "Brute-Force blocked", source: "Edge-Gateway", time: "14 s" },
-    { type: "ok" as const, title: labels?.security?.eventBackupVerified ?? "Backup verifiziert", source: "Azure Vault", time: "1 min" },
+    {
+      type: "ok" as const,
+      title: labels?.security?.eventBackupVerified ?? "Backup verifiziert",
+      source: "Azure Vault",
+      time: "1 min",
+    },
   ]
 
   const typeStyles: Record<"ok" | "warn" | "err", { color: string; bg: string; glyph: string }> = {
@@ -1101,9 +1116,7 @@ function MobileSecurityRingsVisual({ isRevealed, accent, labels }: { isRevealed:
           className="flex items-center justify-between rounded-md border border-slate-200/70 bg-gradient-to-br from-emerald-50/60 via-white to-transparent px-2 py-1"
         >
           <div className="flex flex-col leading-tight">
-            <span className="text-[0.5rem] font-semibold uppercase tracking-wider text-black/55">
-              Security Score
-            </span>
+            <span className="text-[0.5rem] font-semibold uppercase tracking-wider text-black/55">Security Score</span>
             <span className="text-[0.45rem] text-black/40">NIS2 · ISO 27001</span>
           </div>
           <div className="flex items-baseline gap-0.5">
@@ -1264,13 +1277,7 @@ function MobileServiceDetailsSheet({
   )
 }
 
-function StageProgressRail({
-  progress,
-  activeIndex,
-}: {
-  progress: MotionValue<number>
-  activeIndex: number
-}) {
+function StageProgressRail({ progress, activeIndex }: { progress: MotionValue<number>; activeIndex: number }) {
   const w0 = useTransform(progress, [0, 0.33], ["0%", "100%"])
   const w1 = useTransform(progress, [0.33, 0.66], ["0%", "100%"])
   const w2 = useTransform(progress, [0.66, 1], ["0%", "100%"])
@@ -1281,10 +1288,7 @@ function StageProgressRail({
     <div className="flex items-center gap-3">
       <div className="flex flex-1 items-center gap-1.5">
         {widths.map((w, i) => (
-          <div
-            key={i}
-            className="relative h-[3px] flex-1 overflow-hidden rounded-full bg-black/[0.08]"
-          >
+          <div key={i} className="relative h-[3px] flex-1 overflow-hidden rounded-full bg-black/[0.08]">
             <motion.span
               className="absolute inset-y-0 left-0 rounded-full"
               style={{ width: w, backgroundColor: STRAND_COLORS[i] }}
@@ -1292,10 +1296,7 @@ function StageProgressRail({
           </div>
         ))}
       </div>
-      <span
-        className="font-mono text-[0.65rem] font-semibold tracking-[0.18em]"
-        style={{ color: accent }}
-      >
+      <span className="font-mono text-[0.65rem] font-semibold tracking-[0.18em]" style={{ color: accent }}>
         {`0${activeIndex + 1}`}
         <span className="text-black/35"> / 03</span>
       </span>
@@ -1344,13 +1345,7 @@ function StageVisualLayer({
   )
 }
 
-function StageTextLayer({
-  items,
-  activeIndex,
-}: {
-  items: PortfolioItem[]
-  activeIndex: number
-}) {
+function StageTextLayer({ items, activeIndex }: { items: PortfolioItem[]; activeIndex: number }) {
   const item = items[activeIndex]
   const Icon = ICONS[activeIndex] ?? Workflow
   const accent = STRAND_COLORS[activeIndex] ?? STRAND_COLORS[0]
@@ -1382,9 +1377,7 @@ function StageTextLayer({
           <h3 className="mt-3 font-serif text-[1.6rem] leading-[1.1] tracking-tight text-black text-balance">
             {item.title}
           </h3>
-          <p className="mt-2 text-[0.9rem] leading-relaxed text-black/65 text-balance">
-            {item.shortDesc}
-          </p>
+          <p className="mt-2 text-[0.9rem] leading-relaxed text-black/65 text-balance">{item.shortDesc}</p>
         </motion.div>
       </AnimatePresence>
     </div>
@@ -1455,10 +1448,7 @@ function MobileFallbackStack({
         const accent = STRAND_COLORS[i] ?? STRAND_COLORS[0]
         const Visual = MOBILE_VISUALS[i] ?? MobileProcessFlowVisual
         return (
-          <article
-            key={i}
-            className="rounded-[1.5rem] border border-slate-200/70 bg-white p-5"
-          >
+          <article key={i} className="rounded-[1.5rem] border border-slate-200/70 bg-white p-5">
             <Visual isRevealed accent={accent} labels={t.visuals} />
             <div className="mt-4 flex items-center gap-3">
               <div
@@ -1467,19 +1457,12 @@ function MobileFallbackStack({
               >
                 <Icon className="h-5 w-5" style={{ color: accent }} />
               </div>
-              <span
-                className="text-[0.62rem] font-semibold uppercase tracking-[0.24em]"
-                style={{ color: accent }}
-              >
+              <span className="text-[0.62rem] font-semibold uppercase tracking-[0.24em]" style={{ color: accent }}>
                 {`0${i + 1}`} <span className="text-black/30">/ 03</span>
               </span>
             </div>
-            <h3 className="mt-3 font-serif text-[1.55rem] leading-[1.1] tracking-tight text-black">
-              {item.title}
-            </h3>
-            <p className="mt-2 text-[0.92rem] leading-relaxed text-black/65">
-              {item.shortDesc}
-            </p>
+            <h3 className="mt-3 font-serif text-[1.55rem] leading-[1.1] tracking-tight text-black">{item.title}</h3>
+            <p className="mt-2 text-[0.92rem] leading-relaxed text-black/65">{item.shortDesc}</p>
             <button
               type="button"
               onClick={() => onOpenDetails(i)}
@@ -1503,13 +1486,7 @@ function MobileFallbackStack({
   )
 }
 
-function MobileScrollytellingSection({
-  items,
-  dict,
-}: {
-  items: PortfolioItem[]
-  dict: Dictionary
-}) {
+function MobileScrollytellingSection({ items, dict }: { items: PortfolioItem[]; dict: Dictionary }) {
   const sectionRef = useRef<HTMLDivElement | null>(null)
   const [revealRef, revealed] = useRevealOnScroll({ margin: "-15%" })
   const reducedMotion = useReducedMotion() ?? false
@@ -1518,11 +1495,7 @@ function MobileScrollytellingSection({
     offset: ["start start", "end end"],
   })
 
-  const indexMV = useTransform(
-    scrollYProgress,
-    [0, 0.33, 0.34, 0.66, 0.67, 1],
-    [0, 0, 1, 1, 2, 2],
-  )
+  const indexMV = useTransform(scrollYProgress, [0, 0.33, 0.34, 0.66, 0.67, 1], [0, 0, 1, 1, 2, 2])
   const [activeIndex, setActiveIndex] = useState(0)
   useMotionValueEvent(indexMV, "change", (v) => {
     const next = Math.max(0, Math.min(2, Math.round(v)))
@@ -1531,19 +1504,12 @@ function MobileScrollytellingSection({
 
   const [openIndex, setOpenIndex] = useState<number | null>(null)
   const openItem = openIndex !== null ? items[openIndex] : null
-  const openAccent =
-    openIndex !== null
-      ? STRAND_COLORS[openIndex] ?? STRAND_COLORS[0]
-      : STRAND_COLORS[0]
+  const openAccent = openIndex !== null ? (STRAND_COLORS[openIndex] ?? STRAND_COLORS[0]) : STRAND_COLORS[0]
 
   return (
     <>
       {reducedMotion ? (
-        <MobileFallbackStack
-          items={items}
-          dict={dict}
-          onOpenDetails={(i) => setOpenIndex(i)}
-        />
+        <MobileFallbackStack items={items} dict={dict} onOpenDetails={(i) => setOpenIndex(i)} />
       ) : (
         <div
           ref={(el) => {

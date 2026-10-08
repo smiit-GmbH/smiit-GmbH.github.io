@@ -177,8 +177,14 @@ export const extras: Record<Locale, GlossaryExtra> = {
       "Viele gehen davon aus, dass der Cloud-Anbieter für alles haftet, obwohl im Modell der geteilten Verantwortung die Absicherung von Konfiguration, Identitäten und Daten beim Kunden liegt.",
     ],
     sources: [
-      { title: "NIST – The NIST Definition of Cloud Computing (SP 800-145)", url: "https://csrc.nist.gov/pubs/sp/800/145/final" },
-      { title: "Microsoft Learn – Cloud Adoption Framework für Azure", url: "https://learn.microsoft.com/azure/cloud-adoption-framework/" },
+      {
+        title: "NIST – The NIST Definition of Cloud Computing (SP 800-145)",
+        url: "https://csrc.nist.gov/pubs/sp/800/145/final",
+      },
+      {
+        title: "Microsoft Learn – Cloud Adoption Framework für Azure",
+        url: "https://learn.microsoft.com/azure/cloud-adoption-framework/",
+      },
     ],
   },
   en: {
@@ -188,8 +194,14 @@ export const extras: Record<Locale, GlossaryExtra> = {
       "Many assume the cloud provider is liable for everything, although under the shared responsibility model securing configuration, identities and data remains the customer's job.",
     ],
     sources: [
-      { title: "NIST – The NIST Definition of Cloud Computing (SP 800-145)", url: "https://csrc.nist.gov/pubs/sp/800/145/final" },
-      { title: "Microsoft Learn – Cloud Adoption Framework for Azure", url: "https://learn.microsoft.com/azure/cloud-adoption-framework/" },
+      {
+        title: "NIST – The NIST Definition of Cloud Computing (SP 800-145)",
+        url: "https://csrc.nist.gov/pubs/sp/800/145/final",
+      },
+      {
+        title: "Microsoft Learn – Cloud Adoption Framework for Azure",
+        url: "https://learn.microsoft.com/azure/cloud-adoption-framework/",
+      },
     ],
   },
 }

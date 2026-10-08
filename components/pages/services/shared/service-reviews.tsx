@@ -3,12 +3,7 @@
 import Image from "next/image"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
 import { animate, motion, useMotionValue, useReducedMotion } from "framer-motion"
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  type CarouselApi,
-} from "@/components/ui/carousel"
+import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel"
 import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
 import { useActiveInView } from "@/hooks/use-active-in-view"
 import type { Dictionary, Locale } from "@/lib/dictionary"
@@ -80,9 +75,7 @@ function CountUpMetric({
   if (!parsed) return <span className={className}>{metric}</span>
 
   const formatted =
-    parsed.decimals > 0
-      ? display.toFixed(parsed.decimals).replace(".", ",")
-      : Math.round(display).toString()
+    parsed.decimals > 0 ? display.toFixed(parsed.decimals).replace(".", ",") : Math.round(display).toString()
 
   return (
     <span className={className}>
@@ -109,9 +102,7 @@ function ReviewSlide({
   return (
     <article className="grid grid-cols-1 items-start gap-8 md:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] md:items-center md:gap-12">
       <div className="flex flex-col">
-        <span className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-black/60">
-          {review.name}
-        </span>
+        <span className="text-[0.7rem] font-semibold uppercase tracking-[0.18em] text-black/60">{review.name}</span>
         {review.metric && (
           <CountUpMetric
             metric={review.metric}
@@ -121,37 +112,27 @@ function ReviewSlide({
           />
         )}
         {review.metricSub && (
-          <span className="mt-3 max-w-[24ch] text-sm leading-relaxed text-black/55">
-            {review.metricSub}
-          </span>
+          <span className="mt-3 max-w-[24ch] text-sm leading-relaxed text-black/55">{review.metricSub}</span>
         )}
       </div>
 
       <div className="flex flex-col">
-        <blockquote className={`border-l-2 ${theme.accentBorder40} pl-5 font-serif italic text-[1.02rem] leading-[1.55] tracking-tight text-[#0B162D] sm:text-[1.12rem]`}>
+        <blockquote
+          className={`border-l-2 ${theme.accentBorder40} pl-5 font-serif italic text-[1.02rem] leading-[1.55] tracking-tight text-[#0B162D] sm:text-[1.12rem]`}
+        >
           &ldquo;{review.quote}&rdquo;
         </blockquote>
 
         <div className="mt-6 flex items-center justify-between gap-4 border-t border-slate-200/70 pt-5">
           {review.logoSrc && (
             <div className="relative h-7 w-24">
-              <Image
-                src={review.logoSrc}
-                alt={review.name}
-                fill
-                sizes="96px"
-                className="object-contain object-left"
-              />
+              <Image src={review.logoSrc} alt={review.name} fill sizes="96px" className="object-contain object-left" />
             </div>
           )}
-          <span className="text-right text-xs leading-tight text-black/55">
-            {review.subtitle}
-          </span>
+          <span className="text-right text-xs leading-tight text-black/55">{review.subtitle}</span>
         </div>
 
-        {review.caseStudyHref && (
-          <CaseStudyLink href={review.caseStudyHref} lang={lang} className="mt-5" />
-        )}
+        {review.caseStudyHref && <CaseStudyLink href={review.caseStudyHref} lang={lang} className="mt-5" />}
       </div>
     </article>
   )
@@ -326,24 +307,16 @@ export default function ServiceReviews({
           className={`flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between sm:gap-10 reveal-fade-up ${headingRevealed ? "revealed" : ""}`}
         >
           <div className="max-w-[34rem]">
-            <span className="section-eyebrow">
-              {serviceDict.eyebrows.reviews}
-            </span>
+            <span className="section-eyebrow">{serviceDict.eyebrows.reviews}</span>
             <h2 className="font-serif text-[2rem] sm:text-[2.4rem] md:text-[3rem] leading-[1.1] tracking-tight text-black">
               {serviceDict.reviewsHeading.lead}{" "}
-              <span className={theme.accentText}>
-                {serviceDict.reviewsHeading.highlight}
-              </span>
+              <span className={theme.accentText}>{serviceDict.reviewsHeading.highlight}</span>
             </h2>
           </div>
 
           {/* Desktop dot-tabs (mobile/tablet pagination lives inside the carousel) */}
           {reviews.length > 1 && (
-            <div
-              className="hidden items-center gap-2 lg:flex lg:pb-3"
-              role="tablist"
-              aria-label={ariaLabel}
-            >
+            <div className="hidden items-center gap-2 lg:flex lg:pb-3" role="tablist" aria-label={ariaLabel}>
               {reviews.map((r, idx) => (
                 <button
                   key={r.id}
@@ -353,9 +326,7 @@ export default function ServiceReviews({
                   aria-label={r.name}
                   onClick={() => setActiveIdx(idx)}
                   className={`h-1.5 rounded-full transition-all duration-300 ${
-                    idx === activeIdx
-                      ? "w-10 bg-[#0B162D]"
-                      : "w-6 bg-black/15 hover:bg-black/30"
+                    idx === activeIdx ? "w-10 bg-[#0B162D]" : "w-6 bg-black/15 hover:bg-black/30"
                   }`}
                 />
               ))}
@@ -403,19 +374,21 @@ export default function ServiceReviews({
                       {r.name}
                     </span>
                     {r.metric && (
-                      <span className={`mt-3 font-serif text-[4.2rem] font-semibold leading-[0.95] tracking-tight ${theme.accentText} sm:text-[5.5rem] lg:text-[6rem]`}>
+                      <span
+                        className={`mt-3 font-serif text-[4.2rem] font-semibold leading-[0.95] tracking-tight ${theme.accentText} sm:text-[5.5rem] lg:text-[6rem]`}
+                      >
                         {r.metric}
                       </span>
                     )}
                     {r.metricSub && (
-                      <span className="mt-3 max-w-[24ch] text-sm leading-relaxed text-black/55">
-                        {r.metricSub}
-                      </span>
+                      <span className="mt-3 max-w-[24ch] text-sm leading-relaxed text-black/55">{r.metricSub}</span>
                     )}
                   </div>
 
                   <div className="flex flex-col">
-                    <blockquote className={`border-l-2 ${theme.accentBorder40} pl-5 font-serif italic text-[1.05rem] leading-[1.55] tracking-tight text-[#0B162D] sm:text-[1.15rem] sm:leading-[1.55] lg:text-[1.2rem]`}>
+                    <blockquote
+                      className={`border-l-2 ${theme.accentBorder40} pl-5 font-serif italic text-[1.05rem] leading-[1.55] tracking-tight text-[#0B162D] sm:text-[1.15rem] sm:leading-[1.55] lg:text-[1.2rem]`}
+                    >
                       &ldquo;{r.quote}&rdquo;
                     </blockquote>
 
@@ -431,14 +404,10 @@ export default function ServiceReviews({
                           />
                         </div>
                       )}
-                      <span className="text-right text-xs leading-tight text-black/55">
-                        {r.subtitle}
-                      </span>
+                      <span className="text-right text-xs leading-tight text-black/55">{r.subtitle}</span>
                     </div>
 
-                    {r.caseStudyHref && (
-                      <CaseStudyLink href={r.caseStudyHref} lang={lang} className="mt-5" />
-                    )}
+                    {r.caseStudyHref && <CaseStudyLink href={r.caseStudyHref} lang={lang} className="mt-5" />}
                   </div>
                 </motion.article>
               )

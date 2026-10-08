@@ -39,16 +39,37 @@ const semanticModel: LocalizedGlossaryTerm = {
       },
     ],
     faq: [
-      { question: "Warum heißt das Power BI Dataset jetzt Semantic Model?", answer: "Microsoft hat den Begriff Dataset in Semantic Model umbenannt, um klarzustellen, dass es sich um eine semantische Datenschicht mit Beziehungen, Kennzahlen und Berechtigungen handelt und nicht nur um eine reine Datentabelle." },
-      { question: "Können mehrere Berichte dasselbe Semantic Model nutzen?", answer: "Ja. Genau das ist der Vorteil: Ein zentral gepflegtes Semantic Model versorgt viele Berichte mit denselben Kennzahlen und Definitionen, was Konsistenz schafft und Doppelarbeit vermeidet." },
-      { question: "Was ist der Unterschied zwischen einem Semantic Model und einem Data Warehouse?", answer: "Das Data Warehouse speichert die aufbereiteten Daten, das Semantic Model ist die darüberliegende Schicht in Power BI mit Beziehungen, Kennzahlen und Berechtigungen. Bei großen Datenmengen dient das Warehouse als Datenquelle des Modells." },
-      { question: "Wie hält man ein Semantic Model langfristig wartbar?", answer: "Hilfreich sind klar benannte Kennzahlen, ein durchdachtes Datenmodell mit sauberen Beziehungen und das Vermeiden redundanter Berechnungen. Werden Logik und Definitionen zentral gepflegt, bleiben Änderungen nachvollziehbar und wirken automatisch auf alle aufsetzenden Berichte." },
-      { question: "Worauf achtet smiit beim Aufbau eines Semantic Models?", answer: "smiit baut Semantic Models so, dass sie performant, wiederverwendbar und im Alltag wartbar bleiben, und setzt sie bei großen Datenmengen auf eine geprüfte Datengrundlage wie die Gold-Schicht einer Datenplattform auf." },
+      {
+        question: "Warum heißt das Power BI Dataset jetzt Semantic Model?",
+        answer:
+          "Microsoft hat den Begriff Dataset in Semantic Model umbenannt, um klarzustellen, dass es sich um eine semantische Datenschicht mit Beziehungen, Kennzahlen und Berechtigungen handelt und nicht nur um eine reine Datentabelle.",
+      },
+      {
+        question: "Können mehrere Berichte dasselbe Semantic Model nutzen?",
+        answer:
+          "Ja. Genau das ist der Vorteil: Ein zentral gepflegtes Semantic Model versorgt viele Berichte mit denselben Kennzahlen und Definitionen, was Konsistenz schafft und Doppelarbeit vermeidet.",
+      },
+      {
+        question: "Was ist der Unterschied zwischen einem Semantic Model und einem Data Warehouse?",
+        answer:
+          "Das Data Warehouse speichert die aufbereiteten Daten, das Semantic Model ist die darüberliegende Schicht in Power BI mit Beziehungen, Kennzahlen und Berechtigungen. Bei großen Datenmengen dient das Warehouse als Datenquelle des Modells.",
+      },
+      {
+        question: "Wie hält man ein Semantic Model langfristig wartbar?",
+        answer:
+          "Hilfreich sind klar benannte Kennzahlen, ein durchdachtes Datenmodell mit sauberen Beziehungen und das Vermeiden redundanter Berechnungen. Werden Logik und Definitionen zentral gepflegt, bleiben Änderungen nachvollziehbar und wirken automatisch auf alle aufsetzenden Berichte.",
+      },
+      {
+        question: "Worauf achtet smiit beim Aufbau eines Semantic Models?",
+        answer:
+          "smiit baut Semantic Models so, dass sie performant, wiederverwendbar und im Alltag wartbar bleiben, und setzt sie bei großen Datenmengen auf eine geprüfte Datengrundlage wie die Gold-Schicht einer Datenplattform auf.",
+      },
     ],
     relatedServicePath: "services/analytics",
     relatedCaseStudySlug: "dy-project-ag",
     metaTitle: "Was ist ein Semantic Model (Power BI Dataset)? | smiit Glossar",
-    metaDescription: "Semantic Model einfach erklärt: Definition, Funktionsweise, Anwendungsfälle und Abgrenzung zu Data Warehouse und DAX – mit Praxisbezug von smiit.",
+    metaDescription:
+      "Semantic Model einfach erklärt: Definition, Funktionsweise, Anwendungsfälle und Abgrenzung zu Data Warehouse und DAX – mit Praxisbezug von smiit.",
   },
   en: {
     slug: "semantic-model",
@@ -69,9 +90,7 @@ const semanticModel: LocalizedGlossaryTerm = {
       },
       {
         heading: "Typical use cases",
-        paragraphs: [
-          "A semantic model pays off wherever several reports or teams rely on consistent metrics.",
-        ],
+        paragraphs: ["A semantic model pays off wherever several reports or teams rely on consistent metrics."],
         bullets: [
           "A central model as the basis for many reports and dashboards",
           "Consistent metric definitions across departments",
@@ -87,16 +106,37 @@ const semanticModel: LocalizedGlossaryTerm = {
       },
     ],
     faq: [
-      { question: "Why is the Power BI dataset now called a semantic model?", answer: "Microsoft renamed the term dataset to semantic model to clarify that it is a semantic data layer with relationships, metrics and permissions, not just a plain data table." },
-      { question: "Can several reports use the same semantic model?", answer: "Yes. That is precisely the benefit: one centrally maintained semantic model supplies many reports with the same metrics and definitions, creating consistency and avoiding duplicate work." },
-      { question: "What is the difference between a semantic model and a data warehouse?", answer: "The data warehouse stores the prepared data, while the semantic model is the layer above it in Power BI with relationships, metrics and permissions. With large data volumes, the warehouse serves as the model's data source." },
-      { question: "How do you keep a semantic model maintainable in the long run?", answer: "Clearly named metrics, a well-thought-out data model with clean relationships and avoiding redundant calculations all help. When logic and definitions are maintained centrally, changes stay traceable and automatically affect every report built on the model." },
-      { question: "What does smiit pay attention to when building a semantic model?", answer: "smiit builds semantic models so that they stay performant, reusable and maintainable in everyday work, and with large data volumes builds them on a validated data foundation such as the gold layer of a data platform." },
+      {
+        question: "Why is the Power BI dataset now called a semantic model?",
+        answer:
+          "Microsoft renamed the term dataset to semantic model to clarify that it is a semantic data layer with relationships, metrics and permissions, not just a plain data table.",
+      },
+      {
+        question: "Can several reports use the same semantic model?",
+        answer:
+          "Yes. That is precisely the benefit: one centrally maintained semantic model supplies many reports with the same metrics and definitions, creating consistency and avoiding duplicate work.",
+      },
+      {
+        question: "What is the difference between a semantic model and a data warehouse?",
+        answer:
+          "The data warehouse stores the prepared data, while the semantic model is the layer above it in Power BI with relationships, metrics and permissions. With large data volumes, the warehouse serves as the model's data source.",
+      },
+      {
+        question: "How do you keep a semantic model maintainable in the long run?",
+        answer:
+          "Clearly named metrics, a well-thought-out data model with clean relationships and avoiding redundant calculations all help. When logic and definitions are maintained centrally, changes stay traceable and automatically affect every report built on the model.",
+      },
+      {
+        question: "What does smiit pay attention to when building a semantic model?",
+        answer:
+          "smiit builds semantic models so that they stay performant, reusable and maintainable in everyday work, and with large data volumes builds them on a validated data foundation such as the gold layer of a data platform.",
+      },
     ],
     relatedServicePath: "services/analytics",
     relatedCaseStudySlug: "dy-project-ag",
     metaTitle: "What is a semantic model (Power BI dataset)? | smiit glossary",
-    metaDescription: "Semantic model explained simply: definition, how it works, use cases and how it differs from a data warehouse and DAX – with practical insight from smiit.",
+    metaDescription:
+      "Semantic model explained simply: definition, how it works, use cases and how it differs from a data warehouse and DAX – with practical insight from smiit.",
   },
 }
 
@@ -112,7 +152,10 @@ export const extras: Record<Locale, GlossaryExtra> = {
     ],
     sources: [
       { title: "Microsoft Learn – Power BI Dokumentation", url: "https://learn.microsoft.com/power-bi/" },
-      { title: "Microsoft Learn – Power BI Datenmodellierung (Guidance)", url: "https://learn.microsoft.com/power-bi/guidance/" },
+      {
+        title: "Microsoft Learn – Power BI Datenmodellierung (Guidance)",
+        url: "https://learn.microsoft.com/power-bi/guidance/",
+      },
     ],
   },
   en: {
@@ -123,7 +166,10 @@ export const extras: Record<Locale, GlossaryExtra> = {
     ],
     sources: [
       { title: "Microsoft Learn – Power BI documentation", url: "https://learn.microsoft.com/power-bi/" },
-      { title: "Microsoft Learn – Power BI data modeling (guidance)", url: "https://learn.microsoft.com/power-bi/guidance/" },
+      {
+        title: "Microsoft Learn – Power BI data modeling (guidance)",
+        url: "https://learn.microsoft.com/power-bi/guidance/",
+      },
     ],
   },
 }

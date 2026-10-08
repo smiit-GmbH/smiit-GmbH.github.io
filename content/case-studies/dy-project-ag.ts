@@ -115,13 +115,15 @@ const dyProject: LocalizedCaseStudy = {
       { name: "SQL Server", description: "Quelle für strukturierte Projektdaten" },
       { name: "Excel-Dateien", description: "Integration manueller & fachlicher Projektdaten" },
       { name: "REST-APIs", description: "Anbindung von Cloud-Systemen & Fachanwendungen" },
-      { name: "Data-Warehouse-/Lakehouse-Architektur", description: "Skalierbarkeit, Nachvollziehbarkeit & Performance" },
+      {
+        name: "Data-Warehouse-/Lakehouse-Architektur",
+        description: "Skalierbarkeit, Nachvollziehbarkeit & Performance",
+      },
       { name: "Rollenmanagement & Governance", description: "Kontrollierte Nutzung durch verschiedene Stakeholder" },
     ],
 
     quote: {
-      text:
-        "smiit hat uns dabei unterstützt, aus einer komplexen und verteilten Datenlandschaft ein strukturiertes Management-Reporting aufzubauen. Besonders wertvoll war die Kombination aus technischer Datenintegration, Verständnis für Projektsteuerung und der Fähigkeit, die Anforderungen vieler Stakeholder in verständliche Power-BI-Berichte zu übersetzen.",
+      text: "smiit hat uns dabei unterstützt, aus einer komplexen und verteilten Datenlandschaft ein strukturiertes Management-Reporting aufzubauen. Besonders wertvoll war die Kombination aus technischer Datenintegration, Verständnis für Projektsteuerung und der Fähigkeit, die Anforderungen vieler Stakeholder in verständliche Power-BI-Berichte zu übersetzen.",
       author: "dy Project AG",
       role: "Projektmanagement für Bau- & Infrastrukturvorhaben",
     },
@@ -249,8 +251,7 @@ const dyProject: LocalizedCaseStudy = {
     ],
 
     quote: {
-      text:
-        "smiit helped us turn a complex, distributed data landscape into structured management reporting. What stood out was the combination of technical data integration, an understanding of project control, and the ability to translate many stakeholders' requirements into clear Power BI reports.",
+      text: "smiit helped us turn a complex, distributed data landscape into structured management reporting. What stood out was the combination of technical data integration, an understanding of project control, and the ability to translate many stakeholders' requirements into clear Power BI reports.",
       author: "dy Project AG",
       role: "Project management for construction & infrastructure",
     },

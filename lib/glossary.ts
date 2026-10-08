@@ -169,9 +169,7 @@ export function getGlossaryMatchers(lang: Locale): GlossaryMatcher[] {
     const base = t.term.replace(/\s*\([^)]*\)/g, "").trim() // strip parenthetical
     // Split conjunctive names ("A & B", "A / B") into standalone phrases so the
     // common short form is matchable too (e.g. "Data Warehouse", "ETL", "ELT").
-    const fragments = base
-      .split(/\s+[&/]\s+/)
-      .map((f) => f.replace(/^[^\p{L}\p{N}]+/u, "").trim())
+    const fragments = base.split(/\s+[&/]\s+/).map((f) => f.replace(/^[^\p{L}\p{N}]+/u, "").trim())
     for (const candidate of [base, ...fragments, ...t.synonyms]) {
       const text = candidate.trim()
       const key = text.toLowerCase()
@@ -188,9 +186,7 @@ export function getGlossaryMatchers(lang: Locale): GlossaryMatcher[] {
 /** Catalog entries whose full term links to the given case study (pillars first). */
 export function listGlossaryCatalogForCaseStudy(caseStudySlug: string): GlossaryCatalogEntry[] {
   const slugs = new Set(
-    Object.keys(glossaryTerms).filter(
-      (s) => glossaryTerms[s].de.relatedCaseStudySlug === caseStudySlug,
-    ),
+    Object.keys(glossaryTerms).filter((s) => glossaryTerms[s].de.relatedCaseStudySlug === caseStudySlug),
   )
   return glossaryCatalog
     .filter((entry) => slugs.has(entry.slug))

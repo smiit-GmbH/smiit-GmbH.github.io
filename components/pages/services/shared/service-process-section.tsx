@@ -2,13 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
-import {
-  motion,
-  useReducedMotion,
-  useScroll,
-  useSpring,
-  useTransform,
-} from "framer-motion"
+import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion"
 import { Compass, PenLine, Hammer, GraduationCap } from "lucide-react"
 import type { LucideIcon } from "lucide-react"
 import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
@@ -77,14 +71,10 @@ export default function ServiceProcessSection({ dict, service }: ProcessSectionP
     return (
       <section className="relative bg-transparent py-16 sm:py-20">
         <div className="mx-auto max-w-[1400px] px-4 sm:px-6">
-          <div
-            ref={headingRef}
-            className={`text-center reveal-fade-up ${headingRevealed ? "revealed" : ""}`}
-          >
+          <div ref={headingRef} className={`text-center reveal-fade-up ${headingRevealed ? "revealed" : ""}`}>
             <span className="section-eyebrow justify-center">{eyebrowLabel}</span>
             <h2 className="mx-auto max-w-[22ch] font-serif text-[2.2rem] sm:text-[2.4rem] md:text-[3rem] leading-[1.1] tracking-tight text-black">
-              {process?.title}{" "}
-              <span className={theme.accentText}>{process?.titleHighlight}</span>
+              {process?.title} <span className={theme.accentText}>{process?.titleHighlight}</span>
             </h2>
             {process?.subtitle && (
               <p className="mx-auto mt-4 max-w-[58ch] text-[0.9rem] sm:text-base leading-relaxed text-black/60">
@@ -94,7 +84,12 @@ export default function ServiceProcessSection({ dict, service }: ProcessSectionP
           </div>
 
           <div className="md:hidden">
-            <MobileProcessTimeline theme={theme} steps={steps} reduceMotion={!!shouldReduceMotion} stepLabel={process?.stepLabel} />
+            <MobileProcessTimeline
+              theme={theme}
+              steps={steps}
+              reduceMotion={!!shouldReduceMotion}
+              stepLabel={process?.stepLabel}
+            />
           </div>
 
           <div ref={mobileRef} className="mt-12 hidden grid-cols-1 gap-5 md:grid md:grid-cols-2">
@@ -106,16 +101,16 @@ export default function ServiceProcessSection({ dict, service }: ProcessSectionP
                   className={`group relative rounded-[1.5rem] border border-slate-200/70 bg-white p-7 shadow-[0_10px_30px_rgba(15,23,42,0.05)] transition-all duration-500 hover:-translate-y-1 ${theme.cardHover} reveal-fade-up reveal-delay-${idx + 1} ${mobileRevealed ? "revealed" : ""}`}
                 >
                   <div className="flex items-center justify-between">
-                    <span className={`font-serif text-[2.4rem] md:text-[2.8rem] font-semibold leading-none ${theme.accentText25}`}>
+                    <span
+                      className={`font-serif text-[2.4rem] md:text-[2.8rem] font-semibold leading-none ${theme.accentText25}`}
+                    >
                       {step.number}
                     </span>
                     <div className={`flex h-10 w-10 items-center justify-center rounded-xl ${theme.iconTile}`}>
                       <Icon className="h-4 w-4 md:h-5 md:w-5" />
                     </div>
                   </div>
-                  <h3 className="mt-5 font-serif text-lg md:text-xl font-semibold text-black">
-                    {step.title}
-                  </h3>
+                  <h3 className="mt-5 font-serif text-lg md:text-xl font-semibold text-black">{step.title}</h3>
                   <p className="mt-2.5 text-sm leading-relaxed text-black/60">{step.text}</p>
                 </div>
               )
@@ -137,13 +132,10 @@ export default function ServiceProcessSection({ dict, service }: ProcessSectionP
         <div>
           <span className="section-eyebrow">{eyebrowLabel}</span>
           <h2 className="mt-1 max-w-[26ch] font-serif text-[2rem] leading-[1.05] tracking-tight text-black sm:text-[2.4rem] md:text-[3rem]">
-            {process?.title}{" "}
-            <span className={theme.accentText}>{process?.titleHighlight}</span>
+            {process?.title} <span className={theme.accentText}>{process?.titleHighlight}</span>
           </h2>
           {process?.subtitle && (
-            <p className="mt-3 max-w-[64ch] text-[1rem] leading-relaxed text-black/60">
-              {process.subtitle}
-            </p>
+            <p className="mt-3 max-w-[64ch] text-[1rem] leading-relaxed text-black/60">{process.subtitle}</p>
           )}
         </div>
 
@@ -181,7 +173,9 @@ export default function ServiceProcessSection({ dict, service }: ProcessSectionP
                     </div>
 
                     <div className="mt-5 flex items-baseline gap-4">
-                      <span className={`font-serif text-[3.4rem] font-semibold leading-[0.85] tracking-tight ${theme.accentText20} xl:text-[4rem]`}>
+                      <span
+                        className={`font-serif text-[3.4rem] font-semibold leading-[0.85] tracking-tight ${theme.accentText20} xl:text-[4rem]`}
+                      >
                         {step.number}
                       </span>
                       <h3 className="font-serif text-[1.85rem] font-semibold leading-[1.05] text-[#0B162D] xl:text-[2.2rem]">
@@ -205,15 +199,7 @@ export default function ServiceProcessSection({ dict, service }: ProcessSectionP
 
 // ---------- Mindmap ----------
 
-function Mindmap({
-  theme,
-  items,
-  activeIndex,
-}: {
-  theme: ServiceTheme
-  items: Step[]
-  activeIndex: number
-}) {
+function Mindmap({ theme, items, activeIndex }: { theme: ServiceTheme; items: Step[]; activeIndex: number }) {
   // SVG canvas + HTML node positions share the same 480 × 480 coordinate space.
   const W = 480
   const H = 480
@@ -226,10 +212,7 @@ function Mindmap({
   return (
     <div className="relative mx-auto aspect-square w-full max-w-[480px]">
       {/* Connecting lines — color/weight transitions follow the active branch */}
-      <svg
-        viewBox={`0 0 ${W} ${H}`}
-        className="pointer-events-none absolute inset-0 h-full w-full"
-      >
+      <svg viewBox={`0 0 ${W} ${H}`} className="pointer-events-none absolute inset-0 h-full w-full">
         {items.map((_, idx) => {
           const yChild = ((idx + 0.5) / items.length) * H
           const isActive = activeIndex === idx
@@ -269,9 +252,7 @@ function Mindmap({
             key={idx}
             style={{ top: `${yPercent}%`, transform: "translateY(-50%)" }}
             className={`absolute right-0 z-10 flex w-[260px] items-center gap-3 rounded-xl border px-4 py-3 transition-all duration-300 ease-out ${
-              isActive
-                ? theme.pillActive
-                : "border-slate-200/80 bg-white/90 text-[#0B162D]/75 backdrop-blur-sm"
+              isActive ? theme.pillActive : "border-slate-200/80 bg-white/90 text-[#0B162D]/75 backdrop-blur-sm"
             }`}
           >
             <div
@@ -331,7 +312,10 @@ function MobileProcessTimeline({
   return (
     <div ref={containerRef} className="relative mt-12">
       {/* Rail — base track + scroll-driven progress overlay */}
-      <div aria-hidden className="pointer-events-none absolute left-[19px] top-2 bottom-2 w-[2px] rounded-full bg-slate-200/80" />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute left-[19px] top-2 bottom-2 w-[2px] rounded-full bg-slate-200/80"
+      />
       <motion.div
         aria-hidden
         style={reduceMotion ? { height: "100%" } : { height: railHeight }}
@@ -404,9 +388,7 @@ function MobileProcessStep({
           backgroundColor: isActive ? theme.accentHex : "#ffffff",
           borderColor: isActive ? theme.accentHex : theme.badgeBorder,
           color: isActive ? "#ffffff" : theme.accentHex,
-          boxShadow: isActive
-            ? theme.badgeShadow
-            : "0 6px 14px rgba(15,23,42,0.05)",
+          boxShadow: isActive ? theme.badgeShadow : "0 6px 14px rgba(15,23,42,0.05)",
         }}
         transition={{ type: "spring", stiffness: 320, damping: 24 }}
         className="absolute left-0 top-1 z-10 flex h-10 w-10 items-center justify-center rounded-full border-2"
@@ -417,9 +399,7 @@ function MobileProcessStep({
       {/* Card */}
       <div
         className={`rounded-2xl border bg-white p-5 transition-[border-color,box-shadow] duration-300 ${
-          isActive
-            ? theme.mobileCardActive
-            : "border-slate-200/70 shadow-[0_8px_22px_rgba(15,23,42,0.04)]"
+          isActive ? theme.mobileCardActive : "border-slate-200/70 shadow-[0_8px_22px_rgba(15,23,42,0.04)]"
         }`}
       >
         <div className="flex items-baseline justify-between gap-3">
@@ -430,9 +410,7 @@ function MobileProcessStep({
             {step.number}
           </span>
         </div>
-        <h3 className="mt-2 font-serif text-lg font-semibold leading-tight text-[#0B162D]">
-          {step.title}
-        </h3>
+        <h3 className="mt-2 font-serif text-lg font-semibold leading-tight text-[#0B162D]">{step.title}</h3>
         <p className="mt-2 text-[0.9rem] leading-relaxed text-black/60">{step.text}</p>
       </div>
     </motion.div>

@@ -8,11 +8,7 @@ export async function generateStaticParams() {
   return [{ lang: "de" }, { lang: "en" }]
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ lang: Locale }>
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ lang: Locale }> }): Promise<Metadata> {
   const { lang } = await params
   return buildPageMetadata({
     lang,
@@ -26,15 +22,16 @@ export async function generateMetadata({
       en: "High-quality corporate websites that build trust and generate enquiries. For construction, waste management, logistics and industry. Website relaunch from €5,000 – get your free initial concept now.",
     },
     // TODO: dediziertes OG-Bild /og/services-website.png (1200×630) anlegen – nutzt vorerst home.png als Fallback statt 404.
-    ogImage: { url: "/og/services-website.png", width: 1200, height: 630, alt: "smiit GmbH – Webdesign & Unternehmenswebsites" },
+    ogImage: {
+      url: "/og/services-website.png",
+      width: 1200,
+      height: 630,
+      alt: "smiit GmbH – Webdesign & Unternehmenswebsites",
+    },
   })
 }
 
-export default async function Page({
-  params,
-}: {
-  params: Promise<{ lang: Locale }>
-}) {
+export default async function Page({ params }: { params: Promise<{ lang: Locale }> }) {
   const { lang } = await params
   const dict = getDictionary(lang)
 

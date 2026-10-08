@@ -108,9 +108,7 @@ const prozessautomatisierung: LocalizedGlossaryTerm = {
       },
       {
         heading: "Benefits & typical use cases",
-        paragraphs: [
-          "Automation pays off above all for repetitive, rule-based and error-prone tasks.",
-        ],
+        paragraphs: ["Automation pays off above all for repetitive, rule-based and error-prone tasks."],
         bullets: [
           "Automated data capture from documents, emails or forms",
           "Approval and sign-off workflows without manual chasing",

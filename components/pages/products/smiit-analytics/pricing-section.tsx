@@ -40,11 +40,7 @@ export function PricingSection({ dict }: PricingSectionProps) {
           <h2 className="font-serif text-[2rem] sm:text-[2.8rem] md:text-[3.4rem] leading-[1.1] tracking-tight text-white whitespace-pre-line mb-6">
             {pricing.title}
           </h2>
-          {pricing.subtitle && (
-            <p className="text-base md:text-lg text-white/70 leading-relaxed">
-              {pricing.subtitle}
-            </p>
-          )}
+          {pricing.subtitle && <p className="text-base md:text-lg text-white/70 leading-relaxed">{pricing.subtitle}</p>}
         </div>
 
         {/* Product card */}
@@ -58,9 +54,7 @@ export function PricingSection({ dict }: PricingSectionProps) {
                 {pricing.productTitle}
               </h3>
 
-              <p className="mt-4 text-sm leading-relaxed text-black/55">
-                {pricing.productDescription}
-              </p>
+              <p className="mt-4 text-sm leading-relaxed text-black/55">{pricing.productDescription}</p>
 
               {/* Features */}
               <div className="mt-6 space-y-3">
@@ -128,7 +122,6 @@ export function PricingSection({ dict }: PricingSectionProps) {
                   <p className="text-[0.72rem] text-black/45 mt-1">{pricing.priceCustomNote}</p>
                 </div>
               </div>
-
             </div>
           </div>
         </div>

@@ -1,4 +1,4 @@
-export type Locale = 'de' | 'en'
+export type Locale = "de" | "en"
 
 const de = {
   hero: {
@@ -12,8 +12,7 @@ const de = {
   },
   services: {
     title: "Workflows für messbaren Impact",
-    subtitle:
-      "Bei smiit entwickeln wir Apps, Workflows und Analytics — damit Ihr Business schneller vorankommt.",
+    subtitle: "Bei smiit entwickeln wir Apps, Workflows und Analytics — damit Ihr Business schneller vorankommt.",
     items: [
       {
         title: "Digitale Strategie",
@@ -31,7 +30,8 @@ const de = {
         text: "Wir bauen intuitive Web-Apps, die Eingaben vereinfachen, Systeme über APIs verbinden und Workflows automatisieren — sicher und skalierbar.",
       },
     ],
-    mobileCta: "Sie haben Fragen zu unseren Dienstleistungen? Buchen Sie gerne ein kostenloses und unverbindliches Erstgespräch mit uns.",
+    mobileCta:
+      "Sie haben Fragen zu unseren Dienstleistungen? Buchen Sie gerne ein kostenloses und unverbindliches Erstgespräch mit uns.",
     mobileCtaButton: "Kostenloses Erstgespräch buchen",
   },
   servicesAnalytics: {
@@ -227,7 +227,8 @@ const de = {
     portfolio: {
       title: "Unser",
       titleHighlight: "Angebot",
-      subtitle: "Wir unterstützen Sie dabei, den maximalen Wert aus Ihren Daten zu schöpfen – von der Strategie bis zur produktiven Power-BI-Lösung.",
+      subtitle:
+        "Wir unterstützen Sie dabei, den maximalen Wert aus Ihren Daten zu schöpfen – von der Strategie bis zur produktiven Power-BI-Lösung.",
       visuals: {
         bi: { label: "Umsatz Q3", kpiRevenue: "Umsatz", target: "Ziel" },
         governance: { badge: "DSGVO" },
@@ -238,20 +239,26 @@ const de = {
       items: [
         {
           title: "Business Intelligence & Dashboarding",
-          shortDesc: "Wir verwandeln verteilte Daten in eine belastbare Entscheidungsgrundlage – mit sauberer Datenintegration, klaren Modellen und Power-BI-Dashboards, die wirklich genutzt werden. So entstehen Reports und Analysen in Power BI und Microsoft Fabric, die Transparenz schaffen und Führung wirksam unterstützen.",
-          details: "Wir begleiten den gesamten Weg von der Rohdatenquelle bis zur entscheidungsrelevanten Visualisierung. Dazu gehören die Integration und Aufbereitung von Daten, der Aufbau performanter Datenmodelle, die Entwicklung einer semantischen Schicht sowie die Gestaltung von Dashboards für Management, Controlling und operative Teams.\n\nTechnologisch arbeiten wir schwerpunktmäßig im Microsoft-Umfeld – unter anderem mit Power BI und Fabric. Dabei achten wir nicht nur auf Technik, sondern vor allem auf eine Struktur, die mit Ihrem Unternehmen mitwachsen kann."
+          shortDesc:
+            "Wir verwandeln verteilte Daten in eine belastbare Entscheidungsgrundlage – mit sauberer Datenintegration, klaren Modellen und Power-BI-Dashboards, die wirklich genutzt werden. So entstehen Reports und Analysen in Power BI und Microsoft Fabric, die Transparenz schaffen und Führung wirksam unterstützen.",
+          details:
+            "Wir begleiten den gesamten Weg von der Rohdatenquelle bis zur entscheidungsrelevanten Visualisierung. Dazu gehören die Integration und Aufbereitung von Daten, der Aufbau performanter Datenmodelle, die Entwicklung einer semantischen Schicht sowie die Gestaltung von Dashboards für Management, Controlling und operative Teams.\n\nTechnologisch arbeiten wir schwerpunktmäßig im Microsoft-Umfeld – unter anderem mit Power BI und Fabric. Dabei achten wir nicht nur auf Technik, sondern vor allem auf eine Struktur, die mit Ihrem Unternehmen mitwachsen kann.",
         },
         {
           title: "Data Governance & Datenstrategie",
-          shortDesc: "Wir schaffen die organisatorischen und fachlichen Grundlagen dafür, dass Daten im Unternehmen konsistent, verständlich und vertrauenswürdig genutzt werden können. Das sorgt für weniger Reibung, bessere Entscheidungen und deutlich mehr Wirkung aus bestehenden Dateninitiativen.",
-          details: "Wir beraten zu zentralen Fragestellungen rund um Data Governance, Master Data Management, Datenverantwortung, Kennzahlendefinitionen und den sinnvollen Aufbau von Self-Service-Analytics-Strukturen. Ziel ist es, Datennutzung nicht dem Zufall zu überlassen, sondern klare Rahmenbedingungen zu schaffen, die Skalierung und Verlässlichkeit ermöglichen.\n\nDabei betrachten wir nicht nur Prozesse und Systeme, sondern auch die organisatorische Seite. So entsteht eine Datenstrategie, die nicht theoretisch bleibt, sondern im Unternehmen greift."
+          shortDesc:
+            "Wir schaffen die organisatorischen und fachlichen Grundlagen dafür, dass Daten im Unternehmen konsistent, verständlich und vertrauenswürdig genutzt werden können. Das sorgt für weniger Reibung, bessere Entscheidungen und deutlich mehr Wirkung aus bestehenden Dateninitiativen.",
+          details:
+            "Wir beraten zu zentralen Fragestellungen rund um Data Governance, Master Data Management, Datenverantwortung, Kennzahlendefinitionen und den sinnvollen Aufbau von Self-Service-Analytics-Strukturen. Ziel ist es, Datennutzung nicht dem Zufall zu überlassen, sondern klare Rahmenbedingungen zu schaffen, die Skalierung und Verlässlichkeit ermöglichen.\n\nDabei betrachten wir nicht nur Prozesse und Systeme, sondern auch die organisatorische Seite. So entsteht eine Datenstrategie, die nicht theoretisch bleibt, sondern im Unternehmen greift.",
         },
         {
           title: "Machine Learning & ML Operations",
-          shortDesc: "Wir bringen KI aus der Konzeptphase in den produktiven Einsatz – strukturiert, skalierbar und technisch sauber. So entstehen Machine-Learning-Lösungen, die nicht nur beeindrucken, sondern im Alltag echten Mehrwert liefern.",
-          details: "Wir unterstützen bei der Konzeption, Entwicklung und Operationalisierung von ML-Modellen – von der Datenaufbereitung und Feature-Entwicklung über Training und Validierung bis hin zur Bereitstellung in produktiven Umgebungen. Dabei steht nicht nur die Modellgüte im Fokus, sondern auch die Frage, wie KI stabil, nachvollziehbar und wartbar in bestehende Prozesse integriert werden kann.\n\nIm Zentrum steht ein praxisnaher MLOps-Ansatz mit klaren Deployments, reproduzierbaren Workflows, Überwachung von Modellen und einer sauberen Verbindung zwischen Data Science und Betrieb."
-        }
-      ]
+          shortDesc:
+            "Wir bringen KI aus der Konzeptphase in den produktiven Einsatz – strukturiert, skalierbar und technisch sauber. So entstehen Machine-Learning-Lösungen, die nicht nur beeindrucken, sondern im Alltag echten Mehrwert liefern.",
+          details:
+            "Wir unterstützen bei der Konzeption, Entwicklung und Operationalisierung von ML-Modellen – von der Datenaufbereitung und Feature-Entwicklung über Training und Validierung bis hin zur Bereitstellung in produktiven Umgebungen. Dabei steht nicht nur die Modellgüte im Fokus, sondern auch die Frage, wie KI stabil, nachvollziehbar und wartbar in bestehende Prozesse integriert werden kann.\n\nIm Zentrum steht ein praxisnaher MLOps-Ansatz mit klaren Deployments, reproduzierbaren Workflows, Überwachung von Modellen und einer sauberen Verbindung zwischen Data Science und Betrieb.",
+        },
+      ],
     },
     process: {
       title: "So machen wir aus Ihren Daten",
@@ -348,7 +355,8 @@ const de = {
     },
     cta: {
       title: "Was würde sich ändern, wenn Ihre Daten endlich miteinander reden?",
-      subtitle: "30 Minuten Erstgespräch. Kostenlos. Unverbindlich. Sie erfahren, wo Ihr größter Hebel liegt — auch wenn wir am Ende nicht zusammenarbeiten.",
+      subtitle:
+        "30 Minuten Erstgespräch. Kostenlos. Unverbindlich. Sie erfahren, wo Ihr größter Hebel liegt — auch wenn wir am Ende nicht zusammenarbeiten.",
       primaryButton: "Kostenloses Erstgespräch",
       secondaryButton: "Kontakt aufnehmen",
     },
@@ -483,7 +491,8 @@ const de = {
     portfolio: {
       title: "Unser",
       titleHighlight: "Angebot",
-      subtitle: "Wir begleiten Sie auf dem Weg zu einer digitalen Strategie, die im Alltag trägt – von der ehrlichen Bestandsaufnahme bis zur produktiven Cloud-Plattform.",
+      subtitle:
+        "Wir begleiten Sie auf dem Weg zu einer digitalen Strategie, die im Alltag trägt – von der ehrlichen Bestandsaufnahme bis zur produktiven Cloud-Plattform.",
       visuals: {
         process: {
           label: "Genehmigungslauf",
@@ -501,20 +510,26 @@ const de = {
       items: [
         {
           title: "Prozessoptimierung & -automatisierung",
-          shortDesc: "Wir machen Geschäftsprozesse sichtbar, hinterfragen Brüche und Reibungspunkte und automatisieren, wo es sich messbar lohnt. So entstehen schlankere Abläufe, weniger Medienbrüche und Teams, die mehr Zeit für das Eigentliche haben.",
-          details: "Wir starten mit einer sauberen Prozessmodellierung – von der Ist-Aufnahme über die Schwachstellen-Analyse bis zum Soll-Konzept, eng abgestimmt mit den Menschen, die den Prozess täglich leben. Dabei nutzen wir etablierte Notationen wie BPMN und halten Modelle bewusst pragmatisch und nutzbar.\n\nIm Anschluss übersetzen wir das Soll-Bild in digitalisierte Workflows – über Power Automate, individuelle Apps oder Integrationen in bestehende Systeme. Wir wählen den Weg, der zur Reife Ihrer IT-Landschaft passt, und automatisieren genau das, was nachweislich Aufwand spart oder Qualität verbessert."
+          shortDesc:
+            "Wir machen Geschäftsprozesse sichtbar, hinterfragen Brüche und Reibungspunkte und automatisieren, wo es sich messbar lohnt. So entstehen schlankere Abläufe, weniger Medienbrüche und Teams, die mehr Zeit für das Eigentliche haben.",
+          details:
+            "Wir starten mit einer sauberen Prozessmodellierung – von der Ist-Aufnahme über die Schwachstellen-Analyse bis zum Soll-Konzept, eng abgestimmt mit den Menschen, die den Prozess täglich leben. Dabei nutzen wir etablierte Notationen wie BPMN und halten Modelle bewusst pragmatisch und nutzbar.\n\nIm Anschluss übersetzen wir das Soll-Bild in digitalisierte Workflows – über Power Automate, individuelle Apps oder Integrationen in bestehende Systeme. Wir wählen den Weg, der zur Reife Ihrer IT-Landschaft passt, und automatisieren genau das, was nachweislich Aufwand spart oder Qualität verbessert.",
         },
         {
           title: "Cloud-Infrastruktur & DevOps",
-          shortDesc: "Wir bauen Ihre Azure-Landschaft so auf, dass sie skaliert, sicher ist und auch nach zwei Jahren noch verständlich bleibt. Infrastructure as Code, klare Netzwerk- und Governance-Konzepte, automatisierte Deployments – von Anfang an mitgedacht.",
-          details: "Wir setzen ausschließlich auf Microsoft Azure und kennen das Ökosystem von der Tenant-Architektur bis zur einzelnen Pipeline. Konkret bauen wir Landing Zones, Hub-and-Spoke-Netzwerke, Identity- und Berechtigungskonzepte sowie durchdachte Naming- und Tagging-Strategien – abgestimmt auf Ihre Compliance- und Skalierungsanforderungen.\n\nInfrastruktur entsteht bei uns als Code (Bicep oder Terraform), nie per Klick im Portal. CI/CD-Pipelines, automatisierte Tests, Security-Scans und Dokumentation gehören zur Lieferung – damit Ihre Plattform nicht nur am Launch-Tag läuft, sondern auch im Audit, im Disaster-Recovery-Test und bei der nächsten größeren Erweiterung trägt."
+          shortDesc:
+            "Wir bauen Ihre Azure-Landschaft so auf, dass sie skaliert, sicher ist und auch nach zwei Jahren noch verständlich bleibt. Infrastructure as Code, klare Netzwerk- und Governance-Konzepte, automatisierte Deployments – von Anfang an mitgedacht.",
+          details:
+            "Wir setzen ausschließlich auf Microsoft Azure und kennen das Ökosystem von der Tenant-Architektur bis zur einzelnen Pipeline. Konkret bauen wir Landing Zones, Hub-and-Spoke-Netzwerke, Identity- und Berechtigungskonzepte sowie durchdachte Naming- und Tagging-Strategien – abgestimmt auf Ihre Compliance- und Skalierungsanforderungen.\n\nInfrastruktur entsteht bei uns als Code (Bicep oder Terraform), nie per Klick im Portal. CI/CD-Pipelines, automatisierte Tests, Security-Scans und Dokumentation gehören zur Lieferung – damit Ihre Plattform nicht nur am Launch-Tag läuft, sondern auch im Audit, im Disaster-Recovery-Test und bei der nächsten größeren Erweiterung trägt.",
         },
         {
           title: "IT-Sicherheit",
-          shortDesc: "Sicherheit ist kein Produkt, das man kauft, sondern eine Disziplin, die man verankert. Wir bringen Ihre IT-Landschaft auf einen belastbaren Stand – von der ehrlichen Lagebewertung über die Härtung von Identity, Netzwerk und Daten bis zur Verankerung im Alltag.",
-          details: "Wir beginnen mit einer ehrlichen Bestandsaufnahme: Wo liegen Ihre kritischen Werte, wo sind die größten Lücken, was sagen Audits – und was sagt die Realität? Aus diesem Lagebild leiten wir eine priorisierte Roadmap ab, mit Quick Wins (MFA, Patch-Disziplin, Backup-Tests) und strukturellen Maßnahmen (Zero Trust, Identity-Governance, Netzwerksegmentierung).\n\nSicherheit denken wir dabei nicht als Sonderprojekt, sondern als Querschnitt: Unsere Cloud-Architekturen sind von Grund auf gehärtet, unsere Prozessdesigns berücksichtigen Datenschutz und unsere DevOps-Pipelines integrieren Security-Scans. So entsteht ein Schutzniveau, das im Alltag trägt – ohne Ihr Tempo auszubremsen."
-        }
-      ]
+          shortDesc:
+            "Sicherheit ist kein Produkt, das man kauft, sondern eine Disziplin, die man verankert. Wir bringen Ihre IT-Landschaft auf einen belastbaren Stand – von der ehrlichen Lagebewertung über die Härtung von Identity, Netzwerk und Daten bis zur Verankerung im Alltag.",
+          details:
+            "Wir beginnen mit einer ehrlichen Bestandsaufnahme: Wo liegen Ihre kritischen Werte, wo sind die größten Lücken, was sagen Audits – und was sagt die Realität? Aus diesem Lagebild leiten wir eine priorisierte Roadmap ab, mit Quick Wins (MFA, Patch-Disziplin, Backup-Tests) und strukturellen Maßnahmen (Zero Trust, Identity-Governance, Netzwerksegmentierung).\n\nSicherheit denken wir dabei nicht als Sonderprojekt, sondern als Querschnitt: Unsere Cloud-Architekturen sind von Grund auf gehärtet, unsere Prozessdesigns berücksichtigen Datenschutz und unsere DevOps-Pipelines integrieren Security-Scans. So entsteht ein Schutzniveau, das im Alltag trägt – ohne Ihr Tempo auszubremsen.",
+        },
+      ],
     },
     process: {
       title: "So entwickeln wir Ihre",
@@ -611,7 +626,8 @@ const de = {
     },
     cta: {
       title: "Bevor Sie das nächste Tool kaufen — lassen Sie uns über Ihre Strategie reden.",
-      subtitle: "30 Minuten. Kostenlos. Wir hören zu, ordnen ein und sagen Ihnen, was wir an Ihrer Stelle priorisieren würden — Cloud-Migration, Sicherheit, Datenstrategie oder Prozesse.",
+      subtitle:
+        "30 Minuten. Kostenlos. Wir hören zu, ordnen ein und sagen Ihnen, was wir an Ihrer Stelle priorisieren würden — Cloud-Migration, Sicherheit, Datenstrategie oder Prozesse.",
       primaryButton: "Kostenloses Erstgespräch",
       secondaryButton: "Kontakt aufnehmen",
     },
@@ -773,7 +789,8 @@ const de = {
     portfolio: {
       title: "Unser",
       titleHighlight: "Angebot",
-      subtitle: "Wir bauen Web-Apps, Websites und Azure-Setups, die Ihre Workflows tragen – von der ersten Skizze bis zum stabilen Betrieb.",
+      subtitle:
+        "Wir bauen Web-Apps, Websites und Azure-Setups, die Ihre Workflows tragen – von der ersten Skizze bis zum stabilen Betrieb.",
       visuals: {
         bi: {
           label: "Aktive Nutzer",
@@ -789,20 +806,26 @@ const de = {
       items: [
         {
           title: "Web Applikationen & Plattformen",
-          shortDesc: "Wir bauen Individualsoftware – Web-Apps und Plattformen, die Ihre Workflows abbilden, Systeme über Schnittstellen (APIs) verbinden und Anwendern wirklich Arbeit abnehmen. So entstehen digitale Werkzeuge, die im Alltag funktionieren – nicht nur in der Demo.",
-          details: "Wir entwickeln moderne Web-Anwendungen und SaaS-Plattformen entlang Ihres tatsächlichen Bedarfs – vom internen Tool bis zur Multi-Tenant-Lösung. Dabei verbinden wir bestehende Systeme über APIs, integrieren Authentifizierung und Berechtigungen sauber und sorgen dafür, dass Ihre App auch unter Last performt.\n\nTechnologisch setzen wir auf Next.js, React und .NET – mit klaren Architekturen, automatisierten Tests und CI/CD-Pipelines. So entstehen Anwendungen, die nicht nur in der ersten Version glänzen, sondern langfristig wartbar, sicher und skalierbar bleiben."
+          shortDesc:
+            "Wir bauen Individualsoftware – Web-Apps und Plattformen, die Ihre Workflows abbilden, Systeme über Schnittstellen (APIs) verbinden und Anwendern wirklich Arbeit abnehmen. So entstehen digitale Werkzeuge, die im Alltag funktionieren – nicht nur in der Demo.",
+          details:
+            "Wir entwickeln moderne Web-Anwendungen und SaaS-Plattformen entlang Ihres tatsächlichen Bedarfs – vom internen Tool bis zur Multi-Tenant-Lösung. Dabei verbinden wir bestehende Systeme über APIs, integrieren Authentifizierung und Berechtigungen sauber und sorgen dafür, dass Ihre App auch unter Last performt.\n\nTechnologisch setzen wir auf Next.js, React und .NET – mit klaren Architekturen, automatisierten Tests und CI/CD-Pipelines. So entstehen Anwendungen, die nicht nur in der ersten Version glänzen, sondern langfristig wartbar, sicher und skalierbar bleiben.",
         },
         {
           title: "Websites & Design",
-          shortDesc: "Wir gestalten und entwickeln Websites, die Ihre Marke ernst nehmen – schnell, klar strukturiert und auf Conversion ausgelegt. Ein Auftritt, der Vertrauen schafft, statt nur gut auszusehen.",
-          details: "Von der ersten Skizze bis zum Go-Live: Wir entwerfen und bauen Websites, die Inhalte sauber führen. Unsere Websites sind auf mobile-first, SEO, Performance und Barrierefreiheit ausgerichtet. Dabei orientieren wir uns an Ihrer Markenidentität und sorgen für ein konsistentes visuelles System – von Typografie über Farbe bis zu den Komponenten.\n\nTechnisch arbeiten wir mit Next.js und Headless-CMS, sodass Ihr Team Inhalte selbständig pflegen kann, ohne auf Entwickler angewiesen zu sein. Das Ergebnis: ein digitaler Auftritt, der nicht nur am Launch-Tag stark ist, sondern mit Ihrem Geschäft mitwächst."
+          shortDesc:
+            "Wir gestalten und entwickeln Websites, die Ihre Marke ernst nehmen – schnell, klar strukturiert und auf Conversion ausgelegt. Ein Auftritt, der Vertrauen schafft, statt nur gut auszusehen.",
+          details:
+            "Von der ersten Skizze bis zum Go-Live: Wir entwerfen und bauen Websites, die Inhalte sauber führen. Unsere Websites sind auf mobile-first, SEO, Performance und Barrierefreiheit ausgerichtet. Dabei orientieren wir uns an Ihrer Markenidentität und sorgen für ein konsistentes visuelles System – von Typografie über Farbe bis zu den Komponenten.\n\nTechnisch arbeiten wir mit Next.js und Headless-CMS, sodass Ihr Team Inhalte selbständig pflegen kann, ohne auf Entwickler angewiesen zu sein. Das Ergebnis: ein digitaler Auftritt, der nicht nur am Launch-Tag stark ist, sondern mit Ihrem Geschäft mitwächst.",
         },
         {
           title: "Cloud Infrastruktur & Governance",
-          shortDesc: "Wir bauen Ihre Cloud-Umgebung auf Microsoft Azure – sicher, kosteneffizient und nachvollziehbar. Eine Infrastruktur, die mit Ihrem Geschäft skaliert und Compliance-Anforderungen mühelos erfüllt.",
-          details: "Wir konzipieren und betreiben Cloud-Architekturen auf Microsoft Azure – von Landing Zones über Identitäten und Netzwerk bis hin zu CI/CD-Pipelines und Observability. Dabei achten wir auf eine klare Governance-Struktur, sodass Ressourcen, Kosten und Berechtigungen jederzeit transparent bleiben.\n\nSchwerpunkte sind Infrastructure-as-Code mit Bicep oder Terraform, Sicherheits-Baselines nach dem Microsoft Cloud Adoption Framework und wartbare Deployment-Prozesse. So entsteht eine Azure-Umgebung, die nicht nur technisch sauber ist, sondern auch organisatorisch trägt – für stabile Apps, klare Verantwortlichkeiten und planbare Cloud-Kosten."
-        }
-      ]
+          shortDesc:
+            "Wir bauen Ihre Cloud-Umgebung auf Microsoft Azure – sicher, kosteneffizient und nachvollziehbar. Eine Infrastruktur, die mit Ihrem Geschäft skaliert und Compliance-Anforderungen mühelos erfüllt.",
+          details:
+            "Wir konzipieren und betreiben Cloud-Architekturen auf Microsoft Azure – von Landing Zones über Identitäten und Netzwerk bis hin zu CI/CD-Pipelines und Observability. Dabei achten wir auf eine klare Governance-Struktur, sodass Ressourcen, Kosten und Berechtigungen jederzeit transparent bleiben.\n\nSchwerpunkte sind Infrastructure-as-Code mit Bicep oder Terraform, Sicherheits-Baselines nach dem Microsoft Cloud Adoption Framework und wartbare Deployment-Prozesse. So entsteht eine Azure-Umgebung, die nicht nur technisch sauber ist, sondern auch organisatorisch trägt – für stabile Apps, klare Verantwortlichkeiten und planbare Cloud-Kosten.",
+        },
+      ],
     },
     process: {
       title: "So machen wir aus Ihren Workflows",
@@ -866,7 +889,8 @@ const de = {
     cta: {
       title: "Wie viele Stunden würde Ihr Team zurückgewinnen, wenn sich die",
       titleHighlight: "Routine selbst erledigt?",
-      subtitle: "30 Minuten Erstgespräch. Kostenlos. Unverbindlich. Sie erfahren, wo sich Ihre größten Routinekiller automatisieren lassen — auch wenn wir am Ende nicht zusammenarbeiten.",
+      subtitle:
+        "30 Minuten Erstgespräch. Kostenlos. Unverbindlich. Sie erfahren, wo sich Ihre größten Routinekiller automatisieren lassen — auch wenn wir am Ende nicht zusammenarbeiten.",
       primaryButton: "Kostenloses Erstgespräch",
       secondaryButton: "Kontakt aufnehmen",
     },
@@ -913,16 +937,33 @@ const de = {
     titleHighlight: "tatsächlich",
     titleSuffix: " spüren",
     items: [
-      { value: "5+", label: "Jahre Erfahrung", text: "Mit über 5 Jahren Erfahrung arbeitet die smiit GmbH mit standardisierten Prozessen und klarer Strukturierung." },
-      { value: "70+", label: "Erfolgreiche Projekte", text: "Wir haben in den letzten Jahren mit mehr als 20 Kunden insgesamt über 70 Projekte erfolgreich umgesetzt." },
-      { value: "Ø 3,6", label: "Projekte je Kunde", text: "Über 3,6 Projekte je Kunde zeigen klar: Unsere Kunden vertrauen uns und sind zufrieden mit unseren Ergebnissen." },
-      { value: "3", label: "Service Bereiche", text: "Unsere breite fachliche Aufstellung ermöglicht eine integrierte Umsetzung: Datenanalyse, Automatisierungen & Apps." }
+      {
+        value: "5+",
+        label: "Jahre Erfahrung",
+        text: "Mit über 5 Jahren Erfahrung arbeitet die smiit GmbH mit standardisierten Prozessen und klarer Strukturierung.",
+      },
+      {
+        value: "70+",
+        label: "Erfolgreiche Projekte",
+        text: "Wir haben in den letzten Jahren mit mehr als 20 Kunden insgesamt über 70 Projekte erfolgreich umgesetzt.",
+      },
+      {
+        value: "Ø 3,6",
+        label: "Projekte je Kunde",
+        text: "Über 3,6 Projekte je Kunde zeigen klar: Unsere Kunden vertrauen uns und sind zufrieden mit unseren Ergebnissen.",
+      },
+      {
+        value: "3",
+        label: "Service Bereiche",
+        text: "Unsere breite fachliche Aufstellung ermöglicht eine integrierte Umsetzung: Datenanalyse, Automatisierungen & Apps.",
+      },
     ],
-    button: "Kostenloses Erstgespräch buchen"
+    button: "Kostenloses Erstgespräch buchen",
   },
   products: {
     title: "Entscheidungen gestützt\nauf Daten, nicht auf Vermutungen",
-    subtitle: "smiit-Produkte verwandeln Rohdaten in klare Erkenntnisse und ermöglichen\nintelligentere, faktenbasierte Geschäftsentscheidungen.",
+    subtitle:
+      "smiit-Produkte verwandeln Rohdaten in klare Erkenntnisse und ermöglichen\nintelligentere, faktenbasierte Geschäftsentscheidungen.",
     cta: "Kostenloses Erstgespräch buchen",
     items: [
       {
@@ -953,19 +994,17 @@ const de = {
     titlePrefix: "Digitale Transformation. Weite Expertise. ",
     titleHighlight: "Nachhaltiger",
     titleSuffix: " Mehrwert.",
-    description: "Wir sind ein IT-Unternehmen mit der Vision, kleine und mittelständische Unternehmen im DACH-Raum zu digitalisieren - durch maßgeschneiderte Lösungen in den Bereichen Datenanalyse, Automatisierung und App-Entwicklung.",
+    description:
+      "Wir sind ein IT-Unternehmen mit der Vision, kleine und mittelständische Unternehmen im DACH-Raum zu digitalisieren - durch maßgeschneiderte Lösungen in den Bereichen Datenanalyse, Automatisierung und App-Entwicklung.",
     primaryButton: "Kostenloses Erstgespräch",
     secondaryButton: "Unsere Services",
-    features: [
-      "5+ Jahre Erfahrung",
-      "DACH-weiter Fokus",
-      "In-House Entwicklung"
-    ],
+    features: ["5+ Jahre Erfahrung", "DACH-weiter Fokus", "In-House Entwicklung"],
     ourClients: "Unsere Kunden",
     overview: "Übersicht",
     mission: {
       title: "Unsere Mission & Werte",
-      subtitle: "Wir möchten Veränderungen bewirken und unseren Kunden klare Einblicke\nermöglichen, wertvolle Zeit sparen und moderne Arbeitsweisen etablieren",
+      subtitle:
+        "Wir möchten Veränderungen bewirken und unseren Kunden klare Einblicke\nermöglichen, wertvolle Zeit sparen und moderne Arbeitsweisen etablieren",
       values: [
         {
           title: "Vertrauen & Engagement",
@@ -1100,7 +1139,8 @@ const de = {
     hero: {
       title: "Business Intelligence\nfür bexio-Nutzer",
       subtitle: "Ist Ihr Business intelligent genug?",
-      description: "Wir haben erfolgreich eine Daten-Infrastruktur entwickelt, um Nutzern der bexio-Software bessere Entscheidungsfindung und strategische sowie operative Planung zu ermöglichen.",
+      description:
+        "Wir haben erfolgreich eine Daten-Infrastruktur entwickelt, um Nutzern der bexio-Software bessere Entscheidungsfindung und strategische sowie operative Planung zu ermöglichen.",
       primaryCta: "Los gehts!",
       secondaryCta: "Erfahren Sie mehr",
     },
@@ -1108,7 +1148,8 @@ const de = {
       badge: "INTRODUCING",
       title: "Was ist smiit Analytics",
       titleHighlight: "für bexio?",
-      subtitle: "smiit Analytics für bexio ist Ihr Weg in eine klare Zukunft. Ein System, volle Kontrolle, Information & KI-Integration!",
+      subtitle:
+        "smiit Analytics für bexio ist Ihr Weg in eine klare Zukunft. Ein System, volle Kontrolle, Information & KI-Integration!",
       items: [
         {
           title: "Vollständiges Datenmodell",
@@ -1157,20 +1198,18 @@ const de = {
     pricing: {
       badge: "UNSER PRODUKT",
       title: "Ein pre-built System statt\nteurer Individualberatung",
-      subtitle: "Die Vorteile von smiit Analytics auf einen Blick – bexio-Datenanalyse zum geringen Preis. Wir informieren Sie gerne in einem kostenlosen Call zu unserem Produkt und unseren verschiedenen Preismodellen.",
+      subtitle:
+        "Die Vorteile von smiit Analytics auf einen Blick – bexio-Datenanalyse zum geringen Preis. Wir informieren Sie gerne in einem kostenlosen Call zu unserem Produkt und unseren verschiedenen Preismodellen.",
       productTitle: "smiit Analytics für bexio",
-      productDescription: "Mit über 250 Analysen können Sie praktisch alles tracken, was in Ihrem Unternehmen passiert! Darüber hinaus können Sie die Analysesoftware von uns individuell anpassen lassen, um unternehmensspezifische Analysen zu erhalten. Überzeugen Sie sich über den Link von unserem Angebot.",
+      productDescription:
+        "Mit über 250 Analysen können Sie praktisch alles tracken, was in Ihrem Unternehmen passiert! Darüber hinaus können Sie die Analysesoftware von uns individuell anpassen lassen, um unternehmensspezifische Analysen zu erhalten. Überzeugen Sie sich über den Link von unserem Angebot.",
       priceOneTime: "CHF 1,000.00",
       priceOneTimeLabel: "Einmaliger Erwerb",
       priceCustom: "CHF 450.00 einmalig",
       priceCustomLabel: "Erwerb mit Individualisierungen",
       priceCustomNote: "+ CHF 120.00 je Stunde bei 8-100 Stunden",
       or: "oder",
-      features: [
-        "250+ Analysen",
-        "Vollständiges Datenmodell",
-        "30 Tage gratis testen",
-      ],
+      features: ["250+ Analysen", "Vollständiges Datenmodell", "30 Tage gratis testen"],
       demoLink: "Zur Demoversion",
       consultationLink: "Beratungstermin",
       freeVersionLink: "Kostenlose Version",
@@ -1284,7 +1323,6 @@ const de = {
       hero: "WEBDESIGN FÜR DEN MITTELSTAND",
       problem: "PROBLEME & LÖSUNGEN",
       process: "UNSER VORGEHEN",
-      audiences: "FÜR IHRE BRANCHE",
       references: "REFERENZEN",
       pricing: "INVESTITION",
       cta: "KOSTENLOSES ERSTKONZEPT",
@@ -1304,7 +1342,16 @@ const de = {
     },
     logoStrip: {
       label: "Vertrauen aus Bau, Industrie, Logistik & Entsorgung",
-      names: ["RB Westkamp GmbH", "ASW Engineering AG", "Dy Project AG", "G&B Logistics GmbH", "SHW Schmiedetechnik GmbH & Co. KG", "Malpur Facility Services AG", "D & W GmbH", "Wörner Automatisierungstechnik GmbH"],
+      names: [
+        "RB Westkamp GmbH",
+        "ASW Engineering AG",
+        "Dy Project AG",
+        "G&B Logistics GmbH",
+        "SHW Schmiedetechnik GmbH & Co. KG",
+        "Malpur Facility Services AG",
+        "D & W GmbH",
+        "Wörner Automatisierungstechnik GmbH",
+      ],
     },
     problem: {
       title: "Viele gewachsene Unternehmen wirken online",
@@ -1370,32 +1417,6 @@ const de = {
         },
       ],
     },
-    audiences: {
-      title: "Gemacht für Betriebe, die",
-      titleHighlight: "anpacken.",
-      items: [
-        {
-          number: "01",
-          title: "Bauunternehmen",
-          text: "Hoch-, Tief- & Ausbau hochwertig präsentiert – mit Projekten, die Eindruck machen.",
-        },
-        {
-          number: "02",
-          title: "Entsorgungsbetriebe",
-          text: "Komplexe Leistungen klar erklärt – seriös, vertrauenswürdig und verständlich.",
-        },
-        {
-          number: "03",
-          title: "Logistikunternehmen",
-          text: "Fuhrpark, Standorte und Services in Szene gesetzt – stark für Kunden und Bewerber.",
-        },
-        {
-          number: "04",
-          title: "Maschinenbau & Industrie",
-          text: "Technische Tiefe verständlich kommuniziert – für Entscheider und Fachkräfte.",
-        },
-      ],
-    },
     references: {
       title: "Ergebnisse, die Ihr Team und Ihre Kunden",
       titleHighlight: "tatsächlich spüren.",
@@ -1417,8 +1438,16 @@ const de = {
         },
       ],
       stats: [
-        { value: "5+", label: "Jahre Erfahrung", detail: "Standardisierte Prozesse und klare Strukturen bei jedem Projekt." },
-        { value: "70+", label: "Erfolgreiche Projekte", detail: "Umgesetzt für Kunden aus Bau, Industrie, Logistik & mehr." },
+        {
+          value: "5+",
+          label: "Jahre Erfahrung",
+          detail: "Standardisierte Prozesse und klare Strukturen bei jedem Projekt.",
+        },
+        {
+          value: "70+",
+          label: "Erfolgreiche Projekte",
+          detail: "Umgesetzt für Kunden aus Bau, Industrie, Logistik & mehr.",
+        },
         { value: "Ø 3,6", label: "Projekte je Kunde", detail: "Unsere Kunden bleiben – weil die Ergebnisse stimmen." },
         { value: "100%", label: "DSGVO-konform", detail: "Rechtssichere Umsetzung – sauber dokumentiert." },
       ],
@@ -1497,11 +1526,6 @@ const de = {
             "Wir analysieren Ihre aktuelle Website, schauen uns Ihre Wettbewerber an und erarbeiten eine erste Konzeptidee – inklusive grober Struktur, Empfehlungen zu Design und Technik sowie einer Einschätzung zu Aufwand und Budget.",
         },
       ],
-    },
-    relatedLink: {
-      text: "Brauchen Sie auch individuelle Web-Apps oder Prozessautomatisierung? Schauen Sie sich unsere App-Entwicklung an.",
-      linkLabel: "Zu Apps & Workflows",
-      href: "/services/apps",
     },
   },
 }
@@ -1746,20 +1770,26 @@ const en: Dictionary = {
       items: [
         {
           title: "Business Intelligence & Dashboarding",
-          shortDesc: "We turn distributed data into a reliable basis for decision-making – with clean data integration, clear models, and Power BI dashboards that are actually used. This creates reports and analyses in Power BI and Microsoft Fabric that provide transparency and effectively support leadership.",
-          details: "We accompany the entire journey from the raw data source to decision-relevant visualization. This includes the integration and preparation of data, the construction of high-performance data models, the development of a semantic layer, and the design of dashboards for management, controlling, and operational teams.\n\nTechnologically, we focus primarily on the Microsoft environment – including Power BI and Fabric. We pay attention not only to technology but above all to a structure that can grow with your company."
+          shortDesc:
+            "We turn distributed data into a reliable basis for decision-making – with clean data integration, clear models, and Power BI dashboards that are actually used. This creates reports and analyses in Power BI and Microsoft Fabric that provide transparency and effectively support leadership.",
+          details:
+            "We accompany the entire journey from the raw data source to decision-relevant visualization. This includes the integration and preparation of data, the construction of high-performance data models, the development of a semantic layer, and the design of dashboards for management, controlling, and operational teams.\n\nTechnologically, we focus primarily on the Microsoft environment – including Power BI and Fabric. We pay attention not only to technology but above all to a structure that can grow with your company.",
         },
         {
           title: "Data Governance & Data Strategy",
-          shortDesc: "We create the organizational and technical foundations so that data can be used consistently, clearly, and reliably across the company. This ensures less friction, better decisions, and significantly more impact from existing data initiatives.",
-          details: "We advise on central issues relating to data governance, master data management, data responsibility, KPI definitions, and the sensible setup of self-service analytics structures. The goal is not to leave data usage to chance, but to create clear frameworks that enable scaling and reliability.\n\nWe look not only at processes and systems but also at the organizational side. This creates a data strategy that does not remain theoretical but takes effect in the company."
+          shortDesc:
+            "We create the organizational and technical foundations so that data can be used consistently, clearly, and reliably across the company. This ensures less friction, better decisions, and significantly more impact from existing data initiatives.",
+          details:
+            "We advise on central issues relating to data governance, master data management, data responsibility, KPI definitions, and the sensible setup of self-service analytics structures. The goal is not to leave data usage to chance, but to create clear frameworks that enable scaling and reliability.\n\nWe look not only at processes and systems but also at the organizational side. This creates a data strategy that does not remain theoretical but takes effect in the company.",
         },
         {
           title: "Machine Learning & ML Operations",
-          shortDesc: "We bring AI from the concept phase into productive use – structured, scalable, and technically clean. This creates machine learning solutions that not only impress but deliver real added value in everyday life.",
-          details: "We support the conception, development, and operationalization of ML models – from data preparation and feature engineering to training and validation, all the way to deployment in productive environments. The focus is not only on model quality but also on how AI can be integrated into existing processes in a stable, traceable, and maintainable way.\n\nAt the center is a practical MLOps approach with clear deployments, reproducible workflows, model monitoring, and a clean connection between data science and operations."
-        }
-      ]
+          shortDesc:
+            "We bring AI from the concept phase into productive use – structured, scalable, and technically clean. This creates machine learning solutions that not only impress but deliver real added value in everyday life.",
+          details:
+            "We support the conception, development, and operationalization of ML models – from data preparation and feature engineering to training and validation, all the way to deployment in productive environments. The focus is not only on model quality but also on how AI can be integrated into existing processes in a stable, traceable, and maintainable way.\n\nAt the center is a practical MLOps approach with clear deployments, reproducible workflows, model monitoring, and a clean connection between data science and operations.",
+        },
+      ],
     },
     process: {
       title: "How we turn your data into",
@@ -1856,7 +1886,8 @@ const en: Dictionary = {
     },
     cta: {
       title: "What would change if your data finally started talking to each other?",
-      subtitle: "30-minute intro call. Free. No strings attached. You'll find out where your biggest lever is — even if we don't end up working together.",
+      subtitle:
+        "30-minute intro call. Free. No strings attached. You'll find out where your biggest lever is — even if we don't end up working together.",
       primaryButton: "Free Consultation",
       secondaryButton: "Contact Us",
     },
@@ -1991,7 +2022,8 @@ const en: Dictionary = {
     portfolio: {
       title: "Our",
       titleHighlight: "Portfolio",
-      subtitle: "We guide you towards a digital strategy that holds up in daily operations – from an honest assessment to a productive cloud platform.",
+      subtitle:
+        "We guide you towards a digital strategy that holds up in daily operations – from an honest assessment to a productive cloud platform.",
       visuals: {
         process: {
           label: "Approval flow",
@@ -2009,20 +2041,26 @@ const en: Dictionary = {
       items: [
         {
           title: "Process Optimization & Automation",
-          shortDesc: "We make business processes visible, identify bottlenecks and friction points, and automate where it pays off measurably. The result: leaner workflows, fewer media breaks, and teams with more time for the work that matters.",
-          details: "We start with clean process modeling – from a current-state assessment through pain-point analysis to a target concept, always closely aligned with the people who live the process every day. We use established notations like BPMN and keep models deliberately pragmatic and usable.\n\nWe then translate the target state into digitalized workflows – via Power Automate, custom apps, or integrations with your existing systems. We choose the path that fits the maturity of your IT landscape, and automate exactly what demonstrably saves effort or improves quality."
+          shortDesc:
+            "We make business processes visible, identify bottlenecks and friction points, and automate where it pays off measurably. The result: leaner workflows, fewer media breaks, and teams with more time for the work that matters.",
+          details:
+            "We start with clean process modeling – from a current-state assessment through pain-point analysis to a target concept, always closely aligned with the people who live the process every day. We use established notations like BPMN and keep models deliberately pragmatic and usable.\n\nWe then translate the target state into digitalized workflows – via Power Automate, custom apps, or integrations with your existing systems. We choose the path that fits the maturity of your IT landscape, and automate exactly what demonstrably saves effort or improves quality.",
         },
         {
           title: "Cloud Infrastructure & DevOps",
-          shortDesc: "We build your Azure landscape so it scales, stays secure, and remains comprehensible two years down the road. Infrastructure as code, clear network and governance concepts, automated deployments – built in from day one.",
-          details: "We focus exclusively on Microsoft Azure and know the ecosystem from tenant architecture down to individual pipelines. Concretely, we build landing zones, hub-and-spoke networks, identity and permission concepts, and well-thought-out naming and tagging strategies – aligned with your compliance and scaling requirements.\n\nInfrastructure is built as code (Bicep or Terraform), never clicked together in the portal. CI/CD pipelines, automated tests, security scans, and documentation are part of the delivery – so your platform doesn't just run on launch day but holds up in audits, in disaster-recovery tests, and during the next major expansion."
+          shortDesc:
+            "We build your Azure landscape so it scales, stays secure, and remains comprehensible two years down the road. Infrastructure as code, clear network and governance concepts, automated deployments – built in from day one.",
+          details:
+            "We focus exclusively on Microsoft Azure and know the ecosystem from tenant architecture down to individual pipelines. Concretely, we build landing zones, hub-and-spoke networks, identity and permission concepts, and well-thought-out naming and tagging strategies – aligned with your compliance and scaling requirements.\n\nInfrastructure is built as code (Bicep or Terraform), never clicked together in the portal. CI/CD pipelines, automated tests, security scans, and documentation are part of the delivery – so your platform doesn't just run on launch day but holds up in audits, in disaster-recovery tests, and during the next major expansion.",
         },
         {
           title: "IT Security",
-          shortDesc: "Security isn't a product you buy – it's a discipline you anchor. We bring your IT landscape to a resilient state, from honest situation assessment through hardening of identity, network, and data, to anchoring it in everyday operations.",
-          details: "We begin with an honest assessment: where do your critical assets sit, where are the biggest gaps, what do audits say – and what does reality say? From this picture we derive a prioritized roadmap, with quick wins (MFA, patch discipline, backup tests) and structural measures (Zero Trust, identity governance, network segmentation).\n\nWe think of security not as a special project but as a cross-cutting concern: our cloud architectures are hardened from the ground up, our process designs account for data protection, and our DevOps pipelines integrate security scans. The result is a level of protection that holds up in daily operations – without slowing your tempo."
-        }
-      ]
+          shortDesc:
+            "Security isn't a product you buy – it's a discipline you anchor. We bring your IT landscape to a resilient state, from honest situation assessment through hardening of identity, network, and data, to anchoring it in everyday operations.",
+          details:
+            "We begin with an honest assessment: where do your critical assets sit, where are the biggest gaps, what do audits say – and what does reality say? From this picture we derive a prioritized roadmap, with quick wins (MFA, patch discipline, backup tests) and structural measures (Zero Trust, identity governance, network segmentation).\n\nWe think of security not as a special project but as a cross-cutting concern: our cloud architectures are hardened from the ground up, our process designs account for data protection, and our DevOps pipelines integrate security scans. The result is a level of protection that holds up in daily operations – without slowing your tempo.",
+        },
+      ],
     },
     process: {
       title: "How we shape your",
@@ -2119,7 +2157,8 @@ const en: Dictionary = {
     },
     cta: {
       title: "Before you buy your next tool — let's talk about your strategy.",
-      subtitle: "30 minutes. Free. We listen, sort things out, and tell you what we'd prioritize in your shoes — cloud migration, security, data strategy, or processes.",
+      subtitle:
+        "30 minutes. Free. We listen, sort things out, and tell you what we'd prioritize in your shoes — cloud migration, security, data strategy, or processes.",
       primaryButton: "Free Consultation",
       secondaryButton: "Contact Us",
     },
@@ -2281,7 +2320,8 @@ const en: Dictionary = {
     portfolio: {
       title: "Our",
       titleHighlight: "Offering",
-      subtitle: "We build web apps, websites and Azure setups that carry your workflows – from the first sketch to stable operations.",
+      subtitle:
+        "We build web apps, websites and Azure setups that carry your workflows – from the first sketch to stable operations.",
       visuals: {
         bi: {
           label: "Active users",
@@ -2297,20 +2337,26 @@ const en: Dictionary = {
       items: [
         {
           title: "Web Apps & Platforms",
-          shortDesc: "We build custom software – web apps and platforms that map your workflows, connect systems through interfaces (APIs), and genuinely take work off your users' plates. Digital tools that work in daily use – not just in the demo.",
-          details: "We develop modern web applications and SaaS platforms tailored to your actual needs – from internal tools to multi-tenant solutions. We connect existing systems through APIs, integrate authentication and permissions cleanly, and ensure your app performs under load.\n\nTechnologically we work with Next.js, React and .NET – with clean architectures, automated tests and CI/CD pipelines. The result: applications that don't just shine in their first version but stay maintainable, secure and scalable long-term."
+          shortDesc:
+            "We build custom software – web apps and platforms that map your workflows, connect systems through interfaces (APIs), and genuinely take work off your users' plates. Digital tools that work in daily use – not just in the demo.",
+          details:
+            "We develop modern web applications and SaaS platforms tailored to your actual needs – from internal tools to multi-tenant solutions. We connect existing systems through APIs, integrate authentication and permissions cleanly, and ensure your app performs under load.\n\nTechnologically we work with Next.js, React and .NET – with clean architectures, automated tests and CI/CD pipelines. The result: applications that don't just shine in their first version but stay maintainable, secure and scalable long-term.",
         },
         {
           title: "Websites & Design",
-          shortDesc: "We design and build websites that take your brand seriously – fast, clearly structured and conversion-oriented. A presence that builds trust, not just one that looks good.",
-          details: "From the first sketch to go-live: we design and build websites that lead content cleanly, are mobile-first by design, and pay attention to SEO, performance and accessibility. We align with your brand identity and ensure a consistent visual system – from typography to color to components.\n\nTechnically we work with Next.js and headless CMS, so your team can maintain content independently without depending on developers. The result: a digital presence that's not only strong on launch day but grows with your business."
+          shortDesc:
+            "We design and build websites that take your brand seriously – fast, clearly structured and conversion-oriented. A presence that builds trust, not just one that looks good.",
+          details:
+            "From the first sketch to go-live: we design and build websites that lead content cleanly, are mobile-first by design, and pay attention to SEO, performance and accessibility. We align with your brand identity and ensure a consistent visual system – from typography to color to components.\n\nTechnically we work with Next.js and headless CMS, so your team can maintain content independently without depending on developers. The result: a digital presence that's not only strong on launch day but grows with your business.",
         },
         {
           title: "Cloud Infrastructure & Governance",
-          shortDesc: "We build your cloud environment on Microsoft Azure – secure, cost-efficient and traceable. An infrastructure that scales with your business and meets compliance requirements effortlessly.",
-          details: "We design and operate cloud architectures on Microsoft Azure – from landing zones to identities and networking, all the way to CI/CD pipelines and observability. We ensure a clear governance structure, so resources, costs and permissions remain transparent at all times.\n\nFocus areas include Infrastructure-as-Code with Bicep or Terraform, security baselines based on the Microsoft Cloud Adoption Framework, and maintainable deployment processes. The result: an Azure environment that's not only technically clean but also organizationally sound – for stable apps, clear responsibilities and predictable cloud costs."
-        }
-      ]
+          shortDesc:
+            "We build your cloud environment on Microsoft Azure – secure, cost-efficient and traceable. An infrastructure that scales with your business and meets compliance requirements effortlessly.",
+          details:
+            "We design and operate cloud architectures on Microsoft Azure – from landing zones to identities and networking, all the way to CI/CD pipelines and observability. We ensure a clear governance structure, so resources, costs and permissions remain transparent at all times.\n\nFocus areas include Infrastructure-as-Code with Bicep or Terraform, security baselines based on the Microsoft Cloud Adoption Framework, and maintainable deployment processes. The result: an Azure environment that's not only technically clean but also organizationally sound – for stable apps, clear responsibilities and predictable cloud costs.",
+        },
+      ],
     },
     process: {
       title: "How we turn your workflows into",
@@ -2374,7 +2420,8 @@ const en: Dictionary = {
     cta: {
       title: "How many hours would your team get back if",
       titleHighlight: "routine ran itself?",
-      subtitle: "30-minute intro call. Free. No strings attached. You'll find out where your biggest routine-killers can be automated — even if we don't end up working together.",
+      subtitle:
+        "30-minute intro call. Free. No strings attached. You'll find out where your biggest routine-killers can be automated — even if we don't end up working together.",
       primaryButton: "Free Consultation",
       secondaryButton: "Contact Us",
     },
@@ -2421,12 +2468,28 @@ const en: Dictionary = {
     titleHighlight: "actually",
     titleSuffix: " feel",
     items: [
-      { value: "5+", label: "Years of experience", text: "With over 5 years of experience, smiit GmbH works with standardized processes and clear structuring." },
-      { value: "70+", label: "Successful projects", text: "We have successfully implemented a total of over 70 projects with more than 20 customers in recent years." },
-      { value: "Ø 3.6", label: "Projects per customer", text: "Over 3.6 projects per customer clearly show: our customers trust us and are satisfied with our results." },
-      { value: "3", label: "Service areas", text: "Our broad range of expertise enables integrated implementation: data analysis, automation & apps." }
+      {
+        value: "5+",
+        label: "Years of experience",
+        text: "With over 5 years of experience, smiit GmbH works with standardized processes and clear structuring.",
+      },
+      {
+        value: "70+",
+        label: "Successful projects",
+        text: "We have successfully implemented a total of over 70 projects with more than 20 customers in recent years.",
+      },
+      {
+        value: "Ø 3.6",
+        label: "Projects per customer",
+        text: "Over 3.6 projects per customer clearly show: our customers trust us and are satisfied with our results.",
+      },
+      {
+        value: "3",
+        label: "Service areas",
+        text: "Our broad range of expertise enables integrated implementation: data analysis, automation & apps.",
+      },
     ],
-    button: "Book a free consultation"
+    button: "Book a free consultation",
   },
   products: {
     title: "Decisions backed\nby data, not guesswork",
@@ -2461,19 +2524,17 @@ const en: Dictionary = {
     titlePrefix: "Digital transformation. Wide expertise. ",
     titleHighlight: "Sustainable",
     titleSuffix: " value.",
-    description: "We are an IT company with the vision of digitizing small and medium-sized enterprises in the DACH region - through tailored solutions in data analytics, automation, and app development.",
+    description:
+      "We are an IT company with the vision of digitizing small and medium-sized enterprises in the DACH region - through tailored solutions in data analytics, automation, and app development.",
     primaryButton: "Free Consultation",
     secondaryButton: "Our Services",
-    features: [
-      "5+ years experience",
-      "DACH-wide focus",
-      "In-house development"
-    ],
+    features: ["5+ years experience", "DACH-wide focus", "In-house development"],
     ourClients: "Our Clients",
     overview: "Overview",
     mission: {
       title: "Our Mission & Values",
-      subtitle: "We want to drive change and give our clients clear insights,\nsave valuable time, and establish modern ways of working",
+      subtitle:
+        "We want to drive change and give our clients clear insights,\nsave valuable time, and establish modern ways of working",
       values: [
         {
           title: "Trust & Commitment",
@@ -2608,7 +2669,8 @@ const en: Dictionary = {
     hero: {
       title: "Business Intelligence\nfor bexio Users",
       subtitle: "Is your business intelligent enough?",
-      description: "We have successfully developed a data infrastructure to enable bexio software users to make better decisions and improve strategic as well as operational planning.",
+      description:
+        "We have successfully developed a data infrastructure to enable bexio software users to make better decisions and improve strategic as well as operational planning.",
       primaryCta: "Get started!",
       secondaryCta: "Learn more",
     },
@@ -2616,7 +2678,8 @@ const en: Dictionary = {
       badge: "INTRODUCING",
       title: "What is smiit Analytics",
       titleHighlight: "for bexio?",
-      subtitle: "smiit Analytics for bexio is your path to a clear future. One system, full control, information & AI integration!",
+      subtitle:
+        "smiit Analytics for bexio is your path to a clear future. One system, full control, information & AI integration!",
       items: [
         {
           title: "Complete Data Model",
@@ -2665,20 +2728,18 @@ const en: Dictionary = {
     pricing: {
       badge: "OUR PRODUCT",
       title: "A pre-built system instead of\nexpensive individual consulting",
-      subtitle: "The advantages of smiit Analytics at a glance – bexio data analysis at a low price. We are happy to inform you in a free call about our product and our various pricing models.",
+      subtitle:
+        "The advantages of smiit Analytics at a glance – bexio data analysis at a low price. We are happy to inform you in a free call about our product and our various pricing models.",
       productTitle: "smiit Analytics for bexio",
-      productDescription: "With over 250 analyses, you can track practically everything happening in your company! Additionally, you can have the analysis software customized by us to receive company-specific analyses. See for yourself via the link to our offering.",
+      productDescription:
+        "With over 250 analyses, you can track practically everything happening in your company! Additionally, you can have the analysis software customized by us to receive company-specific analyses. See for yourself via the link to our offering.",
       priceOneTime: "CHF 1,000.00",
       priceOneTimeLabel: "One-time purchase",
       priceCustom: "CHF 450.00 one-time",
       priceCustomLabel: "Purchase with customizations",
       priceCustomNote: "+ CHF 120.00 per hour for 8-100 hours",
       or: "or",
-      features: [
-        "250+ Analyses",
-        "Complete Data Model",
-        "30 Days Free Trial",
-      ],
+      features: ["250+ Analyses", "Complete Data Model", "30 Days Free Trial"],
       demoLink: "View Demo",
       consultationLink: "Book Consultation",
       freeVersionLink: "Free Version",
@@ -2791,7 +2852,6 @@ const en: Dictionary = {
       hero: "WEB DESIGN FOR SMEs",
       problem: "PROBLEMS & SOLUTIONS",
       process: "HOW WE WORK",
-      audiences: "FOR YOUR INDUSTRY",
       references: "REFERENCES",
       pricing: "INVESTMENT",
       cta: "FREE INITIAL CONCEPT",
@@ -2811,7 +2871,16 @@ const en: Dictionary = {
     },
     logoStrip: {
       label: "Trusted by construction, industry, logistics & waste management",
-      names: ["RB Westkamp GmbH", "ASW Engineering AG", "Dy Project AG", "G&B Logistics GmbH", "SHW Schmiedetechnik GmbH & Co. KG", "Malpur Facility Services AG", "D & W GmbH", "Wörner Automatisierungstechnik GmbH"],
+      names: [
+        "RB Westkamp GmbH",
+        "ASW Engineering AG",
+        "Dy Project AG",
+        "G&B Logistics GmbH",
+        "SHW Schmiedetechnik GmbH & Co. KG",
+        "Malpur Facility Services AG",
+        "D & W GmbH",
+        "Wörner Automatisierungstechnik GmbH",
+      ],
     },
     problem: {
       title: "Many established companies appear online",
@@ -2877,32 +2946,6 @@ const en: Dictionary = {
         },
       ],
     },
-    audiences: {
-      title: "Built for businesses that",
-      titleHighlight: "get things done.",
-      items: [
-        {
-          number: "01",
-          title: "Construction companies",
-          text: "Commercial, civil & fit-out construction presented at its best – with projects that make an impression.",
-        },
-        {
-          number: "02",
-          title: "Waste management firms",
-          text: "Complex services explained clearly – professional, trustworthy and easy to understand.",
-        },
-        {
-          number: "03",
-          title: "Logistics companies",
-          text: "Fleet, locations and services presented with impact – strong for clients and job seekers.",
-        },
-        {
-          number: "04",
-          title: "Mechanical engineering & industry",
-          text: "Technical depth communicated clearly – for decision-makers and specialists.",
-        },
-      ],
-    },
     references: {
       title: "Results that your team and clients",
       titleHighlight: "actually feel.",
@@ -2924,9 +2967,21 @@ const en: Dictionary = {
         },
       ],
       stats: [
-        { value: "5+", label: "Years of experience", detail: "Standardised processes and clear structures on every project." },
-        { value: "70+", label: "Successful projects", detail: "Delivered for clients in construction, industry, logistics & more." },
-        { value: "Ø 3.6", label: "Projects per client", detail: "Our clients stay – because the results speak for themselves." },
+        {
+          value: "5+",
+          label: "Years of experience",
+          detail: "Standardised processes and clear structures on every project.",
+        },
+        {
+          value: "70+",
+          label: "Successful projects",
+          detail: "Delivered for clients in construction, industry, logistics & more.",
+        },
+        {
+          value: "Ø 3.6",
+          label: "Projects per client",
+          detail: "Our clients stay – because the results speak for themselves.",
+        },
         { value: "100%", label: "GDPR compliant", detail: "Legally sound implementation – thoroughly documented." },
       ],
     },
@@ -3004,11 +3059,6 @@ const en: Dictionary = {
             "We analyse your current website, review your competitors and develop a first concept idea – including a rough structure, design and technology recommendations, and an assessment of effort and budget.",
         },
       ],
-    },
-    relatedLink: {
-      text: "Do you also need custom web apps or process automation? Check out our app development services.",
-      linkLabel: "Explore Apps & Workflows",
-      href: "/services/apps",
     },
   },
 }

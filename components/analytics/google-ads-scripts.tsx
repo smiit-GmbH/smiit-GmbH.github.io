@@ -2,13 +2,7 @@
 
 import { useEffect, useState } from "react"
 import Script from "next/script"
-import {
-  CONSENT_CHANGE_EVENT,
-  GA_ADS_ID,
-  GA4_ID,
-  getStoredConsent,
-  type ConsentChoice,
-} from "@/lib/gtag"
+import { CONSENT_CHANGE_EVENT, GA_ADS_ID, GA4_ID, getStoredConsent, type ConsentChoice } from "@/lib/gtag"
 
 // Inline bootstrap: sets up the dataLayer and declares the consent state BEFORE
 // the config commands. This only ever runs after the visitor has opted in

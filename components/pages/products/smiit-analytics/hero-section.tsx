@@ -96,10 +96,7 @@ export function HeroSection({ dict }: HeroSectionProps) {
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2, duration: 0.6 }}
         >
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-          >
+          <motion.div animate={{ y: [0, 8, 0] }} transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}>
             <ChevronDown className="h-6 w-6 text-white/30" />
           </motion.div>
         </motion.div>

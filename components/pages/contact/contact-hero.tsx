@@ -18,13 +18,7 @@ export default function ContactHero({ dict }: ContactHeroProps) {
             viewBox="0 0 100 10"
             preserveAspectRatio="none"
           >
-            <path
-              d="M0 5 Q 50 10 100 5"
-              stroke="currentColor"
-              strokeWidth="4"
-              strokeLinecap="round"
-              fill="none"
-            />
+            <path d="M0 5 Q 50 10 100 5" stroke="currentColor" strokeWidth="4" strokeLinecap="round" fill="none" />
           </svg>
         </span>
         {c.titleSuffix}

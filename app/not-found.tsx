@@ -59,25 +59,29 @@ export default function NotFound() {
             <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/45 via-white/25 to-black/35" />
             <Header />
             <div className="relative z-10 flex-grow flex items-start justify-center px-4 pt-20 mt-2 md:mt-0 md:pt-14">
-                <div className="max-w-md mx-auto text-center font-serif">
-                  <div className="mb-8">
-                    <h1 className="text-[100px] md:text-[150px] font-bold text-primary/20 leading-none">404</h1>
-                  </div>
-
-                  <div className="mt-12 mb-8">
-                    <h2 className="text-3xl md:text-4xl mb-4 text-black drop-shadow-[0_1px_2px_rgba(255,255,255,0.4)]">{L.title}</h2>
-                    <p className="text-lg md:text-xl text-black/85 mb-2 drop-shadow-[0_1px_2px_rgba(255,255,255,0.45)] md:max-w-[30ch] md:mx-auto">{L.description}</p>
-                  </div>
-
-                  <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-10">
-                    <Button asChild size="lg" className="w-full sm:w-auto">
-                      <Link href={base}>
-                        <Home className="w-5 h-5 mr-2" />
-                        {L.homeButton}
-                      </Link>
-                    </Button>
-                  </div>
+              <div className="max-w-md mx-auto text-center font-serif">
+                <div className="mb-8">
+                  <h1 className="text-[100px] md:text-[150px] font-bold text-primary/20 leading-none">404</h1>
                 </div>
+
+                <div className="mt-12 mb-8">
+                  <h2 className="text-3xl md:text-4xl mb-4 text-black drop-shadow-[0_1px_2px_rgba(255,255,255,0.4)]">
+                    {L.title}
+                  </h2>
+                  <p className="text-lg md:text-xl text-black/85 mb-2 drop-shadow-[0_1px_2px_rgba(255,255,255,0.45)] md:max-w-[30ch] md:mx-auto">
+                    {L.description}
+                  </p>
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mt-10">
+                  <Button asChild size="lg" className="w-full sm:w-auto">
+                    <Link href={base}>
+                      <Home className="w-5 h-5 mr-2" />
+                      {L.homeButton}
+                    </Link>
+                  </Button>
+                </div>
+              </div>
             </div>
           </section>
           <Footer />

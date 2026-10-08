@@ -150,7 +150,7 @@ const itSicherheit: LocalizedGlossaryTerm = {
       {
         question: "What does the principle of layered security (defense in depth) mean?",
         answer:
-          "Instead of relying on a single safeguard, several layers are combined — such as authentication, network segmentation, encryption and monitoring. If one layer fails or is breached, the others still hold. This creates more resilient protection than a single \"wall\".",
+          'Instead of relying on a single safeguard, several layers are combined — such as authentication, network segmentation, encryption and monitoring. If one layer fails or is breached, the others still hold. This creates more resilient protection than a single "wall".',
       },
       {
         question: "Do we need expensive specialist software for IT security?",

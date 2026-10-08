@@ -39,15 +39,32 @@ const etlElt: LocalizedGlossaryTerm = {
       },
     ],
     faq: [
-      { question: "Was ist der Unterschied zwischen ETL und ELT?", answer: "Bei ETL werden Daten vor dem Laden transformiert, bei ELT erst danach in der Zielplattform. ELT nutzt die Rechenleistung moderner Cloud-Plattformen und ist bei großen Datenmengen oft flexibler und effizienter." },
-      { question: "Brauchen wir spezielle Tools für ETL / ELT?", answer: "Für kleine Fälle reicht oft Power Query in Power BI. Bei größeren Datenmengen kommen Plattformen wie Azure Databricks, Microsoft Fabric oder Azure Data Factory zum Einsatz, die smiit passend zur Datenlage auswählt." },
-      { question: "Wie oft sollten ETL- / ELT-Strecken laufen?", answer: "Das hängt davon ab, wie aktuell die Auswertungen sein müssen. Übliche Muster sind eine nächtliche Beladung, mehrmals täglich oder eine nahezu kontinuierliche Verarbeitung; je höher die Frequenz, desto wichtiger werden zuverlässige Fehlerbehandlung und Überwachung." },
-      { question: "Was passiert, wenn eine ETL- / ELT-Strecke fehlschlägt?", answer: "Gut gebaute Strecken protokollieren Fehler, können einzelne Schritte gezielt wiederholen und sollten so gestaltet sein, dass ein erneuter Lauf keine doppelten oder inkonsistenten Daten erzeugt (Idempotenz). Monitoring und Benachrichtigungen stellen sicher, dass Probleme früh auffallen." },
+      {
+        question: "Was ist der Unterschied zwischen ETL und ELT?",
+        answer:
+          "Bei ETL werden Daten vor dem Laden transformiert, bei ELT erst danach in der Zielplattform. ELT nutzt die Rechenleistung moderner Cloud-Plattformen und ist bei großen Datenmengen oft flexibler und effizienter.",
+      },
+      {
+        question: "Brauchen wir spezielle Tools für ETL / ELT?",
+        answer:
+          "Für kleine Fälle reicht oft Power Query in Power BI. Bei größeren Datenmengen kommen Plattformen wie Azure Databricks, Microsoft Fabric oder Azure Data Factory zum Einsatz, die smiit passend zur Datenlage auswählt.",
+      },
+      {
+        question: "Wie oft sollten ETL- / ELT-Strecken laufen?",
+        answer:
+          "Das hängt davon ab, wie aktuell die Auswertungen sein müssen. Übliche Muster sind eine nächtliche Beladung, mehrmals täglich oder eine nahezu kontinuierliche Verarbeitung; je höher die Frequenz, desto wichtiger werden zuverlässige Fehlerbehandlung und Überwachung.",
+      },
+      {
+        question: "Was passiert, wenn eine ETL- / ELT-Strecke fehlschlägt?",
+        answer:
+          "Gut gebaute Strecken protokollieren Fehler, können einzelne Schritte gezielt wiederholen und sollten so gestaltet sein, dass ein erneuter Lauf keine doppelten oder inkonsistenten Daten erzeugt (Idempotenz). Monitoring und Benachrichtigungen stellen sicher, dass Probleme früh auffallen.",
+      },
     ],
     relatedServicePath: "services/analytics",
     relatedCaseStudySlug: "dy-project-ag",
     metaTitle: "ETL / ELT: Definition, Unterschied & Praxis | smiit Glossar",
-    metaDescription: "ETL und ELT einfach erklärt: Definition, Unterschied, Anwendungsfälle und Abgrenzung zu Data Warehouse und Power Query – mit Praxisbezug von smiit.",
+    metaDescription:
+      "ETL und ELT einfach erklärt: Definition, Unterschied, Anwendungsfälle und Abgrenzung zu Data Warehouse und Power Query – mit Praxisbezug von smiit.",
   },
   en: {
     slug: "etl-elt",
@@ -86,15 +103,32 @@ const etlElt: LocalizedGlossaryTerm = {
       },
     ],
     faq: [
-      { question: "What is the difference between ETL and ELT?", answer: "With ETL data is transformed before loading, with ELT only afterwards in the target platform. ELT uses the compute power of modern cloud platforms and is often more flexible and efficient with large data volumes." },
-      { question: "Do we need special tools for ETL / ELT?", answer: "For small cases, Power Query in Power BI is often enough. For larger data volumes, platforms such as Azure Databricks, Microsoft Fabric or Azure Data Factory are used, which smiit selects to suit the data situation." },
-      { question: "How often should ETL / ELT pipelines run?", answer: "That depends on how up to date the analyses need to be. Common patterns are a nightly load, several times a day or near-continuous processing; the higher the frequency, the more important reliable error handling and monitoring become." },
-      { question: "What happens if an ETL / ELT pipeline fails?", answer: "Well-built pipelines log errors, can retry individual steps in a targeted way and should be designed so that a rerun produces no duplicate or inconsistent data (idempotency). Monitoring and alerts ensure that problems are noticed early." },
+      {
+        question: "What is the difference between ETL and ELT?",
+        answer:
+          "With ETL data is transformed before loading, with ELT only afterwards in the target platform. ELT uses the compute power of modern cloud platforms and is often more flexible and efficient with large data volumes.",
+      },
+      {
+        question: "Do we need special tools for ETL / ELT?",
+        answer:
+          "For small cases, Power Query in Power BI is often enough. For larger data volumes, platforms such as Azure Databricks, Microsoft Fabric or Azure Data Factory are used, which smiit selects to suit the data situation.",
+      },
+      {
+        question: "How often should ETL / ELT pipelines run?",
+        answer:
+          "That depends on how up to date the analyses need to be. Common patterns are a nightly load, several times a day or near-continuous processing; the higher the frequency, the more important reliable error handling and monitoring become.",
+      },
+      {
+        question: "What happens if an ETL / ELT pipeline fails?",
+        answer:
+          "Well-built pipelines log errors, can retry individual steps in a targeted way and should be designed so that a rerun produces no duplicate or inconsistent data (idempotency). Monitoring and alerts ensure that problems are noticed early.",
+      },
     ],
     relatedServicePath: "services/analytics",
     relatedCaseStudySlug: "dy-project-ag",
     metaTitle: "ETL / ELT: definition, difference & practice | smiit glossary",
-    metaDescription: "ETL and ELT explained simply: definition, difference, use cases and how they differ from a data warehouse and Power Query – with practical insight from smiit.",
+    metaDescription:
+      "ETL and ELT explained simply: definition, difference, use cases and how they differ from a data warehouse and Power Query – with practical insight from smiit.",
   },
 }
 
@@ -109,7 +143,10 @@ export const extras: Record<Locale, GlossaryExtra> = {
       "Ein verbreiteter Irrtum ist, der eigentliche Aufwand liege im Laden. Tatsächlich steckt die meiste Komplexität in Transformation, Datenqualität und Fehlerbehandlung.",
     ],
     sources: [
-      { title: "Microsoft Learn – Extract, Transform, Load (Azure Architecture Center)", url: "https://learn.microsoft.com/azure/architecture/data-guide/relational-data/etl" },
+      {
+        title: "Microsoft Learn – Extract, Transform, Load (Azure Architecture Center)",
+        url: "https://learn.microsoft.com/azure/architecture/data-guide/relational-data/etl",
+      },
       { title: "Microsoft Learn – Azure Data Factory", url: "https://learn.microsoft.com/azure/data-factory/" },
     ],
   },
@@ -120,7 +157,10 @@ export const extras: Record<Locale, GlossaryExtra> = {
       "A common error is to think the real effort is in loading. Most complexity actually lies in transformation, data quality and error handling.",
     ],
     sources: [
-      { title: "Microsoft Learn – Extract, transform, load (Azure Architecture Center)", url: "https://learn.microsoft.com/azure/architecture/data-guide/relational-data/etl" },
+      {
+        title: "Microsoft Learn – Extract, transform, load (Azure Architecture Center)",
+        url: "https://learn.microsoft.com/azure/architecture/data-guide/relational-data/etl",
+      },
       { title: "Microsoft Learn – Azure Data Factory", url: "https://learn.microsoft.com/azure/data-factory/" },
     ],
   },

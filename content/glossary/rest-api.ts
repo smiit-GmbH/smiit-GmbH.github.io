@@ -131,8 +131,14 @@ export const extras: Record<Locale, GlossaryExtra> = {
       "Es wird häufig angenommen, die HTTP-Methoden seien beliebig austauschbar, dabei haben GET, POST, PUT und DELETE klar definierte Bedeutungen, und GET sollte stets sicher und ohne Seiteneffekte sein.",
     ],
     sources: [
-      { title: "Roy T. Fielding – Architectural Styles (REST, Kapitel 5)", url: "https://ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm" },
-      { title: "Microsoft Learn – Best Practices für den Entwurf von Web-APIs", url: "https://learn.microsoft.com/azure/architecture/best-practices/api-design" },
+      {
+        title: "Roy T. Fielding – Architectural Styles (REST, Kapitel 5)",
+        url: "https://ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm",
+      },
+      {
+        title: "Microsoft Learn – Best Practices für den Entwurf von Web-APIs",
+        url: "https://learn.microsoft.com/azure/architecture/best-practices/api-design",
+      },
       { title: "IETF RFC 9110 – HTTP Semantics", url: "https://www.rfc-editor.org/rfc/rfc9110" },
     ],
   },
@@ -143,8 +149,14 @@ export const extras: Record<Locale, GlossaryExtra> = {
       "It is frequently assumed that HTTP methods are interchangeable, whereas GET, POST, PUT and DELETE have clearly defined meanings, and GET should always be safe and free of side effects.",
     ],
     sources: [
-      { title: "Roy T. Fielding – Architectural Styles (REST, chapter 5)", url: "https://ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm" },
-      { title: "Microsoft Learn – Web API design best practices", url: "https://learn.microsoft.com/azure/architecture/best-practices/api-design" },
+      {
+        title: "Roy T. Fielding – Architectural Styles (REST, chapter 5)",
+        url: "https://ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm",
+      },
+      {
+        title: "Microsoft Learn – Web API design best practices",
+        url: "https://learn.microsoft.com/azure/architecture/best-practices/api-design",
+      },
       { title: "IETF RFC 9110 – HTTP Semantics", url: "https://www.rfc-editor.org/rfc/rfc9110" },
     ],
   },

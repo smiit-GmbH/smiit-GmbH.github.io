@@ -11,15 +11,7 @@ interface ResultsProps {
   locale: Locale
 }
 
-function CountUp({
-  value,
-  locale,
-  className,
-}: {
-  value: string
-  locale: Locale
-  className?: string
-}) {
+function CountUp({ value, locale, className }: { value: string; locale: Locale; className?: string }) {
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-20px" })
   const prefersReducedMotion = useReducedMotion()
@@ -55,10 +47,18 @@ function CountUp({
   }, [animate, number, spring])
 
   if (!animate) {
-    return <span ref={ref} className={className}>{value}</span>
+    return (
+      <span ref={ref} className={className}>
+        {value}
+      </span>
+    )
   }
 
-  return <motion.span ref={ref} className={className}>{display}</motion.span>
+  return (
+    <motion.span ref={ref} className={className}>
+      {display}
+    </motion.span>
+  )
 }
 
 type ResultItem = Dictionary["results"]["items"][number] & { locale: Locale }
@@ -68,7 +68,7 @@ function ResultCard({ item, index }: { item: ResultItem; index: number }) {
     <motion.div
       variants={{
         hidden: { opacity: 0, y: 20 },
-        visible: { opacity: 1, y: 0 }
+        visible: { opacity: 1, y: 0 },
       }}
       transition={{ duration: 0.5, delay: index * 0.1 }}
       className="bg-white rounded-[1.5rem] p-8 shadow-sm flex flex-col h-full hover:shadow-xl transition-shadow duration-300 border border-transparent hover:border-black/5"
@@ -76,12 +76,8 @@ function ResultCard({ item, index }: { item: ResultItem; index: number }) {
       <div className="text-[#F703EB] text-5xl font-medium mb-4">
         <CountUp value={item.value} locale={item.locale} />
       </div>
-      <h3 className="text-lg font-medium text-black mb-4">
-        {item.label}
-      </h3>
-      <p className="text-gray-600 text-sm leading-relaxed mt-auto">
-        {item.text}
-      </p>
+      <h3 className="text-lg font-medium text-black mb-4">{item.label}</h3>
+      <p className="text-gray-600 text-sm leading-relaxed mt-auto">{item.text}</p>
     </motion.div>
   )
 }
@@ -189,7 +185,7 @@ export default function Results({ dict, locale }: ResultsProps) {
     <section className="bg-background py-16 md:py-16 overflow-hidden">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Title */}
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
@@ -213,11 +209,7 @@ export default function Results({ dict, locale }: ResultsProps) {
                   strokeLinecap="round"
                   fill="none"
                   initial={{ pathLength: 0, opacity: 0 }}
-                  animate={
-                    showTitleUnderline
-                      ? { pathLength: 1, opacity: 1 }
-                      : { pathLength: 0, opacity: 0 }
-                  }
+                  animate={showTitleUnderline ? { pathLength: 1, opacity: 1 } : { pathLength: 0, opacity: 0 }}
                   transition={{
                     pathLength: { duration: 0.85, ease: "easeOut" },
                     opacity: { duration: 0.2 },
@@ -233,17 +225,10 @@ export default function Results({ dict, locale }: ResultsProps) {
         <div className="mb-8 md:mb-20">
           {/* Mobile: horizontal carousel */}
           <div className="md:hidden">
-            <div
-              ref={scrollerRef}
-              tabIndex={0}
-              className="overflow-x-auto pb-6 no-scrollbar snap-x snap-mandatory"
-            >
+            <div ref={scrollerRef} tabIndex={0} className="overflow-x-auto pb-6 no-scrollbar snap-x snap-mandatory">
               <div className="flex min-w-max gap-4 px-4 sm:px-6">
                 {dict.results.items.map((item, index) => (
-                  <div
-                    key={index}
-                    className="snap-center shrink-0 w-[72vw] max-w-[360px]"
-                  >
+                  <div key={index} className="snap-center shrink-0 w-[72vw] max-w-[360px]">
                     <ResultCard item={{ ...item, locale }} index={index} />
                   </div>
                 ))}
@@ -253,10 +238,7 @@ export default function Results({ dict, locale }: ResultsProps) {
             {/* Mobile-only scroll progress indicator */}
             <div className="flex justify-center pt-2 pb-4">
               {showMobileIndicator && (
-                <div
-                  className="relative h-1.5 w-24 rounded-full bg-black/5 overflow-hidden"
-                  aria-hidden="true"
-                >
+                <div className="relative h-1.5 w-24 rounded-full bg-black/5 overflow-hidden" aria-hidden="true">
                   <div
                     className="absolute top-0 left-0 h-full w-8 rounded-full bg-black"
                     style={{
