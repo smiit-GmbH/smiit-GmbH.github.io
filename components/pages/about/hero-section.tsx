@@ -5,7 +5,7 @@ import dynamic from "next/dynamic"
 import Link from "next/link"
 import { ArrowRight, CheckCircle2, MapPin, Search, ZoomOut } from "lucide-react"
 import { Spinner } from "@/components/ui/spinner"
-import type { Locale } from "@/lib/dictionary"
+import type { Locale, Dictionary } from "@/lib/dictionary"
 import { useScroll, useMotionValueEvent } from "framer-motion"
 
 function GlobePlaceholder() {
@@ -22,10 +22,10 @@ export function HeroSection({
   dict,
 }: {
   lang: Locale
-  dict: any
+  dict: Dictionary
 }) {
   const containerRef = useRef<HTMLDivElement>(null)
-  const [progress, setProgress] = useState(0)
+  const [desktopProgress, setDesktopProgress] = useState(0)
   const [isDesktop, setIsDesktop] = useState(true)
   const [isMobileZoomedIn, setIsMobileZoomedIn] = useState(false)
   const [shouldLoadGlobe, setShouldLoadGlobe] = useState(false)
@@ -38,8 +38,10 @@ export function HeroSection({
     if (quantized === committedDesktopProgressRef.current) return
 
     committedDesktopProgressRef.current = quantized
-    setProgress(quantized)
+    setDesktopProgress(quantized)
   }, [])
+
+  const progress = isDesktop ? desktopProgress : isMobileZoomedIn ? 1 : 0
 
   const desktopBadgeOpacity = useMemo(() => {
     if (progress <= 0.3) return 0
@@ -92,16 +94,7 @@ export function HeroSection({
   })
 
   useEffect(() => {
-    if (!isDesktop) {
-      setProgress(isMobileZoomedIn ? 1 : 0)
-    }
-  }, [isDesktop, isMobileZoomedIn])
-
-  useEffect(() => {
-    if (!isDesktop) {
-      committedDesktopProgressRef.current = isMobileZoomedIn ? 1 : 0
-      return
-    }
+    if (!isDesktop) return
 
     commitDesktopProgress(scrollYProgress.get())
   }, [commitDesktopProgress, isDesktop, scrollYProgress])

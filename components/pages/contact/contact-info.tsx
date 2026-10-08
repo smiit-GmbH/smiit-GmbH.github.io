@@ -1,9 +1,10 @@
 import Image from "next/image"
 import Link from "next/link"
 import { Mail, ExternalLink } from "lucide-react"
+import type { Dictionary } from "@/lib/dictionary"
 
 interface ContactInfoProps {
-  dict: any
+  dict: Dictionary
 }
 
 export default function ContactInfo({ dict }: ContactInfoProps) {

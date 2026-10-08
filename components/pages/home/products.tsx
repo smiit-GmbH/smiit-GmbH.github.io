@@ -6,14 +6,14 @@ import { ChevronRight } from "lucide-react"
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion"
 import { useRef } from "react"
 import LocalizedLink from "@/components/localized-link"
+import type { Dictionary } from "@/lib/dictionary"
 
 interface ProductsProps {
-  dict: any
+  dict: Dictionary
 }
 
 function ProductCard({
   item,
-  index,
 }: {
   item: { title: string; text: string; image: string; href?: string; external?: boolean }
   index: number
@@ -153,7 +153,7 @@ export default function Products({ dict }: ProductsProps) {
             (
               item: { title: string; text: string; image: string; href?: string; external?: boolean },
               idx: number,
-              arr: any[]
+              arr: typeof products.items
             ) => {
               const isLastOdd = idx === arr.length - 1 && arr.length % 2 !== 0
               return (

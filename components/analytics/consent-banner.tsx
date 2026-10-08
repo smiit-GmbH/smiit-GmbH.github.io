@@ -32,6 +32,7 @@ export function ConsentBanner({ lang }: { lang: Locale }) {
   const t = COPY[lang === "en" ? "en" : "de"]
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- stored consent lives in localStorage; reading it after hydration keeps the static HTML banner-free
     if (!getStoredConsent()) setVisible(true)
 
     const reopen = () => setVisible(true)

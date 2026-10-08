@@ -12,6 +12,7 @@ import {
   useScroll,
   useSpring,
   useTransform,
+  type MotionStyle,
 } from "framer-motion"
 import { useActiveInView } from "@/hooks/use-active-in-view"
 import {
@@ -27,18 +28,21 @@ import {
   Settings,
   Users,
 } from "lucide-react"
-import type { Locale } from "@/lib/dictionary"
+import type { Locale, Dictionary } from "@/lib/dictionary"
 
 interface HeroSectionProps {
   lang: Locale
-  dict: any
+  dict: Dictionary
 }
+
+type AppsHero = Omit<Dictionary["servicesAnalytics"]["hero"], keyof Dictionary["servicesApps"]["hero"]> &
+  Dictionary["servicesApps"]["hero"]
 
 function cx(...classes: Array<string | false | null | undefined>) {
   return classes.filter(Boolean).join(" ")
 }
 
-function HeroPackages({ hero, align = "left" }: { hero: any; align?: "left" | "center" }) {
+function HeroPackages({ hero, align = "left" }: { hero: AppsHero; align?: "left" | "center" }) {
   const packages = (hero?.packages ?? []) as string[]
   if (packages.length === 0) return null
 
@@ -280,6 +284,7 @@ function CountUp({
   useEffect(() => {
     if (reduceMotion) {
       value.set(to)
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- keeps the rendered number in sync with the framer-motion value when the count-up is skipped
       setDisplay(formatNumber(to, decimals, lang))
       return
     }
@@ -351,7 +356,7 @@ function ClarityModule({
   mobileEmphasis = false,
   lang,
 }: {
-  t: any
+  t: HeroCopy
   data: Dataset
   reduceMotion: boolean | null
   mobileEmphasis?: boolean
@@ -413,7 +418,7 @@ function ProfitModule({
   t,
   data,
 }: {
-  t: any
+  t: HeroCopy
   data: Dataset
   mobileEmphasis?: boolean
 }) {
@@ -478,12 +483,12 @@ function AiModule({
   data,
   activities,
 }: {
-  t: any
+  t: HeroCopy
   data: Dataset
-  radarStyle?: any
+  radarStyle?: MotionStyle
   activities: { user: string; action: string; time: string }[]
 }) {
-  const { ref, inView } = useActiveInView()
+  const [ref, inView] = useActiveInView()
   return (
     <div ref={ref} className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-[18px]">
       <div className="flex min-h-0 flex-1 flex-col p-2 sm:p-3">
@@ -539,7 +544,7 @@ function SpeedModule({
   data,
   tasks,
 }: {
-  t: any
+  t: HeroCopy
   data: Dataset
   tasks: { label: string; due: string }[]
 }) {
@@ -567,7 +572,7 @@ function SpeedModule({
                 <motion.div
                   whileHover={{ scale: 1.15 }}
                   className="h-2.5 w-2.5 shrink-0 rounded-full border-[1.5px] bg-white transition-colors group-hover:bg-[var(--c)]/15"
-                  style={{ borderColor: color, ["--c" as any]: color }}
+                  style={{ borderColor: color, ["--c" as string]: color }}
                 />
                 <div className="min-w-0 flex-1">
                   <div className="truncate text-[0.6rem] font-medium text-[#0B162D]">{content.label}</div>
@@ -595,18 +600,8 @@ const dashboardChildVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
 }
 
-export default function HeroSection({ lang, dict }: HeroSectionProps) {
-  const containerRef = useRef<HTMLElement>(null)
-  const { ref: desktopInViewRef, inView: desktopInView } = useActiveInView<HTMLElement>()
-  const shouldReduceMotion = useReducedMotion()
-
-  // Toggle the scroll-driven dashboard growth. Flip to true to restore the cinematic morph.
-  const SCROLL_ANIMATIONS_ENABLED = false
-
-  const hero = { ...dict?.servicesAnalytics?.hero, ...dict?.servicesApps?.hero }
-  const eyebrowLabel = dict?.servicesApps?.eyebrows?.hero
-
-  const t = {
+function buildHeroCopy(hero: AppsHero) {
+  return {
     appName: (hero?.appName as string) ?? "OperationsHub",
     pageTitle: (hero?.pageTitle as string) ?? "Dashboard",
     updated: (hero?.updated as string) ?? "Aktualisiert",
@@ -614,7 +609,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
     createNewLabel: (hero?.createNewLabel as string) ?? "+ Neuer Auftrag",
     avatarInitials: (hero?.avatarInitials as string) ?? "JM",
     teamActiveLabel: (hero?.teamActiveLabel as string) ?? "Team aktiv",
-    sections: (hero?.sections ?? {}) as any,
+    sections: hero?.sections ?? {},
     statLabels: hero?.statLabels ?? {},
     statDeltas: hero?.statDeltas ?? {},
     pipelineColumns: hero?.pipelineColumns ?? {},
@@ -633,6 +628,22 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
     activitiesByView: hero?.activitiesByView ?? { today: [], week: [], month: [] },
     tasksByView: hero?.tasksByView ?? { today: [], week: [], month: [] },
   }
+}
+
+type HeroCopy = ReturnType<typeof buildHeroCopy>
+
+export default function HeroSection({ lang, dict }: HeroSectionProps) {
+  const containerRef = useRef<HTMLElement>(null)
+  const [desktopInViewRef, desktopInView] = useActiveInView()
+  const shouldReduceMotion = useReducedMotion()
+
+  // Toggle the scroll-driven dashboard growth. Flip to true to restore the cinematic morph.
+  const SCROLL_ANIMATIONS_ENABLED = false
+
+  const hero = { ...dict?.servicesAnalytics?.hero, ...dict?.servicesApps?.hero }
+  const eyebrowLabel = dict?.servicesApps?.eyebrows?.hero
+
+  const t = buildHeroCopy(hero)
 
   const navConfig = [
     { key: "dashboard" as const, icon: LayoutDashboard, active: true },
@@ -874,7 +885,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
       <section
         ref={(el) => {
           containerRef.current = el
-          desktopInViewRef.current = el
+          desktopInViewRef(el)
         }}
         className={cx(
           "relative hidden lg:block",
@@ -974,6 +985,8 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
                   <div className="flex items-center gap-2 shrink-0">
                     <button
                       type="button"
+                      aria-hidden="true"
+                      tabIndex={-1}
                       className="relative rounded-md p-1 text-[#0B162D]/55 transition-colors hover:bg-slate-50 hover:text-[#0B162D]"
                     >
                       <Bell className="h-3.5 w-3.5" />

@@ -4,6 +4,7 @@ import Image from "next/image"
 import dynamic from "next/dynamic"
 import { useEffect, useRef, useState } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
+import type { Dictionary } from "@/lib/dictionary"
 
 const DotLottieReact = dynamic(
   () => import("@lottiefiles/dotlottie-react").then((m) => m.DotLottieReact),
@@ -11,7 +12,7 @@ const DotLottieReact = dynamic(
 )
 
 interface AboutProps {
-  dict: any
+  dict: Dictionary
 }
 
 export default function About({ dict }: AboutProps) {
@@ -33,6 +34,7 @@ export default function About({ dict }: AboutProps) {
       typeof window !== "undefined" &&
       window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches
     if (reduce) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- prefers-reduced-motion is browser-only; reading it after hydration keeps the static HTML identical
       setPlay(true)
       return
     }

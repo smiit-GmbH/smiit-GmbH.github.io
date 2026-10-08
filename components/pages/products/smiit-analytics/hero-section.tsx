@@ -2,9 +2,10 @@
 
 import { motion } from "framer-motion"
 import { ArrowRight, ChevronDown } from "lucide-react"
+import type { Dictionary } from "@/lib/dictionary"
 
 interface HeroSectionProps {
-  dict: any
+  dict: Dictionary
 }
 
 const fadeUpVariants = {

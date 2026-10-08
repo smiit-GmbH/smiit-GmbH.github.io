@@ -2,14 +2,14 @@
 
 import { motion, useReducedMotion } from "framer-motion"
 import { ArrowRight, CalendarDays, Mail } from "lucide-react"
-import type { Locale } from "@/lib/dictionary"
+import type { Locale, Dictionary } from "@/lib/dictionary"
 
 const fadeUpVariants = {
   hidden: { opacity: 0, y: 20, filter: "blur(6px)" },
   visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
 }
 
-export default function WebsiteCTA({ lang, dict }: { lang: Locale; dict: any }) {
+export default function WebsiteCTA({ lang, dict }: { lang: Locale; dict: Dictionary }) {
   const cta = dict.servicesWebsite.cta
   const eyebrow = dict.servicesWebsite.eyebrows.cta
   const shouldReduceMotion = useReducedMotion()

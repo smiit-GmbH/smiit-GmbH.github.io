@@ -14,7 +14,7 @@ export function Spinner({ size = 16, invert, disabled, className, ...props }: Sp
 	const barWidth = `${(size * 0.2).toFixed(2)}px`;
 	const barHeight = `${(size * 0.075).toFixed(2)}px`;
 	return (
-		<div className={cn('relative', className)} style={{ width: sizePx, height: sizePx }} {...props}>
+		<div role="status" className={cn('relative', className)} style={{ width: sizePx, height: sizePx }} {...props}>
 			{[...Array(5)].map((_, i) => (
 				<div
 					key={i}

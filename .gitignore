@@ -27,3 +27,10 @@ styles.md
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+# local tooling
+/.claude/worktrees/
+
+# test output
+/test-results/
+/playwright-report/
+/.lighthouseci/

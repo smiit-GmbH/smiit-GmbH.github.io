@@ -95,14 +95,14 @@ function TermCard({ entry, lang }: { entry: GlossaryCatalogEntry; lang: Locale }
 function ClusterSection({ cluster, lang }: { cluster: GlossaryCluster; lang: Locale }) {
   const meta = glossaryClusterMeta[cluster]
   const entries = listGlossaryCatalogByCluster(cluster)
-  const reveal = useRevealOnScroll({ margin: "-60px" })
+  const [revealRef, revealed] = useRevealOnScroll({ margin: "-60px" })
 
   return (
     <section
       id={`cluster-${cluster}`}
-      ref={reveal.ref}
+      ref={revealRef}
       style={{ ["--area" as string]: meta.color }}
-      className={cx("scroll-mt-28 reveal-fade-up", reveal.isRevealed && "revealed")}
+      className={cx("scroll-mt-28 reveal-fade-up", revealed && "revealed")}
     >
       <div className="flex items-center gap-3">
         <span aria-hidden className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: meta.color }} />
@@ -123,7 +123,7 @@ function ClusterSection({ cluster, lang }: { cluster: GlossaryCluster; lang: Loc
 export default function GlossaryIndexPage({ lang }: { lang: Locale }) {
   const ui = getGlossaryUi(lang)
   const copy = SEARCH_COPY[lang]
-  const heading = useRevealOnScroll()
+  const [headingRef, headingRevealed] = useRevealOnScroll()
   const [query, setQuery] = useState("")
   const q = query.trim().toLowerCase()
 
@@ -145,10 +145,10 @@ export default function GlossaryIndexPage({ lang }: { lang: Locale }) {
       <section className="relative">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div
-            ref={heading.ref}
+            ref={headingRef}
             className={cx(
               "flex flex-col gap-9 reveal-fade-up lg:grid lg:grid-cols-[2.6fr_1fr] lg:items-end lg:gap-12",
-              heading.isRevealed && "revealed",
+              headingRevealed && "revealed",
             )}
           >
             {/* Left: heading (~72%) */}

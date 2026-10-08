@@ -75,7 +75,6 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
   const caseStudiesHref = `${base}/case-studies`
   const glossaryHref = `${base}/glossary`
   const blogHref = `${base}/blog`
-  const productsHref = `${base}/products`
   const imprintHref = `${base}/legal-notice`
   const privacyHref = `${base}/privacy`
 

@@ -12,6 +12,7 @@ import {
   useScroll,
   useSpring,
   useTransform,
+  type MotionStyle,
 } from "framer-motion"
 import {
   ArrowRight,
@@ -28,18 +29,18 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
-import type { Locale } from "@/lib/dictionary"
+import type { Locale, Dictionary } from "@/lib/dictionary"
 
 interface HeroSectionProps {
   lang: Locale
-  dict: any
+  dict: Dictionary
 }
 
 function cx(...classes: Array<string | false | null | undefined>) {
   return classes.filter(Boolean).join(" ")
 }
 
-function HeroPackages({ hero, align = "left" }: { hero: any; align?: "left" | "center" }) {
+function HeroPackages({ hero, align = "left" }: { hero: Dictionary["servicesStrategy"]["hero"]; align?: "left" | "center" }) {
   const packages = (hero?.packages ?? []) as string[]
   if (packages.length === 0) return null
 
@@ -348,6 +349,7 @@ function CountUp({
   useEffect(() => {
     if (reduceMotion) {
       value.set(to)
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- keeps the rendered number in sync with the framer-motion value when the count-up is skipped
       setDisplay(formatNumber(to, decimals, lang))
       return
     }
@@ -418,7 +420,7 @@ function MaturityModule({
   mobileEmphasis = false,
   lang,
 }: {
-  t: any
+  t: HeroCopy
   data: Dataset
   reduceMotion: boolean | null
   mobileEmphasis?: boolean
@@ -506,7 +508,7 @@ function RoadmapModule({
   lang,
   bottomLabels,
 }: {
-  t: any
+  t: HeroCopy
   data: Dataset
   mobileEmphasis?: boolean
   lang: Locale
@@ -618,7 +620,7 @@ function RoadmapModule({
   )
 }
 
-function RiskModule({ t, data, radarStyle }: { t: any; data: Dataset; radarStyle?: any }) {
+function RiskModule({ t, data, radarStyle }: { t: HeroCopy; data: Dataset; radarStyle?: MotionStyle }) {
   const risks: { key: RiskKey; label: string; state: RiskState }[] = [
     { key: "compliance", label: t.signalLabels?.compliance, state: data.risks.compliance },
     { key: "cyber", label: t.signalLabels?.cyber, state: data.risks.cyber },
@@ -698,7 +700,7 @@ function RiskModule({ t, data, radarStyle }: { t: any; data: Dataset; radarStyle
   )
 }
 
-function InitiativesModule({ t, data }: { t: any; data: Dataset }) {
+function InitiativesModule({ t, data }: { t: HeroCopy; data: Dataset }) {
   const phases: { key: PhaseKey; label: string; state: InitiativeBucket }[] = [
     { key: "sondieren", label: t.segments?.sondieren, state: data.initiatives.sondieren },
     { key: "konzipieren", label: t.segments?.konzipieren, state: data.initiatives.konzipieren },
@@ -739,21 +741,12 @@ const dashboardChildVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
 }
 
-export default function HeroSection({ lang, dict }: HeroSectionProps) {
-  const containerRef = useRef<HTMLElement>(null)
-  const shouldReduceMotion = useReducedMotion()
-
-  // Toggle the scroll-driven dashboard growth. Flip to true to restore the cinematic morph.
-  const SCROLL_ANIMATIONS_ENABLED = false
-
-  const hero = dict?.servicesStrategy?.hero
-  const eyebrowLabel = dict?.servicesStrategy?.eyebrows?.hero
-
-  const t = {
+function buildHeroCopy(hero: Dictionary["servicesStrategy"]["hero"]) {
+  return {
     dashboardTitle: (hero?.dashboardTitle as string) ?? "Digital Strategy Cockpit",
     sourcesConnected: hero?.sourcesConnected as string,
     updated: hero?.updated as string,
-    sections: (hero?.sections ?? {}) as any,
+    sections: hero?.sections ?? {},
     months: (hero?.months ?? []) as string[],
     kpiLabels: hero?.kpiLabels ?? {},
     chartLegend: hero?.chartLegend ?? {},
@@ -767,6 +760,21 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
     bottomLabels: hero?.bottomLabels ?? { q: [], h: [], y: [] },
     ariaLabels: hero?.ariaLabels ?? { timeRange: "Zeitraum" },
   }
+}
+
+type HeroCopy = ReturnType<typeof buildHeroCopy>
+
+export default function HeroSection({ lang, dict }: HeroSectionProps) {
+  const containerRef = useRef<HTMLElement>(null)
+  const shouldReduceMotion = useReducedMotion()
+
+  // Toggle the scroll-driven dashboard growth. Flip to true to restore the cinematic morph.
+  const SCROLL_ANIMATIONS_ENABLED = false
+
+  const hero = dict?.servicesStrategy?.hero
+  const eyebrowLabel = dict?.servicesStrategy?.eyebrows?.hero
+
+  const t = buildHeroCopy(hero)
 
   const [periodKey, setPeriodKey] = useState<PeriodKey>("y")
   const data = DATASETS[periodKey]

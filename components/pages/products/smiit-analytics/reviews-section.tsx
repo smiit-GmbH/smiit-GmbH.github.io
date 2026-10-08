@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { Star, BadgeCheck, ExternalLink } from "lucide-react"
-import type { Locale } from "@/lib/dictionary"
+import type { Locale, Dictionary } from "@/lib/dictionary"
 import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
 import {
   Carousel,
@@ -65,10 +65,10 @@ function ReviewCard({
   )
 }
 
-export function ReviewsSection({ dict, lang }: { dict: any; lang: Locale }) {
+export function ReviewsSection({ dict, lang }: { dict: Dictionary; lang: Locale }) {
   const reviews = dict.smiitAnalytics.reviews
-  const heading = useRevealOnScroll()
-  const cards = useRevealOnScroll({ margin: "-80px" })
+  const [headingRef, headingRevealed] = useRevealOnScroll()
+  const [cardsRef, cardsRevealed] = useRevealOnScroll({ margin: "-80px" })
   const [api, setApi] = useState<CarouselApi | null>(null)
   const [selected, setSelected] = useState(0)
   const [snapCount, setSnapCount] = useState(0)
@@ -102,8 +102,8 @@ export function ReviewsSection({ dict, lang }: { dict: any; lang: Locale }) {
     <section className="relative pt-20 md:pt-28 pb-8 md:pb-12">
       <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div
-          ref={heading.ref}
-          className={`text-center mb-12 md:mb-16 reveal-fade-up ${heading.isRevealed ? "revealed" : ""}`}
+          ref={headingRef}
+          className={`text-center mb-12 md:mb-16 reveal-fade-up ${headingRevealed ? "revealed" : ""}`}
         >
           <h2 className="font-serif text-[2rem] sm:text-[2.8rem] md:text-[3.4rem] leading-[1.1] tracking-tight text-black">
             {reviews.heading.lead}{" "}
@@ -131,8 +131,8 @@ export function ReviewsSection({ dict, lang }: { dict: any; lang: Locale }) {
         </div>
 
         <div
-          ref={cards.ref}
-          className={`reveal-fade-up ${cards.isRevealed ? "revealed" : ""}`}
+          ref={cardsRef}
+          className={`reveal-fade-up ${cardsRevealed ? "revealed" : ""}`}
         >
           {/* >=1000px — static grid */}
           <div className="hidden grid-cols-3 gap-5 min-[1000px]:grid">

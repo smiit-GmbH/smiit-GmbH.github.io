@@ -45,6 +45,7 @@ export function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {
       infinite: false,
     })
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- exposes the Lenis instance (created client-side after mount) through context
     setLenis(instance)
 
     return () => {

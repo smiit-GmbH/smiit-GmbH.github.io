@@ -5,11 +5,11 @@ import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { useEffect, useRef, useState } from "react"
 import { IntroOverlay } from "@/components/custom/IntroOverlay"
-import type { Locale } from "@/lib/dictionary"
+import type { Locale, Dictionary } from "@/lib/dictionary"
 
 interface HeroSectionProps {
   lang: Locale
-  dict: any
+  dict: Dictionary
 }
 
 export default function HeroSection({ lang, dict }: HeroSectionProps) {

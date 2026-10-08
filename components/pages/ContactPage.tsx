@@ -1,14 +1,14 @@
 import ContactHero from "@/components/pages/contact/contact-hero"
 import ContactForm from "@/components/pages/contact/contact-form"
 import ContactInfo from "@/components/pages/contact/contact-info"
-import type { Locale } from "@/lib/dictionary"
+import type { Locale, Dictionary } from "@/lib/dictionary"
 
 export default function ContactPage({
   lang,
   dict,
 }: {
   lang: Locale
-  dict: any
+  dict: Dictionary
 }) {
   return (
     <main className="min-h-screen pt-20 lg:pt-24 pb-12 lg:pb-16 flex items-center">

@@ -10,6 +10,7 @@ import {
   useReducedMotion,
   useScroll,
   useTransform,
+  type MotionValue,
 } from "framer-motion"
 import {
   CalendarCheck,
@@ -22,9 +23,14 @@ import {
 import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
 import { useActiveInView } from "@/hooks/use-active-in-view"
 import { useLenis } from "@/components/smooth-scroll-provider"
+import type { Dictionary } from "@/lib/dictionary"
 
 const STRAND_COLORS = ["#64748B", "#475569", "#334155"] as const
 const ICONS = [Workflow, Cloud, ShieldCheck] as const
+
+type PortfolioDict = Dictionary["servicesStrategy"]["portfolio"]
+type PortfolioItem = PortfolioDict["items"][number]
+type VisualLabels = PortfolioDict["visuals"]
 
 // ---------------------------------------------------------------------------
 // CountUp – cheap motion-value driven number animation
@@ -93,7 +99,7 @@ function VisualShell({
   )
 }
 
-function ProcessFlowVisual({ isRevealed, labels }: { isRevealed: boolean; labels?: any }) {
+function ProcessFlowVisual({ isRevealed, labels }: { isRevealed: boolean; labels?: VisualLabels }) {
   // BPMN-style flow with a forking gateway:
   //   Start → Task → Gateway ┬→ Approve → Done   (success path, token follows)
   //                          └→ Rework → loops back to Task   (rejection path, dashed)
@@ -108,7 +114,7 @@ function ProcessFlowVisual({ isRevealed, labels }: { isRevealed: boolean; labels
   const reworkY = 158
   const taskHalf = 22
   const gatewayHalf = 22
-  const { ref, inView } = useActiveInView<HTMLDivElement>()
+  const [ref, inView] = useActiveInView()
 
   return (
     <VisualShell shellRef={ref}>
@@ -441,7 +447,7 @@ function ProcessFlowVisual({ isRevealed, labels }: { isRevealed: boolean; labels
   )
 }
 
-function CloudTopologyVisual({ isRevealed, labels }: { isRevealed: boolean; labels?: any }) {
+function CloudTopologyVisual({ isRevealed }: { isRevealed: boolean; labels?: VisualLabels }) {
   // Hub-and-Spoke topology: central HUB with 4 workload spokes (PROD/DEV/DATA/EXT).
   const hubX = 180
   const hubY = 110
@@ -451,7 +457,7 @@ function CloudTopologyVisual({ isRevealed, labels }: { isRevealed: boolean; labe
     { x: 56, y: 170, label: "DATA" },
     { x: 304, y: 170, label: "EXT" },
   ]
-  const { ref, inView } = useActiveInView<HTMLDivElement>()
+  const [ref, inView] = useActiveInView()
   return (
     <VisualShell shellRef={ref}>
       <div className="flex items-baseline justify-between">
@@ -591,7 +597,7 @@ function CloudTopologyVisual({ isRevealed, labels }: { isRevealed: boolean; labe
   )
 }
 
-function SecurityRingsVisual({ isRevealed, labels }: { isRevealed: boolean; labels?: any }) {
+function SecurityRingsVisual({ isRevealed, labels }: { isRevealed: boolean; labels?: VisualLabels }) {
   // Live SIEM-style feed: security score + recent events ticking in.
   const events = [
     { type: "ok" as const, title: "MFA-Login", source: "J. Müller · Berlin", time: "2 s", isNew: true },
@@ -606,7 +612,7 @@ function SecurityRingsVisual({ isRevealed, labels }: { isRevealed: boolean; labe
     warn: { color: "#F59E0B", bg: "bg-amber-50", glyph: "!" },
     err: { color: "#EF4444", bg: "bg-red-50", glyph: "✕" },
   }
-  const { ref, inView } = useActiveInView<HTMLDivElement>()
+  const [ref, inView] = useActiveInView()
 
   return (
     <VisualShell shellRef={ref}>
@@ -738,7 +744,7 @@ function MobileVisualShell({
   )
 }
 
-function MobileProcessFlowVisual({ isRevealed, accent, labels }: { isRevealed: boolean; accent: string; labels?: any }) {
+function MobileProcessFlowVisual({ isRevealed, accent, labels }: { isRevealed: boolean; accent: string; labels?: VisualLabels }) {
   // Forked BPMN flow on mobile:
   //   Start → Task → Gateway ┬→ Approve → Done   (success, token follows)
   //                          └→ Rework            (rejection, dashed)
@@ -752,7 +758,7 @@ function MobileProcessFlowVisual({ isRevealed, accent, labels }: { isRevealed: b
   const reworkX = 75
   const reworkY = 32
   const centerY = 20
-  const { ref, inView } = useActiveInView<HTMLDivElement>()
+  const [ref, inView] = useActiveInView()
 
   return (
     <MobileVisualShell
@@ -927,11 +933,10 @@ function MobileProcessFlowVisual({ isRevealed, accent, labels }: { isRevealed: b
 function MobileCloudTopologyVisual({
   isRevealed,
   accent,
-  labels: _labels,
 }: {
   isRevealed: boolean
   accent: string
-  labels?: any
+  labels?: VisualLabels
 }) {
   // Hub-Spoke topology: 4 corner spokes connect to a central HUB with looping
   // pulses traveling along each edge.
@@ -943,7 +948,7 @@ function MobileCloudTopologyVisual({
   ]
   const hubX = 50
   const hubY = 20
-  const { ref, inView } = useActiveInView<HTMLDivElement>()
+  const [ref, inView] = useActiveInView()
   return (
     <MobileVisualShell
       shellRef={ref}
@@ -1051,7 +1056,7 @@ function MobileCloudTopologyVisual({
   )
 }
 
-function MobileSecurityRingsVisual({ isRevealed, accent, labels }: { isRevealed: boolean; accent: string; labels?: any }) {
+function MobileSecurityRingsVisual({ isRevealed, accent, labels }: { isRevealed: boolean; accent: string; labels?: VisualLabels }) {
   // Live SIEM-style feed: security score + 3 recent events.
   const events = [
     { type: "ok" as const, title: "MFA-Login", source: "J. Müller", time: "2 s", isNew: true },
@@ -1064,7 +1069,7 @@ function MobileSecurityRingsVisual({ isRevealed, accent, labels }: { isRevealed:
     warn: { color: "#F59E0B", bg: "bg-amber-50", glyph: "!" },
     err: { color: "#EF4444", bg: "bg-red-50", glyph: "✕" },
   }
-  const { ref, inView } = useActiveInView<HTMLDivElement>()
+  const [ref, inView] = useActiveInView()
 
   return (
     <MobileVisualShell
@@ -1160,11 +1165,11 @@ function MobileServiceDetailsSheet({
   accent,
   dict,
 }: {
-  item: any | null
+  item: PortfolioItem | null
   isOpen: boolean
   onClose: () => void
   accent: string
-  dict: any
+  dict: Dictionary
 }) {
   const t = dict.servicesStrategy.portfolio
   const lenis = useLenis()
@@ -1263,7 +1268,7 @@ function StageProgressRail({
   progress,
   activeIndex,
 }: {
-  progress: any
+  progress: MotionValue<number>
   activeIndex: number
 }) {
   const w0 = useTransform(progress, [0, 0.33], ["0%", "100%"])
@@ -1303,9 +1308,9 @@ function StageVisualLayer({
   sectionRevealed,
   labels,
 }: {
-  progress: any
+  progress: MotionValue<number>
   sectionRevealed: boolean
-  labels?: any
+  labels?: VisualLabels
 }) {
   const o0 = useTransform(progress, [0, 0.28, 0.36], [1, 1, 0])
   const o1 = useTransform(progress, [0.28, 0.36, 0.62, 0.7], [0, 1, 1, 0])
@@ -1343,7 +1348,7 @@ function StageTextLayer({
   items,
   activeIndex,
 }: {
-  items: any[]
+  items: PortfolioItem[]
   activeIndex: number
 }) {
   const item = items[activeIndex]
@@ -1394,11 +1399,11 @@ function ScrollytellingStage({
   dict,
   onOpenDetails,
 }: {
-  items: any[]
-  progress: any
+  items: PortfolioItem[]
+  progress: MotionValue<number>
   activeIndex: number
   sectionRevealed: boolean
-  dict: any
+  dict: Dictionary
   onOpenDetails: (index: number) => void
 }) {
   const t = dict.servicesStrategy.portfolio
@@ -1438,8 +1443,8 @@ function MobileFallbackStack({
   dict,
   onOpenDetails,
 }: {
-  items: any[]
-  dict: any
+  items: PortfolioItem[]
+  dict: Dictionary
   onOpenDetails: (index: number) => void
 }) {
   const t = dict.servicesStrategy.portfolio
@@ -1502,11 +1507,11 @@ function MobileScrollytellingSection({
   items,
   dict,
 }: {
-  items: any[]
-  dict: any
+  items: PortfolioItem[]
+  dict: Dictionary
 }) {
   const sectionRef = useRef<HTMLDivElement | null>(null)
-  const reveal = useRevealOnScroll<HTMLDivElement>({ margin: "-15%" })
+  const [revealRef, revealed] = useRevealOnScroll({ margin: "-15%" })
   const reducedMotion = useReducedMotion() ?? false
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -1543,7 +1548,7 @@ function MobileScrollytellingSection({
         <div
           ref={(el) => {
             sectionRef.current = el
-            reveal.ref.current = el
+            revealRef(el)
           }}
           className="relative min-h-[200vh]"
           style={{ scrollMarginTop: "80px" }}
@@ -1552,7 +1557,7 @@ function MobileScrollytellingSection({
             items={items}
             progress={scrollYProgress}
             activeIndex={activeIndex}
-            sectionRevealed={reveal.isRevealed}
+            sectionRevealed={revealed}
             dict={dict}
             onOpenDetails={(i) => setOpenIndex(i)}
           />
@@ -1573,7 +1578,7 @@ function MobileScrollytellingSection({
 function BookCircleButton({ label, size = "lg" }: { label: string; size?: "lg" | "md" }) {
   const dimensions = size === "lg" ? "h-14 w-14" : "h-11 w-11"
   const iconSize = size === "lg" ? "h-5 w-5" : "h-4 w-4"
-  const { ref, inView } = useActiveInView<HTMLAnchorElement>()
+  const [ref, inView] = useActiveInView()
   return (
     <a
       ref={ref}
@@ -1604,9 +1609,9 @@ function RowText({
   dict,
   alignRight,
 }: {
-  item: any
+  item: PortfolioItem
   index: number
-  dict: any
+  dict: Dictionary
   alignRight: boolean
 }) {
   const [isOpen, setIsOpen] = useState(false)
@@ -1681,28 +1686,28 @@ function RowText({
 // ---------------------------------------------------------------------------
 // Main section
 // ---------------------------------------------------------------------------
-export default function PortfolioSection({ dict }: { dict: any }) {
+export default function PortfolioSection({ dict }: { dict: Dictionary }) {
   const portfolio = dict.servicesStrategy.portfolio
-  const items: any[] = portfolio.items ?? []
+  const items: PortfolioItem[] = portfolio.items ?? []
 
-  const heading = useRevealOnScroll<HTMLDivElement>()
+  const [headingRef, headingRevealed] = useRevealOnScroll()
   const sectionRef = useRef<HTMLElement | null>(null)
 
   // Per-row reveal hooks for the desktop alternating layout (md+).
   // Mobile (<md) uses the carousel which manages active state internally,
   // so it doesn't need scroll-tied reveals.
-  const dReveal0 = useRevealOnScroll<HTMLDivElement>({ margin: "-120px" })
-  const dReveal1 = useRevealOnScroll<HTMLDivElement>({ margin: "-120px" })
-  const dReveal2 = useRevealOnScroll<HTMLDivElement>({ margin: "-120px" })
-  const desktopReveals = [dReveal0, dReveal1, dReveal2]
-  const revealedRows = desktopReveals.map((d) => d.isRevealed)
+  const [dReveal0Ref, dReveal0Revealed] = useRevealOnScroll({ margin: "-120px" })
+  const [dReveal1Ref, dReveal1Revealed] = useRevealOnScroll({ margin: "-120px" })
+  const [dReveal2Ref, dReveal2Revealed] = useRevealOnScroll({ margin: "-120px" })
+  const desktopRevealRefs = [dReveal0Ref, dReveal1Ref, dReveal2Ref]
+  const revealedRows = [dReveal0Revealed, dReveal1Revealed, dReveal2Revealed]
 
   return (
     <section ref={sectionRef} className="relative md:overflow-hidden">
       <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pt-2 sm:pt-4 md:pt-6">
         <div
-          ref={heading.ref}
-          className={`text-center mb-10 sm:mb-12 md:mb-16 reveal-fade-up ${heading.isRevealed ? "revealed" : ""}`}
+          ref={headingRef}
+          className={`text-center mb-10 sm:mb-12 md:mb-16 reveal-fade-up ${headingRevealed ? "revealed" : ""}`}
         >
           <span className="section-eyebrow justify-center">{dict.servicesStrategy.eyebrows?.portfolio}</span>
           <h2 className="font-serif text-[2.2rem] sm:text-[2.4rem] md:text-[3rem] leading-[1.1] tracking-tight text-black">
@@ -1741,7 +1746,7 @@ export default function PortfolioSection({ dict }: { dict: any }) {
                 <div
                   key={i}
                   ref={(el) => {
-                    desktopReveals[i].ref.current = el
+                    desktopRevealRefs[i](el)
                   }}
                   className="grid grid-cols-[1fr_auto_1fr] items-center gap-x-3 lg:gap-x-4"
                 >

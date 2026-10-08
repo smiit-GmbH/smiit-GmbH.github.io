@@ -4,16 +4,17 @@ import { useState } from "react"
 import { motion } from "framer-motion"
 import { ArrowRight } from "lucide-react"
 import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
+import type { Dictionary } from "@/lib/dictionary"
 
 interface AdvantagesSectionProps {
-  dict: any
+  dict: Dictionary
 }
 
 export function AdvantagesSection({ dict }: AdvantagesSectionProps) {
   const { advantages } = dict.smiitAnalytics
   const [expandedCards, setExpandedCards] = useState<number[]>([])
-  const heading = useRevealOnScroll()
-  const cards = useRevealOnScroll()
+  const [headingRef, headingRevealed] = useRevealOnScroll()
+  const [cardsRef, cardsRevealed] = useRevealOnScroll()
 
   const toggleCard = (idx: number) => {
     setExpandedCards((prev) =>
@@ -27,8 +28,8 @@ export function AdvantagesSection({ dict }: AdvantagesSectionProps) {
     >
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div
-          ref={heading.ref}
-          className={`mb-12 md:mb-16 reveal-fade-up ${heading.isRevealed ? "revealed" : ""}`}
+          ref={headingRef}
+          className={`mb-12 md:mb-16 reveal-fade-up ${headingRevealed ? "revealed" : ""}`}
         >
           <h2 className="font-serif text-[2rem] sm:text-[2.8rem] md:text-[3.4rem] leading-[1.1] tracking-tight text-black whitespace-pre-line">
             {advantages.title}
@@ -36,7 +37,7 @@ export function AdvantagesSection({ dict }: AdvantagesSectionProps) {
         </div>
 
         <div
-          ref={cards.ref}
+          ref={cardsRef}
           className="grid grid-cols-1 md:grid-cols-3 gap-5"
         >
           {advantages.items.map(
@@ -46,7 +47,7 @@ export function AdvantagesSection({ dict }: AdvantagesSectionProps) {
               return (
                 <div
                   key={idx}
-                  className={`group relative overflow-hidden rounded-[1.75rem] p-6 md:p-8 transition-all duration-300 ease-out will-change-transform hover:scale-[1.02] hover:-translate-y-0.5 bg-white shadow-[0_10px_30px_rgba(0,0,0,0.06)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.1)] reveal-fade-up reveal-delay-${idx + 1} ${cards.isRevealed ? "revealed" : ""}`}
+                  className={`group relative overflow-hidden rounded-[1.75rem] p-6 md:p-8 transition-all duration-300 ease-out will-change-transform hover:scale-[1.02] hover:-translate-y-0.5 bg-white shadow-[0_10px_30px_rgba(0,0,0,0.06)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.1)] reveal-fade-up reveal-delay-${idx + 1} ${cardsRevealed ? "revealed" : ""}`}
                 >
                   <p className="text-xs font-medium tracking-wide mb-4 text-black/40">
                     {item.label}

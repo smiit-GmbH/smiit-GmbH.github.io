@@ -2,8 +2,9 @@
 
 import { useRef } from "react"
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion"
+import type { Dictionary } from "@/lib/dictionary"
 
-export default function ManifestBand({ dict }: { dict: any }) {
+export default function ManifestBand({ dict }: { dict: Dictionary }) {
   const manifest = dict.servicesWebsite.manifest
   const containerRef = useRef<HTMLElement>(null)
   const shouldReduceMotion = useReducedMotion()

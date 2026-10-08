@@ -13,6 +13,7 @@ import {
   useScroll,
   useSpring,
   useTransform,
+  type MotionStyle,
 } from "framer-motion"
 import {
   ArrowRight,
@@ -29,18 +30,18 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip"
 import { useActiveInView } from "@/hooks/use-active-in-view"
-import type { Locale } from "@/lib/dictionary"
+import type { Locale, Dictionary } from "@/lib/dictionary"
 
 interface HeroSectionProps {
   lang: Locale
-  dict: any
+  dict: Dictionary
 }
 
 function cx(...classes: Array<string | false | null | undefined>) {
   return classes.filter(Boolean).join(" ")
 }
 
-function HeroPackages({ hero, align = "left" }: { hero: any; align?: "left" | "center" }) {
+function HeroPackages({ hero, align = "left" }: { hero: Dictionary["servicesAnalytics"]["hero"]; align?: "left" | "center" }) {
   const packages = (hero?.packages ?? []) as string[]
   if (packages.length === 0) return null
 
@@ -300,6 +301,7 @@ function CountUp({
   useEffect(() => {
     if (reduceMotion) {
       value.set(to)
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- keeps the rendered number in sync with the framer-motion value when the count-up is skipped
       setDisplay(formatNumber(to, decimals, lang))
       return
     }
@@ -371,7 +373,7 @@ function ClarityModule({
   lang,
   millionSuffix,
 }: {
-  t: any
+  t: HeroCopy
   data: Dataset
   reduceMotion: boolean | null
   mobileEmphasis?: boolean
@@ -444,7 +446,7 @@ function ProfitModule({
   linePointLabels,
   forecastPointLabel,
 }: {
-  t: any
+  t: HeroCopy
   data: Dataset
   mobileEmphasis?: boolean
   lang: Locale
@@ -471,7 +473,7 @@ function ProfitModule({
   const areaGradId = `hdj-profit-area-${uid}`
   const lineGradId = `hdj-profit-line-${uid}`
 
-  const { ref, inView } = useActiveInView()
+  const [ref, inView] = useActiveInView()
 
   // On mobile, hover does nothing — auto-open the forecast tooltip on first
   // reveal so users see the "Konfidenz 89%" payload without needing to tap.
@@ -657,11 +659,11 @@ function ProfitModule({
   )
 }
 
-function AiModule({ t, data, radarStyle, lang }: { t: any; data: Dataset; radarStyle?: any; lang: Locale }) {
+function AiModule({ t, data, radarStyle, lang }: { t: HeroCopy; data: Dataset; radarStyle?: MotionStyle; lang: Locale }) {
   const forecastRiskValue = t.signalValues?.[data.signals.forecastRiskKey] ?? data.signals.forecastRiskKey
   const deviationDisplay = formatDelta(data.signals.deviationValue, data.signals.deviationDecimals, "%", lang)
   const trendStrengthDisplay = formatNumber(data.signals.trendStrengthValue, data.signals.trendStrengthDecimals, lang)
-  const { ref, inView } = useActiveInView()
+  const [ref, inView] = useActiveInView()
   return (
     <div ref={ref} className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-[18px]">
       <div className="flex min-h-0 flex-1 flex-col p-2 sm:p-3">
@@ -713,7 +715,7 @@ function AiModule({ t, data, radarStyle, lang }: { t: any; data: Dataset; radarS
   )
 }
 
-function SpeedModule({ t, data }: { t: any; data: Dataset }) {
+function SpeedModule({ t, data }: { t: HeroCopy; data: Dataset }) {
   return (
     <div className="flex h-full flex-col overflow-hidden rounded-[18px]">
       <div className="flex flex-1 flex-col p-2 sm:p-3">
@@ -748,21 +750,12 @@ const dashboardChildVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
 }
 
-export default function HeroSection({ lang, dict }: HeroSectionProps) {
-  const containerRef = useRef<HTMLElement>(null)
-  const shouldReduceMotion = useReducedMotion()
-
-  // Toggle the scroll-driven dashboard growth. Flip to true to restore the cinematic morph.
-  const SCROLL_ANIMATIONS_ENABLED = false
-
-  const hero = dict?.servicesAnalytics?.hero
-  const eyebrowLabel = dict?.servicesAnalytics?.eyebrows?.hero
-
-  const t = {
+function buildHeroCopy(hero: Dictionary["servicesAnalytics"]["hero"]) {
+  return {
     sourcesConnected: hero?.sourcesConnected as string,
     platform: (hero?.platform as string) ?? "Power BI",
     updated: hero?.updated as string,
-    sections: (hero?.sections ?? {}) as any,
+    sections: hero?.sections ?? {},
     months: (hero?.months ?? []) as string[],
     kpiLabels: hero?.kpiLabels ?? {},
     chartLegend: hero?.chartLegend ?? {},
@@ -780,6 +773,21 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
     forecastPointLabels: hero?.forecastPointLabels ?? { q: "", h: "", y: "" },
     signalValues: hero?.signalValues ?? {},
   }
+}
+
+type HeroCopy = ReturnType<typeof buildHeroCopy>
+
+export default function HeroSection({ lang, dict }: HeroSectionProps) {
+  const containerRef = useRef<HTMLElement>(null)
+  const shouldReduceMotion = useReducedMotion()
+
+  // Toggle the scroll-driven dashboard growth. Flip to true to restore the cinematic morph.
+  const SCROLL_ANIMATIONS_ENABLED = false
+
+  const hero = dict?.servicesAnalytics?.hero
+  const eyebrowLabel = dict?.servicesAnalytics?.eyebrows?.hero
+
+  const t = buildHeroCopy(hero)
 
   const [periodKey, setPeriodKey] = useState<PeriodKey>("y")
   const data = DATASETS[periodKey]

@@ -5,6 +5,7 @@ import Image from "next/image"
 import { useEffect, useRef } from "react"
 import { motion } from "framer-motion"
 import { useLenis } from "@/components/smooth-scroll-provider"
+import type { Dictionary } from "@/lib/dictionary"
 
 const LOGOS: Record<number, string> = {
   1: "/assets/logos/dy-project.webp",
@@ -15,11 +16,11 @@ const LOGOS: Record<number, string> = {
 }
 
 interface CustomerCardsProps {
-  dict: any
+  dict: Dictionary
 }
 
 export default function CustomerCards({ dict }: CustomerCardsProps) {
-  const customers = dict.customerCards.map((c: any) => ({
+  const customers = dict.customerCards.map((c) => ({
     ...c,
     logoSrc: LOGOS[c.id as keyof typeof LOGOS],
   }))
@@ -382,7 +383,7 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
           <div className="absolute left-[19px] top-4 bottom-4 w-px bg-gradient-to-b from-black/10 via-black/20 to-black/5" />
 
           <div className="flex flex-col gap-0">
-            {customers.map((customer: any, index: number) => (
+            {customers.map((customer, index) => (
               <motion.div
                 key={`mobile-${customer.id}-${index}`}
                 className="relative flex items-start gap-4 py-5"
@@ -429,6 +430,7 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
       {/* ── Desktop: Horizontal scroll ── */}
       <div
         ref={scrollerRef}
+        tabIndex={0}
         className="hidden md:block overflow-x-auto pb-6 md:pb-8 no-scrollbar snap-x snap-mandatory md:snap-none"
       >
         <div
@@ -439,7 +441,7 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
             "md:px-8 lg:px-12 xl:px-16",
           ].join(" ")}
         >
-          {customers.map((customer: any, index: number) => {
+          {customers.map((customer, index) => {
             return (
               <motion.div
                 key={`desktop-${customer.id}-${index}`}

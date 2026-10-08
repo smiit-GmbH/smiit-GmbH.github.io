@@ -27,7 +27,7 @@ function TimelineEntry({
   showYear: boolean
 }) {
   const ui = getBlogUi(lang)
-  const reveal = useRevealOnScroll({ margin: "-80px" })
+  const [revealRef, revealed] = useRevealOnScroll({ margin: "-80px" })
   const meta = blogCategoryMeta[post.category]
   const href = `/${lang}/blog/${post.slug}`
   const minutes = getReadingMinutes(post)
@@ -64,9 +64,9 @@ function TimelineEntry({
 
   return (
     <div
-      ref={reveal.ref}
+      ref={revealRef}
       style={{ ["--area" as string]: meta.color }}
-      className={cx("relative flex gap-4 pb-12 last:pb-0 min-[1000px]:gap-7 reveal-fade-up", reveal.isRevealed && "revealed")}
+      className={cx("relative flex gap-4 pb-12 last:pb-0 min-[1000px]:gap-7 reveal-fade-up", revealed && "revealed")}
     >
       {/* Date on the rail (>=1000px) */}
       <div className="hidden w-20 shrink-0 pt-8 text-right min-[1000px]:block">
@@ -159,18 +159,16 @@ function TimelineEntry({
 export default function BlogIndexPage({ lang }: { lang: Locale }) {
   const ui = getBlogUi(lang)
   const posts = listBlogPosts(lang)
-  const heading = useRevealOnScroll()
+  const [headingRef, headingRevealed] = useRevealOnScroll()
   const articlesWord = lang === "de" ? "Artikel" : posts.length === 1 ? "article" : "articles"
-
-  let lastYear: number | null = null
 
   return (
     <main className="pt-28 sm:pt-32">
       <section className="relative overflow-hidden">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div
-            ref={heading.ref}
-            className={cx("max-w-[88ch] reveal-fade-up", heading.isRevealed && "revealed")}
+            ref={headingRef}
+            className={cx("max-w-[88ch] reveal-fade-up", headingRevealed && "revealed")}
           >
             <span className="section-eyebrow">{ui.eyebrow}</span>
             <h1 className="mt-4 max-w-[28ch] font-serif text-[2.8rem] sm:text-[3.4rem] md:text-[4rem] leading-[1.02] tracking-tight text-[#0B162D]">
@@ -196,10 +194,9 @@ export default function BlogIndexPage({ lang }: { lang: Locale }) {
                 aria-hidden
                 className="pointer-events-none absolute left-[6px] top-10 bottom-12 w-px bg-gradient-to-b from-black/12 via-black/12 to-transparent min-[1000px]:left-[7.25rem]"
               />
-              {posts.map((post) => {
+              {posts.map((post, i) => {
                 const year = new Date(post.datePublished).getFullYear()
-                const showYear = year !== lastYear
-                lastYear = year
+                const showYear = i === 0 || year !== new Date(posts[i - 1].datePublished).getFullYear()
                 return <TimelineEntry key={post.slug} post={post} lang={lang} showYear={showYear} />
               })}
             </div>

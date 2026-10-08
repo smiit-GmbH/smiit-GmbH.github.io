@@ -1,3012 +1,3018 @@
 export type Locale = 'de' | 'en'
 
-const dictionaries = {
-  de: {
+const de = {
+  hero: {
+    title: "Datengesteuerte Transformation, maßgeschneidert für den Mittelstand",
+    subtitle: "Digitale Lösungen für Anwendungen, Workflows, Datenanalyse und digitale Strategie",
+    cta: "Starten Sie Ihre Transformation",
+  },
+  about: {
+    title: "smiit hilft Unternehmen,\nDaten in Handlungen zu verwandeln",
+    text: "Wir stehen an Ihrer Seite.\nDurch Apps, Dashboards und Workflows — für mehr\nProduktivität und schnellere Entscheidungen.",
+  },
+  services: {
+    title: "Workflows für messbaren Impact",
+    subtitle:
+      "Bei smiit entwickeln wir Apps, Workflows und Analytics — damit Ihr Business schneller vorankommt.",
+    items: [
+      {
+        title: "Digitale Strategie",
+        tags: ["Beratung", "Prozesse", "IT"],
+        text: "Wir unterstützen den Mittelstand mit IT-Beratung und digitaler Strategie — mit Fokus auf Apps, Workflows und Daten. Praktisch, pragmatisch und umsetzungsstark.",
+      },
+      {
+        title: "Datenanalyse",
+        tags: ["Power BI", "SQL & Python", "Azure"],
+        text: "Wir verwandeln Ihre Daten in klare Dashboards und KPIs — schnell, aussagekräftig und direkt handlungsorientiert.",
+      },
+      {
+        title: "Apps & Workflows",
+        tags: [".NET", "React", "Next.js"],
+        text: "Wir bauen intuitive Web-Apps, die Eingaben vereinfachen, Systeme über APIs verbinden und Workflows automatisieren — sicher und skalierbar.",
+      },
+    ],
+    mobileCta: "Sie haben Fragen zu unseren Dienstleistungen? Buchen Sie gerne ein kostenloses und unverbindliches Erstgespräch mit uns.",
+    mobileCtaButton: "Kostenloses Erstgespräch buchen",
+  },
+  servicesAnalytics: {
+    eyebrows: {
+      hero: "DATENANALYSE",
+      why: "DAS PROBLEM",
+      portfolio: "WAS WIR TUN",
+      manifest: "ZWISCHENRUF",
+      process: "UNSER VORGEHEN",
+      reviews: "STIMMEN",
+      cta: "JETZT STARTEN",
+    },
+    manifest: {
+      lead: "Daten haben Sie genug.",
+      emphasis: "Klarheit ist die Arbeit.",
+    },
     hero: {
-      title: "Datengesteuerte Transformation, maßgeschneidert für den Mittelstand",
-      subtitle: "Digitale Lösungen für Anwendungen, Workflows, Datenanalyse und digitale Strategie",
-      cta: "Starten Sie Ihre Transformation",
+      title: "Daten verstehen. Chancen erkennen. Besser entscheiden.",
+      description:
+        "Wir verdichten verstreute Datenquellen zu einer klaren Entscheidungsebene – umgesetzt in Power BI und dem Microsoft-Stack, damit Teams schneller sehen, was passiert, was relevant wird und was als Nächstes zu tun ist.",
+      primaryCta: "Jetzt Datenpotenziale entdecken",
+      packagesLabel: "Beliebte Leistungen",
+      packages: [
+        "Power BI Dashboard",
+        "Datenplattform & BI-Konzept",
+        "Power BI Health Check",
+        "Microsoft Fabric",
+        "Power BI Überarbeitung",
+        "Machine Learning & MLOps",
+      ],
+      scrollHint: "Weiter scrollen",
+      boardEyebrow: "Executive Intelligence Layer",
+      boardTitle: "Von Datensilos zur Entscheidungsebene",
+      sourcesConnected: "5 Datenquellen verbunden",
+      platform: "Power BI",
+      updated: "aktualisiert vor 2 Min.",
+      inPractice: "In der Praxis",
+      swipeHint: "← Wischen zum Wechseln →",
+      mobileTabTitle: "Warum",
+      mobileTabTitleHighlight: "Datenanalyse?",
+      tabs: {
+        speed: "Entscheidungstempo",
+        clarity: "Datenklarheit",
+        profit: "Margenkontrolle",
+        ai: "KI-Signale",
+      },
+      sections: {
+        kpis: "Zentrale Kennzahlen",
+        trend: "Umsatz & Marge · 12 Monate",
+        trendSub: "Entwicklung über Zeit, mit Forecast ab Q4",
+        actions: "Priorisierte Maßnahmen",
+        signals: "Frühwarnsignale",
+        potentials: "Segmentpotenziale",
+        insights: "Executive Insights",
+        filters: "Zeitraum · Segmente · Vergleich",
+      },
+      months: ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"],
+      story: {
+        speed: {
+          step: "Kapitel 1",
+          label: "Entscheidungstempo",
+          pain: "Sie raten zu viel.",
+          gain: "Priorisierte Maßnahmen.",
+          title: "Schluss mit Daten-Pingpong.",
+          body: "Eine Datenbasis. Keine Rückfragen. Direkt sichtbar, was jetzt zählt – und wer was tun sollte.",
+          emphasis: "Entscheidungen entstehen dort, wo die Daten sind.",
+        },
+        clarity: {
+          step: "Kapitel 2",
+          label: "Datenklarheit",
+          pain: "Daten in Silos.",
+          gain: "Eine einzige Wahrheit.",
+          title: "Ein gemeinsames Bild für alle Ebenen.",
+          body: "Vertrieb, Projekte, Operations – alles in einer Sicht. Kein Suchen. Kein Vergleichen. Kein Streit über Zahlen.",
+          emphasis: "Transparenz ist keine Frage des Vertrauens – sondern der Infrastruktur.",
+        },
+        profit: {
+          step: "Kapitel 3",
+          label: "Margenkontrolle",
+          pain: "Margen entgleiten unbemerkt.",
+          gain: "Forecast mit 89% Konfidenz.",
+          title: "Wachstum sehen, bevor es passiert.",
+          body: "Forecasts und Margentrends zeigen, wo Momentum entsteht – und wo Sie früh gegensteuern sollten.",
+          emphasis: "Der stärkste Hebel liegt in der Margenqualität.",
+        },
+        ai: {
+          step: "Kapitel 4",
+          label: "KI-Signale",
+          pain: "Frühwarnung kommt zu spät.",
+          gain: "KI-Signale rund um die Uhr.",
+          title: "Muster erkennen, die Menschen übersehen.",
+          body: "KI erkennt Abweichungen, Chancen und Risiken automatisch – bevor sie überhaupt in Reports auftauchen.",
+          emphasis: "Intelligente Analysen arbeiten rund um die Uhr.",
+        },
+      },
+      kpiLabels: {
+        revenue: "Umsatz",
+        margin: "Deckungsbeitrag",
+        forecastConfidence: "Genauigkeit",
+        activeProjects: "Aktive Projekte",
+      },
+      chartLegend: {
+        actual: "Ist",
+        forecast: "Forecast",
+      },
+      signalLabels: {
+        forecastRisk: "Forecast-Risiko",
+        forecastRiskValue: "Mittel",
+        deviation: "Abweichung",
+        opportunityScore: "Opportunity Score",
+        trendStrength: "Trendstärke",
+      },
+      signalRadar: {
+        title: "KI-Signalradar",
+        period: "letzte 30 Tage",
+      },
+      segments: {
+        dach: "Bestandskunden DACH",
+        swiss: "Projektgeschäft Schweiz",
+        serviceUpsell: "Service-Upsell",
+        industrialLeads: "Neue Leads Industrie",
+      },
+      dashboard: {
+        eyebrow: "Datenanalyse und Künstliche Intelligenz",
+        heading: "Live-Einblicke für Vertrieb, Finanzen und Operations",
+        chartLabel: "Umsatzentwicklung",
+        chartValue: "+18,4 %",
+        chartTrend: "im Vergleich zum Vormonat",
+        months: ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul"],
+        kpis: [
+          {
+            label: "Forecast Accuracy",
+            value: "94 %",
+          },
+          {
+            label: "Automatisierte Reports",
+            value: "28",
+          },
+          {
+            label: "Aktive Datenquellen",
+            value: "12",
+          },
+        ],
+        insightsTitle: "Empfohlene Maßnahmen",
+        insights: [
+          "Absatztrend im Süden steigt seit 3 Wochen",
+          "Marge bei Top-Produktgruppe über Zielwert",
+          "Lagerbestand für A-Kategorie frühzeitig optimieren",
+        ],
+      },
+      periods: {
+        q: "Quartal",
+        h: "6 Monate",
+        y: "12 Monate",
+      },
+      trendTooltip: {
+        revenueLabel: "Umsatz",
+        deltaLabel: "Δ Vormonat",
+        forecastLabel: "Forecast · Konfidenz 89 %",
+      },
+      kpiDeltaLabels: {
+        revenue: "vs. Vorjahr",
+        margin: "vs. Vorjahr",
+        forecastConfidence: "letzte 4 Wochen",
+        activeProjects: "neu im Quartal",
+      },
+      ariaLabels: {
+        timeRange: "Zeitraum",
+      },
+      dashboardTitle: "Management Dashboard",
+      millionSuffix: " Mio.",
+      bottomLabels: {
+        q: ["Wo 1", "Wo 4", "Wo 7", "Wo 10", "Wo 12"],
+        h: ["Jul", "Aug", "Sep", "Okt", "Nov", "Dez"],
+        y: ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"],
+      },
+      linePointLabels: {
+        q: ["Wo 1", "Wo 4", "Wo 7", "Wo 10", "Wo 12"],
+        h: ["Jul", "Aug", "Sep", "Okt", "Nov"],
+        y: ["Jan", "Apr", "Jul", "Sep", "Nov"],
+      },
+      forecastPointLabels: {
+        q: "Wo 13",
+        h: "Dez",
+        y: "Dez",
+      },
+      signalValues: {
+        riskMedium: "Mittel",
+        riskLow: "Niedrig",
+        riskHigh: "Hoch",
+      },
     },
-    about: {
-      title: "smiit hilft Unternehmen,\nDaten in Handlungen zu verwandeln",
-      text: "Wir stehen an Ihrer Seite.\nDurch Apps, Dashboards und Workflows — für mehr\nProduktivität und schnellere Entscheidungen.",
-    },
-    services: {
-      title: "Workflows für messbaren Impact",
-      subtitle:
-        "Bei smiit entwickeln wir Apps, Workflows und Analytics — damit Ihr Business schneller vorankommt.",
+    portfolio: {
+      title: "Unser",
+      titleHighlight: "Angebot",
+      subtitle: "Wir unterstützen Sie dabei, den maximalen Wert aus Ihren Daten zu schöpfen – von der Strategie bis zur produktiven Power-BI-Lösung.",
+      visuals: {
+        bi: { label: "Umsatz Q3", kpiRevenue: "Umsatz", target: "Ziel" },
+        governance: { badge: "DSGVO" },
+      },
+      learnMore: "Mehr erfahren",
+      learnLess: "Weniger anzeigen",
+      bookCta: "Gespräch vereinbaren",
       items: [
         {
-          title: "Digitale Strategie",
-          tags: ["Beratung", "Prozesse", "IT"],
-          text: "Wir unterstützen den Mittelstand mit IT-Beratung und digitaler Strategie — mit Fokus auf Apps, Workflows und Daten. Praktisch, pragmatisch und umsetzungsstark.",
+          title: "Business Intelligence & Dashboarding",
+          shortDesc: "Wir verwandeln verteilte Daten in eine belastbare Entscheidungsgrundlage – mit sauberer Datenintegration, klaren Modellen und Power-BI-Dashboards, die wirklich genutzt werden. So entstehen Reports und Analysen in Power BI und Microsoft Fabric, die Transparenz schaffen und Führung wirksam unterstützen.",
+          details: "Wir begleiten den gesamten Weg von der Rohdatenquelle bis zur entscheidungsrelevanten Visualisierung. Dazu gehören die Integration und Aufbereitung von Daten, der Aufbau performanter Datenmodelle, die Entwicklung einer semantischen Schicht sowie die Gestaltung von Dashboards für Management, Controlling und operative Teams.\n\nTechnologisch arbeiten wir schwerpunktmäßig im Microsoft-Umfeld – unter anderem mit Power BI und Fabric. Dabei achten wir nicht nur auf Technik, sondern vor allem auf eine Struktur, die mit Ihrem Unternehmen mitwachsen kann."
         },
         {
-          title: "Datenanalyse",
-          tags: ["Power BI", "SQL & Python", "Azure"],
-          text: "Wir verwandeln Ihre Daten in klare Dashboards und KPIs — schnell, aussagekräftig und direkt handlungsorientiert.",
+          title: "Data Governance & Datenstrategie",
+          shortDesc: "Wir schaffen die organisatorischen und fachlichen Grundlagen dafür, dass Daten im Unternehmen konsistent, verständlich und vertrauenswürdig genutzt werden können. Das sorgt für weniger Reibung, bessere Entscheidungen und deutlich mehr Wirkung aus bestehenden Dateninitiativen.",
+          details: "Wir beraten zu zentralen Fragestellungen rund um Data Governance, Master Data Management, Datenverantwortung, Kennzahlendefinitionen und den sinnvollen Aufbau von Self-Service-Analytics-Strukturen. Ziel ist es, Datennutzung nicht dem Zufall zu überlassen, sondern klare Rahmenbedingungen zu schaffen, die Skalierung und Verlässlichkeit ermöglichen.\n\nDabei betrachten wir nicht nur Prozesse und Systeme, sondern auch die organisatorische Seite. So entsteht eine Datenstrategie, die nicht theoretisch bleibt, sondern im Unternehmen greift."
         },
         {
-          title: "Apps & Workflows",
-          tags: [".NET", "React", "Next.js"],
-          text: "Wir bauen intuitive Web-Apps, die Eingaben vereinfachen, Systeme über APIs verbinden und Workflows automatisieren — sicher und skalierbar.",
+          title: "Machine Learning & ML Operations",
+          shortDesc: "Wir bringen KI aus der Konzeptphase in den produktiven Einsatz – strukturiert, skalierbar und technisch sauber. So entstehen Machine-Learning-Lösungen, die nicht nur beeindrucken, sondern im Alltag echten Mehrwert liefern.",
+          details: "Wir unterstützen bei der Konzeption, Entwicklung und Operationalisierung von ML-Modellen – von der Datenaufbereitung und Feature-Entwicklung über Training und Validierung bis hin zur Bereitstellung in produktiven Umgebungen. Dabei steht nicht nur die Modellgüte im Fokus, sondern auch die Frage, wie KI stabil, nachvollziehbar und wartbar in bestehende Prozesse integriert werden kann.\n\nIm Zentrum steht ein praxisnaher MLOps-Ansatz mit klaren Deployments, reproduzierbaren Workflows, Überwachung von Modellen und einer sauberen Verbindung zwischen Data Science und Betrieb."
+        }
+      ]
+    },
+    process: {
+      title: "So machen wir aus Ihren Daten",
+      titleHighlight: "Entscheidungen.",
+      subtitle: "Vier klare Schritte – vom ersten Gespräch bis zum produktiven Betrieb.",
+      stepLabel: "Schritt",
+      steps: [
+        {
+          number: "01",
+          title: "Verstehen",
+          text: "Wir analysieren Datenlandschaft, Quellen und Ziele – und identifizieren die Hebel mit dem größten Wirkungsgrad.",
+        },
+        {
+          number: "02",
+          title: "Konzipieren",
+          text: "Wir entwerfen Datenmodell, Power-BI-Dashboards und Governance, abgestimmt auf Ihre Entscheidungswege und Ihr Tooling.",
+        },
+        {
+          number: "03",
+          title: "Umsetzen",
+          text: "Wir bauen, integrieren und dokumentieren – iterativ, mit kurzen Feedbackzyklen und sauberer Übergabe.",
+        },
+        {
+          number: "04",
+          title: "Befähigen",
+          text: "Wir schulen Ihr Team, sichern den Betrieb und entwickeln Ihre Analytics-Plattform schrittweise weiter.",
         },
       ],
-      mobileCta: "Sie haben Fragen zu unseren Dienstleistungen? Buchen Sie gerne ein kostenloses und unverbindliches Erstgespräch mit uns.",
-      mobileCtaButton: "Kostenloses Erstgespräch buchen",
     },
-    servicesAnalytics: {
-      eyebrows: {
-        hero: "DATENANALYSE",
-        why: "DAS PROBLEM",
-        portfolio: "WAS WIR TUN",
-        manifest: "ZWISCHENRUF",
-        process: "UNSER VORGEHEN",
-        reviews: "STIMMEN",
-        cta: "JETZT STARTEN",
-      },
-      manifest: {
-        lead: "Daten haben Sie genug.",
-        emphasis: "Klarheit ist die Arbeit.",
-      },
-      hero: {
-        title: "Daten verstehen. Chancen erkennen. Besser entscheiden.",
-        description:
-          "Wir verdichten verstreute Datenquellen zu einer klaren Entscheidungsebene – umgesetzt in Power BI und dem Microsoft-Stack, damit Teams schneller sehen, was passiert, was relevant wird und was als Nächstes zu tun ist.",
-        primaryCta: "Jetzt Datenpotenziale entdecken",
-        packagesLabel: "Beliebte Leistungen",
-        packages: [
-          "Power BI Dashboard",
-          "Datenplattform & BI-Konzept",
-          "Power BI Health Check",
-          "Microsoft Fabric",
-          "Power BI Überarbeitung",
-          "Machine Learning & MLOps",
-        ],
-        scrollHint: "Weiter scrollen",
-        boardEyebrow: "Executive Intelligence Layer",
-        boardTitle: "Von Datensilos zur Entscheidungsebene",
-        sourcesConnected: "5 Datenquellen verbunden",
-        platform: "Power BI",
-        updated: "aktualisiert vor 2 Min.",
-        inPractice: "In der Praxis",
-        swipeHint: "← Wischen zum Wechseln →",
-        mobileTabTitle: "Warum",
-        mobileTabTitleHighlight: "Datenanalyse?",
-        tabs: {
-          speed: "Entscheidungstempo",
-          clarity: "Datenklarheit",
-          profit: "Margenkontrolle",
-          ai: "KI-Signale",
-        },
-        sections: {
-          kpis: "Zentrale Kennzahlen",
-          trend: "Umsatz & Marge · 12 Monate",
-          trendSub: "Entwicklung über Zeit, mit Forecast ab Q4",
-          actions: "Priorisierte Maßnahmen",
-          signals: "Frühwarnsignale",
-          potentials: "Segmentpotenziale",
-          insights: "Executive Insights",
-          filters: "Zeitraum · Segmente · Vergleich",
-        },
-        months: ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"],
-        story: {
-          speed: {
-            step: "Kapitel 1",
-            label: "Entscheidungstempo",
-            pain: "Sie raten zu viel.",
-            gain: "Priorisierte Maßnahmen.",
-            title: "Schluss mit Daten-Pingpong.",
-            body: "Eine Datenbasis. Keine Rückfragen. Direkt sichtbar, was jetzt zählt – und wer was tun sollte.",
-            emphasis: "Entscheidungen entstehen dort, wo die Daten sind.",
-          },
-          clarity: {
-            step: "Kapitel 2",
-            label: "Datenklarheit",
-            pain: "Daten in Silos.",
-            gain: "Eine einzige Wahrheit.",
-            title: "Ein gemeinsames Bild für alle Ebenen.",
-            body: "Vertrieb, Projekte, Operations – alles in einer Sicht. Kein Suchen. Kein Vergleichen. Kein Streit über Zahlen.",
-            emphasis: "Transparenz ist keine Frage des Vertrauens – sondern der Infrastruktur.",
-          },
-          profit: {
-            step: "Kapitel 3",
-            label: "Margenkontrolle",
-            pain: "Margen entgleiten unbemerkt.",
-            gain: "Forecast mit 89% Konfidenz.",
-            title: "Wachstum sehen, bevor es passiert.",
-            body: "Forecasts und Margentrends zeigen, wo Momentum entsteht – und wo Sie früh gegensteuern sollten.",
-            emphasis: "Der stärkste Hebel liegt in der Margenqualität.",
-          },
-          ai: {
-            step: "Kapitel 4",
-            label: "KI-Signale",
-            pain: "Frühwarnung kommt zu spät.",
-            gain: "KI-Signale rund um die Uhr.",
-            title: "Muster erkennen, die Menschen übersehen.",
-            body: "KI erkennt Abweichungen, Chancen und Risiken automatisch – bevor sie überhaupt in Reports auftauchen.",
-            emphasis: "Intelligente Analysen arbeiten rund um die Uhr.",
-          },
-        },
-        kpiLabels: {
-          revenue: "Umsatz",
-          margin: "Deckungsbeitrag",
-          forecastConfidence: "Genauigkeit",
-          activeProjects: "Aktive Projekte",
-        },
-        chartLegend: {
-          actual: "Ist",
-          forecast: "Forecast",
-        },
-        signalLabels: {
-          forecastRisk: "Forecast-Risiko",
-          forecastRiskValue: "Mittel",
-          deviation: "Abweichung",
-          opportunityScore: "Opportunity Score",
-          trendStrength: "Trendstärke",
-        },
-        signalRadar: {
-          title: "KI-Signalradar",
-          period: "letzte 30 Tage",
-        },
-        segments: {
-          dach: "Bestandskunden DACH",
-          swiss: "Projektgeschäft Schweiz",
-          serviceUpsell: "Service-Upsell",
-          industrialLeads: "Neue Leads Industrie",
-        },
-        dashboard: {
-          eyebrow: "Datenanalyse und Künstliche Intelligenz",
-          heading: "Live-Einblicke für Vertrieb, Finanzen und Operations",
-          chartLabel: "Umsatzentwicklung",
-          chartValue: "+18,4 %",
-          chartTrend: "im Vergleich zum Vormonat",
-          months: ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul"],
-          kpis: [
-            {
-              label: "Forecast Accuracy",
-              value: "94 %",
-            },
-            {
-              label: "Automatisierte Reports",
-              value: "28",
-            },
-            {
-              label: "Aktive Datenquellen",
-              value: "12",
-            },
-          ],
-          insightsTitle: "Empfohlene Maßnahmen",
-          insights: [
-            "Absatztrend im Süden steigt seit 3 Wochen",
-            "Marge bei Top-Produktgruppe über Zielwert",
-            "Lagerbestand für A-Kategorie frühzeitig optimieren",
-          ],
-        },
-        periods: {
-          q: "Quartal",
-          h: "6 Monate",
-          y: "12 Monate",
-        },
-        trendTooltip: {
-          revenueLabel: "Umsatz",
-          deltaLabel: "Δ Vormonat",
-          forecastLabel: "Forecast · Konfidenz 89 %",
-        },
-        kpiDeltaLabels: {
-          revenue: "vs. Vorjahr",
-          margin: "vs. Vorjahr",
-          forecastConfidence: "letzte 4 Wochen",
-          activeProjects: "neu im Quartal",
-        },
-        ariaLabels: {
-          timeRange: "Zeitraum",
-        },
-        dashboardTitle: "Management Dashboard",
-        millionSuffix: " Mio.",
-        bottomLabels: {
-          q: ["Wo 1", "Wo 4", "Wo 7", "Wo 10", "Wo 12"],
-          h: ["Jul", "Aug", "Sep", "Okt", "Nov", "Dez"],
-          y: ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"],
-        },
-        linePointLabels: {
-          q: ["Wo 1", "Wo 4", "Wo 7", "Wo 10", "Wo 12"],
-          h: ["Jul", "Aug", "Sep", "Okt", "Nov"],
-          y: ["Jan", "Apr", "Jul", "Sep", "Nov"],
-        },
-        forecastPointLabels: {
-          q: "Wo 13",
-          h: "Dez",
-          y: "Dez",
-        },
-        signalValues: {
-          riskMedium: "Mittel",
-          riskLow: "Niedrig",
-          riskHigh: "Hoch",
-        },
-      },
-      portfolio: {
-        title: "Unser",
-        titleHighlight: "Angebot",
-        subtitle: "Wir unterstützen Sie dabei, den maximalen Wert aus Ihren Daten zu schöpfen – von der Strategie bis zur produktiven Power-BI-Lösung.",
-        visuals: {
-          bi: { label: "Umsatz Q3", kpiRevenue: "Umsatz", target: "Ziel" },
-          governance: { badge: "DSGVO" },
-        },
-        learnMore: "Mehr erfahren",
-        learnLess: "Weniger anzeigen",
-        bookCta: "Gespräch vereinbaren",
-        items: [
-          {
-            title: "Business Intelligence & Dashboarding",
-            shortDesc: "Wir verwandeln verteilte Daten in eine belastbare Entscheidungsgrundlage – mit sauberer Datenintegration, klaren Modellen und Power-BI-Dashboards, die wirklich genutzt werden. So entstehen Reports und Analysen in Power BI und Microsoft Fabric, die Transparenz schaffen und Führung wirksam unterstützen.",
-            details: "Wir begleiten den gesamten Weg von der Rohdatenquelle bis zur entscheidungsrelevanten Visualisierung. Dazu gehören die Integration und Aufbereitung von Daten, der Aufbau performanter Datenmodelle, die Entwicklung einer semantischen Schicht sowie die Gestaltung von Dashboards für Management, Controlling und operative Teams.\n\nTechnologisch arbeiten wir schwerpunktmäßig im Microsoft-Umfeld – unter anderem mit Power BI und Fabric. Dabei achten wir nicht nur auf Technik, sondern vor allem auf eine Struktur, die mit Ihrem Unternehmen mitwachsen kann."
-          },
-          {
-            title: "Data Governance & Datenstrategie",
-            shortDesc: "Wir schaffen die organisatorischen und fachlichen Grundlagen dafür, dass Daten im Unternehmen konsistent, verständlich und vertrauenswürdig genutzt werden können. Das sorgt für weniger Reibung, bessere Entscheidungen und deutlich mehr Wirkung aus bestehenden Dateninitiativen.",
-            details: "Wir beraten zu zentralen Fragestellungen rund um Data Governance, Master Data Management, Datenverantwortung, Kennzahlendefinitionen und den sinnvollen Aufbau von Self-Service-Analytics-Strukturen. Ziel ist es, Datennutzung nicht dem Zufall zu überlassen, sondern klare Rahmenbedingungen zu schaffen, die Skalierung und Verlässlichkeit ermöglichen.\n\nDabei betrachten wir nicht nur Prozesse und Systeme, sondern auch die organisatorische Seite. So entsteht eine Datenstrategie, die nicht theoretisch bleibt, sondern im Unternehmen greift."
-          },
-          {
-            title: "Machine Learning & ML Operations",
-            shortDesc: "Wir bringen KI aus der Konzeptphase in den produktiven Einsatz – strukturiert, skalierbar und technisch sauber. So entstehen Machine-Learning-Lösungen, die nicht nur beeindrucken, sondern im Alltag echten Mehrwert liefern.",
-            details: "Wir unterstützen bei der Konzeption, Entwicklung und Operationalisierung von ML-Modellen – von der Datenaufbereitung und Feature-Entwicklung über Training und Validierung bis hin zur Bereitstellung in produktiven Umgebungen. Dabei steht nicht nur die Modellgüte im Fokus, sondern auch die Frage, wie KI stabil, nachvollziehbar und wartbar in bestehende Prozesse integriert werden kann.\n\nIm Zentrum steht ein praxisnaher MLOps-Ansatz mit klaren Deployments, reproduzierbaren Workflows, Überwachung von Modellen und einer sauberen Verbindung zwischen Data Science und Betrieb."
-          }
-        ]
-      },
-      process: {
-        title: "So machen wir aus Ihren Daten",
-        titleHighlight: "Entscheidungen.",
-        subtitle: "Vier klare Schritte – vom ersten Gespräch bis zum produktiven Betrieb.",
-        stepLabel: "Schritt",
-        steps: [
-          {
-            number: "01",
-            title: "Verstehen",
-            text: "Wir analysieren Datenlandschaft, Quellen und Ziele – und identifizieren die Hebel mit dem größten Wirkungsgrad.",
-          },
-          {
-            number: "02",
-            title: "Konzipieren",
-            text: "Wir entwerfen Datenmodell, Power-BI-Dashboards und Governance, abgestimmt auf Ihre Entscheidungswege und Ihr Tooling.",
-          },
-          {
-            number: "03",
-            title: "Umsetzen",
-            text: "Wir bauen, integrieren und dokumentieren – iterativ, mit kurzen Feedbackzyklen und sauberer Übergabe.",
-          },
-          {
-            number: "04",
-            title: "Befähigen",
-            text: "Wir schulen Ihr Team, sichern den Betrieb und entwickeln Ihre Analytics-Plattform schrittweise weiter.",
-          },
-        ],
-      },
-      reviewsHeading: {
-        lead: "Was unsere",
-        highlight: "Kunden sagen",
-        swipeHint: "wischen →",
-      },
-      reviews: [
-        {
-          id: 6,
-          name: "Masterhomepage GmbH",
-          subtitle: "Dashboard für Zeitauswertung",
-          quote:
-            "Wir haben ein individuelles Dashboard von smiit erstellen lassen für die Auswertung der Zeiteinträge unserer Mitarbeiter mit Email Erinnerungsflows. Die Jungs sind sehr kompetent und äusserst freundlich. Super Service mit einem TOP Preis-/Leistungsverhältnis. Wir können smiit absolut weiterempfehlen!",
-          metric: "5/5",
-          metricSub: "Volle Empfehlung",
-        },
-        {
-          id: 2,
-          name: "G&B Logistics GmbH",
-          subtitle: "Analysen für CRM, Buchhaltung, Disposition & HR",
-          quote:
-            "Mit den Auswertungen von smiit sehen wir CRM, Buchhaltung, Disposition und Mitarbeiterdaten erstmals an einer Stelle. Die Touren-, Auftrags- und Auslastungskennzahlen sind heute auf Knopfdruck verfügbar – das hat unsere monatliche Auswertung deutlich verschlankt.",
-          metric: "140h",
-          metricSub: "monatlich gespart",
-        },
-        {
-          id: 1,
-          name: "Dy Project AG",
-          subtitle: "Datenintegration & zentrales Reporting",
-          quote:
-            "Endlich haben wir alle unsere Datenquellen zentral vereint. Die Datenintegration von smiit hat uns eine völlig neue Transparenz ermöglicht.",
-          metric: "3→1",
-          metricSub: "Berichtssysteme zusammengeführt",
-        },
-      ],
-      faq: {
-        eyebrow: "HÄUFIGE FRAGEN",
-        heading: { lead: "Antworten auf das, was", highlight: "oft gefragt wird" },
-        items: [
-          {
-            question: "Wie schnell sehen wir erste Ergebnisse?",
-            answer:
-              "Wir starten immer mit einem Erstgespräch, in dem wir den größten Hebel identifizieren. Erste Dashboards stehen typischerweise innerhalb weniger Wochen oder sogar Tagen — oft schon, bevor das vollständige Datenmodell aufgebaut ist.",
-          },
-          {
-            question: "Müssen wir unsere bestehenden Tools wechseln?",
-            answer:
-              "Nein. Wir arbeiten in Ihrer bestehenden Tool-Landschaft, schwerpunktmäßig im Microsoft-Umfeld mit Power BI und Fabric. Ein Tool-Wechsel ist nie unser Startpunkt.",
-          },
-          {
-            question: "Wie geht ihr mit unseren sensiblen Geschäftsdaten um?",
-            answer:
-              "Ihre Daten bleiben in Ihrer Infrastruktur. Wir arbeiten DSGVO-konform, dokumentieren alle Datenflüsse vollständig und übergeben am Ende sauber an Ihr Team.",
-          },
-          {
-            question: "Was unterscheidet euch von einer reinen Beratung?",
-            answer:
-              "Wir beraten und implementieren. Statt nur Konzepte zu liefern, bauen wir Datenmodelle, Dashboards und Pipelines selbst — und dokumentieren so, dass Sie eigenständig weiterarbeiten können.",
-          },
-          {
-            question: "Brauchen wir interne BI-Expertise nach dem Projekt?",
-            answer:
-              "Wir bauen nicht nur, wir befähigen. Schulungen und Dokumentation sind fester Bestandteil jedes Projekts — damit Ihr Team später eigenständig erweitern und betreiben kann.",
-          },
-        ],
-      },
-      cta: {
-        title: "Was würde sich ändern, wenn Ihre Daten endlich miteinander reden?",
-        subtitle: "30 Minuten Erstgespräch. Kostenlos. Unverbindlich. Sie erfahren, wo Ihr größter Hebel liegt — auch wenn wir am Ende nicht zusammenarbeiten.",
-        primaryButton: "Kostenloses Erstgespräch",
-        secondaryButton: "Kontakt aufnehmen",
-      },
-      relatedLink: {
-        text: "Sie nutzen bexio und suchen eine fertige Datenanalyse-Lösung? Schauen Sie sich unser Produkt smiit Analytics für bexio an.",
-        linkLabel: "Zu smiit Analytics für bexio",
-        href: "/products/smiit-analytics",
-      },
+    reviewsHeading: {
+      lead: "Was unsere",
+      highlight: "Kunden sagen",
+      swipeHint: "wischen →",
     },
-    servicesStrategy: {
-      eyebrows: {
-        hero: "DIGITALE STRATEGIE",
-        why: "DAS PROBLEM",
-        portfolio: "WAS WIR TUN",
-        manifest: "ZWISCHENRUF",
-        process: "UNSER VORGEHEN",
-        reviews: "STIMMEN",
-        cta: "JETZT STARTEN",
-      },
-      manifest: {
-        lead: "Tempo ohne Richtung",
-        emphasis: "ist nur Lärm.",
-      },
-      hero: {
-        title: "Eine digitale Strategie, die im Alltag trägt.",
-        description:
-          "Wir bringen Cloud, Sicherheit, Daten und Prozesse in eine kohärente Roadmap — mit ehrlichen Bestandsaufnahmen, klaren Prioritäten und der Umsetzungskraft, die Strategiepapiere meistens vermissen lassen.",
-        primaryCta: "Strategie-Sparring vereinbaren",
-        packagesLabel: "Beliebte Leistungen",
-        packages: [
-          "Digitalisierungs-Roadmap",
-          "Datenstrategie & BI-Konzept",
-          "Azure Cloud Architektur",
-          "IT-Sicherheits-Check",
-          "Prozessanalyse & Automatisierungsplan",
-        ],
-        scrollHint: "Weiter scrollen",
-        boardEyebrow: "Executive Intelligence Layer",
-        boardTitle: "Von Datensilos zur Entscheidungsebene",
-        sourcesConnected: "4 Themen · 12 Initiativen",
-        updated: "aktualisiert vor 2 Min.",
-        inPractice: "In der Praxis",
-        swipeHint: "← Wischen zum Wechseln →",
-        mobileTabTitle: "Warum",
-        mobileTabTitleHighlight: "Strategie?",
-        dashboardTitle: "Digital Strategy Cockpit",
-        sections: {
-          kpis: "Maturity-Index",
-          trend: "Strategie-Roadmap",
-          trendSub: "Milestones, Status und Forecast",
-          signals: "Strategische Risiken",
-          potentials: "Initiativen-Pipeline",
-          filters: "Themen · Phasen · Risiko",
-        },
-        months: ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"],
-        kpiLabels: {
-          cloud: "Cloud-Reife",
-          security: "Sicherheit",
-          data: "Daten",
-          process: "Prozess-Reife",
-        },
-        chartLegend: {
-          done: "Erledigt",
-          progress: "In Umsetzung",
-          planned: "Geplant",
-        },
-        signalLabels: {
-          compliance: "Compliance",
-          cyber: "Cyber",
-          vendor: "Vendor-Lock",
-          operational: "Operativ",
-        },
-        signalRadar: {
-          title: "Risiko-Trend",
-          period: "letzte 6 Monate",
-        },
-        segments: {
-          sondieren: "Sondieren",
-          konzipieren: "Konzipieren",
-          umsetzen: "Umsetzen",
-          verankern: "Verankern",
-        },
-        periods: {
-          q: "Quartal",
-          h: "6 Monate",
-          y: "12 Monate",
-        },
-        trendTooltip: {
-          statusDone: "Erledigt",
-          statusProgress: "In Umsetzung",
-          statusPlanned: "Geplant",
-        },
-        kpiDeltaLabels: {
-          cloud: "→ Ziel",
-          security: "→ Ziel",
-          data: "→ Ziel",
-          process: "→ Ziel",
-        },
-        ariaLabels: {
-          timeRange: "Zeitraum",
-        },
-        bottomLabels: {
-          q: ["Wo 1", "Wo 4", "Wo 7", "Wo 10", "Wo 13"],
-          h: ["Jul", "Aug", "Sep", "Okt", "Nov", "Dez"],
-          y: ["Q1", "Q2", "Q3", "Q4"],
-        },
-        milestoneLabels: {
-          tenantAudit: "Tenant-Audit",
-          landingZone: "Landing Zone",
-          iacMigration: "IaC-Migration",
-          multiRegion: "Multi-Region",
-          mfaRollout: "MFA-Rollout",
-          zeroTrust: "Zero Trust",
-          identityGov: "Identity-Gov",
-          socSetup: "SOC-Setup",
-          dataLineage: "Data Lineage",
-          masterData: "Master Data",
-          selfService: "Self-Service",
-          processMap: "Prozessmap",
-          bpmnModels: "BPMN-Modelle",
-          powerAutomate: "Power Automate",
-          kpiSteering: "KPI-Steuerung",
-          patchAudit: "Patch-Audit",
-          data: "Daten",
-          sourceInventory: "Quellinventar",
-          processMapping: "Prozesskartierung",
-          top3Modeling: "Top-3 Modellierung",
-          pilotWorkflow: "Pilot-Workflow",
-          iacSetup: "IaC-Setup",
-        },
-      },
-      portfolio: {
-        title: "Unser",
-        titleHighlight: "Angebot",
-        subtitle: "Wir begleiten Sie auf dem Weg zu einer digitalen Strategie, die im Alltag trägt – von der ehrlichen Bestandsaufnahme bis zur produktiven Cloud-Plattform.",
-        visuals: {
-          process: {
-            label: "Genehmigungslauf",
-            yes: "✓ ja",
-            no: "✗ nein",
-          },
-          security: {
-            eventBackupVerified: "Backup verifiziert",
-            eventAnomalyDetected: "Anomalie erkannt",
-          },
-        },
-        learnMore: "Mehr erfahren",
-        learnLess: "Weniger anzeigen",
-        bookCta: "Gespräch vereinbaren",
-        items: [
-          {
-            title: "Prozessoptimierung & -automatisierung",
-            shortDesc: "Wir machen Geschäftsprozesse sichtbar, hinterfragen Brüche und Reibungspunkte und automatisieren, wo es sich messbar lohnt. So entstehen schlankere Abläufe, weniger Medienbrüche und Teams, die mehr Zeit für das Eigentliche haben.",
-            details: "Wir starten mit einer sauberen Prozessmodellierung – von der Ist-Aufnahme über die Schwachstellen-Analyse bis zum Soll-Konzept, eng abgestimmt mit den Menschen, die den Prozess täglich leben. Dabei nutzen wir etablierte Notationen wie BPMN und halten Modelle bewusst pragmatisch und nutzbar.\n\nIm Anschluss übersetzen wir das Soll-Bild in digitalisierte Workflows – über Power Automate, individuelle Apps oder Integrationen in bestehende Systeme. Wir wählen den Weg, der zur Reife Ihrer IT-Landschaft passt, und automatisieren genau das, was nachweislich Aufwand spart oder Qualität verbessert."
-          },
-          {
-            title: "Cloud-Infrastruktur & DevOps",
-            shortDesc: "Wir bauen Ihre Azure-Landschaft so auf, dass sie skaliert, sicher ist und auch nach zwei Jahren noch verständlich bleibt. Infrastructure as Code, klare Netzwerk- und Governance-Konzepte, automatisierte Deployments – von Anfang an mitgedacht.",
-            details: "Wir setzen ausschließlich auf Microsoft Azure und kennen das Ökosystem von der Tenant-Architektur bis zur einzelnen Pipeline. Konkret bauen wir Landing Zones, Hub-and-Spoke-Netzwerke, Identity- und Berechtigungskonzepte sowie durchdachte Naming- und Tagging-Strategien – abgestimmt auf Ihre Compliance- und Skalierungsanforderungen.\n\nInfrastruktur entsteht bei uns als Code (Bicep oder Terraform), nie per Klick im Portal. CI/CD-Pipelines, automatisierte Tests, Security-Scans und Dokumentation gehören zur Lieferung – damit Ihre Plattform nicht nur am Launch-Tag läuft, sondern auch im Audit, im Disaster-Recovery-Test und bei der nächsten größeren Erweiterung trägt."
-          },
-          {
-            title: "IT-Sicherheit",
-            shortDesc: "Sicherheit ist kein Produkt, das man kauft, sondern eine Disziplin, die man verankert. Wir bringen Ihre IT-Landschaft auf einen belastbaren Stand – von der ehrlichen Lagebewertung über die Härtung von Identity, Netzwerk und Daten bis zur Verankerung im Alltag.",
-            details: "Wir beginnen mit einer ehrlichen Bestandsaufnahme: Wo liegen Ihre kritischen Werte, wo sind die größten Lücken, was sagen Audits – und was sagt die Realität? Aus diesem Lagebild leiten wir eine priorisierte Roadmap ab, mit Quick Wins (MFA, Patch-Disziplin, Backup-Tests) und strukturellen Maßnahmen (Zero Trust, Identity-Governance, Netzwerksegmentierung).\n\nSicherheit denken wir dabei nicht als Sonderprojekt, sondern als Querschnitt: Unsere Cloud-Architekturen sind von Grund auf gehärtet, unsere Prozessdesigns berücksichtigen Datenschutz und unsere DevOps-Pipelines integrieren Security-Scans. So entsteht ein Schutzniveau, das im Alltag trägt – ohne Ihr Tempo auszubremsen."
-          }
-        ]
-      },
-      process: {
-        title: "So entwickeln wir Ihre",
-        titleHighlight: "digitale Strategie.",
-        subtitle: "Vier klare Schritte – von der ehrlichen Bestandsaufnahme bis zur verankerten Roadmap.",
-        stepLabel: "Schritt",
-        steps: [
-          {
-            number: "01",
-            title: "Sondieren",
-            text: "Wir nehmen Cloud-Reife, Sicherheits-Posture, Datenlandschaft und Kernprozesse unter die Lupe — ehrlich, quantifiziert, ohne Schönfärben.",
-          },
-          {
-            number: "02",
-            title: "Konzipieren",
-            text: "Wir zeichnen Ihr Zielbild und priorisieren: Was bringt am meisten, was ist kritisch, was kann warten? Mit Aufwandsschätzung und Quick Wins.",
-          },
-          {
-            number: "03",
-            title: "Umsetzen",
-            text: "Wir führen die Roadmap in die Praxis: Cloud-Migration, Sicherheits-Härtung, Datenfundament, Prozess-Automatisierung — iterativ, mit messbaren Etappen.",
-          },
-          {
-            number: "04",
-            title: "Verankern",
-            text: "Wir übergeben sauber, schulen Ihr Team und stehen für Reviews und Weiterentwicklung bereit — damit die Strategie nicht im Schrank verschwindet.",
-          },
-        ],
-      },
-      reviewsHeading: {
-        lead: "Was unsere",
-        highlight: "Kunden sagen",
-        swipeHint: "wischen →",
-      },
-      reviews: [
-        {
-          id: 7,
-          name: "Azai AG",
-          subtitle: "Cloud-Architektur & Governance für SaaS-Plattform",
-          quote:
-            "smiit hat uns beim Aufbau einer hochskalierenden SaaS-Plattform begleitet. Networking, Sicherheit und Governance waren von Anfang an Teil der Cloud-Architektur — nicht nachgereicht.",
-          metric: "99,9 %",
-          metricSub: "Plattform-Verfügbarkeit",
-        },
-        {
-          id: 8,
-          name: "Claimity AG",
-          subtitle: "DSGVO-konforme Azure-Infrastruktur & DevOps",
-          quote:
-            "smiit hat unsere DSGVO-konforme Azure-Infrastruktur als Infrastructure-as-Code aufgesetzt — inklusive sauberer DevOps-Pipelines. Sechs Wochen vom Whiteboard zur produktiven SaaS-Plattform.",
-          metric: "6 Wo.",
-          metricSub: "von der Idee zur SaaS-Plattform",
-        },
-        {
-          id: 2,
-          name: "G&B Logistics GmbH",
-          subtitle: "Stammdaten-Konsolidierung & Echtzeit-Analytics",
-          quote:
-            "Mit smiit haben wir Daten aus verschiedenen Systemen erstmals miteinander verbunden und unsere Stammdaten konsolidiert. Operative Prozesse laufen dadurch reibungsloser — und unsere Echtzeit-Auswertungen ziehen aus einer Quelle.",
-          metric: "4→1",
-          metricSub: "Systeme konsolidiert",
-        },
-      ],
-      faq: {
-        eyebrow: "HÄUFIGE FRAGEN",
-        heading: { lead: "Antworten auf das, was", highlight: "oft gefragt wird" },
-        items: [
-          {
-            question: "Was unterscheidet euch von einer klassischen Unternehmensberatung?",
-            answer:
-              "Wir setzen das, was wir empfehlen, auch selbst um. Eine Strategie, die wir entwerfen, müssen wir am Ende selbst implementieren können — das diszipliniert die Empfehlungen und vermeidet Konzepte, die in der Schublade verschwinden.",
-          },
-          {
-            question: "Wie lange dauert eine Strategie-Entwicklung?",
-            answer:
-              "Eine fokussierte digitale Roadmap entsteht in 4-8 Wochen, abhängig von Komplexität und Stakeholder-Beteiligung. Wir starten immer mit einem klar abgegrenzten Scope, statt monatelang am großen Ganzen zu schrauben.",
-          },
-          {
-            question: "Was passiert nach der Strategie?",
-            answer:
-              "Sie entscheiden — entweder setzen wir die Roadmap mit Ihnen um (Apps, Datenanalyse, Workflows), oder Ihr Team übernimmt mit unserer Dokumentation. Beide Wege sind okay.",
-          },
-          {
-            question: "Wie geht ihr mit Cloud vs. On-Prem um?",
-            answer:
-              "Technologieneutral. Wir bewerten anhand Ihrer Anforderungen — Compliance, bestehende Infrastruktur, Skalierungsbedarf — und empfehlen das, was zu Ihrem Kontext passt, nicht das, was gerade Trend ist.",
-          },
-          {
-            question: "Können wir auch ein begrenztes Thema an euch geben — z.B. nur Cloud-Migration?",
-            answer:
-              "Ja. Strategieprojekte können einen klaren Fokus haben (Datenstrategie, Cloud-Architektur, Tooling-Auswahl). Wir starten mit einem 30-Minuten-Erstgespräch, um Scope und Erwartung abzugleichen.",
-          },
-        ],
-      },
-      cta: {
-        title: "Bevor Sie das nächste Tool kaufen — lassen Sie uns über Ihre Strategie reden.",
-        subtitle: "30 Minuten. Kostenlos. Wir hören zu, ordnen ein und sagen Ihnen, was wir an Ihrer Stelle priorisieren würden — Cloud-Migration, Sicherheit, Datenstrategie oder Prozesse.",
-        primaryButton: "Kostenloses Erstgespräch",
-        secondaryButton: "Kontakt aufnehmen",
-      },
-      relatedLink: {
-        text: "Eine belastbare Strategie braucht belastbare Daten — entdecken Sie unsere Datenanalyse-Leistungen.",
-        linkLabel: "Zur Datenanalyse",
-        href: "/services/analytics",
-      },
-    },
-    servicesApps: {
-      eyebrows: {
-        hero: "APPS & WORKFLOWS",
-        portfolio: "WAS WIR TUN",
-        process: "UNSER VORGEHEN",
-        reviews: "STIMMEN",
-      },
-      hero: {
-        title: "Workflows verstehen. Apps bauen. Teams entlasten.",
-        description:
-          "Wir entwickeln Individualsoftware und Web-Apps, die Ihre Prozesse automatisieren und Systeme über Schnittstellen verbinden – damit Ihr Team weniger klickt, sucht und wartet, und mehr liefert.",
-        primaryCta: "Ideen jetzt besprechen",
-        packagesLabel: "Beliebte Leistungen",
-        packages: [
-          "Individuelle Web Apps",
-          "Prozessautomatisierung mit Power Automate",
-          "API-Integration",
-          "SaaS Plattformen",
-          "App Wartung & Weiterentwicklung",
-        ],
-        appName: "OperationsHub",
-        pageTitle: "Dashboard",
-        searchPlaceholder: "Suche…",
-        createNewLabel: "Neuer Auftrag",
-        avatarInitials: "JM",
-        teamActiveLabel: "Team aktiv",
-        updated: "Sync vor 2 Min.",
-        views: { today: "Heute", week: "Woche", month: "Monat" },
-        navItems: {
-          dashboard: "Dashboard",
-          orders: "Aufträge",
-          customers: "Kunden",
-          inventory: "Lager",
-          reports: "Berichte",
-          settings: "Einstellungen",
-        },
-        sections: {
-          stats: "Kennzahlen",
-          pipeline: "Auftragspipeline",
-          pipelineSub: "Live · alle Phasen sichtbar",
-          activity: "Live-Aktivität",
-          tasks: "Offene Aufgaben",
-        },
-        statLabels: {
-          orders: "Bestellungen",
-          customers: "Aktive Kunden",
-          tasks: "Offene Aufgaben",
-          revenue: "Umsatz",
-        },
-        statDeltas: {
-          orders: "vs. gestern",
-          customers: "vs. gestern",
-          tasks: "vs. gestern",
-          revenue: "vs. gestern",
-        },
-        pipelineColumns: {
-          incoming: "Eingang",
-          active: "In Arbeit",
-          done: "Erledigt",
-        },
-        taskPriorityLabels: {
-          high: "Hoch",
-          med: "Mittel",
-          low: "Niedrig",
-        },
-        ariaLabels: {
-          timeRange: "Zeitraum",
-          mainNav: "Hauptnavigation",
-        },
-        activeBadge: "aktiv",
-        activitiesByView: {
-          today: [
-            { user: "J. Müller", action: "hat Auftrag #4831 angelegt", time: "vor 2 Min." },
-            { user: "A. Schmidt", action: "hat Angebot freigegeben", time: "vor 14 Min." },
-            { user: "T. Weber", action: "hat Lieferung bestätigt", time: "vor 38 Min." },
-            { user: "M. Becker", action: "hat Zahlung erfasst", time: "vor 1 Std." },
-          ],
-          week: [
-            { user: "J. Müller", action: "hat Auftrag #4831 angelegt", time: "vor 3 Std." },
-            { user: "S. Voss", action: "hat Vertrag verlängert", time: "vor 8 Std." },
-            { user: "A. Schmidt", action: "hat Mahnung versendet", time: "vor 1 Tag" },
-            { user: "M. Becker", action: "hat Reklamation eröffnet", time: "vor 2 Tagen" },
-          ],
-          month: [
-            { user: "J. Müller", action: "hat 14 Aufträge abgeschlossen", time: "vor 4 Tagen" },
-            { user: "S. Voss", action: "hat 6 Verträge verlängert", time: "vor 1 Woche" },
-            { user: "A. Schmidt", action: "hat 3 Großkunden onboarded", time: "vor 2 Wochen" },
-            { user: "M. Becker", action: "hat Q3-Reporting abgeschlossen", time: "vor 3 Wochen" },
-          ],
-        },
-        tasksByView: {
-          today: [
-            { label: "Angebot Müller GmbH freigeben", due: "heute, 17:00" },
-            { label: "Lieferung Becker bestätigen", due: "heute" },
-            { label: "Rechnung #4823 prüfen", due: "morgen" },
-            { label: "Q4-Forecast aktualisieren", due: "diese Woche" },
-          ],
-          week: [
-            { label: "Klein KG: Angebot kalkulieren", due: "Mi" },
-            { label: "Reklamation Becker bearbeiten", due: "Mi" },
-            { label: "Mahnlauf #34 freigeben", due: "Do" },
-            { label: "Vertriebsmeeting vorbereiten", due: "Fr" },
-          ],
-          month: [
-            { label: "Schäfer AG: Vertragsverhandlung", due: "diese Woche" },
-            { label: "Quartalsplanung Q1 abstimmen", due: "diese Woche" },
-            { label: "Provisionsabrechnung freigeben", due: "nächste Woche" },
-            { label: "CRM-Daten konsolidieren", due: "diesen Monat" },
-          ],
-        },
-      },
-      reviewsHeading: {
-        lead: "Was unsere",
-        highlight: "Kunden sagen",
-        swipeHint: "wischen →",
-      },
-      reviews: [
-        {
-          id: 3,
-          name: "Claimity AG",
-          subtitle: "SaaS-Plattform für die Versicherungsbranche",
-          quote:
-            "Von der Idee zur fertigen SaaS-Plattform in Rekordzeit. Das Team von smiit hat unsere Vision perfekt umgesetzt und technisch exzellent realisiert.",
-          metric: "6 Wochen",
-          metricSub: "von der Idee zur SaaS-Plattform",
-        },
-        {
-          id: 7,
-          name: "Bitix Media GmbH",
-          subtitle: "Individuelle Verkaufs-App mit Live-Steuerung",
-          quote:
-            "Die individuelle App von smiit wickelt unseren gesamten Verkaufsprozess ab. Wir steuern Aktionen live und sehen sofort, wann, was und wie viel von einem Produkt bestellt und bezahlt wurde.",
-          metric: "1 System",
-          metricSub: "Verkauf End-to-End",
-        },
-        {
-          id: 4,
-          name: "RB Westkamp GmbH",
-          subtitle: "Mitarbeiter-App für Zieltransparenz",
-          quote:
-            "smiit hat für uns eine Web App für unsere Mitarbeitenden entwickelt. Heute sehen unsere Mitarbeiter auf Knopfdruck, welche Ziele sie bereits erreicht haben und welches Potenzial sie noch ausschöpfen können. So haben wir unseren Vertrieb noch effizienter gestalten können.",
-          metric: "Live",
-          metricSub: "Vertriebsziele auf Knopfdruck",
-        },
-      ],
-      manifest: {
-        lead: "Software soll arbeiten.",
-        emphasis: "Nicht beschäftigen.",
-      },
-      portfolio: {
-        title: "Unser",
-        titleHighlight: "Angebot",
-        subtitle: "Wir bauen Web-Apps, Websites und Azure-Setups, die Ihre Workflows tragen – von der ersten Skizze bis zum stabilen Betrieb.",
-        visuals: {
-          bi: {
-            label: "Aktive Nutzer",
-            tabs: ["Übersicht", "Berichte", "Einstellungen"],
-            modules: ["Vertrieb", "Lager", "Kunden"],
-            activity: "J. Müller hat Auftrag #4831 angelegt",
-            moduleCount: "3 Module",
-          },
-        },
-        learnMore: "Mehr erfahren",
-        learnLess: "Weniger anzeigen",
-        bookCta: "Gespräch vereinbaren",
-        items: [
-          {
-            title: "Web Applikationen & Plattformen",
-            shortDesc: "Wir bauen Individualsoftware – Web-Apps und Plattformen, die Ihre Workflows abbilden, Systeme über Schnittstellen (APIs) verbinden und Anwendern wirklich Arbeit abnehmen. So entstehen digitale Werkzeuge, die im Alltag funktionieren – nicht nur in der Demo.",
-            details: "Wir entwickeln moderne Web-Anwendungen und SaaS-Plattformen entlang Ihres tatsächlichen Bedarfs – vom internen Tool bis zur Multi-Tenant-Lösung. Dabei verbinden wir bestehende Systeme über APIs, integrieren Authentifizierung und Berechtigungen sauber und sorgen dafür, dass Ihre App auch unter Last performt.\n\nTechnologisch setzen wir auf Next.js, React und .NET – mit klaren Architekturen, automatisierten Tests und CI/CD-Pipelines. So entstehen Anwendungen, die nicht nur in der ersten Version glänzen, sondern langfristig wartbar, sicher und skalierbar bleiben."
-          },
-          {
-            title: "Websites & Design",
-            shortDesc: "Wir gestalten und entwickeln Websites, die Ihre Marke ernst nehmen – schnell, klar strukturiert und auf Conversion ausgelegt. Ein Auftritt, der Vertrauen schafft, statt nur gut auszusehen.",
-            details: "Von der ersten Skizze bis zum Go-Live: Wir entwerfen und bauen Websites, die Inhalte sauber führen. Unsere Websites sind auf mobile-first, SEO, Performance und Barrierefreiheit ausgerichtet. Dabei orientieren wir uns an Ihrer Markenidentität und sorgen für ein konsistentes visuelles System – von Typografie über Farbe bis zu den Komponenten.\n\nTechnisch arbeiten wir mit Next.js und Headless-CMS, sodass Ihr Team Inhalte selbständig pflegen kann, ohne auf Entwickler angewiesen zu sein. Das Ergebnis: ein digitaler Auftritt, der nicht nur am Launch-Tag stark ist, sondern mit Ihrem Geschäft mitwächst."
-          },
-          {
-            title: "Cloud Infrastruktur & Governance",
-            shortDesc: "Wir bauen Ihre Cloud-Umgebung auf Microsoft Azure – sicher, kosteneffizient und nachvollziehbar. Eine Infrastruktur, die mit Ihrem Geschäft skaliert und Compliance-Anforderungen mühelos erfüllt.",
-            details: "Wir konzipieren und betreiben Cloud-Architekturen auf Microsoft Azure – von Landing Zones über Identitäten und Netzwerk bis hin zu CI/CD-Pipelines und Observability. Dabei achten wir auf eine klare Governance-Struktur, sodass Ressourcen, Kosten und Berechtigungen jederzeit transparent bleiben.\n\nSchwerpunkte sind Infrastructure-as-Code mit Bicep oder Terraform, Sicherheits-Baselines nach dem Microsoft Cloud Adoption Framework und wartbare Deployment-Prozesse. So entsteht eine Azure-Umgebung, die nicht nur technisch sauber ist, sondern auch organisatorisch trägt – für stabile Apps, klare Verantwortlichkeiten und planbare Cloud-Kosten."
-          }
-        ]
-      },
-      process: {
-        title: "So machen wir aus Ihren Workflows",
-        titleHighlight: "produktive Apps.",
-        subtitle: "Vier klare Schritte – von der ersten Idee bis zum produktiven Betrieb.",
-        stepLabel: "Schritt",
-        steps: [
-          {
-            number: "01",
-            title: "Verstehen",
-            text: "Wir analysieren Workflows, Anwender und Systemumgebung – und identifizieren, wo eine eigene App den größten Hebel bringt.",
-          },
-          {
-            number: "02",
-            title: "Konzipieren",
-            text: "Wir entwerfen UX, Datenfluss und Architektur – abgestimmt auf Ihre Anwender, vorhandene Systeme und Skalierungsziele.",
-          },
-          {
-            number: "03",
-            title: "Umsetzen",
-            text: "Wir entwickeln, integrieren und testen – iterativ, mit kurzen Feedbackzyklen und sauberer Übergabe.",
-          },
-          {
-            number: "04",
-            title: "Befähigen",
-            text: "Wir rollen aus, schulen Ihr Team und betreuen die App im Betrieb – mit klaren SLAs und einer Roadmap für die Weiterentwicklung.",
-          },
-        ],
-      },
-      faq: {
-        eyebrow: "HÄUFIGE FRAGEN",
-        heading: { lead: "Antworten auf das, was", highlight: "oft gefragt wird" },
-        items: [
-          {
-            question: "Wie lange dauert die Entwicklung einer individuellen Web-App?",
-            answer:
-              "Vom ersten Konzept bis zum Go-Live dauert es je nach Umfang ca. 6-12 Wochen. Wir liefern in kurzen Iterationen, sodass Sie die Ergebnisse frühzeitig & produktiv nutzen können — nicht erst nach Monaten Entwicklung.",
-          },
-          {
-            question: "Wem gehört der Code am Ende?",
-            answer:
-              "Ihnen. Sie erhalten den vollen Source-Code und die Dokumentation und können später selbst weiterentwickeln oder den Anbieter wechseln. Kein Vendor-Lock-in.",
-          },
-          {
-            question: "Welchen Tech-Stack verwendet ihr?",
-            answer:
-              "Im Backend setzen wir auf .NET, im Frontend auf JavaScript und TypeScript mit React und Next.js. Bewusst ein fokussierter Stack — keine Framework-Wildwestern, sondern eingespielte Technologien, die wir produktiv beherrschen und langfristig wartbar halten.",
-          },
-          {
-            question: "Was kostet die Wartung nach dem Go-Live?",
-            answer:
-              "Sie entscheiden. Wir bieten Wartungspakete an, oder Sie übernehmen die Wartung selbst. Da Code und Dokumentation Ihnen gehören, sind Sie nicht von uns abhängig — wir bleiben gerne, weil wir gut sind, nicht weil Sie nicht wegkönnen.",
-          },
-          {
-            question: "Wie geht ihr mit DSGVO und Datenhaltung um?",
-            answer:
-              "DSGVO-konforme Architektur ist Standard, nicht Option. Wir setzen Hosting in der EU oder Schweiz auf, dokumentieren Datenflüsse vollständig und unterstützen bei Auftragsverarbeitungsverträgen.",
-          },
-        ],
-      },
-      cta: {
-        title: "Wie viele Stunden würde Ihr Team zurückgewinnen, wenn sich die",
-        titleHighlight: "Routine selbst erledigt?",
-        subtitle: "30 Minuten Erstgespräch. Kostenlos. Unverbindlich. Sie erfahren, wo sich Ihre größten Routinekiller automatisieren lassen — auch wenn wir am Ende nicht zusammenarbeiten.",
-        primaryButton: "Kostenloses Erstgespräch",
-        secondaryButton: "Kontakt aufnehmen",
-      },
-      relatedLink: {
-        text: "Automatisierte Workflows entfalten ihren Wert erst mit klaren Daten — entdecken Sie unsere Datenanalyse-Leistungen.",
-        linkLabel: "Zur Datenanalyse",
-        href: "/services/analytics",
-      },
-    },
-    customerCards: [
+    reviews: [
       {
-        id: 1,
-        name: "Dy Project AG",
-        subtitle: "Power BI Analysen für Controlling & Betrieb",
-        feedback: "Drei getrennte Systeme in eine echtzeit Berichtslösung vereint.",
+        id: 6,
+        name: "Masterhomepage GmbH",
+        subtitle: "Dashboard für Zeitauswertung",
+        quote:
+          "Wir haben ein individuelles Dashboard von smiit erstellen lassen für die Auswertung der Zeiteinträge unserer Mitarbeiter mit Email Erinnerungsflows. Die Jungs sind sehr kompetent und äusserst freundlich. Super Service mit einem TOP Preis-/Leistungsverhältnis. Wir können smiit absolut weiterempfehlen!",
+        metric: "5/5",
+        metricSub: "Volle Empfehlung",
       },
       {
         id: 2,
         name: "G&B Logistics GmbH",
-        subtitle: "Digitale Strategie & Prozessoptimierung",
-        feedback: "Freisetzung von 140 Stunden je Monat durch Automatisierung.",
+        subtitle: "Analysen für CRM, Buchhaltung, Disposition & HR",
+        quote:
+          "Mit den Auswertungen von smiit sehen wir CRM, Buchhaltung, Disposition und Mitarbeiterdaten erstmals an einer Stelle. Die Touren-, Auftrags- und Auslastungskennzahlen sind heute auf Knopfdruck verfügbar – das hat unsere monatliche Auswertung deutlich verschlankt.",
+        metric: "140h",
+        metricSub: "monatlich gespart",
       },
       {
-        id: 3,
-        name: "Claimity AG",
-        subtitle: "SaaS-Entwicklung für die Versicherungsbranche",
-        feedback: "Von der Idee zum Go-Live in 3 Monaten - effizient und effektiv.",
-      },
-      {
-        id: 4,
-        name: "RB Westkamp GmbH",
-        subtitle: "Transformation der Mitarbeitererfahrung",
-        feedback: "Echtzeitanalysen zur Vertriebs- und Mitarbeiterperformance.",
-      },
-      {
-        id: 5,
-        name: "ASW Engineering AG",
-        subtitle: "Automatisierung der Projektplanung und -steuerung",
-        feedback: "Volle Transparenz über die Betriebsauslastung.",
+        id: 1,
+        name: "Dy Project AG",
+        subtitle: "Datenintegration & zentrales Reporting",
+        quote:
+          "Endlich haben wir alle unsere Datenquellen zentral vereint. Die Datenintegration von smiit hat uns eine völlig neue Transparenz ermöglicht.",
+        metric: "3→1",
+        metricSub: "Berichtssysteme zusammengeführt",
       },
     ],
-    results: {
-      titlePrefix: "Ergebnisse, die Ihr Team und Ihre Kunden ",
-      titleHighlight: "tatsächlich",
-      titleSuffix: " spüren",
-      items: [
-        { value: "5+", label: "Jahre Erfahrung", text: "Mit über 5 Jahren Erfahrung arbeitet die smiit GmbH mit standardisierten Prozessen und klarer Strukturierung." },
-        { value: "70+", label: "Erfolgreiche Projekte", text: "Wir haben in den letzten Jahren mit mehr als 20 Kunden insgesamt über 70 Projekte erfolgreich umgesetzt." },
-        { value: "Ø 3,6", label: "Projekte je Kunde", text: "Über 3,6 Projekte je Kunde zeigen klar: Unsere Kunden vertrauen uns und sind zufrieden mit unseren Ergebnissen." },
-        { value: "3", label: "Service Bereiche", text: "Unsere breite fachliche Aufstellung ermöglicht eine integrierte Umsetzung: Datenanalyse, Automatisierungen & Apps." }
-      ],
-      button: "Kostenloses Erstgespräch buchen"
-    },
-    products: {
-      title: "Entscheidungen gestützt\nauf Daten, nicht auf Vermutungen",
-      subtitle: "smiit-Produkte verwandeln Rohdaten in klare Erkenntnisse und ermöglichen\nintelligentere, faktenbasierte Geschäftsentscheidungen.",
-      cta: "Kostenloses Erstgespräch buchen",
+    faq: {
+      eyebrow: "HÄUFIGE FRAGEN",
+      heading: { lead: "Antworten auf das, was", highlight: "oft gefragt wird" },
       items: [
         {
-          title: "Product\nScout",
-          text: "KI-gestützte Preisvergleichs-Suchmaschine für Einzelhändler und Handwerker. Durchsuchen Sie alle Ihre Lieferanten gleichzeitig.",
-          image: "/assets/home/product_scout.webp",
-          href: "#book",
+          question: "Wie schnell sehen wir erste Ergebnisse?",
+          answer:
+            "Wir starten immer mit einem Erstgespräch, in dem wir den größten Hebel identifizieren. Erste Dashboards stehen typischerweise innerhalb weniger Wochen oder sogar Tagen — oft schon, bevor das vollständige Datenmodell aufgebaut ist.",
         },
         {
-          title: "smiit Analytics\nfür bexio",
-          text: "Unser bexio Analysedashboard für Schweizer Nutzer automatisiert Ihre Auswertungen und konsolidiert alle KPIs aus bexio in übersichtlichen Reports.",
-          image: "/assets/home/smiit_analytics.webp",
-          href: "/products/smiit-analytics",
+          question: "Müssen wir unsere bestehenden Tools wechseln?",
+          answer:
+            "Nein. Wir arbeiten in Ihrer bestehenden Tool-Landschaft, schwerpunktmäßig im Microsoft-Umfeld mit Power BI und Fabric. Ein Tool-Wechsel ist nie unser Startpunkt.",
         },
         {
-          title: "Azai\nElevate",
-          text: "Intelligente Projektmanagement-Plattform mit KI-gestützter Risikoanalyse und automatisierten Workflows für erfolgreiche Projekte.",
-          image: "/assets/home/azai.webp",
-          href: "https://www.azai.ch",
-          external: true,
+          question: "Wie geht ihr mit unseren sensiblen Geschäftsdaten um?",
+          answer:
+            "Ihre Daten bleiben in Ihrer Infrastruktur. Wir arbeiten DSGVO-konform, dokumentieren alle Datenflüsse vollständig und übergeben am Ende sauber an Ihr Team.",
+        },
+        {
+          question: "Was unterscheidet euch von einer reinen Beratung?",
+          answer:
+            "Wir beraten und implementieren. Statt nur Konzepte zu liefern, bauen wir Datenmodelle, Dashboards und Pipelines selbst — und dokumentieren so, dass Sie eigenständig weiterarbeiten können.",
+        },
+        {
+          question: "Brauchen wir interne BI-Expertise nach dem Projekt?",
+          answer:
+            "Wir bauen nicht nur, wir befähigen. Schulungen und Dokumentation sind fester Bestandteil jedes Projekts — damit Ihr Team später eigenständig erweitern und betreiben kann.",
         },
       ],
-      ctaBottom: "Lassen Sie uns über Ihre\nHerausforderungen sprechen",
-      ctaSubtext: "Wir beraten Sie unverbindlich zu Ihren Möglichkeiten.",
-      ctaBottomButton: "Kostenloses Erstgespräch buchen",
     },
-    aboutPage: {
-      titlePrefix: "Digitale Transformation. Weite Expertise. ",
-      titleHighlight: "Nachhaltiger",
-      titleSuffix: " Mehrwert.",
-      description: "Wir sind ein IT-Unternehmen mit der Vision, kleine und mittelständische Unternehmen im DACH-Raum zu digitalisieren - durch maßgeschneiderte Lösungen in den Bereichen Datenanalyse, Automatisierung und App-Entwicklung.",
+    cta: {
+      title: "Was würde sich ändern, wenn Ihre Daten endlich miteinander reden?",
+      subtitle: "30 Minuten Erstgespräch. Kostenlos. Unverbindlich. Sie erfahren, wo Ihr größter Hebel liegt — auch wenn wir am Ende nicht zusammenarbeiten.",
       primaryButton: "Kostenloses Erstgespräch",
-      secondaryButton: "Unsere Services",
-      features: [
-        "5+ Jahre Erfahrung",
-        "DACH-weiter Fokus",
-        "In-House Entwicklung"
-      ],
-      ourClients: "Unsere Kunden",
-      overview: "Übersicht",
-      mission: {
-        title: "Unsere Mission & Werte",
-        subtitle: "Wir möchten Veränderungen bewirken und unseren Kunden klare Einblicke\nermöglichen, wertvolle Zeit sparen und moderne Arbeitsweisen etablieren",
-        values: [
-          {
-            title: "Vertrauen & Engagement",
-            text: "Erfolgreiche Projekte entstehen nur durch gegenseitiges Vertrauen und Engagement. Wir bringen unsere Expertise ein – und erwarten die gleiche Offenheit und Beteiligung von unseren Partnern.",
-          },
-          {
-            title: "Nachhaltige Qualität",
-            text: "Wir entwickeln Lösungen, die langfristig funktionieren. Qualität braucht manchmal mehr Zeit – dafür entstehen Systeme, die skalierbar, wartbar und nachhaltig nutzbar sind.",
-          },
-          {
-            title: "Partnerschaftliche Zusammenarbeit",
-            text: "Wir arbeiten nicht für unsere Kunden – sondern mit ihnen. Offene Kommunikation, Zusammenarbeit auf Augenhöhe und Freude an gemeinsamen Projekten sind für uns die Grundlage erfolgreicher Ergebnisse.",
-          },
-        ],
-      },
-      founders: {
-        title: "Die Gründer",
-        subtitle: "Lernen Sie die Köpfe hinter smiit kennen - Sebastian und Noah",
-        flipHint: "Karte antippen für mehr",
-        members: [
-          {
-            name: "Sebastian Grab",
-            role: "Co-Founder & Software Entwickler",
-            image: "/assets/people/sebastian.webp",
-            education: ["B.A. BWL - Industrie", "M.Sc. Digital Processes and Technologies"],
-            alumniOf: ["DHBW Stuttgart", "Hochschule für Technik Stuttgart"],
-            knowsAbout: [
-              "Softwarearchitektur",
-              "Datenanalyse",
-              "Prozessautomatisierung",
-              "Web-Entwicklung",
-              "Cloud-Lösungen",
-            ],
-            bio: "Ich verantworte die technische Architektur und Umsetzung unserer Lösungen. Mein Fokus liegt darauf, aus Anforderungen robuste Systeme zu entwickeln – von Datenanalysen über Prozessautomatisierungen bis hin zu individuellen Web-Applikationen.",
-            email: "sebastian.grab@smiit.de",
-            cvLink: "https://grab.smiit.de/de/",
-            linkedIn: "https://www.linkedin.com/in/sebastian-grab/",
-          },
-          {
-            name: "Noah Neßlauer",
-            role: "Co-Founder & Business Analyst",
-            image: "/assets/people/noah.webp",
-            education: ["B.A. BWL - Industrie", "M.Sc. Consulting & Business Analytics"],
-            alumniOf: ["DHBW Ravensburg", "ESB Business School Reutlingen"],
-            knowsAbout: [
-              "Business Analyse",
-              "Anforderungsmanagement",
-              "Datengetriebene Beratung",
-              "Prozessanalyse",
-              "Digitale Transformation",
-            ],
-            bio: "Ich begleite unsere Kunden von der ersten Analyse bis zur Umsetzung der passenden Lösung. Gemeinsam identifizieren wir Herausforderungen, strukturieren Anforderungen und entwickeln datengetriebene Ansätze, die wirklich Mehrwert schaffen.",
-            email: "noah.nesslauer@smiit.de",
-            cvLink: "https://nesslauer.smiit.de/de/",
-            linkedIn: "https://www.linkedin.com/in/noah-nesslauer/",
-          },
-        ],
-        cvLinkText: "Lebenslauf",
-        ctaText: "Lassen Sie uns gemeinsam herausfinden, wie wir Ihr Unternehmen voranbringen können.",
-        ctaButton: "Kostenloses Erstgespräch buchen",
-      },
-      closing: {
-        lead: "smiit ist Ihr Partner für",
-        highlight: "langlebige Softwarelösungen,",
-        tail: "die Ihre Prozesse heute vereinfachen — und morgen noch effizienter machen.",
-      },
+      secondaryButton: "Kontakt aufnehmen",
     },
-    contact: {
-      titlePrefix: "",
-      titleHighlight: "Kontaktieren",
-      titleSuffix: " Sie uns",
-      subtitle: "Wir freuen uns auf Ihr Projekt und Ihre Fragen.",
-      cta: "Kostenloses Erstgespräch buchen",
-      formTitle: "Schreiben Sie uns",
-      infoTitle: "Kontaktinformationen",
-      form: {
-        firstName: "Vorname",
-        lastName: "Nachname",
-        email: "E-Mail",
-        phone: "Telefon",
-        optional: "(optional)",
-        interest: "Interesse auswählen",
-        message: "Wie können wir Ihnen helfen?",
-        submit: "Anfrage absenden",
-        sending: "Wird gesendet...",
-        successTitle: "Nachricht gesendet!",
-        successText: "Vielen Dank für Ihre Nachricht. Wir melden uns in Kürze bei Ihnen.",
-        errorTitle: "Fehler beim Senden",
-        errorText: "Bitte versuchen Sie es erneut oder kontaktieren Sie uns direkt per E-Mail.",
-        disclaimer: "Mit dem Absenden stimmen Sie der Verarbeitung Ihrer Daten zur Bearbeitung Ihrer Anfrage zu.",
-        interests: [
-          "Digitale Unternehmensstrategie",
-          "Datenanalyse",
-          "Apps & Workflows",
-          "Website Entwicklung",
-          "smiit Analytics für bexio",
-          "Azai Elevate",
-          "Product Scout",
-          "Sonstiges",
-        ],
-      },
-      info: {
-        emailLabel: "E-Mail:",
-        phoneLabel: "Telefon:",
-        bookText: "Möchten Sie direkt mit uns sprechen?",
-        bookLink: "Termin buchen",
-        cvLinkText: "Lebenslauf",
-        email: "kontakt@smiit.de",
-        phone: "+49 160 4073198",
-        phoneHref: "tel:+491604073198",
-        address: "Reiherweg 96, 89584 Ehingen",
-        addressFull: "Reiherweg 96\n89584 Ehingen\nDeutschland",
-      },
-      team: [
-        {
-          name: "Sebastian Grab",
-          role: "Software Entwickler",
-          image: "/assets/people/sebastian.webp",
-          email: "sebastian.grab@smiit.de",
-          cvLink: "https://grab.smiit.de/de/",
-        },
-        {
-          name: "Noah Neßlauer",
-          role: "Business Analyst",
-          image: "/assets/people/noah.webp",
-          email: "noah.nesslauer@smiit.de",
-          cvLink: "https://nesslauer.smiit.de/de/",
-        },
-      ],
-    },
-    smiitAnalytics: {
-      hero: {
-        title: "Business Intelligence\nfür bexio-Nutzer",
-        subtitle: "Ist Ihr Business intelligent genug?",
-        description: "Wir haben erfolgreich eine Daten-Infrastruktur entwickelt, um Nutzern der bexio-Software bessere Entscheidungsfindung und strategische sowie operative Planung zu ermöglichen.",
-        primaryCta: "Los gehts!",
-        secondaryCta: "Erfahren Sie mehr",
-      },
-      features: {
-        badge: "INTRODUCING",
-        title: "Was ist smiit Analytics",
-        titleHighlight: "für bexio?",
-        subtitle: "smiit Analytics für bexio ist Ihr Weg in eine klare Zukunft. Ein System, volle Kontrolle, Information & KI-Integration!",
-        items: [
-          {
-            title: "Vollständiges Datenmodell",
-            text: "Integration aller bexio-Daten in einem System",
-          },
-          {
-            title: "Dashboarding",
-            text: "Tiefgehende Analysen für Ihre Organisation",
-          },
-          {
-            title: "Ihr System für die Zukunft",
-            text: "Ihre Infrastruktur für Add-ons und KI",
-          },
-        ],
-        previewButton: "Vorschau",
-      },
-      advantages: {
-        badge: "ADVANTAGE",
-        title: "Your one-time solution,\nbuilt for the future.",
-        items: [
-          {
-            label: "Volle Kontrolle",
-            title: "Complete Ownership",
-            text: "Sie erhalten die volle Kontrolle über Ihre Daten und Analysen. Kein Vendor-Lock-in, keine Abhängigkeiten – Ihr System gehört Ihnen.",
-            details:
-              "Sie entscheiden selbst, welche Kennzahlen Sie priorisieren, wie Datenmodelle erweitert werden und wann neue Auswertungen live gehen. Dadurch bleiben Sie bei jeder strategischen Entscheidung unabhängig und flexibel.",
-          },
-          {
-            label: "Individualisierung & Weiterentwicklung",
-            title: "Individualisierung",
-            text: "Passen Sie das System individuell an Ihre Bedürfnisse an. Wir entwickeln maßgeschneiderte Analysen und Erweiterungen für Ihr Unternehmen.",
-            details:
-              "Gemeinsam definieren wir Ihre fachlichen Anforderungen und setzen diese strukturiert um: von spezifischen KPI-Dashboards bis zu unternehmensspezifischen Datenflüssen. So wächst die Lösung mit Ihrem Unternehmen mit.",
-          },
-          {
-            label: "Grundgerüst für technologische Innovation",
-            title: "Innovation",
-            text: "Mit der Backend / smiit Analytics-Infrastruktur erhalten Sie das perfekte Gerüst für eine gesamtheitliche digitale Transformation.",
-            details:
-              "Die vorhandene Struktur schafft die Basis für weitere Automatisierungen, KI-Use-Cases und neue digitale Services. Damit investieren Sie nicht nur in ein Reporting-Tool, sondern in eine zukunftsfähige Datenplattform.",
-          },
-        ],
-        learnMore: "Mehr erfahren",
-        learnLess: "Weniger anzeigen",
-      },
-      pricing: {
-        badge: "UNSER PRODUKT",
-        title: "Ein pre-built System statt\nteurer Individualberatung",
-        subtitle: "Die Vorteile von smiit Analytics auf einen Blick – bexio-Datenanalyse zum geringen Preis. Wir informieren Sie gerne in einem kostenlosen Call zu unserem Produkt und unseren verschiedenen Preismodellen.",
-        productTitle: "smiit Analytics für bexio",
-        productDescription: "Mit über 250 Analysen können Sie praktisch alles tracken, was in Ihrem Unternehmen passiert! Darüber hinaus können Sie die Analysesoftware von uns individuell anpassen lassen, um unternehmensspezifische Analysen zu erhalten. Überzeugen Sie sich über den Link von unserem Angebot.",
-        priceOneTime: "CHF 1,000.00",
-        priceOneTimeLabel: "Einmaliger Erwerb",
-        priceCustom: "CHF 450.00 einmalig",
-        priceCustomLabel: "Erwerb mit Individualisierungen",
-        priceCustomNote: "+ CHF 120.00 je Stunde bei 8-100 Stunden",
-        or: "oder",
-        features: [
-          "250+ Analysen",
-          "Vollständiges Datenmodell",
-          "30 Tage gratis testen",
-        ],
-        demoLink: "Zur Demoversion",
-        consultationLink: "Beratungstermin",
-        freeVersionLink: "Kostenlose Version",
-      },
-      process: {
-        badge: "PROCESS",
-        title: "Der Rollout-Prozess",
-        steps: [
-          {
-            number: "01",
-            title: "Verstehen",
-            text: "Wir wollen Ihre Anforderungen und Bedürfnisse verstehen.",
-          },
-          {
-            number: "02",
-            title: "Zeigen & Beraten",
-            text: "Wir zeigen Ihnen das Dashboard mit Ihren Daten und beraten Sie zu potentiellen Individualisierungen.",
-          },
-          {
-            number: "03",
-            title: "Integration & Dokumentation",
-            text: "Wir integrieren das Dashboard in Ihre IT-Infrastruktur und dokumentieren alle Prozesse.",
-          },
-          {
-            number: "04",
-            title: "Launch und Schulungen",
-            text: "Nach dem Launch schulen wir Ihre Mitarbeiter im Umgang mit dem System.",
-          },
-        ],
-      },
-      reviews: {
-        heading: { lead: "Was Kunden über", highlight: "smiit Analytics sagen" },
-        verifiedBadge: "Geprüfter Bewerter",
-        sourceLabel: "Verifiziert auf bexio Marketplace",
-        sourceUrl: "https://marketplace.bexio.com/de-CH/apps/128971/smiit-analytics/reviews",
-        items: [
-          {
-            author: "Sarah Zanuco",
-            company: "Zanuco Treuhand AG",
-            rating: 5,
-            date: "2025-08-11",
-            title: "Maximale Effizienz und aussagekräftige Analysen",
-            quote:
-              "Dank der Schnittstelle können wir als moderne Treuhandfirma die Finanzdaten unserer Kunden schneller und klarer aufbereiten. Die benutzerfreundliche Visualisierung ermöglicht es uns, Daten in Echtzeit auszuwerten und fundierte Entscheidungen schnell zu treffen. Die Implementierung verlief reibungslos und hat unsere Prozesse deutlich optimiert. Diese Lösung empfehlen wir jedem Unternehmen, das Wert auf effiziente, präzise und zeitnahe Finanzberichterstattung legt.",
-          },
-          {
-            author: "Florian Schär",
-            company: "Masterhomepage GmbH",
-            rating: 5,
-            date: "2025-06-30",
-            title: "flexibel, schnell und nett",
-            quote:
-              "Wir haben ein individuelles Dashboard von smiit erstellen lassen für die Auswertung der Zeiteinträge unserer Mitarbeiter mit Email Erinnerungsflows. Die Jungs sind sehr kompetent und äusserst freundlich. Super Service mit einem TOP Preis-/Leistungsverhältnis. Wir können smiit absolut weiterempfehlen!",
-          },
-          {
-            author: "Andreas Andermatt",
-            company: "ASW Engineering AG",
-            rating: 5,
-            date: "2025-03-14",
-            title: "Sehr kundenfreundlich - top Zusammenarbeit - finden immer eine Lösung",
-            quote:
-              "Wir haben ein individuelles Dashboard von smiit erstellen lassen und sind total happy! Wenn etwas kleines geändert werden muss, benötigt es nicht gleich einen Nachtrag, sie sind da super flexibel und sehr an einem guten Endresultat interessiert. In der heutigen Zeit leider nicht mehr selbstverständlich. Wir haben unsere Dashboards besprochen, sie haben super Input eingebracht und bei der Umsetzung noch ein paar coole Features eingebaut, welche die Dashboards noch besser machten, dies ohne Zusatzaufwand. Wir können smiit vollumfänglich weiterempfehlen!",
-          },
-        ],
-      },
-      faq: {
-        eyebrow: "HÄUFIGE FRAGEN",
-        heading: { lead: "Antworten auf das, was", highlight: "oft gefragt wird" },
-        items: [
-          {
-            question: "Für wen ist smiit Analytics gedacht?",
-            answer:
-              "Für Unternehmen, die bexio im Einsatz haben und mehr aus ihren bexio-Daten herausholen möchten — über das hinaus, was bexio selbst an integrierter Auswertung bietet.",
-          },
-          {
-            question: "Was kostet smiit Analytics?",
-            answer:
-              "Die Standardlösung kostet einmalig CHF 1.000. Eine individuell angepasste Variante startet bei CHF 450 einmalig plus CHF 120 pro Stunde für Custom-Anpassungen (typischerweise 8-100 Stunden).",
-          },
-          {
-            question: "Welche Analysen sind enthalten?",
-            answer:
-              "Über 250 vorgefertigte Analysen für alle Bereiche Ihrer bexio-Daten — Vertrieb, Buchhaltung, Aufträge, Kunden. Sie können sofort starten und bei Bedarf eigene Analysen ergänzen lassen.",
-          },
-          {
-            question: "Können wir die Lösung vorher testen?",
-            answer:
-              "Ja. Sie können smiit Analytics 30 Tage kostenlos testen. So sehen Sie konkret, was die Lösung für Ihre Daten leistet, bevor Sie sich entscheiden.",
-          },
-          {
-            question: "Wem gehört das System nach dem Kauf?",
-            answer:
-              "Sie haben volle Eigentümerschaft — keine wiederkehrenden Lizenzkosten, kein Vendor-Lock-in. Das Datenmodell und alle Anpassungen gehören Ihnen.",
-          },
-        ],
-      },
-      cta: {
-        title: "Begleiten Sie uns in eine\nKI-gesteuerte Zukunft!",
-        button: "Vereinbaren Sie einen Termin",
-      },
-      relatedLink: {
-        text: "Sie brauchen Datenanalyse jenseits von bexio? Erfahren Sie mehr über unsere maßgeschneiderte Datenanalyse-Dienstleistungen.",
-        linkLabel: "Zur Datenanalyse",
-        href: "/services/analytics",
-      },
-    },
-    servicesWebsite: {
-      eyebrows: {
-        hero: "WEBDESIGN FÜR DEN MITTELSTAND",
-        problem: "PROBLEME & LÖSUNGEN",
-        process: "UNSER VORGEHEN",
-        audiences: "FÜR IHRE BRANCHE",
-        references: "REFERENZEN",
-        pricing: "INVESTITION",
-        cta: "KOSTENLOSES ERSTKONZEPT",
-      },
-      hero: {
-        title: "Ihr Unternehmen ist stark. Ihre Website sollte das",
-        titleHighlight: "zeigen.",
-        description:
-          "Wir entwickeln hochwertige Unternehmenswebsites, die Ihr Können sichtbar machen – technisch schnell, mobil stark und gebaut, um aus Besuchern echte Anfragen zu machen.",
-        primaryCta: "Kostenloses Erstkonzept sichern",
-        secondaryCta: "So arbeiten wir",
-        packagesLabel: "Beliebte Leistungen",
-        packages: ["Corporate Website", "Relaunch", "Mobile & SEO", "CMS-Pflege", "Conversion-Optimierung"],
-        beforeLabel: "Vorher",
-        afterLabel: "Nachher",
-        sliderHint: "Ziehen Sie den Regler – so wirkt ein Relaunch von smiit",
-      },
-      logoStrip: {
-        label: "Vertrauen aus Bau, Industrie, Logistik & Entsorgung",
-        names: ["RB Westkamp GmbH", "ASW Engineering AG", "Dy Project AG", "G&B Logistics GmbH", "SHW Schmiedetechnik GmbH & Co. KG", "Malpur Facility Services AG", "D & W GmbH", "Wörner Automatisierungstechnik GmbH"],
-      },
-      problem: {
-        title: "Viele gewachsene Unternehmen wirken online",
-        titleHighlight: "kleiner, als sie tatsächlich sind.",
-        subtitle:
-          "Die Arbeit ist erstklassig – die Website hängt zehn Jahre hinterher. Das kostet Anfragen, Bewerber und Vertrauen.",
-        problemLabel: "Das Problem",
-        solutionLabel: "Was wir machen",
-        items: [
-          {
-            title: "Website wirkt veraltet",
-            solution: "Modernes Corporate Design",
-            solutionDetail: "Zeitloses, professionelles Layout – auf Ihre Marke zugeschnitten.",
-          },
-          {
-            title: "Leistungen sind unklar",
-            solution: "Klare Struktur & Inhaltsführung",
-            solutionDetail: "Besucher verstehen sofort, was Sie können – und fragen an.",
-          },
-          {
-            title: "Kaum Anfragen",
-            solution: "Conversion-Optimierung & starke CTAs",
-            solutionDetail: "Strategisch platzierte Handlungsaufforderungen, die Besucher in Anfragen verwandeln.",
-          },
-          {
-            title: "Langsam & mobil schwach",
-            solution: "Mobile-first, SEO & CMS",
-            solutionDetail: "Schnell auf jedem Gerät, gefunden bei Google – eigenständig pflegbar.",
-          },
-        ],
-      },
-      manifest: {
-        lead: "Ihre Website soll verkaufen.",
-        emphasis: "Nicht nur gut aussehen.",
-        subtitle:
-          "Eine smiit-Website ist ein Werkzeug aus Struktur, Technik und Inhalten — gebaut, damit aus Besuchern Anfragen und Bewerbungen werden.",
-      },
-      process: {
-        title: "So entsteht aus Ihrer Idee",
-        titleHighlight: "eine starke Website.",
-        subtitle: "Vier klare Schritte — von der ersten Idee bis zum laufenden Betrieb.",
-        stepLabel: "Schritt",
-        steps: [
-          {
-            number: "01",
-            title: "Erstkonzept",
-            text: "Wir analysieren Ihren Markt, Ihre Ziele und Ihre Wettbewerber — und liefern ein konkretes Konzept für Ihre neue Website. Kostenlos & unverbindlich.",
-          },
-          {
-            number: "02",
-            title: "Design",
-            text: "Wir gestalten Ihr Corporate Design und Seitenstruktur in einem modernen, conversionstarken Layout — abgestimmt auf Ihre Marke und Zielgruppe.",
-          },
-          {
-            number: "03",
-            title: "Umsetzung",
-            text: "Wir entwickeln Ihre Website technisch sauber: schnell, mobil optimiert, SEO-ready und mit einem CMS, das Ihr Team selbst befüllen kann.",
-          },
-          {
-            number: "04",
-            title: "Go-Live & Pflege",
-            text: "Wir begleiten Sie beim Launch, schulen Ihr Team ein und stehen für Pflege, Updates und Weiterentwicklung bereit.",
-          },
-        ],
-      },
-      audiences: {
-        title: "Gemacht für Betriebe, die",
-        titleHighlight: "anpacken.",
-        items: [
-          {
-            number: "01",
-            title: "Bauunternehmen",
-            text: "Hoch-, Tief- & Ausbau hochwertig präsentiert – mit Projekten, die Eindruck machen.",
-          },
-          {
-            number: "02",
-            title: "Entsorgungsbetriebe",
-            text: "Komplexe Leistungen klar erklärt – seriös, vertrauenswürdig und verständlich.",
-          },
-          {
-            number: "03",
-            title: "Logistikunternehmen",
-            text: "Fuhrpark, Standorte und Services in Szene gesetzt – stark für Kunden und Bewerber.",
-          },
-          {
-            number: "04",
-            title: "Maschinenbau & Industrie",
-            text: "Technische Tiefe verständlich kommuniziert – für Entscheider und Fachkräfte.",
-          },
-        ],
-      },
-      references: {
-        title: "Ergebnisse, die Ihr Team und Ihre Kunden",
-        titleHighlight: "tatsächlich spüren.",
-        items: [
-          {
-            tag: "Bau · Relaunch",
-            title: "Komplett-Relaunch mit Projektwelt",
-            text: "Von der veralteten Seite zur Referenz-Plattform – mehr qualifizierte Anfragen.",
-          },
-          {
-            tag: "Logistik · Karriere",
-            title: "Recruiting-Website mit Wirkung",
-            text: "Starke Karriereseite, die Bewerbungen statt Absprünge erzeugt.",
-          },
-          {
-            tag: "Industrie · Performance",
-            title: "Schnell, mobil, sichtbar",
-            text: "Technisch optimiert für Tempo, SEO und einen modernen Auftritt.",
-          },
-        ],
-        stats: [
-          { value: "5+", label: "Jahre Erfahrung", detail: "Standardisierte Prozesse und klare Strukturen bei jedem Projekt." },
-          { value: "70+", label: "Erfolgreiche Projekte", detail: "Umgesetzt für Kunden aus Bau, Industrie, Logistik & mehr." },
-          { value: "Ø 3,6", label: "Projekte je Kunde", detail: "Unsere Kunden bleiben – weil die Ergebnisse stimmen." },
-          { value: "100%", label: "DSGVO-konform", detail: "Rechtssichere Umsetzung – sauber dokumentiert." },
-        ],
-      },
-      pricing: {
-        title: "Planbar. Transparent.",
-        titleHighlight: "Wertig.",
-        subtitle: "Klare Rahmen statt versteckter Kosten — Sie wissen jederzeit genau, woran Sie sind.",
-        note: "Finaler Preis erst nach dem kostenlosen Erstkonzept — ohne Verpflichtung.",
-        cta: "Kostenloses Erstkonzept",
-        tiers: [
-          {
-            label: "Website-Relaunch",
-            value: "ab 5.000",
-            currency: "€",
-            desc: "Hochwertiger Neustart Ihres Auftritts",
-          },
-          {
-            label: "Typische Projekte",
-            value: "5–15",
-            currency: "T€",
-            desc: "Je nach Umfang, Seitenanzahl & CMS",
-          },
-          {
-            label: "Erstkonzept",
-            value: "0",
-            currency: "€",
-            desc: "Unverbindlich für ausgewählte Unternehmen",
-            featured: true,
-            featuredLabel: "Empfohlener Start",
-          },
-        ],
-      },
-      cta: {
-        title: "Sehen Sie, zu was Ihre Website",
-        titleHighlight: "in der Lage ist.",
-        subtitle:
-          "In einem kostenlosen Erstgespräch zeigen wir konkret, wo Ihre Website Potenzial verschenkt – und wie ein Relaunch aussehen könnte. Unverbindlich und ohne Verkaufsdruck.",
-        checks: [],
-        bookTitle: "Termin buchen",
-        bookSubtitle: "30-minütiges Erstgespräch – telefonisch oder per Video.",
-        bookEmail: "E-Mail schreiben",
-        primaryButton: "Kostenloses Erstkonzept sichern",
-        secondaryButton: "Kontakt aufnehmen",
-      },
-      faq: {
-        eyebrow: "FAQ",
-        heading: {
-          lead: "Häufige Fragen zu",
-          highlight: "Webdesign & Relaunch",
-        },
-        items: [
-          {
-            question: "Was kostet eine neue Unternehmenswebsite?",
-            answer:
-              "Ein Website-Relaunch bei smiit startet ab 5.000 €. Die meisten Projekte liegen zwischen 5.000 € und 15.000 €, je nach Umfang, Seitenanzahl und CMS-Anforderungen. Den finalen Preis erhalten Sie nach dem kostenlosen Erstkonzept – ohne Verpflichtung.",
-          },
-          {
-            question: "Wie lange dauert ein Website-Relaunch?",
-            answer:
-              "Typischerweise 6–12 Wochen vom Kickoff bis zum Go-Live. Die Dauer hängt vom Umfang, der Verfügbarkeit von Inhalten und Ihren Feedback-Zyklen ab. Im Erstkonzept bekommen Sie eine realistische Zeitplanung.",
-          },
-          {
-            question: "Kann ich die Inhalte später selbst bearbeiten?",
-            answer:
-              "Ja. Wir bauen Ihre Website mit einem CMS (z. B. Sanity oder ähnlichem), das Ihr Team ohne Programmierkenntnisse bedienen kann. Texte, Bilder und Seiten pflegen Sie selbständig.",
-          },
-          {
-            question: "Bietet smiit auch laufende Betreuung nach dem Launch?",
-            answer:
-              "Ja. Wir begleiten Sie auch nach dem Go-Live: Updates, technische Wartung, Content-Änderungen und Weiterentwicklungen. Die Konditionen klären wir im Erstgespräch.",
-          },
-          {
-            question: "Was ist im kostenlosen Erstkonzept enthalten?",
-            answer:
-              "Wir analysieren Ihre aktuelle Website, schauen uns Ihre Wettbewerber an und erarbeiten eine erste Konzeptidee – inklusive grober Struktur, Empfehlungen zu Design und Technik sowie einer Einschätzung zu Aufwand und Budget.",
-          },
-        ],
-      },
-      relatedLink: {
-        text: "Brauchen Sie auch individuelle Web-Apps oder Prozessautomatisierung? Schauen Sie sich unsere App-Entwicklung an.",
-        linkLabel: "Zu Apps & Workflows",
-        href: "/services/apps",
-      },
+    relatedLink: {
+      text: "Sie nutzen bexio und suchen eine fertige Datenanalyse-Lösung? Schauen Sie sich unser Produkt smiit Analytics für bexio an.",
+      linkLabel: "Zu smiit Analytics für bexio",
+      href: "/products/smiit-analytics",
     },
   },
-  en: {
+  servicesStrategy: {
+    eyebrows: {
+      hero: "DIGITALE STRATEGIE",
+      why: "DAS PROBLEM",
+      portfolio: "WAS WIR TUN",
+      manifest: "ZWISCHENRUF",
+      process: "UNSER VORGEHEN",
+      reviews: "STIMMEN",
+      cta: "JETZT STARTEN",
+    },
+    manifest: {
+      lead: "Tempo ohne Richtung",
+      emphasis: "ist nur Lärm.",
+    },
     hero: {
-      title: "Data-driven transformations, tailored for the backbone of enterprises",
-      subtitle: "Digital solutions for applications, workflows, data analytics, and digital strategy",
-      cta: "Start your transformation",
+      title: "Eine digitale Strategie, die im Alltag trägt.",
+      description:
+        "Wir bringen Cloud, Sicherheit, Daten und Prozesse in eine kohärente Roadmap — mit ehrlichen Bestandsaufnahmen, klaren Prioritäten und der Umsetzungskraft, die Strategiepapiere meistens vermissen lassen.",
+      primaryCta: "Strategie-Sparring vereinbaren",
+      packagesLabel: "Beliebte Leistungen",
+      packages: [
+        "Digitalisierungs-Roadmap",
+        "Datenstrategie & BI-Konzept",
+        "Azure Cloud Architektur",
+        "IT-Sicherheits-Check",
+        "Prozessanalyse & Automatisierungsplan",
+      ],
+      scrollHint: "Weiter scrollen",
+      boardEyebrow: "Executive Intelligence Layer",
+      boardTitle: "Von Datensilos zur Entscheidungsebene",
+      sourcesConnected: "4 Themen · 12 Initiativen",
+      updated: "aktualisiert vor 2 Min.",
+      inPractice: "In der Praxis",
+      swipeHint: "← Wischen zum Wechseln →",
+      mobileTabTitle: "Warum",
+      mobileTabTitleHighlight: "Strategie?",
+      dashboardTitle: "Digital Strategy Cockpit",
+      sections: {
+        kpis: "Maturity-Index",
+        trend: "Strategie-Roadmap",
+        trendSub: "Milestones, Status und Forecast",
+        signals: "Strategische Risiken",
+        potentials: "Initiativen-Pipeline",
+        filters: "Themen · Phasen · Risiko",
+      },
+      months: ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"],
+      kpiLabels: {
+        cloud: "Cloud-Reife",
+        security: "Sicherheit",
+        data: "Daten",
+        process: "Prozess-Reife",
+      },
+      chartLegend: {
+        done: "Erledigt",
+        progress: "In Umsetzung",
+        planned: "Geplant",
+      },
+      signalLabels: {
+        compliance: "Compliance",
+        cyber: "Cyber",
+        vendor: "Vendor-Lock",
+        operational: "Operativ",
+      },
+      signalRadar: {
+        title: "Risiko-Trend",
+        period: "letzte 6 Monate",
+      },
+      segments: {
+        sondieren: "Sondieren",
+        konzipieren: "Konzipieren",
+        umsetzen: "Umsetzen",
+        verankern: "Verankern",
+      },
+      periods: {
+        q: "Quartal",
+        h: "6 Monate",
+        y: "12 Monate",
+      },
+      trendTooltip: {
+        statusDone: "Erledigt",
+        statusProgress: "In Umsetzung",
+        statusPlanned: "Geplant",
+      },
+      kpiDeltaLabels: {
+        cloud: "→ Ziel",
+        security: "→ Ziel",
+        data: "→ Ziel",
+        process: "→ Ziel",
+      },
+      ariaLabels: {
+        timeRange: "Zeitraum",
+      },
+      bottomLabels: {
+        q: ["Wo 1", "Wo 4", "Wo 7", "Wo 10", "Wo 13"],
+        h: ["Jul", "Aug", "Sep", "Okt", "Nov", "Dez"],
+        y: ["Q1", "Q2", "Q3", "Q4"],
+      },
+      milestoneLabels: {
+        tenantAudit: "Tenant-Audit",
+        landingZone: "Landing Zone",
+        iacMigration: "IaC-Migration",
+        multiRegion: "Multi-Region",
+        mfaRollout: "MFA-Rollout",
+        zeroTrust: "Zero Trust",
+        identityGov: "Identity-Gov",
+        socSetup: "SOC-Setup",
+        dataLineage: "Data Lineage",
+        masterData: "Master Data",
+        selfService: "Self-Service",
+        processMap: "Prozessmap",
+        bpmnModels: "BPMN-Modelle",
+        powerAutomate: "Power Automate",
+        kpiSteering: "KPI-Steuerung",
+        patchAudit: "Patch-Audit",
+        data: "Daten",
+        sourceInventory: "Quellinventar",
+        processMapping: "Prozesskartierung",
+        top3Modeling: "Top-3 Modellierung",
+        pilotWorkflow: "Pilot-Workflow",
+        iacSetup: "IaC-Setup",
+      },
     },
-    about: {
-      title: "smiit helps businesses\nturn data into action",
-      text: "We are by your side.\nThrough apps, dashboards, and workflows — boosting\nproductivity and accelerating decisions.",
-    },
-    services: {
-      title: "Workflows for measurable impact",
-      subtitle: "At smiit, we build apps, workflows, and analytics that move your business forward.",
+    portfolio: {
+      title: "Unser",
+      titleHighlight: "Angebot",
+      subtitle: "Wir begleiten Sie auf dem Weg zu einer digitalen Strategie, die im Alltag trägt – von der ehrlichen Bestandsaufnahme bis zur produktiven Cloud-Plattform.",
+      visuals: {
+        process: {
+          label: "Genehmigungslauf",
+          yes: "✓ ja",
+          no: "✗ nein",
+        },
+        security: {
+          eventBackupVerified: "Backup verifiziert",
+          eventAnomalyDetected: "Anomalie erkannt",
+        },
+      },
+      learnMore: "Mehr erfahren",
+      learnLess: "Weniger anzeigen",
+      bookCta: "Gespräch vereinbaren",
       items: [
         {
-          title: "Digital strategy",
-          tags: ["Consulting", "Processes", "IT"],
-          text: "We guide SMEs with IT consulting and digital strategy focused on apps, workflows, and data — practical and actionable.",
+          title: "Prozessoptimierung & -automatisierung",
+          shortDesc: "Wir machen Geschäftsprozesse sichtbar, hinterfragen Brüche und Reibungspunkte und automatisieren, wo es sich messbar lohnt. So entstehen schlankere Abläufe, weniger Medienbrüche und Teams, die mehr Zeit für das Eigentliche haben.",
+          details: "Wir starten mit einer sauberen Prozessmodellierung – von der Ist-Aufnahme über die Schwachstellen-Analyse bis zum Soll-Konzept, eng abgestimmt mit den Menschen, die den Prozess täglich leben. Dabei nutzen wir etablierte Notationen wie BPMN und halten Modelle bewusst pragmatisch und nutzbar.\n\nIm Anschluss übersetzen wir das Soll-Bild in digitalisierte Workflows – über Power Automate, individuelle Apps oder Integrationen in bestehende Systeme. Wir wählen den Weg, der zur Reife Ihrer IT-Landschaft passt, und automatisieren genau das, was nachweislich Aufwand spart oder Qualität verbessert."
         },
         {
-          title: "Data analytics",
-          tags: ["Power BI", "SQL & Python", "Azure"],
-          text: "We turn your data into clear dashboards and KPIs — fast, insightful, and ready for action.",
+          title: "Cloud-Infrastruktur & DevOps",
+          shortDesc: "Wir bauen Ihre Azure-Landschaft so auf, dass sie skaliert, sicher ist und auch nach zwei Jahren noch verständlich bleibt. Infrastructure as Code, klare Netzwerk- und Governance-Konzepte, automatisierte Deployments – von Anfang an mitgedacht.",
+          details: "Wir setzen ausschließlich auf Microsoft Azure und kennen das Ökosystem von der Tenant-Architektur bis zur einzelnen Pipeline. Konkret bauen wir Landing Zones, Hub-and-Spoke-Netzwerke, Identity- und Berechtigungskonzepte sowie durchdachte Naming- und Tagging-Strategien – abgestimmt auf Ihre Compliance- und Skalierungsanforderungen.\n\nInfrastruktur entsteht bei uns als Code (Bicep oder Terraform), nie per Klick im Portal. CI/CD-Pipelines, automatisierte Tests, Security-Scans und Dokumentation gehören zur Lieferung – damit Ihre Plattform nicht nur am Launch-Tag läuft, sondern auch im Audit, im Disaster-Recovery-Test und bei der nächsten größeren Erweiterung trägt."
         },
         {
-          title: "Apps & workflows",
-          tags: [".NET", "React", "Next.js"],
-          text: "We create intuitive web apps that simplify inputs, connect systems via API, and automate workflows — secure and scalable.",
+          title: "IT-Sicherheit",
+          shortDesc: "Sicherheit ist kein Produkt, das man kauft, sondern eine Disziplin, die man verankert. Wir bringen Ihre IT-Landschaft auf einen belastbaren Stand – von der ehrlichen Lagebewertung über die Härtung von Identity, Netzwerk und Daten bis zur Verankerung im Alltag.",
+          details: "Wir beginnen mit einer ehrlichen Bestandsaufnahme: Wo liegen Ihre kritischen Werte, wo sind die größten Lücken, was sagen Audits – und was sagt die Realität? Aus diesem Lagebild leiten wir eine priorisierte Roadmap ab, mit Quick Wins (MFA, Patch-Disziplin, Backup-Tests) und strukturellen Maßnahmen (Zero Trust, Identity-Governance, Netzwerksegmentierung).\n\nSicherheit denken wir dabei nicht als Sonderprojekt, sondern als Querschnitt: Unsere Cloud-Architekturen sind von Grund auf gehärtet, unsere Prozessdesigns berücksichtigen Datenschutz und unsere DevOps-Pipelines integrieren Security-Scans. So entsteht ein Schutzniveau, das im Alltag trägt – ohne Ihr Tempo auszubremsen."
+        }
+      ]
+    },
+    process: {
+      title: "So entwickeln wir Ihre",
+      titleHighlight: "digitale Strategie.",
+      subtitle: "Vier klare Schritte – von der ehrlichen Bestandsaufnahme bis zur verankerten Roadmap.",
+      stepLabel: "Schritt",
+      steps: [
+        {
+          number: "01",
+          title: "Sondieren",
+          text: "Wir nehmen Cloud-Reife, Sicherheits-Posture, Datenlandschaft und Kernprozesse unter die Lupe — ehrlich, quantifiziert, ohne Schönfärben.",
+        },
+        {
+          number: "02",
+          title: "Konzipieren",
+          text: "Wir zeichnen Ihr Zielbild und priorisieren: Was bringt am meisten, was ist kritisch, was kann warten? Mit Aufwandsschätzung und Quick Wins.",
+        },
+        {
+          number: "03",
+          title: "Umsetzen",
+          text: "Wir führen die Roadmap in die Praxis: Cloud-Migration, Sicherheits-Härtung, Datenfundament, Prozess-Automatisierung — iterativ, mit messbaren Etappen.",
+        },
+        {
+          number: "04",
+          title: "Verankern",
+          text: "Wir übergeben sauber, schulen Ihr Team und stehen für Reviews und Weiterentwicklung bereit — damit die Strategie nicht im Schrank verschwindet.",
         },
       ],
-      mobileCta: "Have questions about our services? Book a free, no-obligation introductory call with us.",
-      mobileCtaButton: "Book a free consultation",
     },
-    servicesAnalytics: {
-      eyebrows: {
-        hero: "DATA ANALYTICS",
-        why: "THE PROBLEM",
-        portfolio: "WHAT WE DO",
-        manifest: "INTERLUDE",
-        process: "HOW WE WORK",
-        reviews: "VOICES",
-        cta: "GET STARTED",
-      },
-      manifest: {
-        lead: "You already have data.",
-        emphasis: "Clarity is the work.",
-      },
-      hero: {
-        title: "Understand data. Spot opportunities. Decide better.",
-        description:
-          "We turn fragmented data sources into a clear decision layer — built in Power BI and the Microsoft stack, so teams can see faster what is happening, what matters, and what to do next.",
-        primaryCta: "Discover the potential of your data",
-        packagesLabel: "Popular services",
-        packages: [
-          "Power BI Dashboards",
-          "Data Platform & BI Concept",
-          "Power BI Health Check",
-          "Microsoft Fabric",
-          "Power BI Redesign",
-          "Machine Learning & MLOps",
-        ],
-        scrollHint: "Scroll for more",
-        boardEyebrow: "Executive Intelligence Layer",
-        boardTitle: "From data silos to a decision layer",
-        sourcesConnected: "5 connected data sources",
-        platform: "Power BI",
-        updated: "updated 2 min ago",
-        inPractice: "In practice",
-        swipeHint: "← Swipe to switch →",
-        mobileTabTitle: "Why",
-        mobileTabTitleHighlight: "Data Analytics?",
-        tabs: {
-          speed: "Decision speed",
-          clarity: "Data clarity",
-          profit: "Margin control",
-          ai: "AI signals",
-        },
-        sections: {
-          kpis: "Core metrics",
-          trend: "Revenue & margin · 12 months",
-          trendSub: "Performance over time, with forecast from Q4",
-          actions: "Prioritized actions",
-          signals: "Early signals",
-          potentials: "Segment potential",
-          insights: "Executive insights",
-          filters: "Timeframe · Segments · Compare",
-        },
-        months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-        story: {
-          speed: {
-            step: "Chapter 1",
-            label: "Decision speed",
-            pain: "You guess too much.",
-            gain: "Prioritized actions.",
-            title: "End the data ping-pong.",
-            body: "One data source. No back-and-forth. Instantly clear what matters now – and who needs to act.",
-            emphasis: "Decisions happen where the data is.",
-          },
-          clarity: {
-            step: "Chapter 2",
-            label: "Data clarity",
-            pain: "Data trapped in silos.",
-            gain: "One single source of truth.",
-            title: "One shared picture for every level.",
-            body: "Sales, projects, operations – all in one view. No searching. No reconciling. No arguing about numbers.",
-            emphasis: "Transparency is not a matter of trust — it is a matter of infrastructure.",
-          },
-          profit: {
-            step: "Chapter 3",
-            label: "Margin control",
-            pain: "Margins slip away unnoticed.",
-            gain: "Forecasts at 89% confidence.",
-            title: "See growth before it happens.",
-            body: "Forecasts and margin trends reveal where momentum is building – and where to steer early.",
-            emphasis: "The strongest lever is margin quality.",
-          },
-          ai: {
-            step: "Chapter 4",
-            label: "AI signals",
-            pain: "Early warnings arrive too late.",
-            gain: "AI signals around the clock.",
-            title: "Spot patterns humans miss.",
-            body: "AI detects deviations, opportunities and risks automatically – before they ever hit a report.",
-            emphasis: "Intelligent analytics work around the clock.",
-          },
-        },
-        kpiLabels: {
-          revenue: "Revenue",
-          margin: "Margin",
-          forecastConfidence: "Accuracy",
-          activeProjects: "Active projects",
-        },
-        chartLegend: {
-          actual: "Actual",
-          forecast: "Forecast",
-        },
-        signalLabels: {
-          forecastRisk: "Forecast risk",
-          forecastRiskValue: "Medium",
-          deviation: "Deviation",
-          opportunityScore: "Opportunity score",
-          trendStrength: "Trend strength",
-        },
-        signalRadar: {
-          title: "AI signal radar",
-          period: "last 30 days",
-        },
-        segments: {
-          dach: "DACH existing clients",
-          swiss: "Swiss projects",
-          serviceUpsell: "Service upsell",
-          industrialLeads: "Industrial new leads",
-        },
-        dashboard: {
-          eyebrow: "Data Analytics and Artificial Intelligence",
-          heading: "Live insights for sales, finance, and operations",
-          chartLabel: "Revenue performance",
-          chartValue: "+18.4%",
-          chartTrend: "compared to last month",
-          months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
-          kpis: [
-            {
-              label: "Forecast accuracy",
-              value: "94%",
-            },
-            {
-              label: "Automated reports",
-              value: "28",
-            },
-            {
-              label: "Active data sources",
-              value: "12",
-            },
-          ],
-          insightsTitle: "Recommended actions",
-          insights: [
-            "Demand trend in the south has increased for 3 weeks",
-            "Margin for the top product cluster is above target",
-            "Optimize stock levels for category A earlier",
-          ],
-        },
-        periods: {
-          q: "Quarter",
-          h: "6 months",
-          y: "12 months",
-        },
-        trendTooltip: {
-          revenueLabel: "Revenue",
-          deltaLabel: "Δ vs. last month",
-          forecastLabel: "Forecast · 89% confidence",
-        },
-        kpiDeltaLabels: {
-          revenue: "vs. last year",
-          margin: "vs. last year",
-          forecastConfidence: "last 4 weeks",
-          activeProjects: "new this quarter",
-        },
-        ariaLabels: {
-          timeRange: "Time range",
-        },
-        dashboardTitle: "Management Dashboard",
-        millionSuffix: "M",
-        bottomLabels: {
-          q: ["W 1", "W 4", "W 7", "W 10", "W 12"],
-          h: ["Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-          y: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-        },
-        linePointLabels: {
-          q: ["W 1", "W 4", "W 7", "W 10", "W 12"],
-          h: ["Jul", "Aug", "Sep", "Oct", "Nov"],
-          y: ["Jan", "Apr", "Jul", "Sep", "Nov"],
-        },
-        forecastPointLabels: {
-          q: "W 13",
-          h: "Dec",
-          y: "Dec",
-        },
-        signalValues: {
-          riskMedium: "Medium",
-          riskLow: "Low",
-          riskHigh: "High",
-        },
-      },
-      portfolio: {
-        title: "Our",
-        titleHighlight: "Portfolio",
-        subtitle: "We help you extract maximum value from your data – from strategy to a productive Power BI solution.",
-        visuals: {
-          bi: { label: "Revenue Q3", kpiRevenue: "Revenue", target: "Target" },
-          governance: { badge: "GDPR" },
-        },
-        learnMore: "Learn more",
-        learnLess: "Show less",
-        bookCta: "Book a call",
-        items: [
-          {
-            title: "Business Intelligence & Dashboarding",
-            shortDesc: "We turn distributed data into a reliable basis for decision-making – with clean data integration, clear models, and Power BI dashboards that are actually used. This creates reports and analyses in Power BI and Microsoft Fabric that provide transparency and effectively support leadership.",
-            details: "We accompany the entire journey from the raw data source to decision-relevant visualization. This includes the integration and preparation of data, the construction of high-performance data models, the development of a semantic layer, and the design of dashboards for management, controlling, and operational teams.\n\nTechnologically, we focus primarily on the Microsoft environment – including Power BI and Fabric. We pay attention not only to technology but above all to a structure that can grow with your company."
-          },
-          {
-            title: "Data Governance & Data Strategy",
-            shortDesc: "We create the organizational and technical foundations so that data can be used consistently, clearly, and reliably across the company. This ensures less friction, better decisions, and significantly more impact from existing data initiatives.",
-            details: "We advise on central issues relating to data governance, master data management, data responsibility, KPI definitions, and the sensible setup of self-service analytics structures. The goal is not to leave data usage to chance, but to create clear frameworks that enable scaling and reliability.\n\nWe look not only at processes and systems but also at the organizational side. This creates a data strategy that does not remain theoretical but takes effect in the company."
-          },
-          {
-            title: "Machine Learning & ML Operations",
-            shortDesc: "We bring AI from the concept phase into productive use – structured, scalable, and technically clean. This creates machine learning solutions that not only impress but deliver real added value in everyday life.",
-            details: "We support the conception, development, and operationalization of ML models – from data preparation and feature engineering to training and validation, all the way to deployment in productive environments. The focus is not only on model quality but also on how AI can be integrated into existing processes in a stable, traceable, and maintainable way.\n\nAt the center is a practical MLOps approach with clear deployments, reproducible workflows, model monitoring, and a clean connection between data science and operations."
-          }
-        ]
-      },
-      process: {
-        title: "How we turn your data into",
-        titleHighlight: "decisions.",
-        subtitle: "Four clear steps – from the first conversation to productive operations.",
-        stepLabel: "Step",
-        steps: [
-          {
-            number: "01",
-            title: "Understand",
-            text: "We map your data landscape, sources and goals – and pinpoint the levers with the highest impact.",
-          },
-          {
-            number: "02",
-            title: "Design",
-            text: "We craft data model, Power BI dashboards and governance, tailored to your decision flows and tooling.",
-          },
-          {
-            number: "03",
-            title: "Build",
-            text: "We build, integrate and document – iteratively, with short feedback cycles and a clean handover.",
-          },
-          {
-            number: "04",
-            title: "Enable",
-            text: "We train your team, secure operations and evolve your analytics platform step by step.",
-          },
-        ],
-      },
-      reviewsHeading: {
-        lead: "What our",
-        highlight: "clients say",
-        swipeHint: "swipe →",
-      },
-      reviews: [
-        {
-          id: 6,
-          name: "Masterhomepage GmbH",
-          subtitle: "Dashboard for time tracking",
-          quote:
-            "smiit built us a custom dashboard to analyze our employees' time entries, complete with automated email reminder flows. The team is highly skilled and exceptionally friendly. Great service at an outstanding value for money. We can absolutely recommend smiit!",
-          metric: "5/5",
-          metricSub: "Wholehearted recommendation",
-        },
-        {
-          id: 2,
-          name: "G&B Logistics GmbH",
-          subtitle: "Analyses for CRM, accounting, dispatch & HR",
-          quote:
-            "With smiit's analyses, we now see CRM, accounting, dispatch and employee data in a single place for the first time. Route, order and utilization KPIs are available at the click of a button — which has significantly streamlined our monthly reporting.",
-          metric: "140h",
-          metricSub: "saved every month",
-        },
-        {
-          id: 1,
-          name: "Dy Project AG",
-          subtitle: "Data integration & central reporting",
-          quote:
-            "We finally have all our data sources unified in one place. smiit's data integration has given us an entirely new level of transparency.",
-          metric: "3→1",
-          metricSub: "reporting systems unified",
-        },
-      ],
-      faq: {
-        eyebrow: "FREQUENTLY ASKED",
-        heading: { lead: "Answers to the things", highlight: "people ask most" },
-        items: [
-          {
-            question: "How fast will we see results?",
-            answer:
-              "We always start with an intro call to identify the biggest lever. First dashboards typically go live within a few weeks — sometimes even days — often before the full data model is in place.",
-          },
-          {
-            question: "Do we need to switch our existing tools?",
-            answer:
-              "No. We work within your existing tool landscape, primarily in the Microsoft ecosystem with Power BI and Fabric. Tool migration is never our starting point.",
-          },
-          {
-            question: "How do you handle our sensitive business data?",
-            answer:
-              "Your data stays in your infrastructure. We work GDPR-compliant, document data flows in full, and hand over cleanly to your team at the end.",
-          },
-          {
-            question: "How are you different from a pure consultancy?",
-            answer:
-              "We advise and implement. Instead of just delivering concepts, we build the data models, dashboards, and pipelines ourselves — and document them so your team can keep going independently.",
-          },
-          {
-            question: "Do we need internal BI expertise after the project?",
-            answer:
-              "We don't just build, we enable. Training and documentation are part of every project — so your team can extend and operate the platform on its own afterwards.",
-          },
-        ],
-      },
-      cta: {
-        title: "What would change if your data finally started talking to each other?",
-        subtitle: "30-minute intro call. Free. No strings attached. You'll find out where your biggest lever is — even if we don't end up working together.",
-        primaryButton: "Free Consultation",
-        secondaryButton: "Contact Us",
-      },
-      relatedLink: {
-        text: "Using bexio and looking for a ready-made analytics solution? Take a look at our product smiit Analytics for bexio.",
-        linkLabel: "Explore smiit Analytics for bexio",
-        href: "/products/smiit-analytics",
-      },
+    reviewsHeading: {
+      lead: "Was unsere",
+      highlight: "Kunden sagen",
+      swipeHint: "wischen →",
     },
-    servicesStrategy: {
-      eyebrows: {
-        hero: "DIGITAL STRATEGY",
-        why: "THE PROBLEM",
-        portfolio: "WHAT WE DO",
-        manifest: "INTERLUDE",
-        process: "HOW WE WORK",
-        reviews: "VOICES",
-        cta: "GET STARTED",
-      },
-      manifest: {
-        lead: "Speed without direction",
-        emphasis: "is just noise.",
-      },
-      hero: {
-        title: "A digital strategy that holds up in daily operations.",
-        description:
-          "We turn cloud, security, data, and processes into a coherent roadmap — with honest assessments, clear priorities, and the execution power that strategy papers usually lack.",
-        primaryCta: "Book a strategy session",
-        packagesLabel: "Popular services",
-        packages: [
-          "Digitalization Roadmap",
-          "Data Strategy & BI Concept",
-          "Azure Cloud Architecture",
-          "IT Security Check",
-          "Process Analysis & Automation Plan",
-        ],
-        scrollHint: "Scroll for more",
-        boardEyebrow: "Executive Intelligence Layer",
-        boardTitle: "From data silos to a decision layer",
-        sourcesConnected: "4 themes · 12 initiatives",
-        updated: "updated 2 min ago",
-        inPractice: "In practice",
-        swipeHint: "← Swipe to switch →",
-        mobileTabTitle: "Why",
-        mobileTabTitleHighlight: "Strategy?",
-        dashboardTitle: "Digital Strategy Cockpit",
-        sections: {
-          kpis: "Maturity Index",
-          trend: "Strategy Roadmap",
-          trendSub: "Milestones, status and forecast",
-          signals: "Strategic Risks",
-          potentials: "Initiative Pipeline",
-          filters: "Themes · Phases · Risk",
-        },
-        months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-        kpiLabels: {
-          cloud: "Cloud Maturity",
-          security: "Security",
-          data: "Data",
-          process: "Process Maturity",
-        },
-        chartLegend: {
-          done: "Done",
-          progress: "In progress",
-          planned: "Planned",
-        },
-        signalLabels: {
-          compliance: "Compliance",
-          cyber: "Cyber",
-          vendor: "Vendor lock-in",
-          operational: "Operational",
-        },
-        signalRadar: {
-          title: "Risk trend",
-          period: "last 6 months",
-        },
-        segments: {
-          sondieren: "Assess",
-          konzipieren: "Design",
-          umsetzen: "Execute",
-          verankern: "Embed",
-        },
-        periods: {
-          q: "Quarter",
-          h: "6 months",
-          y: "12 months",
-        },
-        trendTooltip: {
-          statusDone: "Done",
-          statusProgress: "In progress",
-          statusPlanned: "Planned",
-        },
-        kpiDeltaLabels: {
-          cloud: "→ target",
-          security: "→ target",
-          data: "→ target",
-          process: "→ target",
-        },
-        ariaLabels: {
-          timeRange: "Time range",
-        },
-        bottomLabels: {
-          q: ["W 1", "W 4", "W 7", "W 10", "W 13"],
-          h: ["Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-          y: ["Q1", "Q2", "Q3", "Q4"],
-        },
-        milestoneLabels: {
-          tenantAudit: "Tenant Audit",
-          landingZone: "Landing Zone",
-          iacMigration: "IaC Migration",
-          multiRegion: "Multi-Region",
-          mfaRollout: "MFA Rollout",
-          zeroTrust: "Zero Trust",
-          identityGov: "Identity Gov",
-          socSetup: "SOC Setup",
-          dataLineage: "Data Lineage",
-          masterData: "Master Data",
-          selfService: "Self-Service",
-          processMap: "Process Map",
-          bpmnModels: "BPMN Models",
-          powerAutomate: "Power Automate",
-          kpiSteering: "KPI Steering",
-          patchAudit: "Patch Audit",
-          data: "Data",
-          sourceInventory: "Source Inventory",
-          processMapping: "Process Mapping",
-          top3Modeling: "Top-3 Modeling",
-          pilotWorkflow: "Pilot Workflow",
-          iacSetup: "IaC Setup",
-        },
-      },
-      portfolio: {
-        title: "Our",
-        titleHighlight: "Portfolio",
-        subtitle: "We guide you towards a digital strategy that holds up in daily operations – from an honest assessment to a productive cloud platform.",
-        visuals: {
-          process: {
-            label: "Approval flow",
-            yes: "✓ yes",
-            no: "✗ no",
-          },
-          security: {
-            eventBackupVerified: "Backup verified",
-            eventAnomalyDetected: "Anomaly detected",
-          },
-        },
-        learnMore: "Learn more",
-        learnLess: "Show less",
-        bookCta: "Book a call",
-        items: [
-          {
-            title: "Process Optimization & Automation",
-            shortDesc: "We make business processes visible, identify bottlenecks and friction points, and automate where it pays off measurably. The result: leaner workflows, fewer media breaks, and teams with more time for the work that matters.",
-            details: "We start with clean process modeling – from a current-state assessment through pain-point analysis to a target concept, always closely aligned with the people who live the process every day. We use established notations like BPMN and keep models deliberately pragmatic and usable.\n\nWe then translate the target state into digitalized workflows – via Power Automate, custom apps, or integrations with your existing systems. We choose the path that fits the maturity of your IT landscape, and automate exactly what demonstrably saves effort or improves quality."
-          },
-          {
-            title: "Cloud Infrastructure & DevOps",
-            shortDesc: "We build your Azure landscape so it scales, stays secure, and remains comprehensible two years down the road. Infrastructure as code, clear network and governance concepts, automated deployments – built in from day one.",
-            details: "We focus exclusively on Microsoft Azure and know the ecosystem from tenant architecture down to individual pipelines. Concretely, we build landing zones, hub-and-spoke networks, identity and permission concepts, and well-thought-out naming and tagging strategies – aligned with your compliance and scaling requirements.\n\nInfrastructure is built as code (Bicep or Terraform), never clicked together in the portal. CI/CD pipelines, automated tests, security scans, and documentation are part of the delivery – so your platform doesn't just run on launch day but holds up in audits, in disaster-recovery tests, and during the next major expansion."
-          },
-          {
-            title: "IT Security",
-            shortDesc: "Security isn't a product you buy – it's a discipline you anchor. We bring your IT landscape to a resilient state, from honest situation assessment through hardening of identity, network, and data, to anchoring it in everyday operations.",
-            details: "We begin with an honest assessment: where do your critical assets sit, where are the biggest gaps, what do audits say – and what does reality say? From this picture we derive a prioritized roadmap, with quick wins (MFA, patch discipline, backup tests) and structural measures (Zero Trust, identity governance, network segmentation).\n\nWe think of security not as a special project but as a cross-cutting concern: our cloud architectures are hardened from the ground up, our process designs account for data protection, and our DevOps pipelines integrate security scans. The result is a level of protection that holds up in daily operations – without slowing your tempo."
-          }
-        ]
-      },
-      process: {
-        title: "How we shape your",
-        titleHighlight: "digital strategy.",
-        subtitle: "Four clear steps – from an honest assessment to a roadmap that sticks.",
-        stepLabel: "Step",
-        steps: [
-          {
-            number: "01",
-            title: "Assess",
-            text: "We take a hard look at your cloud maturity, security posture, data landscape and core processes — honest, quantified, no sugar-coating.",
-          },
-          {
-            number: "02",
-            title: "Design",
-            text: "We draft your target state and prioritize: what delivers the most value, what's critical, what can wait? With effort estimates and quick wins.",
-          },
-          {
-            number: "03",
-            title: "Execute",
-            text: "We bring the roadmap to life: cloud migration, security hardening, data foundation, process automation — iteratively, with measurable milestones.",
-          },
-          {
-            number: "04",
-            title: "Embed",
-            text: "We hand over cleanly, train your team and stay available for reviews and continuous improvement — so the strategy doesn't end up in a drawer.",
-          },
-        ],
-      },
-      reviewsHeading: {
-        lead: "What our",
-        highlight: "clients say",
-        swipeHint: "swipe →",
-      },
-      reviews: [
-        {
-          id: 7,
-          name: "Azai AG",
-          subtitle: "Cloud architecture & governance for SaaS platform",
-          quote:
-            "smiit guided us in building a highly scalable SaaS platform. Networking, security, and governance were part of the cloud architecture from day one — not bolted on afterwards.",
-          metric: "99.9%",
-          metricSub: "platform availability",
-        },
-        {
-          id: 8,
-          name: "Claimity AG",
-          subtitle: "GDPR-compliant Azure infrastructure & DevOps",
-          quote:
-            "smiit set up our GDPR-compliant Azure infrastructure as Infrastructure-as-Code — including clean DevOps pipelines. Six weeks from whiteboard to a productive SaaS platform.",
-          metric: "6 wks",
-          metricSub: "from idea to SaaS platform",
-        },
-        {
-          id: 2,
-          name: "G&B Logistics GmbH",
-          subtitle: "Master data consolidation & real-time analytics",
-          quote:
-            "With smiit, we connected data from different systems for the first time and consolidated our master data. Operational processes run more smoothly — and our real-time analytics pull from a single source.",
-          metric: "4→1",
-          metricSub: "systems consolidated",
-        },
-      ],
-      faq: {
-        eyebrow: "FREQUENTLY ASKED",
-        heading: { lead: "Answers to the things", highlight: "people ask most" },
-        items: [
-          {
-            question: "How are you different from a classic management consultancy?",
-            answer:
-              "We implement what we recommend. Knowing we'll have to build it ourselves disciplines the strategy — no over-engineered slides, no shelfware.",
-          },
-          {
-            question: "How long does strategy development take?",
-            answer:
-              "A focused digital roadmap takes 4-8 weeks, depending on complexity and stakeholder involvement. We always start with a clearly scoped engagement, not a months-long discovery.",
-          },
-          {
-            question: "What happens after the strategy is delivered?",
-            answer:
-              "You decide — either we implement the roadmap with you (apps, analytics, workflows), or your team takes over with our documentation. Both paths are fine.",
-          },
-          {
-            question: "How do you approach cloud vs. on-prem?",
-            answer:
-              "Technology-neutral. We assess based on your requirements — compliance, existing infrastructure, scaling needs — and recommend what fits your context, not what's currently trending.",
-          },
-          {
-            question: "Can you take on a focused topic, e.g. just cloud migration?",
-            answer:
-              "Yes. Strategy projects can have a clear focus (data strategy, cloud architecture, tooling selection). We start with a 30-minute call to align on scope and expectations.",
-          },
-        ],
-      },
-      cta: {
-        title: "Before you buy your next tool — let's talk about your strategy.",
-        subtitle: "30 minutes. Free. We listen, sort things out, and tell you what we'd prioritize in your shoes — cloud migration, security, data strategy, or processes.",
-        primaryButton: "Free Consultation",
-        secondaryButton: "Contact Us",
-      },
-      relatedLink: {
-        text: "A solid strategy needs solid data — explore our analytics services.",
-        linkLabel: "Explore our analytics services",
-        href: "/services/analytics",
-      },
-    },
-    servicesApps: {
-      eyebrows: {
-        hero: "APPS & WORKFLOWS",
-        portfolio: "WHAT WE DO",
-        process: "HOW WE WORK",
-        reviews: "VOICES",
-      },
-      hero: {
-        title: "Understand workflows. Build apps. Free your team.",
-        description:
-          "We build custom software and web apps that automate your processes and connect your systems through clean interfaces and APIs – so your team clicks less, searches less, waits less, and delivers more.",
-        primaryCta: "Let's talk about your idea",
-        packagesLabel: "Popular services",
-        packages: [
-          "Custom Web Apps",
-          "Process Automation with Power Automate",
-          "API Integration",
-          "SaaS Platforms",
-          "App Maintenance & Evolution",
-        ],
-        appName: "OperationsHub",
-        pageTitle: "Dashboard",
-        searchPlaceholder: "Search…",
-        createNewLabel: "New order",
-        avatarInitials: "JM",
-        teamActiveLabel: "Team active",
-        updated: "Synced 2 min ago",
-        views: { today: "Today", week: "Week", month: "Month" },
-        navItems: {
-          dashboard: "Dashboard",
-          orders: "Orders",
-          customers: "Customers",
-          inventory: "Inventory",
-          reports: "Reports",
-          settings: "Settings",
-        },
-        sections: {
-          stats: "Key metrics",
-          pipeline: "Order pipeline",
-          pipelineSub: "Live · all stages visible",
-          activity: "Live activity",
-          tasks: "Open tasks",
-        },
-        statLabels: {
-          orders: "Orders",
-          customers: "Active customers",
-          tasks: "Open tasks",
-          revenue: "Revenue",
-        },
-        statDeltas: {
-          orders: "vs. yesterday",
-          customers: "vs. yesterday",
-          tasks: "vs. yesterday",
-          revenue: "vs. yesterday",
-        },
-        pipelineColumns: {
-          incoming: "Inbox",
-          active: "In progress",
-          done: "Done",
-        },
-        taskPriorityLabels: {
-          high: "High",
-          med: "Medium",
-          low: "Low",
-        },
-        ariaLabels: {
-          timeRange: "Time range",
-          mainNav: "Main navigation",
-        },
-        activeBadge: "active",
-        activitiesByView: {
-          today: [
-            { user: "J. Müller", action: "created order #4831", time: "2 min ago" },
-            { user: "A. Schmidt", action: "approved quote", time: "14 min ago" },
-            { user: "T. Weber", action: "confirmed delivery", time: "38 min ago" },
-            { user: "M. Becker", action: "logged payment", time: "1 hr ago" },
-          ],
-          week: [
-            { user: "J. Müller", action: "created order #4831", time: "3 hrs ago" },
-            { user: "S. Voss", action: "renewed contract", time: "8 hrs ago" },
-            { user: "A. Schmidt", action: "sent dunning notice", time: "1 day ago" },
-            { user: "M. Becker", action: "opened complaint", time: "2 days ago" },
-          ],
-          month: [
-            { user: "J. Müller", action: "closed 14 orders", time: "4 days ago" },
-            { user: "S. Voss", action: "renewed 6 contracts", time: "1 week ago" },
-            { user: "A. Schmidt", action: "onboarded 3 key accounts", time: "2 weeks ago" },
-            { user: "M. Becker", action: "completed Q3 reporting", time: "3 weeks ago" },
-          ],
-        },
-        tasksByView: {
-          today: [
-            { label: "Approve Müller GmbH quote", due: "today, 5:00 pm" },
-            { label: "Confirm Becker delivery", due: "today" },
-            { label: "Review invoice #4823", due: "tomorrow" },
-            { label: "Update Q4 forecast", due: "this week" },
-          ],
-          week: [
-            { label: "Klein KG: prepare quote", due: "Wed" },
-            { label: "Process Becker complaint", due: "Wed" },
-            { label: "Approve dunning run #34", due: "Thu" },
-            { label: "Prepare sales meeting", due: "Fri" },
-          ],
-          month: [
-            { label: "Schäfer AG: contract negotiation", due: "this week" },
-            { label: "Align Q1 quarterly plan", due: "this week" },
-            { label: "Approve commission statement", due: "next week" },
-            { label: "Consolidate CRM data", due: "this month" },
-          ],
-        },
-      },
-      reviewsHeading: {
-        lead: "What our",
-        highlight: "clients say",
-        swipeHint: "swipe →",
-      },
-      reviews: [
-        {
-          id: 3,
-          name: "Claimity AG",
-          subtitle: "SaaS Platform for the Insurance Industry",
-          quote:
-            "From idea to finished SaaS platform in record time. The smiit team brought our vision to life with technical excellence.",
-          metric: "6 weeks",
-          metricSub: "from idea to SaaS platform",
-        },
-        {
-          id: 7,
-          name: "Bitix Media GmbH",
-          subtitle: "Custom Sales App with Live Control",
-          quote:
-            "smiit's custom app handles our entire sales process. We steer campaigns live and instantly see when, what and how much of a product was ordered and paid.",
-          metric: "1 System",
-          metricSub: "Sales End-to-End",
-        },
-        {
-          id: 4,
-          name: "RB Westkamp GmbH",
-          subtitle: "Employee App for Goal Transparency",
-          quote:
-            "smiit built a web app for our employees. Today our team sees at the touch of a button which goals they've already reached and what potential is still untapped. This has made our sales operation even more efficient.",
-          metric: "Live",
-          metricSub: "Sales Goals at a Tap of a Button",
-        },
-      ],
-      manifest: {
-        lead: "Software should do the work.",
-        emphasis: "Not be the work.",
-      },
-      portfolio: {
-        title: "Our",
-        titleHighlight: "Offering",
-        subtitle: "We build web apps, websites and Azure setups that carry your workflows – from the first sketch to stable operations.",
-        visuals: {
-          bi: {
-            label: "Active users",
-            tabs: ["Overview", "Reports", "Settings"],
-            modules: ["Sales", "Warehouse", "Customers"],
-            activity: "J. Müller created order #4831",
-            moduleCount: "3 modules",
-          },
-        },
-        learnMore: "Learn more",
-        learnLess: "Show less",
-        bookCta: "Schedule a call",
-        items: [
-          {
-            title: "Web Apps & Platforms",
-            shortDesc: "We build custom software – web apps and platforms that map your workflows, connect systems through interfaces (APIs), and genuinely take work off your users' plates. Digital tools that work in daily use – not just in the demo.",
-            details: "We develop modern web applications and SaaS platforms tailored to your actual needs – from internal tools to multi-tenant solutions. We connect existing systems through APIs, integrate authentication and permissions cleanly, and ensure your app performs under load.\n\nTechnologically we work with Next.js, React and .NET – with clean architectures, automated tests and CI/CD pipelines. The result: applications that don't just shine in their first version but stay maintainable, secure and scalable long-term."
-          },
-          {
-            title: "Websites & Design",
-            shortDesc: "We design and build websites that take your brand seriously – fast, clearly structured and conversion-oriented. A presence that builds trust, not just one that looks good.",
-            details: "From the first sketch to go-live: we design and build websites that lead content cleanly, are mobile-first by design, and pay attention to SEO, performance and accessibility. We align with your brand identity and ensure a consistent visual system – from typography to color to components.\n\nTechnically we work with Next.js and headless CMS, so your team can maintain content independently without depending on developers. The result: a digital presence that's not only strong on launch day but grows with your business."
-          },
-          {
-            title: "Cloud Infrastructure & Governance",
-            shortDesc: "We build your cloud environment on Microsoft Azure – secure, cost-efficient and traceable. An infrastructure that scales with your business and meets compliance requirements effortlessly.",
-            details: "We design and operate cloud architectures on Microsoft Azure – from landing zones to identities and networking, all the way to CI/CD pipelines and observability. We ensure a clear governance structure, so resources, costs and permissions remain transparent at all times.\n\nFocus areas include Infrastructure-as-Code with Bicep or Terraform, security baselines based on the Microsoft Cloud Adoption Framework, and maintainable deployment processes. The result: an Azure environment that's not only technically clean but also organizationally sound – for stable apps, clear responsibilities and predictable cloud costs."
-          }
-        ]
-      },
-      process: {
-        title: "How we turn your workflows into",
-        titleHighlight: "productive apps.",
-        subtitle: "Four clear steps – from the first idea to productive operations.",
-        stepLabel: "Step",
-        steps: [
-          {
-            number: "01",
-            title: "Understand",
-            text: "We map workflows, users and your system landscape – and pinpoint where a custom app delivers the biggest impact.",
-          },
-          {
-            number: "02",
-            title: "Design",
-            text: "We design UX, data flow and architecture – tailored to your users, existing systems and scaling goals.",
-          },
-          {
-            number: "03",
-            title: "Build",
-            text: "We build, integrate and test – iteratively, with short feedback cycles and a clean handover.",
-          },
-          {
-            number: "04",
-            title: "Enable",
-            text: "We roll out, train your team and run the app in production – with clear SLAs and a roadmap for what's next.",
-          },
-        ],
-      },
-      faq: {
-        eyebrow: "FREQUENTLY ASKED",
-        heading: { lead: "Answers to the things", highlight: "people ask most" },
-        items: [
-          {
-            question: "How long does it take to build a custom web app?",
-            answer:
-              "Typically 6-12 weeks from first concept to go-live, depending on scope. We deliver in short iterations so you can use the app productively early — not after months of development.",
-          },
-          {
-            question: "Who owns the code at the end?",
-            answer:
-              "You do. You receive the full source code and documentation, and can extend or switch vendors later. No vendor lock-in.",
-          },
-          {
-            question: "What tech stack do you use?",
-            answer:
-              "On the backend we use .NET; on the frontend, JavaScript and TypeScript with React and Next.js. A deliberately focused stack — no framework wild west, just proven technologies we run in production and can keep maintainable long-term.",
-          },
-          {
-            question: "What does maintenance cost after go-live?",
-            answer:
-              "Your call. We offer maintenance packages, or you take over. Since the code and documentation are yours, you're not dependent on us — we stay because we're good, not because you can't leave.",
-          },
-          {
-            question: "How do you handle GDPR and data residency?",
-            answer:
-              "GDPR-compliant architecture is standard, not optional. We set up hosting in the EU or Switzerland, document data flows in full, and support data processing agreements.",
-          },
-        ],
-      },
-      cta: {
-        title: "How many hours would your team get back if",
-        titleHighlight: "routine ran itself?",
-        subtitle: "30-minute intro call. Free. No strings attached. You'll find out where your biggest routine-killers can be automated — even if we don't end up working together.",
-        primaryButton: "Free Consultation",
-        secondaryButton: "Contact Us",
-      },
-      relatedLink: {
-        text: "Automated workflows reach their full potential with clear data — explore our analytics services.",
-        linkLabel: "Explore our analytics services",
-        href: "/services/analytics",
-      },
-    },
-    customerCards: [
+    reviews: [
       {
-        id: 1,
-        name: "Dy Project AG",
-        subtitle: "Power BI analyses for controlling & operations",
-        feedback: "Three separate systems combined into one real-time reporting solution.",
+        id: 7,
+        name: "Azai AG",
+        subtitle: "Cloud-Architektur & Governance für SaaS-Plattform",
+        quote:
+          "smiit hat uns beim Aufbau einer hochskalierenden SaaS-Plattform begleitet. Networking, Sicherheit und Governance waren von Anfang an Teil der Cloud-Architektur — nicht nachgereicht.",
+        metric: "99,9 %",
+        metricSub: "Plattform-Verfügbarkeit",
+      },
+      {
+        id: 8,
+        name: "Claimity AG",
+        subtitle: "DSGVO-konforme Azure-Infrastruktur & DevOps",
+        quote:
+          "smiit hat unsere DSGVO-konforme Azure-Infrastruktur als Infrastructure-as-Code aufgesetzt — inklusive sauberer DevOps-Pipelines. Sechs Wochen vom Whiteboard zur produktiven SaaS-Plattform.",
+        metric: "6 Wo.",
+        metricSub: "von der Idee zur SaaS-Plattform",
       },
       {
         id: 2,
         name: "G&B Logistics GmbH",
-        subtitle: "Digital Strategy & Process Optimization",
-        feedback: "140 hours per month freed up through automation.",
+        subtitle: "Stammdaten-Konsolidierung & Echtzeit-Analytics",
+        quote:
+          "Mit smiit haben wir Daten aus verschiedenen Systemen erstmals miteinander verbunden und unsere Stammdaten konsolidiert. Operative Prozesse laufen dadurch reibungsloser — und unsere Echtzeit-Auswertungen ziehen aus einer Quelle.",
+        metric: "4→1",
+        metricSub: "Systeme konsolidiert",
       },
+    ],
+    faq: {
+      eyebrow: "HÄUFIGE FRAGEN",
+      heading: { lead: "Antworten auf das, was", highlight: "oft gefragt wird" },
+      items: [
+        {
+          question: "Was unterscheidet euch von einer klassischen Unternehmensberatung?",
+          answer:
+            "Wir setzen das, was wir empfehlen, auch selbst um. Eine Strategie, die wir entwerfen, müssen wir am Ende selbst implementieren können — das diszipliniert die Empfehlungen und vermeidet Konzepte, die in der Schublade verschwinden.",
+        },
+        {
+          question: "Wie lange dauert eine Strategie-Entwicklung?",
+          answer:
+            "Eine fokussierte digitale Roadmap entsteht in 4-8 Wochen, abhängig von Komplexität und Stakeholder-Beteiligung. Wir starten immer mit einem klar abgegrenzten Scope, statt monatelang am großen Ganzen zu schrauben.",
+        },
+        {
+          question: "Was passiert nach der Strategie?",
+          answer:
+            "Sie entscheiden — entweder setzen wir die Roadmap mit Ihnen um (Apps, Datenanalyse, Workflows), oder Ihr Team übernimmt mit unserer Dokumentation. Beide Wege sind okay.",
+        },
+        {
+          question: "Wie geht ihr mit Cloud vs. On-Prem um?",
+          answer:
+            "Technologieneutral. Wir bewerten anhand Ihrer Anforderungen — Compliance, bestehende Infrastruktur, Skalierungsbedarf — und empfehlen das, was zu Ihrem Kontext passt, nicht das, was gerade Trend ist.",
+        },
+        {
+          question: "Können wir auch ein begrenztes Thema an euch geben — z.B. nur Cloud-Migration?",
+          answer:
+            "Ja. Strategieprojekte können einen klaren Fokus haben (Datenstrategie, Cloud-Architektur, Tooling-Auswahl). Wir starten mit einem 30-Minuten-Erstgespräch, um Scope und Erwartung abzugleichen.",
+        },
+      ],
+    },
+    cta: {
+      title: "Bevor Sie das nächste Tool kaufen — lassen Sie uns über Ihre Strategie reden.",
+      subtitle: "30 Minuten. Kostenlos. Wir hören zu, ordnen ein und sagen Ihnen, was wir an Ihrer Stelle priorisieren würden — Cloud-Migration, Sicherheit, Datenstrategie oder Prozesse.",
+      primaryButton: "Kostenloses Erstgespräch",
+      secondaryButton: "Kontakt aufnehmen",
+    },
+    relatedLink: {
+      text: "Eine belastbare Strategie braucht belastbare Daten — entdecken Sie unsere Datenanalyse-Leistungen.",
+      linkLabel: "Zur Datenanalyse",
+      href: "/services/analytics",
+    },
+  },
+  servicesApps: {
+    eyebrows: {
+      hero: "APPS & WORKFLOWS",
+      portfolio: "WAS WIR TUN",
+      process: "UNSER VORGEHEN",
+      reviews: "STIMMEN",
+    },
+    hero: {
+      title: "Workflows verstehen. Apps bauen. Teams entlasten.",
+      description:
+        "Wir entwickeln Individualsoftware und Web-Apps, die Ihre Prozesse automatisieren und Systeme über Schnittstellen verbinden – damit Ihr Team weniger klickt, sucht und wartet, und mehr liefert.",
+      primaryCta: "Ideen jetzt besprechen",
+      packagesLabel: "Beliebte Leistungen",
+      packages: [
+        "Individuelle Web Apps",
+        "Prozessautomatisierung mit Power Automate",
+        "API-Integration",
+        "SaaS Plattformen",
+        "App Wartung & Weiterentwicklung",
+      ],
+      appName: "OperationsHub",
+      pageTitle: "Dashboard",
+      searchPlaceholder: "Suche…",
+      createNewLabel: "Neuer Auftrag",
+      avatarInitials: "JM",
+      teamActiveLabel: "Team aktiv",
+      updated: "Sync vor 2 Min.",
+      views: { today: "Heute", week: "Woche", month: "Monat" },
+      navItems: {
+        dashboard: "Dashboard",
+        orders: "Aufträge",
+        customers: "Kunden",
+        inventory: "Lager",
+        reports: "Berichte",
+        settings: "Einstellungen",
+      },
+      sections: {
+        stats: "Kennzahlen",
+        pipeline: "Auftragspipeline",
+        pipelineSub: "Live · alle Phasen sichtbar",
+        activity: "Live-Aktivität",
+        tasks: "Offene Aufgaben",
+      },
+      statLabels: {
+        orders: "Bestellungen",
+        customers: "Aktive Kunden",
+        tasks: "Offene Aufgaben",
+        revenue: "Umsatz",
+      },
+      statDeltas: {
+        orders: "vs. gestern",
+        customers: "vs. gestern",
+        tasks: "vs. gestern",
+        revenue: "vs. gestern",
+      },
+      pipelineColumns: {
+        incoming: "Eingang",
+        active: "In Arbeit",
+        done: "Erledigt",
+      },
+      taskPriorityLabels: {
+        high: "Hoch",
+        med: "Mittel",
+        low: "Niedrig",
+      },
+      ariaLabels: {
+        timeRange: "Zeitraum",
+        mainNav: "Hauptnavigation",
+      },
+      activeBadge: "aktiv",
+      activitiesByView: {
+        today: [
+          { user: "J. Müller", action: "hat Auftrag #4831 angelegt", time: "vor 2 Min." },
+          { user: "A. Schmidt", action: "hat Angebot freigegeben", time: "vor 14 Min." },
+          { user: "T. Weber", action: "hat Lieferung bestätigt", time: "vor 38 Min." },
+          { user: "M. Becker", action: "hat Zahlung erfasst", time: "vor 1 Std." },
+        ],
+        week: [
+          { user: "J. Müller", action: "hat Auftrag #4831 angelegt", time: "vor 3 Std." },
+          { user: "S. Voss", action: "hat Vertrag verlängert", time: "vor 8 Std." },
+          { user: "A. Schmidt", action: "hat Mahnung versendet", time: "vor 1 Tag" },
+          { user: "M. Becker", action: "hat Reklamation eröffnet", time: "vor 2 Tagen" },
+        ],
+        month: [
+          { user: "J. Müller", action: "hat 14 Aufträge abgeschlossen", time: "vor 4 Tagen" },
+          { user: "S. Voss", action: "hat 6 Verträge verlängert", time: "vor 1 Woche" },
+          { user: "A. Schmidt", action: "hat 3 Großkunden onboarded", time: "vor 2 Wochen" },
+          { user: "M. Becker", action: "hat Q3-Reporting abgeschlossen", time: "vor 3 Wochen" },
+        ],
+      },
+      tasksByView: {
+        today: [
+          { label: "Angebot Müller GmbH freigeben", due: "heute, 17:00" },
+          { label: "Lieferung Becker bestätigen", due: "heute" },
+          { label: "Rechnung #4823 prüfen", due: "morgen" },
+          { label: "Q4-Forecast aktualisieren", due: "diese Woche" },
+        ],
+        week: [
+          { label: "Klein KG: Angebot kalkulieren", due: "Mi" },
+          { label: "Reklamation Becker bearbeiten", due: "Mi" },
+          { label: "Mahnlauf #34 freigeben", due: "Do" },
+          { label: "Vertriebsmeeting vorbereiten", due: "Fr" },
+        ],
+        month: [
+          { label: "Schäfer AG: Vertragsverhandlung", due: "diese Woche" },
+          { label: "Quartalsplanung Q1 abstimmen", due: "diese Woche" },
+          { label: "Provisionsabrechnung freigeben", due: "nächste Woche" },
+          { label: "CRM-Daten konsolidieren", due: "diesen Monat" },
+        ],
+      },
+    },
+    reviewsHeading: {
+      lead: "Was unsere",
+      highlight: "Kunden sagen",
+      swipeHint: "wischen →",
+    },
+    reviews: [
       {
         id: 3,
         name: "Claimity AG",
-        subtitle: "SaaS Development for the Insurance Industry",
-        feedback: "From idea to go-live in 3 months – efficient and effective.",
+        subtitle: "SaaS-Plattform für die Versicherungsbranche",
+        quote:
+          "Von der Idee zur fertigen SaaS-Plattform in Rekordzeit. Das Team von smiit hat unsere Vision perfekt umgesetzt und technisch exzellent realisiert.",
+        metric: "6 Wochen",
+        metricSub: "von der Idee zur SaaS-Plattform",
+      },
+      {
+        id: 7,
+        name: "Bitix Media GmbH",
+        subtitle: "Individuelle Verkaufs-App mit Live-Steuerung",
+        quote:
+          "Die individuelle App von smiit wickelt unseren gesamten Verkaufsprozess ab. Wir steuern Aktionen live und sehen sofort, wann, was und wie viel von einem Produkt bestellt und bezahlt wurde.",
+        metric: "1 System",
+        metricSub: "Verkauf End-to-End",
       },
       {
         id: 4,
         name: "RB Westkamp GmbH",
-        subtitle: "Transformation of the employee experience",
-        feedback: "Real-time analyses of sales and employee performance.",
-      },
-      {
-        id: 5,
-        name: "ASW Engineering AG",
-        subtitle: "Automation of project planning and control",
-        feedback: "Full transparency regarding operating capacity utilization.",
+        subtitle: "Mitarbeiter-App für Zieltransparenz",
+        quote:
+          "smiit hat für uns eine Web App für unsere Mitarbeitenden entwickelt. Heute sehen unsere Mitarbeiter auf Knopfdruck, welche Ziele sie bereits erreicht haben und welches Potenzial sie noch ausschöpfen können. So haben wir unseren Vertrieb noch effizienter gestalten können.",
+        metric: "Live",
+        metricSub: "Vertriebsziele auf Knopfdruck",
       },
     ],
-    results: {
-      titlePrefix: "Results your team and customers ",
-      titleHighlight: "actually",
-      titleSuffix: " feel",
+    manifest: {
+      lead: "Software soll arbeiten.",
+      emphasis: "Nicht beschäftigen.",
+    },
+    portfolio: {
+      title: "Unser",
+      titleHighlight: "Angebot",
+      subtitle: "Wir bauen Web-Apps, Websites und Azure-Setups, die Ihre Workflows tragen – von der ersten Skizze bis zum stabilen Betrieb.",
+      visuals: {
+        bi: {
+          label: "Aktive Nutzer",
+          tabs: ["Übersicht", "Berichte", "Einstellungen"],
+          modules: ["Vertrieb", "Lager", "Kunden"],
+          activity: "J. Müller hat Auftrag #4831 angelegt",
+          moduleCount: "3 Module",
+        },
+      },
+      learnMore: "Mehr erfahren",
+      learnLess: "Weniger anzeigen",
+      bookCta: "Gespräch vereinbaren",
       items: [
-        { value: "5+", label: "Years of experience", text: "With over 5 years of experience, smiit GmbH works with standardized processes and clear structuring." },
-        { value: "70+", label: "Successful projects", text: "We have successfully implemented a total of over 70 projects with more than 20 customers in recent years." },
-        { value: "Ø 3.6", label: "Projects per customer", text: "Over 3.6 projects per customer clearly show: our customers trust us and are satisfied with our results." },
-        { value: "3", label: "Service areas", text: "Our broad range of expertise enables integrated implementation: data analysis, automation & apps." }
-      ],
-      button: "Book a free consultation"
+        {
+          title: "Web Applikationen & Plattformen",
+          shortDesc: "Wir bauen Individualsoftware – Web-Apps und Plattformen, die Ihre Workflows abbilden, Systeme über Schnittstellen (APIs) verbinden und Anwendern wirklich Arbeit abnehmen. So entstehen digitale Werkzeuge, die im Alltag funktionieren – nicht nur in der Demo.",
+          details: "Wir entwickeln moderne Web-Anwendungen und SaaS-Plattformen entlang Ihres tatsächlichen Bedarfs – vom internen Tool bis zur Multi-Tenant-Lösung. Dabei verbinden wir bestehende Systeme über APIs, integrieren Authentifizierung und Berechtigungen sauber und sorgen dafür, dass Ihre App auch unter Last performt.\n\nTechnologisch setzen wir auf Next.js, React und .NET – mit klaren Architekturen, automatisierten Tests und CI/CD-Pipelines. So entstehen Anwendungen, die nicht nur in der ersten Version glänzen, sondern langfristig wartbar, sicher und skalierbar bleiben."
+        },
+        {
+          title: "Websites & Design",
+          shortDesc: "Wir gestalten und entwickeln Websites, die Ihre Marke ernst nehmen – schnell, klar strukturiert und auf Conversion ausgelegt. Ein Auftritt, der Vertrauen schafft, statt nur gut auszusehen.",
+          details: "Von der ersten Skizze bis zum Go-Live: Wir entwerfen und bauen Websites, die Inhalte sauber führen. Unsere Websites sind auf mobile-first, SEO, Performance und Barrierefreiheit ausgerichtet. Dabei orientieren wir uns an Ihrer Markenidentität und sorgen für ein konsistentes visuelles System – von Typografie über Farbe bis zu den Komponenten.\n\nTechnisch arbeiten wir mit Next.js und Headless-CMS, sodass Ihr Team Inhalte selbständig pflegen kann, ohne auf Entwickler angewiesen zu sein. Das Ergebnis: ein digitaler Auftritt, der nicht nur am Launch-Tag stark ist, sondern mit Ihrem Geschäft mitwächst."
+        },
+        {
+          title: "Cloud Infrastruktur & Governance",
+          shortDesc: "Wir bauen Ihre Cloud-Umgebung auf Microsoft Azure – sicher, kosteneffizient und nachvollziehbar. Eine Infrastruktur, die mit Ihrem Geschäft skaliert und Compliance-Anforderungen mühelos erfüllt.",
+          details: "Wir konzipieren und betreiben Cloud-Architekturen auf Microsoft Azure – von Landing Zones über Identitäten und Netzwerk bis hin zu CI/CD-Pipelines und Observability. Dabei achten wir auf eine klare Governance-Struktur, sodass Ressourcen, Kosten und Berechtigungen jederzeit transparent bleiben.\n\nSchwerpunkte sind Infrastructure-as-Code mit Bicep oder Terraform, Sicherheits-Baselines nach dem Microsoft Cloud Adoption Framework und wartbare Deployment-Prozesse. So entsteht eine Azure-Umgebung, die nicht nur technisch sauber ist, sondern auch organisatorisch trägt – für stabile Apps, klare Verantwortlichkeiten und planbare Cloud-Kosten."
+        }
+      ]
     },
-    products: {
-      title: "Decisions backed\nby data, not guesswork",
-      subtitle: "smiit products turn raw data into clear insights, enabling\nsmarter, fact-based business decisions.",
-      cta: "Schedule a free demo",
+    process: {
+      title: "So machen wir aus Ihren Workflows",
+      titleHighlight: "produktive Apps.",
+      subtitle: "Vier klare Schritte – von der ersten Idee bis zum produktiven Betrieb.",
+      stepLabel: "Schritt",
+      steps: [
+        {
+          number: "01",
+          title: "Verstehen",
+          text: "Wir analysieren Workflows, Anwender und Systemumgebung – und identifizieren, wo eine eigene App den größten Hebel bringt.",
+        },
+        {
+          number: "02",
+          title: "Konzipieren",
+          text: "Wir entwerfen UX, Datenfluss und Architektur – abgestimmt auf Ihre Anwender, vorhandene Systeme und Skalierungsziele.",
+        },
+        {
+          number: "03",
+          title: "Umsetzen",
+          text: "Wir entwickeln, integrieren und testen – iterativ, mit kurzen Feedbackzyklen und sauberer Übergabe.",
+        },
+        {
+          number: "04",
+          title: "Befähigen",
+          text: "Wir rollen aus, schulen Ihr Team und betreuen die App im Betrieb – mit klaren SLAs und einer Roadmap für die Weiterentwicklung.",
+        },
+      ],
+    },
+    faq: {
+      eyebrow: "HÄUFIGE FRAGEN",
+      heading: { lead: "Antworten auf das, was", highlight: "oft gefragt wird" },
       items: [
         {
-          title: "Product\nScout",
-          text: "AI-powered price comparison search engine for retailers and craftsmen. Search all your suppliers simultaneously.",
-          image: "/assets/home/product_scout.webp",
-          href: "#book",
+          question: "Wie lange dauert die Entwicklung einer individuellen Web-App?",
+          answer:
+            "Vom ersten Konzept bis zum Go-Live dauert es je nach Umfang ca. 6-12 Wochen. Wir liefern in kurzen Iterationen, sodass Sie die Ergebnisse frühzeitig & produktiv nutzen können — nicht erst nach Monaten Entwicklung.",
         },
         {
-          title: "smiit Analytics\nfor bexio",
-          text: "Our bexio analysis dashboard for Swiss users automates your evaluations and consolidates all KPIs from bexio in clear reporting.",
-          image: "/assets/home/smiit_analytics.webp",
-          href: "/products/smiit-analytics",
+          question: "Wem gehört der Code am Ende?",
+          answer:
+            "Ihnen. Sie erhalten den vollen Source-Code und die Dokumentation und können später selbst weiterentwickeln oder den Anbieter wechseln. Kein Vendor-Lock-in.",
         },
         {
-          title: "Azai\nElevate",
-          text: "Intelligent project management platform with AI-powered risk analysis and automated workflows for successful projects.",
-          image: "/assets/home/azai.webp",
-          href: "https://www.azai.ch",
-          external: true,
+          question: "Welchen Tech-Stack verwendet ihr?",
+          answer:
+            "Im Backend setzen wir auf .NET, im Frontend auf JavaScript und TypeScript mit React und Next.js. Bewusst ein fokussierter Stack — keine Framework-Wildwestern, sondern eingespielte Technologien, die wir produktiv beherrschen und langfristig wartbar halten.",
+        },
+        {
+          question: "Was kostet die Wartung nach dem Go-Live?",
+          answer:
+            "Sie entscheiden. Wir bieten Wartungspakete an, oder Sie übernehmen die Wartung selbst. Da Code und Dokumentation Ihnen gehören, sind Sie nicht von uns abhängig — wir bleiben gerne, weil wir gut sind, nicht weil Sie nicht wegkönnen.",
+        },
+        {
+          question: "Wie geht ihr mit DSGVO und Datenhaltung um?",
+          answer:
+            "DSGVO-konforme Architektur ist Standard, nicht Option. Wir setzen Hosting in der EU oder Schweiz auf, dokumentieren Datenflüsse vollständig und unterstützen bei Auftragsverarbeitungsverträgen.",
         },
       ],
-      ctaBottom: "Let's talk about your\nchallenges",
-      ctaSubtext: "We'll advise you on your options — no strings attached.",
-      ctaBottomButton: "Schedule a free demo",
     },
-    aboutPage: {
-      titlePrefix: "Digital transformation. Wide expertise. ",
-      titleHighlight: "Sustainable",
-      titleSuffix: " value.",
-      description: "We are an IT company with the vision of digitizing small and medium-sized enterprises in the DACH region - through tailored solutions in data analytics, automation, and app development.",
-      primaryButton: "Free Consultation",
-      secondaryButton: "Our Services",
-      features: [
-        "5+ years experience",
-        "DACH-wide focus",
-        "In-house development"
+    cta: {
+      title: "Wie viele Stunden würde Ihr Team zurückgewinnen, wenn sich die",
+      titleHighlight: "Routine selbst erledigt?",
+      subtitle: "30 Minuten Erstgespräch. Kostenlos. Unverbindlich. Sie erfahren, wo sich Ihre größten Routinekiller automatisieren lassen — auch wenn wir am Ende nicht zusammenarbeiten.",
+      primaryButton: "Kostenloses Erstgespräch",
+      secondaryButton: "Kontakt aufnehmen",
+    },
+    relatedLink: {
+      text: "Automatisierte Workflows entfalten ihren Wert erst mit klaren Daten — entdecken Sie unsere Datenanalyse-Leistungen.",
+      linkLabel: "Zur Datenanalyse",
+      href: "/services/analytics",
+    },
+  },
+  customerCards: [
+    {
+      id: 1,
+      name: "Dy Project AG",
+      subtitle: "Power BI Analysen für Controlling & Betrieb",
+      feedback: "Drei getrennte Systeme in eine echtzeit Berichtslösung vereint.",
+    },
+    {
+      id: 2,
+      name: "G&B Logistics GmbH",
+      subtitle: "Digitale Strategie & Prozessoptimierung",
+      feedback: "Freisetzung von 140 Stunden je Monat durch Automatisierung.",
+    },
+    {
+      id: 3,
+      name: "Claimity AG",
+      subtitle: "SaaS-Entwicklung für die Versicherungsbranche",
+      feedback: "Von der Idee zum Go-Live in 3 Monaten - effizient und effektiv.",
+    },
+    {
+      id: 4,
+      name: "RB Westkamp GmbH",
+      subtitle: "Transformation der Mitarbeitererfahrung",
+      feedback: "Echtzeitanalysen zur Vertriebs- und Mitarbeiterperformance.",
+    },
+    {
+      id: 5,
+      name: "ASW Engineering AG",
+      subtitle: "Automatisierung der Projektplanung und -steuerung",
+      feedback: "Volle Transparenz über die Betriebsauslastung.",
+    },
+  ],
+  results: {
+    titlePrefix: "Ergebnisse, die Ihr Team und Ihre Kunden ",
+    titleHighlight: "tatsächlich",
+    titleSuffix: " spüren",
+    items: [
+      { value: "5+", label: "Jahre Erfahrung", text: "Mit über 5 Jahren Erfahrung arbeitet die smiit GmbH mit standardisierten Prozessen und klarer Strukturierung." },
+      { value: "70+", label: "Erfolgreiche Projekte", text: "Wir haben in den letzten Jahren mit mehr als 20 Kunden insgesamt über 70 Projekte erfolgreich umgesetzt." },
+      { value: "Ø 3,6", label: "Projekte je Kunde", text: "Über 3,6 Projekte je Kunde zeigen klar: Unsere Kunden vertrauen uns und sind zufrieden mit unseren Ergebnissen." },
+      { value: "3", label: "Service Bereiche", text: "Unsere breite fachliche Aufstellung ermöglicht eine integrierte Umsetzung: Datenanalyse, Automatisierungen & Apps." }
+    ],
+    button: "Kostenloses Erstgespräch buchen"
+  },
+  products: {
+    title: "Entscheidungen gestützt\nauf Daten, nicht auf Vermutungen",
+    subtitle: "smiit-Produkte verwandeln Rohdaten in klare Erkenntnisse und ermöglichen\nintelligentere, faktenbasierte Geschäftsentscheidungen.",
+    cta: "Kostenloses Erstgespräch buchen",
+    items: [
+      {
+        title: "Product\nScout",
+        text: "KI-gestützte Preisvergleichs-Suchmaschine für Einzelhändler und Handwerker. Durchsuchen Sie alle Ihre Lieferanten gleichzeitig.",
+        image: "/assets/home/product_scout.webp",
+        href: "#book",
+      },
+      {
+        title: "smiit Analytics\nfür bexio",
+        text: "Unser bexio Analysedashboard für Schweizer Nutzer automatisiert Ihre Auswertungen und konsolidiert alle KPIs aus bexio in übersichtlichen Reports.",
+        image: "/assets/home/smiit_analytics.webp",
+        href: "/products/smiit-analytics",
+      },
+      {
+        title: "Azai\nElevate",
+        text: "Intelligente Projektmanagement-Plattform mit KI-gestützter Risikoanalyse und automatisierten Workflows für erfolgreiche Projekte.",
+        image: "/assets/home/azai.webp",
+        href: "https://www.azai.ch",
+        external: true,
+      },
+    ],
+    ctaBottom: "Lassen Sie uns über Ihre\nHerausforderungen sprechen",
+    ctaSubtext: "Wir beraten Sie unverbindlich zu Ihren Möglichkeiten.",
+    ctaBottomButton: "Kostenloses Erstgespräch buchen",
+  },
+  aboutPage: {
+    titlePrefix: "Digitale Transformation. Weite Expertise. ",
+    titleHighlight: "Nachhaltiger",
+    titleSuffix: " Mehrwert.",
+    description: "Wir sind ein IT-Unternehmen mit der Vision, kleine und mittelständische Unternehmen im DACH-Raum zu digitalisieren - durch maßgeschneiderte Lösungen in den Bereichen Datenanalyse, Automatisierung und App-Entwicklung.",
+    primaryButton: "Kostenloses Erstgespräch",
+    secondaryButton: "Unsere Services",
+    features: [
+      "5+ Jahre Erfahrung",
+      "DACH-weiter Fokus",
+      "In-House Entwicklung"
+    ],
+    ourClients: "Unsere Kunden",
+    overview: "Übersicht",
+    mission: {
+      title: "Unsere Mission & Werte",
+      subtitle: "Wir möchten Veränderungen bewirken und unseren Kunden klare Einblicke\nermöglichen, wertvolle Zeit sparen und moderne Arbeitsweisen etablieren",
+      values: [
+        {
+          title: "Vertrauen & Engagement",
+          text: "Erfolgreiche Projekte entstehen nur durch gegenseitiges Vertrauen und Engagement. Wir bringen unsere Expertise ein – und erwarten die gleiche Offenheit und Beteiligung von unseren Partnern.",
+        },
+        {
+          title: "Nachhaltige Qualität",
+          text: "Wir entwickeln Lösungen, die langfristig funktionieren. Qualität braucht manchmal mehr Zeit – dafür entstehen Systeme, die skalierbar, wartbar und nachhaltig nutzbar sind.",
+        },
+        {
+          title: "Partnerschaftliche Zusammenarbeit",
+          text: "Wir arbeiten nicht für unsere Kunden – sondern mit ihnen. Offene Kommunikation, Zusammenarbeit auf Augenhöhe und Freude an gemeinsamen Projekten sind für uns die Grundlage erfolgreicher Ergebnisse.",
+        },
       ],
-      ourClients: "Our Clients",
-      overview: "Overview",
-      mission: {
-        title: "Our Mission & Values",
-        subtitle: "We want to drive change and give our clients clear insights,\nsave valuable time, and establish modern ways of working",
-        values: [
-          {
-            title: "Trust & Commitment",
-            text: "Successful projects are built on mutual trust and commitment. We bring our expertise – and expect the same openness and involvement from our partners.",
-          },
-          {
-            title: "Sustainable Quality",
-            text: "We develop solutions that work long-term. Quality sometimes takes more time – but the result is systems that are scalable, maintainable, and sustainably usable.",
-          },
-          {
-            title: "Collaborative Partnership",
-            text: "We don't work for our clients – we work with them. Open communication, collaboration on equal terms, and joy in shared projects are the foundation of successful outcomes.",
-          },
-        ],
-      },
-      founders: {
-        title: "The Founders",
-        subtitle: "Meet the minds behind smiit - Sebastian and Noah",
-        flipHint: "Tap card for more",
-        members: [
-          {
-            name: "Sebastian Grab",
-            role: "Co-Founder & Software Engineer",
-            image: "/assets/people/sebastian.webp",
-            education: ["B.A. Business Administration", "M.Sc. Digital Processes and Technologies"],
-            alumniOf: ["DHBW Stuttgart", "Hochschule für Technik Stuttgart"],
-            knowsAbout: [
-              "Software Architecture",
-              "Data Analysis",
-              "Process Automation",
-              "Web Development",
-              "Cloud Solutions",
-            ],
-            bio: "I am responsible for the technical architecture and implementation of our solutions. My focus is on developing robust systems based on requirements – from data analysis and process automation to customized web applications.",
-            email: "sebastian.grab@smiit.de",
-            cvLink: "https://grab.smiit.de/en/",
-            linkedIn: "https://www.linkedin.com/in/sebastian-grab/",
-          },
-          {
-            name: "Noah Neßlauer",
-            role: "Co-Founder & Business Analyst",
-            image: "/assets/people/noah.webp",
-            education: ["B.A. Business Administration", "M.Sc. Consulting & Business Analytics"],
-            alumniOf: ["DHBW Ravensburg", "ESB Business School Reutlingen"],
-            knowsAbout: [
-              "Business Analysis",
-              "Requirements Engineering",
-              "Data-Driven Consulting",
-              "Process Analysis",
-              "Digital Transformation",
-            ],
-            bio: "I accompany our customers from the initial analysis to the implementation of the appropriate solution. Together, we identify challenges, structure requirements, and develop data-driven approaches that truly add value.",
-            email: "noah.nesslauer@smiit.de",
-            cvLink: "https://nesslauer.smiit.de/en/",
-            linkedIn: "https://www.linkedin.com/in/noah-nesslauer/",
-          },
-        ],
-        cvLinkText: "Resume",
-        ctaText: "Let's find out together how we can move your business forward.",
-        ctaButton: "Book a free consultation",
-      },
-      closing: {
-        lead: "smiit is your partner for",
-        highlight: "lasting software solutions",
-        tail: "that simplify your processes today — and make them even more efficient tomorrow.",
-      },
     },
-    contact: {
-      titlePrefix: "Get in ",
-      titleHighlight: "touch",
-      titleSuffix: " with us",
-      subtitle: "We look forward to your project and your questions.",
-      cta: "Book a free consultation",
-      formTitle: "Write to us",
-      infoTitle: "Contact information",
-      form: {
-        firstName: "First name",
-        lastName: "Last name",
-        email: "Email",
-        phone: "Phone",
-        optional: "(optional)",
-        interest: "Select your interest",
-        message: "How can we help you?",
-        submit: "Send request",
-        sending: "Sending...",
-        successTitle: "Message sent!",
-        successText: "Thank you for your message. We will get back to you shortly.",
-        errorTitle: "Error sending message",
-        errorText: "Please try again or contact us directly via email.",
-        disclaimer: "By submitting, you agree to the processing of your data for handling your request.",
-        interests: [
-          "Digital strategy",
-          "Data analytics",
-          "Apps & workflows",
-          "Website Development",
-          "smiit Analytics for bexio",
-          "Azai Elevate",
-          "Product Scout",
-          "Other",
-        ],
-      },
-      info: {
-        emailLabel: "Email:",
-        phoneLabel: "Phone:",
-        bookText: "Want to talk right away?",
-        bookLink: "Book an appointment",
-        cvLinkText: "Resume",
-        email: "kontakt@smiit.de",
-        phone: "+49 160 4073198",
-        phoneHref: "tel:+491604073198",
-        address: "Reiherweg 96, 89584 Ehingen",
-        addressFull: "Reiherweg 96\n89584 Ehingen\nGermany",
-      },
-      team: [
+    founders: {
+      title: "Die Gründer",
+      subtitle: "Lernen Sie die Köpfe hinter smiit kennen - Sebastian und Noah",
+      flipHint: "Karte antippen für mehr",
+      members: [
         {
           name: "Sebastian Grab",
-          role: "Software Engineer",
+          role: "Co-Founder & Software Entwickler",
           image: "/assets/people/sebastian.webp",
+          education: ["B.A. BWL - Industrie", "M.Sc. Digital Processes and Technologies"],
+          alumniOf: ["DHBW Stuttgart", "Hochschule für Technik Stuttgart"],
+          knowsAbout: [
+            "Softwarearchitektur",
+            "Datenanalyse",
+            "Prozessautomatisierung",
+            "Web-Entwicklung",
+            "Cloud-Lösungen",
+          ],
+          bio: "Ich verantworte die technische Architektur und Umsetzung unserer Lösungen. Mein Fokus liegt darauf, aus Anforderungen robuste Systeme zu entwickeln – von Datenanalysen über Prozessautomatisierungen bis hin zu individuellen Web-Applikationen.",
           email: "sebastian.grab@smiit.de",
-          cvLink: "https://grab.smiit.de/en/",
+          cvLink: "https://grab.smiit.de/de/",
+          linkedIn: "https://www.linkedin.com/in/sebastian-grab/",
         },
         {
           name: "Noah Neßlauer",
-          role: "Business Analyst",
+          role: "Co-Founder & Business Analyst",
           image: "/assets/people/noah.webp",
+          education: ["B.A. BWL - Industrie", "M.Sc. Consulting & Business Analytics"],
+          alumniOf: ["DHBW Ravensburg", "ESB Business School Reutlingen"],
+          knowsAbout: [
+            "Business Analyse",
+            "Anforderungsmanagement",
+            "Datengetriebene Beratung",
+            "Prozessanalyse",
+            "Digitale Transformation",
+          ],
+          bio: "Ich begleite unsere Kunden von der ersten Analyse bis zur Umsetzung der passenden Lösung. Gemeinsam identifizieren wir Herausforderungen, strukturieren Anforderungen und entwickeln datengetriebene Ansätze, die wirklich Mehrwert schaffen.",
           email: "noah.nesslauer@smiit.de",
-          cvLink: "https://nesslauer.smiit.de/en/",
+          cvLink: "https://nesslauer.smiit.de/de/",
+          linkedIn: "https://www.linkedin.com/in/noah-nesslauer/",
+        },
+      ],
+      cvLinkText: "Lebenslauf",
+      ctaText: "Lassen Sie uns gemeinsam herausfinden, wie wir Ihr Unternehmen voranbringen können.",
+      ctaButton: "Kostenloses Erstgespräch buchen",
+    },
+    closing: {
+      lead: "smiit ist Ihr Partner für",
+      highlight: "langlebige Softwarelösungen,",
+      tail: "die Ihre Prozesse heute vereinfachen — und morgen noch effizienter machen.",
+    },
+  },
+  contact: {
+    titlePrefix: "",
+    titleHighlight: "Kontaktieren",
+    titleSuffix: " Sie uns",
+    subtitle: "Wir freuen uns auf Ihr Projekt und Ihre Fragen.",
+    cta: "Kostenloses Erstgespräch buchen",
+    formTitle: "Schreiben Sie uns",
+    infoTitle: "Kontaktinformationen",
+    form: {
+      firstName: "Vorname",
+      lastName: "Nachname",
+      email: "E-Mail",
+      phone: "Telefon",
+      optional: "(optional)",
+      interest: "Interesse auswählen",
+      message: "Wie können wir Ihnen helfen?",
+      submit: "Anfrage absenden",
+      sending: "Wird gesendet...",
+      successTitle: "Nachricht gesendet!",
+      successText: "Vielen Dank für Ihre Nachricht. Wir melden uns in Kürze bei Ihnen.",
+      errorTitle: "Fehler beim Senden",
+      errorText: "Bitte versuchen Sie es erneut oder kontaktieren Sie uns direkt per E-Mail.",
+      disclaimer: "Mit dem Absenden stimmen Sie der Verarbeitung Ihrer Daten zur Bearbeitung Ihrer Anfrage zu.",
+      interests: [
+        "Digitale Unternehmensstrategie",
+        "Datenanalyse",
+        "Apps & Workflows",
+        "Website Entwicklung",
+        "smiit Analytics für bexio",
+        "Azai Elevate",
+        "Product Scout",
+        "Sonstiges",
+      ],
+    },
+    info: {
+      emailLabel: "E-Mail:",
+      phoneLabel: "Telefon:",
+      bookText: "Möchten Sie direkt mit uns sprechen?",
+      bookLink: "Termin buchen",
+      cvLinkText: "Lebenslauf",
+      email: "kontakt@smiit.de",
+      phone: "+49 160 4073198",
+      phoneHref: "tel:+491604073198",
+      address: "Reiherweg 96, 89584 Ehingen",
+      addressFull: "Reiherweg 96\n89584 Ehingen\nDeutschland",
+    },
+    team: [
+      {
+        name: "Sebastian Grab",
+        role: "Software Entwickler",
+        image: "/assets/people/sebastian.webp",
+        email: "sebastian.grab@smiit.de",
+        cvLink: "https://grab.smiit.de/de/",
+      },
+      {
+        name: "Noah Neßlauer",
+        role: "Business Analyst",
+        image: "/assets/people/noah.webp",
+        email: "noah.nesslauer@smiit.de",
+        cvLink: "https://nesslauer.smiit.de/de/",
+      },
+    ],
+  },
+  smiitAnalytics: {
+    hero: {
+      title: "Business Intelligence\nfür bexio-Nutzer",
+      subtitle: "Ist Ihr Business intelligent genug?",
+      description: "Wir haben erfolgreich eine Daten-Infrastruktur entwickelt, um Nutzern der bexio-Software bessere Entscheidungsfindung und strategische sowie operative Planung zu ermöglichen.",
+      primaryCta: "Los gehts!",
+      secondaryCta: "Erfahren Sie mehr",
+    },
+    features: {
+      badge: "INTRODUCING",
+      title: "Was ist smiit Analytics",
+      titleHighlight: "für bexio?",
+      subtitle: "smiit Analytics für bexio ist Ihr Weg in eine klare Zukunft. Ein System, volle Kontrolle, Information & KI-Integration!",
+      items: [
+        {
+          title: "Vollständiges Datenmodell",
+          text: "Integration aller bexio-Daten in einem System",
+        },
+        {
+          title: "Dashboarding",
+          text: "Tiefgehende Analysen für Ihre Organisation",
+        },
+        {
+          title: "Ihr System für die Zukunft",
+          text: "Ihre Infrastruktur für Add-ons und KI",
+        },
+      ],
+      previewButton: "Vorschau",
+    },
+    advantages: {
+      badge: "ADVANTAGE",
+      title: "Your one-time solution,\nbuilt for the future.",
+      items: [
+        {
+          label: "Volle Kontrolle",
+          title: "Complete Ownership",
+          text: "Sie erhalten die volle Kontrolle über Ihre Daten und Analysen. Kein Vendor-Lock-in, keine Abhängigkeiten – Ihr System gehört Ihnen.",
+          details:
+            "Sie entscheiden selbst, welche Kennzahlen Sie priorisieren, wie Datenmodelle erweitert werden und wann neue Auswertungen live gehen. Dadurch bleiben Sie bei jeder strategischen Entscheidung unabhängig und flexibel.",
+        },
+        {
+          label: "Individualisierung & Weiterentwicklung",
+          title: "Individualisierung",
+          text: "Passen Sie das System individuell an Ihre Bedürfnisse an. Wir entwickeln maßgeschneiderte Analysen und Erweiterungen für Ihr Unternehmen.",
+          details:
+            "Gemeinsam definieren wir Ihre fachlichen Anforderungen und setzen diese strukturiert um: von spezifischen KPI-Dashboards bis zu unternehmensspezifischen Datenflüssen. So wächst die Lösung mit Ihrem Unternehmen mit.",
+        },
+        {
+          label: "Grundgerüst für technologische Innovation",
+          title: "Innovation",
+          text: "Mit der Backend / smiit Analytics-Infrastruktur erhalten Sie das perfekte Gerüst für eine gesamtheitliche digitale Transformation.",
+          details:
+            "Die vorhandene Struktur schafft die Basis für weitere Automatisierungen, KI-Use-Cases und neue digitale Services. Damit investieren Sie nicht nur in ein Reporting-Tool, sondern in eine zukunftsfähige Datenplattform.",
+        },
+      ],
+      learnMore: "Mehr erfahren",
+      learnLess: "Weniger anzeigen",
+    },
+    pricing: {
+      badge: "UNSER PRODUKT",
+      title: "Ein pre-built System statt\nteurer Individualberatung",
+      subtitle: "Die Vorteile von smiit Analytics auf einen Blick – bexio-Datenanalyse zum geringen Preis. Wir informieren Sie gerne in einem kostenlosen Call zu unserem Produkt und unseren verschiedenen Preismodellen.",
+      productTitle: "smiit Analytics für bexio",
+      productDescription: "Mit über 250 Analysen können Sie praktisch alles tracken, was in Ihrem Unternehmen passiert! Darüber hinaus können Sie die Analysesoftware von uns individuell anpassen lassen, um unternehmensspezifische Analysen zu erhalten. Überzeugen Sie sich über den Link von unserem Angebot.",
+      priceOneTime: "CHF 1,000.00",
+      priceOneTimeLabel: "Einmaliger Erwerb",
+      priceCustom: "CHF 450.00 einmalig",
+      priceCustomLabel: "Erwerb mit Individualisierungen",
+      priceCustomNote: "+ CHF 120.00 je Stunde bei 8-100 Stunden",
+      or: "oder",
+      features: [
+        "250+ Analysen",
+        "Vollständiges Datenmodell",
+        "30 Tage gratis testen",
+      ],
+      demoLink: "Zur Demoversion",
+      consultationLink: "Beratungstermin",
+      freeVersionLink: "Kostenlose Version",
+    },
+    process: {
+      badge: "PROCESS",
+      title: "Der Rollout-Prozess",
+      steps: [
+        {
+          number: "01",
+          title: "Verstehen",
+          text: "Wir wollen Ihre Anforderungen und Bedürfnisse verstehen.",
+        },
+        {
+          number: "02",
+          title: "Zeigen & Beraten",
+          text: "Wir zeigen Ihnen das Dashboard mit Ihren Daten und beraten Sie zu potentiellen Individualisierungen.",
+        },
+        {
+          number: "03",
+          title: "Integration & Dokumentation",
+          text: "Wir integrieren das Dashboard in Ihre IT-Infrastruktur und dokumentieren alle Prozesse.",
+        },
+        {
+          number: "04",
+          title: "Launch und Schulungen",
+          text: "Nach dem Launch schulen wir Ihre Mitarbeiter im Umgang mit dem System.",
         },
       ],
     },
-    smiitAnalytics: {
-      hero: {
-        title: "Business Intelligence\nfor bexio Users",
-        subtitle: "Is your business intelligent enough?",
-        description: "We have successfully developed a data infrastructure to enable bexio software users to make better decisions and improve strategic as well as operational planning.",
-        primaryCta: "Get started!",
-        secondaryCta: "Learn more",
-      },
-      features: {
-        badge: "INTRODUCING",
-        title: "What is smiit Analytics",
-        titleHighlight: "for bexio?",
-        subtitle: "smiit Analytics for bexio is your path to a clear future. One system, full control, information & AI integration!",
-        items: [
-          {
-            title: "Complete Data Model",
-            text: "Integration of all bexio data in one system",
-          },
-          {
-            title: "Dashboarding",
-            text: "In-depth analyses for your organization",
-          },
-          {
-            title: "Your System for the Future",
-            text: "Your infrastructure for add-ons and AI",
-          },
-        ],
-        previewButton: "Preview",
-      },
-      advantages: {
-        badge: "ADVANTAGE",
-        title: "Your one-time solution,\nbuilt for the future.",
-        items: [
-          {
-            label: "Full Control",
-            title: "Complete Ownership",
-            text: "You get full control over your data and analyses. No vendor lock-in, no dependencies – your system belongs to you.",
-            details:
-              "You decide which KPIs matter most, how data models evolve, and when new reports go live. This keeps your strategic decisions independent and your operations highly adaptable.",
-          },
-          {
-            label: "Customization & Development",
-            title: "Individualization",
-            text: "Customize the system to your specific needs. We develop tailored analyses and extensions for your business.",
-            details:
-              "Together, we translate your business requirements into concrete implementation steps—from specific KPI dashboards to custom data flows. This ensures the solution scales with your company.",
-          },
-          {
-            label: "Foundation for Technological Innovation",
-            title: "Innovation",
-            text: "With the backend / smiit Analytics infrastructure, you get the perfect foundation for a comprehensive digital transformation.",
-            details:
-              "The existing architecture enables future automation, AI use cases, and additional digital services. You are not only adopting reporting—you are building a future-ready data platform.",
-          },
-        ],
-        learnMore: "Learn more",
-        learnLess: "Show less",
-      },
-      pricing: {
-        badge: "OUR PRODUCT",
-        title: "A pre-built system instead of\nexpensive individual consulting",
-        subtitle: "The advantages of smiit Analytics at a glance – bexio data analysis at a low price. We are happy to inform you in a free call about our product and our various pricing models.",
-        productTitle: "smiit Analytics for bexio",
-        productDescription: "With over 250 analyses, you can track practically everything happening in your company! Additionally, you can have the analysis software customized by us to receive company-specific analyses. See for yourself via the link to our offering.",
-        priceOneTime: "CHF 1,000.00",
-        priceOneTimeLabel: "One-time purchase",
-        priceCustom: "CHF 450.00 one-time",
-        priceCustomLabel: "Purchase with customizations",
-        priceCustomNote: "+ CHF 120.00 per hour for 8-100 hours",
-        or: "or",
-        features: [
-          "250+ Analyses",
-          "Complete Data Model",
-          "30 Days Free Trial",
-        ],
-        demoLink: "View Demo",
-        consultationLink: "Book Consultation",
-        freeVersionLink: "Free Version",
-      },
-      process: {
-        badge: "PROCESS",
-        title: "The Rollout Process",
-        steps: [
-          {
-            number: "01",
-            title: "Understand",
-            text: "We want to understand your requirements and needs.",
-          },
-          {
-            number: "02",
-            title: "Show & Advise",
-            text: "We show you the dashboard with your data and advise you on potential customizations.",
-          },
-          {
-            number: "03",
-            title: "Integration & Documentation",
-            text: "We integrate the dashboard into your IT infrastructure and document all processes.",
-          },
-          {
-            number: "04",
-            title: "Launch & Training",
-            text: "After launch, we train your employees on how to use the system.",
-          },
-        ],
-      },
-      reviews: {
-        heading: { lead: "What customers say about", highlight: "smiit Analytics" },
-        verifiedBadge: "Verified reviewer",
-        sourceLabel: "Verified on bexio Marketplace",
-        sourceUrl: "https://marketplace.bexio.com/en-GB/apps/128971/smiit-analytics/reviews",
-        translatedNote: "Translated from German",
-        items: [
-          {
-            author: "Sarah Zanuco",
-            company: "Zanuco Treuhand AG",
-            rating: 5,
-            date: "2025-08-11",
-            title: "Maximum efficiency and meaningful analyses",
-            quote:
-              "Thanks to the interface, we as a modern fiduciary firm can prepare our clients' financial data faster and more clearly. The user-friendly visualization lets us evaluate data in real time and make well-founded decisions quickly. The implementation went smoothly and significantly streamlined our processes. We recommend this solution to any company that values efficient, precise, and timely financial reporting.",
-          },
-          {
-            author: "Florian Schär",
-            company: "Masterhomepage GmbH",
-            rating: 5,
-            date: "2025-06-30",
-            title: "Flexible, fast, and friendly",
-            quote:
-              "We had smiit build a custom dashboard for evaluating our employees' time entries, including email reminder flows. The team is highly competent and extremely friendly. Great service with an excellent price-performance ratio. We can absolutely recommend smiit!",
-          },
-          {
-            author: "Andreas Andermatt",
-            company: "ASW Engineering AG",
-            rating: 5,
-            date: "2025-03-14",
-            title: "Very customer-friendly – great collaboration – they always find a solution",
-            quote:
-              "We had smiit build a custom dashboard and we're absolutely happy! When something small needs changing, it doesn't require a formal change request right away — they're super flexible and genuinely invested in a good end result. Sadly not a given these days. We discussed our dashboards, they contributed great input and even added a few cool features during implementation that made the dashboards even better, all at no extra cost. We can fully recommend smiit!",
-          },
-        ],
-      },
-      faq: {
-        eyebrow: "FREQUENTLY ASKED",
-        heading: { lead: "Answers to the things", highlight: "people ask most" },
-        items: [
-          {
-            question: "Who is smiit Analytics for?",
-            answer:
-              "Companies using bexio who want to get more out of their bexio data — beyond what bexio itself offers in built-in reporting.",
-          },
-          {
-            question: "What does smiit Analytics cost?",
-            answer:
-              "The standard solution is a one-time CHF 1,000. A customized variant starts at CHF 450 one-time plus CHF 120 per hour for custom adjustments (typically 8-100 hours).",
-          },
-          {
-            question: "Which analyses are included?",
-            answer:
-              "Over 250 pre-built analyses covering all areas of your bexio data — sales, accounting, orders, customers. You can start immediately and add custom analyses as needed.",
-          },
-          {
-            question: "Can we try the solution first?",
-            answer:
-              "Yes. You can test smiit Analytics free for 30 days. That way you see concretely what the solution delivers for your data before committing.",
-          },
-          {
-            question: "Who owns the system after purchase?",
-            answer:
-              "You have full ownership — no recurring license fees, no vendor lock-in. The data model and all customizations belong to you.",
-          },
-        ],
-      },
-      cta: {
-        title: "Join us on the journey to an\nAI-powered future!",
-        button: "Schedule a meeting",
-      },
-      relatedLink: {
-        text: "Need data analytics beyond bexio? Learn more about our tailored analytics services.",
-        linkLabel: "Explore our analytics services",
-        href: "/services/analytics",
-      },
-    },
-    servicesWebsite: {
-      eyebrows: {
-        hero: "WEB DESIGN FOR SMEs",
-        problem: "PROBLEMS & SOLUTIONS",
-        process: "HOW WE WORK",
-        audiences: "FOR YOUR INDUSTRY",
-        references: "REFERENCES",
-        pricing: "INVESTMENT",
-        cta: "FREE INITIAL CONCEPT",
-      },
-      hero: {
-        title: "Your company is strong. Your website should",
-        titleHighlight: "show it.",
-        description:
-          "We build high-quality corporate websites that make your expertise visible – technically fast, strong on mobile, and built to turn visitors into real enquiries.",
-        primaryCta: "Get your free initial concept",
-        secondaryCta: "How we work",
-        packagesLabel: "Popular services",
-        packages: ["Corporate website", "Relaunch", "Mobile & SEO", "CMS editing", "Conversion optimization"],
-        beforeLabel: "Before",
-        afterLabel: "After",
-        sliderHint: "Drag the slider – this is what a relaunch by smiit looks like",
-      },
-      logoStrip: {
-        label: "Trusted by construction, industry, logistics & waste management",
-        names: ["RB Westkamp GmbH", "ASW Engineering AG", "Dy Project AG", "G&B Logistics GmbH", "SHW Schmiedetechnik GmbH & Co. KG", "Malpur Facility Services AG", "D & W GmbH", "Wörner Automatisierungstechnik GmbH"],
-      },
-      problem: {
-        title: "Many established companies appear online",
-        titleHighlight: "smaller than they really are.",
-        subtitle:
-          "The work is first-class – but the website is ten years behind. That costs enquiries, applicants and trust.",
-        problemLabel: "The problem",
-        solutionLabel: "What we do",
-        items: [
-          {
-            title: "Website looks outdated",
-            solution: "Modern corporate design",
-            solutionDetail: "Timeless, professional layout – tailored to your brand.",
-          },
-          {
-            title: "Services are unclear",
-            solution: "Clear structure & content hierarchy",
-            solutionDetail: "Visitors understand what you do within seconds – and get in touch.",
-          },
-          {
-            title: "Barely any enquiries",
-            solution: "Conversion optimisation & strong CTAs",
-            solutionDetail: "Strategically placed calls-to-action that turn visitors into leads.",
-          },
-          {
-            title: "Slow & poor on mobile",
-            solution: "Mobile-first, SEO & CMS",
-            solutionDetail: "Fast on every device, found on Google – independently manageable.",
-          },
-        ],
-      },
-      manifest: {
-        lead: "Your website should sell.",
-        emphasis: "Not just look good.",
-        subtitle:
-          "A smiit website is a tool of structure, technology and content — built to turn visitors into enquiries and applications.",
-      },
-      process: {
-        title: "How we turn your idea into",
-        titleHighlight: "a strong website.",
-        subtitle: "Four clear steps — from the first idea to live operation.",
-        stepLabel: "Step",
-        steps: [
-          {
-            number: "01",
-            title: "Initial concept",
-            text: "We analyse your market, goals and competitors — and deliver a concrete concept for your new website. Free and non-binding.",
-          },
-          {
-            number: "02",
-            title: "Design",
-            text: "We create your corporate design and page structure in a modern, conversion-optimised layout — tailored to your brand and target audience.",
-          },
-          {
-            number: "03",
-            title: "Development",
-            text: "We build your website to a high technical standard: fast, mobile-optimised, SEO-ready and with a CMS your team can manage themselves.",
-          },
-          {
-            number: "04",
-            title: "Go-live & maintenance",
-            text: "We support you at launch, train your team and remain available for maintenance, updates and further development.",
-          },
-        ],
-      },
-      audiences: {
-        title: "Built for businesses that",
-        titleHighlight: "get things done.",
-        items: [
-          {
-            number: "01",
-            title: "Construction companies",
-            text: "Commercial, civil & fit-out construction presented at its best – with projects that make an impression.",
-          },
-          {
-            number: "02",
-            title: "Waste management firms",
-            text: "Complex services explained clearly – professional, trustworthy and easy to understand.",
-          },
-          {
-            number: "03",
-            title: "Logistics companies",
-            text: "Fleet, locations and services presented with impact – strong for clients and job seekers.",
-          },
-          {
-            number: "04",
-            title: "Mechanical engineering & industry",
-            text: "Technical depth communicated clearly – for decision-makers and specialists.",
-          },
-        ],
-      },
-      references: {
-        title: "Results that your team and clients",
-        titleHighlight: "actually feel.",
-        items: [
-          {
-            tag: "Construction · Relaunch",
-            title: "Complete relaunch with project showcase",
-            text: "From an outdated site to a reference platform – more qualified enquiries.",
-          },
-          {
-            tag: "Logistics · Careers",
-            title: "Recruitment website that works",
-            text: "A strong careers page that generates applications instead of bounces.",
-          },
-          {
-            tag: "Industry · Performance",
-            title: "Fast, mobile, visible",
-            text: "Technically optimised for speed, SEO and a modern presence.",
-          },
-        ],
-        stats: [
-          { value: "5+", label: "Years of experience", detail: "Standardised processes and clear structures on every project." },
-          { value: "70+", label: "Successful projects", detail: "Delivered for clients in construction, industry, logistics & more." },
-          { value: "Ø 3.6", label: "Projects per client", detail: "Our clients stay – because the results speak for themselves." },
-          { value: "100%", label: "GDPR compliant", detail: "Legally sound implementation – thoroughly documented." },
-        ],
-      },
-      pricing: {
-        title: "Predictable. Transparent.",
-        titleHighlight: "Worthwhile.",
-        subtitle: "Clear frames instead of hidden costs — you always know exactly where you stand.",
-        note: "Final price only after the free initial concept — no obligation.",
-        cta: "Free initial concept",
-        tiers: [
-          {
-            label: "Website relaunch",
-            value: "from €5,000",
-            currency: "",
-            desc: "A high-quality restart for your online presence",
-          },
-          {
-            label: "Typical projects",
-            value: "5–15",
-            currency: "k€",
-            desc: "Depending on scope, page count & CMS",
-          },
-          {
-            label: "Initial concept",
-            value: "0",
-            currency: "€",
-            desc: "Non-binding for selected companies",
-            featured: true,
-            featuredLabel: "Recommended first step",
-          },
-        ],
-      },
-      cta: {
-        title: "See what your website is",
-        titleHighlight: "capable of.",
-        subtitle:
-          "In a free initial consultation we show you concretely where your website is leaving potential on the table – and what a relaunch could look like. Non-binding and without any sales pressure.",
-        checks: [],
-        bookTitle: "Book a call",
-        bookSubtitle: "30-minute initial call – by phone or video.",
-        bookEmail: "Send an email",
-        primaryButton: "Get your free initial concept",
-        secondaryButton: "Get in touch",
-      },
-      faq: {
-        eyebrow: "FAQ",
-        heading: {
-          lead: "Common questions about",
-          highlight: "web design & relaunch",
+    reviews: {
+      heading: { lead: "Was Kunden über", highlight: "smiit Analytics sagen" },
+      verifiedBadge: "Geprüfter Bewerter",
+      sourceLabel: "Verifiziert auf bexio Marketplace",
+      sourceUrl: "https://marketplace.bexio.com/de-CH/apps/128971/smiit-analytics/reviews",
+      // Only the English locale shows a note (reviews were written in German).
+      translatedNote: "",
+      items: [
+        {
+          author: "Sarah Zanuco",
+          company: "Zanuco Treuhand AG",
+          rating: 5,
+          date: "2025-08-11",
+          title: "Maximale Effizienz und aussagekräftige Analysen",
+          quote:
+            "Dank der Schnittstelle können wir als moderne Treuhandfirma die Finanzdaten unserer Kunden schneller und klarer aufbereiten. Die benutzerfreundliche Visualisierung ermöglicht es uns, Daten in Echtzeit auszuwerten und fundierte Entscheidungen schnell zu treffen. Die Implementierung verlief reibungslos und hat unsere Prozesse deutlich optimiert. Diese Lösung empfehlen wir jedem Unternehmen, das Wert auf effiziente, präzise und zeitnahe Finanzberichterstattung legt.",
         },
-        items: [
-          {
-            question: "How much does a new corporate website cost?",
-            answer:
-              "A website relaunch at smiit starts from €5,000. Most projects fall between €5,000 and €15,000, depending on scope, page count and CMS requirements. You receive the final price after the free initial concept – no obligation.",
-          },
-          {
-            question: "How long does a website relaunch take?",
-            answer:
-              "Typically 6–12 weeks from kickoff to go-live. The duration depends on scope, content availability and your feedback cycles. The initial concept will include a realistic timeline.",
-          },
-          {
-            question: "Can I edit the content myself afterwards?",
-            answer:
-              "Yes. We build your website with a CMS (e.g. Sanity or similar) that your team can use without any coding knowledge. You can manage texts, images and pages independently.",
-          },
-          {
-            question: "Does smiit offer ongoing support after launch?",
-            answer:
-              "Yes. We support you after go-live too: updates, technical maintenance, content changes and further development. We'll discuss the terms during the initial consultation.",
-          },
-          {
-            question: "What is included in the free initial concept?",
-            answer:
-              "We analyse your current website, review your competitors and develop a first concept idea – including a rough structure, design and technology recommendations, and an assessment of effort and budget.",
-          },
-        ],
+        {
+          author: "Florian Schär",
+          company: "Masterhomepage GmbH",
+          rating: 5,
+          date: "2025-06-30",
+          title: "flexibel, schnell und nett",
+          quote:
+            "Wir haben ein individuelles Dashboard von smiit erstellen lassen für die Auswertung der Zeiteinträge unserer Mitarbeiter mit Email Erinnerungsflows. Die Jungs sind sehr kompetent und äusserst freundlich. Super Service mit einem TOP Preis-/Leistungsverhältnis. Wir können smiit absolut weiterempfehlen!",
+        },
+        {
+          author: "Andreas Andermatt",
+          company: "ASW Engineering AG",
+          rating: 5,
+          date: "2025-03-14",
+          title: "Sehr kundenfreundlich - top Zusammenarbeit - finden immer eine Lösung",
+          quote:
+            "Wir haben ein individuelles Dashboard von smiit erstellen lassen und sind total happy! Wenn etwas kleines geändert werden muss, benötigt es nicht gleich einen Nachtrag, sie sind da super flexibel und sehr an einem guten Endresultat interessiert. In der heutigen Zeit leider nicht mehr selbstverständlich. Wir haben unsere Dashboards besprochen, sie haben super Input eingebracht und bei der Umsetzung noch ein paar coole Features eingebaut, welche die Dashboards noch besser machten, dies ohne Zusatzaufwand. Wir können smiit vollumfänglich weiterempfehlen!",
+        },
+      ],
+    },
+    faq: {
+      eyebrow: "HÄUFIGE FRAGEN",
+      heading: { lead: "Antworten auf das, was", highlight: "oft gefragt wird" },
+      items: [
+        {
+          question: "Für wen ist smiit Analytics gedacht?",
+          answer:
+            "Für Unternehmen, die bexio im Einsatz haben und mehr aus ihren bexio-Daten herausholen möchten — über das hinaus, was bexio selbst an integrierter Auswertung bietet.",
+        },
+        {
+          question: "Was kostet smiit Analytics?",
+          answer:
+            "Die Standardlösung kostet einmalig CHF 1.000. Eine individuell angepasste Variante startet bei CHF 450 einmalig plus CHF 120 pro Stunde für Custom-Anpassungen (typischerweise 8-100 Stunden).",
+        },
+        {
+          question: "Welche Analysen sind enthalten?",
+          answer:
+            "Über 250 vorgefertigte Analysen für alle Bereiche Ihrer bexio-Daten — Vertrieb, Buchhaltung, Aufträge, Kunden. Sie können sofort starten und bei Bedarf eigene Analysen ergänzen lassen.",
+        },
+        {
+          question: "Können wir die Lösung vorher testen?",
+          answer:
+            "Ja. Sie können smiit Analytics 30 Tage kostenlos testen. So sehen Sie konkret, was die Lösung für Ihre Daten leistet, bevor Sie sich entscheiden.",
+        },
+        {
+          question: "Wem gehört das System nach dem Kauf?",
+          answer:
+            "Sie haben volle Eigentümerschaft — keine wiederkehrenden Lizenzkosten, kein Vendor-Lock-in. Das Datenmodell und alle Anpassungen gehören Ihnen.",
+        },
+      ],
+    },
+    cta: {
+      title: "Begleiten Sie uns in eine\nKI-gesteuerte Zukunft!",
+      button: "Vereinbaren Sie einen Termin",
+    },
+    relatedLink: {
+      text: "Sie brauchen Datenanalyse jenseits von bexio? Erfahren Sie mehr über unsere maßgeschneiderte Datenanalyse-Dienstleistungen.",
+      linkLabel: "Zur Datenanalyse",
+      href: "/services/analytics",
+    },
+  },
+  servicesWebsite: {
+    eyebrows: {
+      hero: "WEBDESIGN FÜR DEN MITTELSTAND",
+      problem: "PROBLEME & LÖSUNGEN",
+      process: "UNSER VORGEHEN",
+      audiences: "FÜR IHRE BRANCHE",
+      references: "REFERENZEN",
+      pricing: "INVESTITION",
+      cta: "KOSTENLOSES ERSTKONZEPT",
+    },
+    hero: {
+      title: "Ihr Unternehmen ist stark. Ihre Website sollte das",
+      titleHighlight: "zeigen.",
+      description:
+        "Wir entwickeln hochwertige Unternehmenswebsites, die Ihr Können sichtbar machen – technisch schnell, mobil stark und gebaut, um aus Besuchern echte Anfragen zu machen.",
+      primaryCta: "Kostenloses Erstkonzept sichern",
+      secondaryCta: "So arbeiten wir",
+      packagesLabel: "Beliebte Leistungen",
+      packages: ["Corporate Website", "Relaunch", "Mobile & SEO", "CMS-Pflege", "Conversion-Optimierung"],
+      beforeLabel: "Vorher",
+      afterLabel: "Nachher",
+      sliderHint: "Ziehen Sie den Regler – so wirkt ein Relaunch von smiit",
+    },
+    logoStrip: {
+      label: "Vertrauen aus Bau, Industrie, Logistik & Entsorgung",
+      names: ["RB Westkamp GmbH", "ASW Engineering AG", "Dy Project AG", "G&B Logistics GmbH", "SHW Schmiedetechnik GmbH & Co. KG", "Malpur Facility Services AG", "D & W GmbH", "Wörner Automatisierungstechnik GmbH"],
+    },
+    problem: {
+      title: "Viele gewachsene Unternehmen wirken online",
+      titleHighlight: "kleiner, als sie tatsächlich sind.",
+      subtitle:
+        "Die Arbeit ist erstklassig – die Website hängt zehn Jahre hinterher. Das kostet Anfragen, Bewerber und Vertrauen.",
+      problemLabel: "Das Problem",
+      solutionLabel: "Was wir machen",
+      items: [
+        {
+          title: "Website wirkt veraltet",
+          solution: "Modernes Corporate Design",
+          solutionDetail: "Zeitloses, professionelles Layout – auf Ihre Marke zugeschnitten.",
+        },
+        {
+          title: "Leistungen sind unklar",
+          solution: "Klare Struktur & Inhaltsführung",
+          solutionDetail: "Besucher verstehen sofort, was Sie können – und fragen an.",
+        },
+        {
+          title: "Kaum Anfragen",
+          solution: "Conversion-Optimierung & starke CTAs",
+          solutionDetail: "Strategisch platzierte Handlungsaufforderungen, die Besucher in Anfragen verwandeln.",
+        },
+        {
+          title: "Langsam & mobil schwach",
+          solution: "Mobile-first, SEO & CMS",
+          solutionDetail: "Schnell auf jedem Gerät, gefunden bei Google – eigenständig pflegbar.",
+        },
+      ],
+    },
+    manifest: {
+      lead: "Ihre Website soll verkaufen.",
+      emphasis: "Nicht nur gut aussehen.",
+      subtitle:
+        "Eine smiit-Website ist ein Werkzeug aus Struktur, Technik und Inhalten — gebaut, damit aus Besuchern Anfragen und Bewerbungen werden.",
+    },
+    process: {
+      title: "So entsteht aus Ihrer Idee",
+      titleHighlight: "eine starke Website.",
+      subtitle: "Vier klare Schritte — von der ersten Idee bis zum laufenden Betrieb.",
+      stepLabel: "Schritt",
+      steps: [
+        {
+          number: "01",
+          title: "Erstkonzept",
+          text: "Wir analysieren Ihren Markt, Ihre Ziele und Ihre Wettbewerber — und liefern ein konkretes Konzept für Ihre neue Website. Kostenlos & unverbindlich.",
+        },
+        {
+          number: "02",
+          title: "Design",
+          text: "Wir gestalten Ihr Corporate Design und Seitenstruktur in einem modernen, conversionstarken Layout — abgestimmt auf Ihre Marke und Zielgruppe.",
+        },
+        {
+          number: "03",
+          title: "Umsetzung",
+          text: "Wir entwickeln Ihre Website technisch sauber: schnell, mobil optimiert, SEO-ready und mit einem CMS, das Ihr Team selbst befüllen kann.",
+        },
+        {
+          number: "04",
+          title: "Go-Live & Pflege",
+          text: "Wir begleiten Sie beim Launch, schulen Ihr Team ein und stehen für Pflege, Updates und Weiterentwicklung bereit.",
+        },
+      ],
+    },
+    audiences: {
+      title: "Gemacht für Betriebe, die",
+      titleHighlight: "anpacken.",
+      items: [
+        {
+          number: "01",
+          title: "Bauunternehmen",
+          text: "Hoch-, Tief- & Ausbau hochwertig präsentiert – mit Projekten, die Eindruck machen.",
+        },
+        {
+          number: "02",
+          title: "Entsorgungsbetriebe",
+          text: "Komplexe Leistungen klar erklärt – seriös, vertrauenswürdig und verständlich.",
+        },
+        {
+          number: "03",
+          title: "Logistikunternehmen",
+          text: "Fuhrpark, Standorte und Services in Szene gesetzt – stark für Kunden und Bewerber.",
+        },
+        {
+          number: "04",
+          title: "Maschinenbau & Industrie",
+          text: "Technische Tiefe verständlich kommuniziert – für Entscheider und Fachkräfte.",
+        },
+      ],
+    },
+    references: {
+      title: "Ergebnisse, die Ihr Team und Ihre Kunden",
+      titleHighlight: "tatsächlich spüren.",
+      items: [
+        {
+          tag: "Bau · Relaunch",
+          title: "Komplett-Relaunch mit Projektwelt",
+          text: "Von der veralteten Seite zur Referenz-Plattform – mehr qualifizierte Anfragen.",
+        },
+        {
+          tag: "Logistik · Karriere",
+          title: "Recruiting-Website mit Wirkung",
+          text: "Starke Karriereseite, die Bewerbungen statt Absprünge erzeugt.",
+        },
+        {
+          tag: "Industrie · Performance",
+          title: "Schnell, mobil, sichtbar",
+          text: "Technisch optimiert für Tempo, SEO und einen modernen Auftritt.",
+        },
+      ],
+      stats: [
+        { value: "5+", label: "Jahre Erfahrung", detail: "Standardisierte Prozesse und klare Strukturen bei jedem Projekt." },
+        { value: "70+", label: "Erfolgreiche Projekte", detail: "Umgesetzt für Kunden aus Bau, Industrie, Logistik & mehr." },
+        { value: "Ø 3,6", label: "Projekte je Kunde", detail: "Unsere Kunden bleiben – weil die Ergebnisse stimmen." },
+        { value: "100%", label: "DSGVO-konform", detail: "Rechtssichere Umsetzung – sauber dokumentiert." },
+      ],
+    },
+    pricing: {
+      title: "Planbar. Transparent.",
+      titleHighlight: "Wertig.",
+      subtitle: "Klare Rahmen statt versteckter Kosten — Sie wissen jederzeit genau, woran Sie sind.",
+      note: "Finaler Preis erst nach dem kostenlosen Erstkonzept — ohne Verpflichtung.",
+      cta: "Kostenloses Erstkonzept",
+      tiers: [
+        {
+          label: "Website-Relaunch",
+          value: "ab 5.000",
+          currency: "€",
+          desc: "Hochwertiger Neustart Ihres Auftritts",
+        },
+        {
+          label: "Typische Projekte",
+          value: "5–15",
+          currency: "T€",
+          desc: "Je nach Umfang, Seitenanzahl & CMS",
+        },
+        {
+          label: "Erstkonzept",
+          value: "0",
+          currency: "€",
+          desc: "Unverbindlich für ausgewählte Unternehmen",
+          featured: true,
+          featuredLabel: "Empfohlener Start",
+        },
+      ],
+    },
+    cta: {
+      title: "Sehen Sie, zu was Ihre Website",
+      titleHighlight: "in der Lage ist.",
+      subtitle:
+        "In einem kostenlosen Erstgespräch zeigen wir konkret, wo Ihre Website Potenzial verschenkt – und wie ein Relaunch aussehen könnte. Unverbindlich und ohne Verkaufsdruck.",
+      checks: [],
+      bookTitle: "Termin buchen",
+      bookSubtitle: "30-minütiges Erstgespräch – telefonisch oder per Video.",
+      bookEmail: "E-Mail schreiben",
+      primaryButton: "Kostenloses Erstkonzept sichern",
+      secondaryButton: "Kontakt aufnehmen",
+    },
+    faq: {
+      eyebrow: "FAQ",
+      heading: {
+        lead: "Häufige Fragen zu",
+        highlight: "Webdesign & Relaunch",
       },
-      relatedLink: {
-        text: "Do you also need custom web apps or process automation? Check out our app development services.",
-        linkLabel: "Explore Apps & Workflows",
-        href: "/services/apps",
-      },
+      items: [
+        {
+          question: "Was kostet eine neue Unternehmenswebsite?",
+          answer:
+            "Ein Website-Relaunch bei smiit startet ab 5.000 €. Die meisten Projekte liegen zwischen 5.000 € und 15.000 €, je nach Umfang, Seitenanzahl und CMS-Anforderungen. Den finalen Preis erhalten Sie nach dem kostenlosen Erstkonzept – ohne Verpflichtung.",
+        },
+        {
+          question: "Wie lange dauert ein Website-Relaunch?",
+          answer:
+            "Typischerweise 6–12 Wochen vom Kickoff bis zum Go-Live. Die Dauer hängt vom Umfang, der Verfügbarkeit von Inhalten und Ihren Feedback-Zyklen ab. Im Erstkonzept bekommen Sie eine realistische Zeitplanung.",
+        },
+        {
+          question: "Kann ich die Inhalte später selbst bearbeiten?",
+          answer:
+            "Ja. Wir bauen Ihre Website mit einem CMS (z. B. Sanity oder ähnlichem), das Ihr Team ohne Programmierkenntnisse bedienen kann. Texte, Bilder und Seiten pflegen Sie selbständig.",
+        },
+        {
+          question: "Bietet smiit auch laufende Betreuung nach dem Launch?",
+          answer:
+            "Ja. Wir begleiten Sie auch nach dem Go-Live: Updates, technische Wartung, Content-Änderungen und Weiterentwicklungen. Die Konditionen klären wir im Erstgespräch.",
+        },
+        {
+          question: "Was ist im kostenlosen Erstkonzept enthalten?",
+          answer:
+            "Wir analysieren Ihre aktuelle Website, schauen uns Ihre Wettbewerber an und erarbeiten eine erste Konzeptidee – inklusive grober Struktur, Empfehlungen zu Design und Technik sowie einer Einschätzung zu Aufwand und Budget.",
+        },
+      ],
+    },
+    relatedLink: {
+      text: "Brauchen Sie auch individuelle Web-Apps oder Prozessautomatisierung? Schauen Sie sich unsere App-Entwicklung an.",
+      linkLabel: "Zu Apps & Workflows",
+      href: "/services/apps",
     },
   },
 }
 
-export const getDictionary = (locale: Locale) => dictionaries[locale]
+/** Shape of a locale dictionary. German is the source of truth; every other locale must match it exactly. */
+export type Dictionary = typeof de
+
+const en: Dictionary = {
+  hero: {
+    title: "Data-driven transformations, tailored for the backbone of enterprises",
+    subtitle: "Digital solutions for applications, workflows, data analytics, and digital strategy",
+    cta: "Start your transformation",
+  },
+  about: {
+    title: "smiit helps businesses\nturn data into action",
+    text: "We are by your side.\nThrough apps, dashboards, and workflows — boosting\nproductivity and accelerating decisions.",
+  },
+  services: {
+    title: "Workflows for measurable impact",
+    subtitle: "At smiit, we build apps, workflows, and analytics that move your business forward.",
+    items: [
+      {
+        title: "Digital strategy",
+        tags: ["Consulting", "Processes", "IT"],
+        text: "We guide SMEs with IT consulting and digital strategy focused on apps, workflows, and data — practical and actionable.",
+      },
+      {
+        title: "Data analytics",
+        tags: ["Power BI", "SQL & Python", "Azure"],
+        text: "We turn your data into clear dashboards and KPIs — fast, insightful, and ready for action.",
+      },
+      {
+        title: "Apps & workflows",
+        tags: [".NET", "React", "Next.js"],
+        text: "We create intuitive web apps that simplify inputs, connect systems via API, and automate workflows — secure and scalable.",
+      },
+    ],
+    mobileCta: "Have questions about our services? Book a free, no-obligation introductory call with us.",
+    mobileCtaButton: "Book a free consultation",
+  },
+  servicesAnalytics: {
+    eyebrows: {
+      hero: "DATA ANALYTICS",
+      why: "THE PROBLEM",
+      portfolio: "WHAT WE DO",
+      manifest: "INTERLUDE",
+      process: "HOW WE WORK",
+      reviews: "VOICES",
+      cta: "GET STARTED",
+    },
+    manifest: {
+      lead: "You already have data.",
+      emphasis: "Clarity is the work.",
+    },
+    hero: {
+      title: "Understand data. Spot opportunities. Decide better.",
+      description:
+        "We turn fragmented data sources into a clear decision layer — built in Power BI and the Microsoft stack, so teams can see faster what is happening, what matters, and what to do next.",
+      primaryCta: "Discover the potential of your data",
+      packagesLabel: "Popular services",
+      packages: [
+        "Power BI Dashboards",
+        "Data Platform & BI Concept",
+        "Power BI Health Check",
+        "Microsoft Fabric",
+        "Power BI Redesign",
+        "Machine Learning & MLOps",
+      ],
+      scrollHint: "Scroll for more",
+      boardEyebrow: "Executive Intelligence Layer",
+      boardTitle: "From data silos to a decision layer",
+      sourcesConnected: "5 connected data sources",
+      platform: "Power BI",
+      updated: "updated 2 min ago",
+      inPractice: "In practice",
+      swipeHint: "← Swipe to switch →",
+      mobileTabTitle: "Why",
+      mobileTabTitleHighlight: "Data Analytics?",
+      tabs: {
+        speed: "Decision speed",
+        clarity: "Data clarity",
+        profit: "Margin control",
+        ai: "AI signals",
+      },
+      sections: {
+        kpis: "Core metrics",
+        trend: "Revenue & margin · 12 months",
+        trendSub: "Performance over time, with forecast from Q4",
+        actions: "Prioritized actions",
+        signals: "Early signals",
+        potentials: "Segment potential",
+        insights: "Executive insights",
+        filters: "Timeframe · Segments · Compare",
+      },
+      months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+      story: {
+        speed: {
+          step: "Chapter 1",
+          label: "Decision speed",
+          pain: "You guess too much.",
+          gain: "Prioritized actions.",
+          title: "End the data ping-pong.",
+          body: "One data source. No back-and-forth. Instantly clear what matters now – and who needs to act.",
+          emphasis: "Decisions happen where the data is.",
+        },
+        clarity: {
+          step: "Chapter 2",
+          label: "Data clarity",
+          pain: "Data trapped in silos.",
+          gain: "One single source of truth.",
+          title: "One shared picture for every level.",
+          body: "Sales, projects, operations – all in one view. No searching. No reconciling. No arguing about numbers.",
+          emphasis: "Transparency is not a matter of trust — it is a matter of infrastructure.",
+        },
+        profit: {
+          step: "Chapter 3",
+          label: "Margin control",
+          pain: "Margins slip away unnoticed.",
+          gain: "Forecasts at 89% confidence.",
+          title: "See growth before it happens.",
+          body: "Forecasts and margin trends reveal where momentum is building – and where to steer early.",
+          emphasis: "The strongest lever is margin quality.",
+        },
+        ai: {
+          step: "Chapter 4",
+          label: "AI signals",
+          pain: "Early warnings arrive too late.",
+          gain: "AI signals around the clock.",
+          title: "Spot patterns humans miss.",
+          body: "AI detects deviations, opportunities and risks automatically – before they ever hit a report.",
+          emphasis: "Intelligent analytics work around the clock.",
+        },
+      },
+      kpiLabels: {
+        revenue: "Revenue",
+        margin: "Margin",
+        forecastConfidence: "Accuracy",
+        activeProjects: "Active projects",
+      },
+      chartLegend: {
+        actual: "Actual",
+        forecast: "Forecast",
+      },
+      signalLabels: {
+        forecastRisk: "Forecast risk",
+        forecastRiskValue: "Medium",
+        deviation: "Deviation",
+        opportunityScore: "Opportunity score",
+        trendStrength: "Trend strength",
+      },
+      signalRadar: {
+        title: "AI signal radar",
+        period: "last 30 days",
+      },
+      segments: {
+        dach: "DACH existing clients",
+        swiss: "Swiss projects",
+        serviceUpsell: "Service upsell",
+        industrialLeads: "Industrial new leads",
+      },
+      dashboard: {
+        eyebrow: "Data Analytics and Artificial Intelligence",
+        heading: "Live insights for sales, finance, and operations",
+        chartLabel: "Revenue performance",
+        chartValue: "+18.4%",
+        chartTrend: "compared to last month",
+        months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+        kpis: [
+          {
+            label: "Forecast accuracy",
+            value: "94%",
+          },
+          {
+            label: "Automated reports",
+            value: "28",
+          },
+          {
+            label: "Active data sources",
+            value: "12",
+          },
+        ],
+        insightsTitle: "Recommended actions",
+        insights: [
+          "Demand trend in the south has increased for 3 weeks",
+          "Margin for the top product cluster is above target",
+          "Optimize stock levels for category A earlier",
+        ],
+      },
+      periods: {
+        q: "Quarter",
+        h: "6 months",
+        y: "12 months",
+      },
+      trendTooltip: {
+        revenueLabel: "Revenue",
+        deltaLabel: "Δ vs. last month",
+        forecastLabel: "Forecast · 89% confidence",
+      },
+      kpiDeltaLabels: {
+        revenue: "vs. last year",
+        margin: "vs. last year",
+        forecastConfidence: "last 4 weeks",
+        activeProjects: "new this quarter",
+      },
+      ariaLabels: {
+        timeRange: "Time range",
+      },
+      dashboardTitle: "Management Dashboard",
+      millionSuffix: "M",
+      bottomLabels: {
+        q: ["W 1", "W 4", "W 7", "W 10", "W 12"],
+        h: ["Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        y: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+      },
+      linePointLabels: {
+        q: ["W 1", "W 4", "W 7", "W 10", "W 12"],
+        h: ["Jul", "Aug", "Sep", "Oct", "Nov"],
+        y: ["Jan", "Apr", "Jul", "Sep", "Nov"],
+      },
+      forecastPointLabels: {
+        q: "W 13",
+        h: "Dec",
+        y: "Dec",
+      },
+      signalValues: {
+        riskMedium: "Medium",
+        riskLow: "Low",
+        riskHigh: "High",
+      },
+    },
+    portfolio: {
+      title: "Our",
+      titleHighlight: "Portfolio",
+      subtitle: "We help you extract maximum value from your data – from strategy to a productive Power BI solution.",
+      visuals: {
+        bi: { label: "Revenue Q3", kpiRevenue: "Revenue", target: "Target" },
+        governance: { badge: "GDPR" },
+      },
+      learnMore: "Learn more",
+      learnLess: "Show less",
+      bookCta: "Book a call",
+      items: [
+        {
+          title: "Business Intelligence & Dashboarding",
+          shortDesc: "We turn distributed data into a reliable basis for decision-making – with clean data integration, clear models, and Power BI dashboards that are actually used. This creates reports and analyses in Power BI and Microsoft Fabric that provide transparency and effectively support leadership.",
+          details: "We accompany the entire journey from the raw data source to decision-relevant visualization. This includes the integration and preparation of data, the construction of high-performance data models, the development of a semantic layer, and the design of dashboards for management, controlling, and operational teams.\n\nTechnologically, we focus primarily on the Microsoft environment – including Power BI and Fabric. We pay attention not only to technology but above all to a structure that can grow with your company."
+        },
+        {
+          title: "Data Governance & Data Strategy",
+          shortDesc: "We create the organizational and technical foundations so that data can be used consistently, clearly, and reliably across the company. This ensures less friction, better decisions, and significantly more impact from existing data initiatives.",
+          details: "We advise on central issues relating to data governance, master data management, data responsibility, KPI definitions, and the sensible setup of self-service analytics structures. The goal is not to leave data usage to chance, but to create clear frameworks that enable scaling and reliability.\n\nWe look not only at processes and systems but also at the organizational side. This creates a data strategy that does not remain theoretical but takes effect in the company."
+        },
+        {
+          title: "Machine Learning & ML Operations",
+          shortDesc: "We bring AI from the concept phase into productive use – structured, scalable, and technically clean. This creates machine learning solutions that not only impress but deliver real added value in everyday life.",
+          details: "We support the conception, development, and operationalization of ML models – from data preparation and feature engineering to training and validation, all the way to deployment in productive environments. The focus is not only on model quality but also on how AI can be integrated into existing processes in a stable, traceable, and maintainable way.\n\nAt the center is a practical MLOps approach with clear deployments, reproducible workflows, model monitoring, and a clean connection between data science and operations."
+        }
+      ]
+    },
+    process: {
+      title: "How we turn your data into",
+      titleHighlight: "decisions.",
+      subtitle: "Four clear steps – from the first conversation to productive operations.",
+      stepLabel: "Step",
+      steps: [
+        {
+          number: "01",
+          title: "Understand",
+          text: "We map your data landscape, sources and goals – and pinpoint the levers with the highest impact.",
+        },
+        {
+          number: "02",
+          title: "Design",
+          text: "We craft data model, Power BI dashboards and governance, tailored to your decision flows and tooling.",
+        },
+        {
+          number: "03",
+          title: "Build",
+          text: "We build, integrate and document – iteratively, with short feedback cycles and a clean handover.",
+        },
+        {
+          number: "04",
+          title: "Enable",
+          text: "We train your team, secure operations and evolve your analytics platform step by step.",
+        },
+      ],
+    },
+    reviewsHeading: {
+      lead: "What our",
+      highlight: "clients say",
+      swipeHint: "swipe →",
+    },
+    reviews: [
+      {
+        id: 6,
+        name: "Masterhomepage GmbH",
+        subtitle: "Dashboard for time tracking",
+        quote:
+          "smiit built us a custom dashboard to analyze our employees' time entries, complete with automated email reminder flows. The team is highly skilled and exceptionally friendly. Great service at an outstanding value for money. We can absolutely recommend smiit!",
+        metric: "5/5",
+        metricSub: "Wholehearted recommendation",
+      },
+      {
+        id: 2,
+        name: "G&B Logistics GmbH",
+        subtitle: "Analyses for CRM, accounting, dispatch & HR",
+        quote:
+          "With smiit's analyses, we now see CRM, accounting, dispatch and employee data in a single place for the first time. Route, order and utilization KPIs are available at the click of a button — which has significantly streamlined our monthly reporting.",
+        metric: "140h",
+        metricSub: "saved every month",
+      },
+      {
+        id: 1,
+        name: "Dy Project AG",
+        subtitle: "Data integration & central reporting",
+        quote:
+          "We finally have all our data sources unified in one place. smiit's data integration has given us an entirely new level of transparency.",
+        metric: "3→1",
+        metricSub: "reporting systems unified",
+      },
+    ],
+    faq: {
+      eyebrow: "FREQUENTLY ASKED",
+      heading: { lead: "Answers to the things", highlight: "people ask most" },
+      items: [
+        {
+          question: "How fast will we see results?",
+          answer:
+            "We always start with an intro call to identify the biggest lever. First dashboards typically go live within a few weeks — sometimes even days — often before the full data model is in place.",
+        },
+        {
+          question: "Do we need to switch our existing tools?",
+          answer:
+            "No. We work within your existing tool landscape, primarily in the Microsoft ecosystem with Power BI and Fabric. Tool migration is never our starting point.",
+        },
+        {
+          question: "How do you handle our sensitive business data?",
+          answer:
+            "Your data stays in your infrastructure. We work GDPR-compliant, document data flows in full, and hand over cleanly to your team at the end.",
+        },
+        {
+          question: "How are you different from a pure consultancy?",
+          answer:
+            "We advise and implement. Instead of just delivering concepts, we build the data models, dashboards, and pipelines ourselves — and document them so your team can keep going independently.",
+        },
+        {
+          question: "Do we need internal BI expertise after the project?",
+          answer:
+            "We don't just build, we enable. Training and documentation are part of every project — so your team can extend and operate the platform on its own afterwards.",
+        },
+      ],
+    },
+    cta: {
+      title: "What would change if your data finally started talking to each other?",
+      subtitle: "30-minute intro call. Free. No strings attached. You'll find out where your biggest lever is — even if we don't end up working together.",
+      primaryButton: "Free Consultation",
+      secondaryButton: "Contact Us",
+    },
+    relatedLink: {
+      text: "Using bexio and looking for a ready-made analytics solution? Take a look at our product smiit Analytics for bexio.",
+      linkLabel: "Explore smiit Analytics for bexio",
+      href: "/products/smiit-analytics",
+    },
+  },
+  servicesStrategy: {
+    eyebrows: {
+      hero: "DIGITAL STRATEGY",
+      why: "THE PROBLEM",
+      portfolio: "WHAT WE DO",
+      manifest: "INTERLUDE",
+      process: "HOW WE WORK",
+      reviews: "VOICES",
+      cta: "GET STARTED",
+    },
+    manifest: {
+      lead: "Speed without direction",
+      emphasis: "is just noise.",
+    },
+    hero: {
+      title: "A digital strategy that holds up in daily operations.",
+      description:
+        "We turn cloud, security, data, and processes into a coherent roadmap — with honest assessments, clear priorities, and the execution power that strategy papers usually lack.",
+      primaryCta: "Book a strategy session",
+      packagesLabel: "Popular services",
+      packages: [
+        "Digitalization Roadmap",
+        "Data Strategy & BI Concept",
+        "Azure Cloud Architecture",
+        "IT Security Check",
+        "Process Analysis & Automation Plan",
+      ],
+      scrollHint: "Scroll for more",
+      boardEyebrow: "Executive Intelligence Layer",
+      boardTitle: "From data silos to a decision layer",
+      sourcesConnected: "4 themes · 12 initiatives",
+      updated: "updated 2 min ago",
+      inPractice: "In practice",
+      swipeHint: "← Swipe to switch →",
+      mobileTabTitle: "Why",
+      mobileTabTitleHighlight: "Strategy?",
+      dashboardTitle: "Digital Strategy Cockpit",
+      sections: {
+        kpis: "Maturity Index",
+        trend: "Strategy Roadmap",
+        trendSub: "Milestones, status and forecast",
+        signals: "Strategic Risks",
+        potentials: "Initiative Pipeline",
+        filters: "Themes · Phases · Risk",
+      },
+      months: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+      kpiLabels: {
+        cloud: "Cloud Maturity",
+        security: "Security",
+        data: "Data",
+        process: "Process Maturity",
+      },
+      chartLegend: {
+        done: "Done",
+        progress: "In progress",
+        planned: "Planned",
+      },
+      signalLabels: {
+        compliance: "Compliance",
+        cyber: "Cyber",
+        vendor: "Vendor lock-in",
+        operational: "Operational",
+      },
+      signalRadar: {
+        title: "Risk trend",
+        period: "last 6 months",
+      },
+      segments: {
+        sondieren: "Assess",
+        konzipieren: "Design",
+        umsetzen: "Execute",
+        verankern: "Embed",
+      },
+      periods: {
+        q: "Quarter",
+        h: "6 months",
+        y: "12 months",
+      },
+      trendTooltip: {
+        statusDone: "Done",
+        statusProgress: "In progress",
+        statusPlanned: "Planned",
+      },
+      kpiDeltaLabels: {
+        cloud: "→ target",
+        security: "→ target",
+        data: "→ target",
+        process: "→ target",
+      },
+      ariaLabels: {
+        timeRange: "Time range",
+      },
+      bottomLabels: {
+        q: ["W 1", "W 4", "W 7", "W 10", "W 13"],
+        h: ["Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+        y: ["Q1", "Q2", "Q3", "Q4"],
+      },
+      milestoneLabels: {
+        tenantAudit: "Tenant Audit",
+        landingZone: "Landing Zone",
+        iacMigration: "IaC Migration",
+        multiRegion: "Multi-Region",
+        mfaRollout: "MFA Rollout",
+        zeroTrust: "Zero Trust",
+        identityGov: "Identity Gov",
+        socSetup: "SOC Setup",
+        dataLineage: "Data Lineage",
+        masterData: "Master Data",
+        selfService: "Self-Service",
+        processMap: "Process Map",
+        bpmnModels: "BPMN Models",
+        powerAutomate: "Power Automate",
+        kpiSteering: "KPI Steering",
+        patchAudit: "Patch Audit",
+        data: "Data",
+        sourceInventory: "Source Inventory",
+        processMapping: "Process Mapping",
+        top3Modeling: "Top-3 Modeling",
+        pilotWorkflow: "Pilot Workflow",
+        iacSetup: "IaC Setup",
+      },
+    },
+    portfolio: {
+      title: "Our",
+      titleHighlight: "Portfolio",
+      subtitle: "We guide you towards a digital strategy that holds up in daily operations – from an honest assessment to a productive cloud platform.",
+      visuals: {
+        process: {
+          label: "Approval flow",
+          yes: "✓ yes",
+          no: "✗ no",
+        },
+        security: {
+          eventBackupVerified: "Backup verified",
+          eventAnomalyDetected: "Anomaly detected",
+        },
+      },
+      learnMore: "Learn more",
+      learnLess: "Show less",
+      bookCta: "Book a call",
+      items: [
+        {
+          title: "Process Optimization & Automation",
+          shortDesc: "We make business processes visible, identify bottlenecks and friction points, and automate where it pays off measurably. The result: leaner workflows, fewer media breaks, and teams with more time for the work that matters.",
+          details: "We start with clean process modeling – from a current-state assessment through pain-point analysis to a target concept, always closely aligned with the people who live the process every day. We use established notations like BPMN and keep models deliberately pragmatic and usable.\n\nWe then translate the target state into digitalized workflows – via Power Automate, custom apps, or integrations with your existing systems. We choose the path that fits the maturity of your IT landscape, and automate exactly what demonstrably saves effort or improves quality."
+        },
+        {
+          title: "Cloud Infrastructure & DevOps",
+          shortDesc: "We build your Azure landscape so it scales, stays secure, and remains comprehensible two years down the road. Infrastructure as code, clear network and governance concepts, automated deployments – built in from day one.",
+          details: "We focus exclusively on Microsoft Azure and know the ecosystem from tenant architecture down to individual pipelines. Concretely, we build landing zones, hub-and-spoke networks, identity and permission concepts, and well-thought-out naming and tagging strategies – aligned with your compliance and scaling requirements.\n\nInfrastructure is built as code (Bicep or Terraform), never clicked together in the portal. CI/CD pipelines, automated tests, security scans, and documentation are part of the delivery – so your platform doesn't just run on launch day but holds up in audits, in disaster-recovery tests, and during the next major expansion."
+        },
+        {
+          title: "IT Security",
+          shortDesc: "Security isn't a product you buy – it's a discipline you anchor. We bring your IT landscape to a resilient state, from honest situation assessment through hardening of identity, network, and data, to anchoring it in everyday operations.",
+          details: "We begin with an honest assessment: where do your critical assets sit, where are the biggest gaps, what do audits say – and what does reality say? From this picture we derive a prioritized roadmap, with quick wins (MFA, patch discipline, backup tests) and structural measures (Zero Trust, identity governance, network segmentation).\n\nWe think of security not as a special project but as a cross-cutting concern: our cloud architectures are hardened from the ground up, our process designs account for data protection, and our DevOps pipelines integrate security scans. The result is a level of protection that holds up in daily operations – without slowing your tempo."
+        }
+      ]
+    },
+    process: {
+      title: "How we shape your",
+      titleHighlight: "digital strategy.",
+      subtitle: "Four clear steps – from an honest assessment to a roadmap that sticks.",
+      stepLabel: "Step",
+      steps: [
+        {
+          number: "01",
+          title: "Assess",
+          text: "We take a hard look at your cloud maturity, security posture, data landscape and core processes — honest, quantified, no sugar-coating.",
+        },
+        {
+          number: "02",
+          title: "Design",
+          text: "We draft your target state and prioritize: what delivers the most value, what's critical, what can wait? With effort estimates and quick wins.",
+        },
+        {
+          number: "03",
+          title: "Execute",
+          text: "We bring the roadmap to life: cloud migration, security hardening, data foundation, process automation — iteratively, with measurable milestones.",
+        },
+        {
+          number: "04",
+          title: "Embed",
+          text: "We hand over cleanly, train your team and stay available for reviews and continuous improvement — so the strategy doesn't end up in a drawer.",
+        },
+      ],
+    },
+    reviewsHeading: {
+      lead: "What our",
+      highlight: "clients say",
+      swipeHint: "swipe →",
+    },
+    reviews: [
+      {
+        id: 7,
+        name: "Azai AG",
+        subtitle: "Cloud architecture & governance for SaaS platform",
+        quote:
+          "smiit guided us in building a highly scalable SaaS platform. Networking, security, and governance were part of the cloud architecture from day one — not bolted on afterwards.",
+        metric: "99.9%",
+        metricSub: "platform availability",
+      },
+      {
+        id: 8,
+        name: "Claimity AG",
+        subtitle: "GDPR-compliant Azure infrastructure & DevOps",
+        quote:
+          "smiit set up our GDPR-compliant Azure infrastructure as Infrastructure-as-Code — including clean DevOps pipelines. Six weeks from whiteboard to a productive SaaS platform.",
+        metric: "6 wks",
+        metricSub: "from idea to SaaS platform",
+      },
+      {
+        id: 2,
+        name: "G&B Logistics GmbH",
+        subtitle: "Master data consolidation & real-time analytics",
+        quote:
+          "With smiit, we connected data from different systems for the first time and consolidated our master data. Operational processes run more smoothly — and our real-time analytics pull from a single source.",
+        metric: "4→1",
+        metricSub: "systems consolidated",
+      },
+    ],
+    faq: {
+      eyebrow: "FREQUENTLY ASKED",
+      heading: { lead: "Answers to the things", highlight: "people ask most" },
+      items: [
+        {
+          question: "How are you different from a classic management consultancy?",
+          answer:
+            "We implement what we recommend. Knowing we'll have to build it ourselves disciplines the strategy — no over-engineered slides, no shelfware.",
+        },
+        {
+          question: "How long does strategy development take?",
+          answer:
+            "A focused digital roadmap takes 4-8 weeks, depending on complexity and stakeholder involvement. We always start with a clearly scoped engagement, not a months-long discovery.",
+        },
+        {
+          question: "What happens after the strategy is delivered?",
+          answer:
+            "You decide — either we implement the roadmap with you (apps, analytics, workflows), or your team takes over with our documentation. Both paths are fine.",
+        },
+        {
+          question: "How do you approach cloud vs. on-prem?",
+          answer:
+            "Technology-neutral. We assess based on your requirements — compliance, existing infrastructure, scaling needs — and recommend what fits your context, not what's currently trending.",
+        },
+        {
+          question: "Can you take on a focused topic, e.g. just cloud migration?",
+          answer:
+            "Yes. Strategy projects can have a clear focus (data strategy, cloud architecture, tooling selection). We start with a 30-minute call to align on scope and expectations.",
+        },
+      ],
+    },
+    cta: {
+      title: "Before you buy your next tool — let's talk about your strategy.",
+      subtitle: "30 minutes. Free. We listen, sort things out, and tell you what we'd prioritize in your shoes — cloud migration, security, data strategy, or processes.",
+      primaryButton: "Free Consultation",
+      secondaryButton: "Contact Us",
+    },
+    relatedLink: {
+      text: "A solid strategy needs solid data — explore our analytics services.",
+      linkLabel: "Explore our analytics services",
+      href: "/services/analytics",
+    },
+  },
+  servicesApps: {
+    eyebrows: {
+      hero: "APPS & WORKFLOWS",
+      portfolio: "WHAT WE DO",
+      process: "HOW WE WORK",
+      reviews: "VOICES",
+    },
+    hero: {
+      title: "Understand workflows. Build apps. Free your team.",
+      description:
+        "We build custom software and web apps that automate your processes and connect your systems through clean interfaces and APIs – so your team clicks less, searches less, waits less, and delivers more.",
+      primaryCta: "Let's talk about your idea",
+      packagesLabel: "Popular services",
+      packages: [
+        "Custom Web Apps",
+        "Process Automation with Power Automate",
+        "API Integration",
+        "SaaS Platforms",
+        "App Maintenance & Evolution",
+      ],
+      appName: "OperationsHub",
+      pageTitle: "Dashboard",
+      searchPlaceholder: "Search…",
+      createNewLabel: "New order",
+      avatarInitials: "JM",
+      teamActiveLabel: "Team active",
+      updated: "Synced 2 min ago",
+      views: { today: "Today", week: "Week", month: "Month" },
+      navItems: {
+        dashboard: "Dashboard",
+        orders: "Orders",
+        customers: "Customers",
+        inventory: "Inventory",
+        reports: "Reports",
+        settings: "Settings",
+      },
+      sections: {
+        stats: "Key metrics",
+        pipeline: "Order pipeline",
+        pipelineSub: "Live · all stages visible",
+        activity: "Live activity",
+        tasks: "Open tasks",
+      },
+      statLabels: {
+        orders: "Orders",
+        customers: "Active customers",
+        tasks: "Open tasks",
+        revenue: "Revenue",
+      },
+      statDeltas: {
+        orders: "vs. yesterday",
+        customers: "vs. yesterday",
+        tasks: "vs. yesterday",
+        revenue: "vs. yesterday",
+      },
+      pipelineColumns: {
+        incoming: "Inbox",
+        active: "In progress",
+        done: "Done",
+      },
+      taskPriorityLabels: {
+        high: "High",
+        med: "Medium",
+        low: "Low",
+      },
+      ariaLabels: {
+        timeRange: "Time range",
+        mainNav: "Main navigation",
+      },
+      activeBadge: "active",
+      activitiesByView: {
+        today: [
+          { user: "J. Müller", action: "created order #4831", time: "2 min ago" },
+          { user: "A. Schmidt", action: "approved quote", time: "14 min ago" },
+          { user: "T. Weber", action: "confirmed delivery", time: "38 min ago" },
+          { user: "M. Becker", action: "logged payment", time: "1 hr ago" },
+        ],
+        week: [
+          { user: "J. Müller", action: "created order #4831", time: "3 hrs ago" },
+          { user: "S. Voss", action: "renewed contract", time: "8 hrs ago" },
+          { user: "A. Schmidt", action: "sent dunning notice", time: "1 day ago" },
+          { user: "M. Becker", action: "opened complaint", time: "2 days ago" },
+        ],
+        month: [
+          { user: "J. Müller", action: "closed 14 orders", time: "4 days ago" },
+          { user: "S. Voss", action: "renewed 6 contracts", time: "1 week ago" },
+          { user: "A. Schmidt", action: "onboarded 3 key accounts", time: "2 weeks ago" },
+          { user: "M. Becker", action: "completed Q3 reporting", time: "3 weeks ago" },
+        ],
+      },
+      tasksByView: {
+        today: [
+          { label: "Approve Müller GmbH quote", due: "today, 5:00 pm" },
+          { label: "Confirm Becker delivery", due: "today" },
+          { label: "Review invoice #4823", due: "tomorrow" },
+          { label: "Update Q4 forecast", due: "this week" },
+        ],
+        week: [
+          { label: "Klein KG: prepare quote", due: "Wed" },
+          { label: "Process Becker complaint", due: "Wed" },
+          { label: "Approve dunning run #34", due: "Thu" },
+          { label: "Prepare sales meeting", due: "Fri" },
+        ],
+        month: [
+          { label: "Schäfer AG: contract negotiation", due: "this week" },
+          { label: "Align Q1 quarterly plan", due: "this week" },
+          { label: "Approve commission statement", due: "next week" },
+          { label: "Consolidate CRM data", due: "this month" },
+        ],
+      },
+    },
+    reviewsHeading: {
+      lead: "What our",
+      highlight: "clients say",
+      swipeHint: "swipe →",
+    },
+    reviews: [
+      {
+        id: 3,
+        name: "Claimity AG",
+        subtitle: "SaaS Platform for the Insurance Industry",
+        quote:
+          "From idea to finished SaaS platform in record time. The smiit team brought our vision to life with technical excellence.",
+        metric: "6 weeks",
+        metricSub: "from idea to SaaS platform",
+      },
+      {
+        id: 7,
+        name: "Bitix Media GmbH",
+        subtitle: "Custom Sales App with Live Control",
+        quote:
+          "smiit's custom app handles our entire sales process. We steer campaigns live and instantly see when, what and how much of a product was ordered and paid.",
+        metric: "1 System",
+        metricSub: "Sales End-to-End",
+      },
+      {
+        id: 4,
+        name: "RB Westkamp GmbH",
+        subtitle: "Employee App for Goal Transparency",
+        quote:
+          "smiit built a web app for our employees. Today our team sees at the touch of a button which goals they've already reached and what potential is still untapped. This has made our sales operation even more efficient.",
+        metric: "Live",
+        metricSub: "Sales Goals at a Tap of a Button",
+      },
+    ],
+    manifest: {
+      lead: "Software should do the work.",
+      emphasis: "Not be the work.",
+    },
+    portfolio: {
+      title: "Our",
+      titleHighlight: "Offering",
+      subtitle: "We build web apps, websites and Azure setups that carry your workflows – from the first sketch to stable operations.",
+      visuals: {
+        bi: {
+          label: "Active users",
+          tabs: ["Overview", "Reports", "Settings"],
+          modules: ["Sales", "Warehouse", "Customers"],
+          activity: "J. Müller created order #4831",
+          moduleCount: "3 modules",
+        },
+      },
+      learnMore: "Learn more",
+      learnLess: "Show less",
+      bookCta: "Schedule a call",
+      items: [
+        {
+          title: "Web Apps & Platforms",
+          shortDesc: "We build custom software – web apps and platforms that map your workflows, connect systems through interfaces (APIs), and genuinely take work off your users' plates. Digital tools that work in daily use – not just in the demo.",
+          details: "We develop modern web applications and SaaS platforms tailored to your actual needs – from internal tools to multi-tenant solutions. We connect existing systems through APIs, integrate authentication and permissions cleanly, and ensure your app performs under load.\n\nTechnologically we work with Next.js, React and .NET – with clean architectures, automated tests and CI/CD pipelines. The result: applications that don't just shine in their first version but stay maintainable, secure and scalable long-term."
+        },
+        {
+          title: "Websites & Design",
+          shortDesc: "We design and build websites that take your brand seriously – fast, clearly structured and conversion-oriented. A presence that builds trust, not just one that looks good.",
+          details: "From the first sketch to go-live: we design and build websites that lead content cleanly, are mobile-first by design, and pay attention to SEO, performance and accessibility. We align with your brand identity and ensure a consistent visual system – from typography to color to components.\n\nTechnically we work with Next.js and headless CMS, so your team can maintain content independently without depending on developers. The result: a digital presence that's not only strong on launch day but grows with your business."
+        },
+        {
+          title: "Cloud Infrastructure & Governance",
+          shortDesc: "We build your cloud environment on Microsoft Azure – secure, cost-efficient and traceable. An infrastructure that scales with your business and meets compliance requirements effortlessly.",
+          details: "We design and operate cloud architectures on Microsoft Azure – from landing zones to identities and networking, all the way to CI/CD pipelines and observability. We ensure a clear governance structure, so resources, costs and permissions remain transparent at all times.\n\nFocus areas include Infrastructure-as-Code with Bicep or Terraform, security baselines based on the Microsoft Cloud Adoption Framework, and maintainable deployment processes. The result: an Azure environment that's not only technically clean but also organizationally sound – for stable apps, clear responsibilities and predictable cloud costs."
+        }
+      ]
+    },
+    process: {
+      title: "How we turn your workflows into",
+      titleHighlight: "productive apps.",
+      subtitle: "Four clear steps – from the first idea to productive operations.",
+      stepLabel: "Step",
+      steps: [
+        {
+          number: "01",
+          title: "Understand",
+          text: "We map workflows, users and your system landscape – and pinpoint where a custom app delivers the biggest impact.",
+        },
+        {
+          number: "02",
+          title: "Design",
+          text: "We design UX, data flow and architecture – tailored to your users, existing systems and scaling goals.",
+        },
+        {
+          number: "03",
+          title: "Build",
+          text: "We build, integrate and test – iteratively, with short feedback cycles and a clean handover.",
+        },
+        {
+          number: "04",
+          title: "Enable",
+          text: "We roll out, train your team and run the app in production – with clear SLAs and a roadmap for what's next.",
+        },
+      ],
+    },
+    faq: {
+      eyebrow: "FREQUENTLY ASKED",
+      heading: { lead: "Answers to the things", highlight: "people ask most" },
+      items: [
+        {
+          question: "How long does it take to build a custom web app?",
+          answer:
+            "Typically 6-12 weeks from first concept to go-live, depending on scope. We deliver in short iterations so you can use the app productively early — not after months of development.",
+        },
+        {
+          question: "Who owns the code at the end?",
+          answer:
+            "You do. You receive the full source code and documentation, and can extend or switch vendors later. No vendor lock-in.",
+        },
+        {
+          question: "What tech stack do you use?",
+          answer:
+            "On the backend we use .NET; on the frontend, JavaScript and TypeScript with React and Next.js. A deliberately focused stack — no framework wild west, just proven technologies we run in production and can keep maintainable long-term.",
+        },
+        {
+          question: "What does maintenance cost after go-live?",
+          answer:
+            "Your call. We offer maintenance packages, or you take over. Since the code and documentation are yours, you're not dependent on us — we stay because we're good, not because you can't leave.",
+        },
+        {
+          question: "How do you handle GDPR and data residency?",
+          answer:
+            "GDPR-compliant architecture is standard, not optional. We set up hosting in the EU or Switzerland, document data flows in full, and support data processing agreements.",
+        },
+      ],
+    },
+    cta: {
+      title: "How many hours would your team get back if",
+      titleHighlight: "routine ran itself?",
+      subtitle: "30-minute intro call. Free. No strings attached. You'll find out where your biggest routine-killers can be automated — even if we don't end up working together.",
+      primaryButton: "Free Consultation",
+      secondaryButton: "Contact Us",
+    },
+    relatedLink: {
+      text: "Automated workflows reach their full potential with clear data — explore our analytics services.",
+      linkLabel: "Explore our analytics services",
+      href: "/services/analytics",
+    },
+  },
+  customerCards: [
+    {
+      id: 1,
+      name: "Dy Project AG",
+      subtitle: "Power BI analyses for controlling & operations",
+      feedback: "Three separate systems combined into one real-time reporting solution.",
+    },
+    {
+      id: 2,
+      name: "G&B Logistics GmbH",
+      subtitle: "Digital Strategy & Process Optimization",
+      feedback: "140 hours per month freed up through automation.",
+    },
+    {
+      id: 3,
+      name: "Claimity AG",
+      subtitle: "SaaS Development for the Insurance Industry",
+      feedback: "From idea to go-live in 3 months – efficient and effective.",
+    },
+    {
+      id: 4,
+      name: "RB Westkamp GmbH",
+      subtitle: "Transformation of the employee experience",
+      feedback: "Real-time analyses of sales and employee performance.",
+    },
+    {
+      id: 5,
+      name: "ASW Engineering AG",
+      subtitle: "Automation of project planning and control",
+      feedback: "Full transparency regarding operating capacity utilization.",
+    },
+  ],
+  results: {
+    titlePrefix: "Results your team and customers ",
+    titleHighlight: "actually",
+    titleSuffix: " feel",
+    items: [
+      { value: "5+", label: "Years of experience", text: "With over 5 years of experience, smiit GmbH works with standardized processes and clear structuring." },
+      { value: "70+", label: "Successful projects", text: "We have successfully implemented a total of over 70 projects with more than 20 customers in recent years." },
+      { value: "Ø 3.6", label: "Projects per customer", text: "Over 3.6 projects per customer clearly show: our customers trust us and are satisfied with our results." },
+      { value: "3", label: "Service areas", text: "Our broad range of expertise enables integrated implementation: data analysis, automation & apps." }
+    ],
+    button: "Book a free consultation"
+  },
+  products: {
+    title: "Decisions backed\nby data, not guesswork",
+    subtitle: "smiit products turn raw data into clear insights, enabling\nsmarter, fact-based business decisions.",
+    cta: "Schedule a free demo",
+    items: [
+      {
+        title: "Product\nScout",
+        text: "AI-powered price comparison search engine for retailers and craftsmen. Search all your suppliers simultaneously.",
+        image: "/assets/home/product_scout.webp",
+        href: "#book",
+      },
+      {
+        title: "smiit Analytics\nfor bexio",
+        text: "Our bexio analysis dashboard for Swiss users automates your evaluations and consolidates all KPIs from bexio in clear reporting.",
+        image: "/assets/home/smiit_analytics.webp",
+        href: "/products/smiit-analytics",
+      },
+      {
+        title: "Azai\nElevate",
+        text: "Intelligent project management platform with AI-powered risk analysis and automated workflows for successful projects.",
+        image: "/assets/home/azai.webp",
+        href: "https://www.azai.ch",
+        external: true,
+      },
+    ],
+    ctaBottom: "Let's talk about your\nchallenges",
+    ctaSubtext: "We'll advise you on your options — no strings attached.",
+    ctaBottomButton: "Schedule a free demo",
+  },
+  aboutPage: {
+    titlePrefix: "Digital transformation. Wide expertise. ",
+    titleHighlight: "Sustainable",
+    titleSuffix: " value.",
+    description: "We are an IT company with the vision of digitizing small and medium-sized enterprises in the DACH region - through tailored solutions in data analytics, automation, and app development.",
+    primaryButton: "Free Consultation",
+    secondaryButton: "Our Services",
+    features: [
+      "5+ years experience",
+      "DACH-wide focus",
+      "In-house development"
+    ],
+    ourClients: "Our Clients",
+    overview: "Overview",
+    mission: {
+      title: "Our Mission & Values",
+      subtitle: "We want to drive change and give our clients clear insights,\nsave valuable time, and establish modern ways of working",
+      values: [
+        {
+          title: "Trust & Commitment",
+          text: "Successful projects are built on mutual trust and commitment. We bring our expertise – and expect the same openness and involvement from our partners.",
+        },
+        {
+          title: "Sustainable Quality",
+          text: "We develop solutions that work long-term. Quality sometimes takes more time – but the result is systems that are scalable, maintainable, and sustainably usable.",
+        },
+        {
+          title: "Collaborative Partnership",
+          text: "We don't work for our clients – we work with them. Open communication, collaboration on equal terms, and joy in shared projects are the foundation of successful outcomes.",
+        },
+      ],
+    },
+    founders: {
+      title: "The Founders",
+      subtitle: "Meet the minds behind smiit - Sebastian and Noah",
+      flipHint: "Tap card for more",
+      members: [
+        {
+          name: "Sebastian Grab",
+          role: "Co-Founder & Software Engineer",
+          image: "/assets/people/sebastian.webp",
+          education: ["B.A. Business Administration", "M.Sc. Digital Processes and Technologies"],
+          alumniOf: ["DHBW Stuttgart", "Hochschule für Technik Stuttgart"],
+          knowsAbout: [
+            "Software Architecture",
+            "Data Analysis",
+            "Process Automation",
+            "Web Development",
+            "Cloud Solutions",
+          ],
+          bio: "I am responsible for the technical architecture and implementation of our solutions. My focus is on developing robust systems based on requirements – from data analysis and process automation to customized web applications.",
+          email: "sebastian.grab@smiit.de",
+          cvLink: "https://grab.smiit.de/en/",
+          linkedIn: "https://www.linkedin.com/in/sebastian-grab/",
+        },
+        {
+          name: "Noah Neßlauer",
+          role: "Co-Founder & Business Analyst",
+          image: "/assets/people/noah.webp",
+          education: ["B.A. Business Administration", "M.Sc. Consulting & Business Analytics"],
+          alumniOf: ["DHBW Ravensburg", "ESB Business School Reutlingen"],
+          knowsAbout: [
+            "Business Analysis",
+            "Requirements Engineering",
+            "Data-Driven Consulting",
+            "Process Analysis",
+            "Digital Transformation",
+          ],
+          bio: "I accompany our customers from the initial analysis to the implementation of the appropriate solution. Together, we identify challenges, structure requirements, and develop data-driven approaches that truly add value.",
+          email: "noah.nesslauer@smiit.de",
+          cvLink: "https://nesslauer.smiit.de/en/",
+          linkedIn: "https://www.linkedin.com/in/noah-nesslauer/",
+        },
+      ],
+      cvLinkText: "Resume",
+      ctaText: "Let's find out together how we can move your business forward.",
+      ctaButton: "Book a free consultation",
+    },
+    closing: {
+      lead: "smiit is your partner for",
+      highlight: "lasting software solutions",
+      tail: "that simplify your processes today — and make them even more efficient tomorrow.",
+    },
+  },
+  contact: {
+    titlePrefix: "Get in ",
+    titleHighlight: "touch",
+    titleSuffix: " with us",
+    subtitle: "We look forward to your project and your questions.",
+    cta: "Book a free consultation",
+    formTitle: "Write to us",
+    infoTitle: "Contact information",
+    form: {
+      firstName: "First name",
+      lastName: "Last name",
+      email: "Email",
+      phone: "Phone",
+      optional: "(optional)",
+      interest: "Select your interest",
+      message: "How can we help you?",
+      submit: "Send request",
+      sending: "Sending...",
+      successTitle: "Message sent!",
+      successText: "Thank you for your message. We will get back to you shortly.",
+      errorTitle: "Error sending message",
+      errorText: "Please try again or contact us directly via email.",
+      disclaimer: "By submitting, you agree to the processing of your data for handling your request.",
+      interests: [
+        "Digital strategy",
+        "Data analytics",
+        "Apps & workflows",
+        "Website Development",
+        "smiit Analytics for bexio",
+        "Azai Elevate",
+        "Product Scout",
+        "Other",
+      ],
+    },
+    info: {
+      emailLabel: "Email:",
+      phoneLabel: "Phone:",
+      bookText: "Want to talk right away?",
+      bookLink: "Book an appointment",
+      cvLinkText: "Resume",
+      email: "kontakt@smiit.de",
+      phone: "+49 160 4073198",
+      phoneHref: "tel:+491604073198",
+      address: "Reiherweg 96, 89584 Ehingen",
+      addressFull: "Reiherweg 96\n89584 Ehingen\nGermany",
+    },
+    team: [
+      {
+        name: "Sebastian Grab",
+        role: "Software Engineer",
+        image: "/assets/people/sebastian.webp",
+        email: "sebastian.grab@smiit.de",
+        cvLink: "https://grab.smiit.de/en/",
+      },
+      {
+        name: "Noah Neßlauer",
+        role: "Business Analyst",
+        image: "/assets/people/noah.webp",
+        email: "noah.nesslauer@smiit.de",
+        cvLink: "https://nesslauer.smiit.de/en/",
+      },
+    ],
+  },
+  smiitAnalytics: {
+    hero: {
+      title: "Business Intelligence\nfor bexio Users",
+      subtitle: "Is your business intelligent enough?",
+      description: "We have successfully developed a data infrastructure to enable bexio software users to make better decisions and improve strategic as well as operational planning.",
+      primaryCta: "Get started!",
+      secondaryCta: "Learn more",
+    },
+    features: {
+      badge: "INTRODUCING",
+      title: "What is smiit Analytics",
+      titleHighlight: "for bexio?",
+      subtitle: "smiit Analytics for bexio is your path to a clear future. One system, full control, information & AI integration!",
+      items: [
+        {
+          title: "Complete Data Model",
+          text: "Integration of all bexio data in one system",
+        },
+        {
+          title: "Dashboarding",
+          text: "In-depth analyses for your organization",
+        },
+        {
+          title: "Your System for the Future",
+          text: "Your infrastructure for add-ons and AI",
+        },
+      ],
+      previewButton: "Preview",
+    },
+    advantages: {
+      badge: "ADVANTAGE",
+      title: "Your one-time solution,\nbuilt for the future.",
+      items: [
+        {
+          label: "Full Control",
+          title: "Complete Ownership",
+          text: "You get full control over your data and analyses. No vendor lock-in, no dependencies – your system belongs to you.",
+          details:
+            "You decide which KPIs matter most, how data models evolve, and when new reports go live. This keeps your strategic decisions independent and your operations highly adaptable.",
+        },
+        {
+          label: "Customization & Development",
+          title: "Individualization",
+          text: "Customize the system to your specific needs. We develop tailored analyses and extensions for your business.",
+          details:
+            "Together, we translate your business requirements into concrete implementation steps—from specific KPI dashboards to custom data flows. This ensures the solution scales with your company.",
+        },
+        {
+          label: "Foundation for Technological Innovation",
+          title: "Innovation",
+          text: "With the backend / smiit Analytics infrastructure, you get the perfect foundation for a comprehensive digital transformation.",
+          details:
+            "The existing architecture enables future automation, AI use cases, and additional digital services. You are not only adopting reporting—you are building a future-ready data platform.",
+        },
+      ],
+      learnMore: "Learn more",
+      learnLess: "Show less",
+    },
+    pricing: {
+      badge: "OUR PRODUCT",
+      title: "A pre-built system instead of\nexpensive individual consulting",
+      subtitle: "The advantages of smiit Analytics at a glance – bexio data analysis at a low price. We are happy to inform you in a free call about our product and our various pricing models.",
+      productTitle: "smiit Analytics for bexio",
+      productDescription: "With over 250 analyses, you can track practically everything happening in your company! Additionally, you can have the analysis software customized by us to receive company-specific analyses. See for yourself via the link to our offering.",
+      priceOneTime: "CHF 1,000.00",
+      priceOneTimeLabel: "One-time purchase",
+      priceCustom: "CHF 450.00 one-time",
+      priceCustomLabel: "Purchase with customizations",
+      priceCustomNote: "+ CHF 120.00 per hour for 8-100 hours",
+      or: "or",
+      features: [
+        "250+ Analyses",
+        "Complete Data Model",
+        "30 Days Free Trial",
+      ],
+      demoLink: "View Demo",
+      consultationLink: "Book Consultation",
+      freeVersionLink: "Free Version",
+    },
+    process: {
+      badge: "PROCESS",
+      title: "The Rollout Process",
+      steps: [
+        {
+          number: "01",
+          title: "Understand",
+          text: "We want to understand your requirements and needs.",
+        },
+        {
+          number: "02",
+          title: "Show & Advise",
+          text: "We show you the dashboard with your data and advise you on potential customizations.",
+        },
+        {
+          number: "03",
+          title: "Integration & Documentation",
+          text: "We integrate the dashboard into your IT infrastructure and document all processes.",
+        },
+        {
+          number: "04",
+          title: "Launch & Training",
+          text: "After launch, we train your employees on how to use the system.",
+        },
+      ],
+    },
+    reviews: {
+      heading: { lead: "What customers say about", highlight: "smiit Analytics" },
+      verifiedBadge: "Verified reviewer",
+      sourceLabel: "Verified on bexio Marketplace",
+      sourceUrl: "https://marketplace.bexio.com/en-GB/apps/128971/smiit-analytics/reviews",
+      translatedNote: "Translated from German",
+      items: [
+        {
+          author: "Sarah Zanuco",
+          company: "Zanuco Treuhand AG",
+          rating: 5,
+          date: "2025-08-11",
+          title: "Maximum efficiency and meaningful analyses",
+          quote:
+            "Thanks to the interface, we as a modern fiduciary firm can prepare our clients' financial data faster and more clearly. The user-friendly visualization lets us evaluate data in real time and make well-founded decisions quickly. The implementation went smoothly and significantly streamlined our processes. We recommend this solution to any company that values efficient, precise, and timely financial reporting.",
+        },
+        {
+          author: "Florian Schär",
+          company: "Masterhomepage GmbH",
+          rating: 5,
+          date: "2025-06-30",
+          title: "Flexible, fast, and friendly",
+          quote:
+            "We had smiit build a custom dashboard for evaluating our employees' time entries, including email reminder flows. The team is highly competent and extremely friendly. Great service with an excellent price-performance ratio. We can absolutely recommend smiit!",
+        },
+        {
+          author: "Andreas Andermatt",
+          company: "ASW Engineering AG",
+          rating: 5,
+          date: "2025-03-14",
+          title: "Very customer-friendly – great collaboration – they always find a solution",
+          quote:
+            "We had smiit build a custom dashboard and we're absolutely happy! When something small needs changing, it doesn't require a formal change request right away — they're super flexible and genuinely invested in a good end result. Sadly not a given these days. We discussed our dashboards, they contributed great input and even added a few cool features during implementation that made the dashboards even better, all at no extra cost. We can fully recommend smiit!",
+        },
+      ],
+    },
+    faq: {
+      eyebrow: "FREQUENTLY ASKED",
+      heading: { lead: "Answers to the things", highlight: "people ask most" },
+      items: [
+        {
+          question: "Who is smiit Analytics for?",
+          answer:
+            "Companies using bexio who want to get more out of their bexio data — beyond what bexio itself offers in built-in reporting.",
+        },
+        {
+          question: "What does smiit Analytics cost?",
+          answer:
+            "The standard solution is a one-time CHF 1,000. A customized variant starts at CHF 450 one-time plus CHF 120 per hour for custom adjustments (typically 8-100 hours).",
+        },
+        {
+          question: "Which analyses are included?",
+          answer:
+            "Over 250 pre-built analyses covering all areas of your bexio data — sales, accounting, orders, customers. You can start immediately and add custom analyses as needed.",
+        },
+        {
+          question: "Can we try the solution first?",
+          answer:
+            "Yes. You can test smiit Analytics free for 30 days. That way you see concretely what the solution delivers for your data before committing.",
+        },
+        {
+          question: "Who owns the system after purchase?",
+          answer:
+            "You have full ownership — no recurring license fees, no vendor lock-in. The data model and all customizations belong to you.",
+        },
+      ],
+    },
+    cta: {
+      title: "Join us on the journey to an\nAI-powered future!",
+      button: "Schedule a meeting",
+    },
+    relatedLink: {
+      text: "Need data analytics beyond bexio? Learn more about our tailored analytics services.",
+      linkLabel: "Explore our analytics services",
+      href: "/services/analytics",
+    },
+  },
+  servicesWebsite: {
+    eyebrows: {
+      hero: "WEB DESIGN FOR SMEs",
+      problem: "PROBLEMS & SOLUTIONS",
+      process: "HOW WE WORK",
+      audiences: "FOR YOUR INDUSTRY",
+      references: "REFERENCES",
+      pricing: "INVESTMENT",
+      cta: "FREE INITIAL CONCEPT",
+    },
+    hero: {
+      title: "Your company is strong. Your website should",
+      titleHighlight: "show it.",
+      description:
+        "We build high-quality corporate websites that make your expertise visible – technically fast, strong on mobile, and built to turn visitors into real enquiries.",
+      primaryCta: "Get your free initial concept",
+      secondaryCta: "How we work",
+      packagesLabel: "Popular services",
+      packages: ["Corporate website", "Relaunch", "Mobile & SEO", "CMS editing", "Conversion optimization"],
+      beforeLabel: "Before",
+      afterLabel: "After",
+      sliderHint: "Drag the slider – this is what a relaunch by smiit looks like",
+    },
+    logoStrip: {
+      label: "Trusted by construction, industry, logistics & waste management",
+      names: ["RB Westkamp GmbH", "ASW Engineering AG", "Dy Project AG", "G&B Logistics GmbH", "SHW Schmiedetechnik GmbH & Co. KG", "Malpur Facility Services AG", "D & W GmbH", "Wörner Automatisierungstechnik GmbH"],
+    },
+    problem: {
+      title: "Many established companies appear online",
+      titleHighlight: "smaller than they really are.",
+      subtitle:
+        "The work is first-class – but the website is ten years behind. That costs enquiries, applicants and trust.",
+      problemLabel: "The problem",
+      solutionLabel: "What we do",
+      items: [
+        {
+          title: "Website looks outdated",
+          solution: "Modern corporate design",
+          solutionDetail: "Timeless, professional layout – tailored to your brand.",
+        },
+        {
+          title: "Services are unclear",
+          solution: "Clear structure & content hierarchy",
+          solutionDetail: "Visitors understand what you do within seconds – and get in touch.",
+        },
+        {
+          title: "Barely any enquiries",
+          solution: "Conversion optimisation & strong CTAs",
+          solutionDetail: "Strategically placed calls-to-action that turn visitors into leads.",
+        },
+        {
+          title: "Slow & poor on mobile",
+          solution: "Mobile-first, SEO & CMS",
+          solutionDetail: "Fast on every device, found on Google – independently manageable.",
+        },
+      ],
+    },
+    manifest: {
+      lead: "Your website should sell.",
+      emphasis: "Not just look good.",
+      subtitle:
+        "A smiit website is a tool of structure, technology and content — built to turn visitors into enquiries and applications.",
+    },
+    process: {
+      title: "How we turn your idea into",
+      titleHighlight: "a strong website.",
+      subtitle: "Four clear steps — from the first idea to live operation.",
+      stepLabel: "Step",
+      steps: [
+        {
+          number: "01",
+          title: "Initial concept",
+          text: "We analyse your market, goals and competitors — and deliver a concrete concept for your new website. Free and non-binding.",
+        },
+        {
+          number: "02",
+          title: "Design",
+          text: "We create your corporate design and page structure in a modern, conversion-optimised layout — tailored to your brand and target audience.",
+        },
+        {
+          number: "03",
+          title: "Development",
+          text: "We build your website to a high technical standard: fast, mobile-optimised, SEO-ready and with a CMS your team can manage themselves.",
+        },
+        {
+          number: "04",
+          title: "Go-live & maintenance",
+          text: "We support you at launch, train your team and remain available for maintenance, updates and further development.",
+        },
+      ],
+    },
+    audiences: {
+      title: "Built for businesses that",
+      titleHighlight: "get things done.",
+      items: [
+        {
+          number: "01",
+          title: "Construction companies",
+          text: "Commercial, civil & fit-out construction presented at its best – with projects that make an impression.",
+        },
+        {
+          number: "02",
+          title: "Waste management firms",
+          text: "Complex services explained clearly – professional, trustworthy and easy to understand.",
+        },
+        {
+          number: "03",
+          title: "Logistics companies",
+          text: "Fleet, locations and services presented with impact – strong for clients and job seekers.",
+        },
+        {
+          number: "04",
+          title: "Mechanical engineering & industry",
+          text: "Technical depth communicated clearly – for decision-makers and specialists.",
+        },
+      ],
+    },
+    references: {
+      title: "Results that your team and clients",
+      titleHighlight: "actually feel.",
+      items: [
+        {
+          tag: "Construction · Relaunch",
+          title: "Complete relaunch with project showcase",
+          text: "From an outdated site to a reference platform – more qualified enquiries.",
+        },
+        {
+          tag: "Logistics · Careers",
+          title: "Recruitment website that works",
+          text: "A strong careers page that generates applications instead of bounces.",
+        },
+        {
+          tag: "Industry · Performance",
+          title: "Fast, mobile, visible",
+          text: "Technically optimised for speed, SEO and a modern presence.",
+        },
+      ],
+      stats: [
+        { value: "5+", label: "Years of experience", detail: "Standardised processes and clear structures on every project." },
+        { value: "70+", label: "Successful projects", detail: "Delivered for clients in construction, industry, logistics & more." },
+        { value: "Ø 3.6", label: "Projects per client", detail: "Our clients stay – because the results speak for themselves." },
+        { value: "100%", label: "GDPR compliant", detail: "Legally sound implementation – thoroughly documented." },
+      ],
+    },
+    pricing: {
+      title: "Predictable. Transparent.",
+      titleHighlight: "Worthwhile.",
+      subtitle: "Clear frames instead of hidden costs — you always know exactly where you stand.",
+      note: "Final price only after the free initial concept — no obligation.",
+      cta: "Free initial concept",
+      tiers: [
+        {
+          label: "Website relaunch",
+          value: "from €5,000",
+          currency: "",
+          desc: "A high-quality restart for your online presence",
+        },
+        {
+          label: "Typical projects",
+          value: "5–15",
+          currency: "k€",
+          desc: "Depending on scope, page count & CMS",
+        },
+        {
+          label: "Initial concept",
+          value: "0",
+          currency: "€",
+          desc: "Non-binding for selected companies",
+          featured: true,
+          featuredLabel: "Recommended first step",
+        },
+      ],
+    },
+    cta: {
+      title: "See what your website is",
+      titleHighlight: "capable of.",
+      subtitle:
+        "In a free initial consultation we show you concretely where your website is leaving potential on the table – and what a relaunch could look like. Non-binding and without any sales pressure.",
+      checks: [],
+      bookTitle: "Book a call",
+      bookSubtitle: "30-minute initial call – by phone or video.",
+      bookEmail: "Send an email",
+      primaryButton: "Get your free initial concept",
+      secondaryButton: "Get in touch",
+    },
+    faq: {
+      eyebrow: "FAQ",
+      heading: {
+        lead: "Common questions about",
+        highlight: "web design & relaunch",
+      },
+      items: [
+        {
+          question: "How much does a new corporate website cost?",
+          answer:
+            "A website relaunch at smiit starts from €5,000. Most projects fall between €5,000 and €15,000, depending on scope, page count and CMS requirements. You receive the final price after the free initial concept – no obligation.",
+        },
+        {
+          question: "How long does a website relaunch take?",
+          answer:
+            "Typically 6–12 weeks from kickoff to go-live. The duration depends on scope, content availability and your feedback cycles. The initial concept will include a realistic timeline.",
+        },
+        {
+          question: "Can I edit the content myself afterwards?",
+          answer:
+            "Yes. We build your website with a CMS (e.g. Sanity or similar) that your team can use without any coding knowledge. You can manage texts, images and pages independently.",
+        },
+        {
+          question: "Does smiit offer ongoing support after launch?",
+          answer:
+            "Yes. We support you after go-live too: updates, technical maintenance, content changes and further development. We'll discuss the terms during the initial consultation.",
+        },
+        {
+          question: "What is included in the free initial concept?",
+          answer:
+            "We analyse your current website, review your competitors and develop a first concept idea – including a rough structure, design and technology recommendations, and an assessment of effort and budget.",
+        },
+      ],
+    },
+    relatedLink: {
+      text: "Do you also need custom web apps or process automation? Check out our app development services.",
+      linkLabel: "Explore Apps & Workflows",
+      href: "/services/apps",
+    },
+  },
+}
+
+const dictionaries: Record<Locale, Dictionary> = { de, en }
+
+export const getDictionary = (locale: Locale): Dictionary => dictionaries[locale]

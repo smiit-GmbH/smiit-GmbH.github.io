@@ -4,10 +4,10 @@ import { Button } from "@/components/ui/button"
 import { ChevronRight } from "lucide-react"
 import { motion, useInView, useReducedMotion, useSpring, useTransform } from "framer-motion"
 import { useEffect, useRef, useState } from "react"
-import type { Locale } from "@/lib/dictionary"
+import type { Locale, Dictionary } from "@/lib/dictionary"
 
 interface ResultsProps {
-  dict: any
+  dict: Dictionary
   locale: Locale
 }
 
@@ -23,7 +23,6 @@ function CountUp({
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: "-20px" })
   const prefersReducedMotion = useReducedMotion()
-  const [animate, setAnimate] = useState(false)
 
   const match = value.match(/^([^\d]*)(\d+(?:[\.,]\d+)?)([^\d]*)$/)
   const prefix = match ? match[1] : ""
@@ -49,12 +48,11 @@ function CountUp({
     return `${prefix}${formatted}${suffix}`
   })
 
+  const animate = Boolean(isInView && match && !prefersReducedMotion)
+
   useEffect(() => {
-    if (isInView && match && !prefersReducedMotion) {
-      setAnimate(true)
-      spring.set(number)
-    }
-  }, [isInView, number, spring, match, prefersReducedMotion])
+    if (animate) spring.set(number)
+  }, [animate, number, spring])
 
   if (!animate) {
     return <span ref={ref} className={className}>{value}</span>
@@ -63,7 +61,9 @@ function CountUp({
   return <motion.span ref={ref} className={className}>{display}</motion.span>
 }
 
-function ResultCard({ item, index }: { item: any; index: number }) {
+type ResultItem = Dictionary["results"]["items"][number] & { locale: Locale }
+
+function ResultCard({ item, index }: { item: ResultItem; index: number }) {
   return (
     <motion.div
       variants={{
@@ -168,6 +168,7 @@ export default function Results({ dict, locale }: ResultsProps) {
   useEffect(() => {
     if (!titleUnderlineInView) return
 
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- replays the underline each time the IntersectionObserver reports the title in view; the timer below hides it again
     setShowTitleUnderline(true)
 
     if (underlineTimerRef.current) window.clearTimeout(underlineTimerRef.current)
@@ -234,10 +235,11 @@ export default function Results({ dict, locale }: ResultsProps) {
           <div className="md:hidden">
             <div
               ref={scrollerRef}
+              tabIndex={0}
               className="overflow-x-auto pb-6 no-scrollbar snap-x snap-mandatory"
             >
               <div className="flex min-w-max gap-4 px-4 sm:px-6">
-                {dict.results.items.map((item: any, index: number) => (
+                {dict.results.items.map((item, index) => (
                   <div
                     key={index}
                     className="snap-center shrink-0 w-[72vw] max-w-[360px]"
@@ -276,7 +278,7 @@ export default function Results({ dict, locale }: ResultsProps) {
             }}
             className="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
           >
-            {dict.results.items.map((item: any, index: number) => (
+            {dict.results.items.map((item, index) => (
               <ResultCard key={index} item={{ ...item, locale }} index={index} />
             ))}
           </motion.div>

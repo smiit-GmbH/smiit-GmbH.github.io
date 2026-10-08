@@ -1,47 +1,12 @@
 import dynamic from "next/dynamic"
-import type { Locale } from "@/lib/dictionary"
-import { listGlossaryCatalogByCluster } from "@/lib/glossary"
+import type { Dictionary, Locale } from "@/lib/dictionary"
 import HeroSection from "@/components/pages/services/strategy/hero-section"
+import ServicePage from "@/components/pages/services/shared/service-page"
 
 const PortfolioSection = dynamic(() => import("@/components/pages/services/strategy/portfolio"))
-const ManifestBand = dynamic(() => import("@/components/pages/services/strategy/manifest-band"))
-const ProcessSection = dynamic(() => import("@/components/pages/services/strategy/process-section"))
-const StrategyReviews = dynamic(() => import("@/components/pages/services/strategy/reviews"))
-const FaqSection = dynamic(() => import("@/components/pages/shared/faq-section"))
-const RelatedLinkBand = dynamic(() => import("@/components/pages/shared/related-link-band"))
-const GlossaryLinksBand = dynamic(() => import("@/components/pages/shared/glossary-links-band"))
-const StrategyCTA = dynamic(() => import("@/components/pages/services/strategy/cta"))
 
-export default function StrategyPage({
-  lang,
-  dict,
-}: {
-  lang: Locale
-  dict: any
-}) {
-  const related = dict.servicesStrategy.relatedLink
+export default function StrategyPage({ lang, dict }: { lang: Locale; dict: Dictionary }) {
   return (
-    <main data-page="strategy">
-      <HeroSection lang={lang} dict={dict} />
-      <PortfolioSection dict={dict} />
-      <ManifestBand dict={dict} />
-      <ProcessSection dict={dict} />
-      <StrategyReviews dict={dict} lang={lang} />
-      <RelatedLinkBand
-        text={related.text}
-        linkLabel={related.linkLabel}
-        href={related.href}
-        accent="#64748B"
-        accentHover="#475569"
-      />
-      <StrategyCTA dict={dict} />
-      <FaqSection dict={dict.servicesStrategy.faq} />
-      <GlossaryLinksBand
-        lang={lang}
-        entries={listGlossaryCatalogByCluster("strategy")}
-        accent="#64748B"
-        accentHover="#475569"
-      />
-    </main>
+    <ServicePage service="strategy" lang={lang} dict={dict} Hero={HeroSection} Portfolio={PortfolioSection} />
   )
 }
