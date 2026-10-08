@@ -1,0 +1,10 @@
+{
+  "$schema": "https://unpkg.com/knip@6/schema.json",
+  "entry": ["scripts/*.mjs", "tests/**/*.ts"],
+  "ignore": ["components/mobile-calendly-fab.tsx", "components/pages/services/website/audiences-section.tsx"],
+  "ignoreDependencies": ["postcss-load-config"],
+  "rules": {
+    "exports": "warn",
+    "types": "warn"
+  }
+}

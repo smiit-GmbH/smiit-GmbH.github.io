@@ -13,11 +13,11 @@ import {
   useTransform,
 } from "framer-motion"
 import { ArrowRight } from "lucide-react"
-import type { Locale } from "@/lib/dictionary"
+import type { Locale, Dictionary } from "@/lib/dictionary"
 
 interface HeroSectionProps {
   lang: Locale
-  dict: any
+  dict: Dictionary
 }
 
 function cx(...classes: Array<string | false | null | undefined>) {
@@ -26,7 +26,7 @@ function cx(...classes: Array<string | false | null | undefined>) {
 
 // ---------- Hero Packages (pill chips) ----------
 
-function HeroPackages({ hero, align = "left" }: { hero: any; align?: "left" | "center" }) {
+function HeroPackages({ hero, align = "left" }: { hero: Dictionary["servicesWebsite"]["hero"]; align?: "left" | "center" }) {
   const packages = (hero?.packages ?? []) as string[]
   if (packages.length === 0) return null
 
@@ -105,7 +105,7 @@ function MagneticCta({
 
 // ---------- CTA Row (primary Calendly + secondary #process) ----------
 
-function CtaRow({ hero, align, magnetic }: { hero: any; align: "left" | "center"; magnetic: boolean }) {
+function CtaRow({ hero, align, magnetic }: { hero: Dictionary["servicesWebsite"]["hero"]; align: "left" | "center"; magnetic: boolean }) {
   const primaryClass =
     "group inline-flex items-center justify-center rounded-lg bg-[#F703EB] px-5 py-3 text-[0.88rem] font-medium text-white shadow-[0_14px_28px_rgba(247,3,235,0.20)] transition-colors duration-300 hover:bg-[#D802CD]"
 
@@ -521,9 +521,9 @@ function AfterWebsite() {
         {/* Hero copy — editorial, generous space */}
         <div className="px-[7cqw] pt-[2.5cqw]">
           <p className="text-[1.45cqw] font-bold tracking-[0.24em] text-[#F703EB] uppercase mb-[1.4cqw]">Bauen mit Weitblick</p>
-          <h1 className="font-serif text-[5.4cqw] leading-[1.12] text-[#15151a] tracking-[-0.02em] mb-[1.6cqw]">
+          <p className="font-serif text-[5.4cqw] leading-[1.12] text-[#15151a] tracking-[-0.02em] mb-[1.6cqw]">
             Wir bauen, worauf <em className="not-italic text-[#F703EB]">Sie</em> sich verlassen.
-          </h1>
+          </p>
           <p className="text-[1.8cqw] text-[#6b6b73] leading-[1.55] mb-[2.4cqw] max-w-[86%]">
             Ihr Partner für anspruchsvolle Bauprojekte.
           </p>
@@ -738,7 +738,7 @@ const heroTextItem = {
   visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
 }
 
-export default function HeroSection({ lang, dict }: HeroSectionProps) {
+export default function HeroSection({ dict }: HeroSectionProps) {
   const containerRef = useRef<HTMLElement>(null)
   const shouldReduceMotion = useReducedMotion()
 

@@ -6,6 +6,7 @@ import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "fr
 import { Search, Palette, Code2, Rocket } from "lucide-react"
 import type { LucideIcon } from "lucide-react"
 import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
+import type { Dictionary } from "@/lib/dictionary"
 
 const stepIcons: LucideIcon[] = [Search, Palette, Code2, Rocket]
 
@@ -15,7 +16,7 @@ interface Step {
   text: string
 }
 
-export default function ProcessSection({ dict }: { dict: any }) {
+export default function ProcessSection({ dict }: { dict: Dictionary }) {
   const process = dict.servicesWebsite.process
   const eyebrowLabel = dict.servicesWebsite.eyebrows.process
   const steps: Step[] = process?.steps ?? []
@@ -51,14 +52,14 @@ export default function ProcessSection({ dict }: { dict: any }) {
     return () => observers.forEach((o) => o.disconnect())
   }, [useStaticLayout, steps.length])
 
-  const headingReveal = useRevealOnScroll()
-  const mobileReveal = useRevealOnScroll({ margin: "-80px" })
+  const [headingRef, headingRevealed] = useRevealOnScroll()
+  const [mobileRef, mobileRevealed] = useRevealOnScroll({ margin: "-80px" })
 
   if (useStaticLayout) {
     return (
       <section id="process" className="relative bg-transparent pt-10 pb-16 sm:py-20">
         <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
-          <div ref={headingReveal.ref} className={`text-center reveal-fade-up ${headingReveal.isRevealed ? "revealed" : ""}`}>
+          <div ref={headingRef} className={`text-center reveal-fade-up ${headingRevealed ? "revealed" : ""}`}>
             <span className="section-eyebrow justify-center">{eyebrowLabel}</span>
             <h2 className="mx-auto max-w-[22ch] font-serif text-[2.2rem] sm:text-[2.4rem] md:text-[3rem] leading-[1.1] tracking-tight text-black">
               {process?.title}{" "}
@@ -75,13 +76,13 @@ export default function ProcessSection({ dict }: { dict: any }) {
             <MobileProcessTimeline steps={steps} reduceMotion={!!shouldReduceMotion} stepLabel={process?.stepLabel} />
           </div>
 
-          <div ref={mobileReveal.ref} className="mt-12 hidden grid-cols-1 gap-5 md:grid md:grid-cols-2">
+          <div ref={mobileRef} className="mt-12 hidden grid-cols-1 gap-5 md:grid md:grid-cols-2">
             {steps.map((step, idx) => {
               const Icon = stepIcons[idx] ?? Search
               return (
                 <div
                   key={idx}
-                  className={`group relative rounded-[1.5rem] border border-slate-200/70 bg-white p-7 shadow-[0_10px_30px_rgba(15,23,42,0.05)] transition-all duration-500 hover:-translate-y-1 hover:border-[#F703EB]/30 hover:shadow-[0_18px_45px_rgba(247,3,235,0.12)] reveal-fade-up reveal-delay-${idx + 1} ${mobileReveal.isRevealed ? "revealed" : ""}`}
+                  className={`group relative rounded-[1.5rem] border border-slate-200/70 bg-white p-7 shadow-[0_10px_30px_rgba(15,23,42,0.05)] transition-all duration-500 hover:-translate-y-1 hover:border-[#F703EB]/30 hover:shadow-[0_18px_45px_rgba(247,3,235,0.12)] reveal-fade-up reveal-delay-${idx + 1} ${mobileRevealed ? "revealed" : ""}`}
                 >
                   <div className="flex items-center justify-between">
                     <span className="font-serif text-[2.4rem] md:text-[2.8rem] font-semibold leading-none text-[#F703EB]/25">
@@ -233,14 +234,14 @@ function MobileProcessStep({
   registerRef: (node: HTMLDivElement | null) => void
 }) {
   const Icon = stepIcons[idx] ?? Search
-  const reveal = useRevealOnScroll<HTMLDivElement>({ margin: "-60px" })
+  const [revealRef, revealed] = useRevealOnScroll({ margin: "-60px" })
 
   const setRef = (node: HTMLDivElement | null) => {
-    ;(reveal.ref as React.RefObject<HTMLDivElement | null>).current = node
+    revealRef(node)
     registerRef(node)
   }
 
-  const visible = reduceMotion || reveal.isRevealed
+  const visible = reduceMotion || revealed
 
   return (
     <motion.div

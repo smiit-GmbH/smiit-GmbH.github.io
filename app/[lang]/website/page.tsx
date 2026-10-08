@@ -68,7 +68,7 @@ export default async function Page({
     },
   ])
 
-  const faqJsonLd = buildFaqJsonLd((dict as any).servicesWebsite.faq.items)
+  const faqJsonLd = buildFaqJsonLd(dict.servicesWebsite.faq.items)
 
   return (
     <>

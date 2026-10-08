@@ -175,6 +175,7 @@ export function Globe({ progress }: GlobeProps) {
   }, [viewBlend]);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- the WebGL globe is client-only; flipping the mount flag after hydration keeps server and first client render identical
     setIsMounted(true);
 
     const observer = new ResizeObserver((entries) => {
@@ -277,6 +278,7 @@ export function Globe({ progress }: GlobeProps) {
       viewStateRef.current = "focus";
       viewBlendRef.current.value = 1;
       viewBlendCommittedRef.current = 1;
+      // eslint-disable-next-line react-hooks/set-state-in-effect -- prefers-reduced-motion is browser-only and is read once after mount to jump straight to the focused view
       setViewBlend(1);
       setShowLocations(true);
       globeRef.current?.pointOfView(FOCUS_POV, 0);

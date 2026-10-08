@@ -33,7 +33,7 @@ export default function GlossaryTermPage({ lang, term }: { lang: Locale; term: G
   const meta = glossaryClusterMeta[term.cluster]
   const color = meta.color
 
-  const hero = useRevealOnScroll()
+  const [heroRef, heroRevealed] = useRevealOnScroll()
   // Auto-link the first mention of other glossary terms in the body copy (once
   // per term, no self-link). Computed once so scroll re-renders stay stable.
   const linkedParagraphs = useMemo(() => {
@@ -68,10 +68,10 @@ export default function GlossaryTermPage({ lang, term }: { lang: Locale; term: G
           />
 
           <div
-            ref={hero.ref}
+            ref={heroRef}
             className={cx(
               "mt-8 reveal-fade-up",
-              hero.isRevealed && "revealed",
+              heroRevealed && "revealed",
               Diagram && "lg:grid lg:grid-cols-[55fr_45fr] lg:items-center lg:gap-16 xl:gap-24",
             )}
           >
@@ -300,11 +300,11 @@ function GlossarySectionBlock({
   paragraphs: React.ReactNode[]
   bullets?: string[]
 }) {
-  const reveal = useRevealOnScroll({ margin: "-60px" })
+  const [revealRef, revealed] = useRevealOnScroll({ margin: "-60px" })
   return (
     <section
-      ref={reveal.ref}
-      className={cx("scroll-mt-28 reveal-fade-up", reveal.isRevealed && "revealed")}
+      ref={revealRef}
+      className={cx("scroll-mt-28 reveal-fade-up", revealed && "revealed")}
     >
       <div className="grid gap-y-4 lg:grid-cols-[minmax(0,0.4fr)_minmax(0,1.6fr)] lg:gap-x-20 xl:gap-x-28">
         <div className="lg:pt-1">

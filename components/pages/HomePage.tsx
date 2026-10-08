@@ -4,14 +4,14 @@ import HeroSection from "@/components/pages/home/hero-section"
 import Products from "@/components/pages/home/products"
 import Results from "@/components/pages/home/results"
 import Services from "@/components/pages/home/services"
-import type { Locale } from "@/lib/dictionary"
+import type { Locale, Dictionary } from "@/lib/dictionary"
 
 export default function HomePage({
   lang,
   dict,
 }: {
   lang: Locale
-  dict: any
+  dict: Dictionary
 }) {
   return (
     <>

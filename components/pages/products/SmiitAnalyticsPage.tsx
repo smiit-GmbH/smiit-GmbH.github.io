@@ -1,6 +1,6 @@
 "use client"
 
-import type { Locale } from "@/lib/dictionary"
+import type { Locale, Dictionary } from "@/lib/dictionary"
 import { HeroSection } from "@/components/pages/products/smiit-analytics/hero-section"
 import { FeaturesSection } from "@/components/pages/products/smiit-analytics/features-section"
 import { AdvantagesSection } from "@/components/pages/products/smiit-analytics/advantages-section"
@@ -15,7 +15,7 @@ export default function SmiitAnalyticsPage({
   dict,
 }: {
   lang: Locale
-  dict: any
+  dict: Dictionary
 }) {
   const related = dict.smiitAnalytics.relatedLink
   return (

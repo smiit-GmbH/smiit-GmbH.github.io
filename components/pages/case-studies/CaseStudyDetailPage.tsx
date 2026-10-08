@@ -38,12 +38,12 @@ function NarrativeSection({
   index: number
   paragraphs: React.ReactNode[]
 }) {
-  const reveal = useRevealOnScroll({ margin: "-60px" })
+  const [revealRef, revealed] = useRevealOnScroll({ margin: "-60px" })
   return (
     <section
       id={chapterId(index)}
-      ref={reveal.ref}
-      className={cx("scroll-mt-28", "reveal-fade-up", reveal.isRevealed && "revealed")}
+      ref={revealRef}
+      className={cx("scroll-mt-28", "reveal-fade-up", revealed && "revealed")}
     >
       <div className="grid gap-y-4 lg:grid-cols-[minmax(0,0.4fr)_minmax(0,1.6fr)] lg:gap-x-20 xl:gap-x-28 2xl:gap-x-36">
         {/* Heading rail */}
@@ -89,10 +89,10 @@ export default function CaseStudyDetailPage({
   const ui = getCaseStudiesUi(lang)
   const base = `/${lang}`
   const area = AREA[study.serviceArea]
-  const hero = useRevealOnScroll()
-  const metricsReveal = useRevealOnScroll({ margin: "-60px" })
-  const techReveal = useRevealOnScroll({ margin: "-60px" })
-  const moreReveal = useRevealOnScroll({ margin: "-60px" })
+  const [heroRef, heroRevealed] = useRevealOnScroll()
+  const [metricsRef, metricsRevealed] = useRevealOnScroll({ margin: "-60px" })
+  const [techRef, techRevealed] = useRevealOnScroll({ margin: "-60px" })
+  const [moreRef, moreRevealed] = useRevealOnScroll({ margin: "-60px" })
   const serviceLabel = area.label[lang]
   const others = listOtherCaseStudies(study.slug, lang)
   const glossaryEntries = listGlossaryCatalogForCaseStudy(study.slug)
@@ -128,10 +128,10 @@ export default function CaseStudyDetailPage({
           />
 
           <div
-            ref={hero.ref}
+            ref={heroRef}
             className={cx(
               "mt-8 grid items-center gap-10 lg:grid-cols-2 lg:gap-16 reveal-fade-up",
-              hero.isRevealed && "revealed",
+              heroRevealed && "revealed",
             )}
           >
             {/* Text */}
@@ -216,10 +216,10 @@ export default function CaseStudyDetailPage({
 
       {/* ── Kennzahlen ── */}
       <section
-        ref={metricsReveal.ref}
+        ref={metricsRef}
         className={cx(
           "max-w-[1400px] mx-auto mt-24 px-4 sm:mt-28 sm:px-6 lg:px-8 reveal-fade-up",
-          metricsReveal.isRevealed && "revealed",
+          metricsRevealed && "revealed",
         )}
       >
         <h2 className="font-serif text-[1.8rem] sm:text-[2.2rem] leading-[1.1] tracking-tight text-[#0B162D]">
@@ -238,10 +238,10 @@ export default function CaseStudyDetailPage({
       {/* ── Technik & Architektur ── */}
       {study.techStack.length > 0 && (
         <section
-          ref={techReveal.ref}
+          ref={techRef}
           className={cx(
             "max-w-[1400px] mx-auto mt-20 px-4 sm:mt-24 sm:px-6 lg:px-8 reveal-fade-up",
-            techReveal.isRevealed && "revealed",
+            techRevealed && "revealed",
           )}
         >
           <h2 className="font-serif text-[1.8rem] sm:text-[2.2rem] leading-[1.1] tracking-tight text-[#0B162D]">
@@ -303,10 +303,10 @@ export default function CaseStudyDetailPage({
       {/* ── Weitere Case Studies ── */}
       {others.length > 0 && (
         <section
-          ref={moreReveal.ref}
+          ref={moreRef}
           className={cx(
             "max-w-[1400px] mx-auto mt-24 px-4 sm:mt-28 sm:px-6 lg:px-8 reveal-fade-up",
-            moreReveal.isRevealed && "revealed",
+            moreRevealed && "revealed",
           )}
         >
           <h2 className="font-serif text-[1.8rem] sm:text-[2.2rem] leading-[1.1] tracking-tight text-[#0B162D]">

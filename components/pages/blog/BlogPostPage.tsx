@@ -52,7 +52,7 @@ export default function BlogPostPage({ lang, post }: { lang: Locale; post: BlogP
   const base = `/${lang}`
   const meta = blogCategoryMeta[post.category]
   const color = meta.color
-  const hero = useRevealOnScroll()
+  const [heroRef, heroRevealed] = useRevealOnScroll()
   const lenis = useLenis()
 
   // Sources are collapsed to the first 6 by default. A citation click (or the
@@ -87,7 +87,13 @@ export default function BlogPostPage({ lang, post }: { lang: Locale; post: BlogP
   const { rendered, toc } = useMemo(() => {
     const used = new Set<string>()
     let h = 0
-    const rendered = post.blocks.map((block) => {
+    const rendered: Array<{
+      block: (typeof post.blocks)[number]
+      id: string | undefined
+      number: number | undefined
+      linked: ReactNode | ReactNode[] | undefined
+    }> = []
+    for (const block of post.blocks) {
       let id: string | undefined
       let number: number | undefined
       let linked: ReactNode | ReactNode[] | undefined
@@ -100,8 +106,8 @@ export default function BlogPostPage({ lang, post }: { lang: Locale; post: BlogP
       } else if (block.type === "bullets") {
         linked = block.items.map((item) => withEmphasis(item, (plain) => autolinkGlossary(plain, { lang, used })))
       }
-      return { block, id, number, linked }
-    })
+      rendered.push({ block, id, number, linked })
+    }
     const toc: TocItem[] = rendered
       .filter((item) => item.block.type === "heading")
       .map((item) => ({ id: item.id as string, text: (item.block as { text: string }).text, number: item.number as number }))
@@ -132,7 +138,7 @@ export default function BlogPostPage({ lang, post }: { lang: Locale; post: BlogP
             ]}
           />
 
-          <div ref={hero.ref} className={cx("mt-8 max-w-[96ch] reveal-fade-up", hero.isRevealed && "revealed")}>
+          <div ref={heroRef} className={cx("mt-8 max-w-[96ch] reveal-fade-up", heroRevealed && "revealed")}>
             <span
               style={{ color, backgroundColor: `${color}14` }}
               className="inline-flex rounded-full px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-wider"

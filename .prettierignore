@@ -1,0 +1,12 @@
+.next/
+out/
+.archiv/
+blog/
+.claude/
+node_modules/
+package-lock.json
+public/
+playwright-report/
+test-results/
+.lighthouseci/
+components/email/*.html

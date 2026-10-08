@@ -2,6 +2,7 @@
 
 import { motion, useReducedMotion } from "framer-motion"
 import { X, Check } from "lucide-react"
+import type { Dictionary } from "@/lib/dictionary"
 
 interface ProblemItem {
   title: string
@@ -42,7 +43,7 @@ const solutionHalfVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
 }
 
-export default function ProblemSection({ dict }: { dict: any }) {
+export default function ProblemSection({ dict }: { dict: Dictionary }) {
   const problem = dict.servicesWebsite.problem
   const eyebrow = dict.servicesWebsite.eyebrows.problem
   const shouldReduceMotion = useReducedMotion()

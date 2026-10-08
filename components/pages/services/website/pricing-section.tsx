@@ -2,8 +2,8 @@
 
 import { motion, useReducedMotion } from "framer-motion"
 import { CheckCircle2 } from "lucide-react"
-import Link from "next/link"
 import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
+import type { Dictionary } from "@/lib/dictionary"
 
 type Tier = {
   label: string
@@ -24,10 +24,10 @@ const tierItem = {
   visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.5, ease: [0.22, 1, 0.36, 1] } },
 }
 
-export default function PricingSection({ dict }: { dict: any }) {
+export default function PricingSection({ dict }: { dict: Dictionary }) {
   const pricing = dict.servicesWebsite.pricing
   const eyebrow = dict.servicesWebsite.eyebrows.pricing
-  const reveal = useRevealOnScroll({ margin: "-60px" })
+  const [revealRef, revealed] = useRevealOnScroll({ margin: "-60px" })
   const shouldReduceMotion = useReducedMotion()
 
   const tiers = pricing.tiers as Tier[]
@@ -38,10 +38,10 @@ export default function PricingSection({ dict }: { dict: any }) {
     <section id="pricing" className="relative bg-transparent py-[clamp(48px,6vw,96px)]">
       <div className="mx-auto max-w-[1400px] px-0 sm:px-6 lg:px-8">
         <motion.div
-          ref={reveal.ref}
+          ref={revealRef}
           data-header-tone="dark"
           initial={{ opacity: 0, y: 24 }}
-          animate={reveal.isRevealed ? { opacity: 1, y: 0 } : {}}
+          animate={revealed ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           className="relative overflow-hidden bg-[#15151a] rounded-[30px] px-[clamp(28px,4vw,64px)] py-[clamp(40px,5vw,76px)] sm:shadow-[0_30px_70px_-20px_rgba(21,21,26,0.22)]"
         >

@@ -7,7 +7,7 @@ import Image from "next/image"
 import LocalizedLink from "../../localized-link"
 import { Button } from "@/components/ui/button"
 import { ChevronRight } from "lucide-react"
-import type { Locale } from "@/lib/dictionary"
+import type { Locale, Dictionary } from "@/lib/dictionary"
 
 const DotLottieReact = dynamic(
   () => import("@lottiefiles/dotlottie-react").then((m) => m.DotLottieReact),
@@ -15,7 +15,7 @@ const DotLottieReact = dynamic(
 )
 
 interface ServicesProps {
-  dict: any
+  dict: Dictionary
   lang: Locale
 }
 
@@ -598,6 +598,7 @@ function DirectionalWaves({
 
   useEffect(() => {
     if (pulseToken === null) return
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- each new pulse token from the parent is an event: append a ring instance and schedule its removal below
     setInstances((prev) => {
       const next = [...prev, pulseToken]
       if (next.length > 2) next.shift()
@@ -672,7 +673,7 @@ function DirectionalWaves({
               strokeLinecap="round"
               {...ringCommon}
               transition={{
-                ...(ringCommon.transition as any),
+                ...ringCommon.transition,
                 delay: (delayMs + 250) / 1000,
               }}
             />
@@ -685,7 +686,7 @@ function DirectionalWaves({
               strokeLinecap="round"
               {...ringCommon}
               transition={{
-                ...(ringCommon.transition as any),
+                ...ringCommon.transition,
                 delay: (delayMs + 500) / 1000,
               }}
             />
@@ -708,7 +709,7 @@ function DirectionalWaves({
   )
 }
 
-function DesktopServices({ items }: { items: any[] }) {
+function DesktopServices({ items }: { items: Array<{ title: string; text: string; tags: string[] }> }) {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const isInView = useInView(containerRef, { once: false, amount: 0.15 })
   const prefersReducedMotion = useReducedMotion()
@@ -718,7 +719,7 @@ function DesktopServices({ items }: { items: any[] }) {
 
   const [pulseTokens, setPulseTokens] = useState<Array<number | null>>([null, null, null])
   const pulseSeq = useRef(1)
-  const clearPulseTimeouts = useRef<Array<any>>([null, null, null])
+  const clearPulseTimeouts = useRef<Array<ReturnType<typeof setTimeout> | null>>([null, null, null])
 
   const satelliteRef = useRef<HTMLDivElement | null>(null)
   const cardRefs = useRef<Array<HTMLDivElement | null>>([null, null, null])
@@ -901,7 +902,7 @@ function DesktopServices({ items }: { items: any[] }) {
 
   const [left, rightTop, bottom] = items
 
-  const cardVisible = (_idx: number) => {
+  const cardVisible = () => {
     return step >= 7
   }
 
@@ -963,7 +964,7 @@ function DesktopServices({ items }: { items: any[] }) {
             cardRefs.current[0] = el
           }}
           initial={{ opacity: 0, scale: 0.92, y: 18 }}
-          animate={cardVisible(0) ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.92, y: 18 }}
+          animate={cardVisible() ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.92, y: 18 }}
           transition={{ duration: 0.55, ease: "easeOut" }}
           onMouseEnter={() => setHovered(0)}
           onMouseLeave={() => setHovered(null)}
@@ -988,7 +989,7 @@ function DesktopServices({ items }: { items: any[] }) {
             cardRefs.current[1] = el
           }}
           initial={{ opacity: 0, scale: 0.92, y: 18 }}
-          animate={cardVisible(1) ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.92, y: 18 }}
+          animate={cardVisible() ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.92, y: 18 }}
           transition={{ duration: 0.55, ease: "easeOut" }}
           onMouseEnter={() => setHovered(1)}
           onMouseLeave={() => setHovered(null)}
@@ -1013,7 +1014,7 @@ function DesktopServices({ items }: { items: any[] }) {
             cardRefs.current[2] = el
           }}
           initial={{ opacity: 0, scale: 0.92, y: 18 }}
-          animate={cardVisible(2) ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.92, y: 18 }}
+          animate={cardVisible() ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.92, y: 18 }}
           transition={{ duration: 0.55, ease: "easeOut" }}
           onMouseEnter={() => setHovered(2)}
           onMouseLeave={() => setHovered(null)}

@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import { animate, motion, useInView, useMotionValue, useReducedMotion } from "framer-motion"
+import type { Dictionary } from "@/lib/dictionary"
 
 // ---------------------------------------------------------------------------
 // Parses a stat string like "70+", "Ø 3,6", "100%" into animatable parts
@@ -30,6 +31,10 @@ function parseStatValue(raw: string): {
 // ---------------------------------------------------------------------------
 // CountUp – self-triggering number animation (matches HomePage Results)
 // ---------------------------------------------------------------------------
+function formatStat(v: number, decimals: number, decimalSep: string) {
+  return decimals === 0 ? Math.round(v).toString() : v.toFixed(decimals).replace(".", decimalSep)
+}
+
 function CountUp({ value, className }: { value: string; className?: string }) {
   const ref = useRef(null)
   const inView = useInView(ref, { once: true, margin: "-20px" })
@@ -39,16 +44,9 @@ function CountUp({ value, className }: { value: string; className?: string }) {
   const [display, setDisplay] = useState("0")
 
   useEffect(() => {
-    const format = (v: number) =>
-      decimals === 0 ? Math.round(v).toString() : v.toFixed(decimals).replace(".", decimalSep)
-
-    if (!inView) return
-    if (shouldReduceMotion) {
-      setDisplay(format(to))
-      return
-    }
+    if (!inView || shouldReduceMotion) return
     const controls = animate(mv, to, { duration: 1.6, ease: "easeOut" })
-    const unsub = mv.on("change", (v) => setDisplay(format(v)))
+    const unsub = mv.on("change", (v) => setDisplay(formatStat(v, decimals, decimalSep)))
     return () => {
       controls.stop()
       unsub()
@@ -58,7 +56,7 @@ function CountUp({ value, className }: { value: string; className?: string }) {
   return (
     <span ref={ref} className={className}>
       {prefix}
-      {display}
+      {inView && shouldReduceMotion ? formatStat(to, decimals, decimalSep) : display}
       {suffix}
     </span>
   )
@@ -89,7 +87,7 @@ function StatCard({ item, index }: { item: { value: string; label: string; detai
 // ---------------------------------------------------------------------------
 // Section
 // ---------------------------------------------------------------------------
-export default function ReferencesSection({ dict }: { dict: any }) {
+export default function ReferencesSection({ dict }: { dict: Dictionary }) {
   const refs = dict.servicesWebsite.references
   const eyebrow = dict.servicesWebsite.eyebrows.references
   const stats = (refs.stats ?? []) as { value: string; label: string; detail: string }[]
@@ -109,6 +107,7 @@ export default function ReferencesSection({ dict }: { dict: any }) {
 
   useEffect(() => {
     if (!titleUnderlineInView) return
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- replays the underline each time the IntersectionObserver reports the title in view; the timer below hides it again
     setShowTitleUnderline(true)
     if (underlineTimerRef.current) window.clearTimeout(underlineTimerRef.current)
     underlineTimerRef.current = window.setTimeout(() => {
@@ -231,7 +230,7 @@ export default function ReferencesSection({ dict }: { dict: any }) {
         <div>
           {/* Mobile: horizontal carousel */}
           <div className="md:hidden">
-            <div ref={scrollerRef} className="overflow-x-auto pb-6 no-scrollbar snap-x snap-mandatory">
+            <div ref={scrollerRef} tabIndex={0} className="overflow-x-auto pb-6 no-scrollbar snap-x snap-mandatory">
               <div className="flex min-w-max gap-4 px-4 sm:px-6">
                 {stats.map((item, index) => (
                   <div key={index} className="snap-center shrink-0 w-[72vw] max-w-[360px]">

@@ -1,9 +1,10 @@
+import type { Dictionary } from "@/lib/dictionary"
 interface ContactHeroProps {
-  dict: any
+  dict: Dictionary
   lang: string
 }
 
-export default function ContactHero({ dict, lang }: ContactHeroProps) {
+export default function ContactHero({ dict }: ContactHeroProps) {
   const c = dict.contact
 
   return (

@@ -32,7 +32,7 @@ function CaseStudyRow({
   lang: Locale
 }) {
   const ui = getCaseStudiesUi(lang)
-  const reveal = useRevealOnScroll({ margin: "-80px" })
+  const [revealRef, revealed] = useRevealOnScroll({ margin: "-80px" })
   const area = AREA[study.serviceArea]
   const flipped = index % 2 === 1
   const number = String(index + 1).padStart(2, "0")
@@ -42,11 +42,11 @@ function CaseStudyRow({
 
   return (
     <article
-      ref={reveal.ref}
+      ref={revealRef}
       style={{ ["--area" as string]: area.color }}
       className={cx(
         "group grid items-center gap-10 lg:grid-cols-2 lg:gap-16 reveal-fade-up",
-        reveal.isRevealed && "revealed",
+        revealed && "revealed",
       )}
     >
       {/* Visual */}
@@ -136,8 +136,8 @@ function CaseStudyRow({
 export default function CaseStudiesIndexPage({ lang }: { lang: Locale }) {
   const ui = getCaseStudiesUi(lang)
   const studies = listCaseStudies(lang)
-  const heading = useRevealOnScroll()
-  const cta = useRevealOnScroll({ margin: "-60px" })
+  const [headingRef, headingRevealed] = useRevealOnScroll()
+  const [ctaRef, ctaRevealed] = useRevealOnScroll({ margin: "-60px" })
   const base = `/${lang}`
 
   return (
@@ -146,10 +146,10 @@ export default function CaseStudiesIndexPage({ lang }: { lang: Locale }) {
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section header */}
           <div
-            ref={heading.ref}
+            ref={headingRef}
             className={cx(
               "mx-auto max-w-[60ch] text-center reveal-fade-up",
-              heading.isRevealed && "revealed",
+              headingRevealed && "revealed",
             )}
           >
             <span className="section-eyebrow">{ui.eyebrow}</span>
@@ -178,11 +178,11 @@ export default function CaseStudiesIndexPage({ lang }: { lang: Locale }) {
       {/* CTA */}
       <section className="max-w-[1400px] mx-auto px-4 pb-18 pt-24 sm:px-6 sm:pb-28 sm:pt-32 lg:px-8">
         <div
-          ref={cta.ref}
+          ref={ctaRef}
           data-header-tone="dark"
           className={cx(
             "overflow-hidden rounded-[28px] bg-[#0B162D] px-7 py-12 sm:px-12 sm:py-16 reveal-fade-up",
-            cta.isRevealed && "revealed",
+            ctaRevealed && "revealed",
           )}
         >
           <div className="flex flex-col items-center gap-6 text-center lg:flex-row lg:items-center lg:justify-between lg:text-left">

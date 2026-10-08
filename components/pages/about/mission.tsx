@@ -2,6 +2,7 @@
 
 import Image from "next/image"
 import { motion } from "framer-motion"
+import type { Dictionary } from "@/lib/dictionary"
 
 const valueImages = [
   "/assets/about/values_trust.webp",
@@ -23,7 +24,7 @@ const gridVariants = {
   },
 }
 
-export function MissionSection({ dict }: { dict: any }) {
+export function MissionSection({ dict }: { dict: Dictionary }) {
   const m = dict.aboutPage.mission
 
   return (

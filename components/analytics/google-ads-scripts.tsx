@@ -42,6 +42,7 @@ export function GoogleAdsScripts() {
   const [enabled, setEnabled] = useState(false)
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- stored consent lives in localStorage; only readable after hydration
     if (getStoredConsent() === "granted") setEnabled(true)
 
     const onChange = (e: Event) => {

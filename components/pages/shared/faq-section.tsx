@@ -25,8 +25,8 @@ export default function FaqSection({
   /** Use when the previous section already provides spacing/visual reset (e.g. flowing on a light bg). Hides the eyebrow and reduces top padding. */
   compact?: boolean
 }) {
-  const heading = useRevealOnScroll()
-  const items = useRevealOnScroll({ margin: "-60px" })
+  const [headingRef, headingRevealed] = useRevealOnScroll()
+  const [itemsRef, itemsRevealed] = useRevealOnScroll({ margin: "-60px" })
 
   const sectionPadding = compact
     ? "pt-2 pb-10 sm:pt-4 sm:pb-32"
@@ -37,8 +37,8 @@ export default function FaqSection({
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.4fr)] lg:gap-16 xl:gap-24">
           <div
-            ref={heading.ref}
-            className={`lg:sticky lg:top-28 lg:self-start reveal-fade-up ${heading.isRevealed ? "revealed" : ""}`}
+            ref={headingRef}
+            className={`lg:sticky lg:top-28 lg:self-start reveal-fade-up ${headingRevealed ? "revealed" : ""}`}
           >
             {!compact && <span className="section-eyebrow">{dict.eyebrow}</span>}
             <h2 className="font-serif text-[2.2rem] sm:text-[2.6rem] md:text-[3rem] leading-[1.05] tracking-tight text-black">
@@ -48,8 +48,8 @@ export default function FaqSection({
           </div>
 
           <motion.div
-            ref={items.ref}
-            className={`reveal-fade-up ${items.isRevealed ? "revealed" : ""}`}
+            ref={itemsRef}
+            className={`reveal-fade-up ${itemsRevealed ? "revealed" : ""}`}
           >
             <Accordion type="single" collapsible className="w-full">
               {dict.items.map((item, idx) => (

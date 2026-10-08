@@ -1,22 +1,21 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 
 /**
  * Tracks whether an element is *currently* in the viewport, toggling true/false
  * as it enters and leaves. Use it to pause looping (repeat: Infinity) animations
  * while their host is scrolled off-screen, so they stop occupying the main
  * thread. For one-shot entrance reveals use useRevealOnScroll instead.
+ *
+ * Returns a `[ref, inView]` tuple (see useRevealOnScroll for why).
  */
-export function useActiveInView<T extends HTMLElement = HTMLDivElement>(
-  options?: { margin?: string; threshold?: number }
-) {
-  const ref = useRef<T>(null)
+export function useActiveInView(options?: { margin?: string; threshold?: number }) {
+  const [node, setNode] = useState<HTMLElement | null>(null)
   const [inView, setInView] = useState(false)
 
   useEffect(() => {
-    const el = ref.current
-    if (!el) return
+    if (!node) return
 
     const observer = new IntersectionObserver(
       ([entry]) => setInView(entry.isIntersecting),
@@ -26,9 +25,9 @@ export function useActiveInView<T extends HTMLElement = HTMLDivElement>(
       }
     )
 
-    observer.observe(el)
+    observer.observe(node)
     return () => observer.disconnect()
-  }, [options?.margin, options?.threshold])
+  }, [node, options?.margin, options?.threshold])
 
-  return { ref, inView }
+  return [setNode as (node: HTMLElement | null) => void, inView] as const
 }

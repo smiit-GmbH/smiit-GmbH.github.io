@@ -3,6 +3,7 @@
 import { motion } from "framer-motion"
 import { Building2, Trash2, Truck, Factory } from "lucide-react"
 import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
+import type { Dictionary } from "@/lib/dictionary"
 
 const ICONS = [Building2, Trash2, Truck, Factory]
 
@@ -16,17 +17,17 @@ const cardVariants = {
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
 }
 
-export default function AudiencesSection({ dict }: { dict: any }) {
+export default function AudiencesSection({ dict }: { dict: Dictionary }) {
   const audiences = dict.servicesWebsite.audiences
   const eyebrow = dict.servicesWebsite.eyebrows.audiences
-  const heading = useRevealOnScroll()
-  const grid = useRevealOnScroll({ margin: "-60px" })
+  const [headingRef, headingRevealed] = useRevealOnScroll()
+  const [gridRef, gridRevealed] = useRevealOnScroll({ margin: "-60px" })
 
   return (
     <section id="industries" className="relative bg-transparent pt-[clamp(72px,9vw,140px)] pb-[clamp(40px,5vw,80px)]">
       <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
         {/* Heading */}
-        <div ref={heading.ref} className={`reveal-fade-up ${heading.isRevealed ? "revealed" : ""}`}>
+        <div ref={headingRef} className={`reveal-fade-up ${headingRevealed ? "revealed" : ""}`}>
           <span className="section-eyebrow">{eyebrow}</span>
           <h2 className="mt-[22px] font-serif text-[2.2rem] sm:text-[2.4rem] md:text-[3rem] leading-[1.1] tracking-tight max-w-[20ch] text-[#15151a]">
             {audiences.title}{" "}
@@ -36,10 +37,10 @@ export default function AudiencesSection({ dict }: { dict: any }) {
 
         {/* Cards */}
         <motion.div
-          ref={grid.ref}
+          ref={gridRef}
           variants={containerVariants}
           initial="hidden"
-          animate={grid.isRevealed ? "visible" : "hidden"}
+          animate={gridRevealed ? "visible" : "hidden"}
           className="mt-[52px] grid grid-cols-1 gap-[18px] sm:grid-cols-2 lg:grid-cols-4"
         >
           {audiences.items.map((item: { number: string; title: string; text: string }, idx: number) => {

@@ -6,7 +6,7 @@
       "esnext"
     ],
     "allowJs": true,
-    "target": "ES6",
+    "target": "ES2022",
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
@@ -33,11 +33,13 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    ".next/dev/types/**/*.ts",
-    ".next\\dev/types/**/*.ts",
-    ".next\\dev/types/**/*.ts"
+    ".next/dev/types/**/*.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    ".archiv",
+    "blog",
+    ".claude",
+    "out"
   ]
 }

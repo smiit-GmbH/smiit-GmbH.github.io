@@ -3,9 +3,10 @@
 import { useState, useRef } from "react"
 import emailjs from "@emailjs/browser"
 import { ArrowRight, CheckCircle2, XCircle, Loader2 } from "lucide-react"
+import type { Dictionary } from "@/lib/dictionary"
 
 interface ContactFormProps {
-  dict: any
+  dict: Dictionary
   lang: string
 }
 

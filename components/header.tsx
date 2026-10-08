@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { AlignJustify, Contact, ChevronDown, Globe, PhoneCall, CalendarDays } from "lucide-react"
+import { AlignJustify, ChevronDown, Globe, CalendarDays } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import {
   Sheet,
@@ -32,10 +32,7 @@ export default function Header({ forceLang, darkHero: darkHeroProp }: { forceLan
   const darkHero = darkHeroProp ?? DARK_HERO_PATHS.some((p) => pathname.includes(p))
 
   useEffect(() => {
-    if (!darkHero) {
-      setOnDarkBg(false)
-      return
-    }
+    if (!darkHero) return
 
     const detectTone = () => {
       const x = Math.round(window.innerWidth / 2)
@@ -58,6 +55,7 @@ export default function Header({ forceLang, darkHero: darkHeroProp }: { forceLan
     return () => {
       window.removeEventListener("scroll", detectTone)
       window.removeEventListener("resize", detectTone)
+      setOnDarkBg(false)
     }
   }, [darkHero])
 
@@ -112,7 +110,6 @@ export default function Header({ forceLang, darkHero: darkHeroProp }: { forceLan
   const analyticsHref = `${base}/services/analytics`
   const consultingHref = `${base}/services/strategy`
   const smiitAnalyticsHref = `${base}/products/smiit-analytics`
-  const productScoutHref = `${base}/product-scout`
   const aboutHref = `${base}/about`
   const contactHref = `${base}/contact`
   const caseStudiesHref = `${base}/case-studies`

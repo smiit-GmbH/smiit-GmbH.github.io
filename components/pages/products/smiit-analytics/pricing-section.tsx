@@ -3,18 +3,19 @@
 import Image from "next/image"
 import { ArrowRight, CheckCircle2 } from "lucide-react"
 import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
+import type { Dictionary } from "@/lib/dictionary"
 
 interface PricingSectionProps {
-  dict: any
+  dict: Dictionary
 }
 
 export function PricingSection({ dict }: PricingSectionProps) {
   const { pricing } = dict.smiitAnalytics
-  const section = useRevealOnScroll()
+  const [sectionRef, sectionRevealed] = useRevealOnScroll()
 
   return (
     <section
-      ref={section.ref}
+      ref={sectionRef}
       data-header-tone="dark"
       id="pricing"
       className="relative py-20 md:py-28"
@@ -34,7 +35,7 @@ export function PricingSection({ dict }: PricingSectionProps) {
       <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div
-          className={`text-center mb-12 md:mb-16 max-w-3xl mx-auto reveal-fade-up ${section.isRevealed ? "revealed" : ""}`}
+          className={`text-center mb-12 md:mb-16 max-w-3xl mx-auto reveal-fade-up ${sectionRevealed ? "revealed" : ""}`}
         >
           <h2 className="font-serif text-[2rem] sm:text-[2.8rem] md:text-[3.4rem] leading-[1.1] tracking-tight text-white whitespace-pre-line mb-6">
             {pricing.title}
@@ -48,7 +49,7 @@ export function PricingSection({ dict }: PricingSectionProps) {
 
         {/* Product card */}
         <div
-          className={`max-w-[1200px] mx-auto rounded-[1.75rem] bg-white overflow-hidden shadow-[0_0_40px_rgba(33,86,156,0.15)] border border-[#21569c]/10 reveal-fade-up reveal-delay-2 ${section.isRevealed ? "revealed" : ""}`}
+          className={`max-w-[1200px] mx-auto rounded-[1.75rem] bg-white overflow-hidden shadow-[0_0_40px_rgba(33,86,156,0.15)] border border-[#21569c]/10 reveal-fade-up reveal-delay-2 ${sectionRevealed ? "revealed" : ""}`}
         >
           <div className="grid grid-cols-1 md:grid-cols-12">
             {/* Left: Product info */}

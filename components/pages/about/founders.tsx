@@ -5,7 +5,7 @@ import Link from "next/link"
 import { memo, useState } from "react"
 import { motion } from "framer-motion"
 import { Mail, ExternalLink, ArrowRight, Linkedin, GraduationCap } from "lucide-react"
-import type { Locale } from "@/lib/dictionary"
+import type { Locale, Dictionary } from "@/lib/dictionary"
 
 interface Founder {
   name: string
@@ -175,7 +175,7 @@ const FlipCard = memo(function FlipCard({
   )
 })
 
-export function FoundersSection({ lang, dict }: { lang: Locale; dict: any }) {
+export function FoundersSection({ lang, dict }: { lang: Locale; dict: Dictionary }) {
   const f = dict.aboutPage.founders
 
   return (
