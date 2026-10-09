@@ -54,6 +54,16 @@ export type ServiceTheme = {
   pillActive: string
   rail: string
   mobileCardActive: string
+
+  // Portfolio
+  /** Per-item accent colors (raw hex), one per portfolio entry. */
+  portfolioStrands: readonly [string, string, string]
+  portfolioBookButton: string
+  portfolioLink: string
+  portfolioStageGap: string
+
+  // Hero
+  heroPackageChip: string
 }
 
 export const serviceThemes: Record<ServiceKey, ServiceTheme> = {
@@ -81,6 +91,12 @@ export const serviceThemes: Record<ServiceKey, ServiceTheme> = {
     pillActive: "border-[#21569c] bg-[#21569c] text-white shadow-[0_14px_36px_rgba(33,86,156,0.34)]",
     rail: "from-[#21569c] via-[#21569c] to-[#7DBBFF]",
     mobileCardActive: "border-[#21569c]/35 shadow-[0_18px_44px_rgba(33,86,156,0.12)]",
+    portfolioStrands: ["#7DBBFF", "#21569c", "#94A3B8"],
+    portfolioBookButton:
+      "bg-[#21569c] text-white shadow-[0_18px_36px_rgba(33,86,156,0.32)] transition-all duration-300 hover:scale-105 hover:bg-[#1a457d] hover:shadow-[0_22px_48px_rgba(33,86,156,0.45)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#21569c]/30",
+    portfolioLink: "text-[#21569c] hover:text-[#1a457d]",
+    portfolioStageGap: "gap-4",
+    heroPackageChip: "border-[#21569c]/15 bg-[#21569c]/[0.06]",
   },
   apps: {
     accentHex: "#F703EB",
@@ -108,6 +124,12 @@ export const serviceThemes: Record<ServiceKey, ServiceTheme> = {
     pillActive: "border-[#F703EB] bg-[#F703EB] text-white shadow-[0_14px_36px_rgba(247,3,235,0.34)]",
     rail: "from-[#F703EB] via-[#F703EB] to-[#FA85F4]",
     mobileCardActive: "border-[#F703EB]/35 shadow-[0_18px_44px_rgba(247,3,235,0.12)]",
+    portfolioStrands: ["#FA85F4", "#F703EB", "#94A3B8"],
+    portfolioBookButton:
+      "bg-[#F703EB] text-white shadow-[0_18px_36px_rgba(247,3,235,0.32)] transition-all duration-300 hover:scale-105 hover:bg-[#C601BC] hover:shadow-[0_22px_48px_rgba(247,3,235,0.45)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#F703EB]/30",
+    portfolioLink: "text-[#F703EB] hover:text-[#C601BC]",
+    portfolioStageGap: "gap-6",
+    heroPackageChip: "border-[#F703EB]/15 bg-[#F703EB]/[0.06]",
   },
   strategy: {
     accentHex: "#64748B",
@@ -135,5 +157,11 @@ export const serviceThemes: Record<ServiceKey, ServiceTheme> = {
     pillActive: "border-[#64748B] bg-[#64748B] text-white shadow-[0_14px_36px_rgba(100,116,139,0.34)]",
     rail: "from-[#64748B] via-[#64748B] to-[#94A3B8]",
     mobileCardActive: "border-[#64748B]/35 shadow-[0_18px_44px_rgba(100,116,139,0.12)]",
+    portfolioStrands: ["#64748B", "#475569", "#334155"],
+    portfolioBookButton:
+      "bg-[#64748B] text-white shadow-[0_18px_36px_rgba(100,116,139,0.32)] transition-all duration-300 hover:scale-105 hover:bg-[#334155] hover:shadow-[0_22px_48px_rgba(100,116,139,0.45)] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-[#64748B]/30",
+    portfolioLink: "text-[#64748B] hover:text-[#334155]",
+    portfolioStageGap: "gap-4",
+    heroPackageChip: "border-[#64748B]/15 bg-[#64748B]/[0.08]",
   },
 }

@@ -38,7 +38,7 @@ set -e
 cd /tmp
 npm init -y >/dev/null
 npm install --no-save --no-audit --no-fund --loglevel=error @playwright/test@${playwrightVersion} serve@${serveVersion}
-exec npx playwright test --project=visual-desktop --project=visual-mobile "$@"
+exec npx playwright test --project=visual-desktop --project=visual-mobile --workers=2 "$@"
 `
 const create = docker(
   [
