@@ -166,7 +166,6 @@
   transform: rotateY(180deg);
 }
 
-
 @layer utilities {
   @media (min-width: 768px) {
     .home-cards-offset {
@@ -209,7 +208,7 @@
 }
 
 .products-gradient-animate {
-  background: linear-gradient(135deg, #A3B9EB 0%, #C4A8F0 25%, #D6BFFB 50%, #B8C8F0 75%, #A3B9EB 100%);
+  background: linear-gradient(135deg, #a3b9eb 0%, #c4a8f0 25%, #d6bffb 50%, #b8c8f0 75%, #a3b9eb 100%);
   background-size: 300% 300%;
   animation: products-gradient-shift 8s ease infinite;
 }
@@ -218,7 +217,9 @@
 .reveal-fade-up {
   opacity: 0;
   transform: translateY(28px);
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
 }
 
 .reveal-fade-up.revealed {
@@ -226,16 +227,110 @@
   transform: translateY(0);
 }
 
+/* Same motion as .reveal-fade-up, but CSS-driven so it starts at first paint instead
+   of after hydration. For content that is visible on load (page heroes) — keeps it
+   from waiting on JavaScript before it can be seen (Largest Contentful Paint). */
+@keyframes hero-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-fade-up {
+  /* Final state identical to .reveal-fade-up.revealed. Fill "backwards" (not "both"):
+     a filled animation keeps the element on its own compositor layer, which changes
+     text anti-aliasing. */
+  transform: translateY(0);
+  animation: hero-fade-up 0.6s ease-out backwards;
+}
+
+/* Mobile service-hero text: same values as the former framer-motion entrance
+   (0.65s, ease [0.22, 1, 0.36, 1], 14px rise), CSS-driven so it starts at first paint. */
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero-rise {
+  animation: hero-rise 0.65s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-rise {
+    animation: none;
+  }
+}
+
+/* Generic CSS entrance for above-the-fold content (fade + rise), configured per
+   element via --enter-y / --enter-duration / --enter-delay / --enter-ease.
+   Starts at first paint, unlike JS-driven entrances that wait for hydration. */
+@keyframes enter-up {
+  from {
+    opacity: 0;
+    transform: translateY(var(--enter-y, 16px));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.enter-up {
+  animation: enter-up var(--enter-duration, 0.6s) var(--enter-ease, ease-out) var(--enter-delay, 0s) backwards;
+}
+
+/* Cinematic variant (website hero copy): fade + 18px rise + 6px blur, 0.6s,
+   ease [0.22, 1, 0.36, 1]; stagger via --enter-delay. Off for reduced motion. */
+@keyframes enter-blur {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0px);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .enter-blur {
+    animation: enter-blur 0.6s cubic-bezier(0.22, 1, 0.36, 1) var(--enter-delay, 0s) backwards;
+  }
+}
+
 /* Stagger delays for children */
-.reveal-delay-1 { transition-delay: 0.1s; }
-.reveal-delay-2 { transition-delay: 0.2s; }
-.reveal-delay-3 { transition-delay: 0.3s; }
-.reveal-delay-4 { transition-delay: 0.4s; }
+.reveal-delay-1 {
+  transition-delay: 0.1s;
+}
+.reveal-delay-2 {
+  transition-delay: 0.2s;
+}
+.reveal-delay-3 {
+  transition-delay: 0.3s;
+}
+.reveal-delay-4 {
+  transition-delay: 0.4s;
+}
 
 .kpi-card-reveal {
   opacity: 0;
   transform: translateY(16px) scale(0.95);
-  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+  transition:
+    opacity 0.5s ease-out,
+    transform 0.5s ease-out;
 }
 .bar-reveal {
   transform: scaleX(0);
@@ -245,7 +340,9 @@
 .signal-card-reveal {
   opacity: 0;
   transform: translateY(12px);
-  transition: opacity 0.45s ease-out, transform 0.45s ease-out;
+  transition:
+    opacity 0.45s ease-out,
+    transform 0.45s ease-out;
 }
 .radar-bar-reveal {
   transform: scaleY(0);
@@ -279,30 +376,78 @@
 }
 
 /* Staggered delays */
-.carousel-module-reveal.revealed .kpi-card-reveal:nth-child(1) { transition-delay: 0.3s; }
-.carousel-module-reveal.revealed .kpi-card-reveal:nth-child(2) { transition-delay: 0.4s; }
-.carousel-module-reveal.revealed .kpi-card-reveal:nth-child(3) { transition-delay: 0.5s; }
-.carousel-module-reveal.revealed .kpi-card-reveal:nth-child(4) { transition-delay: 0.6s; }
-.carousel-module-reveal.revealed .segment-row:nth-child(1) .bar-reveal { transition-delay: 0.4s; }
-.carousel-module-reveal.revealed .segment-row:nth-child(2) .bar-reveal { transition-delay: 0.55s; }
-.carousel-module-reveal.revealed .segment-row:nth-child(3) .bar-reveal { transition-delay: 0.7s; }
-.carousel-module-reveal.revealed .segment-row:nth-child(4) .bar-reveal { transition-delay: 0.85s; }
-.carousel-module-reveal.revealed .kpi-card-reveal:nth-child(1) .bar-reveal { transition-delay: 0.6s; }
-.carousel-module-reveal.revealed .kpi-card-reveal:nth-child(2) .bar-reveal { transition-delay: 0.7s; }
-.carousel-module-reveal.revealed .kpi-card-reveal:nth-child(3) .bar-reveal { transition-delay: 0.8s; }
-.carousel-module-reveal.revealed .kpi-card-reveal:nth-child(4) .bar-reveal { transition-delay: 0.9s; }
-.carousel-module-reveal.revealed .signal-card-reveal:nth-child(1) { transition-delay: 0.3s; }
-.carousel-module-reveal.revealed .signal-card-reveal:nth-child(2) { transition-delay: 0.4s; }
-.carousel-module-reveal.revealed .signal-card-reveal:nth-child(3) { transition-delay: 0.5s; }
-.carousel-module-reveal.revealed .signal-card-reveal:nth-child(4) { transition-delay: 0.6s; }
-.carousel-module-reveal.revealed .radar-bar-reveal:nth-child(1) { transition-delay: 0.7s; }
-.carousel-module-reveal.revealed .radar-bar-reveal:nth-child(2) { transition-delay: 0.75s; }
-.carousel-module-reveal.revealed .radar-bar-reveal:nth-child(3) { transition-delay: 0.8s; }
-.carousel-module-reveal.revealed .radar-bar-reveal:nth-child(4) { transition-delay: 0.85s; }
-.carousel-module-reveal.revealed .radar-bar-reveal:nth-child(5) { transition-delay: 0.9s; }
-.carousel-module-reveal.revealed .radar-bar-reveal:nth-child(6) { transition-delay: 0.95s; }
-.carousel-module-reveal.revealed .radar-bar-reveal:nth-child(7) { transition-delay: 1.0s; }
-.carousel-module-reveal.revealed .radar-bar-reveal:nth-child(8) { transition-delay: 1.05s; }
+.carousel-module-reveal.revealed .kpi-card-reveal:nth-child(1) {
+  transition-delay: 0.3s;
+}
+.carousel-module-reveal.revealed .kpi-card-reveal:nth-child(2) {
+  transition-delay: 0.4s;
+}
+.carousel-module-reveal.revealed .kpi-card-reveal:nth-child(3) {
+  transition-delay: 0.5s;
+}
+.carousel-module-reveal.revealed .kpi-card-reveal:nth-child(4) {
+  transition-delay: 0.6s;
+}
+.carousel-module-reveal.revealed .segment-row:nth-child(1) .bar-reveal {
+  transition-delay: 0.4s;
+}
+.carousel-module-reveal.revealed .segment-row:nth-child(2) .bar-reveal {
+  transition-delay: 0.55s;
+}
+.carousel-module-reveal.revealed .segment-row:nth-child(3) .bar-reveal {
+  transition-delay: 0.7s;
+}
+.carousel-module-reveal.revealed .segment-row:nth-child(4) .bar-reveal {
+  transition-delay: 0.85s;
+}
+.carousel-module-reveal.revealed .kpi-card-reveal:nth-child(1) .bar-reveal {
+  transition-delay: 0.6s;
+}
+.carousel-module-reveal.revealed .kpi-card-reveal:nth-child(2) .bar-reveal {
+  transition-delay: 0.7s;
+}
+.carousel-module-reveal.revealed .kpi-card-reveal:nth-child(3) .bar-reveal {
+  transition-delay: 0.8s;
+}
+.carousel-module-reveal.revealed .kpi-card-reveal:nth-child(4) .bar-reveal {
+  transition-delay: 0.9s;
+}
+.carousel-module-reveal.revealed .signal-card-reveal:nth-child(1) {
+  transition-delay: 0.3s;
+}
+.carousel-module-reveal.revealed .signal-card-reveal:nth-child(2) {
+  transition-delay: 0.4s;
+}
+.carousel-module-reveal.revealed .signal-card-reveal:nth-child(3) {
+  transition-delay: 0.5s;
+}
+.carousel-module-reveal.revealed .signal-card-reveal:nth-child(4) {
+  transition-delay: 0.6s;
+}
+.carousel-module-reveal.revealed .radar-bar-reveal:nth-child(1) {
+  transition-delay: 0.7s;
+}
+.carousel-module-reveal.revealed .radar-bar-reveal:nth-child(2) {
+  transition-delay: 0.75s;
+}
+.carousel-module-reveal.revealed .radar-bar-reveal:nth-child(3) {
+  transition-delay: 0.8s;
+}
+.carousel-module-reveal.revealed .radar-bar-reveal:nth-child(4) {
+  transition-delay: 0.85s;
+}
+.carousel-module-reveal.revealed .radar-bar-reveal:nth-child(5) {
+  transition-delay: 0.9s;
+}
+.carousel-module-reveal.revealed .radar-bar-reveal:nth-child(6) {
+  transition-delay: 0.95s;
+}
+.carousel-module-reveal.revealed .radar-bar-reveal:nth-child(7) {
+  transition-delay: 1s;
+}
+.carousel-module-reveal.revealed .radar-bar-reveal:nth-child(8) {
+  transition-delay: 1.05s;
+}
 
 /* ── Line chart reveal animations (Kapitel 3 / Profit module) ── */
 
@@ -344,20 +489,34 @@
   transform: scale(0.7);
   transform-origin: center;
   transform-box: fill-box;
-  transition: opacity 0.35s ease-out, transform 0.35s ease-out;
+  transition:
+    opacity 0.35s ease-out,
+    transform 0.35s ease-out;
 }
 .carousel-module-reveal.revealed .chart-dot-reveal {
   opacity: 1;
   transform: scale(1);
 }
 /* Staggered delays for 5 actual data points */
-.carousel-module-reveal.revealed .chart-dot-reveal:nth-child(1) { transition-delay: 0.55s; }
-.carousel-module-reveal.revealed .chart-dot-reveal:nth-child(2) { transition-delay: 0.7s; }
-.carousel-module-reveal.revealed .chart-dot-reveal:nth-child(3) { transition-delay: 0.85s; }
-.carousel-module-reveal.revealed .chart-dot-reveal:nth-child(4) { transition-delay: 1.0s; }
-.carousel-module-reveal.revealed .chart-dot-reveal:nth-child(5) { transition-delay: 1.15s; }
+.carousel-module-reveal.revealed .chart-dot-reveal:nth-child(1) {
+  transition-delay: 0.55s;
+}
+.carousel-module-reveal.revealed .chart-dot-reveal:nth-child(2) {
+  transition-delay: 0.7s;
+}
+.carousel-module-reveal.revealed .chart-dot-reveal:nth-child(3) {
+  transition-delay: 0.85s;
+}
+.carousel-module-reveal.revealed .chart-dot-reveal:nth-child(4) {
+  transition-delay: 1s;
+}
+.carousel-module-reveal.revealed .chart-dot-reveal:nth-child(5) {
+  transition-delay: 1.15s;
+}
 /* Forecast dot (6th) – appears after forecast line starts drawing */
-.carousel-module-reveal.revealed .chart-dot-reveal:nth-child(6) { transition-delay: 1.75s; }
+.carousel-module-reveal.revealed .chart-dot-reveal:nth-child(6) {
+  transition-delay: 1.75s;
+}
 
 /* Editorial section eyebrow */
 .section-eyebrow {
@@ -381,22 +540,22 @@
 
 /* Per-page accent overrides for the section eyebrow */
 [data-page="apps"] .section-eyebrow {
-  color: #F703EB;
+  color: #f703eb;
 }
 [data-page="apps"] .section-eyebrow::before {
-  background: linear-gradient(to right, transparent, #F703EB);
+  background: linear-gradient(to right, transparent, #f703eb);
 }
 [data-page="strategy"] .section-eyebrow {
-  color: #64748B;
+  color: #64748b;
 }
 [data-page="strategy"] .section-eyebrow::before {
-  background: linear-gradient(to right, transparent, #64748B);
+  background: linear-gradient(to right, transparent, #64748b);
 }
 [data-page="website"] .section-eyebrow {
-  color: #F703EB;
+  color: #f703eb;
 }
 [data-page="website"] .section-eyebrow::before {
-  background: linear-gradient(to right, transparent, #F703EB);
+  background: linear-gradient(to right, transparent, #f703eb);
 }
 
 /* Heading highlight word — picks up per-page accent automatically */
@@ -404,31 +563,46 @@
   color: #21569c;
 }
 [data-page="apps"] .section-highlight {
-  color: #F703EB;
+  color: #f703eb;
 }
 [data-page="strategy"] .section-highlight {
-  color: #64748B;
+  color: #64748b;
 }
 [data-page="website"] .section-highlight {
-  color: #F703EB;
+  color: #f703eb;
 }
 
 /* Hero scroll-indicator pulse */
 @keyframes hero-scroll-pulse {
-  0%, 100% { transform: translateY(0); opacity: 0.45; }
-  50%      { transform: translateY(6px); opacity: 1; }
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.45;
+  }
+  50% {
+    transform: translateY(6px);
+    opacity: 1;
+  }
 }
 .hero-scroll-indicator {
   animation: hero-scroll-pulse 2.4s ease-in-out infinite;
 }
 @media (prefers-reduced-motion: reduce) {
-  .hero-scroll-indicator { animation: none; opacity: 0.6; }
+  .hero-scroll-indicator {
+    animation: none;
+    opacity: 0.6;
+  }
 }
 
 /* Hero showpiece float – subtle 3px up/down loop */
 @keyframes hero-showpiece-float {
-  0%, 100% { transform: translateY(0) rotate3d(0, 1, 0, -8deg) rotate3d(1, 0, 0, 2deg); }
-  50%      { transform: translateY(-6px) rotate3d(0, 1, 0, -8deg) rotate3d(1, 0, 0, 2deg); }
+  0%,
+  100% {
+    transform: translateY(0) rotate3d(0, 1, 0, -8deg) rotate3d(1, 0, 0, 2deg);
+  }
+  50% {
+    transform: translateY(-6px) rotate3d(0, 1, 0, -8deg) rotate3d(1, 0, 0, 2deg);
+  }
 }
 .hero-showpiece-float {
   animation: hero-showpiece-float 7s ease-in-out infinite;
@@ -436,38 +610,60 @@
   will-change: transform;
 }
 @media (prefers-reduced-motion: reduce) {
-  .hero-showpiece-float { animation: none; }
+  .hero-showpiece-float {
+    animation: none;
+  }
 }
 
 /* Hero floating chip – gentle drift */
 @keyframes hero-chip-drift {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-8px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
 }
-.hero-chip-drift   { animation: hero-chip-drift 5.5s ease-in-out infinite; }
-.hero-chip-drift-2 { animation: hero-chip-drift 6.5s ease-in-out -2s infinite; }
+.hero-chip-drift {
+  animation: hero-chip-drift 5.5s ease-in-out infinite;
+}
+.hero-chip-drift-2 {
+  animation: hero-chip-drift 6.5s ease-in-out -2s infinite;
+}
 @media (prefers-reduced-motion: reduce) {
-  .hero-chip-drift, .hero-chip-drift-2 { animation: none; }
+  .hero-chip-drift,
+  .hero-chip-drift-2 {
+    animation: none;
+  }
 }
 
 /* Manifest band – slow ambient gradient drift */
 @keyframes manifest-glow-drift {
-  0%   { transform: translate(-15%, -15%) scale(1); }
-  50%  { transform: translate(15%, 10%) scale(1.15); }
-  100% { transform: translate(-15%, -15%) scale(1); }
+  0% {
+    transform: translate(-15%, -15%) scale(1);
+  }
+  50% {
+    transform: translate(15%, 10%) scale(1.15);
+  }
+  100% {
+    transform: translate(-15%, -15%) scale(1);
+  }
 }
 .manifest-glow {
   animation: manifest-glow-drift 18s ease-in-out infinite;
 }
 @media (prefers-reduced-motion: reduce) {
-  .manifest-glow { animation: none; }
+  .manifest-glow {
+    animation: none;
+  }
 }
 
 /* Process-section connection line – animated path drawing */
 .process-connection-path {
   stroke-dasharray: 1;
   stroke-dashoffset: 1;
-  pathLength: 1;
+  pathlength: 1;
   transition: stroke-dashoffset 1.6s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .process-connection-path.revealed {
@@ -476,24 +672,44 @@
 
 /* Portfolio pipeline – active node halo pulse */
 @keyframes pipeline-node-pulse {
-  0%   { r: 6;  opacity: 0.55; }
-  70%  { r: 16; opacity: 0;    }
-  100% { r: 16; opacity: 0;    }
+  0% {
+    r: 6;
+    opacity: 0.55;
+  }
+  70% {
+    r: 16;
+    opacity: 0;
+  }
+  100% {
+    r: 16;
+    opacity: 0;
+  }
 }
 .pipeline-node-halo {
   animation: pipeline-node-pulse 2.4s ease-out infinite;
   transform-box: fill-box;
 }
 @media (prefers-reduced-motion: reduce) {
-  .pipeline-node-halo { animation: none; opacity: 0; }
-  .pipeline-packet    { display: none; }
+  .pipeline-node-halo {
+    animation: none;
+    opacity: 0;
+  }
+  .pipeline-packet {
+    display: none;
+  }
 }
 
 /* Logo strip – continuous marquee */
 @keyframes logoMarquee {
-  from { transform: translateX(0); }
-  to   { transform: translateX(-50%); }
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
 }
 @media (prefers-reduced-motion: reduce) {
-  .logo-marquee-track { animation: none; }
+  .logo-marquee-track {
+    animation: none;
+  }
 }

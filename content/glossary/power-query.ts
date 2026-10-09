@@ -39,15 +39,32 @@ const powerQuery: LocalizedGlossaryTerm = {
       },
     ],
     faq: [
-      { question: "Was ist der Unterschied zwischen Power Query und DAX?", answer: "Power Query bereitet die Daten vor dem Laden ins Modell auf (verbinden, bereinigen, umformen). DAX berechnet Kennzahlen und Aggregationen innerhalb des fertigen Datenmodells." },
-      { question: "Gibt es Power Query auch in Excel?", answer: "Ja. Power Query ist sowohl in Power BI als auch in Excel verfügbar (dort als Abrufen und Transformieren) und nutzt dieselbe Sprache M, sodass sich Wissen übertragen lässt." },
-      { question: "Muss man die Sprache M beherrschen, um Power Query zu nutzen?", answer: "Für die meisten Aufgaben nicht. Der grafische Editor erzeugt die M-Schritte automatisch, während man Spalten bereinigt, Tabellen zusammenführt oder Typen setzt. M-Kenntnisse helfen erst bei fortgeschrittenen oder wiederverwendbaren Transformationen." },
-      { question: "Wann stößt Power Query an seine Grenzen?", answer: "Bei sehr großen Datenmengen, vielen Quellen oder komplexen Verarbeitungen kann die Aufbereitung in Power Query langsam und schwer wartbar werden. Dann ist es sinnvoll, die schwere Transformation in eine zentrale Datenplattform wie ein Data Warehouse oder Lakehouse zu verlagern und Power Query nur für leichte, berichtsnahe Anpassungen zu nutzen." },
+      {
+        question: "Was ist der Unterschied zwischen Power Query und DAX?",
+        answer:
+          "Power Query bereitet die Daten vor dem Laden ins Modell auf (verbinden, bereinigen, umformen). DAX berechnet Kennzahlen und Aggregationen innerhalb des fertigen Datenmodells.",
+      },
+      {
+        question: "Gibt es Power Query auch in Excel?",
+        answer:
+          "Ja. Power Query ist sowohl in Power BI als auch in Excel verfügbar (dort als Abrufen und Transformieren) und nutzt dieselbe Sprache M, sodass sich Wissen übertragen lässt.",
+      },
+      {
+        question: "Muss man die Sprache M beherrschen, um Power Query zu nutzen?",
+        answer:
+          "Für die meisten Aufgaben nicht. Der grafische Editor erzeugt die M-Schritte automatisch, während man Spalten bereinigt, Tabellen zusammenführt oder Typen setzt. M-Kenntnisse helfen erst bei fortgeschrittenen oder wiederverwendbaren Transformationen.",
+      },
+      {
+        question: "Wann stößt Power Query an seine Grenzen?",
+        answer:
+          "Bei sehr großen Datenmengen, vielen Quellen oder komplexen Verarbeitungen kann die Aufbereitung in Power Query langsam und schwer wartbar werden. Dann ist es sinnvoll, die schwere Transformation in eine zentrale Datenplattform wie ein Data Warehouse oder Lakehouse zu verlagern und Power Query nur für leichte, berichtsnahe Anpassungen zu nutzen.",
+      },
     ],
     relatedServicePath: "services/analytics",
     relatedCaseStudySlug: "dy-project-ag",
     metaTitle: "Was ist Power Query? Definition, Nutzen & Praxis | smiit Glossar",
-    metaDescription: "Power Query einfach erklärt: Definition, Funktionsweise, Anwendungsfälle und Abgrenzung zu DAX und ETL – mit Praxisbezug von smiit.",
+    metaDescription:
+      "Power Query einfach erklärt: Definition, Funktionsweise, Anwendungsfälle und Abgrenzung zu DAX und ETL – mit Praxisbezug von smiit.",
   },
   en: {
     slug: "power-query",
@@ -68,9 +85,7 @@ const powerQuery: LocalizedGlossaryTerm = {
       },
       {
         heading: "Typical use cases",
-        paragraphs: [
-          "Power Query is used wherever data needs to be prepared regularly before analysis.",
-        ],
+        paragraphs: ["Power Query is used wherever data needs to be prepared regularly before analysis."],
         bullets: [
           "Automatically combine multiple Excel files or worksheets",
           "Connect to and cleanse data from databases or APIs",
@@ -86,15 +101,32 @@ const powerQuery: LocalizedGlossaryTerm = {
       },
     ],
     faq: [
-      { question: "What is the difference between Power Query and DAX?", answer: "Power Query prepares the data before it is loaded into the model (connect, cleanse, reshape). DAX calculates metrics and aggregations within the finished data model." },
-      { question: "Is Power Query also available in Excel?", answer: "Yes. Power Query is available in both Power BI and Excel (there as Get & Transform) and uses the same M language, so knowledge transfers between them." },
-      { question: "Do you have to know the M language to use Power Query?", answer: "For most tasks, no. The graphical editor generates the M steps automatically as you clean columns, merge tables or set types. Knowledge of M only becomes helpful for advanced or reusable transformations." },
-      { question: "When does Power Query reach its limits?", answer: "With very large data volumes, many sources or complex processing, preparation in Power Query can become slow and hard to maintain. It then makes sense to move the heavy transformation into a central data platform such as a data warehouse or lakehouse and use Power Query only for light, report-facing adjustments." },
+      {
+        question: "What is the difference between Power Query and DAX?",
+        answer:
+          "Power Query prepares the data before it is loaded into the model (connect, cleanse, reshape). DAX calculates metrics and aggregations within the finished data model.",
+      },
+      {
+        question: "Is Power Query also available in Excel?",
+        answer:
+          "Yes. Power Query is available in both Power BI and Excel (there as Get & Transform) and uses the same M language, so knowledge transfers between them.",
+      },
+      {
+        question: "Do you have to know the M language to use Power Query?",
+        answer:
+          "For most tasks, no. The graphical editor generates the M steps automatically as you clean columns, merge tables or set types. Knowledge of M only becomes helpful for advanced or reusable transformations.",
+      },
+      {
+        question: "When does Power Query reach its limits?",
+        answer:
+          "With very large data volumes, many sources or complex processing, preparation in Power Query can become slow and hard to maintain. It then makes sense to move the heavy transformation into a central data platform such as a data warehouse or lakehouse and use Power Query only for light, report-facing adjustments.",
+      },
     ],
     relatedServicePath: "services/analytics",
     relatedCaseStudySlug: "dy-project-ag",
     metaTitle: "Power Query: definition & practice | smiit glossary",
-    metaDescription: "Power Query explained simply: definition, how it works, use cases and how it differs from DAX and ETL – with practical insight from smiit.",
+    metaDescription:
+      "Power Query explained simply: definition, how it works, use cases and how it differs from DAX and ETL – with practical insight from smiit.",
   },
 }
 

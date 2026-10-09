@@ -119,7 +119,7 @@ const networkingSecurity: LocalizedGlossaryTerm = {
       {
         question: "How does zero trust differ from the classic perimeter approach?",
         answer:
-          "The classic perimeter approach trusts everything inside the \"internal\" network and mainly secures the outer boundary. Zero trust gives up this implicit trust and verifies every access individually — which is especially useful in cloud and distributed environments where there is no longer a clear outer boundary.",
+          'The classic perimeter approach trusts everything inside the "internal" network and mainly secures the outer boundary. Zero trust gives up this implicit trust and verifies every access individually — which is especially useful in cloud and distributed environments where there is no longer a clear outer boundary.',
       },
     ],
     relatedServicePath: "services/strategy",
@@ -141,7 +141,10 @@ export const extras: Record<Locale, GlossaryExtra> = {
       "Es wird angenommen, ein VPN oder eine Verschlüsselung allein genüge; ohne konsequente Authentifizierung, Monitoring und Rechtevergabe bleiben gravierende Lücken bestehen.",
     ],
     sources: [
-      { title: "Microsoft Learn – Zero-Trust-Sicherheitsmodell", url: "https://learn.microsoft.com/security/zero-trust/" },
+      {
+        title: "Microsoft Learn – Zero-Trust-Sicherheitsmodell",
+        url: "https://learn.microsoft.com/security/zero-trust/",
+      },
       { title: "NIST SP 800-207 – Zero Trust Architecture", url: "https://csrc.nist.gov/pubs/sp/800/207/final" },
     ],
   },

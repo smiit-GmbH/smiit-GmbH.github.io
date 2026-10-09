@@ -3,7 +3,14 @@ import { notFound } from "next/navigation"
 import { Locale } from "@/lib/dictionary"
 import { buildBreadcrumbJsonLd, buildCaseStudyJsonLd, buildPageMetadata } from "@/lib/seo"
 import { JsonLd } from "@/components/seo/json-ld"
-import { caseStudySlugs, getCaseStudiesUi, getCaseStudy } from "@/lib/case-studies"
+import {
+  caseStudySlugs,
+  getCaseStudiesUi,
+  getCaseStudy,
+  listOtherCaseStudies,
+  toCaseStudySummary,
+} from "@/lib/case-studies"
+import { getGlossaryLinkIndex, listGlossaryCatalogForCaseStudy } from "@/lib/glossary"
 import CaseStudyDetailPage from "@/components/pages/case-studies/CaseStudyDetailPage"
 
 export const dynamicParams = false
@@ -31,11 +38,7 @@ export async function generateMetadata({
   })
 }
 
-export default async function Page({
-  params,
-}: {
-  params: Promise<{ lang: Locale; slug: string }>
-}) {
+export default async function Page({ params }: { params: Promise<{ lang: Locale; slug: string }> }) {
   const { lang, slug } = await params
   const study = getCaseStudy(slug, lang)
   if (!study) notFound()
@@ -73,7 +76,13 @@ export default async function Page({
     <>
       <JsonLd data={breadcrumbJsonLd} />
       <JsonLd data={articleJsonLd} />
-      <CaseStudyDetailPage lang={lang} study={study} />
+      <CaseStudyDetailPage
+        lang={lang}
+        study={study}
+        others={listOtherCaseStudies(study.slug, lang).map(toCaseStudySummary)}
+        glossaryEntries={listGlossaryCatalogForCaseStudy(study.slug)}
+        glossaryIndex={getGlossaryLinkIndex(lang)}
+      />
     </>
   )
 }

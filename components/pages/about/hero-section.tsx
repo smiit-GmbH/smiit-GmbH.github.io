@@ -12,18 +12,12 @@ function GlobePlaceholder() {
   return <Spinner size={40} aria-label="Lade interaktiven Globus" />
 }
 
-const Globe = dynamic(
-  () => import("@/components/pages/about/globe").then((m) => m.Globe),
-  { ssr: false, loading: () => <GlobePlaceholder /> },
-)
+const Globe = dynamic(() => import("@/components/pages/about/globe").then((m) => m.Globe), {
+  ssr: false,
+  loading: () => <GlobePlaceholder />,
+})
 
-export function HeroSection({
-  lang,
-  dict,
-}: {
-  lang: Locale
-  dict: Dictionary
-}) {
+export function HeroSection({ lang, dict }: { lang: Locale; dict: Dictionary }) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [desktopProgress, setDesktopProgress] = useState(0)
   const [isDesktop, setIsDesktop] = useState(true)
@@ -67,18 +61,18 @@ export function HeroSection({
 
     checkDesktop()
 
-    window.addEventListener('resize', handleResize)
+    window.addEventListener("resize", handleResize)
     return () => {
       if (resizeTimeout !== null) {
         window.clearTimeout(resizeTimeout)
       }
-      window.removeEventListener('resize', handleResize)
+      window.removeEventListener("resize", handleResize)
     }
   }, [])
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start start", "end end"]
+    offset: ["start start", "end end"],
   })
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
@@ -131,7 +125,6 @@ export function HeroSection({
       <div className="lg:sticky lg:top-0 lg:h-[100dvh] flex items-start lg:items-center pt-28 sm:pt-32 lg:pt-24 pb-12 lg:pb-16">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
           <div className="grid gap-6 sm:gap-10 lg:gap-16 xl:gap-20 lg:grid-cols-2 items-center">
-            
             {/* Left Column: Text Content */}
             <div className="min-w-0 flex flex-col space-y-6 lg:space-y-10 z-10">
               <div className="flex flex-col items-start w-full">
@@ -188,7 +181,10 @@ export function HeroSection({
             </div>
 
             <div className="min-w-0 flex flex-col items-center w-full mt-4 lg:mt-0">
-              <div className="relative h-[400px] sm:h-[500px] lg:h-[700px] w-full flex items-center justify-center">
+              <div
+                data-visual-unstable
+                className="relative h-[400px] sm:h-[500px] lg:h-[700px] w-full flex items-center justify-center"
+              >
                 {isDesktop && (
                   <div
                     className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-[#21569c] bg-white/80 backdrop-blur-sm border border-gray-200 rounded-full shadow-sm transition-opacity duration-500 pointer-events-none"
@@ -201,7 +197,7 @@ export function HeroSection({
                 <div className="absolute inset-0 bg-gradient-to-tr from-[#16aea3]/5 to-transparent rounded-full blur-3xl -z-10 transform scale-110" />
                 {shouldLoadGlobe ? <Globe progress={progress} /> : <GlobePlaceholder />}
               </div>
-              
+
               {!isDesktop && (
                 <button
                   onClick={() => setIsMobileZoomedIn(!isMobileZoomedIn)}
@@ -221,7 +217,6 @@ export function HeroSection({
                 </button>
               )}
             </div>
-
           </div>
         </div>
       </div>

@@ -1,12 +1,6 @@
 "use client"
 
-import {
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-  type ReactNode,
-} from "react"
+import { createContext, useContext, useEffect, useState, type ReactNode } from "react"
 import Lenis from "lenis"
 
 const LenisContext = createContext<Lenis | null>(null)
@@ -23,9 +17,7 @@ export function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {
   const [lenis, setLenis] = useState<Lenis | null>(null)
 
   useEffect(() => {
-    const reducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches
     if (reducedMotion) return
 
     const instance = new Lenis({
@@ -54,7 +46,5 @@ export function SmoothScrollProvider({ children }: SmoothScrollProviderProps) {
     }
   }, [])
 
-  return (
-    <LenisContext.Provider value={lenis}>{children}</LenisContext.Provider>
-  )
+  return <LenisContext.Provider value={lenis}>{children}</LenisContext.Provider>
 }

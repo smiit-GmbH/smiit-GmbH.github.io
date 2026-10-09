@@ -16,12 +16,19 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet"
 import { LanguageSwitcher } from "@/components/language-switcher"
+import { NavDropdown } from "@/components/nav-dropdown"
+import { buildPathForLang } from "@/lib/locale-path"
 
-const DARK_HERO_PATHS = ["/products/smiit-analytics", "/services/analytics", "/services/apps", "/services/strategy", "/case-studies", "/website"]
+const DARK_HERO_PATHS = [
+  "/products/smiit-analytics",
+  "/services/analytics",
+  "/services/apps",
+  "/services/strategy",
+  "/case-studies",
+  "/website",
+]
 
 export default function Header({ forceLang, darkHero: darkHeroProp }: { forceLang?: string; darkHero?: boolean }) {
-  const [isProductsOpen, setIsProductsOpen] = useState(false)
-  const [isServicesOpen, setIsServicesOpen] = useState(false)
   const [onDarkBg, setOnDarkBg] = useState(false)
   const navRef = useRef<HTMLElement | null>(null)
   const pathname = usePathname() || "/"
@@ -59,21 +66,6 @@ export default function Header({ forceLang, darkHero: darkHeroProp }: { forceLan
     }
   }, [darkHero])
 
-  function buildPathForLang(currentPathname: string, target: "de" | "en"): string {
-    if (currentPathname === "/" || currentPathname === "") {
-      return `/${target}/`
-    }
-
-    if (currentPathname.startsWith("/de/") || currentPathname === "/de") {
-      return currentPathname.replace(/^\/de(\/|$)/, `/${target}/`)
-    }
-    if (currentPathname.startsWith("/en/") || currentPathname === "/en") {
-      return currentPathname.replace(/^\/en(\/|$)/, `/${target}/`)
-    }
-
-    return `/${target}${currentPathname.endsWith("/") ? "" : "/"}`
-  }
-
   const L =
     lang === "de"
       ? {
@@ -83,7 +75,6 @@ export default function Header({ forceLang, darkHero: darkHeroProp }: { forceLan
           about: "Über uns",
           talkToExpert: "Kontaktieren Sie uns",
           smiitAnalytics: "smiit Analytics für bexio",
-          productScout: "Product Scout",
           azaiElevate: "Azai Elevate",
           webappsWorkflows: "Apps & Workflows",
           analytics: "Datenanalyse",
@@ -97,7 +88,6 @@ export default function Header({ forceLang, darkHero: darkHeroProp }: { forceLan
           about: "About us",
           talkToExpert: "Talk to an expert",
           smiitAnalytics: "smiit Analytics for bexio",
-          productScout: "Product Scout",
           azaiElevate: "Azai Elevate",
           webappsWorkflows: "Apps & Workflows",
           analytics: "Data Analytics",
@@ -121,11 +111,9 @@ export default function Header({ forceLang, darkHero: darkHeroProp }: { forceLan
   ]
 
   const productLinks: Array<
-    | { type: "internal"; href: string; label: string }
-    | { type: "external"; href: string; label: string }
+    { type: "internal"; href: string; label: string } | { type: "external"; href: string; label: string }
   > = [
     { type: "internal", href: smiitAnalyticsHref, label: L.smiitAnalytics },
-    // { type: "internal", href: productScoutHref, label: L.productScout },
     { type: "external", href: "https://www.azai.ch", label: L.azaiElevate },
   ]
 
@@ -156,22 +144,63 @@ export default function Header({ forceLang, darkHero: darkHeroProp }: { forceLan
           </Link>
 
           <div className="hidden lg:flex items-center gap-8">
-            <Link href={homeHref} className={`px-5 text-sm font-medium ${textColor} ${isLightHeader ? "hover:text-white/70" : "hover:text-black/70"} transition-colors cursor-pointer`} scroll={false}>
+            <Link
+              href={homeHref}
+              className={`px-5 text-sm font-medium ${textColor} ${isLightHeader ? "hover:text-white/70" : "hover:text-black/70"} transition-colors cursor-pointer`}
+              scroll={false}
+            >
               {L.home}
             </Link>
 
-            <div className="relative group" onMouseEnter={() => setIsServicesOpen(true)} onMouseLeave={() => setIsServicesOpen(false)}>
-              <button
-                className={`flex items-center gap-2 rounded-xl bg-transparent px-5 py-2.5 text-sm font-medium ${textColor} ${hoverBg} transition-colors cursor-pointer`}
-              >
-                {L.services}
-                <ChevronDown className="w-4 h-4 opacity-60" />
-              </button>
-              <div
-                className={`absolute left-0 mt-3 w-60 bg-white/98 backdrop-blur-md border border-black/10 rounded-2xl shadow-xl transition-all duration-200 ${isServicesOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-2"}`}
-              >
-                <div className="p-2">
-                  {servicesLinks.map((item) => (
+            <NavDropdown
+              className="relative group"
+              triggerClassName={`flex items-center gap-2 rounded-xl bg-transparent px-5 py-2.5 text-sm font-medium ${textColor} ${hoverBg} transition-colors cursor-pointer`}
+              trigger={
+                <>
+                  {L.services}
+                  <ChevronDown className="w-4 h-4 opacity-60" />
+                </>
+              }
+              panelClassName="absolute left-0 mt-3 w-60 bg-white/98 backdrop-blur-md border border-black/10 rounded-2xl shadow-xl"
+            >
+              <div className="p-2">
+                {servicesLinks.map((item) => (
+                  <Link
+                    key={item.href}
+                    href={item.href}
+                    className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-black/[0.04] rounded-xl transition-colors"
+                    scroll={false}
+                  >
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            </NavDropdown>
+
+            <NavDropdown
+              className="relative group -ml-6"
+              triggerClassName={`flex items-center gap-2 rounded-xl bg-transparent px-5 py-2.5 text-sm font-medium ${textColor} ${hoverBg} transition-colors cursor-pointer`}
+              trigger={
+                <>
+                  {L.products}
+                  <ChevronDown className="w-4 h-4 opacity-60" />
+                </>
+              }
+              panelClassName="absolute left-0 mt-3 w-60 bg-white/98 backdrop-blur-md border border-black/10 rounded-2xl shadow-xl"
+            >
+              <div className="p-2">
+                {productLinks.map((item) =>
+                  item.type === "external" ? (
+                    <a
+                      key={item.href}
+                      href={item.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-black/[0.04] rounded-xl transition-colors"
+                    >
+                      {item.label}
+                    </a>
+                  ) : (
                     <Link
                       key={item.href}
                       href={item.href}
@@ -180,49 +209,16 @@ export default function Header({ forceLang, darkHero: darkHeroProp }: { forceLan
                     >
                       {item.label}
                     </Link>
-                  ))}
-                </div>
+                  ),
+                )}
               </div>
-            </div>
+            </NavDropdown>
 
-            <div className="relative group -ml-6" onMouseEnter={() => setIsProductsOpen(true)} onMouseLeave={() => setIsProductsOpen(false)}>
-              <button
-                className={`flex items-center gap-2 rounded-xl bg-transparent px-5 py-2.5 text-sm font-medium ${textColor} ${hoverBg} transition-colors cursor-pointer`}
-              >
-                {L.products}
-                <ChevronDown className="w-4 h-4 opacity-60" />
-              </button>
-              <div
-                className={`absolute left-0 mt-3 w-60 bg-white/98 backdrop-blur-md border border-black/10 rounded-2xl shadow-xl transition-all duration-200 ${isProductsOpen ? "opacity-100 visible translate-y-0" : "opacity-0 invisible -translate-y-2"}`}
-              >
-                <div className="p-2">
-                  {productLinks.map((item) =>
-                    item.type === "external" ? (
-                      <a
-                        key={item.href}
-                        href={item.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-black/[0.04] rounded-xl transition-colors"
-                      >
-                        {item.label}
-                      </a>
-                    ) : (
-                      <Link
-                        key={item.href}
-                        href={item.href}
-                        className="block px-4 py-2.5 text-sm text-gray-700 hover:bg-black/[0.04] rounded-xl transition-colors"
-                        scroll={false}
-                      >
-                        {item.label}
-                      </Link>
-                    )
-                  )}
-                </div>
-              </div>
-            </div>
-
-            <Link href={aboutHref} className={`px-2 text-sm font-medium ${textColor} ${isLightHeader ? "hover:text-white/70" : "hover:text-black/70"} transition-colors cursor-pointer`} scroll={false}>
+            <Link
+              href={aboutHref}
+              className={`px-2 text-sm font-medium ${textColor} ${isLightHeader ? "hover:text-white/70" : "hover:text-black/70"} transition-colors cursor-pointer`}
+              scroll={false}
+            >
               {L.about}
             </Link>
           </div>
@@ -257,7 +253,10 @@ export default function Header({ forceLang, darkHero: darkHeroProp }: { forceLan
                   </button>
                 </SheetTrigger>
 
-                <SheetContent side="right" className="bg-white/95 backdrop-blur-md border-black/10 gap-[clamp(0.5rem,1.6vh,1rem)]">
+                <SheetContent
+                  side="right"
+                  className="bg-white/95 backdrop-blur-md border-black/10 gap-[clamp(0.5rem,1.6vh,1rem)]"
+                >
                   <SheetHeader className="px-4 pt-[clamp(0.625rem,2vh,1rem)] pb-[clamp(0.5rem,1.6vh,1rem)]">
                     <SheetTitle>{lang === "de" ? "Menü" : "Menu"}</SheetTitle>
 
@@ -268,10 +267,12 @@ export default function Header({ forceLang, darkHero: darkHeroProp }: { forceLan
                       </div>
 
                       <div className="inline-flex items-center rounded-full border border-black/10 bg-black/[0.04] p-1">
-                        {([
-                          { code: "de" as const, label: "DE" },
-                          { code: "en" as const, label: "EN" },
-                        ] as const).map((l) => {
+                        {(
+                          [
+                            { code: "de" as const, label: "DE" },
+                            { code: "en" as const, label: "EN" },
+                          ] as const
+                        ).map((l) => {
                           const active = l.code === lang
 
                           return (
@@ -298,7 +299,6 @@ export default function Header({ forceLang, darkHero: darkHeroProp }: { forceLan
 
                   <div className="flex-1 overflow-y-auto px-4 pb-[clamp(0.625rem,1.8vh,1rem)]">
                     <div className="space-y-[clamp(0.5rem,3.5vh,1.75rem)]">
-
                       <div>
                         <p className="text-sm font-semibold text-black">{lang === "de" ? "Startseite" : "Homepage"}</p>
                         <div className="mt-[clamp(0.25rem,1.6vh,0.75rem)] space-y-1">
@@ -355,7 +355,7 @@ export default function Header({ forceLang, darkHero: darkHeroProp }: { forceLan
                                   {item.label}
                                 </Link>
                               </SheetClose>
-                            )
+                            ),
                           )}
                         </div>
                       </div>

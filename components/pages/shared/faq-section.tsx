@@ -1,12 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
 
 type FaqItem = { question: string; answer: string }
@@ -28,9 +23,7 @@ export default function FaqSection({
   const [headingRef, headingRevealed] = useRevealOnScroll()
   const [itemsRef, itemsRevealed] = useRevealOnScroll({ margin: "-60px" })
 
-  const sectionPadding = compact
-    ? "pt-2 pb-10 sm:pt-4 sm:pb-32"
-    : "pt-10 pb-10 sm:pt-20 sm:pb-32"
+  const sectionPadding = compact ? "pt-2 pb-10 sm:pt-4 sm:pb-32" : "pt-10 pb-10 sm:pt-20 sm:pb-32"
 
   return (
     <section className={`relative bg-transparent ${sectionPadding}`}>
@@ -42,22 +35,14 @@ export default function FaqSection({
           >
             {!compact && <span className="section-eyebrow">{dict.eyebrow}</span>}
             <h2 className="font-serif text-[2.2rem] sm:text-[2.6rem] md:text-[3rem] leading-[1.05] tracking-tight text-black">
-              {dict.heading.lead}{" "}
-              <span className="section-highlight">{dict.heading.highlight}</span>
+              {dict.heading.lead} <span className="section-highlight">{dict.heading.highlight}</span>
             </h2>
           </div>
 
-          <motion.div
-            ref={itemsRef}
-            className={`reveal-fade-up ${itemsRevealed ? "revealed" : ""}`}
-          >
+          <motion.div ref={itemsRef} className={`reveal-fade-up ${itemsRevealed ? "revealed" : ""}`}>
             <Accordion type="single" collapsible className="w-full">
               {dict.items.map((item, idx) => (
-                <AccordionItem
-                  key={idx}
-                  value={`faq-${idx}`}
-                  className="border-b border-slate-200/70"
-                >
+                <AccordionItem key={idx} value={`faq-${idx}`} className="border-b border-slate-200/70">
                   <AccordionTrigger className="text-left font-serif text-[1.2rem] sm:text-[1.4rem] md:text-[1.5rem] leading-[1.3] tracking-tight text-[#0B162D] py-6 sm:py-7 hover:no-underline cursor-pointer [&>svg]:size-5 [&>svg]:translate-y-1.5">
                     {item.question}
                   </AccordionTrigger>

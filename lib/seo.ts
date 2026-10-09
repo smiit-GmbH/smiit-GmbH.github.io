@@ -230,7 +230,15 @@ type ProductJsonLdInput = {
   aggregateRating?: AggregateRatingInput
 }
 
-export function buildProductJsonLd({ lang, path, name, description, image, reviews, aggregateRating }: ProductJsonLdInput) {
+export function buildProductJsonLd({
+  lang,
+  path,
+  name,
+  description,
+  image,
+  reviews,
+  aggregateRating,
+}: ProductJsonLdInput) {
   return {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -259,7 +267,17 @@ type CaseStudyJsonLdInput = {
   articleSection?: string
 }
 
-export function buildCaseStudyJsonLd({ lang, slug, headline, description, datePublished, image, about, keywords, articleSection }: CaseStudyJsonLdInput) {
+export function buildCaseStudyJsonLd({
+  lang,
+  slug,
+  headline,
+  description,
+  datePublished,
+  image,
+  about,
+  keywords,
+  articleSection,
+}: CaseStudyJsonLdInput) {
   return {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -465,9 +483,7 @@ export function buildPageMetadata({
         "x-default": `/de${suffix}/`,
       },
     },
-    robots: noindex
-      ? { index: false, follow: false }
-      : { index: true, follow: true },
+    robots: noindex ? { index: false, follow: false } : { index: true, follow: true },
     icons: {
       icon: [
         { url: "/favicon.ico", sizes: "any" },

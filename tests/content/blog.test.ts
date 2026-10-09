@@ -3,12 +3,7 @@ import { describe, test } from "node:test"
 
 import { blogPosts } from "@/content/blog"
 import { caseStudySlugs } from "@/lib/case-studies"
-import {
-  blogCategoryMeta,
-  blogPostSlugs,
-  type BlogBlock,
-  type BlogPostContent,
-} from "@/lib/blog"
+import { blogCategoryMeta, blogPostSlugs, type BlogBlock, type BlogPostContent } from "@/lib/blog"
 import {
   LOCALES,
   URL_SAFE_SLUG,
@@ -47,7 +42,10 @@ describe("blog content", () => {
 
   test("every post has at least one locale variant", () => {
     for (const slug of blogPostSlugs) {
-      assert.ok(LOCALES.some((lang) => blogPosts[slug][lang]), `${slug} has no locale variant`)
+      assert.ok(
+        LOCALES.some((lang) => blogPosts[slug][lang]),
+        `${slug} has no locale variant`,
+      )
     }
   })
 
@@ -60,7 +58,13 @@ describe("blog content", () => {
       const present = LOCALES.map((lang) => blogPosts[slug][lang]).filter((p): p is BlogPostContent => Boolean(p))
       const [first, ...rest] = present
       for (const other of rest) {
-        for (const key of ["category", "datePublished", "dateModified", "relatedServicePath", "relatedCaseStudySlug"] as const) {
+        for (const key of [
+          "category",
+          "datePublished",
+          "dateModified",
+          "relatedServicePath",
+          "relatedCaseStudySlug",
+        ] as const) {
           assert.equal(other[key], first[key], `${slug}: ${key} differs between locales`)
         }
         assert.equal(other.blocks.length, first.blocks.length, `${slug}: block count differs between locales`)
@@ -101,7 +105,10 @@ describe("blog content", () => {
       const n = post.sources?.length ?? 0
       const check = (refs: number[] | undefined, where: string) => {
         for (const ref of refs ?? []) {
-          assert.ok(Number.isInteger(ref) && ref >= 1 && ref <= n, `${slug} (${lang}) ${where}: ref ${ref} outside 1..${n}`)
+          assert.ok(
+            Number.isInteger(ref) && ref >= 1 && ref <= n,
+            `${slug} (${lang}) ${where}: ref ${ref} outside 1..${n}`,
+          )
         }
       }
       post.blocks.forEach((block: BlogBlock, i) => {

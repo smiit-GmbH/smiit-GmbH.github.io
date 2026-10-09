@@ -7,11 +7,7 @@ export async function generateStaticParams() {
   return [{ lang: "de" }, { lang: "en" }]
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ lang: Locale }>
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ lang: Locale }> }): Promise<Metadata> {
   const { lang } = await params
   return buildPageMetadata({
     lang,
@@ -27,11 +23,7 @@ export async function generateMetadata({
   })
 }
 
-export default async function LegalNoticePage({
-  params,
-}: {
-  params: Promise<{ lang: Locale }>
-}) {
+export default async function LegalNoticePage({ params }: { params: Promise<{ lang: Locale }> }) {
   const { lang } = await params
   const isDe = lang === "de"
 
@@ -126,10 +118,16 @@ export default async function LegalNoticePage({
                 <h3 className="text-sm font-semibold tracking-wide uppercase text-black/70">{L.contact}</h3>
                 <address className="not-italic text-sm mt-4 space-y-2 text-black/80 block">
                   <p>
-                    Telefon: <a className="underline" href="tel:+491604073198">+49 160 4073198</a>
+                    Telefon:{" "}
+                    <a className="underline" href="tel:+491604073198">
+                      +49 160 4073198
+                    </a>
                   </p>
                   <p>
-                    Mail: <a className="underline" href="mailto:kontakt@smiit.de">kontakt@smiit.de</a>
+                    Mail:{" "}
+                    <a className="underline" href="mailto:kontakt@smiit.de">
+                      kontakt@smiit.de
+                    </a>
                   </p>
                 </address>
               </div>
@@ -184,4 +182,3 @@ export default async function LegalNoticePage({
     </main>
   )
 }
-

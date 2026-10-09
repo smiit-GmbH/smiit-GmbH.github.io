@@ -142,7 +142,10 @@ export const extras: Record<Locale, GlossaryExtra> = {
     ],
     sources: [
       { title: "Keycloak – Offizielle Dokumentation", url: "https://www.keycloak.org/documentation" },
-      { title: "OpenID Connect Core 1.0 (OpenID Foundation)", url: "https://openid.net/specs/openid-connect-core-1_0.html" },
+      {
+        title: "OpenID Connect Core 1.0 (OpenID Foundation)",
+        url: "https://openid.net/specs/openid-connect-core-1_0.html",
+      },
       { title: "IETF RFC 6749 – The OAuth 2.0 Authorization Framework", url: "https://www.rfc-editor.org/rfc/rfc6749" },
     ],
   },
@@ -154,7 +157,10 @@ export const extras: Record<Locale, GlossaryExtra> = {
     ],
     sources: [
       { title: "Keycloak – Official documentation", url: "https://www.keycloak.org/documentation" },
-      { title: "OpenID Connect Core 1.0 (OpenID Foundation)", url: "https://openid.net/specs/openid-connect-core-1_0.html" },
+      {
+        title: "OpenID Connect Core 1.0 (OpenID Foundation)",
+        url: "https://openid.net/specs/openid-connect-core-1_0.html",
+      },
       { title: "IETF RFC 6749 – The OAuth 2.0 Authorization Framework", url: "https://www.rfc-editor.org/rfc/rfc6749" },
     ],
   },

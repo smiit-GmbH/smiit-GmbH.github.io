@@ -107,7 +107,7 @@ const iac: LocalizedGlossaryTerm = {
           "Cloud environments are complex and change frequently. IaC ensures that environments stay reproducible, traceable and consistent instead of drifting apart through manual intervention.",
       },
       {
-        question: "What is \"configuration drift\" and how does IaC help against it?",
+        question: 'What is "configuration drift" and how does IaC help against it?',
         answer:
           "Configuration drift occurs when the actual state of an environment deviates from the documented target due to manual changes. Since IaC captures the target state in code and applies it reproducibly, drift can be detected and the environment brought back to the defined state.",
       },
@@ -141,8 +141,14 @@ export const extras: Record<Locale, GlossaryExtra> = {
       "Es wird unterschätzt, dass IaC-Definitionen wie Anwendungscode behandelt werden müssen — mit Reviews, Tests und einer sicheren Verwaltung von Secrets.",
     ],
     sources: [
-      { title: "Martin Fowler – Infrastructure as Code", url: "https://martinfowler.com/bliki/InfrastructureAsCode.html" },
-      { title: "Microsoft Learn – Was ist Infrastructure as Code?", url: "https://learn.microsoft.com/devops/deliver/what-is-infrastructure-as-code" },
+      {
+        title: "Martin Fowler – Infrastructure as Code",
+        url: "https://martinfowler.com/bliki/InfrastructureAsCode.html",
+      },
+      {
+        title: "Microsoft Learn – Was ist Infrastructure as Code?",
+        url: "https://learn.microsoft.com/devops/deliver/what-is-infrastructure-as-code",
+      },
     ],
   },
   en: {
@@ -152,8 +158,14 @@ export const extras: Record<Locale, GlossaryExtra> = {
       "People underestimate that IaC definitions must be treated like application code — with reviews, tests and secure handling of secrets.",
     ],
     sources: [
-      { title: "Martin Fowler – Infrastructure as Code", url: "https://martinfowler.com/bliki/InfrastructureAsCode.html" },
-      { title: "Microsoft Learn – What is Infrastructure as Code?", url: "https://learn.microsoft.com/devops/deliver/what-is-infrastructure-as-code" },
+      {
+        title: "Martin Fowler – Infrastructure as Code",
+        url: "https://martinfowler.com/bliki/InfrastructureAsCode.html",
+      },
+      {
+        title: "Microsoft Learn – What is Infrastructure as Code?",
+        url: "https://learn.microsoft.com/devops/deliver/what-is-infrastructure-as-code",
+      },
     ],
   },
 }

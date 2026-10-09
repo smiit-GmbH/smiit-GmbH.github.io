@@ -65,7 +65,10 @@ describe("glossary content", () => {
       assert.ok(term.sections.length > 0, `${slug} (${lang}): no sections`)
       for (const section of term.sections) {
         assert.ok(isNonEmpty(section.heading), `${slug} (${lang}): section without heading`)
-        assert.ok(section.paragraphs.length > 0 && section.paragraphs.every(isNonEmpty), `${slug} (${lang}): "${section.heading}" has empty paragraphs`)
+        assert.ok(
+          section.paragraphs.length > 0 && section.paragraphs.every(isNonEmpty),
+          `${slug} (${lang}): "${section.heading}" has empty paragraphs`,
+        )
       }
       assert.ok(term.faq.length > 0, `${slug} (${lang}): no FAQ`)
       for (const item of term.faq) {
@@ -76,7 +79,8 @@ describe("glossary content", () => {
   })
 
   test("dateModified is a valid ISO date", () => {
-    for (const { slug, lang, term } of variants) assert.ok(isIsoDate(term.dateModified), `${slug} (${lang}): ${term.dateModified}`)
+    for (const { slug, lang, term } of variants)
+      assert.ok(isIsoDate(term.dateModified), `${slug} (${lang}): ${term.dateModified}`)
   })
 
   test("cluster is known and relatedServicePath points to an existing service route", () => {
@@ -99,7 +103,10 @@ describe("glossary content", () => {
       for (const lang of LOCALES) {
         const e = extra[lang]
         assert.ok(e, `${slug}: extras missing ${lang}`)
-        assert.ok(e.misconceptions.length > 0 && e.misconceptions.every(isNonEmpty), `${slug} (${lang}): empty misconceptions`)
+        assert.ok(
+          e.misconceptions.length > 0 && e.misconceptions.every(isNonEmpty),
+          `${slug} (${lang}): empty misconceptions`,
+        )
         for (const source of e.sources) {
           assert.ok(isNonEmpty(source.title), `${slug} (${lang}): source without title`)
           assert.match(source.url, /^https:\/\/\S+$/, `${slug} (${lang}): ${source.url}`)

@@ -1,132 +1,132 @@
 export interface Location {
-  city: string;
-  lat: number;
-  lng: number;
-  simpleMarker?: boolean;
-  name?: string;
-  company?: string;
-  addressLines?: string[];
-  phone?: string[];
-  fax?: string[];
-  email?: string;
-  management?: string;
-  officeHead?: string;
+  city: string
+  lat: number
+  lng: number
+  simpleMarker?: boolean
+  name?: string
+  company?: string
+  addressLines?: string[]
+  phone?: string[]
+  fax?: string[]
+  email?: string
+  management?: string
+  officeHead?: string
 }
 
 export const LOCATIONS: Location[] = [
   {
     city: "Berlin",
-    lat: 52.5200,
-    lng: 13.4050,
+    lat: 52.52,
+    lng: 13.405,
   },
   {
     city: "Wachtendonk",
-    lat: 51.4300,
-    lng: 6.3000,
+    lat: 51.43,
+    lng: 6.3,
   },
   {
     city: "Osnabrück",
-    lat: 52.3000,
-    lng: 8.0200,
+    lat: 52.3,
+    lng: 8.02,
   },
   {
     city: "Hünenberg See",
-    lat: 47.1900,
-    lng: 8.4600,
+    lat: 47.19,
+    lng: 8.46,
   },
   {
     city: "Stuttgart",
-    lat: 48.7800,
-    lng: 9.2500,
+    lat: 48.78,
+    lng: 9.25,
   },
   {
     city: "Wegberg",
-    lat: 51.1700,
-    lng: 6.2300,
+    lat: 51.17,
+    lng: 6.23,
   },
   {
     city: "Ehingen",
-    lat: 48.3000,
-    lng: 9.7800,
+    lat: 48.3,
+    lng: 9.78,
   },
   {
     city: "Aarau",
-    lat: 47.4100,
-    lng: 8.0100,
+    lat: 47.41,
+    lng: 8.01,
   },
   {
     city: "Köln",
-    lat: 50.9500,
-    lng: 6.9900,
+    lat: 50.95,
+    lng: 6.99,
   },
   {
     city: "Zürich",
-    lat: 47.3900,
-    lng: 8.5800,
+    lat: 47.39,
+    lng: 8.58,
   },
   {
     city: "Herrenberg",
-    lat: 48.6200,
-    lng: 8.8300,
+    lat: 48.62,
+    lng: 8.83,
   },
   {
     city: "Düsseldorf",
-    lat: 51.2400,
-    lng: 6.8100,
+    lat: 51.24,
+    lng: 6.81,
   },
   {
     city: "Hamburg",
-    lat: 53.5600,
-    lng: 10.0200,
+    lat: 53.56,
+    lng: 10.02,
   },
   {
     city: "Linz",
-    lat: 48.3200,
-    lng: 14.3300,
+    lat: 48.32,
+    lng: 14.33,
   },
   {
     city: "Hechingen",
-    lat: 48.3700,
-    lng: 8.9300,
+    lat: 48.37,
+    lng: 8.93,
   },
   {
     city: "Denkendorf",
-    lat: 48.7100,
-    lng: 9.3600,
+    lat: 48.71,
+    lng: 9.36,
   },
   {
     city: "Luzern",
-    lat: 47.0700,
-    lng: 8.3400,
+    lat: 47.07,
+    lng: 8.34,
   },
   {
     city: "Filderstadt",
-    lat: 48.6900,
-    lng: 9.2600,
+    lat: 48.69,
+    lng: 9.26,
   },
   {
     city: "Ibbenbüren",
-    lat: 52.3100,
-    lng: 7.7600,
+    lat: 52.31,
+    lng: 7.76,
   },
   {
     city: "Wien",
-    lat: 48.2200,
-    lng: 16.4200,
+    lat: 48.22,
+    lng: 16.42,
   },
   {
     city: "Basel",
-    lat: 47.5800,
-    lng: 7.6200,
+    lat: 47.58,
+    lng: 7.62,
   },
   {
     city: "Bern",
-    lat: 46.9700,
-    lng: 7.4200,
+    lat: 46.97,
+    lng: 7.42,
   },
   {
     city: "Winkel",
-    lat: 47.5200,
-    lng: 8.6200,
-  }
-];
+    lat: 47.52,
+    lng: 8.62,
+  },
+]

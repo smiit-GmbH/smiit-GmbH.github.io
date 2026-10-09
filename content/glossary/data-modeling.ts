@@ -10,7 +10,15 @@ const datenmodellierung: LocalizedGlossaryTerm = {
     title: "Was ist Datenmodellierung (Inmon, Kimball, Data Vault)?",
     shortDefinition:
       "Datenmodellierung ist der strukturierte Entwurf, wie Daten in einem Data Warehouse oder Lakehouse organisiert, in Beziehung gesetzt und gespeichert werden. Die drei verbreitetsten Ansätze sind Inmon (normalisierter Unternehmenskern), Kimball (dimensionale Sternschemata für Reporting) und Data Vault (flexibler, historisierter Integrationsansatz).",
-    synonyms: ["Data Modeling", "Datenmodell", "dimensionale Modellierung", "Sternschema", "Faktentabelle", "Dimensionstabelle", "Fact Table"],
+    synonyms: [
+      "Data Modeling",
+      "Datenmodell",
+      "dimensionale Modellierung",
+      "Sternschema",
+      "Faktentabelle",
+      "Dimensionstabelle",
+      "Fact Table",
+    ],
     sections: [
       {
         heading: "Einordnung: Wofür wird Datenmodellierung genutzt?",
@@ -27,9 +35,7 @@ const datenmodellierung: LocalizedGlossaryTerm = {
       },
       {
         heading: "Faktentabellen & Dimensionen",
-        paragraphs: [
-          "Im dimensionalen Modell (Kimball) sind zwei Tabellentypen zentral:",
-        ],
+        paragraphs: ["Im dimensionalen Modell (Kimball) sind zwei Tabellentypen zentral:"],
         bullets: [
           "Faktentabelle (Fact Table): enthält die messbaren Kennzahlen eines Geschäftsvorgangs – etwa Umsatz, Menge oder Kosten – samt Verweisen auf die zugehörigen Dimensionen.",
           "Dimensionstabelle (Dimension): liefert den beschreibenden Kontext, nach dem ausgewertet wird – z. B. Zeit, Kunde, Produkt oder Region. Dimensionen beantworten das „nach was?“ einer Auswertung.",
@@ -44,15 +50,32 @@ const datenmodellierung: LocalizedGlossaryTerm = {
       },
     ],
     faq: [
-      { question: "Welcher Modellierungsansatz ist der beste?", answer: "Es gibt kein generelles Bestes. Kimball ist reporting-freundlich, Data Vault stark bei vielen, sich ändernden Quellen und Historisierung, Inmon liefert einen konsistenten Unternehmenskern. In der Praxis werden sie oft kombiniert." },
-      { question: "Was ist der Unterschied zwischen Kimball und Data Vault?", answer: "Kimball modelliert dimensional in Sternschemata für direktes Reporting. Data Vault trennt Hubs, Links und Satellites für flexible, historisierte Integration und wird häufig als Schicht vor einem dimensionalen Modell genutzt." },
-      { question: "Was sind Faktentabelle und Dimension einfach erklärt?", answer: "Eine Faktentabelle enthält die messbaren Werte eines Geschäftsvorgangs, etwa Umsatz oder Menge. Eine Dimension liefert den beschreibenden Kontext, nach dem ausgewertet wird, etwa Zeit, Kunde oder Produkt. Im Sternschema verbindet eine zentrale Faktentabelle direkt mehrere Dimensionen." },
-      { question: "Wie hängen Datenmodellierung und Medallion-Architektur zusammen?", answer: "Die Medallion-Architektur legt fest, in welchen Stufen (Bronze, Silver, Gold) Daten veredelt werden, die Datenmodellierung legt fest, wie die Tabellen innerhalb dieser Stufen strukturiert sind. In der Praxis wird die für Reporting bestimmte Gold-Schicht oft dimensional modelliert." },
+      {
+        question: "Welcher Modellierungsansatz ist der beste?",
+        answer:
+          "Es gibt kein generelles Bestes. Kimball ist reporting-freundlich, Data Vault stark bei vielen, sich ändernden Quellen und Historisierung, Inmon liefert einen konsistenten Unternehmenskern. In der Praxis werden sie oft kombiniert.",
+      },
+      {
+        question: "Was ist der Unterschied zwischen Kimball und Data Vault?",
+        answer:
+          "Kimball modelliert dimensional in Sternschemata für direktes Reporting. Data Vault trennt Hubs, Links und Satellites für flexible, historisierte Integration und wird häufig als Schicht vor einem dimensionalen Modell genutzt.",
+      },
+      {
+        question: "Was sind Faktentabelle und Dimension einfach erklärt?",
+        answer:
+          "Eine Faktentabelle enthält die messbaren Werte eines Geschäftsvorgangs, etwa Umsatz oder Menge. Eine Dimension liefert den beschreibenden Kontext, nach dem ausgewertet wird, etwa Zeit, Kunde oder Produkt. Im Sternschema verbindet eine zentrale Faktentabelle direkt mehrere Dimensionen.",
+      },
+      {
+        question: "Wie hängen Datenmodellierung und Medallion-Architektur zusammen?",
+        answer:
+          "Die Medallion-Architektur legt fest, in welchen Stufen (Bronze, Silver, Gold) Daten veredelt werden, die Datenmodellierung legt fest, wie die Tabellen innerhalb dieser Stufen strukturiert sind. In der Praxis wird die für Reporting bestimmte Gold-Schicht oft dimensional modelliert.",
+      },
     ],
     relatedServicePath: "services/analytics",
     relatedCaseStudySlug: "dy-project-ag",
     metaTitle: "Datenmodellierung: Inmon, Kimball & Data Vault | smiit Glossar",
-    metaDescription: "Datenmodellierung einfach erklärt: Inmon, Kimball und Data Vault im Vergleich, Anwendungsfälle und Bezug zur Medallion-Architektur – mit Praxisbezug von smiit.",
+    metaDescription:
+      "Datenmodellierung einfach erklärt: Inmon, Kimball und Data Vault im Vergleich, Anwendungsfälle und Bezug zur Medallion-Architektur – mit Praxisbezug von smiit.",
   },
   en: {
     slug: "data-modeling",
@@ -79,9 +102,7 @@ const datenmodellierung: LocalizedGlossaryTerm = {
       },
       {
         heading: "Fact tables & dimensions",
-        paragraphs: [
-          "Two table types are central to the dimensional (Kimball) model:",
-        ],
+        paragraphs: ["Two table types are central to the dimensional (Kimball) model:"],
         bullets: [
           "Fact table: holds the measurable metrics of a business event — such as revenue, quantity or cost — together with references to the related dimensions.",
           "Dimension (dimension table): provides the descriptive context you analyze by — e.g. time, customer, product or region. Dimensions answer the by what of an analysis.",
@@ -96,15 +117,32 @@ const datenmodellierung: LocalizedGlossaryTerm = {
       },
     ],
     faq: [
-      { question: "Which modeling approach is the best?", answer: "There is no universal best. Kimball is reporting-friendly, Data Vault is strong with many changing sources and historization, and Inmon delivers a consistent enterprise core. In practice they are often combined." },
-      { question: "What is the difference between Kimball and Data Vault?", answer: "Kimball models dimensionally in star schemas for direct reporting. Data Vault separates hubs, links and satellites for flexible, historized integration and is often used as a layer before a dimensional model." },
-      { question: "What are a fact table and a dimension in simple terms?", answer: "A fact table holds the measurable values of a business event, such as revenue or quantity. A dimension provides the descriptive context you analyze by, such as time, customer or product. In a star schema, one central fact table connects directly to several dimensions." },
-      { question: "How do data modeling and the medallion architecture relate?", answer: "The medallion architecture defines in which stages (bronze, silver, gold) data is refined, while data modeling defines how the tables within those stages are structured. In practice the gold layer intended for reporting is often modeled dimensionally." },
+      {
+        question: "Which modeling approach is the best?",
+        answer:
+          "There is no universal best. Kimball is reporting-friendly, Data Vault is strong with many changing sources and historization, and Inmon delivers a consistent enterprise core. In practice they are often combined.",
+      },
+      {
+        question: "What is the difference between Kimball and Data Vault?",
+        answer:
+          "Kimball models dimensionally in star schemas for direct reporting. Data Vault separates hubs, links and satellites for flexible, historized integration and is often used as a layer before a dimensional model.",
+      },
+      {
+        question: "What are a fact table and a dimension in simple terms?",
+        answer:
+          "A fact table holds the measurable values of a business event, such as revenue or quantity. A dimension provides the descriptive context you analyze by, such as time, customer or product. In a star schema, one central fact table connects directly to several dimensions.",
+      },
+      {
+        question: "How do data modeling and the medallion architecture relate?",
+        answer:
+          "The medallion architecture defines in which stages (bronze, silver, gold) data is refined, while data modeling defines how the tables within those stages are structured. In practice the gold layer intended for reporting is often modeled dimensionally.",
+      },
     ],
     relatedServicePath: "services/analytics",
     relatedCaseStudySlug: "dy-project-ag",
     metaTitle: "Data modeling: Inmon, Kimball & Data Vault | smiit glossary",
-    metaDescription: "Data modeling explained simply: Inmon, Kimball and Data Vault compared, use cases and the link to the medallion architecture – with practical insight from smiit.",
+    metaDescription:
+      "Data modeling explained simply: Inmon, Kimball and Data Vault compared, use cases and the link to the medallion architecture – with practical insight from smiit.",
   },
 }
 
@@ -121,7 +159,10 @@ export const extras: Record<Locale, GlossaryExtra> = {
     sources: [
       { title: "Kimball Group – Dimensionale Modellierung", url: "https://www.kimballgroup.com/" },
       { title: "Data Vault Alliance (Dan Linstedt)", url: "https://datavaultalliance.com/" },
-      { title: "Microsoft Learn – Sternschema in Power BI", url: "https://learn.microsoft.com/power-bi/guidance/star-schema" },
+      {
+        title: "Microsoft Learn – Sternschema in Power BI",
+        url: "https://learn.microsoft.com/power-bi/guidance/star-schema",
+      },
     ],
   },
   en: {
@@ -133,7 +174,10 @@ export const extras: Record<Locale, GlossaryExtra> = {
     sources: [
       { title: "Kimball Group – Dimensional modeling", url: "https://www.kimballgroup.com/" },
       { title: "Data Vault Alliance (Dan Linstedt)", url: "https://datavaultalliance.com/" },
-      { title: "Microsoft Learn – Star schema in Power BI", url: "https://learn.microsoft.com/power-bi/guidance/star-schema" },
+      {
+        title: "Microsoft Learn – Star schema in Power BI",
+        url: "https://learn.microsoft.com/power-bi/guidance/star-schema",
+      },
     ],
   },
 }

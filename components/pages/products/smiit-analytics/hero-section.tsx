@@ -8,11 +8,6 @@ interface HeroSectionProps {
   dict: Dictionary
 }
 
-const fadeUpVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0 },
-}
-
 export function HeroSection({ dict }: HeroSectionProps) {
   const { hero } = dict.smiitAnalytics
 
@@ -38,42 +33,31 @@ export function HeroSection({ dict }: HeroSectionProps) {
       />
 
       <div className="relative z-20 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 text-center pt-32 pb-20">
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          variants={{
-            hidden: {},
-            visible: { transition: { staggerChildren: 0.15 } },
-          }}
-        >
-          <motion.h1
-            className="font-serif text-[2.5rem] sm:text-[3.5rem] md:text-[4.5rem] lg:text-[5.5rem] leading-[1.05] tracking-tight text-white whitespace-pre-line"
-            variants={fadeUpVariants}
-            transition={{ duration: 0.8, ease: "easeOut" }}
+        <div>
+          <h1
+            className="enter-up font-serif text-[2.5rem] sm:text-[3.5rem] md:text-[4.5rem] lg:text-[5.5rem] leading-[1.05] tracking-tight text-white whitespace-pre-line"
+            style={{ "--enter-y": "30px", "--enter-duration": "0.8s", "--enter-delay": "0s" } as React.CSSProperties}
           >
             {hero.title}
-          </motion.h1>
+          </h1>
 
-          <motion.p
-            className="mt-6 md:mt-8 font-serif text-[1.5rem] sm:text-[2rem] md:text-[2.8rem] leading-[1.15] tracking-tight text-white/90"
-            variants={fadeUpVariants}
-            transition={{ duration: 0.7, ease: "easeOut" }}
+          <p
+            className="enter-up mt-6 md:mt-8 font-serif text-[1.5rem] sm:text-[2rem] md:text-[2.8rem] leading-[1.15] tracking-tight text-white/90"
+            style={{ "--enter-y": "30px", "--enter-duration": "0.7s", "--enter-delay": "0.15s" } as React.CSSProperties}
           >
             {hero.subtitle}
-          </motion.p>
+          </p>
 
-          <motion.p
-            className="mt-6 md:mt-8 text-base md:text-lg leading-relaxed text-white/60 max-w-[60ch] mx-auto"
-            variants={fadeUpVariants}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+          <p
+            className="enter-up mt-6 md:mt-8 text-base md:text-lg leading-relaxed text-white/60 max-w-[60ch] mx-auto"
+            style={{ "--enter-y": "30px", "--enter-duration": "0.6s", "--enter-delay": "0.3s" } as React.CSSProperties}
           >
             {hero.description}
-          </motion.p>
+          </p>
 
-          <motion.div
-            className="mt-8 md:mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center"
-            variants={fadeUpVariants}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+          <div
+            className="enter-up mt-8 md:mt-10 flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center"
+            style={{ "--enter-y": "30px", "--enter-duration": "0.6s", "--enter-delay": "0.45s" } as React.CSSProperties}
           >
             <a href="#pricing">
               <button className="group flex items-center gap-3 bg-[#21569c] hover:bg-[#21569c]/85 text-white px-7 py-3.5 rounded-xl font-medium text-sm transition-all duration-300 cursor-pointer">
@@ -86,8 +70,8 @@ export function HeroSection({ dict }: HeroSectionProps) {
                 {hero.secondaryCta}
               </button>
             </a>
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
 
         {/* Scroll indicator */}
         <motion.div
@@ -96,10 +80,7 @@ export function HeroSection({ dict }: HeroSectionProps) {
           animate={{ opacity: 1 }}
           transition={{ delay: 1.2, duration: 0.6 }}
         >
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-          >
+          <motion.div animate={{ y: [0, 8, 0] }} transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}>
             <ChevronDown className="h-6 w-6 text-white/30" />
           </motion.div>
         </motion.div>

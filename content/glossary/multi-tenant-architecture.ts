@@ -131,8 +131,14 @@ export const extras: Record<Locale, GlossaryExtra> = {
       "Viele verwechseln Multi-Tenancy mit reiner Mehrfachinstallation, obwohl der Kern darin liegt, eine gemeinsame Anwendung effizient für viele Mandanten zu betreiben.",
     ],
     sources: [
-      { title: "Microsoft Learn – Architektur für mandantenfähige Lösungen auf Azure", url: "https://learn.microsoft.com/azure/architecture/guide/multitenant/overview" },
-      { title: "Microsoft Learn – Leitfaden für mandantenfähige Architekturen", url: "https://learn.microsoft.com/azure/architecture/guide/multitenant/" },
+      {
+        title: "Microsoft Learn – Architektur für mandantenfähige Lösungen auf Azure",
+        url: "https://learn.microsoft.com/azure/architecture/guide/multitenant/overview",
+      },
+      {
+        title: "Microsoft Learn – Leitfaden für mandantenfähige Architekturen",
+        url: "https://learn.microsoft.com/azure/architecture/guide/multitenant/",
+      },
     ],
   },
   en: {
@@ -142,8 +148,14 @@ export const extras: Record<Locale, GlossaryExtra> = {
       "Many confuse multi-tenancy with simply running many separate installations, although its core is to operate one shared application efficiently for many tenants.",
     ],
     sources: [
-      { title: "Microsoft Learn – Architecting multitenant solutions on Azure", url: "https://learn.microsoft.com/azure/architecture/guide/multitenant/overview" },
-      { title: "Microsoft Learn – Multitenant architecture guidance", url: "https://learn.microsoft.com/azure/architecture/guide/multitenant/" },
+      {
+        title: "Microsoft Learn – Architecting multitenant solutions on Azure",
+        url: "https://learn.microsoft.com/azure/architecture/guide/multitenant/overview",
+      },
+      {
+        title: "Microsoft Learn – Multitenant architecture guidance",
+        url: "https://learn.microsoft.com/azure/architecture/guide/multitenant/",
+      },
     ],
   },
 }

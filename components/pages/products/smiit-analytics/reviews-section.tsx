@@ -4,12 +4,7 @@ import { useEffect, useState } from "react"
 import { Star, BadgeCheck, ExternalLink } from "lucide-react"
 import type { Locale, Dictionary } from "@/lib/dictionary"
 import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  type CarouselApi,
-} from "@/components/ui/carousel"
+import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel"
 
 interface ReviewItem {
   author: string
@@ -106,8 +101,7 @@ export function ReviewsSection({ dict, lang }: { dict: Dictionary; lang: Locale 
           className={`text-center mb-12 md:mb-16 reveal-fade-up ${headingRevealed ? "revealed" : ""}`}
         >
           <h2 className="font-serif text-[2rem] sm:text-[2.8rem] md:text-[3.4rem] leading-[1.1] tracking-tight text-black">
-            {reviews.heading.lead}{" "}
-            <span className="text-[#21569c]">{reviews.heading.highlight}</span>
+            {reviews.heading.lead} <span className="text-[#21569c]">{reviews.heading.highlight}</span>
           </h2>
           <div className="mt-5 flex flex-col items-center gap-2">
             <div className="flex items-center gap-2">
@@ -130,19 +124,11 @@ export function ReviewsSection({ dict, lang }: { dict: Dictionary; lang: Locale 
           </div>
         </div>
 
-        <div
-          ref={cardsRef}
-          className={`reveal-fade-up ${cardsRevealed ? "revealed" : ""}`}
-        >
+        <div ref={cardsRef} className={`reveal-fade-up ${cardsRevealed ? "revealed" : ""}`}>
           {/* >=1000px — static grid */}
           <div className="hidden grid-cols-3 gap-5 min-[1000px]:grid">
             {items.map((r) => (
-              <ReviewCard
-                key={r.author}
-                review={r}
-                verifiedBadge={reviews.verifiedBadge}
-                formatDate={formatDate}
-              />
+              <ReviewCard key={r.author} review={r} verifiedBadge={reviews.verifiedBadge} formatDate={formatDate} />
             ))}
           </div>
 
@@ -155,11 +141,7 @@ export function ReviewsSection({ dict, lang }: { dict: Dictionary; lang: Locale 
               <CarouselContent className="-ml-4">
                 {items.map((r) => (
                   <CarouselItem key={r.author} className="basis-full pl-4 sm:basis-1/2">
-                    <ReviewCard
-                      review={r}
-                      verifiedBadge={reviews.verifiedBadge}
-                      formatDate={formatDate}
-                    />
+                    <ReviewCard review={r} verifiedBadge={reviews.verifiedBadge} formatDate={formatDate} />
                   </CarouselItem>
                 ))}
               </CarouselContent>
@@ -189,9 +171,7 @@ export function ReviewsSection({ dict, lang }: { dict: Dictionary; lang: Locale 
           </div>
         </div>
 
-        {reviews.translatedNote && (
-          <p className="mt-8 text-center text-xs text-black/40">{reviews.translatedNote}</p>
-        )}
+        {reviews.translatedNote && <p className="mt-8 text-center text-xs text-black/40">{reviews.translatedNote}</p>}
       </div>
     </section>
   )

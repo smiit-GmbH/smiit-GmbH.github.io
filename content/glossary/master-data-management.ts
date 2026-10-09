@@ -142,7 +142,10 @@ export const extras: Record<Locale, GlossaryExtra> = {
     ],
     sources: [
       { title: "DAMA International – Master Data Management (DMBOK)", url: "https://www.dama.org/" },
-      { title: "Microsoft Learn – SQL Server Master Data Services (MDS)", url: "https://learn.microsoft.com/sql/master-data-services/" },
+      {
+        title: "Microsoft Learn – SQL Server Master Data Services (MDS)",
+        url: "https://learn.microsoft.com/sql/master-data-services/",
+      },
     ],
   },
   en: {
@@ -153,7 +156,10 @@ export const extras: Record<Locale, GlossaryExtra> = {
     ],
     sources: [
       { title: "DAMA International – Master Data Management (DMBOK)", url: "https://www.dama.org/" },
-      { title: "Microsoft Learn – SQL Server Master Data Services (MDS)", url: "https://learn.microsoft.com/sql/master-data-services/" },
+      {
+        title: "Microsoft Learn – SQL Server Master Data Services (MDS)",
+        url: "https://learn.microsoft.com/sql/master-data-services/",
+      },
     ],
   },
 }

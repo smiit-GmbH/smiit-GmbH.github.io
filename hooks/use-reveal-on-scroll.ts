@@ -31,7 +31,7 @@ export function useRevealOnScroll(options?: { margin?: string; threshold?: numbe
       {
         rootMargin: options?.margin ?? "-80px",
         threshold: options?.threshold ?? 0,
-      }
+      },
     )
 
     observer.observe(node)

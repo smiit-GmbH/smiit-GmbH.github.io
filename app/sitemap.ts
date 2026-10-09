@@ -44,24 +44,20 @@ const routes: Route[] = [
   { path: "website", priority: 0.9, changeFrequency: "monthly" },
   { path: "products/smiit-analytics", priority: 0.9, changeFrequency: "monthly" },
   { path: "case-studies", priority: 0.6, changeFrequency: "monthly", lastModified: latestCaseStudyDate },
-  ...caseStudySlugs.map(
-    (slug): Route => ({
-      path: `case-studies/${slug}`,
-      priority: 0.5,
-      changeFrequency: "monthly",
-      lastModified: getCaseStudy(slug, "de")?.datePublished,
-    }),
-  ),
+  ...caseStudySlugs.map((slug): Route => ({
+    path: `case-studies/${slug}`,
+    priority: 0.5,
+    changeFrequency: "monthly",
+    lastModified: getCaseStudy(slug, "de")?.datePublished,
+  })),
   { path: "blog", priority: 0.6, changeFrequency: "monthly", lastModified: latestBlogDate },
   { path: "glossary", priority: 0.6, changeFrequency: "monthly", lastModified: latestGlossaryDate },
-  ...glossaryTermSlugs.map(
-    (slug): Route => ({
-      path: `glossary/${slug}`,
-      priority: 0.5,
-      changeFrequency: "monthly",
-      lastModified: getGlossaryTerm(slug, "de")?.dateModified,
-    }),
-  ),
+  ...glossaryTermSlugs.map((slug): Route => ({
+    path: `glossary/${slug}`,
+    priority: 0.5,
+    changeFrequency: "monthly",
+    lastModified: getGlossaryTerm(slug, "de")?.dateModified,
+  })),
   { path: "legal-notice", priority: 0.2, changeFrequency: "yearly" },
   { path: "privacy", priority: 0.2, changeFrequency: "yearly" },
 ]

@@ -4,13 +4,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { ArrowRight } from "lucide-react"
 import type { Locale } from "@/lib/dictionary"
-import {
-  blogCategoryMeta,
-  getBlogUi,
-  getReadingMinutes,
-  listBlogPosts,
-  type BlogPostContent,
-} from "@/lib/blog"
+import { blogCategoryMeta, getBlogUi, type BlogPostSummary } from "@/lib/blog-meta"
 import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
 
 function cx(...classes: Array<string | false | null | undefined>) {
@@ -22,7 +16,7 @@ function TimelineEntry({
   lang,
   showYear,
 }: {
-  post: BlogPostContent
+  post: BlogPostSummary
   lang: Locale
   showYear: boolean
 }) {
@@ -30,7 +24,7 @@ function TimelineEntry({
   const [revealRef, revealed] = useRevealOnScroll({ margin: "-80px" })
   const meta = blogCategoryMeta[post.category]
   const href = `/${lang}/blog/${post.slug}`
-  const minutes = getReadingMinutes(post)
+  const minutes = post.minutes
   const d = new Date(post.datePublished)
   const dayMonth = new Intl.DateTimeFormat(lang === "de" ? "de-DE" : "en-US", {
     day: "numeric",
@@ -156,10 +150,8 @@ function TimelineEntry({
   )
 }
 
-export default function BlogIndexPage({ lang }: { lang: Locale }) {
+export default function BlogIndexPage({ lang, posts }: { lang: Locale; posts: BlogPostSummary[] }) {
   const ui = getBlogUi(lang)
-  const posts = listBlogPosts(lang)
-  const [headingRef, headingRevealed] = useRevealOnScroll()
   const articlesWord = lang === "de" ? "Artikel" : posts.length === 1 ? "article" : "articles"
 
   return (
@@ -167,8 +159,7 @@ export default function BlogIndexPage({ lang }: { lang: Locale }) {
       <section className="relative overflow-hidden">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <div
-            ref={headingRef}
-            className={cx("max-w-[88ch] reveal-fade-up", headingRevealed && "revealed")}
+            className="max-w-[88ch] hero-fade-up"
           >
             <span className="section-eyebrow">{ui.eyebrow}</span>
             <h1 className="mt-4 max-w-[28ch] font-serif text-[2.8rem] sm:text-[3.4rem] md:text-[4rem] leading-[1.02] tracking-tight text-[#0B162D]">

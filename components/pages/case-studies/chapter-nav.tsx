@@ -45,9 +45,7 @@ export default function ChapterNav({
   const startYRef = useRef(0)
 
   useEffect(() => {
-    const els = items
-      .map((item) => document.getElementById(item.id))
-      .filter((el): el is HTMLElement => el !== null)
+    const els = items.map((item) => document.getElementById(item.id)).filter((el): el is HTMLElement => el !== null)
     if (els.length === 0) return
 
     // Position-based scrollspy: the active section is the last heading whose top

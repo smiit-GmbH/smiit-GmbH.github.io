@@ -33,15 +33,32 @@ const azureDatabricks: LocalizedGlossaryTerm = {
       },
     ],
     faq: [
-      { question: "Was ist der Unterschied zwischen Azure Databricks und Microsoft Fabric?", answer: "Azure Databricks ist auf leistungsstarkes Data Engineering, große Datenmengen und Data Science spezialisiert. Microsoft Fabric ist eine breitere, integrierte Plattform mit enger Power-BI-Anbindung. Beide nutzen Lakehouse-Konzepte und können kombiniert werden." },
-      { question: "Braucht man für Azure Databricks Programmierkenntnisse?", answer: "Für anspruchsvolle Pipelines sind Kenntnisse in Sprachen wie Python, SQL oder Scala hilfreich. smiit bringt diese Expertise ein, sodass Unternehmen die Plattform nutzen können, ohne selbst tiefes Spark-Know-how aufbauen zu müssen." },
-      { question: "Was ist Delta Lake im Zusammenhang mit Azure Databricks?", answer: "Delta Lake ist ein offenes Tabellenformat, das einem Lakehouse Transaktionssicherheit, Versionierung und gute Abfrageleistung verleiht. Es bildet die Speichergrundlage, auf der in Databricks zuverlässige Datenpipelines und eine Medallion-Architektur aufgebaut werden." },
-      { question: "Wie wirkt sich die Skalierung in Azure Databricks auf die Kosten aus?", answer: "Die Rechencluster werden bedarfsgesteuert hoch- und heruntergefahren, sodass nur die tatsächlich genutzte Rechenzeit anfällt. Cluster, die sich bei Inaktivität automatisch beenden, und passend dimensionierte Cluster sind die wichtigsten Hebel, um die Kosten kontrollierbar zu halten." },
+      {
+        question: "Was ist der Unterschied zwischen Azure Databricks und Microsoft Fabric?",
+        answer:
+          "Azure Databricks ist auf leistungsstarkes Data Engineering, große Datenmengen und Data Science spezialisiert. Microsoft Fabric ist eine breitere, integrierte Plattform mit enger Power-BI-Anbindung. Beide nutzen Lakehouse-Konzepte und können kombiniert werden.",
+      },
+      {
+        question: "Braucht man für Azure Databricks Programmierkenntnisse?",
+        answer:
+          "Für anspruchsvolle Pipelines sind Kenntnisse in Sprachen wie Python, SQL oder Scala hilfreich. smiit bringt diese Expertise ein, sodass Unternehmen die Plattform nutzen können, ohne selbst tiefes Spark-Know-how aufbauen zu müssen.",
+      },
+      {
+        question: "Was ist Delta Lake im Zusammenhang mit Azure Databricks?",
+        answer:
+          "Delta Lake ist ein offenes Tabellenformat, das einem Lakehouse Transaktionssicherheit, Versionierung und gute Abfrageleistung verleiht. Es bildet die Speichergrundlage, auf der in Databricks zuverlässige Datenpipelines und eine Medallion-Architektur aufgebaut werden.",
+      },
+      {
+        question: "Wie wirkt sich die Skalierung in Azure Databricks auf die Kosten aus?",
+        answer:
+          "Die Rechencluster werden bedarfsgesteuert hoch- und heruntergefahren, sodass nur die tatsächlich genutzte Rechenzeit anfällt. Cluster, die sich bei Inaktivität automatisch beenden, und passend dimensionierte Cluster sind die wichtigsten Hebel, um die Kosten kontrollierbar zu halten.",
+      },
     ],
     relatedServicePath: "services/analytics",
     relatedCaseStudySlug: "dy-project-ag",
     metaTitle: "Azure Databricks: Definition, Nutzen & Praxis | smiit Glossar",
-    metaDescription: "Azure Databricks einfach erklärt: Definition, Funktionsweise, Anwendungsfälle und Abgrenzung zu Microsoft Fabric und Power BI – mit Praxisbezug von smiit.",
+    metaDescription:
+      "Azure Databricks einfach erklärt: Definition, Funktionsweise, Anwendungsfälle und Abgrenzung zu Microsoft Fabric und Power BI – mit Praxisbezug von smiit.",
   },
   en: {
     slug: "azure-databricks",
@@ -74,15 +91,32 @@ const azureDatabricks: LocalizedGlossaryTerm = {
       },
     ],
     faq: [
-      { question: "What is the difference between Azure Databricks and Microsoft Fabric?", answer: "Azure Databricks is specialized in powerful data engineering, large data volumes and data science. Microsoft Fabric is a broader, integrated platform with tight Power BI integration. Both use lakehouse concepts and can be combined." },
-      { question: "Do you need programming skills for Azure Databricks?", answer: "For demanding pipelines, knowledge of languages such as Python, SQL or Scala is helpful. smiit contributes this expertise so companies can use the platform without having to build deep Spark know-how themselves." },
-      { question: "What is Delta Lake in the context of Azure Databricks?", answer: "Delta Lake is an open table format that gives a lakehouse transactional safety, versioning and good query performance. It forms the storage foundation on which reliable data pipelines and a medallion architecture are built in Databricks." },
-      { question: "How does scaling in Azure Databricks affect costs?", answer: "The compute clusters scale up and down on demand, so only the compute time actually used is billed. Clusters that shut down automatically when idle, together with appropriately sized clusters, are the main levers for keeping costs controllable." },
+      {
+        question: "What is the difference between Azure Databricks and Microsoft Fabric?",
+        answer:
+          "Azure Databricks is specialized in powerful data engineering, large data volumes and data science. Microsoft Fabric is a broader, integrated platform with tight Power BI integration. Both use lakehouse concepts and can be combined.",
+      },
+      {
+        question: "Do you need programming skills for Azure Databricks?",
+        answer:
+          "For demanding pipelines, knowledge of languages such as Python, SQL or Scala is helpful. smiit contributes this expertise so companies can use the platform without having to build deep Spark know-how themselves.",
+      },
+      {
+        question: "What is Delta Lake in the context of Azure Databricks?",
+        answer:
+          "Delta Lake is an open table format that gives a lakehouse transactional safety, versioning and good query performance. It forms the storage foundation on which reliable data pipelines and a medallion architecture are built in Databricks.",
+      },
+      {
+        question: "How does scaling in Azure Databricks affect costs?",
+        answer:
+          "The compute clusters scale up and down on demand, so only the compute time actually used is billed. Clusters that shut down automatically when idle, together with appropriately sized clusters, are the main levers for keeping costs controllable.",
+      },
     ],
     relatedServicePath: "services/analytics",
     relatedCaseStudySlug: "dy-project-ag",
     metaTitle: "Azure Databricks: definition & practice | smiit glossary",
-    metaDescription: "Azure Databricks explained simply: definition, how it works, use cases and how it differs from Microsoft Fabric and Power BI – with practical insight from smiit.",
+    metaDescription:
+      "Azure Databricks explained simply: definition, how it works, use cases and how it differs from Microsoft Fabric and Power BI – with practical insight from smiit.",
   },
 }
 
@@ -97,7 +131,10 @@ export const extras: Record<Locale, GlossaryExtra> = {
       "Ein verbreiteter Irrtum ist, dass Cluster dauerhaft laufen müssen. Ohne Auto-Termination und passende Dimensionierung entstehen schnell unnötig hohe Kosten.",
     ],
     sources: [
-      { title: "Microsoft Learn – Azure Databricks Dokumentation", url: "https://learn.microsoft.com/azure/databricks/" },
+      {
+        title: "Microsoft Learn – Azure Databricks Dokumentation",
+        url: "https://learn.microsoft.com/azure/databricks/",
+      },
       { title: "Delta Lake – Offene Speicherschicht", url: "https://delta.io/" },
     ],
   },
@@ -108,7 +145,10 @@ export const extras: Record<Locale, GlossaryExtra> = {
       "A common error is to assume clusters must run permanently. Without auto-termination and right-sizing, costs quickly become unnecessarily high.",
     ],
     sources: [
-      { title: "Microsoft Learn – Azure Databricks documentation", url: "https://learn.microsoft.com/azure/databricks/" },
+      {
+        title: "Microsoft Learn – Azure Databricks documentation",
+        url: "https://learn.microsoft.com/azure/databricks/",
+      },
       { title: "Delta Lake – Open storage layer", url: "https://delta.io/" },
     ],
   },

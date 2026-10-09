@@ -24,7 +24,6 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
           caseStudies: "Case Studies",
           glossary: "Glossar",
           blog: "Blog",
-          products: "Produkte",
           contactSection: "Kontakt",
           rights: "Alle Rechte vorbehalten.",
           privacy: "Datenschutzerklärung",
@@ -50,7 +49,6 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
           caseStudies: "Case Studies",
           glossary: "Glossary",
           blog: "Blog",
-          products: "Our Products",
           contactSection: "Contact",
           rights: "All rights reserved.",
           privacy: "Privacy Policy",
@@ -103,9 +101,7 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
               </div>
             </div>
 
-            <p className="text-sm sm:text-md text-black leading-relaxed max-w-sm">
-              {L.companyBlurb}
-            </p>
+            <p className="text-sm sm:text-md text-black leading-relaxed max-w-sm">{L.companyBlurb}</p>
           </div>
 
           <div className="space-y-4">
@@ -152,31 +148,6 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
                   {L.glossary}
                 </Link>
               </li>
-              {/* <li>
-                <Link href={productsHref} className="text-sm text-gray-700 hover:text-black transition-colors">
-                  {L.products}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href={`https://grab.smiit.de/${lang}/`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-gray-700 hover:text-black transition-colors"
-                >
-                  Sebastian Grab
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href={`https://nesslauer.smiit.de/${lang}/`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-gray-700 hover:text-black transition-colors"
-                >
-                  Noah Neßlauer
-                </Link>
-              </li> */}
             </ul>
           </div>
 
@@ -185,10 +156,7 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
             <ul className="space-y-3 md:space-y-3">
               <li className="flex items-center gap-2 text-sm text-gray-700">
                 <Mail className="h-4 w-4 flex-shrink-0" />
-                <a
-                  href={`mailto:${L.emailValue}`}
-                  className="hover:text-black transition-colors"
-                >
+                <a href={`mailto:${L.emailValue}`} className="hover:text-black transition-colors">
                   {L.emailValue}
                 </a>
               </li>
@@ -215,7 +183,9 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
         </div>
 
         <div className="pt-4 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-gray-700">© {new Date().getFullYear()} {L.companyName}. {L.rights}</p>
+          <p className="text-sm text-gray-700">
+            © {new Date().getFullYear()} {L.companyName}. {L.rights}
+          </p>
           <div className="flex flex-wrap gap-6 md:flex-nowrap justify-center md:justify-start w-full md:w-auto">
             <Link href={imprintHref} className="text-sm text-gray-700 hover:text-black transition-colors">
               {L.imprint}
@@ -236,4 +206,3 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
     </footer>
   )
 }
-

@@ -17,13 +17,10 @@ export function useActiveInView(options?: { margin?: string; threshold?: number 
   useEffect(() => {
     if (!node) return
 
-    const observer = new IntersectionObserver(
-      ([entry]) => setInView(entry.isIntersecting),
-      {
-        rootMargin: options?.margin ?? "0px",
-        threshold: options?.threshold ?? 0,
-      }
-    )
+    const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), {
+      rootMargin: options?.margin ?? "0px",
+      threshold: options?.threshold ?? 0,
+    })
 
     observer.observe(node)
     return () => observer.disconnect()

@@ -177,7 +177,10 @@ export const extras: Record<Locale, GlossaryExtra> = {
       "Es wird häufig angenommen, dass Tests eine eigene Phase ganz am Ende sind, während Qualitätssicherung in modernen Ansätzen über den gesamten Zyklus hinweg stattfindet.",
     ],
     sources: [
-      { title: "NIST – Secure Software Development Framework (SSDF, SP 800-218)", url: "https://csrc.nist.gov/projects/ssdf" },
+      {
+        title: "NIST – Secure Software Development Framework (SSDF, SP 800-218)",
+        url: "https://csrc.nist.gov/projects/ssdf",
+      },
       { title: "OWASP SAMM – Software Assurance Maturity Model", url: "https://owaspsamm.org/" },
     ],
   },
@@ -188,7 +191,10 @@ export const extras: Record<Locale, GlossaryExtra> = {
       "It is frequently assumed that testing is a single phase at the very end, whereas in modern approaches quality assurance happens throughout the whole cycle.",
     ],
     sources: [
-      { title: "NIST – Secure Software Development Framework (SSDF, SP 800-218)", url: "https://csrc.nist.gov/projects/ssdf" },
+      {
+        title: "NIST – Secure Software Development Framework (SSDF, SP 800-218)",
+        url: "https://csrc.nist.gov/projects/ssdf",
+      },
       { title: "OWASP SAMM – Software Assurance Maturity Model", url: "https://owaspsamm.org/" },
     ],
   },

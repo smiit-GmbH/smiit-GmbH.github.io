@@ -15,9 +15,7 @@ export function ProcessSection({ dict }: ProcessSectionProps) {
   const [ctaSectionRef, ctaSectionRevealed] = useRevealOnScroll()
 
   return (
-    <section
-      className="relative py-20 md:py-28"
-    >
+    <section className="relative py-20 md:py-28">
       <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div
@@ -30,28 +28,19 @@ export function ProcessSection({ dict }: ProcessSectionProps) {
         </div>
 
         {/* Steps grid */}
-        <div
-          ref={stepsRef}
-          className="grid grid-cols-1 md:grid-cols-2 gap-5"
-        >
-          {process.steps.map(
-            (step: { number: string; title: string; text: string }, idx: number) => (
-              <div
-                key={idx}
-                className={`p-8 md:p-10 bg-white rounded-[1.75rem] shadow-[0_10px_30px_rgba(0,0,0,0.06)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.1)] transition-all duration-300 hover:scale-[1.02] hover:-translate-y-0.5 reveal-fade-up reveal-delay-${idx + 1} ${stepsRevealed ? "revealed" : ""}`}
-              >
-                <span className="text-[2.5rem] md:text-[3rem] font-serif leading-none text-[#F703EB]/40">
-                  {step.number}
-                </span>
-                <h3 className="mt-3 text-lg md:text-xl font-semibold text-black">
-                  {step.title}
-                </h3>
-                <p className="mt-3 text-sm leading-relaxed text-black/55">
-                  {step.text}
-                </p>
-              </div>
-            )
-          )}
+        <div ref={stepsRef} className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {process.steps.map((step: { number: string; title: string; text: string }, idx: number) => (
+            <div
+              key={idx}
+              className={`p-8 md:p-10 bg-white rounded-[1.75rem] shadow-[0_10px_30px_rgba(0,0,0,0.06)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.1)] transition-all duration-300 hover:scale-[1.02] hover:-translate-y-0.5 reveal-fade-up reveal-delay-${idx + 1} ${stepsRevealed ? "revealed" : ""}`}
+            >
+              <span className="text-[2.5rem] md:text-[3rem] font-serif leading-none text-[#F703EB]/40">
+                {step.number}
+              </span>
+              <h3 className="mt-3 text-lg md:text-xl font-semibold text-black">{step.title}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-black/55">{step.text}</p>
+            </div>
+          ))}
         </div>
 
         <div

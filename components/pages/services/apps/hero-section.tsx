@@ -1,19 +1,9 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useRef, useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import {
-  animate,
-  cubicBezier,
-  motion,
-  useMotionValue,
-  useReducedMotion,
-  useScroll,
-  useSpring,
-  useTransform,
-  type MotionStyle,
-} from "framer-motion"
+import { cubicBezier, motion, useReducedMotion, useScroll, useTransform } from "framer-motion"
 import { useActiveInView } from "@/hooks/use-active-in-view"
 import {
   ArrowRight,
@@ -29,608 +19,15 @@ import {
   Users,
 } from "lucide-react"
 import type { Locale, Dictionary } from "@/lib/dictionary"
+import { ViewKey, DATASETS } from "./hero/data"
+import { ClarityModule, ProfitModule, AiModule, SpeedModule } from "./hero/modules"
+import { buildHeroCopy } from "./hero/copy"
+import { cx, HeroPackages, MagneticCta, dashboardChildVariants } from "@/components/pages/services/shared/hero-kit"
 
 interface HeroSectionProps {
   lang: Locale
   dict: Dictionary
 }
-
-type AppsHero = Omit<Dictionary["servicesAnalytics"]["hero"], keyof Dictionary["servicesApps"]["hero"]> &
-  Dictionary["servicesApps"]["hero"]
-
-function cx(...classes: Array<string | false | null | undefined>) {
-  return classes.filter(Boolean).join(" ")
-}
-
-function HeroPackages({ hero, align = "left" }: { hero: AppsHero; align?: "left" | "center" }) {
-  const packages = (hero?.packages ?? []) as string[]
-  if (packages.length === 0) return null
-
-  return (
-    <div className={cx("mt-5", align === "center" && "mx-auto max-w-[640px]")}>
-      {hero?.packagesLabel && (
-        <p className={cx("text-[0.68rem] font-semibold uppercase tracking-[0.18em] text-[#F703EB]", align === "center" && "text-center")}>
-          {hero.packagesLabel}
-        </p>
-      )}
-      <ul className={cx("mt-2.5 flex flex-wrap gap-2", align === "center" ? "justify-center" : "justify-start")}>
-        {packages.map((item) => (
-          <li
-            key={item}
-            className="rounded-full border border-[#F703EB]/15 bg-[#F703EB]/[0.06] px-3 py-1.5 text-[0.76rem] font-medium leading-tight text-[#0B162D]/78"
-          >
-            {item}
-          </li>
-        ))}
-      </ul>
-    </div>
-  )
-}
-
-// ---------- Datasets ----------
-type ViewKey = "today" | "week" | "month"
-type Priority = "high" | "med" | "low"
-
-interface StatValue {
-  to: number
-  suffix?: string
-  decimals?: number
-  bar: number
-  delta: string
-}
-
-interface PipelineCol {
-  key: "incoming" | "active" | "done"
-  count: number
-  items: { name: string; amount: string }[]
-}
-
-interface ActivityVisual {
-  initials: string
-  color: string
-}
-
-interface TaskVisual {
-  priority: Priority
-}
-
-interface Dataset {
-  stats: {
-    orders: StatValue
-    customers: StatValue
-    tasks: StatValue
-    revenue: StatValue
-  }
-  pipelineTotal: number
-  pipeline: PipelineCol[]
-  activityVisuals: ActivityVisual[]
-  taskVisuals: TaskVisual[]
-}
-
-const DATASETS: Record<ViewKey, Dataset> = {
-  today: {
-    stats: {
-      orders: { to: 12, bar: 48, delta: "+3" },
-      customers: { to: 47, bar: 62, delta: "+5" },
-      tasks: { to: 8, bar: 32, delta: "-2" },
-      revenue: { to: 8.4, decimals: 1, suffix: " k €", bar: 56, delta: "+12 %" },
-    },
-    pipelineTotal: 12,
-    pipeline: [
-      {
-        key: "incoming",
-        count: 4,
-        items: [
-          { name: "Müller GmbH", amount: "1.240 €" },
-          { name: "Schmidt AG", amount: "890 €" },
-          { name: "Klein KG", amount: "2.450 €" },
-        ],
-      },
-      {
-        key: "active",
-        count: 3,
-        items: [
-          { name: "Weber KG", amount: "2.100 €" },
-          { name: "Becker e.K.", amount: "560 €" },
-        ],
-      },
-      {
-        key: "done",
-        count: 5,
-        items: [
-          { name: "Fischer GmbH", amount: "3.480 €" },
-          { name: "Lehmann AG", amount: "720 €" },
-        ],
-      },
-    ],
-    activityVisuals: [
-      { initials: "JM", color: "#F703EB" },
-      { initials: "AS", color: "#475569" },
-      { initials: "TW", color: "#94A3B8" },
-      { initials: "MB", color: "#0B162D" },
-    ],
-    taskVisuals: [
-      { priority: "high" },
-      { priority: "high" },
-      { priority: "med" },
-      { priority: "low" },
-    ],
-  },
-  week: {
-    stats: {
-      orders: { to: 87, bar: 68, delta: "+12" },
-      customers: { to: 124, bar: 78, delta: "+18" },
-      tasks: { to: 23, bar: 52, delta: "+4" },
-      revenue: { to: 62, suffix: " k €", bar: 64, delta: "+8 %" },
-    },
-    pipelineTotal: 64,
-    pipeline: [
-      {
-        key: "incoming",
-        count: 18,
-        items: [
-          { name: "Klein KG", amount: "2.450 €" },
-          { name: "Walter GmbH", amount: "5.120 €" },
-          { name: "Hofmann AG", amount: "880 €" },
-        ],
-      },
-      {
-        key: "active",
-        count: 14,
-        items: [
-          { name: "Bauer e.K.", amount: "3.700 €" },
-          { name: "Voss GmbH", amount: "1.180 €" },
-        ],
-      },
-      {
-        key: "done",
-        count: 32,
-        items: [
-          { name: "Roth KG", amount: "4.640 €" },
-          { name: "Krüger AG", amount: "1.290 €" },
-        ],
-      },
-    ],
-    activityVisuals: [
-      { initials: "JM", color: "#F703EB" },
-      { initials: "SV", color: "#475569" },
-      { initials: "AS", color: "#94A3B8" },
-      { initials: "MB", color: "#0B162D" },
-    ],
-    taskVisuals: [
-      { priority: "high" },
-      { priority: "high" },
-      { priority: "med" },
-      { priority: "low" },
-    ],
-  },
-  month: {
-    stats: {
-      orders: { to: 342, bar: 84, delta: "+47" },
-      customers: { to: 287, bar: 88, delta: "+34" },
-      tasks: { to: 47, bar: 60, delta: "+8" },
-      revenue: { to: 245, suffix: " k €", bar: 76, delta: "+14 %" },
-    },
-    pipelineTotal: 248,
-    pipeline: [
-      {
-        key: "incoming",
-        count: 64,
-        items: [
-          { name: "Walter GmbH", amount: "5.120 €" },
-          { name: "Schäfer AG", amount: "8.300 €" },
-          { name: "Hofmann e.K.", amount: "1.640 €" },
-        ],
-      },
-      {
-        key: "active",
-        count: 52,
-        items: [
-          { name: "Bauer KG", amount: "3.700 €" },
-          { name: "Roth GmbH", amount: "12.400 €" },
-        ],
-      },
-      {
-        key: "done",
-        count: 132,
-        items: [
-          { name: "Krüger AG", amount: "4.640 €" },
-          { name: "Lange GmbH", amount: "2.890 €" },
-        ],
-      },
-    ],
-    activityVisuals: [
-      { initials: "JM", color: "#F703EB" },
-      { initials: "SV", color: "#475569" },
-      { initials: "AS", color: "#94A3B8" },
-      { initials: "MB", color: "#0B162D" },
-    ],
-    taskVisuals: [
-      { priority: "high" },
-      { priority: "high" },
-      { priority: "med" },
-      { priority: "low" },
-    ],
-  },
-}
-
-// ---------- CountUp ----------
-
-function formatNumber(value: number, decimals = 0, lang: Locale = "de"): string {
-  const fixed = decimals > 0 ? value.toFixed(decimals) : Math.round(value).toString()
-  return decimals > 0 && lang === "de" ? fixed.replace(".", ",") : fixed
-}
-
-function CountUp({
-  to,
-  decimals = 0,
-  suffix = "",
-  prefix = "",
-  className,
-  reduceMotion,
-  lang = "de",
-}: {
-  to: number
-  decimals?: number
-  suffix?: string
-  prefix?: string
-  className?: string
-  reduceMotion?: boolean | null
-  lang?: Locale
-}) {
-  const value = useMotionValue(reduceMotion ? to : 0)
-  const [display, setDisplay] = useState(formatNumber(reduceMotion ? to : 0, decimals, lang))
-
-  useEffect(() => {
-    if (reduceMotion) {
-      value.set(to)
-      // eslint-disable-next-line react-hooks/set-state-in-effect -- keeps the rendered number in sync with the framer-motion value when the count-up is skipped
-      setDisplay(formatNumber(to, decimals, lang))
-      return
-    }
-    const controls = animate(value, to, { duration: 0.9, ease: [0.22, 1, 0.36, 1] })
-    const unsub = value.on("change", (v) => setDisplay(formatNumber(v, decimals, lang)))
-    return () => {
-      controls.stop()
-      unsub()
-    }
-  }, [to, decimals, reduceMotion, value, lang])
-
-  return (
-    <span className={className}>
-      {prefix}
-      {display}
-      {suffix}
-    </span>
-  )
-}
-
-// ---------- Magnetic CTA ----------
-
-function MagneticCta({ href, children, className }: { href: string; children: React.ReactNode; className?: string }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const shouldReduceMotion = useReducedMotion()
-  const mvX = useMotionValue(0)
-  const mvY = useMotionValue(0)
-  const x = useSpring(mvX, { stiffness: 240, damping: 18, mass: 0.4 })
-  const y = useSpring(mvY, { stiffness: 240, damping: 18, mass: 0.4 })
-
-  const handleMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (shouldReduceMotion) return
-    const el = ref.current
-    if (!el) return
-    const rect = el.getBoundingClientRect()
-    const offsetX = e.clientX - (rect.left + rect.width / 2)
-    const offsetY = e.clientY - (rect.top + rect.height / 2)
-    const max = 8
-    mvX.set(Math.max(-max, Math.min(max, offsetX * 0.3)))
-    mvY.set(Math.max(-max, Math.min(max, offsetY * 0.3)))
-  }
-  const handleLeave = () => {
-    mvX.set(0)
-    mvY.set(0)
-  }
-
-  return (
-    <motion.div
-      ref={ref}
-      onMouseMove={handleMove}
-      onMouseLeave={handleLeave}
-      style={shouldReduceMotion ? undefined : { x, y }}
-      className="inline-block"
-    >
-      <Link href={href} className={className}>
-        {children}
-      </Link>
-    </motion.div>
-  )
-}
-
-// ---------- Module Renderers ----------
-
-// Stats (4 KPI cards)
-function ClarityModule({
-  t,
-  data,
-  reduceMotion,
-  mobileEmphasis = false,
-  lang,
-}: {
-  t: HeroCopy
-  data: Dataset
-  reduceMotion: boolean | null
-  mobileEmphasis?: boolean
-  lang: Locale
-}) {
-  const items = [
-    { key: "orders", label: t.statLabels?.orders, kpi: data.stats.orders, deltaLabel: t.statDeltas?.orders },
-    { key: "customers", label: t.statLabels?.customers, kpi: data.stats.customers, deltaLabel: t.statDeltas?.customers },
-    { key: "tasks", label: t.statLabels?.tasks, kpi: data.stats.tasks, deltaLabel: t.statDeltas?.tasks },
-    { key: "revenue", label: t.statLabels?.revenue, kpi: data.stats.revenue, deltaLabel: t.statDeltas?.revenue },
-  ]
-  return (
-    <div className="overflow-hidden rounded-[18px]">
-      <div className="p-3">
-        <p className="text-[0.72rem] font-semibold text-[#0B162D]">{t.sections?.stats}</p>
-        <div className="mt-2.5 grid grid-cols-2 gap-2 sm:grid-cols-4">
-          {items.map((item, i) => (
-            <motion.div
-              key={item.key}
-              whileHover={reduceMotion ? undefined : { y: -2 }}
-              whileTap={mobileEmphasis && !reduceMotion ? { scale: 0.97 } : undefined}
-              transition={{ type: "spring", stiffness: 320, damping: 22 }}
-              className="group relative rounded-[14px] bg-[#FEF8FE] p-2.5"
-            >
-              <p className="break-words text-[0.5rem] font-medium uppercase leading-tight tracking-[0.08em] text-[#0B162D]/40">{item.label}</p>
-              <p className="mt-1.5 text-[0.82rem] font-semibold text-[#0B162D] sm:text-[0.86rem]">
-                <CountUp
-                  to={item.kpi.to}
-                  decimals={item.kpi.decimals ?? 0}
-                  suffix={item.kpi.suffix ?? ""}
-                  reduceMotion={reduceMotion}
-                  lang={lang}
-                />
-              </p>
-              <div className="mt-2 h-1 overflow-hidden rounded-full bg-slate-100">
-                <motion.div
-                  initial={{ width: 0 }}
-                  animate={{ width: `${item.kpi.bar}%` }}
-                  transition={{ duration: 1.0, delay: 0.5 + i * 0.12, ease: "easeOut" }}
-                  className="h-full rounded-full bg-gradient-to-r from-[#F703EB] to-[#FA85F4]"
-                />
-              </div>
-              <div className="pointer-events-none absolute -top-1.5 right-2 translate-y-1 opacity-0 transition-all duration-200 group-hover:translate-y-0 group-hover:opacity-100">
-                <span className="inline-flex items-center gap-1 rounded-full bg-[#0B162D] px-2 py-0.5 text-[0.5rem] font-semibold text-white shadow-md">
-                  {item.kpi.delta}
-                  {item.deltaLabel ? <span className="font-normal text-white/60">· {item.deltaLabel}</span> : null}
-                </span>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-      </div>
-    </div>
-  )
-}
-
-// Pipeline kanban (3 columns)
-function ProfitModule({
-  t,
-  data,
-}: {
-  t: HeroCopy
-  data: Dataset
-  mobileEmphasis?: boolean
-}) {
-  return (
-    <div className="flex h-full flex-col overflow-hidden rounded-[18px] p-2">
-      <div className="flex shrink-0 items-center justify-between">
-        <div className="text-left">
-          <p className="text-[0.72rem] font-semibold text-[#0B162D]">{t.sections?.pipeline}</p>
-          <p className="mt-0.5 text-[0.58rem] text-[#0B162D]/50">{t.sections?.pipelineSub}</p>
-        </div>
-        <div className="rounded-[14px] border border-slate-200/80 bg-[#FEF8FE] px-2.5 py-2 text-right">
-          <div className="flex items-baseline gap-1 text-[#F703EB]">
-            <span className="text-[0.95rem] font-semibold">{data.pipelineTotal}</span>
-            <span className="text-[0.5rem] uppercase tracking-wider text-[#F703EB]/60">{t.activeBadge}</span>
-          </div>
-        </div>
-      </div>
-
-      <div className="mt-2 flex min-h-0 flex-1 flex-col rounded-[16px] border border-slate-200/80 bg-[#FEF8FE] p-2">
-        <div className="grid h-full grid-cols-3 gap-1.5">
-          {data.pipeline.map((col, ci) => (
-            <div key={col.key} className="flex min-h-0 flex-col">
-              <div className="mb-1 flex shrink-0 items-center justify-between">
-                <span className="text-[0.55rem] font-semibold uppercase tracking-wider text-[#0B162D]/55">
-                  {t.pipelineColumns?.[col.key]}
-                </span>
-                <span className="rounded-full bg-white/80 px-1.5 py-0.5 text-[0.5rem] font-mono font-bold text-[#0B162D]/60">
-                  {col.count}
-                </span>
-              </div>
-              <div className="flex min-h-0 flex-1 flex-col gap-1 overflow-hidden">
-                {col.items.map((item, i) => (
-                  <motion.div
-                    key={`${col.key}-${i}-${item.name}`}
-                    initial={{ opacity: 0, y: 6 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.45, delay: 0.3 + (ci * 3 + i) * 0.06, ease: [0.22, 1, 0.36, 1] }}
-                    whileHover={{ y: -1 }}
-                    className={cx(
-                      "shrink-0 cursor-default rounded-[10px] border bg-white p-1.5 shadow-[0_2px_6px_rgba(15,23,42,0.04)] transition-shadow",
-                      ci === 1 ? "border-[#F703EB]/35" : "border-slate-200/80",
-                    )}
-                  >
-                    <div className="truncate text-[0.6rem] font-semibold text-[#0B162D]">{item.name}</div>
-                    <div className="mt-0.5 flex items-center justify-between gap-1">
-                      <span className="text-[0.55rem] font-medium text-[#0B162D]/68">{item.amount}</span>
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </div>
-  )
-}
-
-// Live activity feed
-function AiModule({
-  t,
-  data,
-  activities,
-}: {
-  t: HeroCopy
-  data: Dataset
-  radarStyle?: MotionStyle
-  activities: { user: string; action: string; time: string }[]
-}) {
-  const [ref, inView] = useActiveInView()
-  return (
-    <div ref={ref} className="flex min-h-0 flex-1 flex-col overflow-hidden rounded-[18px]">
-      <div className="flex min-h-0 flex-1 flex-col p-2 sm:p-3">
-        <div className="shrink-0 flex items-center justify-between">
-          <p className="text-[0.72rem] font-semibold text-[#0B162D]">{t.sections?.activity}</p>
-          <div className="flex items-center gap-1">
-            <motion.span
-              animate={inView ? { opacity: [1, 0.4, 1] } : { opacity: 1 }}
-              transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-              className="h-1.5 w-1.5 rounded-full bg-emerald-500"
-            />
-            <span className="text-[0.5rem] font-mono font-semibold uppercase tracking-[0.18em] text-emerald-600">
-              live
-            </span>
-          </div>
-        </div>
-        <div className="mt-2 flex min-h-0 flex-1 flex-col justify-between gap-1.5">
-          {data.activityVisuals.map((visual, i) => {
-            const content = activities[i] ?? { user: "", action: "", time: "" }
-            return (
-            <motion.div
-              key={`${content.user}-${i}`}
-              initial={{ opacity: 0, x: -8 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.45, delay: 0.5 + i * 0.1, ease: [0.22, 1, 0.36, 1] }}
-              className="flex shrink-0 items-start gap-1.5 rounded-[10px] bg-[#FEF8FE] p-1.5"
-            >
-              <div
-                className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[0.5rem] font-bold text-white"
-                style={{ backgroundColor: visual.color }}
-              >
-                {visual.initials}
-              </div>
-              <div className="min-w-0 flex-1">
-                <div className="truncate text-[0.58rem] leading-tight text-[#0B162D]">
-                  <span className="font-semibold">{content.user}</span>{" "}
-                  <span className="text-[#0B162D]/65">{content.action}</span>
-                </div>
-                <div className="mt-0.5 text-[0.5rem] text-[#0B162D]/40">{content.time}</div>
-              </div>
-            </motion.div>
-            )
-          })}
-        </div>
-      </div>
-    </div>
-  )
-}
-
-// Open tasks list
-function SpeedModule({
-  t,
-  data,
-  tasks,
-}: {
-  t: HeroCopy
-  data: Dataset
-  tasks: { label: string; due: string }[]
-}) {
-  const priorityColors: Record<Priority, string> = {
-    high: "#F703EB",
-    med: "#FA85F4",
-    low: "#94A3B8",
-  }
-  return (
-    <div className="flex h-full flex-col overflow-hidden rounded-[18px]">
-      <div className="flex flex-1 flex-col p-2 sm:p-3">
-        <p className="shrink-0 text-[0.72rem] font-semibold text-[#0B162D]">{t.sections?.tasks}</p>
-        <div className="mt-1.5 flex flex-1 flex-col justify-around gap-1 sm:mt-2.5">
-          {data.taskVisuals.map((visual, i) => {
-            const content = tasks[i] ?? { label: "", due: "" }
-            const color = priorityColors[visual.priority]
-            return (
-              <motion.div
-                key={`${content.label}-${i}`}
-                initial={{ opacity: 0, x: -4 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.4, delay: 0.5 + i * 0.08 }}
-                className="group flex items-center gap-2"
-              >
-                <motion.div
-                  whileHover={{ scale: 1.15 }}
-                  className="h-2.5 w-2.5 shrink-0 rounded-full border-[1.5px] bg-white transition-colors group-hover:bg-[var(--c)]/15"
-                  style={{ borderColor: color, ["--c" as string]: color }}
-                />
-                <div className="min-w-0 flex-1">
-                  <div className="truncate text-[0.6rem] font-medium text-[#0B162D]">{content.label}</div>
-                  <div className="text-[0.5rem] text-[#0B162D]/40">{content.due}</div>
-                </div>
-                <div
-                  className="rounded-sm px-1 py-0.5 text-[0.48rem] font-bold uppercase tracking-wider"
-                  style={{ backgroundColor: `${color}1F`, color }}
-                >
-                  {t.taskPriorityLabels?.[visual.priority]}
-                </div>
-              </motion.div>
-            )
-          })}
-        </div>
-      </div>
-    </div>
-  )
-}
-
-// ---------- Main component ----------
-
-const dashboardChildVariants = {
-  hidden: { opacity: 0, y: 18 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
-}
-
-function buildHeroCopy(hero: AppsHero) {
-  return {
-    appName: (hero?.appName as string) ?? "OperationsHub",
-    pageTitle: (hero?.pageTitle as string) ?? "Dashboard",
-    updated: (hero?.updated as string) ?? "Aktualisiert",
-    searchPlaceholder: (hero?.searchPlaceholder as string) ?? "Suche…",
-    createNewLabel: (hero?.createNewLabel as string) ?? "+ Neuer Auftrag",
-    avatarInitials: (hero?.avatarInitials as string) ?? "JM",
-    teamActiveLabel: (hero?.teamActiveLabel as string) ?? "Team aktiv",
-    sections: hero?.sections ?? {},
-    statLabels: hero?.statLabels ?? {},
-    statDeltas: hero?.statDeltas ?? {},
-    pipelineColumns: hero?.pipelineColumns ?? {},
-    taskPriorityLabels: hero?.taskPriorityLabels ?? {},
-    views: hero?.views ?? { today: "Heute", week: "Woche", month: "Monat" },
-    navItems: hero?.navItems ?? {
-      dashboard: "Dashboard",
-      orders: "Aufträge",
-      customers: "Kunden",
-      inventory: "Lager",
-      reports: "Berichte",
-      settings: "Einstellungen",
-    },
-    ariaLabels: hero?.ariaLabels ?? { timeRange: "Zeitraum", mainNav: "Hauptnavigation" },
-    activeBadge: (hero?.activeBadge as string) ?? "aktiv",
-    activitiesByView: hero?.activitiesByView ?? { today: [], week: [], month: [] },
-    tasksByView: hero?.tasksByView ?? { today: [], week: [], month: [] },
-  }
-}
-
-type HeroCopy = ReturnType<typeof buildHeroCopy>
 
 export default function HeroSection({ lang, dict }: HeroSectionProps) {
   const containerRef = useRef<HTMLElement>(null)
@@ -670,10 +67,10 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
   const dashboardWidth = useTransform(scrollYProgress, [0.05, 0.32], ["680px", "1180px"], { ease: easeOutCubic })
   const dashboardHeight = useTransform(scrollYProgress, [0.05, 0.32], ["540px", "660px"], { ease: easeOutCubic })
   const dashboardX = useTransform(scrollYProgress, [0.05, 0.32], ["20vw", "0vw"], { ease: easeOutCubic })
-  const dashboardScale = useTransform(scrollYProgress, [0.05, 0.30], [0.94, 1], { ease: easeOutCubic })
-  const dashboardZ = useTransform(scrollYProgress, [0.05, 0.30], [-160, 0], { ease: easeOutCubic })
-  const aiHeight = useTransform(scrollYProgress, [0.05, 0.30], ["230px", "360px"], { ease: easeOutCubic })
-  const lightSweepOpacity = useTransform(scrollYProgress, [0.28, 0.34, 0.40], [0, 1, 0])
+  const dashboardScale = useTransform(scrollYProgress, [0.05, 0.3], [0.94, 1], { ease: easeOutCubic })
+  const dashboardZ = useTransform(scrollYProgress, [0.05, 0.3], [-160, 0], { ease: easeOutCubic })
+  const aiHeight = useTransform(scrollYProgress, [0.05, 0.3], ["230px", "360px"], { ease: easeOutCubic })
+  const lightSweepOpacity = useTransform(scrollYProgress, [0.28, 0.34, 0.4], [0, 1, 0])
   const lightSweepX = useTransform(scrollYProgress, [0.28, 0.42], ["-40%", "140%"], { ease: easeOutCubic })
 
   const useStaticIdleLayout = !SCROLL_ANIMATIONS_ENABLED
@@ -683,11 +80,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
     : useStaticIdleLayout
       ? { opacity: 1, y: 0 }
       : { opacity: heroTextOpacity, y: heroTextY }
-  const dashboardWrapperStyle = shouldReduceMotion
-    ? undefined
-    : useStaticIdleLayout
-      ? { x: "20vw" }
-      : { x: dashboardX }
+  const dashboardWrapperStyle = shouldReduceMotion ? undefined : useStaticIdleLayout ? { x: "20vw" } : { x: dashboardX }
   const dashboardStyle = shouldReduceMotion
     ? { width: "1180px", height: "660px" }
     : useStaticIdleLayout
@@ -708,9 +101,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
           maxWidth: "calc(100vw - 96px)",
         }
   const lightSweepStyle =
-    shouldReduceMotion || useStaticIdleLayout
-      ? { opacity: 0 }
-      : { opacity: lightSweepOpacity, x: lightSweepX }
+    shouldReduceMotion || useStaticIdleLayout ? { opacity: 0 } : { opacity: lightSweepOpacity, x: lightSweepX }
   const aiWrapperStyle = shouldReduceMotion
     ? { height: "360px" }
     : useStaticIdleLayout
@@ -733,12 +124,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
 
         <div className="mx-auto max-w-[760px] px-5 pt-16 pb-12 sm:px-6 sm:pt-20 sm:pb-16 md:max-w-[920px] md:px-8 md:pt-24 md:pb-20">
           {/* Hero text */}
-          <motion.div
-            initial={shouldReduceMotion ? false : { opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-            className="text-center"
-          >
+          <div className="text-center hero-rise">
             <span className="section-eyebrow">{eyebrowLabel}</span>
             <h1 className="mx-auto mt-3 max-w-[18ch] font-serif text-[2.05rem] leading-[1.05] tracking-tight text-[#0B162D] sm:text-[2.5rem] md:text-[3rem]">
               {hero?.title}
@@ -746,7 +132,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
             <p className="mx-auto mt-4 max-w-[58ch] text-[0.95rem] leading-relaxed text-[#0B162D]/70 sm:text-[1rem] md:mt-5 md:text-[1.05rem]">
               {hero?.description}
             </p>
-            <HeroPackages hero={hero} align="center" />
+            <HeroPackages service="apps" hero={hero} align="center" />
             <div className="mt-6 sm:mt-7">
               <Link
                 href={`/${lang}/contact#book`}
@@ -756,7 +142,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
                 <ArrowRight className="ml-1.5 h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
               </Link>
             </div>
-          </motion.div>
+          </div>
 
           {/* App preview card */}
           <motion.div
@@ -887,10 +273,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
           containerRef.current = el
           desktopInViewRef(el)
         }}
-        className={cx(
-          "relative hidden lg:block",
-          SCROLL_ANIMATIONS_ENABLED ? "lg:h-[420vh]" : "lg:h-screen",
-        )}
+        className={cx("relative hidden lg:block", SCROLL_ANIMATIONS_ENABLED ? "lg:h-[420vh]" : "lg:h-screen")}
       >
         <div className="sticky top-0 h-[100dvh] overflow-hidden">
           {/* Background glow */}
@@ -900,10 +283,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
           />
 
           {/* HERO TEXT — left column */}
-          <motion.div
-            style={heroTextStyle}
-            className="pointer-events-none absolute inset-0 z-10 flex items-center"
-          >
+          <motion.div style={heroTextStyle} className="pointer-events-none absolute inset-0 z-10 flex items-center">
             <div className="mx-auto w-full max-w-[1380px] px-10">
               <div className="grid grid-cols-[1fr_1.25fr] items-center gap-10">
                 <div className="pointer-events-auto text-left">
@@ -921,7 +301,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
                     {hero?.description}
                   </p>
 
-                  <HeroPackages hero={hero} />
+                  <HeroPackages service="apps" hero={hero} />
 
                   <div className="mt-9 flex justify-start">
                     <MagneticCta
@@ -967,9 +347,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
                       className="h-[20px] w-auto object-contain opacity-80"
                     />
                     <div className="h-3 w-px bg-slate-200" />
-                    <h2 className="whitespace-nowrap text-[0.8rem] font-semibold text-[#0B162D]">
-                      {t.appName}
-                    </h2>
+                    <h2 className="whitespace-nowrap text-[0.8rem] font-semibold text-[#0B162D]">{t.appName}</h2>
                   </div>
 
                   {/* Search */}

@@ -6,7 +6,5 @@ import ServicePage from "@/components/pages/services/shared/service-page"
 const PortfolioSection = dynamic(() => import("@/components/pages/services/analytics/portfolio"))
 
 export default function AnalyticsPage({ lang, dict }: { lang: Locale; dict: Dictionary }) {
-  return (
-    <ServicePage service="analytics" lang={lang} dict={dict} Hero={HeroSection} Portfolio={PortfolioSection} />
-  )
+  return <ServicePage service="analytics" lang={lang} dict={dict} Hero={HeroSection} Portfolio={PortfolioSection} />
 }

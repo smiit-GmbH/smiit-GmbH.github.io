@@ -11,13 +11,7 @@ const ReferencesSection = dynamic(() => import("@/components/pages/services/webs
 const PricingSection = dynamic(() => import("@/components/pages/services/website/pricing-section"))
 const FaqSection = dynamic(() => import("@/components/pages/shared/faq-section"))
 
-export default function WebsitePage({
-  lang,
-  dict,
-}: {
-  lang: Locale
-  dict: Dictionary
-}) {
+export default function WebsitePage({ lang, dict }: { lang: Locale; dict: Dictionary }) {
   const logoStrip = dict.servicesWebsite.logoStrip
   return (
     <main data-page="website">
@@ -26,17 +20,9 @@ export default function WebsitePage({
       <LogoStrip label={logoStrip.label} names={logoStrip.names} />
       <ProblemSection dict={dict} />
       <ManifestBand dict={dict} />
-      {/* <AudiencesSection dict={dict} /> */}
       <ReferencesSection dict={dict} />
       <ProcessSection dict={dict} />
       <PricingSection dict={dict} />
-      {/* <RelatedLinkBand
-        text={related.text}
-        linkLabel={related.linkLabel}
-        href={related.href}
-        accent="#F703EB"
-        accentHover="#C002B7"
-      /> */}
       <FaqSection dict={dict.servicesWebsite.faq} />
     </main>
   )

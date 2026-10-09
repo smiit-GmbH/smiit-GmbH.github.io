@@ -2,18 +2,14 @@ import type { Metadata } from "next"
 import { Locale } from "@/lib/dictionary"
 import { buildBreadcrumbJsonLd, buildDefinedTermSetJsonLd, buildPageMetadata } from "@/lib/seo"
 import { JsonLd } from "@/components/seo/json-ld"
-import { glossaryCatalog, getGlossaryUi } from "@/lib/glossary"
+import { getGlossaryTermSynonyms, getGlossaryUi, glossaryCatalog } from "@/lib/glossary"
 import GlossaryIndexPage from "@/components/pages/glossary/GlossaryIndexPage"
 
 export async function generateStaticParams() {
   return [{ lang: "de" }, { lang: "en" }]
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ lang: Locale }>
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ lang: Locale }> }): Promise<Metadata> {
   const { lang } = await params
   return buildPageMetadata({
     lang,
@@ -30,11 +26,7 @@ export async function generateMetadata({
   })
 }
 
-export default async function Page({
-  params,
-}: {
-  params: Promise<{ lang: Locale }>
-}) {
+export default async function Page({ params }: { params: Promise<{ lang: Locale }> }) {
   const { lang } = await params
   const ui = getGlossaryUi(lang)
 
@@ -61,7 +53,11 @@ export default async function Page({
     <>
       <JsonLd data={breadcrumbJsonLd} />
       <JsonLd data={definedTermSetJsonLd} />
-      <GlossaryIndexPage lang={lang} />
+      <GlossaryIndexPage
+        lang={lang}
+        catalog={glossaryCatalog}
+        synonyms={Object.fromEntries(glossaryCatalog.map((e) => [e.slug, getGlossaryTermSynonyms(e.slug, lang)]))}
+      />
     </>
   )
 }

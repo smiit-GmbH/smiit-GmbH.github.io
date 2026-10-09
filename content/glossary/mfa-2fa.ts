@@ -141,7 +141,10 @@ export const extras: Record<Locale, GlossaryExtra> = {
       "Es herrscht der Irrglaube, MFA mache Phishing unmöglich; moderne Angriffe umgehen sie über MFA-Fatigue oder Echtzeit-Phishing-Proxys, weshalb phishingresistente Verfahren wichtig sind.",
     ],
     sources: [
-      { title: "NIST SP 800-63B – Digital Identity Guidelines (Authentication)", url: "https://pages.nist.gov/800-63-3/sp800-63b.html" },
+      {
+        title: "NIST SP 800-63B – Digital Identity Guidelines (Authentication)",
+        url: "https://pages.nist.gov/800-63-3/sp800-63b.html",
+      },
       { title: "BSI – Zwei-Faktor-Authentisierung", url: "https://www.bsi.bund.de/" },
     ],
   },
@@ -152,7 +155,10 @@ export const extras: Record<Locale, GlossaryExtra> = {
       "There is a misconception that MFA makes phishing impossible; modern attacks bypass it via MFA fatigue or real-time phishing proxies, which is why phishing-resistant methods matter.",
     ],
     sources: [
-      { title: "NIST SP 800-63B – Digital Identity Guidelines (Authentication)", url: "https://pages.nist.gov/800-63-3/sp800-63b.html" },
+      {
+        title: "NIST SP 800-63B – Digital Identity Guidelines (Authentication)",
+        url: "https://pages.nist.gov/800-63-3/sp800-63b.html",
+      },
       { title: "BSI – German Federal Office for Information Security", url: "https://www.bsi.bund.de/" },
     ],
   },

@@ -33,112 +33,109 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
 
   return (
     <>
-        <section className="
+      <section
+        className="
           relative isolate overflow-hidden rounded-b-[1.75rem]
           h-[720px]
           md:h-[105vh]
           md:min-h-[680px]
-        ">
-          <div className="absolute inset-0 z-0">
-            {/* Mobile hero */}
-            <Image
-              src="/assets/home/hero_mobile.webp"
-              alt=""
-              fill
-              priority
-              sizes="100vw"
-              aria-hidden="true"
-              className="h-full w-full object-cover md:hidden"
-            />
-
-            {/* Desktop fallback image */}
-            <Image
-              src="/assets/home/hero.webp"
-              alt=""
-              fill
-              priority
-              sizes="100vw"
-              aria-hidden="true"
-              className={`hidden md:block h-full w-full object-cover transition-opacity duration-300 ${
-                videoFailed ? "opacity-100" : "opacity-0"
-              }`}
-            />
-
-            {/* Desktop video */}
-            <video
-              ref={videoRef}
-              className={`hidden md:block h-full w-full object-cover transition-opacity duration-300 ${
-                videoFailed ? "opacity-0" : "opacity-100"
-              }`}
-              autoPlay
-              muted
-              loop
-              playsInline
-              preload="metadata"
-              poster="/assets/home/hero.webp"
-              onPlaying={() => setVideoReady(true)}
-              onError={() => {
-                setVideoFailed(true)
-                setVideoReady(true)
-              }}
-            >
-              <source src="/assets/videos/hero.webm" type="video/webm" />
-              <source src="/assets/videos/hero.mp4" type="video/mp4" />
-            </video>
-          </div>
-
-          <div
-            className="pointer-events-none absolute inset-0 z-10 opacity-[0.18] bg-black/10"
-            style={{
-              backgroundImage: "url(/assets/grain.webp)",
-              backgroundRepeat: "repeat",
-              backgroundSize: "150px 150px",
-              mixBlendMode: "soft-light",
-            }}
+        "
+      >
+        <div className="absolute inset-0 z-0">
+          {/* Mobile hero */}
+          <Image
+            src="/assets/home/hero_mobile.webp"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            aria-hidden="true"
+            className="h-full w-full object-cover md:hidden"
           />
 
-          <div className="relative z-20 h-full flex flex-col items-center text-center pt-20 sm:pt-20 pb-24 md:pb-16 md:items-start md:text-left md:pt-36">
-            <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
-              <div className="grid lg:grid-cols-14 gap-10 lg:gap-16 items-center">
-                <div className="lg:col-span-8">
-                  <h1 className="font-serif text-[2.5rem] sm:text-[2.75rem] md:text-[2.75rem] lg:text-[3.5rem] xl:text-[4.0rem] leading-[1.04] text-black tracking-tight max-w-[18ch] md:max-w-[20ch] lg:max-w-none mx-auto md:mx-0">
-                    {dict.hero.title}
-                  </h1>
+          {/* Desktop fallback image */}
+          <Image
+            src="/assets/home/hero.webp"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            aria-hidden="true"
+            className={`hidden md:block h-full w-full object-cover transition-opacity duration-300 ${
+              videoFailed ? "opacity-100" : "opacity-0"
+            }`}
+          />
 
-                  <p className="mt-10 md:mt-7 text-base sm:text-lg md:text-[1.275rem] text-black/80 max-w-[42ch] md:max-w-xl leading-relaxed mx-auto md:mx-0">
-                    {dict.hero.subtitle}
-                  </p>
+          {/* Desktop video */}
+          <video
+            ref={videoRef}
+            className={`hidden md:block h-full w-full object-cover transition-opacity duration-300 ${
+              videoFailed ? "opacity-0" : "opacity-100"
+            }`}
+            autoPlay
+            muted
+            loop
+            playsInline
+            preload="metadata"
+            poster="/assets/home/hero.webp"
+            onPlaying={() => setVideoReady(true)}
+            onError={() => {
+              setVideoFailed(true)
+              setVideoReady(true)
+            }}
+          >
+            <source src="/assets/videos/hero.webm" type="video/webm" />
+            <source src="/assets/videos/hero.mp4" type="video/mp4" />
+          </video>
+        </div>
 
-                  <Link href={`/${lang}/contact`} scroll={false} className="hidden md:inline-block mt-12">
-                    <button className="group flex items-center gap-3 bg-white/25 hover:bg-white/85 border border-black/20 text-black px-7 py-3.5 rounded-xl font-medium text-base transition-all duration-300 backdrop-blur-sm cursor-pointer">
-                      {dict.hero.cta}
-                      <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                    </button>
-                  </Link>
-                </div>
-
-                <div className="hidden lg:block lg:col-span-4" aria-hidden="true" />
-              </div>
-            </div>
-
-             {/* Mobile CTA */}
-             <div className="md:hidden absolute left-4 right-4 bottom-4 sm:bottom-14">
-               <Link href={`/${lang}/contact`} scroll={false} className="block">
-                <button className="w-full flex items-center justify-center gap-3 bg-white/80 hover:bg-white/90 border border-black/10 text-black text-center px-5 py-3 rounded-2xl font-semibold text-sm transition-colors backdrop-blur-md cursor-pointer">
-                   {dict.hero.cta}
-                   <ArrowRight className="w-5 h-5" />
-                 </button>
-               </Link>
-              </div>
-           </div>
-         </section>
-
-      {introVisible && (
-        <IntroOverlay
-          onDone={() => setIntroVisible(false)}
-          videoReady={videoReady}
+        <div
+          className="pointer-events-none absolute inset-0 z-10 opacity-[0.18] bg-black/10"
+          style={{
+            backgroundImage: "url(/assets/grain.webp)",
+            backgroundRepeat: "repeat",
+            backgroundSize: "150px 150px",
+            mixBlendMode: "soft-light",
+          }}
         />
-      )}
+
+        <div className="relative z-20 h-full flex flex-col items-center text-center pt-20 sm:pt-20 pb-24 md:pb-16 md:items-start md:text-left md:pt-36">
+          <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
+            <div className="grid lg:grid-cols-14 gap-10 lg:gap-16 items-center">
+              <div className="lg:col-span-8">
+                <h1 className="font-serif text-[2.5rem] sm:text-[2.75rem] md:text-[2.75rem] lg:text-[3.5rem] xl:text-[4.0rem] leading-[1.04] text-black tracking-tight max-w-[18ch] md:max-w-[20ch] lg:max-w-none mx-auto md:mx-0">
+                  {dict.hero.title}
+                </h1>
+
+                <p className="mt-10 md:mt-7 text-base sm:text-lg md:text-[1.275rem] text-black/80 max-w-[42ch] md:max-w-xl leading-relaxed mx-auto md:mx-0">
+                  {dict.hero.subtitle}
+                </p>
+
+                <Link href={`/${lang}/contact`} scroll={false} className="hidden md:inline-block mt-12">
+                  <button className="group flex items-center gap-3 bg-white/25 hover:bg-white/85 border border-black/20 text-black px-7 py-3.5 rounded-xl font-medium text-base transition-all duration-300 backdrop-blur-sm cursor-pointer">
+                    {dict.hero.cta}
+                    <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  </button>
+                </Link>
+              </div>
+
+              <div className="hidden lg:block lg:col-span-4" aria-hidden="true" />
+            </div>
+          </div>
+
+          {/* Mobile CTA */}
+          <div className="md:hidden absolute left-4 right-4 bottom-4 sm:bottom-14">
+            <Link href={`/${lang}/contact`} scroll={false} className="block">
+              <button className="w-full flex items-center justify-center gap-3 bg-white/80 hover:bg-white/90 border border-black/10 text-black text-center px-5 py-3 rounded-2xl font-semibold text-sm transition-colors backdrop-blur-md cursor-pointer">
+                {dict.hero.cta}
+                <ArrowRight className="w-5 h-5" />
+              </button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {introVisible && <IntroOverlay onDone={() => setIntroVisible(false)} videoReady={videoReady} />}
     </>
   )
 }

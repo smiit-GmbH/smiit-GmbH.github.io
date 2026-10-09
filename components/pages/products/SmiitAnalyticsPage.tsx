@@ -10,13 +10,7 @@ import { ProcessSection } from "@/components/pages/products/smiit-analytics/proc
 import FaqSection from "@/components/pages/shared/faq-section"
 import RelatedLinkBand from "@/components/pages/shared/related-link-band"
 
-export default function SmiitAnalyticsPage({
-  lang,
-  dict,
-}: {
-  lang: Locale
-  dict: Dictionary
-}) {
+export default function SmiitAnalyticsPage({ lang, dict }: { lang: Locale; dict: Dictionary }) {
   const related = dict.smiitAnalytics.relatedLink
   return (
     <main>

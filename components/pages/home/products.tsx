@@ -26,19 +26,12 @@ function ProductCard({
     offset: ["start end", "end start"],
   })
 
-  const imageY = useTransform(
-    scrollYProgress,
-    [0, 1],
-    prefersReducedMotion ? ["0%", "0%"] : ["-6%", "6%"]
-  )
+  const imageY = useTransform(scrollYProgress, [0, 1], prefersReducedMotion ? ["0%", "0%"] : ["-6%", "6%"])
 
   const cardContent = (
     <>
       {/* Parallax image wrapper */}
-      <motion.div
-        className="absolute inset-[-12%] md:inset-[-16%] will-change-transform"
-        style={{ y: imageY }}
-      >
+      <motion.div className="absolute inset-[-12%] md:inset-[-16%] will-change-transform" style={{ y: imageY }}>
         <div className="relative w-full h-full transition-transform duration-700 ease-out group-hover:scale-105">
           <Image
             src={item.image}
@@ -58,9 +51,7 @@ function ProductCard({
         <h3 className="font-serif text-[1.55rem] md:text-[1.7rem] leading-[1.15] tracking-tight text-white whitespace-pre-line">
           {item.title}
         </h3>
-        <p className="mt-3 text-[0.88rem] md:text-[0.9rem] leading-[1.7] text-white/85 max-w-[38ch]">
-          {item.text}
-        </p>
+        <p className="mt-3 text-[0.88rem] md:text-[0.9rem] leading-[1.7] text-white/85 max-w-[38ch]">{item.text}</p>
       </div>
     </>
   )
@@ -75,17 +66,9 @@ function ProductCard({
         aria-label={item.title.replace("\n", " ")}
       />
     ) : item.href.startsWith("#") ? (
-      <a
-        href={item.href}
-        className="absolute inset-0 z-20"
-        aria-label={item.title.replace("\n", " ")}
-      />
+      <a href={item.href} className="absolute inset-0 z-20" aria-label={item.title.replace("\n", " ")} />
     ) : (
-      <LocalizedLink
-        href={item.href}
-        className="absolute inset-0 z-20"
-        aria-label={item.title.replace("\n", " ")}
-      />
+      <LocalizedLink href={item.href} className="absolute inset-0 z-20" aria-label={item.title.replace("\n", " ")} />
     )
   ) : null
 
@@ -153,15 +136,22 @@ export default function Products({ dict }: ProductsProps) {
             (
               item: { title: string; text: string; image: string; href?: string; external?: boolean },
               idx: number,
-              arr: typeof products.items
+              arr: typeof products.items,
             ) => {
               const isLastOdd = idx === arr.length - 1 && arr.length % 2 !== 0
               return (
-                <div key={idx} className={isLastOdd ? "md:col-span-2 md:max-w-[calc(50%-0.625rem)] md:mx-auto lg:col-span-1 lg:max-w-none lg:mx-0" : ""}>
+                <div
+                  key={idx}
+                  className={
+                    isLastOdd
+                      ? "md:col-span-2 md:max-w-[calc(50%-0.625rem)] md:mx-auto lg:col-span-1 lg:max-w-none lg:mx-0"
+                      : ""
+                  }
+                >
                   <ProductCard item={item} index={idx} />
                 </div>
               )
-            }
+            },
           )}
         </motion.div>
 
@@ -229,11 +219,7 @@ export default function Products({ dict }: ProductsProps) {
           >
             {products.ctaSubtext ?? ""}
           </motion.p>
-          <motion.div
-            className="mt-5"
-            variants={fadeUpVariants}
-            transition={{ duration: 0.5, ease: "easeOut" }}
-          >
+          <motion.div className="mt-5" variants={fadeUpVariants} transition={{ duration: 0.5, ease: "easeOut" }}>
             <a href="#book" className="block">
               <Button
                 variant="outline"

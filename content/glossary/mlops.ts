@@ -51,15 +51,36 @@ const mlops: LocalizedGlossaryTerm = {
       },
     ],
     faq: [
-      { question: "Was ist der Unterschied zwischen DevOps und MLOps?", answer: "DevOps automatisiert die Entwicklung und Auslieferung von Software allgemein. MLOps überträgt diese Prinzipien auf Machine-Learning-Modelle und ergänzt sie um Datenversionierung, Modellregister und Monitoring der Modellgüte." },
-      { question: "Brauchen wir MLOps schon für ein einzelnes Modell?", answer: "Für eine einmalige Analyse meist nicht. Sobald ein Modell aber dauerhaft Vorhersagen liefern und mit neuen Daten aktuell bleiben soll, sorgt MLOps für verlässlichen und nachvollziehbaren Betrieb." },
-      { question: "Was ist Data Drift im MLOps-Kontext?", answer: "Data Drift bezeichnet die Veränderung der Eingangsdaten gegenüber den Trainingsdaten, wodurch ein Modell schleichend ungenauer wird. MLOps erkennt dies durch Monitoring und stößt bei Bedarf ein erneutes Training an." },
-      { question: "Welche Werkzeuge werden für MLOps in Azure genutzt?", answer: "Typisch sind Azure Machine Learning für Training, Modellregister und Bereitstellung, kombiniert mit Azure DevOps oder GitHub für Versionierung und Pipelines. Für die Datenaufbereitung kommt häufig Azure Databricks hinzu. Welche Bausteine nötig sind, hängt von der Komplexität der Modelle ab." },
-      { question: "Wie hängen MLOps und Modell-Governance zusammen?", answer: "MLOps liefert die technische Grundlage für Governance: Versionierung, Modellregister und Monitoring machen nachvollziehbar, welche Modellversion mit welchen Daten trainiert wurde und wann sie im Einsatz war. Das ist die Voraussetzung für Audits und für klare Verantwortlichkeiten im Modellbetrieb." },
+      {
+        question: "Was ist der Unterschied zwischen DevOps und MLOps?",
+        answer:
+          "DevOps automatisiert die Entwicklung und Auslieferung von Software allgemein. MLOps überträgt diese Prinzipien auf Machine-Learning-Modelle und ergänzt sie um Datenversionierung, Modellregister und Monitoring der Modellgüte.",
+      },
+      {
+        question: "Brauchen wir MLOps schon für ein einzelnes Modell?",
+        answer:
+          "Für eine einmalige Analyse meist nicht. Sobald ein Modell aber dauerhaft Vorhersagen liefern und mit neuen Daten aktuell bleiben soll, sorgt MLOps für verlässlichen und nachvollziehbaren Betrieb.",
+      },
+      {
+        question: "Was ist Data Drift im MLOps-Kontext?",
+        answer:
+          "Data Drift bezeichnet die Veränderung der Eingangsdaten gegenüber den Trainingsdaten, wodurch ein Modell schleichend ungenauer wird. MLOps erkennt dies durch Monitoring und stößt bei Bedarf ein erneutes Training an.",
+      },
+      {
+        question: "Welche Werkzeuge werden für MLOps in Azure genutzt?",
+        answer:
+          "Typisch sind Azure Machine Learning für Training, Modellregister und Bereitstellung, kombiniert mit Azure DevOps oder GitHub für Versionierung und Pipelines. Für die Datenaufbereitung kommt häufig Azure Databricks hinzu. Welche Bausteine nötig sind, hängt von der Komplexität der Modelle ab.",
+      },
+      {
+        question: "Wie hängen MLOps und Modell-Governance zusammen?",
+        answer:
+          "MLOps liefert die technische Grundlage für Governance: Versionierung, Modellregister und Monitoring machen nachvollziehbar, welche Modellversion mit welchen Daten trainiert wurde und wann sie im Einsatz war. Das ist die Voraussetzung für Audits und für klare Verantwortlichkeiten im Modellbetrieb.",
+      },
     ],
     relatedServicePath: "services/analytics",
     metaTitle: "Was ist MLOps? Definition, Nutzen & Praxis | smiit Glossar",
-    metaDescription: "MLOps einfach erklärt: Definition, Bausteine, Anwendungsfälle und Abgrenzung zu DevOps und Machine Learning in Azure – mit Praxisbezug von smiit.",
+    metaDescription:
+      "MLOps einfach erklärt: Definition, Bausteine, Anwendungsfälle und Abgrenzung zu DevOps und Machine Learning in Azure – mit Praxisbezug von smiit.",
   },
   en: {
     slug: "mlops",
@@ -110,15 +131,36 @@ const mlops: LocalizedGlossaryTerm = {
       },
     ],
     faq: [
-      { question: "What is the difference between DevOps and MLOps?", answer: "DevOps automates the development and deployment of software in general. MLOps applies these principles to machine learning models and adds data versioning, a model registry and monitoring of model quality." },
-      { question: "Do we need MLOps for just a single model?", answer: "Usually not for a one-off analysis. But as soon as a model is meant to deliver predictions permanently and stay current with new data, MLOps ensures reliable and traceable operation." },
-      { question: "What is data drift in the MLOps context?", answer: "Data drift describes the change of input data compared to the training data, which gradually makes a model less accurate. MLOps detects this through monitoring and triggers retraining when needed." },
-      { question: "Which tools are used for MLOps in Azure?", answer: "Typically Azure Machine Learning for training, model registry and deployment, combined with Azure DevOps or GitHub for versioning and pipelines. Azure Databricks is often added for data preparation. Which building blocks are needed depends on the complexity of the models." },
-      { question: "How are MLOps and model governance related?", answer: "MLOps provides the technical basis for governance: versioning, a model registry and monitoring make it traceable which model version was trained on which data and when it was in use. This is the precondition for audits and for clear responsibilities in model operation." },
+      {
+        question: "What is the difference between DevOps and MLOps?",
+        answer:
+          "DevOps automates the development and deployment of software in general. MLOps applies these principles to machine learning models and adds data versioning, a model registry and monitoring of model quality.",
+      },
+      {
+        question: "Do we need MLOps for just a single model?",
+        answer:
+          "Usually not for a one-off analysis. But as soon as a model is meant to deliver predictions permanently and stay current with new data, MLOps ensures reliable and traceable operation.",
+      },
+      {
+        question: "What is data drift in the MLOps context?",
+        answer:
+          "Data drift describes the change of input data compared to the training data, which gradually makes a model less accurate. MLOps detects this through monitoring and triggers retraining when needed.",
+      },
+      {
+        question: "Which tools are used for MLOps in Azure?",
+        answer:
+          "Typically Azure Machine Learning for training, model registry and deployment, combined with Azure DevOps or GitHub for versioning and pipelines. Azure Databricks is often added for data preparation. Which building blocks are needed depends on the complexity of the models.",
+      },
+      {
+        question: "How are MLOps and model governance related?",
+        answer:
+          "MLOps provides the technical basis for governance: versioning, a model registry and monitoring make it traceable which model version was trained on which data and when it was in use. This is the precondition for audits and for clear responsibilities in model operation.",
+      },
     ],
     relatedServicePath: "services/analytics",
     metaTitle: "What is MLOps? Definition, benefits & practice | smiit glossary",
-    metaDescription: "MLOps explained simply: definition, building blocks, use cases and how it differs from DevOps and machine learning in Azure – with practical insight from smiit.",
+    metaDescription:
+      "MLOps explained simply: definition, building blocks, use cases and how it differs from DevOps and machine learning in Azure – with practical insight from smiit.",
   },
 }
 
@@ -133,8 +175,14 @@ export const extras: Record<Locale, GlossaryExtra> = {
       "Ein verbreiteter Irrtum ist, MLOps beginne erst nach dem Deployment. Tatsächlich umfasst es den gesamten Zyklus von Datenaufbereitung über Training bis Betrieb.",
     ],
     sources: [
-      { title: "Microsoft Learn – MLOps mit Azure Machine Learning", url: "https://learn.microsoft.com/azure/machine-learning/" },
-      { title: "Martin Fowler – Continuous Delivery for Machine Learning (CD4ML)", url: "https://martinfowler.com/articles/cd4ml.html" },
+      {
+        title: "Microsoft Learn – MLOps mit Azure Machine Learning",
+        url: "https://learn.microsoft.com/azure/machine-learning/",
+      },
+      {
+        title: "Martin Fowler – Continuous Delivery for Machine Learning (CD4ML)",
+        url: "https://martinfowler.com/articles/cd4ml.html",
+      },
     ],
   },
   en: {
@@ -144,8 +192,14 @@ export const extras: Record<Locale, GlossaryExtra> = {
       "A common error is to think MLOps starts only after deployment. In fact it spans the whole cycle from data preparation through training to operations.",
     ],
     sources: [
-      { title: "Microsoft Learn – MLOps with Azure Machine Learning", url: "https://learn.microsoft.com/azure/machine-learning/" },
-      { title: "Martin Fowler – Continuous Delivery for Machine Learning (CD4ML)", url: "https://martinfowler.com/articles/cd4ml.html" },
+      {
+        title: "Microsoft Learn – MLOps with Azure Machine Learning",
+        url: "https://learn.microsoft.com/azure/machine-learning/",
+      },
+      {
+        title: "Martin Fowler – Continuous Delivery for Machine Learning (CD4ML)",
+        url: "https://martinfowler.com/articles/cd4ml.html",
+      },
     ],
   },
 }

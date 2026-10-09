@@ -49,9 +49,11 @@ export default function ProblemSection({ dict }: { dict: Dictionary }) {
   const shouldReduceMotion = useReducedMotion()
 
   return (
-    <section id="problem" className="relative bg-[linear-gradient(to_bottom,var(--background),#ece9e2_220px)] pt-[clamp(72px,9vw,140px)] pb-[clamp(46px,6vw,96px)]">
+    <section
+      id="problem"
+      className="relative bg-[linear-gradient(to_bottom,var(--background),#ece9e2_220px)] pt-[clamp(72px,9vw,140px)] pb-[clamp(46px,6vw,96px)]"
+    >
       <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
-
         {/* Heading — cinematic staggered reveal */}
         <motion.div
           initial={shouldReduceMotion ? false : "hidden"}
@@ -60,13 +62,14 @@ export default function ProblemSection({ dict }: { dict: Dictionary }) {
           variants={headingContainer}
           className="text-center md:text-left"
         >
-          <motion.span variants={headingItem} className="section-eyebrow">{eyebrow}</motion.span>
+          <motion.span variants={headingItem} className="section-eyebrow">
+            {eyebrow}
+          </motion.span>
           <motion.h2
             variants={headingItem}
             className="mt-[22px] font-serif text-[2.2rem] sm:text-[2.4rem] md:text-[3rem] leading-[1.1] tracking-tight max-w-[22ch] mx-auto md:mx-0 text-[#15151a]"
           >
-            {problem.title}{" "}
-            <em className="not-italic text-[#F703EB]">{problem.titleHighlight}</em>
+            {problem.title} <em className="not-italic text-[#F703EB]">{problem.titleHighlight}</em>
           </motion.h2>
         </motion.div>
 
@@ -86,13 +89,17 @@ export default function ProblemSection({ dict }: { dict: Dictionary }) {
             <span className="flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-full bg-[rgba(21,21,26,0.08)]">
               <X className="h-[9px] w-[9px] text-[#8a8a96]" strokeWidth={2.5} />
             </span>
-            <span className="text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-[#8a8a96]">{problem.problemLabel}</span>
+            <span className="text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-[#8a8a96]">
+              {problem.problemLabel}
+            </span>
           </div>
           <div className="flex items-center gap-1.5">
             <span className="flex h-[18px] w-[18px] shrink-0 items-center justify-center rounded-full bg-[#F703EB]/10">
               <Check className="h-[9px] w-[9px] text-[#F703EB]" strokeWidth={2.5} />
             </span>
-            <span className="text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-[#F703EB]">{problem.solutionLabel}</span>
+            <span className="text-[0.7rem] font-semibold uppercase tracking-[0.14em] text-[#F703EB]">
+              {problem.solutionLabel}
+            </span>
           </div>
         </div>
 
@@ -115,30 +122,39 @@ export default function ProblemSection({ dict }: { dict: Dictionary }) {
                          md:grid md:grid-cols-2 md:gap-x-8 md:py-5 md:items-center"
             >
               {/* Problem — grey top on mobile, left column on desktop */}
-              <motion.div variants={problemHalfVariants} className="flex items-center gap-3 px-3.5 py-2.5 bg-[rgba(21,21,26,0.03)] md:px-0 md:py-0 md:bg-transparent">
+              <motion.div
+                variants={problemHalfVariants}
+                className="flex items-center gap-3 px-3.5 py-2.5 bg-[rgba(21,21,26,0.03)] md:px-0 md:py-0 md:bg-transparent"
+              >
                 <span className="flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-full bg-[rgba(21,21,26,0.07)]">
                   <X className="h-[11px] w-[11px] text-[#8a8a96]" strokeWidth={2.5} />
                 </span>
-                <span className="text-[0.9rem] font-medium text-[#70707c] md:text-[1rem] md:text-[#50505c]">{item.title}</span>
+                <span className="text-[0.9rem] font-medium text-[#70707c] md:text-[1rem] md:text-[#50505c]">
+                  {item.title}
+                </span>
               </motion.div>
 
               {/* Hairline divider — mobile only */}
               <div className="h-px bg-[rgba(21,21,26,0.07)] md:hidden" />
 
               {/* Solution — white bottom on mobile, right column on desktop */}
-              <motion.div variants={solutionHalfVariants} className="flex items-start gap-3 px-3.5 py-3 md:px-0 md:py-0">
+              <motion.div
+                variants={solutionHalfVariants}
+                className="flex items-start gap-3 px-3.5 py-3 md:px-0 md:py-0"
+              >
                 <span className="mt-[3px] flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-full bg-[#F703EB]/10">
                   <Check className="h-[11px] w-[11px] text-[#F703EB]" strokeWidth={2.5} />
                 </span>
                 <div>
                   <span className="text-[0.95rem] font-semibold text-[#15151a] md:text-[1rem]">{item.solution}</span>
-                  <p className="mt-1 text-[0.82rem] leading-snug text-[#50505c] md:mt-0.5 md:text-[0.875rem]">{item.solutionDetail}</p>
+                  <p className="mt-1 text-[0.82rem] leading-snug text-[#50505c] md:mt-0.5 md:text-[0.875rem]">
+                    {item.solutionDetail}
+                  </p>
                 </div>
               </motion.div>
             </motion.div>
           ))}
         </motion.div>
-
       </div>
     </section>
   )

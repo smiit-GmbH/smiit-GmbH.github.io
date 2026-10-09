@@ -7,11 +7,7 @@ export async function generateStaticParams() {
   return [{ lang: "de" }, { lang: "en" }]
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ lang: Locale }>
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ lang: Locale }> }): Promise<Metadata> {
   const { lang } = await params
   return buildPageMetadata({
     lang,
@@ -27,11 +23,7 @@ export async function generateMetadata({
   })
 }
 
-export default async function PrivacyPage({
-  params,
-}: {
-  params: Promise<{ lang: Locale }>
-}) {
+export default async function PrivacyPage({ params }: { params: Promise<{ lang: Locale }> }) {
   const { lang } = await params
   const isDe = lang === "de"
 
@@ -116,9 +108,7 @@ export default async function PrivacyPage({
           },
           {
             title: "4. Empfänger von Daten",
-            paragraphs: [
-              "Zur Erbringung unserer Leistungen setzen wir folgende Dienstleister ein:",
-            ],
+            paragraphs: ["Zur Erbringung unserer Leistungen setzen wir folgende Dienstleister ein:"],
             bullets: [
               "GitHub, Inc., USA – GitHub Pages (Hosting)",
               "EmailJS Pte. Ltd., Singapur – Versand von Kontaktformular-Nachrichten",
@@ -265,9 +255,7 @@ export default async function PrivacyPage({
           },
           {
             title: "4. Recipients of data",
-            paragraphs: [
-              "To provide our services, we use the following service providers:",
-            ],
+            paragraphs: ["To provide our services, we use the following service providers:"],
             bullets: [
               "GitHub, Inc., USA – GitHub Pages (hosting)",
               "EmailJS Pte. Ltd., Singapore – delivery of contact form messages",
@@ -405,9 +393,7 @@ export default async function PrivacyPage({
             <div className="space-y-10">
               {L.sections.map((section) => (
                 <section key={section.title}>
-                  <h2 className="font-serif text-xl md:text-3xl text-black tracking-tight">
-                    {section.title}
-                  </h2>
+                  <h2 className="font-serif text-xl md:text-3xl text-black tracking-tight">{section.title}</h2>
 
                   <div className="text-sm mt-4 space-y-3 text-black/80 leading-relaxed">
                     {section.paragraphs?.map((text) => {

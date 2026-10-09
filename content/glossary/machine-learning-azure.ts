@@ -51,15 +51,36 @@ const machineLearningAzure: LocalizedGlossaryTerm = {
       },
     ],
     faq: [
-      { question: "Braucht man für Machine Learning in Azure tiefe Data-Science-Kenntnisse?", answer: "Nicht zwingend. Mit Automated Machine Learning lassen sich erste Modelle ohne tiefen Code erstellen. Für anspruchsvollere Anwendungen sind Data-Science-Kenntnisse hilfreich, die smiit einbringen kann." },
-      { question: "Was kostet Machine Learning in Azure?", answer: "Die Kosten richten sich vor allem nach der genutzten Rechenleistung und Speicherung. Da Ressourcen bedarfsgesteuert skalieren, lassen sich Kosten an die tatsächliche Nutzung anpassen." },
-      { question: "Wie verhält sich Azure Machine Learning zu Azure Databricks?", answer: "Azure Databricks ist besonders stark bei der Verarbeitung großer Datenmengen und der Feature-Aufbereitung, Azure Machine Learning beim Trainieren, Verwalten und Bereitstellen von Modellen. Beide lassen sich kombinieren." },
-      { question: "Welche Daten brauchen wir, um sinnvoll mit Machine Learning zu starten?", answer: "Nötig sind ausreichend viele, verlässliche historische Daten zum jeweiligen Anwendungsfall sowie eine klare Fragestellung. Eine saubere, integrierte Datenbasis, etwa aus einem Data Warehouse oder Lakehouse, ist oft wichtiger für den Erfolg als die Wahl des Modells." },
-      { question: "Bleiben unsere Daten beim Training in Azure unter unserer Kontrolle?", answer: "Ja. Daten und Modelle liegen in der eigenen Azure-Umgebung, deren Region, Zugriffe und Verschlüsselung das Unternehmen steuert. Über Identitäts- und Berechtigungskonzepte lässt sich festlegen, wer auf Daten und Modelle zugreifen darf." },
+      {
+        question: "Braucht man für Machine Learning in Azure tiefe Data-Science-Kenntnisse?",
+        answer:
+          "Nicht zwingend. Mit Automated Machine Learning lassen sich erste Modelle ohne tiefen Code erstellen. Für anspruchsvollere Anwendungen sind Data-Science-Kenntnisse hilfreich, die smiit einbringen kann.",
+      },
+      {
+        question: "Was kostet Machine Learning in Azure?",
+        answer:
+          "Die Kosten richten sich vor allem nach der genutzten Rechenleistung und Speicherung. Da Ressourcen bedarfsgesteuert skalieren, lassen sich Kosten an die tatsächliche Nutzung anpassen.",
+      },
+      {
+        question: "Wie verhält sich Azure Machine Learning zu Azure Databricks?",
+        answer:
+          "Azure Databricks ist besonders stark bei der Verarbeitung großer Datenmengen und der Feature-Aufbereitung, Azure Machine Learning beim Trainieren, Verwalten und Bereitstellen von Modellen. Beide lassen sich kombinieren.",
+      },
+      {
+        question: "Welche Daten brauchen wir, um sinnvoll mit Machine Learning zu starten?",
+        answer:
+          "Nötig sind ausreichend viele, verlässliche historische Daten zum jeweiligen Anwendungsfall sowie eine klare Fragestellung. Eine saubere, integrierte Datenbasis, etwa aus einem Data Warehouse oder Lakehouse, ist oft wichtiger für den Erfolg als die Wahl des Modells.",
+      },
+      {
+        question: "Bleiben unsere Daten beim Training in Azure unter unserer Kontrolle?",
+        answer:
+          "Ja. Daten und Modelle liegen in der eigenen Azure-Umgebung, deren Region, Zugriffe und Verschlüsselung das Unternehmen steuert. Über Identitäts- und Berechtigungskonzepte lässt sich festlegen, wer auf Daten und Modelle zugreifen darf.",
+      },
     ],
     relatedServicePath: "services/analytics",
     metaTitle: "Machine Learning in Azure: Definition & Praxis | smiit Glossar",
-    metaDescription: "Machine Learning in Azure einfach erklärt: Definition, Funktionsweise, Anwendungsfälle und Abgrenzung zu MLOps und Azure Databricks – mit Praxisbezug von smiit.",
+    metaDescription:
+      "Machine Learning in Azure einfach erklärt: Definition, Funktionsweise, Anwendungsfälle und Abgrenzung zu MLOps und Azure Databricks – mit Praxisbezug von smiit.",
   },
   en: {
     slug: "machine-learning-azure",
@@ -110,15 +131,36 @@ const machineLearningAzure: LocalizedGlossaryTerm = {
       },
     ],
     faq: [
-      { question: "Do you need deep data science skills for machine learning in Azure?", answer: "Not necessarily. With automated machine learning, first models can be created without deep code. For more demanding applications, data science skills are helpful, which smiit can contribute." },
-      { question: "What does machine learning in Azure cost?", answer: "Costs depend mainly on the compute and storage used. Since resources scale on demand, costs can be aligned with actual usage." },
-      { question: "How does Azure Machine Learning relate to Azure Databricks?", answer: "Azure Databricks is particularly strong at processing large data volumes and feature preparation, while Azure Machine Learning excels at training, managing and deploying models. The two can be combined." },
-      { question: "What data do we need to start meaningfully with machine learning?", answer: "You need enough reliable historical data for the use case in question, plus a clear question to answer. A clean, integrated data basis, for example from a data warehouse or lakehouse, is often more important to success than the choice of model." },
-      { question: "Does our data stay under our control during training in Azure?", answer: "Yes. Data and models reside in your own Azure environment, whose region, access and encryption the company controls. Identity and permission concepts let you define who may access data and models." },
+      {
+        question: "Do you need deep data science skills for machine learning in Azure?",
+        answer:
+          "Not necessarily. With automated machine learning, first models can be created without deep code. For more demanding applications, data science skills are helpful, which smiit can contribute.",
+      },
+      {
+        question: "What does machine learning in Azure cost?",
+        answer:
+          "Costs depend mainly on the compute and storage used. Since resources scale on demand, costs can be aligned with actual usage.",
+      },
+      {
+        question: "How does Azure Machine Learning relate to Azure Databricks?",
+        answer:
+          "Azure Databricks is particularly strong at processing large data volumes and feature preparation, while Azure Machine Learning excels at training, managing and deploying models. The two can be combined.",
+      },
+      {
+        question: "What data do we need to start meaningfully with machine learning?",
+        answer:
+          "You need enough reliable historical data for the use case in question, plus a clear question to answer. A clean, integrated data basis, for example from a data warehouse or lakehouse, is often more important to success than the choice of model.",
+      },
+      {
+        question: "Does our data stay under our control during training in Azure?",
+        answer:
+          "Yes. Data and models reside in your own Azure environment, whose region, access and encryption the company controls. Identity and permission concepts let you define who may access data and models.",
+      },
     ],
     relatedServicePath: "services/analytics",
     metaTitle: "Machine learning in Azure explained | smiit glossary",
-    metaDescription: "Machine learning in Azure explained simply: definition, how it works, use cases and how it differs from MLOps and Azure Databricks – with practical insight from smiit.",
+    metaDescription:
+      "Machine learning in Azure explained simply: definition, how it works, use cases and how it differs from MLOps and Azure Databricks – with practical insight from smiit.",
   },
 }
 
@@ -133,8 +175,14 @@ export const extras: Record<Locale, GlossaryExtra> = {
       "Ein verbreiteter Irrtum ist, dass AutoML jedes Problem ohne Fachwissen löst. AutoML beschleunigt die Modellsuche, ersetzt aber kein Verständnis der Daten und Zielgrößen.",
     ],
     sources: [
-      { title: "Microsoft Learn – Was ist Azure Machine Learning?", url: "https://learn.microsoft.com/azure/machine-learning/overview-what-is-azure-machine-learning" },
-      { title: "Microsoft Learn – Azure Machine Learning Dokumentation", url: "https://learn.microsoft.com/azure/machine-learning/" },
+      {
+        title: "Microsoft Learn – Was ist Azure Machine Learning?",
+        url: "https://learn.microsoft.com/azure/machine-learning/overview-what-is-azure-machine-learning",
+      },
+      {
+        title: "Microsoft Learn – Azure Machine Learning Dokumentation",
+        url: "https://learn.microsoft.com/azure/machine-learning/",
+      },
     ],
   },
   en: {
@@ -144,8 +192,14 @@ export const extras: Record<Locale, GlossaryExtra> = {
       "A common error is to assume AutoML solves any problem without expertise. AutoML speeds up model search but does not replace understanding of data and targets.",
     ],
     sources: [
-      { title: "Microsoft Learn – What is Azure Machine Learning?", url: "https://learn.microsoft.com/azure/machine-learning/overview-what-is-azure-machine-learning" },
-      { title: "Microsoft Learn – Azure Machine Learning documentation", url: "https://learn.microsoft.com/azure/machine-learning/" },
+      {
+        title: "Microsoft Learn – What is Azure Machine Learning?",
+        url: "https://learn.microsoft.com/azure/machine-learning/overview-what-is-azure-machine-learning",
+      },
+      {
+        title: "Microsoft Learn – Azure Machine Learning documentation",
+        url: "https://learn.microsoft.com/azure/machine-learning/",
+      },
     ],
   },
 }

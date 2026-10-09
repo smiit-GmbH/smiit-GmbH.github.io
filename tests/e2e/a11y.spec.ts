@@ -20,9 +20,7 @@ for (const pagePath of keyPages) {
     })
     await page.waitForTimeout(1000)
 
-    const results = await new AxeBuilder({ page })
-      .withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"])
-      .analyze()
+    const results = await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"]).analyze()
 
     const serious = results.violations.filter((v) => v.impact === "critical" || v.impact === "serious")
     const describe = (v: (typeof serious)[number]) => `${v.id} (${v.impact}): ${v.nodes.length}× — ${v.help}`

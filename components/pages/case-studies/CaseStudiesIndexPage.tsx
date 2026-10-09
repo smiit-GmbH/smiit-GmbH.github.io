@@ -4,12 +4,7 @@ import Link from "next/link"
 import Image from "next/image"
 import { ArrowRight } from "lucide-react"
 import type { Locale } from "@/lib/dictionary"
-import {
-  getCaseStudiesUi,
-  listCaseStudies,
-  type CaseStudyContent,
-  type CaseStudyServiceArea,
-} from "@/lib/case-studies"
+import { getCaseStudiesUi, type CaseStudyServiceArea, type CaseStudySummary } from "@/lib/case-studies-meta"
 import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
 
 function cx(...classes: Array<string | false | null | undefined>) {
@@ -22,15 +17,7 @@ const AREA: Record<CaseStudyServiceArea, { label: { de: string; en: string }; co
   strategy: { label: { de: "Digitale Strategie", en: "Digital strategy" }, color: "#64748B" },
 }
 
-function CaseStudyRow({
-  study,
-  index,
-  lang,
-}: {
-  study: CaseStudyContent
-  index: number
-  lang: Locale
-}) {
+function CaseStudyRow({ study, index, lang }: { study: CaseStudySummary; index: number; lang: Locale }) {
   const ui = getCaseStudiesUi(lang)
   const [revealRef, revealed] = useRevealOnScroll({ margin: "-80px" })
   const area = AREA[study.serviceArea]
@@ -44,10 +31,7 @@ function CaseStudyRow({
     <article
       ref={revealRef}
       style={{ ["--area" as string]: area.color }}
-      className={cx(
-        "group grid items-center gap-10 lg:grid-cols-2 lg:gap-16 reveal-fade-up",
-        revealed && "revealed",
-      )}
+      className={cx("group grid items-center gap-10 lg:grid-cols-2 lg:gap-16 reveal-fade-up", revealed && "revealed")}
     >
       {/* Visual */}
       <Link href={href} className={cx("relative block", flipped && "lg:order-2")}>
@@ -93,9 +77,7 @@ function CaseStudyRow({
           >
             {area.label[lang]}
           </span>
-          <span className="text-[0.74rem] font-medium uppercase tracking-wider text-[#0B162D]/45">
-            {study.client}
-          </span>
+          <span className="text-[0.74rem] font-medium uppercase tracking-wider text-[#0B162D]/45">{study.client}</span>
         </div>
 
         <h2 className="relative mt-5 max-w-[20ch] font-serif text-[2rem] leading-[1.08] tracking-tight text-[#0B162D] sm:text-[2.4rem] md:text-[2.7rem]">
@@ -133,10 +115,8 @@ function CaseStudyRow({
   )
 }
 
-export default function CaseStudiesIndexPage({ lang }: { lang: Locale }) {
+export default function CaseStudiesIndexPage({ lang, studies }: { lang: Locale; studies: CaseStudySummary[] }) {
   const ui = getCaseStudiesUi(lang)
-  const studies = listCaseStudies(lang)
-  const [headingRef, headingRevealed] = useRevealOnScroll()
   const [ctaRef, ctaRevealed] = useRevealOnScroll({ margin: "-60px" })
   const base = `/${lang}`
 
@@ -145,17 +125,10 @@ export default function CaseStudiesIndexPage({ lang }: { lang: Locale }) {
       <section className="relative overflow-hidden">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section header */}
-          <div
-            ref={headingRef}
-            className={cx(
-              "mx-auto max-w-[60ch] text-center reveal-fade-up",
-              headingRevealed && "revealed",
-            )}
-          >
+          <div className="mx-auto max-w-[60ch] text-center hero-fade-up">
             <span className="section-eyebrow">{ui.eyebrow}</span>
             <h1 className="mx-auto max-w-[18ch] font-serif text-[2.8rem] sm:text-[3.4rem] md:text-[4rem] leading-[1.02] tracking-tight text-[#0B162D]">
-              {ui.indexTitleLead}{" "}
-              <span className="section-highlight">{ui.indexTitleHighlight}</span>
+              {ui.indexTitleLead} <span className="section-highlight">{ui.indexTitleHighlight}</span>
             </h1>
             <div
               aria-hidden

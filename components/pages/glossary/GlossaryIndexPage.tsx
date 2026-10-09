@@ -6,13 +6,11 @@ import { ArrowRight, Search, X } from "lucide-react"
 import type { Locale } from "@/lib/dictionary"
 import {
   getGlossaryUi,
-  getGlossaryTermSynonyms,
   glossaryClusterMeta,
   glossaryClusterOrder,
-  listGlossaryCatalogByCluster,
   type GlossaryCatalogEntry,
   type GlossaryCluster,
-} from "@/lib/glossary"
+} from "@/lib/glossary-meta"
 import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
 
 function cx(...classes: Array<string | false | null | undefined>) {
@@ -50,17 +48,30 @@ function TermCard({ entry, lang }: { entry: GlossaryCatalogEntry; lang: Locale }
 
   const inner = (
     <>
-      <span aria-hidden className="pointer-events-none absolute inset-x-0 top-0 h-[3px]" style={{ background: `linear-gradient(to right, ${color}, ${color}55)` }} />
-      <span aria-hidden className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full" style={{ background: `radial-gradient(circle, ${color}12, transparent 70%)` }} />
+      <span
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-[3px]"
+        style={{ background: `linear-gradient(to right, ${color}, ${color}55)` }}
+      />
+      <span
+        aria-hidden
+        className="pointer-events-none absolute -right-10 -top-10 h-28 w-28 rounded-full"
+        style={{ background: `radial-gradient(circle, ${color}12, transparent 70%)` }}
+      />
       <div className="relative flex items-center justify-between gap-3">
-        <span className="rounded-full px-2.5 py-0.5 text-[0.58rem] font-semibold uppercase tracking-wider" style={{ color, backgroundColor: `${color}16` }}>
+        <span
+          className="rounded-full px-2.5 py-0.5 text-[0.58rem] font-semibold uppercase tracking-wider"
+          style={{ color, backgroundColor: `${color}16` }}
+        >
           {roleLabel}
         </span>
         {!entry.hasPage && (
           <span className="text-[0.6rem] font-medium uppercase tracking-wider text-[#0B162D]/35">{ui.comingSoon}</span>
         )}
       </div>
-      <h3 className="relative mt-3 font-serif text-[1.2rem] leading-[1.2] tracking-tight text-[#0B162D]">{entry.term[lang]}</h3>
+      <h3 className="relative mt-3 font-serif text-[1.2rem] leading-[1.2] tracking-tight text-[#0B162D]">
+        {entry.term[lang]}
+      </h3>
       <p className="relative mt-2 text-[0.85rem] leading-relaxed text-[#0B162D]/60">{entry.shortDefinition[lang]}</p>
       {entry.hasPage && (
         <span className="relative mt-4 inline-flex items-center gap-1.5 text-[0.8rem] font-semibold" style={{ color }}>
@@ -77,7 +88,10 @@ function TermCard({ entry, lang }: { entry: GlossaryCatalogEntry; lang: Locale }
     return (
       <Link
         href={`/${lang}/glossary/${entry.slug}`}
-        className={cx(base, "group hover:-translate-y-1 hover:shadow-[0_20px_44px_rgba(11,22,45,0.12)] hover:border-[color:var(--c)]")}
+        className={cx(
+          base,
+          "group hover:-translate-y-1 hover:shadow-[0_20px_44px_rgba(11,22,45,0.12)] hover:border-[color:var(--c)]",
+        )}
         style={{ borderColor: `${color}26`, ["--c" as string]: color }}
       >
         {inner}
@@ -92,9 +106,17 @@ function TermCard({ entry, lang }: { entry: GlossaryCatalogEntry; lang: Locale }
 }
 
 // ── Cluster section ───────────────────────────────────────────────────────
-function ClusterSection({ cluster, lang }: { cluster: GlossaryCluster; lang: Locale }) {
+function ClusterSection({
+  cluster,
+  catalog,
+  lang,
+}: {
+  cluster: GlossaryCluster
+  catalog: GlossaryCatalogEntry[]
+  lang: Locale
+}) {
   const meta = glossaryClusterMeta[cluster]
-  const entries = listGlossaryCatalogByCluster(cluster)
+  const entries = catalog.filter((entry) => entry.cluster === cluster)
   const [revealRef, revealed] = useRevealOnScroll({ margin: "-60px" })
 
   return (
@@ -120,21 +142,33 @@ function ClusterSection({ cluster, lang }: { cluster: GlossaryCluster; lang: Loc
 }
 
 // ── Page ────────────────────────────────────────────────────────────────
-export default function GlossaryIndexPage({ lang }: { lang: Locale }) {
+export default function GlossaryIndexPage({
+  lang,
+  catalog,
+  synonyms,
+}: {
+  lang: Locale
+  /** The full term catalog, in catalog order. */
+  catalog: GlossaryCatalogEntry[]
+  /** Synonyms per slug (current locale) — widens the search. */
+  synonyms: Record<string, string[]>
+}) {
   const ui = getGlossaryUi(lang)
   const copy = SEARCH_COPY[lang]
-  const [headingRef, headingRevealed] = useRevealOnScroll()
   const [query, setQuery] = useState("")
   const q = query.trim().toLowerCase()
 
-  const allEntries = useMemo(() => glossaryClusterOrder.flatMap((c) => listGlossaryCatalogByCluster(c)), [])
+  const allEntries = useMemo(
+    () => glossaryClusterOrder.flatMap((c) => catalog.filter((entry) => entry.cluster === c)),
+    [catalog],
+  )
   const searchIndex = useMemo(
     () =>
       allEntries.map((entry) => ({
         entry,
-        text: [entry.term[lang], entry.shortDefinition[lang], ...getGlossaryTermSynonyms(entry.slug, lang)].join(" ").toLowerCase(),
+        text: [entry.term[lang], entry.shortDefinition[lang], ...(synonyms[entry.slug] ?? [])].join(" ").toLowerCase(),
       })),
-    [allEntries, lang],
+    [allEntries, lang, synonyms],
   )
   const results = q ? searchIndex.filter((x) => x.text.includes(q)).map((x) => x.entry) : []
   const searching = q.length > 0
@@ -144,26 +178,24 @@ export default function GlossaryIndexPage({ lang }: { lang: Locale }) {
       {/* ── Hero ── */}
       <section className="relative">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div
-            ref={headingRef}
-            className={cx(
-              "flex flex-col gap-9 reveal-fade-up lg:grid lg:grid-cols-[2.6fr_1fr] lg:items-end lg:gap-12",
-              headingRevealed && "revealed",
-            )}
-          >
+          <div className="flex flex-col gap-9 hero-fade-up lg:grid lg:grid-cols-[2.6fr_1fr] lg:items-end lg:gap-12">
             {/* Left: heading (~72%) */}
             <div>
               <span className="section-eyebrow">{ui.eyebrow}</span>
               <h1 className="mt-2 font-serif text-[2.4rem] sm:text-[3.1rem] md:text-[3.6rem] leading-[1.03] tracking-tight text-[#0B162D]">
                 {ui.indexTitleLead} <span className="section-highlight">{ui.indexTitleHighlight}</span>
               </h1>
-              <p className="mt-5 text-[0.95rem] sm:text-[1.1rem] leading-relaxed text-[#0B162D]/65">{ui.indexSubtitle}</p>
+              <p className="mt-5 text-[0.95rem] sm:text-[1.1rem] leading-relaxed text-[#0B162D]/65">
+                {ui.indexSubtitle}
+              </p>
 
               <div className="mt-7 flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[0.78rem] font-medium text-[#0B162D]/45">
                 <span className="font-semibold text-[#0B162D]/70">{allEntries.length}</span>
                 <span>{copy.terms}</span>
                 <span aria-hidden className="h-1 w-1 rounded-full bg-[#0B162D]/25" />
-                <span><span className="font-semibold text-[#0B162D]/70">{glossaryClusterOrder.length}</span> {copy.areas}</span>
+                <span>
+                  <span className="font-semibold text-[#0B162D]/70">{glossaryClusterOrder.length}</span> {copy.areas}
+                </span>
                 <span aria-hidden className="h-1 w-1 rounded-full bg-[#0B162D]/25" />
                 <span>{copy.sources}</span>
               </div>
@@ -171,7 +203,11 @@ export default function GlossaryIndexPage({ lang }: { lang: Locale }) {
 
             {/* Right: search only, bottom-right (~28%) */}
             <div className="relative w-full">
-              <Search aria-hidden className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#0B162D]/35" style={{ height: 18, width: 18 }} />
+              <Search
+                aria-hidden
+                className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#0B162D]/35"
+                style={{ height: 18, width: 18 }}
+              />
               <input
                 type="search"
                 value={query}
@@ -203,7 +239,11 @@ export default function GlossaryIndexPage({ lang }: { lang: Locale }) {
               <h2 className="font-serif text-[1.6rem] sm:text-[2rem] leading-tight tracking-tight text-[#0B162D]">
                 {copy.results(results.length)}
               </h2>
-              <button type="button" onClick={() => setQuery("")} className="text-[0.82rem] font-medium text-[#0B162D]/55 underline-offset-4 hover:text-[#0B162D] hover:underline">
+              <button
+                type="button"
+                onClick={() => setQuery("")}
+                className="text-[0.82rem] font-medium text-[#0B162D]/55 underline-offset-4 hover:text-[#0B162D] hover:underline"
+              >
                 {copy.clear}
               </button>
             </div>
@@ -223,7 +263,7 @@ export default function GlossaryIndexPage({ lang }: { lang: Locale }) {
         ) : (
           <div className="flex flex-col gap-16 sm:gap-20">
             {glossaryClusterOrder.map((cluster) => (
-              <ClusterSection key={cluster} cluster={cluster} lang={lang} />
+              <ClusterSection key={cluster} cluster={cluster} catalog={catalog} lang={lang} />
             ))}
           </div>
         )}
@@ -231,13 +271,18 @@ export default function GlossaryIndexPage({ lang }: { lang: Locale }) {
 
       {/* ── CTA ── */}
       <section className="max-w-[1400px] mx-auto px-4 pb-14 pt-24 sm:px-6 sm:pb-20 sm:pt-28 lg:px-8">
-        <div className="overflow-hidden rounded-[28px] bg-[#0B162D] px-7 py-12 sm:px-12 sm:py-16" data-header-tone="dark">
+        <div
+          className="overflow-hidden rounded-[28px] bg-[#0B162D] px-7 py-12 sm:px-12 sm:py-16"
+          data-header-tone="dark"
+        >
           <div className="flex flex-col items-center gap-6 text-center lg:flex-row lg:items-center lg:justify-between lg:text-left">
             <div>
               <h2 className="mx-auto max-w-[26ch] font-serif text-[1.8rem] sm:text-[2.4rem] leading-[1.1] tracking-tight text-white lg:mx-0">
                 {ui.ctaHeading}
               </h2>
-              <p className="mx-auto mt-4 max-w-[52ch] text-[0.85rem] sm:text-[0.92rem] leading-relaxed text-white/65 lg:mx-0">{ui.ctaSubtitle}</p>
+              <p className="mx-auto mt-4 max-w-[52ch] text-[0.85rem] sm:text-[0.92rem] leading-relaxed text-white/65 lg:mx-0">
+                {ui.ctaSubtitle}
+              </p>
             </div>
             <Link
               href={`/${lang}/contact`}

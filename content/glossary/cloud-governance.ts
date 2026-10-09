@@ -177,8 +177,14 @@ export const extras: Record<Locale, GlossaryExtra> = {
       "Viele setzen Governance mit starren Verboten gleich, doch gut umgesetzt schafft sie über Leitplanken und Automatisierung gerade mehr Handlungsspielraum für die Teams.",
     ],
     sources: [
-      { title: "Microsoft Learn – Cloud Adoption Framework: Governance", url: "https://learn.microsoft.com/azure/cloud-adoption-framework/govern/" },
-      { title: "Microsoft Learn – Azure Well-Architected Framework", url: "https://learn.microsoft.com/azure/well-architected/" },
+      {
+        title: "Microsoft Learn – Cloud Adoption Framework: Governance",
+        url: "https://learn.microsoft.com/azure/cloud-adoption-framework/govern/",
+      },
+      {
+        title: "Microsoft Learn – Azure Well-Architected Framework",
+        url: "https://learn.microsoft.com/azure/well-architected/",
+      },
     ],
   },
   en: {
@@ -188,8 +194,14 @@ export const extras: Record<Locale, GlossaryExtra> = {
       "Many equate governance with rigid prohibitions, yet when done well it actually creates more freedom for teams through guardrails and automation.",
     ],
     sources: [
-      { title: "Microsoft Learn – Cloud Adoption Framework: Govern", url: "https://learn.microsoft.com/azure/cloud-adoption-framework/govern/" },
-      { title: "Microsoft Learn – Azure Well-Architected Framework", url: "https://learn.microsoft.com/azure/well-architected/" },
+      {
+        title: "Microsoft Learn – Cloud Adoption Framework: Govern",
+        url: "https://learn.microsoft.com/azure/cloud-adoption-framework/govern/",
+      },
+      {
+        title: "Microsoft Learn – Azure Well-Architected Framework",
+        url: "https://learn.microsoft.com/azure/well-architected/",
+      },
     ],
   },
 }

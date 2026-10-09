@@ -52,16 +52,37 @@ const dataWarehouse: LocalizedGlossaryTerm = {
       },
     ],
     faq: [
-      { question: "Was ist der Unterschied zwischen Data Warehouse und Data Lake?", answer: "Ein Data Lake speichert Rohdaten kostengünstig und ohne festes Schema, während ein Data Warehouse strukturierte, für Analysen aufbereitete Daten enthält. Ein Lakehouse kombiniert beide Ansätze auf einer Plattform." },
-      { question: "Brauchen wir als Mittelständler überhaupt ein Data Warehouse?", answer: "Sobald Reporting mehrere Quellsysteme zusammenführt, große Datenmengen anfallen oder eine verlässliche Historie benötigt wird, lohnt sich eine zentrale Datenplattform. Für sehr überschaubare Datenmengen kann eine direkte Anbindung zunächst ausreichen." },
-      { question: "Läuft ein Lakehouse nur in der Cloud?", answer: "In der Praxis wird ein Lakehouse fast immer in der Cloud betrieben, etwa auf Azure mit Azure Databricks oder Microsoft Fabric, weil dort günstiger Objektspeicher und skalierbare Rechenleistung zusammenkommen." },
-      { question: "Was ist der Unterschied zwischen ETL und ELT bei der Befüllung?", answer: "Bei ETL werden Daten erst transformiert und dann geladen, bei ELT zuerst geladen und anschließend in der Zielplattform transformiert. Moderne Lakehouses nutzen häufig ELT, weil günstiger Speicher und skalierbare Rechenleistung es erlauben, Rohdaten zunächst abzulegen und dort zu veredeln." },
-      { question: "Wie aktuell sind die Daten in einem Data Warehouse?", answer: "Das hängt vom Beladungsintervall ab. Viele Warehouses werden nächtlich oder mehrmals täglich aktualisiert (Batch), für nahezu aktuelle Daten sind häufigere oder streamende Ladevorgänge möglich. Der passende Takt richtet sich nach dem fachlichen Bedarf und den Kosten." },
+      {
+        question: "Was ist der Unterschied zwischen Data Warehouse und Data Lake?",
+        answer:
+          "Ein Data Lake speichert Rohdaten kostengünstig und ohne festes Schema, während ein Data Warehouse strukturierte, für Analysen aufbereitete Daten enthält. Ein Lakehouse kombiniert beide Ansätze auf einer Plattform.",
+      },
+      {
+        question: "Brauchen wir als Mittelständler überhaupt ein Data Warehouse?",
+        answer:
+          "Sobald Reporting mehrere Quellsysteme zusammenführt, große Datenmengen anfallen oder eine verlässliche Historie benötigt wird, lohnt sich eine zentrale Datenplattform. Für sehr überschaubare Datenmengen kann eine direkte Anbindung zunächst ausreichen.",
+      },
+      {
+        question: "Läuft ein Lakehouse nur in der Cloud?",
+        answer:
+          "In der Praxis wird ein Lakehouse fast immer in der Cloud betrieben, etwa auf Azure mit Azure Databricks oder Microsoft Fabric, weil dort günstiger Objektspeicher und skalierbare Rechenleistung zusammenkommen.",
+      },
+      {
+        question: "Was ist der Unterschied zwischen ETL und ELT bei der Befüllung?",
+        answer:
+          "Bei ETL werden Daten erst transformiert und dann geladen, bei ELT zuerst geladen und anschließend in der Zielplattform transformiert. Moderne Lakehouses nutzen häufig ELT, weil günstiger Speicher und skalierbare Rechenleistung es erlauben, Rohdaten zunächst abzulegen und dort zu veredeln.",
+      },
+      {
+        question: "Wie aktuell sind die Daten in einem Data Warehouse?",
+        answer:
+          "Das hängt vom Beladungsintervall ab. Viele Warehouses werden nächtlich oder mehrmals täglich aktualisiert (Batch), für nahezu aktuelle Daten sind häufigere oder streamende Ladevorgänge möglich. Der passende Takt richtet sich nach dem fachlichen Bedarf und den Kosten.",
+      },
     ],
     relatedServicePath: "services/analytics",
     relatedCaseStudySlug: "dy-project-ag",
     metaTitle: "Data Warehouse & Lakehouse: Definition & Praxis | smiit Glossar",
-    metaDescription: "Data Warehouse und Lakehouse einfach erklärt: Definition, Funktionsweise, Anwendungsfälle und Abgrenzung zu Data Lake und ETL – mit Praxisbezug von smiit.",
+    metaDescription:
+      "Data Warehouse und Lakehouse einfach erklärt: Definition, Funktionsweise, Anwendungsfälle und Abgrenzung zu Data Lake und ETL – mit Praxisbezug von smiit.",
   },
   en: {
     slug: "data-warehouse",
@@ -113,16 +134,37 @@ const dataWarehouse: LocalizedGlossaryTerm = {
       },
     ],
     faq: [
-      { question: "What is the difference between a data warehouse and a data lake?", answer: "A data lake stores raw data cheaply and without a fixed schema, whereas a data warehouse contains structured data prepared for analysis. A lakehouse combines both approaches on one platform." },
-      { question: "Do we as a mid-sized company even need a data warehouse?", answer: "As soon as reporting consolidates several source systems, large data volumes occur, or a reliable history is needed, a central data platform pays off. For very small data volumes, a direct connection may be sufficient at first." },
-      { question: "Does a lakehouse only run in the cloud?", answer: "In practice a lakehouse is almost always run in the cloud, for example on Azure with Azure Databricks or Microsoft Fabric, because cheap object storage and scalable compute come together there." },
-      { question: "What is the difference between ETL and ELT when loading?", answer: "With ETL, data is transformed first and then loaded; with ELT, it is loaded first and then transformed within the target platform. Modern lakehouses often use ELT because cheap storage and scalable compute make it feasible to land raw data first and refine it there." },
-      { question: "How current is the data in a data warehouse?", answer: "It depends on the load interval. Many warehouses are refreshed nightly or several times a day (batch); for near-real-time data, more frequent or streaming loads are possible. The right cadence depends on business needs and cost." },
+      {
+        question: "What is the difference between a data warehouse and a data lake?",
+        answer:
+          "A data lake stores raw data cheaply and without a fixed schema, whereas a data warehouse contains structured data prepared for analysis. A lakehouse combines both approaches on one platform.",
+      },
+      {
+        question: "Do we as a mid-sized company even need a data warehouse?",
+        answer:
+          "As soon as reporting consolidates several source systems, large data volumes occur, or a reliable history is needed, a central data platform pays off. For very small data volumes, a direct connection may be sufficient at first.",
+      },
+      {
+        question: "Does a lakehouse only run in the cloud?",
+        answer:
+          "In practice a lakehouse is almost always run in the cloud, for example on Azure with Azure Databricks or Microsoft Fabric, because cheap object storage and scalable compute come together there.",
+      },
+      {
+        question: "What is the difference between ETL and ELT when loading?",
+        answer:
+          "With ETL, data is transformed first and then loaded; with ELT, it is loaded first and then transformed within the target platform. Modern lakehouses often use ELT because cheap storage and scalable compute make it feasible to land raw data first and refine it there.",
+      },
+      {
+        question: "How current is the data in a data warehouse?",
+        answer:
+          "It depends on the load interval. Many warehouses are refreshed nightly or several times a day (batch); for near-real-time data, more frequent or streaming loads are possible. The right cadence depends on business needs and cost.",
+      },
     ],
     relatedServicePath: "services/analytics",
     relatedCaseStudySlug: "dy-project-ag",
     metaTitle: "Data warehouse & lakehouse explained | smiit glossary",
-    metaDescription: "Data warehouse and lakehouse explained simply: definition, how they work, use cases and how they differ from a data lake and ETL – with practical insight from smiit.",
+    metaDescription:
+      "Data warehouse and lakehouse explained simply: definition, how they work, use cases and how they differ from a data lake and ETL – with practical insight from smiit.",
   },
 }
 
@@ -137,7 +179,10 @@ export const extras: Record<Locale, GlossaryExtra> = {
       "Ein verbreiteter Fehler ist, das Data Warehouse mit einem Data Lake zu verwechseln. Der Lake speichert Rohdaten in beliebigem Format, das Warehouse strukturierte, modellierte Daten.",
     ],
     sources: [
-      { title: "Microsoft Learn – Data Warehousing (Azure Architecture Center)", url: "https://learn.microsoft.com/azure/architecture/data-guide/relational-data/data-warehousing" },
+      {
+        title: "Microsoft Learn – Data Warehousing (Azure Architecture Center)",
+        url: "https://learn.microsoft.com/azure/architecture/data-guide/relational-data/data-warehousing",
+      },
       { title: "Kimball Group – Dimensional Modeling Techniques", url: "https://www.kimballgroup.com/" },
     ],
   },
@@ -148,7 +193,10 @@ export const extras: Record<Locale, GlossaryExtra> = {
       "A common mistake is to confuse a data warehouse with a data lake. The lake stores raw data in any format, while the warehouse holds structured, modeled data.",
     ],
     sources: [
-      { title: "Microsoft Learn – Data warehousing (Azure Architecture Center)", url: "https://learn.microsoft.com/azure/architecture/data-guide/relational-data/data-warehousing" },
+      {
+        title: "Microsoft Learn – Data warehousing (Azure Architecture Center)",
+        url: "https://learn.microsoft.com/azure/architecture/data-guide/relational-data/data-warehousing",
+      },
       { title: "Kimball Group – Dimensional Modeling Techniques", url: "https://www.kimballgroup.com/" },
     ],
   },

@@ -7,13 +7,13 @@ import { ArrowRight, Quote } from "lucide-react"
 import type { Locale } from "@/lib/dictionary"
 import {
   getCaseStudiesUi,
-  listOtherCaseStudies,
   type CaseStudyContent,
+  type CaseStudySummary,
   type CaseStudySection,
   type CaseStudyServiceArea,
-} from "@/lib/case-studies"
+} from "@/lib/case-studies-meta"
 import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
-import { listGlossaryCatalogForCaseStudy } from "@/lib/glossary"
+import type { GlossaryCatalogEntry, GlossaryLinkIndex } from "@/lib/glossary-meta"
 import { autolinkGlossary } from "@/lib/glossary-autolink"
 import Breadcrumb from "@/components/pages/case-studies/breadcrumb"
 import ChapterNav, { CHAPTERS_WRAPPER_ID, chapterId } from "@/components/pages/case-studies/chapter-nav"
@@ -82,27 +82,30 @@ function NarrativeSection({
 export default function CaseStudyDetailPage({
   lang,
   study,
+  others,
+  glossaryEntries,
+  glossaryIndex,
 }: {
   lang: Locale
   study: CaseStudyContent
+  others: CaseStudySummary[]
+  glossaryEntries: GlossaryCatalogEntry[]
+  glossaryIndex: GlossaryLinkIndex
 }) {
   const ui = getCaseStudiesUi(lang)
   const base = `/${lang}`
   const area = AREA[study.serviceArea]
-  const [heroRef, heroRevealed] = useRevealOnScroll()
   const [metricsRef, metricsRevealed] = useRevealOnScroll({ margin: "-60px" })
   const [techRef, techRevealed] = useRevealOnScroll({ margin: "-60px" })
   const [moreRef, moreRevealed] = useRevealOnScroll({ margin: "-60px" })
   const serviceLabel = area.label[lang]
-  const others = listOtherCaseStudies(study.slug, lang)
-  const glossaryEntries = listGlossaryCatalogForCaseStudy(study.slug)
   // Auto-link the first mention of each glossary term across the narrative body.
   const linkedSectionParagraphs = useMemo(() => {
     const used = new Set<string>()
     return study.sections.map((section) =>
-      section.paragraphs.map((p) => autolinkGlossary(p, { lang, used })),
+      section.paragraphs.map((p) => autolinkGlossary(p, { lang, index: glossaryIndex, used })),
     )
-  }, [study, lang])
+  }, [study, lang, glossaryIndex])
   const publishedDate = new Intl.DateTimeFormat(lang === "de" ? "de-DE" : "en-US", {
     day: "numeric",
     month: "long",
@@ -121,19 +124,10 @@ export default function CaseStudyDetailPage({
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
           <Breadcrumb
             lang={lang}
-            items={[
-              { label: ui.breadcrumbLabel, href: `${base}/case-studies` },
-              { label: study.client },
-            ]}
+            items={[{ label: ui.breadcrumbLabel, href: `${base}/case-studies` }, { label: study.client }]}
           />
 
-          <div
-            ref={heroRef}
-            className={cx(
-              "mt-8 grid items-center gap-10 lg:grid-cols-2 lg:gap-16 reveal-fade-up",
-              heroRevealed && "revealed",
-            )}
-          >
+          <div className="mt-8 grid items-center gap-10 lg:grid-cols-2 lg:gap-16 hero-fade-up">
             {/* Text */}
             <div>
               <div className="flex flex-wrap items-center gap-3">
@@ -185,7 +179,9 @@ export default function CaseStudyDetailPage({
                 </div>
                 <div className="absolute -bottom-6 left-6 rounded-2xl border border-black/[0.06] bg-white/95 px-5 py-3.5 shadow-[0_16px_40px_rgba(18,38,63,0.14)] backdrop-blur">
                   <p className="font-serif text-[1.9rem] leading-none text-[var(--area)]">{study.heroMetric.value}</p>
-                  <p className="mt-1.5 max-w-[24ch] text-[0.7rem] leading-snug text-[#0B162D]/55">{study.heroMetric.label}</p>
+                  <p className="mt-1.5 max-w-[24ch] text-[0.7rem] leading-snug text-[#0B162D]/55">
+                    {study.heroMetric.label}
+                  </p>
                 </div>
               </div>
             )}
@@ -196,7 +192,12 @@ export default function CaseStudyDetailPage({
             {study.facts.map((fact) => (
               <div key={fact.label} className="bg-background p-4 sm:p-5">
                 <dt className="text-[0.66rem] font-medium uppercase tracking-wider text-[#0B162D]/45">{fact.label}</dt>
-                <dd lang={lang} className="mt-1.5 text-[0.92rem] font-semibold leading-snug text-[#0B162D] hyphens-auto break-words">{fact.value}</dd>
+                <dd
+                  lang={lang}
+                  className="mt-1.5 text-[0.92rem] font-semibold leading-snug text-[#0B162D] hyphens-auto break-words"
+                >
+                  {fact.value}
+                </dd>
               </div>
             ))}
             {/* Filler so the trailing empty grid cell matches the card bg instead of showing the divider colour (5 facts → 1 empty cell at 2/3 cols, none at 5 cols). */}
@@ -209,7 +210,12 @@ export default function CaseStudyDetailPage({
       <div id={CHAPTERS_WRAPPER_ID} className="max-w-[1400px] mx-auto mt-20 px-4 sm:mt-28 sm:px-6 lg:px-8">
         <div className="space-y-16 sm:space-y-20">
           {study.sections.map((section, i) => (
-            <NarrativeSection key={section.heading} section={section} index={i} paragraphs={linkedSectionParagraphs[i]} />
+            <NarrativeSection
+              key={section.heading}
+              section={section}
+              index={i}
+              paragraphs={linkedSectionParagraphs[i]}
+            />
           ))}
         </div>
       </div>

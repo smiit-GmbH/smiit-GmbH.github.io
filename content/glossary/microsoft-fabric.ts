@@ -39,16 +39,37 @@ const microsoftFabric: LocalizedGlossaryTerm = {
       },
     ],
     faq: [
-      { question: "Was ist der Unterschied zwischen Microsoft Fabric und Azure Databricks?", answer: "Fabric ist eine breite, integrierte Analyseplattform mit enger Power-BI-Anbindung. Azure Databricks ist spezialisiert auf leistungsstarkes Data Engineering und Data Science. Beide nutzen Lakehouse-Konzepte und können kombiniert werden." },
-      { question: "Brauche ich für Microsoft Fabric Power BI?", answer: "Power BI ist Teil von Fabric und dient als Berichts- und Visualisierungsschicht. Wer bereits Power BI nutzt, findet in Fabric eine natürliche Erweiterung in Richtung durchgängiger Datenplattform." },
-      { question: "Was ist OneLake in Microsoft Fabric?", answer: "OneLake ist der zentrale, einheitliche Datenspeicher von Fabric, auf den alle Dienste gemeinsam zugreifen. Dadurch müssen Daten nicht mehrfach kopiert werden, sondern stehen den verschiedenen Fabric-Werkzeugen direkt zur Verfügung." },
-      { question: "Eignet sich Microsoft Fabric für den Mittelstand?", answer: "Fabric kann gerade für kleinere Teams attraktiv sein, weil es viele Bausteine in einer Plattform bündelt und weniger Einzeldienste verbunden werden müssen. Entscheidend sind der tatsächliche Datenbedarf und das Lizenzmodell, das sich an der gebuchten Kapazität orientiert." },
-      { question: "Wie passt smiit Microsoft Fabric in eine Datenstrategie ein?", answer: "smiit bewertet im Einzelfall, ob Fabric, Azure Databricks oder eine Kombination am besten zur Datenlage und zum Budget passt, und setzt darauf eine durchdachte Modellierung und Governance auf." },
+      {
+        question: "Was ist der Unterschied zwischen Microsoft Fabric und Azure Databricks?",
+        answer:
+          "Fabric ist eine breite, integrierte Analyseplattform mit enger Power-BI-Anbindung. Azure Databricks ist spezialisiert auf leistungsstarkes Data Engineering und Data Science. Beide nutzen Lakehouse-Konzepte und können kombiniert werden.",
+      },
+      {
+        question: "Brauche ich für Microsoft Fabric Power BI?",
+        answer:
+          "Power BI ist Teil von Fabric und dient als Berichts- und Visualisierungsschicht. Wer bereits Power BI nutzt, findet in Fabric eine natürliche Erweiterung in Richtung durchgängiger Datenplattform.",
+      },
+      {
+        question: "Was ist OneLake in Microsoft Fabric?",
+        answer:
+          "OneLake ist der zentrale, einheitliche Datenspeicher von Fabric, auf den alle Dienste gemeinsam zugreifen. Dadurch müssen Daten nicht mehrfach kopiert werden, sondern stehen den verschiedenen Fabric-Werkzeugen direkt zur Verfügung.",
+      },
+      {
+        question: "Eignet sich Microsoft Fabric für den Mittelstand?",
+        answer:
+          "Fabric kann gerade für kleinere Teams attraktiv sein, weil es viele Bausteine in einer Plattform bündelt und weniger Einzeldienste verbunden werden müssen. Entscheidend sind der tatsächliche Datenbedarf und das Lizenzmodell, das sich an der gebuchten Kapazität orientiert.",
+      },
+      {
+        question: "Wie passt smiit Microsoft Fabric in eine Datenstrategie ein?",
+        answer:
+          "smiit bewertet im Einzelfall, ob Fabric, Azure Databricks oder eine Kombination am besten zur Datenlage und zum Budget passt, und setzt darauf eine durchdachte Modellierung und Governance auf.",
+      },
     ],
     relatedServicePath: "services/analytics",
     relatedCaseStudySlug: "dy-project-ag",
     metaTitle: "Microsoft Fabric: Definition, Nutzen & Praxis | smiit Glossar",
-    metaDescription: "Microsoft Fabric einfach erklärt: Definition, Funktionsweise, Anwendungsfälle und Abgrenzung zu Azure Databricks und Power BI – mit Praxisbezug von smiit.",
+    metaDescription:
+      "Microsoft Fabric einfach erklärt: Definition, Funktionsweise, Anwendungsfälle und Abgrenzung zu Azure Databricks und Power BI – mit Praxisbezug von smiit.",
   },
   en: {
     slug: "microsoft-fabric",
@@ -87,16 +108,37 @@ const microsoftFabric: LocalizedGlossaryTerm = {
       },
     ],
     faq: [
-      { question: "What is the difference between Microsoft Fabric and Azure Databricks?", answer: "Fabric is a broad, integrated analytics platform with tight Power BI integration. Azure Databricks is specialized in powerful data engineering and data science. Both use lakehouse concepts and can be combined." },
-      { question: "Do I need Power BI for Microsoft Fabric?", answer: "Power BI is part of Fabric and serves as the reporting and visualization layer. Anyone already using Power BI finds in Fabric a natural extension towards an end-to-end data platform." },
-      { question: "What is OneLake in Microsoft Fabric?", answer: "OneLake is Fabric's central, unified data store that all services access together. This means data no longer has to be copied multiple times but is directly available to the various Fabric tools." },
-      { question: "Is Microsoft Fabric suitable for mid-sized companies?", answer: "Fabric can be appealing precisely for smaller teams because it bundles many building blocks into one platform and fewer individual services have to be connected. What matters is the actual data requirement and the licensing model, which is based on the capacity booked." },
-      { question: "How does smiit fit Microsoft Fabric into a data strategy?", answer: "smiit assesses case by case whether Fabric, Azure Databricks or a combination best fits the data situation and budget, and builds thoughtful modeling and governance on top of it." },
+      {
+        question: "What is the difference between Microsoft Fabric and Azure Databricks?",
+        answer:
+          "Fabric is a broad, integrated analytics platform with tight Power BI integration. Azure Databricks is specialized in powerful data engineering and data science. Both use lakehouse concepts and can be combined.",
+      },
+      {
+        question: "Do I need Power BI for Microsoft Fabric?",
+        answer:
+          "Power BI is part of Fabric and serves as the reporting and visualization layer. Anyone already using Power BI finds in Fabric a natural extension towards an end-to-end data platform.",
+      },
+      {
+        question: "What is OneLake in Microsoft Fabric?",
+        answer:
+          "OneLake is Fabric's central, unified data store that all services access together. This means data no longer has to be copied multiple times but is directly available to the various Fabric tools.",
+      },
+      {
+        question: "Is Microsoft Fabric suitable for mid-sized companies?",
+        answer:
+          "Fabric can be appealing precisely for smaller teams because it bundles many building blocks into one platform and fewer individual services have to be connected. What matters is the actual data requirement and the licensing model, which is based on the capacity booked.",
+      },
+      {
+        question: "How does smiit fit Microsoft Fabric into a data strategy?",
+        answer:
+          "smiit assesses case by case whether Fabric, Azure Databricks or a combination best fits the data situation and budget, and builds thoughtful modeling and governance on top of it.",
+      },
     ],
     relatedServicePath: "services/analytics",
     relatedCaseStudySlug: "dy-project-ag",
     metaTitle: "Microsoft Fabric: definition & practice | smiit glossary",
-    metaDescription: "Microsoft Fabric explained simply: definition, how it works, use cases and how it differs from Azure Databricks and Power BI – with practical insight from smiit.",
+    metaDescription:
+      "Microsoft Fabric explained simply: definition, how it works, use cases and how it differs from Azure Databricks and Power BI – with practical insight from smiit.",
   },
 }
 

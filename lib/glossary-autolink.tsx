@@ -1,13 +1,8 @@
 import React from "react"
 import Link from "next/link"
 import type { Locale } from "@/lib/dictionary"
-import { getGlossaryMatchers, getGlossaryShortDefinition, type GlossaryMatcher } from "@/lib/glossary"
+import type { GlossaryLinkIndex } from "@/lib/glossary-meta"
 import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip"
-
-const matchersByLang: Record<Locale, GlossaryMatcher[]> = {
-  de: getGlossaryMatchers("de"),
-  en: getGlossaryMatchers("en"),
-}
 
 function escapeRegExp(s: string): string {
   return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
@@ -19,7 +14,10 @@ function escapeRegExp(s: string): string {
  * "Bronze Silver Gold" matches "Bronze-/Silver-/Gold".
  */
 function buildPattern(text: string): string {
-  const tokens = text.split(/[\s/\-]+/).filter(Boolean).map(escapeRegExp)
+  const tokens = text
+    .split(/[\s/\-]+/)
+    .filter(Boolean)
+    .map(escapeRegExp)
   return tokens.join("[\\s/\\-]+")
 }
 
@@ -32,15 +30,18 @@ type Token = { type: "text"; value: string } | { type: "link"; slug: string; val
  *  - no self-link (`excludeSlug`)
  *  - word-boundary matching, longest phrase first, case-insensitive
  *  - returns a plain string when nothing matched (no wrapper noise)
+ *
+ * `index` comes from `getGlossaryLinkIndex(lang)` (lib/glossary), computed in the
+ * server route and passed down, so the glossary itself never ships to the browser.
  */
 export function autolinkGlossary(
   text: string,
-  opts: { lang: Locale; used: Set<string>; excludeSlug?: string },
+  opts: { lang: Locale; index: GlossaryLinkIndex; used: Set<string>; excludeSlug?: string },
 ): React.ReactNode {
-  const { lang, used, excludeSlug } = opts
+  const { lang, index, used, excludeSlug } = opts
   let tokens: Token[] = [{ type: "text", value: text }]
 
-  for (const m of matchersByLang[lang]) {
+  for (const m of index.matchers) {
     if (m.slug === excludeSlug || used.has(m.slug)) continue
     const body = buildPattern(m.text)
     if (!body) continue
@@ -87,16 +88,13 @@ export function autolinkGlossary(
 
     // Hover/focus tooltip with the term's short definition (instant context,
     // without leaving the page). On touch, tapping the link navigates as usual.
-    const definition = getGlossaryShortDefinition(t.slug, lang)
+    const definition = index.definitions[t.slug]
     if (!definition) return <React.Fragment key={i}>{link}</React.Fragment>
 
     return (
       <Tooltip key={i} delayDuration={250}>
         <TooltipTrigger asChild>{link}</TooltipTrigger>
-        <TooltipContent
-          sideOffset={6}
-          className="max-w-[20rem] text-[0.78rem] font-normal leading-relaxed"
-        >
+        <TooltipContent sideOffset={6} className="max-w-[20rem] text-[0.78rem] font-normal leading-relaxed">
           {definition}
         </TooltipContent>
       </Tooltip>

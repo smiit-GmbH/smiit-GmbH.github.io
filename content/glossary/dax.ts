@@ -21,9 +21,7 @@ const dax: LocalizedGlossaryTerm = {
       },
       {
         heading: "Typische Anwendungsfälle",
-        paragraphs: [
-          "DAX kommt überall dort zum Einsatz, wo Berichte mehr als reine Summen brauchen.",
-        ],
+        paragraphs: ["DAX kommt überall dort zum Einsatz, wo Berichte mehr als reine Summen brauchen."],
         bullets: [
           "Kennzahlen wie Umsatz, Marge oder Auslastung als wiederverwendbare Measures",
           "Zeitintelligenz: Vorjahresvergleich, Year-to-Date, gleitende Durchschnitte",
@@ -39,15 +37,32 @@ const dax: LocalizedGlossaryTerm = {
       },
     ],
     faq: [
-      { question: "Was ist der Unterschied zwischen einem Measure und einer berechneten Spalte?", answer: "Ein Measure wird zur Abfragezeit im jeweiligen Filterkontext berechnet und ist sehr flexibel. Eine berechnete Spalte wird beim Laden berechnet und im Modell gespeichert, was mehr Speicher braucht und weniger dynamisch ist." },
-      { question: "Ist DAX schwer zu lernen?", answer: "Die Grundlagen sind schnell erlernbar, ähnlich wie Excel-Formeln. Anspruchsvoll wird DAX beim Filterkontext und Funktionen wie CALCULATE; hier hilft ein sauberes Datenmodell und Erfahrung, wie sie smiit einbringt." },
-      { question: "Was ist der Unterschied zwischen Power Query und DAX?", answer: "Power Query bereitet die Daten vor dem Laden ins Modell auf, also verbinden, bereinigen und umformen. DAX berechnet anschließend Kennzahlen und Aggregationen innerhalb des fertigen Datenmodells. Beide ergänzen sich, lösen aber unterschiedliche Aufgaben." },
-      { question: "Warum ist ein gutes Datenmodell für DAX wichtig?", answer: "DAX berechnet im Kontext der Tabellen und Beziehungen des Modells. Ein sauberes Sternschema mit klaren Beziehungen macht Measures einfacher, schneller und besser nachvollziehbar, während ein unübersichtliches Modell zu komplizierten Formeln und Performanceproblemen führt." },
+      {
+        question: "Was ist der Unterschied zwischen einem Measure und einer berechneten Spalte?",
+        answer:
+          "Ein Measure wird zur Abfragezeit im jeweiligen Filterkontext berechnet und ist sehr flexibel. Eine berechnete Spalte wird beim Laden berechnet und im Modell gespeichert, was mehr Speicher braucht und weniger dynamisch ist.",
+      },
+      {
+        question: "Ist DAX schwer zu lernen?",
+        answer:
+          "Die Grundlagen sind schnell erlernbar, ähnlich wie Excel-Formeln. Anspruchsvoll wird DAX beim Filterkontext und Funktionen wie CALCULATE; hier hilft ein sauberes Datenmodell und Erfahrung, wie sie smiit einbringt.",
+      },
+      {
+        question: "Was ist der Unterschied zwischen Power Query und DAX?",
+        answer:
+          "Power Query bereitet die Daten vor dem Laden ins Modell auf, also verbinden, bereinigen und umformen. DAX berechnet anschließend Kennzahlen und Aggregationen innerhalb des fertigen Datenmodells. Beide ergänzen sich, lösen aber unterschiedliche Aufgaben.",
+      },
+      {
+        question: "Warum ist ein gutes Datenmodell für DAX wichtig?",
+        answer:
+          "DAX berechnet im Kontext der Tabellen und Beziehungen des Modells. Ein sauberes Sternschema mit klaren Beziehungen macht Measures einfacher, schneller und besser nachvollziehbar, während ein unübersichtliches Modell zu komplizierten Formeln und Performanceproblemen führt.",
+      },
     ],
     relatedServicePath: "services/analytics",
     relatedCaseStudySlug: "dy-project-ag",
     metaTitle: "Was ist DAX? Definition, Nutzen & Praxis | smiit Glossar",
-    metaDescription: "DAX einfach erklärt: Definition, Funktionsweise, Anwendungsfälle und Abgrenzung zu Power Query und Semantic Model – mit Praxisbezug von smiit.",
+    metaDescription:
+      "DAX einfach erklärt: Definition, Funktionsweise, Anwendungsfälle und Abgrenzung zu Power Query und Semantic Model – mit Praxisbezug von smiit.",
   },
   en: {
     slug: "dax",
@@ -68,9 +83,7 @@ const dax: LocalizedGlossaryTerm = {
       },
       {
         heading: "Typical use cases",
-        paragraphs: [
-          "DAX is used wherever reports need more than plain sums.",
-        ],
+        paragraphs: ["DAX is used wherever reports need more than plain sums."],
         bullets: [
           "Metrics such as revenue, margin or utilization as reusable measures",
           "Time intelligence: year-over-year, year-to-date, moving averages",
@@ -86,15 +99,32 @@ const dax: LocalizedGlossaryTerm = {
       },
     ],
     faq: [
-      { question: "What is the difference between a measure and a calculated column?", answer: "A measure is calculated at query time in the respective filter context and is very flexible. A calculated column is computed on load and stored in the model, which uses more memory and is less dynamic." },
-      { question: "Is DAX hard to learn?", answer: "The basics are quick to learn, similar to Excel formulas. DAX becomes demanding with the filter context and functions such as CALCULATE; here a clean data model and experience, such as smiit contributes, help." },
-      { question: "What is the difference between Power Query and DAX?", answer: "Power Query prepares the data before it is loaded into the model, that is connecting, cleansing and reshaping. DAX then calculates metrics and aggregations within the finished data model. The two complement each other but solve different tasks." },
-      { question: "Why is a good data model important for DAX?", answer: "DAX calculates in the context of the model's tables and relationships. A clean star schema with clear relationships makes measures simpler, faster and easier to follow, whereas a tangled model leads to complicated formulas and performance problems." },
+      {
+        question: "What is the difference between a measure and a calculated column?",
+        answer:
+          "A measure is calculated at query time in the respective filter context and is very flexible. A calculated column is computed on load and stored in the model, which uses more memory and is less dynamic.",
+      },
+      {
+        question: "Is DAX hard to learn?",
+        answer:
+          "The basics are quick to learn, similar to Excel formulas. DAX becomes demanding with the filter context and functions such as CALCULATE; here a clean data model and experience, such as smiit contributes, help.",
+      },
+      {
+        question: "What is the difference between Power Query and DAX?",
+        answer:
+          "Power Query prepares the data before it is loaded into the model, that is connecting, cleansing and reshaping. DAX then calculates metrics and aggregations within the finished data model. The two complement each other but solve different tasks.",
+      },
+      {
+        question: "Why is a good data model important for DAX?",
+        answer:
+          "DAX calculates in the context of the model's tables and relationships. A clean star schema with clear relationships makes measures simpler, faster and easier to follow, whereas a tangled model leads to complicated formulas and performance problems.",
+      },
     ],
     relatedServicePath: "services/analytics",
     relatedCaseStudySlug: "dy-project-ag",
     metaTitle: "What is DAX? Definition, benefits & practice | smiit glossary",
-    metaDescription: "DAX explained simply: definition, how it works, use cases and how it differs from Power Query and the semantic model – with practical insight from smiit.",
+    metaDescription:
+      "DAX explained simply: definition, how it works, use cases and how it differs from Power Query and the semantic model – with practical insight from smiit.",
   },
 }
 

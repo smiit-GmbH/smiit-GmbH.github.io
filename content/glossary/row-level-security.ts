@@ -39,15 +39,32 @@ const rowLevelSecurity: LocalizedGlossaryTerm = {
       },
     ],
     faq: [
-      { question: "Was ist der Unterschied zwischen statischer und dynamischer RLS?", answer: "Bei statischer RLS wird je Rolle ein fester Filter hinterlegt. Bei dynamischer RLS wird die Identität des angemeldeten Nutzers genutzt, um die sichtbaren Zeilen automatisch zu bestimmen, was bei vielen Nutzern deutlich wartungsärmer ist." },
-      { question: "Schützt Row-Level Security die Daten vollständig?", answer: "RLS steuert die Sichtbarkeit von Zeilen im Bericht. Für umfassenden Schutz gehört sie in ein Gesamtkonzept aus Berechtigungen, Verschlüsselung und Governance, das smiit ganzheitlich betrachtet." },
-      { question: "Wie testet man, ob Row-Level Security korrekt greift?", answer: "Power BI bietet eine Funktion, mit der sich ein Bericht aus der Sicht einer bestimmten Rolle oder eines bestimmten Nutzers anzeigen lässt. So kann vor der Veröffentlichung geprüft werden, ob jede Rolle wirklich nur die vorgesehenen Zeilen sieht." },
-      { question: "Beeinträchtigt Row-Level Security die Performance eines Berichts?", answer: "RLS-Filter werden bei jeder Abfrage ausgewertet und können bei sehr komplexen Regeln oder großen Modellen die Antwortzeiten beeinflussen. Mit einem sauberen Datenmodell und möglichst einfachen Filterausdrücken bleibt der Effekt in der Regel gering." },
+      {
+        question: "Was ist der Unterschied zwischen statischer und dynamischer RLS?",
+        answer:
+          "Bei statischer RLS wird je Rolle ein fester Filter hinterlegt. Bei dynamischer RLS wird die Identität des angemeldeten Nutzers genutzt, um die sichtbaren Zeilen automatisch zu bestimmen, was bei vielen Nutzern deutlich wartungsärmer ist.",
+      },
+      {
+        question: "Schützt Row-Level Security die Daten vollständig?",
+        answer:
+          "RLS steuert die Sichtbarkeit von Zeilen im Bericht. Für umfassenden Schutz gehört sie in ein Gesamtkonzept aus Berechtigungen, Verschlüsselung und Governance, das smiit ganzheitlich betrachtet.",
+      },
+      {
+        question: "Wie testet man, ob Row-Level Security korrekt greift?",
+        answer:
+          "Power BI bietet eine Funktion, mit der sich ein Bericht aus der Sicht einer bestimmten Rolle oder eines bestimmten Nutzers anzeigen lässt. So kann vor der Veröffentlichung geprüft werden, ob jede Rolle wirklich nur die vorgesehenen Zeilen sieht.",
+      },
+      {
+        question: "Beeinträchtigt Row-Level Security die Performance eines Berichts?",
+        answer:
+          "RLS-Filter werden bei jeder Abfrage ausgewertet und können bei sehr komplexen Regeln oder großen Modellen die Antwortzeiten beeinflussen. Mit einem sauberen Datenmodell und möglichst einfachen Filterausdrücken bleibt der Effekt in der Regel gering.",
+      },
     ],
     relatedServicePath: "services/analytics",
     relatedCaseStudySlug: "dy-project-ag",
     metaTitle: "Row-Level Security (RLS): Definition & Praxis | smiit Glossar",
-    metaDescription: "Row-Level Security einfach erklärt: Definition, Funktionsweise, Anwendungsfälle und Abgrenzung zu Berechtigungen und Data Governance – mit Praxisbezug von smiit.",
+    metaDescription:
+      "Row-Level Security einfach erklärt: Definition, Funktionsweise, Anwendungsfälle und Abgrenzung zu Berechtigungen und Data Governance – mit Praxisbezug von smiit.",
   },
   en: {
     slug: "row-level-security",
@@ -86,15 +103,32 @@ const rowLevelSecurity: LocalizedGlossaryTerm = {
       },
     ],
     faq: [
-      { question: "What is the difference between static and dynamic RLS?", answer: "With static RLS, a fixed filter is stored per role. With dynamic RLS, the identity of the signed-in user is used to determine the visible rows automatically, which is considerably less maintenance with many users." },
-      { question: "Does row-level security protect the data completely?", answer: "RLS controls the visibility of rows in the report. For comprehensive protection it belongs in an overall concept of permissions, encryption and governance, which smiit considers holistically." },
-      { question: "How do you test whether row-level security works correctly?", answer: "Power BI provides a feature that lets you view a report from the perspective of a specific role or user. This makes it possible to verify before publishing that each role really only sees the intended rows." },
-      { question: "Does row-level security affect a report's performance?", answer: "RLS filters are evaluated with every query and, with very complex rules or large models, can influence response times. With a clean data model and filter expressions kept as simple as possible, the effect usually stays small." },
+      {
+        question: "What is the difference between static and dynamic RLS?",
+        answer:
+          "With static RLS, a fixed filter is stored per role. With dynamic RLS, the identity of the signed-in user is used to determine the visible rows automatically, which is considerably less maintenance with many users.",
+      },
+      {
+        question: "Does row-level security protect the data completely?",
+        answer:
+          "RLS controls the visibility of rows in the report. For comprehensive protection it belongs in an overall concept of permissions, encryption and governance, which smiit considers holistically.",
+      },
+      {
+        question: "How do you test whether row-level security works correctly?",
+        answer:
+          "Power BI provides a feature that lets you view a report from the perspective of a specific role or user. This makes it possible to verify before publishing that each role really only sees the intended rows.",
+      },
+      {
+        question: "Does row-level security affect a report's performance?",
+        answer:
+          "RLS filters are evaluated with every query and, with very complex rules or large models, can influence response times. With a clean data model and filter expressions kept as simple as possible, the effect usually stays small.",
+      },
     ],
     relatedServicePath: "services/analytics",
     relatedCaseStudySlug: "dy-project-ag",
     metaTitle: "Row-level security (RLS): definition & practice | smiit glossary",
-    metaDescription: "Row-level security explained simply: definition, how it works, use cases and how it differs from permissions and data governance – with practical insight from smiit.",
+    metaDescription:
+      "Row-level security explained simply: definition, how it works, use cases and how it differs from permissions and data governance – with practical insight from smiit.",
   },
 }
 
@@ -109,8 +143,14 @@ export const extras: Record<Locale, GlossaryExtra> = {
       "Ein verbreiteter Irrtum ist, dass RLS-Rollen nach dem Anlegen nicht getestet werden müssen. Ohne „Als Rolle anzeigen“-Tests bleiben Fehlkonfigurationen oft unbemerkt.",
     ],
     sources: [
-      { title: "Microsoft Learn – Row-Level Security (RLS) in Power BI", url: "https://learn.microsoft.com/power-bi/enterprise/service-admin-rls" },
-      { title: "Microsoft Learn – Power BI Sicherheit (Guidance)", url: "https://learn.microsoft.com/power-bi/guidance/" },
+      {
+        title: "Microsoft Learn – Row-Level Security (RLS) in Power BI",
+        url: "https://learn.microsoft.com/power-bi/enterprise/service-admin-rls",
+      },
+      {
+        title: "Microsoft Learn – Power BI Sicherheit (Guidance)",
+        url: "https://learn.microsoft.com/power-bi/guidance/",
+      },
     ],
   },
   en: {
@@ -120,8 +160,14 @@ export const extras: Record<Locale, GlossaryExtra> = {
       "A common error is to skip testing RLS roles after creating them. Without view-as-role testing, misconfigurations often go unnoticed.",
     ],
     sources: [
-      { title: "Microsoft Learn – Row-level security (RLS) in Power BI", url: "https://learn.microsoft.com/power-bi/enterprise/service-admin-rls" },
-      { title: "Microsoft Learn – Power BI security (guidance)", url: "https://learn.microsoft.com/power-bi/guidance/" },
+      {
+        title: "Microsoft Learn – Row-level security (RLS) in Power BI",
+        url: "https://learn.microsoft.com/power-bi/enterprise/service-admin-rls",
+      },
+      {
+        title: "Microsoft Learn – Power BI security (guidance)",
+        url: "https://learn.microsoft.com/power-bi/guidance/",
+      },
     ],
   },
 }

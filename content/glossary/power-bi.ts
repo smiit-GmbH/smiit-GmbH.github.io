@@ -45,9 +45,7 @@ const powerBi: LocalizedGlossaryTerm = {
       },
       {
         heading: "Grundbegriffe: Workspace, Dataset, Gateway & Refresh",
-        paragraphs: [
-          "Im Power BI Service tauchen einige wiederkehrende Grundbegriffe auf:",
-        ],
+        paragraphs: ["Im Power BI Service tauchen einige wiederkehrende Grundbegriffe auf:"],
         bullets: [
           "Workspace (Arbeitsbereich): ein abgegrenzter Bereich, in dem ein Team Berichte, Dashboards und Datenmodelle gemeinsam entwickelt, verwaltet und veröffentlicht – Grundlage für Rollen und Berechtigungen.",
           "Dataset / Semantic Model: die wiederverwendbare Datenschicht (Tabellen, Beziehungen, Measures), auf der Berichte aufsetzen. „Dataset“ ist die frühere Bezeichnung für das heutige Semantic Model.",
@@ -138,9 +136,7 @@ const powerBi: LocalizedGlossaryTerm = {
       },
       {
         heading: "Key terms: workspace, dataset, gateway & refresh",
-        paragraphs: [
-          "A few recurring building blocks appear in the Power BI Service:",
-        ],
+        paragraphs: ["A few recurring building blocks appear in the Power BI Service:"],
         bullets: [
           "Workspace: a dedicated area where a team builds, manages and publishes reports, dashboards and data models together — the basis for roles and permissions.",
           "Dataset / semantic model: the reusable data layer (tables, relationships, measures) reports are built on. Dataset is the former name for today's semantic model.",
@@ -202,7 +198,10 @@ export const extras: Record<Locale, GlossaryExtra> = {
     ],
     sources: [
       { title: "Microsoft Learn – Power BI Dokumentation", url: "https://learn.microsoft.com/power-bi/" },
-      { title: "Microsoft Learn – Power BI Leitfaden (Guidance)", url: "https://learn.microsoft.com/power-bi/guidance/" },
+      {
+        title: "Microsoft Learn – Power BI Leitfaden (Guidance)",
+        url: "https://learn.microsoft.com/power-bi/guidance/",
+      },
     ],
   },
   en: {

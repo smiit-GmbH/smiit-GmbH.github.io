@@ -52,16 +52,37 @@ const dataGovernance: LocalizedGlossaryTerm = {
       },
     ],
     faq: [
-      { question: "Was ist der Unterschied zwischen Data Governance und Datenstrategie?", answer: "Die Datenstrategie legt fest, welche Ziele mit Daten erreicht werden sollen. Data Governance ist das operative Regelwerk aus Rollen, Standards und Prozessen, mit dem diese Ziele verlässlich umgesetzt werden." },
-      { question: "Wer ist im Unternehmen für Data Governance verantwortlich?", answer: "Typisch sind Rollen wie Data Owner (fachlich verantwortlich für einen Datenbereich) und Data Steward (kümmert sich um Qualität und Pflege). Die Gesamtverantwortung liegt meist bei der Geschäftsführung oder einem Dateneigner." },
-      { question: "Ist Data Governance dasselbe wie Datenschutz?", answer: "Nein. Datenschutz, etwa nach DSGVO, ist ein wichtiger Teil von Governance, aber Governance umfasst darüber hinaus auch Datenqualität, Definitionen, Verantwortlichkeiten und Zugriffsregeln." },
-      { question: "Wird Data Governance erst ab einer bestimmten Unternehmensgröße relevant?", answer: "Nein. Schon wenige Berichte mit uneinheitlichen Kennzahlendefinitionen führen zu Missverständnissen. Im Mittelstand reicht oft eine schlanke Governance mit klaren Definitionen, benannten Verantwortlichen und einfachen Zugriffsregeln, statt eines schweren Regelwerks." },
-      { question: "Wie fängt man mit Data Governance pragmatisch an?", answer: "Sinnvoll ist ein kleiner Anfang: die wichtigsten Kennzahlen einheitlich definieren, für die zentralen Datenbereiche Verantwortliche benennen und Zugriffsrechte klären. Governance wächst dann mit den Datenanforderungen, statt von Beginn an alle Regeln auf einmal einzuführen." },
+      {
+        question: "Was ist der Unterschied zwischen Data Governance und Datenstrategie?",
+        answer:
+          "Die Datenstrategie legt fest, welche Ziele mit Daten erreicht werden sollen. Data Governance ist das operative Regelwerk aus Rollen, Standards und Prozessen, mit dem diese Ziele verlässlich umgesetzt werden.",
+      },
+      {
+        question: "Wer ist im Unternehmen für Data Governance verantwortlich?",
+        answer:
+          "Typisch sind Rollen wie Data Owner (fachlich verantwortlich für einen Datenbereich) und Data Steward (kümmert sich um Qualität und Pflege). Die Gesamtverantwortung liegt meist bei der Geschäftsführung oder einem Dateneigner.",
+      },
+      {
+        question: "Ist Data Governance dasselbe wie Datenschutz?",
+        answer:
+          "Nein. Datenschutz, etwa nach DSGVO, ist ein wichtiger Teil von Governance, aber Governance umfasst darüber hinaus auch Datenqualität, Definitionen, Verantwortlichkeiten und Zugriffsregeln.",
+      },
+      {
+        question: "Wird Data Governance erst ab einer bestimmten Unternehmensgröße relevant?",
+        answer:
+          "Nein. Schon wenige Berichte mit uneinheitlichen Kennzahlendefinitionen führen zu Missverständnissen. Im Mittelstand reicht oft eine schlanke Governance mit klaren Definitionen, benannten Verantwortlichen und einfachen Zugriffsregeln, statt eines schweren Regelwerks.",
+      },
+      {
+        question: "Wie fängt man mit Data Governance pragmatisch an?",
+        answer:
+          "Sinnvoll ist ein kleiner Anfang: die wichtigsten Kennzahlen einheitlich definieren, für die zentralen Datenbereiche Verantwortliche benennen und Zugriffsrechte klären. Governance wächst dann mit den Datenanforderungen, statt von Beginn an alle Regeln auf einmal einzuführen.",
+      },
     ],
     relatedServicePath: "services/analytics",
     relatedCaseStudySlug: "dy-project-ag",
     metaTitle: "Data Governance: Definition, Rollen & Praxis | smiit Glossar",
-    metaDescription: "Data Governance einfach erklärt: Definition, Rollen, Anwendungsfälle und Abgrenzung zu Datenstrategie und Datenschutz – mit Praxisbezug von smiit.",
+    metaDescription:
+      "Data Governance einfach erklärt: Definition, Rollen, Anwendungsfälle und Abgrenzung zu Datenstrategie und Datenschutz – mit Praxisbezug von smiit.",
   },
   en: {
     slug: "data-governance",
@@ -113,16 +134,37 @@ const dataGovernance: LocalizedGlossaryTerm = {
       },
     ],
     faq: [
-      { question: "What is the difference between data governance and data strategy?", answer: "The data strategy defines which goals should be achieved with data. Data governance is the operational rulebook of roles, standards and processes that reliably implements those goals." },
-      { question: "Who is responsible for data governance in a company?", answer: "Typical roles are data owner (responsible for a data domain) and data steward (looks after quality and maintenance). Overall responsibility usually lies with management or a designated data owner." },
-      { question: "Is data governance the same as data protection?", answer: "No. Data protection, for example under the GDPR, is an important part of governance, but governance also covers data quality, definitions, responsibilities and access rules." },
-      { question: "Does data governance only become relevant above a certain company size?", answer: "No. Even a handful of reports with inconsistent metric definitions lead to misunderstandings. In SMEs a lean governance with clear definitions, named owners and simple access rules is often enough, rather than a heavy rulebook." },
-      { question: "How do you start with data governance pragmatically?", answer: "It makes sense to start small: define the most important metrics consistently, name owners for the central data domains and clarify access rights. Governance then grows with the data requirements instead of introducing every rule at once from the start." },
+      {
+        question: "What is the difference between data governance and data strategy?",
+        answer:
+          "The data strategy defines which goals should be achieved with data. Data governance is the operational rulebook of roles, standards and processes that reliably implements those goals.",
+      },
+      {
+        question: "Who is responsible for data governance in a company?",
+        answer:
+          "Typical roles are data owner (responsible for a data domain) and data steward (looks after quality and maintenance). Overall responsibility usually lies with management or a designated data owner.",
+      },
+      {
+        question: "Is data governance the same as data protection?",
+        answer:
+          "No. Data protection, for example under the GDPR, is an important part of governance, but governance also covers data quality, definitions, responsibilities and access rules.",
+      },
+      {
+        question: "Does data governance only become relevant above a certain company size?",
+        answer:
+          "No. Even a handful of reports with inconsistent metric definitions lead to misunderstandings. In SMEs a lean governance with clear definitions, named owners and simple access rules is often enough, rather than a heavy rulebook.",
+      },
+      {
+        question: "How do you start with data governance pragmatically?",
+        answer:
+          "It makes sense to start small: define the most important metrics consistently, name owners for the central data domains and clarify access rights. Governance then grows with the data requirements instead of introducing every rule at once from the start.",
+      },
     ],
     relatedServicePath: "services/analytics",
     relatedCaseStudySlug: "dy-project-ag",
     metaTitle: "Data governance: definition, roles & practice | smiit glossary",
-    metaDescription: "Data governance explained simply: definition, roles, use cases and how it differs from data strategy and data protection – with practical insight from smiit.",
+    metaDescription:
+      "Data governance explained simply: definition, roles, use cases and how it differs from data strategy and data protection – with practical insight from smiit.",
   },
 }
 

@@ -15,13 +15,7 @@ const MOBILE = { enterAt: 50, textAt: 300, exitAt: 1300 }
 // minimum (so it doesn't flash) and a maximum (so a slow video can't hang it).
 const DESKTOP = { enterAt: 100, textAt: 650, minExitAt: 1300, maxExitAt: 3600 }
 
-export function IntroOverlay({
-  onDone,
-  videoReady = false,
-}: {
-  onDone: () => void
-  videoReady?: boolean
-}) {
+export function IntroOverlay({ onDone, videoReady = false }: { onDone: () => void; videoReady?: boolean }) {
   const [phase, setPhase] = useState<Phase>("initial")
   const pathname = usePathname() || "/"
   const lang = pathname.startsWith("/en") ? "en" : "de"
@@ -117,11 +111,7 @@ export function IntroOverlay({
       <motion.div
         className="relative w-24 h-24 sm:w-32 sm:h-32 md:w-40 md:h-40"
         initial={{ scale: 0.5, opacity: 0 }}
-        animate={
-          phase === "initial"
-            ? { scale: 0.5, opacity: 0 }
-            : { scale: 1, opacity: 1 }
-        }
+        animate={phase === "initial" ? { scale: 0.5, opacity: 0 } : { scale: 1, opacity: 1 }}
         transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
       >
         <Image src="/icon_transparent.png" alt="smiit" fill className="object-contain" priority />
@@ -137,11 +127,7 @@ export function IntroOverlay({
               "will-change-[transform,opacity]",
             ].join(" ")}
             initial={{ y: 24, opacity: 0 }}
-            animate={
-              phase === "text" || phase === "exit"
-                ? { y: 0, opacity: 1 }
-                : { y: 24, opacity: 0 }
-            }
+            animate={phase === "text" || phase === "exit" ? { y: 0, opacity: 1 } : { y: 24, opacity: 0 }}
             transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
           >
             {L.loading}
@@ -158,8 +144,7 @@ export function IntroOverlay({
             className="h-full bg-black/40"
             initial={{ width: "0%" }}
             animate={{
-              width:
-                phase === "exit" ? "100%" : phase === "text" ? "90%" : "0%",
+              width: phase === "exit" ? "100%" : phase === "text" ? "90%" : "0%",
             }}
             transition={{
               duration: phase === "exit" ? EXIT_MS / 1000 : 1.8,
