@@ -19,7 +19,7 @@
     "test:visual:update": "node scripts/visual.mjs --update"
   },
   "dependencies": {
-    "@emailjs/browser": "^4.4.1",
+    "@emailjs/browser": "^5.0.2",
     "@lottiefiles/dotlottie-react": "^0.17.15",
     "@radix-ui/react-accordion": "^1.2.21",
     "@radix-ui/react-dialog": "^1.2.0",
