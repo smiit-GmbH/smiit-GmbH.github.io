@@ -64,9 +64,10 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
       ? {
           width: "680px",
           height: "540px",
-          scale: 0.94,
-          z: -160,
-          transformPerspective: 2000,
+          // Same size as the former 3D idle pose (perspective 2000px, z -160, scale 0.94),
+          // expressed as a plain 2D scale. A 3D transform rasterises the dashboard as a
+          // GPU layer and resamples it, which blurs its small text (see website hero).
+          scale: 0.94 * (2000 / (2000 + 160)),
           maxWidth: "calc(100vw - 96px)",
         }
       : {
