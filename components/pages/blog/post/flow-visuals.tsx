@@ -1,5 +1,3 @@
-"use client"
-
 import { ChevronDown } from "lucide-react"
 
 /** Numbered process steps in a tidy fixed grid (light alternative to a code block). */

@@ -1,15 +1,9 @@
-"use client"
-
 import Link from "next/link"
 import Image from "next/image"
 import { ArrowRight } from "lucide-react"
 import type { Locale } from "@/lib/dictionary"
 import { blogCategoryMeta, getBlogUi, type BlogPostSummary } from "@/lib/blog-meta"
-import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
-
-function cx(...classes: Array<string | false | null | undefined>) {
-  return classes.filter(Boolean).join(" ")
-}
+import { Reveal } from "@/components/reveal"
 
 function TimelineEntry({
   post,
@@ -21,7 +15,6 @@ function TimelineEntry({
   showYear: boolean
 }) {
   const ui = getBlogUi(lang)
-  const [revealRef, revealed] = useRevealOnScroll({ margin: "-80px" })
   const meta = blogCategoryMeta[post.category]
   const href = `/${lang}/blog/${post.slug}`
   const minutes = post.minutes
@@ -57,10 +50,9 @@ function TimelineEntry({
   )
 
   return (
-    <div
-      ref={revealRef}
+    <Reveal as="div" margin="-80px"
       style={{ ["--area" as string]: meta.color }}
-      className={cx("relative flex gap-4 pb-12 last:pb-0 min-[1000px]:gap-7 reveal-fade-up", revealed && "revealed")}
+      className="relative flex gap-4 pb-12 last:pb-0 min-[1000px]:gap-7 reveal-fade-up"
     >
       {/* Date on the rail (>=1000px) */}
       <div className="hidden w-20 shrink-0 pt-8 text-right min-[1000px]:block">
@@ -146,7 +138,7 @@ function TimelineEntry({
           </div>
         </Link>
       </article>
-    </div>
+    </Reveal>
   )
 }
 

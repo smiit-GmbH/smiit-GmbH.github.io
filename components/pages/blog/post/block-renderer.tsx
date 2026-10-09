@@ -1,5 +1,3 @@
-"use client"
-
 import type { ReactNode } from "react"
 import Image from "next/image"
 import { ArrowUpRight } from "lucide-react"
@@ -7,6 +5,7 @@ import type { BlogBlock } from "@/lib/blog"
 import { FileTree } from "./file-tree"
 import { FlowDiagram, FlowSteps, MaturityLadder } from "./flow-visuals"
 import { cx } from "./text-utils"
+import { Citations } from "./sources"
 
 export function BlogBlockRenderer({
   block,
@@ -14,7 +13,6 @@ export function BlogBlockRenderer({
   number,
   linked,
   color,
-  onCite,
 }: {
   block: BlogBlock
   id?: string
@@ -23,8 +21,6 @@ export function BlogBlockRenderer({
   linked?: ReactNode | ReactNode[]
   /** Category accent color (hex), used by the maturity graphic. */
   color: string
-  /** Reveals the (collapsed) sources list and scrolls to the cited entry. */
-  onCite?: (n: number) => void
 }) {
   switch (block.type) {
     case "heading":
@@ -51,7 +47,7 @@ export function BlogBlockRenderer({
       return (
         <p className="mb-5 text-[0.9rem] sm:text-[1.05rem] leading-[1.75] text-[#0B162D]/80">
           {linked ?? block.text}
-          <Citations refs={block.refs} onCite={onCite} />
+          <Citations refs={block.refs} />
         </p>
       )
     case "bullets":
@@ -62,7 +58,7 @@ export function BlogBlockRenderer({
               <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--area)]" />
               <span className="text-[0.9rem] sm:text-[1.05rem] leading-[1.75] text-[#0B162D]/80">
                 {Array.isArray(linked) ? linked[i] : item}
-                <Citations refs={block.itemRefs?.[i]} onCite={onCite} />
+                <Citations refs={block.itemRefs?.[i]} />
               </span>
             </li>
           ))}
@@ -204,28 +200,4 @@ export function BlogBlockRenderer({
     default:
       return null
   }
-}
-
-/** Superscript citation links into the (collapsed) sources list. */
-function Citations({ refs, onCite }: { refs?: number[]; onCite?: (n: number) => void }) {
-  if (!refs || refs.length === 0) return null
-  return (
-    <sup className="ml-0.5 font-semibold">
-      {refs.map((n) => (
-        <a
-          key={n}
-          href={`#ref-${n}`}
-          onClick={(e) => {
-            if (onCite) {
-              e.preventDefault()
-              onCite(n)
-            }
-          }}
-          className="text-[var(--area)] no-underline hover:underline"
-        >
-          [{n}]
-        </a>
-      ))}
-    </sup>
-  )
 }

@@ -1,6 +1,4 @@
-"use client"
-
-import React, { useMemo } from "react"
+import type React from "react"
 import Link from "next/link"
 import { ArrowRight, AlertTriangle, ExternalLink } from "lucide-react"
 import type { Locale } from "@/lib/dictionary"
@@ -13,7 +11,7 @@ import {
 } from "@/lib/glossary-meta"
 import type { CaseStudyContent } from "@/lib/case-studies-meta"
 import { autolinkGlossary } from "@/lib/glossary-autolink"
-import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
+import { Reveal } from "@/components/reveal"
 import Breadcrumb from "@/components/pages/case-studies/breadcrumb"
 
 function cx(...classes: Array<string | false | null | undefined>) {
@@ -50,12 +48,12 @@ export default function GlossaryTermPage({
 
   // Auto-link the first mention of other glossary terms in the body copy (once
   // per term, no self-link). Computed once so scroll re-renders stay stable.
-  const linkedParagraphs = useMemo(() => {
+  const linkedParagraphs = (() => {
     const used = new Set<string>([term.slug])
     return term.sections.map((section) =>
       section.paragraphs.map((p) => autolinkGlossary(p, { lang, index: glossaryIndex, used, excludeSlug: term.slug })),
     )
-  }, [term, lang, glossaryIndex])
+  })()
   const serviceLabel = SERVICE_LABEL[term.relatedServicePath]?.[lang]
   const updatedDate = new Intl.DateTimeFormat(lang === "de" ? "de-DE" : "en-US", {
     day: "numeric",
@@ -313,9 +311,8 @@ function GlossarySectionBlock({
   paragraphs: React.ReactNode[]
   bullets?: string[]
 }) {
-  const [revealRef, revealed] = useRevealOnScroll({ margin: "-60px" })
   return (
-    <section ref={revealRef} className={cx("scroll-mt-28 reveal-fade-up", revealed && "revealed")}>
+    <Reveal as="section" margin="-60px" className="scroll-mt-28 reveal-fade-up">
       <div className="grid gap-y-4 lg:grid-cols-[minmax(0,0.4fr)_minmax(0,1.6fr)] lg:gap-x-20 xl:gap-x-28">
         <div className="lg:pt-1">
           <span className="font-mono text-[0.8rem] font-semibold tracking-[0.2em] text-[var(--area)]">
@@ -343,6 +340,6 @@ function GlossarySectionBlock({
           )}
         </div>
       </div>
-    </section>
+    </Reveal>
   )
 }

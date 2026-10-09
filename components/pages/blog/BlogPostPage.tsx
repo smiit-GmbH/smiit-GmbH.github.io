@@ -1,19 +1,17 @@
-"use client"
-
-import { useMemo, useState, type ReactNode } from "react"
+import type { ReactNode } from "react"
 import Link from "next/link"
-import { ArrowRight, ChevronDown, ExternalLink } from "lucide-react"
+import { ArrowRight } from "lucide-react"
 import type { Locale } from "@/lib/dictionary"
 import { blogCategoryMeta, getBlogUi, getReadingMinutes, type BlogPostContent } from "@/lib/blog-meta"
 import type { CaseStudyContent } from "@/lib/case-studies-meta"
 import type { GlossaryLinkIndex } from "@/lib/glossary-meta"
 import { autolinkGlossary } from "@/lib/glossary-autolink"
-import { useLenis } from "@/components/smooth-scroll-provider"
 import Breadcrumb from "@/components/pages/case-studies/breadcrumb"
 import ChapterNav from "@/components/pages/case-studies/chapter-nav"
 import { BlogBlockRenderer } from "./post/block-renderer"
 import { BlogToc, type TocItem } from "./post/blog-toc"
-import { cx, withEmphasis } from "./post/text-utils"
+import { withEmphasis } from "./post/text-utils"
+import { SourcesList, SourcesProvider } from "./post/sources"
 
 const SERVICE_LABEL: Record<string, { de: string; en: string }> = {
   "services/analytics": { de: "Datenanalyse", en: "Data analytics" },
@@ -37,23 +35,6 @@ export default function BlogPostPage({
   const base = `/${lang}`
   const meta = blogCategoryMeta[post.category]
   const color = meta.color
-  const lenis = useLenis()
-
-  // Sources are collapsed to the first 6 by default. A citation click (or the
-  // "show more" button) reveals the rest, then scrolls to the requested entry.
-  const SOURCES_PREVIEW = 6
-  const [sourcesOpen, setSourcesOpen] = useState(false)
-  const revealAndScrollToRef = (n: number) => {
-    setSourcesOpen(true)
-    requestAnimationFrame(() =>
-      requestAnimationFrame(() => {
-        const el = document.getElementById(`ref-${n}`)
-        if (!el) return
-        if (lenis) lenis.scrollTo(el, { offset: -110 })
-        else el.scrollIntoView({ behavior: "smooth", block: "start" })
-      }),
-    )
-  }
 
   const minutes = getReadingMinutes(post)
   const publishedDate = new Intl.DateTimeFormat(lang === "de" ? "de-DE" : "en-US", {
@@ -67,7 +48,7 @@ export default function BlogPostPage({
   // Number the top-level (H2) sections (stable anchor ids for the TOC) and
   // auto-link the first mention of each glossary term across the whole article,
   // in reading order, via a shared `used` set — same rule as the glossary pages.
-  const { rendered, toc } = useMemo(() => {
+  const { rendered, toc } = (() => {
     const used = new Set<string>()
     let h = 0
     const rendered: Array<{
@@ -95,9 +76,10 @@ export default function BlogPostPage({
       .filter((item) => item.block.type === "heading")
       .map((item) => ({ id: item.id as string, text: (item.block as { text: string }).text, number: item.number as number }))
     return { rendered, toc }
-  }, [post, lang, glossaryIndex])
+  })()
 
   return (
+    <SourcesProvider>
     <main data-page="apps" style={{ ["--area" as string]: color }} className="pt-20 sm:pt-32">
       {/* Below lg the left sticky TOC is hidden — show the same rail nav as the
           case study detail page (right edge, ticks per section). */}
@@ -165,7 +147,7 @@ export default function BlogPostPage({
           <div className="min-w-0">
             <article>
               {rendered.map((item, i) => (
-                <BlogBlockRenderer key={i} block={item.block} id={item.id} number={item.number} linked={item.linked} color={color} onCite={revealAndScrollToRef} />
+                <BlogBlockRenderer key={i} block={item.block} id={item.id} number={item.number} linked={item.linked} color={color} />
               ))}
             </article>
           </div>
@@ -238,48 +220,8 @@ export default function BlogPostPage({
                 <h2 className="font-serif text-[1.8rem] sm:text-[2.2rem] leading-[1.1] tracking-tight text-[#0B162D]">
                   {ui.sourcesHeading}
                 </h2>
-                <ul className="mt-7 space-y-3">
-                  {post.sources.map((source, i) => (
-                    <li
-                      key={source.title}
-                      id={`ref-${i + 1}`}
-                      className={cx(
-                        "scroll-mt-28 flex items-start gap-2.5",
-                        !sourcesOpen && i >= SOURCES_PREVIEW && "hidden",
-                      )}
-                    >
-                      <span className="mt-px shrink-0 font-mono text-[0.82rem] font-semibold text-[var(--area)]">
-                        [{i + 1}]
-                      </span>
-                      {source.url ? (
-                        <a
-                          href={source.url}
-                          target="_blank"
-                          rel="noopener noreferrer nofollow"
-                          className="group inline-flex items-start gap-1.5 text-[0.92rem] leading-relaxed text-[#0B162D]/75 transition-colors hover:text-[var(--area)]"
-                        >
-                          <span className="underline decoration-[#0B162D]/20 underline-offset-4 group-hover:decoration-[var(--area)]">
-                            {source.title}
-                          </span>
-                          <ExternalLink className="mt-1 h-3.5 w-3.5 shrink-0 text-[#0B162D]/30 transition-colors group-hover:text-[var(--area)]" aria-hidden />
-                        </a>
-                      ) : (
-                        <span className="text-[0.92rem] leading-relaxed text-[#0B162D]/75">{source.title}</span>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-                {!sourcesOpen && post.sources.length > SOURCES_PREVIEW && (
-                  <button
-                    type="button"
-                    onClick={() => setSourcesOpen(true)}
-                    className="mt-5 inline-flex items-center gap-1.5 text-[0.82rem] font-medium text-[#0B162D]/55 transition-colors hover:text-[var(--area)]"
-                  >
-                    <ChevronDown className="h-4 w-4" aria-hidden />
-                    {post.sources.length - SOURCES_PREVIEW} {ui.sourcesMore}
-                  </button>
-                )}
-              </section>
+                <SourcesList sources={post.sources} moreLabel={ui.sourcesMore} />
+                              </section>
             )}
 
             {/* Footer meta + CTA */}
@@ -307,5 +249,6 @@ export default function BlogPostPage({
             </section>
       </div>
     </main>
+    </SourcesProvider>
   )
 }
