@@ -104,16 +104,24 @@ Copy `.env.example` to `.env` for the contact form and Calendly integration.
 
 | Command                | What it checks                                                                                                           |
 | ---------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `npm run check`        | Everything that runs without a build: typecheck, lint, knip, content tests                                               |
+| `npm run check`        | Everything that runs without a build: typecheck, lint, format check, knip, content tests                                 |
 | `npm run typecheck`    | TypeScript (strict)                                                                                                      |
 | `npm run lint`         | ESLint incl. React Compiler rules                                                                                        |
 | `npm run knip`         | Unused files and dependencies                                                                                            |
 | `npm run test:content` | Blog / glossary / case-study data integrity (slugs, locales, references, images)                                         |
 | `npm run test:links`   | Every internal link and asset in `out/` resolves (after `build`)                                                         |
 | `npm run test:e2e`     | Playwright: every sitemap page renders + axe accessibility scan (after `build`; once: `npx playwright install chromium`) |
+| `npm run test:visual`  | Screenshot comparison of one page per template, desktop + mobile (after `build`; needs Docker)                           |
 | `npm run format`       | Prettier                                                                                                                 |
 
 CI (`.github/workflows/ci.yml`) runs all of these on every pull request, plus Lighthouse. Deploys to GitHub Pages only happen from `main`, after the same checks pass.
+
+### Visual regression tests
+
+Screenshots live in `tests/visual/__screenshots__/` and are always recorded inside the official Playwright Docker image (locally and in CI), so they match pixel for pixel regardless of the OS.
+
+- **A PR fails on "Visual regression"?** Download the `visual-diffs` artifact from the CI run; it contains expected, actual and diff images per page.
+- **The change was intended?** Run `npm run build && npm run test:visual:update` and commit the updated PNGs together with the change. Reviewers then see the before/after images directly in the PR diff.
 
 ### Adding content
 

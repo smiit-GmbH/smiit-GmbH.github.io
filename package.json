@@ -13,8 +13,10 @@
     "format:check": "prettier --check .",
     "knip": "knip",
     "test:links": "node scripts/check-links.mjs",
-    "test:e2e": "playwright test",
-    "check": "npm run typecheck && npm run lint && npm run format:check && npm run knip && npm run test:content"
+    "test:e2e": "playwright test --project=desktop --project=mobile",
+    "check": "npm run typecheck && npm run lint && npm run format:check && npm run knip && npm run test:content",
+    "test:visual": "node scripts/visual.mjs",
+    "test:visual:update": "node scripts/visual.mjs --update"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",

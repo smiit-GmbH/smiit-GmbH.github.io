@@ -148,26 +148,6 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
                   {L.glossary}
                 </Link>
               </li>
-              {/* <li>
-                <Link
-                  href={`https://grab.smiit.de/${lang}/`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-gray-700 hover:text-black transition-colors"
-                >
-                  Sebastian Grab
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href={`https://nesslauer.smiit.de/${lang}/`}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-sm text-gray-700 hover:text-black transition-colors"
-                >
-                  Noah Neßlauer
-                </Link>
-              </li> */}
             </ul>
           </div>
 

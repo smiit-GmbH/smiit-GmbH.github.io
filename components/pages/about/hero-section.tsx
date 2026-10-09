@@ -181,7 +181,10 @@ export function HeroSection({ lang, dict }: { lang: Locale; dict: Dictionary }) 
             </div>
 
             <div className="min-w-0 flex flex-col items-center w-full mt-4 lg:mt-0">
-              <div className="relative h-[400px] sm:h-[500px] lg:h-[700px] w-full flex items-center justify-center">
+              <div
+                data-visual-unstable
+                className="relative h-[400px] sm:h-[500px] lg:h-[700px] w-full flex items-center justify-center"
+              >
                 {isDesktop && (
                   <div
                     className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 inline-flex items-center gap-1.5 px-4 py-2 text-sm font-medium text-[#21569c] bg-white/80 backdrop-blur-sm border border-gray-200 rounded-full shadow-sm transition-opacity duration-500 pointer-events-none"
