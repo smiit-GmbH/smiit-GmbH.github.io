@@ -6,13 +6,11 @@ import { ArrowRight, Search, X } from "lucide-react"
 import type { Locale } from "@/lib/dictionary"
 import {
   getGlossaryUi,
-  getGlossaryTermSynonyms,
   glossaryClusterMeta,
   glossaryClusterOrder,
-  listGlossaryCatalogByCluster,
   type GlossaryCatalogEntry,
   type GlossaryCluster,
-} from "@/lib/glossary"
+} from "@/lib/glossary-meta"
 import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
 
 function cx(...classes: Array<string | false | null | undefined>) {
@@ -108,9 +106,17 @@ function TermCard({ entry, lang }: { entry: GlossaryCatalogEntry; lang: Locale }
 }
 
 // ── Cluster section ───────────────────────────────────────────────────────
-function ClusterSection({ cluster, lang }: { cluster: GlossaryCluster; lang: Locale }) {
+function ClusterSection({
+  cluster,
+  catalog,
+  lang,
+}: {
+  cluster: GlossaryCluster
+  catalog: GlossaryCatalogEntry[]
+  lang: Locale
+}) {
   const meta = glossaryClusterMeta[cluster]
-  const entries = listGlossaryCatalogByCluster(cluster)
+  const entries = catalog.filter((entry) => entry.cluster === cluster)
   const [revealRef, revealed] = useRevealOnScroll({ margin: "-60px" })
 
   return (
@@ -136,23 +142,33 @@ function ClusterSection({ cluster, lang }: { cluster: GlossaryCluster; lang: Loc
 }
 
 // ── Page ────────────────────────────────────────────────────────────────
-export default function GlossaryIndexPage({ lang }: { lang: Locale }) {
+export default function GlossaryIndexPage({
+  lang,
+  catalog,
+  synonyms,
+}: {
+  lang: Locale
+  /** The full term catalog, in catalog order. */
+  catalog: GlossaryCatalogEntry[]
+  /** Synonyms per slug (current locale) — widens the search. */
+  synonyms: Record<string, string[]>
+}) {
   const ui = getGlossaryUi(lang)
   const copy = SEARCH_COPY[lang]
-  const [headingRef, headingRevealed] = useRevealOnScroll()
   const [query, setQuery] = useState("")
   const q = query.trim().toLowerCase()
 
-  const allEntries = useMemo(() => glossaryClusterOrder.flatMap((c) => listGlossaryCatalogByCluster(c)), [])
+  const allEntries = useMemo(
+    () => glossaryClusterOrder.flatMap((c) => catalog.filter((entry) => entry.cluster === c)),
+    [catalog],
+  )
   const searchIndex = useMemo(
     () =>
       allEntries.map((entry) => ({
         entry,
-        text: [entry.term[lang], entry.shortDefinition[lang], ...getGlossaryTermSynonyms(entry.slug, lang)]
-          .join(" ")
-          .toLowerCase(),
+        text: [entry.term[lang], entry.shortDefinition[lang], ...(synonyms[entry.slug] ?? [])].join(" ").toLowerCase(),
       })),
-    [allEntries, lang],
+    [allEntries, lang, synonyms],
   )
   const results = q ? searchIndex.filter((x) => x.text.includes(q)).map((x) => x.entry) : []
   const searching = q.length > 0
@@ -162,13 +178,7 @@ export default function GlossaryIndexPage({ lang }: { lang: Locale }) {
       {/* ── Hero ── */}
       <section className="relative">
         <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-          <div
-            ref={headingRef}
-            className={cx(
-              "flex flex-col gap-9 reveal-fade-up lg:grid lg:grid-cols-[2.6fr_1fr] lg:items-end lg:gap-12",
-              headingRevealed && "revealed",
-            )}
-          >
+          <div className="flex flex-col gap-9 hero-fade-up lg:grid lg:grid-cols-[2.6fr_1fr] lg:items-end lg:gap-12">
             {/* Left: heading (~72%) */}
             <div>
               <span className="section-eyebrow">{ui.eyebrow}</span>
@@ -253,7 +263,7 @@ export default function GlossaryIndexPage({ lang }: { lang: Locale }) {
         ) : (
           <div className="flex flex-col gap-16 sm:gap-20">
             {glossaryClusterOrder.map((cluster) => (
-              <ClusterSection key={cluster} cluster={cluster} lang={lang} />
+              <ClusterSection key={cluster} cluster={cluster} catalog={catalog} lang={lang} />
             ))}
           </div>
         )}

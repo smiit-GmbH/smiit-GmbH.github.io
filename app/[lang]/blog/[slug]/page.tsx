@@ -9,6 +9,8 @@ import {
 } from "@/lib/seo"
 import { JsonLd } from "@/components/seo/json-ld"
 import { blogCategoryMeta, blogPostSlugsFor, getBlogPost, getBlogUi } from "@/lib/blog"
+import { getCaseStudy } from "@/lib/case-studies"
+import { getGlossaryLinkIndex } from "@/lib/glossary"
 import BlogPostPage from "@/components/pages/blog/BlogPostPage"
 
 export const dynamicParams = false
@@ -46,6 +48,7 @@ export default async function Page({
   if (!post) notFound()
 
   const ui = getBlogUi(lang)
+  const caseStudy = post.relatedCaseStudySlug ? getCaseStudy(post.relatedCaseStudySlug, lang) : undefined
 
   const breadcrumbJsonLd = buildBreadcrumbJsonLd(
     lang,
@@ -74,7 +77,12 @@ export default async function Page({
       <JsonLd data={breadcrumbJsonLd} />
       <JsonLd data={articleJsonLd} />
       {post.faq && post.faq.length > 0 && <JsonLd data={buildFaqJsonLd(post.faq)} />}
-      <BlogPostPage lang={lang} post={post} />
+      <BlogPostPage
+        lang={lang}
+        post={post}
+        caseStudy={caseStudy && { slug: caseStudy.slug, title: caseStudy.title, client: caseStudy.client }}
+        glossaryIndex={getGlossaryLinkIndex(lang)}
+      />
     </>
   )
 }

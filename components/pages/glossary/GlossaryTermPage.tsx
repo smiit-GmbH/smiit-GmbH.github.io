@@ -7,13 +7,12 @@ import type { Locale } from "@/lib/dictionary"
 import {
   getGlossaryUi,
   glossaryClusterMeta,
-  hasGlossaryPage,
-  listRelatedGlossaryTerms,
+  type GlossaryCatalogEntry,
+  type GlossaryLinkIndex,
   type GlossaryTermContent,
-} from "@/lib/glossary"
+} from "@/lib/glossary-meta"
+import type { CaseStudyContent } from "@/lib/case-studies-meta"
 import { autolinkGlossary } from "@/lib/glossary-autolink"
-import { glossaryDiagrams } from "@/components/pages/glossary/glossary-diagrams"
-import { getCaseStudy } from "@/lib/case-studies"
 import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
 import Breadcrumb from "@/components/pages/case-studies/breadcrumb"
 
@@ -27,25 +26,36 @@ const SERVICE_LABEL: Record<string, { de: string; en: string }> = {
   "services/strategy": { de: "Digitale Strategie", en: "Digital strategy" },
 }
 
-export default function GlossaryTermPage({ lang, term }: { lang: Locale; term: GlossaryTermContent }) {
+export default function GlossaryTermPage({
+  lang,
+  term,
+  related,
+  caseStudy,
+  diagram,
+  glossaryIndex,
+}: {
+  lang: Locale
+  term: GlossaryTermContent
+  /** Same-cluster terms; `hasPage` is true only when the detail page exists. */
+  related: GlossaryCatalogEntry[]
+  caseStudy?: Pick<CaseStudyContent, "slug" | "title" | "client">
+  /** The term's diagram, rendered on the server so diagram code never ships to the browser. */
+  diagram?: React.ReactNode
+  glossaryIndex: GlossaryLinkIndex
+}) {
   const ui = getGlossaryUi(lang)
   const base = `/${lang}`
   const meta = glossaryClusterMeta[term.cluster]
   const color = meta.color
 
-  const [heroRef, heroRevealed] = useRevealOnScroll()
   // Auto-link the first mention of other glossary terms in the body copy (once
   // per term, no self-link). Computed once so scroll re-renders stay stable.
   const linkedParagraphs = useMemo(() => {
     const used = new Set<string>([term.slug])
     return term.sections.map((section) =>
-      section.paragraphs.map((p) => autolinkGlossary(p, { lang, used, excludeSlug: term.slug })),
+      section.paragraphs.map((p) => autolinkGlossary(p, { lang, index: glossaryIndex, used, excludeSlug: term.slug })),
     )
-  }, [term, lang])
-  const related = listRelatedGlossaryTerms(term.slug, term.cluster)
-  const Diagram = glossaryDiagrams[term.slug] as
-    ((props: { lang: Locale; color: string }) => React.ReactNode) | undefined
-  const caseStudy = term.relatedCaseStudySlug ? getCaseStudy(term.relatedCaseStudySlug, lang) : undefined
+  }, [term, lang, glossaryIndex])
   const serviceLabel = SERVICE_LABEL[term.relatedServicePath]?.[lang]
   const updatedDate = new Intl.DateTimeFormat(lang === "de" ? "de-DE" : "en-US", {
     day: "numeric",
@@ -64,15 +74,13 @@ export default function GlossaryTermPage({ lang, term }: { lang: Locale; term: G
           />
 
           <div
-            ref={heroRef}
             className={cx(
-              "mt-8 reveal-fade-up",
-              heroRevealed && "revealed",
-              Diagram && "lg:grid lg:grid-cols-[55fr_45fr] lg:items-center lg:gap-16 xl:gap-24",
+              "mt-8 hero-fade-up",
+              !!diagram && "lg:grid lg:grid-cols-[55fr_45fr] lg:items-center lg:gap-16 xl:gap-24",
             )}
           >
             {/* Left: definition-first text */}
-            <div className={cx(!Diagram && "max-w-[80ch]")}>
+            <div className={cx(!diagram && "max-w-[80ch]")}>
               <span
                 style={{ color, backgroundColor: `${color}14` }}
                 className="inline-flex rounded-full px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-wider"
@@ -102,11 +110,7 @@ export default function GlossaryTermPage({ lang, term }: { lang: Locale; term: G
             </div>
 
             {/* Right: diagram (stacks below the text under lg) */}
-            {Diagram && (
-              <div className="mt-10 lg:mt-0">
-                <Diagram lang={lang} color={color} />
-              </div>
-            )}
+            {diagram && <div className="mt-10 lg:mt-0">{diagram}</div>}
           </div>
         </div>
       </section>
@@ -217,7 +221,7 @@ export default function GlossaryTermPage({ lang, term }: { lang: Locale; term: G
           </h2>
           <div className="mt-7 flex flex-wrap gap-1.5 sm:gap-2">
             {related.map((entry) =>
-              entry.hasPage && hasGlossaryPage(entry.slug) ? (
+              entry.hasPage ? (
                 <Link
                   key={entry.slug}
                   href={`${base}/glossary/${entry.slug}`}

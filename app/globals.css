@@ -227,6 +227,90 @@
   transform: translateY(0);
 }
 
+/* Same motion as .reveal-fade-up, but CSS-driven so it starts at first paint instead
+   of after hydration. For content that is visible on load (page heroes) — keeps it
+   from waiting on JavaScript before it can be seen (Largest Contentful Paint). */
+@keyframes hero-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-fade-up {
+  /* Final state identical to .reveal-fade-up.revealed. Fill "backwards" (not "both"):
+     a filled animation keeps the element on its own compositor layer, which changes
+     text anti-aliasing. */
+  transform: translateY(0);
+  animation: hero-fade-up 0.6s ease-out backwards;
+}
+
+/* Mobile service-hero text: same values as the former framer-motion entrance
+   (0.65s, ease [0.22, 1, 0.36, 1], 14px rise), CSS-driven so it starts at first paint. */
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.hero-rise {
+  animation: hero-rise 0.65s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-rise {
+    animation: none;
+  }
+}
+
+/* Generic CSS entrance for above-the-fold content (fade + rise), configured per
+   element via --enter-y / --enter-duration / --enter-delay / --enter-ease.
+   Starts at first paint, unlike JS-driven entrances that wait for hydration. */
+@keyframes enter-up {
+  from {
+    opacity: 0;
+    transform: translateY(var(--enter-y, 16px));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.enter-up {
+  animation: enter-up var(--enter-duration, 0.6s) var(--enter-ease, ease-out) var(--enter-delay, 0s) backwards;
+}
+
+/* Cinematic variant (website hero copy): fade + 18px rise + 6px blur, 0.6s,
+   ease [0.22, 1, 0.36, 1]; stagger via --enter-delay. Off for reduced motion. */
+@keyframes enter-blur {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: blur(0px);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .enter-blur {
+    animation: enter-blur 0.6s cubic-bezier(0.22, 1, 0.36, 1) var(--enter-delay, 0s) backwards;
+  }
+}
+
 /* Stagger delays for children */
 .reveal-delay-1 {
   transition-delay: 0.1s;

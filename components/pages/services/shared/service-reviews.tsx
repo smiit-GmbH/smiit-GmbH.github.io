@@ -7,7 +7,6 @@ import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/com
 import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
 import { useActiveInView } from "@/hooks/use-active-in-view"
 import type { Dictionary, Locale } from "@/lib/dictionary"
-import { getCaseStudyHrefByClient } from "@/lib/case-studies"
 import CaseStudyLink from "@/components/pages/case-studies/case-study-link"
 import { getServiceDict, serviceThemes, type ServiceKey, type ServiceTheme } from "./service-theme"
 
@@ -266,10 +265,13 @@ export default function ServiceReviews({
   dict,
   lang,
   service,
+  caseStudyHrefs,
 }: {
   dict: Dictionary
   lang: Locale
   service: ServiceKey
+  /** Case-study link per client name, resolved by the server. */
+  caseStudyHrefs: Record<string, string>
 }) {
   const theme = serviceThemes[service]
   const serviceDict = getServiceDict(dict, service)
@@ -280,7 +282,7 @@ export default function ServiceReviews({
   const reviews: Review[] = serviceDict.reviews.map((r) => ({
     ...r,
     logoSrc: theme.reviewLogos[r.id],
-    caseStudyHref: getCaseStudyHrefByClient(r.name, lang),
+    caseStudyHref: caseStudyHrefs[r.name],
   }))
 
   // Desktop-only state for the cross-fade stack.

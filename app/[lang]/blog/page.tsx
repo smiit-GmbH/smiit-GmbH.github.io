@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import { Locale } from "@/lib/dictionary"
 import { buildBreadcrumbJsonLd, buildPageMetadata } from "@/lib/seo"
 import { JsonLd } from "@/components/seo/json-ld"
-import { getBlogUi } from "@/lib/blog"
+import { getBlogUi, listBlogPostSummaries } from "@/lib/blog"
 import BlogIndexPage from "@/components/pages/blog/BlogIndexPage"
 
 export async function generateStaticParams() {
@@ -43,7 +43,7 @@ export default async function Page({
   return (
     <>
       <JsonLd data={breadcrumbJsonLd} />
-      <BlogIndexPage lang={lang} />
+      <BlogIndexPage lang={lang} posts={listBlogPostSummaries(lang)} />
     </>
   )
 }

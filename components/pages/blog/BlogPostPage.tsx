@@ -4,10 +4,10 @@ import { useMemo, useState, type ReactNode } from "react"
 import Link from "next/link"
 import { ArrowRight, ChevronDown, ExternalLink } from "lucide-react"
 import type { Locale } from "@/lib/dictionary"
-import { blogCategoryMeta, getBlogUi, getReadingMinutes, type BlogPostContent } from "@/lib/blog"
-import { getCaseStudy } from "@/lib/case-studies"
+import { blogCategoryMeta, getBlogUi, getReadingMinutes, type BlogPostContent } from "@/lib/blog-meta"
+import type { CaseStudyContent } from "@/lib/case-studies-meta"
+import type { GlossaryLinkIndex } from "@/lib/glossary-meta"
 import { autolinkGlossary } from "@/lib/glossary-autolink"
-import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
 import { useLenis } from "@/components/smooth-scroll-provider"
 import Breadcrumb from "@/components/pages/case-studies/breadcrumb"
 import ChapterNav from "@/components/pages/case-studies/chapter-nav"
@@ -21,12 +21,22 @@ const SERVICE_LABEL: Record<string, { de: string; en: string }> = {
   "services/strategy": { de: "Digitale Strategie", en: "Digital strategy" },
 }
 
-export default function BlogPostPage({ lang, post }: { lang: Locale; post: BlogPostContent }) {
+export default function BlogPostPage({
+  lang,
+  post,
+  caseStudy,
+  glossaryIndex,
+}: {
+  lang: Locale
+  post: BlogPostContent
+  /** The related case study (resolved by the route), if any. */
+  caseStudy?: Pick<CaseStudyContent, "slug" | "title" | "client">
+  glossaryIndex: GlossaryLinkIndex
+}) {
   const ui = getBlogUi(lang)
   const base = `/${lang}`
   const meta = blogCategoryMeta[post.category]
   const color = meta.color
-  const [heroRef, heroRevealed] = useRevealOnScroll()
   const lenis = useLenis()
 
   // Sources are collapsed to the first 6 by default. A citation click (or the
@@ -52,7 +62,6 @@ export default function BlogPostPage({ lang, post }: { lang: Locale; post: BlogP
     year: "numeric",
   }).format(new Date(post.datePublished))
 
-  const caseStudy = post.relatedCaseStudySlug ? getCaseStudy(post.relatedCaseStudySlug, lang) : undefined
   const serviceLabel = SERVICE_LABEL[post.relatedServicePath]?.[lang]
 
   // Number the top-level (H2) sections (stable anchor ids for the TOC) and
@@ -76,9 +85,9 @@ export default function BlogPostPage({ lang, post }: { lang: Locale; post: BlogP
         id = `abschnitt-${h}`
         number = h
       } else if (block.type === "paragraph") {
-        linked = withEmphasis(block.text, (plain) => autolinkGlossary(plain, { lang, used }))
+        linked = withEmphasis(block.text, (plain) => autolinkGlossary(plain, { lang, index: glossaryIndex, used }))
       } else if (block.type === "bullets") {
-        linked = block.items.map((item) => withEmphasis(item, (plain) => autolinkGlossary(plain, { lang, used })))
+        linked = block.items.map((item) => withEmphasis(item, (plain) => autolinkGlossary(plain, { lang, index: glossaryIndex, used })))
       }
       rendered.push({ block, id, number, linked })
     }
@@ -86,7 +95,7 @@ export default function BlogPostPage({ lang, post }: { lang: Locale; post: BlogP
       .filter((item) => item.block.type === "heading")
       .map((item) => ({ id: item.id as string, text: (item.block as { text: string }).text, number: item.number as number }))
     return { rendered, toc }
-  }, [post, lang])
+  }, [post, lang, glossaryIndex])
 
   return (
     <main data-page="apps" style={{ ["--area" as string]: color }} className="pt-20 sm:pt-32">
@@ -112,7 +121,7 @@ export default function BlogPostPage({ lang, post }: { lang: Locale; post: BlogP
             ]}
           />
 
-          <div ref={heroRef} className={cx("mt-8 max-w-[96ch] reveal-fade-up", heroRevealed && "revealed")}>
+          <div className="mt-8 max-w-[96ch] hero-fade-up">
             <span
               style={{ color, backgroundColor: `${color}14` }}
               className="inline-flex rounded-full px-3 py-1 text-[0.68rem] font-semibold uppercase tracking-wider"

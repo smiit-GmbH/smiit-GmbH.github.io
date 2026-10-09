@@ -106,12 +106,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
 
         <div className="mx-auto max-w-[760px] px-5 pt-16 pb-12 sm:px-6 sm:pt-20 sm:pb-16 md:max-w-[920px] md:px-8 md:pt-24 md:pb-20">
           {/* Hero text */}
-          <motion.div
-            initial={shouldReduceMotion ? false : { opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-            className="text-center"
-          >
+          <div className="text-center hero-rise">
             <span className="section-eyebrow">{eyebrowLabel}</span>
             <h1 className="mx-auto mt-3 max-w-[18ch] font-serif text-[2.05rem] leading-[1.05] tracking-tight text-[#0B162D] sm:text-[2.5rem] md:text-[3rem]">
               {hero?.title}
@@ -129,7 +124,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
                 <ArrowRight className="ml-1.5 h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
               </Link>
             </div>
-          </motion.div>
+          </div>
 
           {/* Dashboard preview card — staggered entrance */}
           <motion.div

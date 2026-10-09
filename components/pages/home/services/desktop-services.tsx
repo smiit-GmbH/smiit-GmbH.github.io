@@ -15,6 +15,9 @@ const DotLottieReact = dynamic(() => import("@lottiefiles/dotlottie-react").then
 export function DesktopServices({ items }: { items: Array<{ title: string; text: string; tags: string[] }> }) {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const isInView = useInView(containerRef, { once: false, amount: 0.15 })
+  // Load the Lottie player (~74 KB) only once the section approaches the viewport.
+  // On phones this block is hidden (display: none), so it never loads there.
+  const nearViewport = useInView(containerRef, { once: true, margin: "300px" })
   const prefersReducedMotion = useReducedMotion()
 
   const [step, setStep] = useState(0)
@@ -268,17 +271,19 @@ export function DesktopServices({ items }: { items: Array<{ title: string; text:
         transition={{ type: "spring", stiffness: 240, damping: 22 }}
       >
         <div className="w-full h-full">
-          <DotLottieReact
-            src="/assets/lottie/satelite.lottie"
-            loop
-            autoplay
-            style={{
-              width: "100%",
-              height: "100%",
-              transform: "translateZ(0)",
-              backfaceVisibility: "hidden",
-            }}
-          />
+          {nearViewport && (
+            <DotLottieReact
+              src="/assets/lottie/satelite.lottie"
+              loop
+              autoplay
+              style={{
+                width: "100%",
+                height: "100%",
+                transform: "translateZ(0)",
+                backfaceVisibility: "hidden",
+              }}
+            />
+          )}
         </div>
       </motion.div>
 

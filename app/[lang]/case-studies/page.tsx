@@ -2,7 +2,7 @@ import type { Metadata } from "next"
 import { Locale } from "@/lib/dictionary"
 import { buildBreadcrumbJsonLd, buildPageMetadata } from "@/lib/seo"
 import { JsonLd } from "@/components/seo/json-ld"
-import { getCaseStudiesUi } from "@/lib/case-studies"
+import { getCaseStudiesUi, listCaseStudies, toCaseStudySummary } from "@/lib/case-studies"
 import CaseStudiesIndexPage from "@/components/pages/case-studies/CaseStudiesIndexPage"
 
 export async function generateStaticParams() {
@@ -35,7 +35,7 @@ export default async function Page({ params }: { params: Promise<{ lang: Locale 
   return (
     <>
       <JsonLd data={breadcrumbJsonLd} />
-      <CaseStudiesIndexPage lang={lang} />
+      <CaseStudiesIndexPage lang={lang} studies={listCaseStudies(lang).map(toCaseStudySummary)} />
     </>
   )
 }

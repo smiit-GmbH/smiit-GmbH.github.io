@@ -7,13 +7,13 @@ import { ArrowRight, Quote } from "lucide-react"
 import type { Locale } from "@/lib/dictionary"
 import {
   getCaseStudiesUi,
-  listOtherCaseStudies,
   type CaseStudyContent,
+  type CaseStudySummary,
   type CaseStudySection,
   type CaseStudyServiceArea,
-} from "@/lib/case-studies"
+} from "@/lib/case-studies-meta"
 import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
-import { listGlossaryCatalogForCaseStudy } from "@/lib/glossary"
+import type { GlossaryCatalogEntry, GlossaryLinkIndex } from "@/lib/glossary-meta"
 import { autolinkGlossary } from "@/lib/glossary-autolink"
 import Breadcrumb from "@/components/pages/case-studies/breadcrumb"
 import ChapterNav, { CHAPTERS_WRAPPER_ID, chapterId } from "@/components/pages/case-studies/chapter-nav"
@@ -79,22 +79,33 @@ function NarrativeSection({
   )
 }
 
-export default function CaseStudyDetailPage({ lang, study }: { lang: Locale; study: CaseStudyContent }) {
+export default function CaseStudyDetailPage({
+  lang,
+  study,
+  others,
+  glossaryEntries,
+  glossaryIndex,
+}: {
+  lang: Locale
+  study: CaseStudyContent
+  others: CaseStudySummary[]
+  glossaryEntries: GlossaryCatalogEntry[]
+  glossaryIndex: GlossaryLinkIndex
+}) {
   const ui = getCaseStudiesUi(lang)
   const base = `/${lang}`
   const area = AREA[study.serviceArea]
-  const [heroRef, heroRevealed] = useRevealOnScroll()
   const [metricsRef, metricsRevealed] = useRevealOnScroll({ margin: "-60px" })
   const [techRef, techRevealed] = useRevealOnScroll({ margin: "-60px" })
   const [moreRef, moreRevealed] = useRevealOnScroll({ margin: "-60px" })
   const serviceLabel = area.label[lang]
-  const others = listOtherCaseStudies(study.slug, lang)
-  const glossaryEntries = listGlossaryCatalogForCaseStudy(study.slug)
   // Auto-link the first mention of each glossary term across the narrative body.
   const linkedSectionParagraphs = useMemo(() => {
     const used = new Set<string>()
-    return study.sections.map((section) => section.paragraphs.map((p) => autolinkGlossary(p, { lang, used })))
-  }, [study, lang])
+    return study.sections.map((section) =>
+      section.paragraphs.map((p) => autolinkGlossary(p, { lang, index: glossaryIndex, used })),
+    )
+  }, [study, lang, glossaryIndex])
   const publishedDate = new Intl.DateTimeFormat(lang === "de" ? "de-DE" : "en-US", {
     day: "numeric",
     month: "long",
@@ -116,13 +127,7 @@ export default function CaseStudyDetailPage({ lang, study }: { lang: Locale; stu
             items={[{ label: ui.breadcrumbLabel, href: `${base}/case-studies` }, { label: study.client }]}
           />
 
-          <div
-            ref={heroRef}
-            className={cx(
-              "mt-8 grid items-center gap-10 lg:grid-cols-2 lg:gap-16 reveal-fade-up",
-              heroRevealed && "revealed",
-            )}
-          >
+          <div className="mt-8 grid items-center gap-10 lg:grid-cols-2 lg:gap-16 hero-fade-up">
             {/* Text */}
             <div>
               <div className="flex flex-wrap items-center gap-3">

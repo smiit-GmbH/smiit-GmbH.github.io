@@ -98,17 +98,6 @@ const frameChildVariants = {
   visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
 }
 
-// Cinematic, staggered entrance for the hero copy
-const heroTextContainer = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.12, delayChildren: 0.05 } },
-}
-
-const heroTextItem = {
-  hidden: { opacity: 0, y: 18, filter: "blur(6px)" },
-  visible: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } },
-}
-
 export default function HeroSection({ dict }: HeroSectionProps) {
   const containerRef = useRef<HTMLElement>(null)
   const shouldReduceMotion = useReducedMotion()
@@ -174,34 +163,29 @@ export default function HeroSection({ dict }: HeroSectionProps) {
 
         <div className="mx-auto max-w-[760px] px-5 pt-16 pb-12 sm:px-6 sm:pt-20 sm:pb-16 md:max-w-[920px] md:px-8 md:pt-24 md:pb-20">
           {/* Hero text — cinematic staggered reveal */}
-          <motion.div
-            initial={shouldReduceMotion ? false : "hidden"}
-            animate={shouldReduceMotion ? undefined : "visible"}
-            variants={heroTextContainer}
-            className="text-center"
-          >
-            <motion.span variants={heroTextItem} className="section-eyebrow">
+          <div className="text-center">
+            <span className="enter-blur section-eyebrow" style={{ "--enter-delay": "0.05s" } as React.CSSProperties}>
               {eyebrow}
-            </motion.span>
-            <motion.h1
-              variants={heroTextItem}
-              className="mx-auto mt-3 max-w-[20ch] font-serif text-[2.05rem] leading-[1.05] tracking-tight text-[#15151a] sm:text-[2.5rem] md:text-[3rem]"
+            </span>
+            <h1
+              className="enter-blur mx-auto mt-3 max-w-[20ch] font-serif text-[2.05rem] leading-[1.05] tracking-tight text-[#15151a] sm:text-[2.5rem] md:text-[3rem]"
+              style={{ "--enter-delay": "0.17s" } as React.CSSProperties}
             >
               {hero.title} <em className="not-italic text-[#F703EB]">{hero.titleHighlight}</em>
-            </motion.h1>
-            <motion.p
-              variants={heroTextItem}
-              className="mx-auto mt-4 max-w-[58ch] text-[0.95rem] leading-relaxed text-[#50505c] sm:text-[1rem] md:mt-5 md:text-[1.05rem]"
+            </h1>
+            <p
+              className="enter-blur mx-auto mt-4 max-w-[58ch] text-[0.95rem] leading-relaxed text-[#50505c] sm:text-[1rem] md:mt-5 md:text-[1.05rem]"
+              style={{ "--enter-delay": "0.29s" } as React.CSSProperties}
             >
               {hero.description}
-            </motion.p>
-            <motion.div variants={heroTextItem}>
+            </p>
+            <div className="enter-blur" style={{ "--enter-delay": "0.41s" } as React.CSSProperties}>
               <HeroPackages hero={hero} align="center" />
-            </motion.div>
-            <motion.div variants={heroTextItem} className="mt-6 sm:mt-7">
+            </div>
+            <div className="enter-blur mt-6 sm:mt-7" style={{ "--enter-delay": "0.53s" } as React.CSSProperties}>
               <CtaRow hero={hero} align="center" magnetic={false} />
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
 
           {/* Slider — the hero moment */}
           <div className="relative mt-12 sm:mt-16">

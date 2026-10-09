@@ -2,6 +2,7 @@ import type { ComponentType } from "react"
 import dynamic from "next/dynamic"
 import type { Dictionary, Locale } from "@/lib/dictionary"
 import { listGlossaryCatalogByCluster } from "@/lib/glossary"
+import { getCaseStudyHrefsByClient } from "@/lib/case-studies"
 import { getServiceDict, serviceThemes, type ServiceKey } from "./service-theme"
 
 const ServiceManifestBand = dynamic(() => import("./service-manifest-band"))
@@ -40,7 +41,7 @@ export default function ServicePage({
       <Portfolio dict={dict} />
       <ServiceManifestBand dict={dict} service={service} />
       <ServiceProcessSection dict={dict} service={service} />
-      <ServiceReviews dict={dict} lang={lang} service={service} />
+      <ServiceReviews dict={dict} lang={lang} service={service} caseStudyHrefs={getCaseStudyHrefsByClient(lang)} />
       <RelatedLinkBand text={related.text} linkLabel={related.linkLabel} href={related.href} {...theme.linkAccent} />
       <ServiceCTA dict={dict} service={service} />
       <FaqSection dict={serviceDict.faq} />
