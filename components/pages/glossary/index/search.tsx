@@ -38,7 +38,7 @@ export function GlossarySearchInput({ lang }: { lang: Locale }) {
         onChange={(e) => setQuery(e.target.value)}
         placeholder={copy.placeholder}
         aria-label={copy.placeholder}
-        className="w-full rounded-full border border-black/12 bg-white/90 py-3.5 pl-11 pr-11 text-[0.92rem] text-[#0B162D] shadow-[0_10px_30px_rgba(11,22,45,0.06)] outline-none transition-shadow placeholder:text-[#0B162D]/40 focus:border-[#0B162D]/25 focus:shadow-[0_12px_36px_rgba(11,22,45,0.10)]"
+        className="w-full rounded-full border border-black/12 bg-white/90 py-3.5 pl-11 pr-11 text-[0.92rem] text-[#0B162D] shadow-[0_10px_30px_rgba(11,22,45,0.06)] outline-none transition-shadow placeholder:text-[#0B162D]/40 focus:border-[#0B162D]/25 focus:shadow-[0_12px_36px_rgba(11,22,45,0.10)] [&::-webkit-search-cancel-button]:hidden"
       />
       {query && (
         <button
