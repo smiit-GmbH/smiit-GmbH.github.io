@@ -11,32 +11,23 @@ const AI_CRAWLERS = [
   "OAI-SearchBot", // OpenAI — ChatGPT search results
   "GPTBot", // OpenAI — model training crawler
   "ChatGPT-User", // OpenAI — live user-triggered fetches
-  "OAI-Bot", // OpenAI — operator/agent fetches
   "PerplexityBot", // Perplexity — search index
   "Perplexity-User", // Perplexity — live user-triggered fetches
   "ClaudeBot", // Anthropic — crawler
   "Claude-User", // Anthropic — live user-triggered fetches
   "Claude-SearchBot", // Anthropic — search results
-  "Google-Extended", // Google — Gemini / AI Overviews opt-in
+  "Google-Extended", // Google — Gemini model training/grounding opt-in (AI Overviews follow Googlebot)
   "Applebot-Extended", // Apple — Apple Intelligence opt-in
 ]
 
+// Nothing is disallowed: pages that must not be indexed (e.g. the report redirect)
+// carry a noindex meta tag instead, which crawlers can only read if they may fetch the page.
 export default function robots(): MetadataRoute.Robots {
-  const disallow = ["/products/smiit-analytics/report/"]
   return {
     rules: [
-      {
-        userAgent: "*",
-        allow: "/",
-        disallow,
-      },
-      {
-        userAgent: AI_CRAWLERS,
-        allow: "/",
-        disallow,
-      },
+      { userAgent: "*", allow: "/" },
+      { userAgent: AI_CRAWLERS, allow: "/" },
     ],
     sitemap: `${SITE_URL}/sitemap.xml`,
-    host: SITE_URL,
   }
 }

@@ -43,7 +43,8 @@ export async function generateMetadata({
     path: `glossary/${slug}`,
     title: { de: term.metaTitle, en: term.metaTitle },
     description: { de: term.metaDescription, en: term.metaDescription },
-    ogImage: { url: "/og/glossary-term.png", width: 1200, height: 630, alt: `smiit GmbH – ${term.term}` },
+    ogImage: { url: "/og/glossary-term.png", width: 1920, height: 999, alt: `smiit GmbH – ${term.term}` },
+    article: { modifiedTime: term.dateModified, tags: [term.term, ...term.synonyms] },
   })
 }
 

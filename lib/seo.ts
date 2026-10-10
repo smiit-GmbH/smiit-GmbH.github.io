@@ -22,6 +22,8 @@ type BuildPageMetadataInput = {
   ogImage?: { url: string; width: number; height: number; alt: string }
   /** If true, this page should not be indexed (e.g. redirect targets). */
   noindex?: boolean
+  /** Marks the page as an article (og:type=article + article:* tags) instead of a website. */
+  article?: { publishedTime?: string; modifiedTime?: string; authors?: string[]; section?: string; tags?: string[] }
 }
 
 type BreadcrumbItem = { name: string; path: string }
@@ -465,6 +467,7 @@ export function buildPageMetadata({
   description,
   ogImage = defaultOgImage,
   noindex = false,
+  article,
 }: BuildPageMetadataInput): Metadata {
   const localizedTitle = title[lang]
   const localizedDescription = description[lang]
@@ -498,8 +501,8 @@ export function buildPageMetadata({
       url: canonical,
       siteName: SITE_NAME,
       locale: lang === "de" ? "de_DE" : "en_US",
-      type: "website",
       images: [ogImage],
+      ...(article ? { type: "article" as const, ...article } : { type: "website" as const }),
     },
     twitter: {
       card: "summary_large_image",

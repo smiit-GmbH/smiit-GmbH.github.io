@@ -13,6 +13,10 @@ updates:
       next-react:
         patterns: ["next", "react", "react-dom", "eslint-config-next", "@types/react", "@types/react-dom"]
     labels: [dependencies]
+    ignore:
+      # Types must match the Node runtime (.nvmrc: 22), not the newest Node release.
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
 
   - package-ecosystem: github-actions
     directory: /

@@ -35,6 +35,13 @@ export async function generateMetadata({
     title: { de: post.metaTitle, en: post.metaTitle },
     description: { de: post.metaDescription, en: post.metaDescription },
     ogImage: post.ogImage ?? { url: "/og/blog.png", width: 1920, height: 999, alt: "smiit GmbH – Blog" },
+    article: {
+      publishedTime: post.datePublished,
+      modifiedTime: post.dateModified,
+      authors: [post.author],
+      section: blogCategoryMeta[post.category].label[lang],
+      tags: post.keywords,
+    },
   })
 }
 

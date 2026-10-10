@@ -21,11 +21,10 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Loc
       de: "Hochwertige Unternehmenswebsites, die Vertrauen schaffen und Anfragen bringen. Für Bau, Entsorgung, Logistik und Industrie. Website-Relaunch ab 5.000 € – jetzt kostenloses Erstkonzept sichern.",
       en: "High-quality corporate websites that build trust and generate enquiries. For construction, waste management, logistics and industry. Website relaunch from €5,000 – get your free initial concept now.",
     },
-    // TODO: dediziertes OG-Bild /og/services-website.png (1200×630) anlegen – nutzt vorerst home.png als Fallback statt 404.
     ogImage: {
       url: "/og/services-website.png",
-      width: 1200,
-      height: 630,
+      width: 1920,
+      height: 998,
       alt: "smiit GmbH – Webdesign & Unternehmenswebsites",
     },
   })

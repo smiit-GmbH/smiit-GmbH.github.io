@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next"
+import type { Locale } from "@/lib/dictionary"
 import { caseStudySlugs, getCaseStudy } from "@/lib/case-studies"
 import { glossaryTermSlugs, getGlossaryTerm } from "@/lib/glossary"
 import { blogPostSlugsFor, getBlogPost } from "@/lib/blog"
@@ -6,6 +7,7 @@ import { blogPostSlugsFor, getBlogPost } from "@/lib/blog"
 export const dynamic = "force-static"
 
 const SITE_URL = "https://www.smiit.de"
+const languages = ["de", "en"] as const
 
 type ChangeFrequency = "monthly" | "yearly"
 
@@ -13,26 +15,19 @@ type Route = {
   path: string
   priority: number
   changeFrequency: ChangeFrequency
-  /** ISO date — overrides the build-time fallback so lastmod reflects real content changes. */
-  lastModified?: string
+  /**
+   * Real content date per locale. Routes without one get no lastmod at all:
+   * search engines only use lastmod when it is consistently accurate, and a
+   * build timestamp would claim every page changed on every deploy.
+   */
+  lastModified?: (lang: Locale) => string | undefined
 }
 
-const caseStudyDates = caseStudySlugs
-  .map((slug) => getCaseStudy(slug, "de")?.datePublished)
-  .filter((d): d is string => Boolean(d))
-const latestCaseStudyDate = caseStudyDates.slice().sort().pop()
-
-const glossaryDates = glossaryTermSlugs
-  .map((slug) => getGlossaryTerm(slug, "de")?.dateModified)
-  .filter((d): d is string => Boolean(d))
-const latestGlossaryDate = glossaryDates.slice().sort().pop()
-
-// Blog posts can be locale-specific, so their URLs are emitted per language in
-// the default export below (not via the uniform `routes` × `languages` map).
-const blogDates = blogPostSlugsFor("de")
-  .map((slug) => getBlogPost(slug, "de")?.dateModified)
-  .filter((d): d is string => Boolean(d))
-const latestBlogDate = blogDates.slice().sort().pop()
+const latest = (dates: Array<string | undefined>) =>
+  dates
+    .filter((d): d is string => Boolean(d))
+    .sort()
+    .pop()
 
 const routes: Route[] = [
   { path: "", priority: 1.0, changeFrequency: "monthly" },
@@ -43,59 +38,80 @@ const routes: Route[] = [
   { path: "services/apps", priority: 0.9, changeFrequency: "monthly" },
   { path: "website", priority: 0.9, changeFrequency: "monthly" },
   { path: "products/smiit-analytics", priority: 0.9, changeFrequency: "monthly" },
-  { path: "case-studies", priority: 0.6, changeFrequency: "monthly", lastModified: latestCaseStudyDate },
+  {
+    path: "case-studies",
+    priority: 0.6,
+    changeFrequency: "monthly",
+    lastModified: (lang) => latest(caseStudySlugs.map((slug) => getCaseStudy(slug, lang)?.datePublished)),
+  },
   ...caseStudySlugs.map((slug): Route => ({
     path: `case-studies/${slug}`,
     priority: 0.5,
     changeFrequency: "monthly",
-    lastModified: getCaseStudy(slug, "de")?.datePublished,
+    lastModified: (lang) => getCaseStudy(slug, lang)?.datePublished,
   })),
-  { path: "blog", priority: 0.6, changeFrequency: "monthly", lastModified: latestBlogDate },
-  { path: "glossary", priority: 0.6, changeFrequency: "monthly", lastModified: latestGlossaryDate },
+  {
+    path: "blog",
+    priority: 0.6,
+    changeFrequency: "monthly",
+    lastModified: (lang) => latest(blogPostSlugsFor(lang).map((slug) => getBlogPost(slug, lang)?.dateModified)),
+  },
+  {
+    path: "glossary",
+    priority: 0.6,
+    changeFrequency: "monthly",
+    lastModified: (lang) => latest(glossaryTermSlugs.map((slug) => getGlossaryTerm(slug, lang)?.dateModified)),
+  },
   ...glossaryTermSlugs.map((slug): Route => ({
     path: `glossary/${slug}`,
     priority: 0.5,
     changeFrequency: "monthly",
-    lastModified: getGlossaryTerm(slug, "de")?.dateModified,
+    lastModified: (lang) => getGlossaryTerm(slug, lang)?.dateModified,
   })),
   { path: "legal-notice", priority: 0.2, changeFrequency: "yearly" },
   { path: "privacy", priority: 0.2, changeFrequency: "yearly" },
 ]
 
-const languages = ["de", "en"] as const
+const url = (lang: string, path: string) => `${SITE_URL}/${lang}${path ? `/${path}` : ""}/`
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const buildLastModified = new Date()
-
   const staticEntries = routes.flatMap((route) =>
     languages.map((lang) => {
-      const url = `${SITE_URL}/${lang}${route.path ? `/${route.path}` : ""}/`
+      const date = route.lastModified?.(lang)
       return {
-        url,
-        lastModified: route.lastModified ? new Date(route.lastModified) : buildLastModified,
+        url: url(lang, route.path),
+        ...(date ? { lastModified: new Date(date) } : {}),
         changeFrequency: route.changeFrequency,
         priority: route.priority,
         alternates: {
-          languages: {
-            de: `${SITE_URL}/de${route.path ? `/${route.path}` : ""}/`,
-            en: `${SITE_URL}/en${route.path ? `/${route.path}` : ""}/`,
-            "x-default": `${SITE_URL}/de${route.path ? `/${route.path}` : ""}/`,
-          },
+          languages: { de: url("de", route.path), en: url("en", route.path), "x-default": url("de", route.path) },
         },
       }
     }),
   )
 
   // Blog posts: emitted only for the languages a post actually exists in, so a
-  // single-language post does not produce a 404 URL in the other locale.
+  // single-language post does not produce a 404 URL in the other locale; the
+  // hreflang alternates likewise list only the existing language versions.
   const blogEntries: MetadataRoute.Sitemap = languages.flatMap((lang) =>
     blogPostSlugsFor(lang).map((slug) => {
       const post = getBlogPost(slug, lang)
+      const versions = languages.filter((l) => getBlogPost(slug, l))
       return {
-        url: `${SITE_URL}/${lang}/blog/${slug}/`,
-        lastModified: post?.dateModified ? new Date(post.dateModified) : buildLastModified,
+        url: url(lang, `blog/${slug}`),
+        ...(post?.dateModified ? { lastModified: new Date(post.dateModified) } : {}),
         changeFrequency: "monthly" as const,
         priority: 0.5,
+        ...(versions.length > 1
+          ? {
+              alternates: {
+                languages: {
+                  ...Object.fromEntries(versions.map((l) => [l, url(l, `blog/${slug}`)])),
+                  "x-default": url(versions.includes("de") ? "de" : versions[0], `blog/${slug}`),
+                },
+              },
+            }
+          : {}),
       }
     }),
   )

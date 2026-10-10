@@ -1,16 +1,17 @@
 name: CI
 
+# Runs on every pull request; the ruleset requires it to pass on an up-to-date
+# branch before merging, so main never receives untested code.
 on:
   pull_request:
-  # main is covered by deploy.yml, which runs this workflow before publishing.
-  workflow_call:
+  workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
   group: ci-${{ github.ref }}
-  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+  cancel-in-progress: true
 
 env:
   NEXT_TELEMETRY_DISABLED: 1

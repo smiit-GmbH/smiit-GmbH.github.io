@@ -211,9 +211,7 @@ export function DesktopServices({ items }: { items: Array<{ title: string; text:
 
   const [left, rightTop, bottom] = items
 
-  const cardVisible = () => {
-    return step >= 7
-  }
+  const cardsVisible = step >= 7
 
   return (
     <div ref={containerRef} className="relative w-full min-h-[500px] lg:min-h-[600px] hidden lg:block overflow-visible">
@@ -298,7 +296,7 @@ export function DesktopServices({ items }: { items: Array<{ title: string; text:
             cardRefs.current[0] = el
           }}
           initial={{ opacity: 0, scale: 0.92, y: 18 }}
-          animate={cardVisible() ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.92, y: 18 }}
+          animate={cardsVisible ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.92, y: 18 }}
           transition={{ duration: 0.55, ease: "easeOut" }}
           onMouseEnter={() => setHovered(0)}
           onMouseLeave={() => setHovered(null)}
@@ -323,7 +321,7 @@ export function DesktopServices({ items }: { items: Array<{ title: string; text:
             cardRefs.current[1] = el
           }}
           initial={{ opacity: 0, scale: 0.92, y: 18 }}
-          animate={cardVisible() ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.92, y: 18 }}
+          animate={cardsVisible ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.92, y: 18 }}
           transition={{ duration: 0.55, ease: "easeOut" }}
           onMouseEnter={() => setHovered(1)}
           onMouseLeave={() => setHovered(null)}
@@ -348,7 +346,7 @@ export function DesktopServices({ items }: { items: Array<{ title: string; text:
             cardRefs.current[2] = el
           }}
           initial={{ opacity: 0, scale: 0.92, y: 18 }}
-          animate={cardVisible() ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.92, y: 18 }}
+          animate={cardsVisible ? { opacity: 1, scale: 1, y: 0 } : { opacity: 0, scale: 0.92, y: 18 }}
           transition={{ duration: 0.55, ease: "easeOut" }}
           onMouseEnter={() => setHovered(2)}
           onMouseLeave={() => setHovered(null)}
