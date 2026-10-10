@@ -9,7 +9,7 @@ const SA = "/assets/blog/smiit-analytics"
 const smiitAnalyticsSaas: LocalizedBlogPost = {
   de: {
     slug: "smiit-analytics-from-power-bi-to-saas",
-    category: "apps",
+    category: "analytics",
     datePublished: "2026-10-07",
     dateModified: "2026-10-07",
     author: "Noah Neßlauer",
@@ -19,10 +19,10 @@ const smiitAnalyticsSaas: LocalizedBlogPost = {
     excerpt:
       "Was als Reihe individueller Power-BI-Projekte für bexio-Kunden begann, ist heute eine eigene Analytics-Plattform. Ein Erfahrungsbericht über ein Geschäftsmodell, das nicht funktionierte, die Architekturentscheidungen danach und das, was wir bei der Entwicklung mit KI-Agents gelernt haben.",
     coverImage: {
-      url: `${SA}/cover.webp`,
-      width: 2524,
-      height: 1008,
-      alt: "Von bexio über smiit Analytics zu Berichten und KI",
+      url: `${SA}/ai-report-editing.webp`,
+      width: 1950,
+      height: 1013,
+      alt: "Berichte bearbeiten mit KI in smiit Analytics: Anweisung im Chat, Editor passt den Bericht an, KI erklärt die Änderungen",
     },
 
     blocks: [
@@ -622,7 +622,7 @@ const smiitAnalyticsSaas: LocalizedBlogPost = {
 
   en: {
     slug: "smiit-analytics-from-power-bi-to-saas",
-    category: "apps",
+    category: "analytics",
     datePublished: "2026-10-07",
     dateModified: "2026-10-07",
     author: "Noah Neßlauer",
@@ -631,10 +631,10 @@ const smiitAnalyticsSaas: LocalizedBlogPost = {
     excerpt:
       "What started as a series of individual Power BI projects for bexio customers is now an analytics platform of its own. A first-hand account of a business model that didn't work, the architecture decisions that followed and what we learned building it with AI agents.",
     coverImage: {
-      url: `${SA}/cover-en.webp`,
-      width: 2524,
-      height: 1008,
-      alt: "From bexio via smiit Analytics to reports and AI",
+      url: `${SA}/ai-report-editing-en.webp`,
+      width: 1950,
+      height: 1035,
+      alt: "Editing reports with AI in smiit Analytics: instruction in the chat, the editor updates the report, the AI explains the changes",
     },
 
     blocks: [
