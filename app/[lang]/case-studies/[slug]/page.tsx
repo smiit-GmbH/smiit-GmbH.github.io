@@ -35,6 +35,7 @@ export async function generateMetadata({
     title: { de: study.metaTitle, en: study.metaTitle },
     description: { de: study.metaDescription, en: study.metaDescription },
     ogImage: study.ogImage,
+    article: { publishedTime: study.datePublished },
   })
 }
 

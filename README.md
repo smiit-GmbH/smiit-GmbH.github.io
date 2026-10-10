@@ -82,7 +82,8 @@ The repository structure includes application routes, reusable components, hooks
 ├── scripts/              # Build-output checks (internal link checker)
 ├── tests/
 │   ├── content/          # Content integrity tests (node:test)
-│   └── e2e/              # Playwright smoke + accessibility tests
+│   ├── e2e/              # Playwright smoke, accessibility, interaction + idle-animation tests
+│   └── visual/           # Playwright screenshot comparison (runs in Docker)
 └── .github/              # CI, deploy and Dependabot configuration
 ```
 
@@ -102,19 +103,24 @@ Copy `.env.example` to `.env` for the contact form and Calendly integration.
 
 ### Quality checks
 
-| Command                | What it checks                                                                                                           |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------------------ |
-| `npm run check`        | Everything that runs without a build: typecheck, lint, format check, knip, content tests                                 |
-| `npm run typecheck`    | TypeScript (strict)                                                                                                      |
-| `npm run lint`         | ESLint incl. React Compiler rules                                                                                        |
-| `npm run knip`         | Unused files and dependencies                                                                                            |
-| `npm run test:content` | Blog / glossary / case-study data integrity (slugs, locales, references, images)                                         |
-| `npm run test:links`   | Every internal link and asset in `out/` resolves (after `build`)                                                         |
-| `npm run test:e2e`     | Playwright: every sitemap page renders + axe accessibility scan (after `build`; once: `npx playwright install chromium`) |
-| `npm run test:visual`  | Screenshot comparison of one page per template, desktop + mobile (after `build`; needs Docker)                           |
-| `npm run format`       | Prettier                                                                                                                 |
+| Command                | What it checks                                                                                                         |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------------- |
+| `npm run check`        | Everything that runs without a build: typecheck, lint, format check, knip, content tests                               |
+| `npm run typecheck`    | TypeScript (strict)                                                                                                    |
+| `npm run lint`         | ESLint incl. React Compiler rules                                                                                      |
+| `npm run knip`         | Unused files and dependencies                                                                                          |
+| `npm run test:content` | Content data integrity (slugs, locales, references, images) + declared OG image sizes match the files                  |
+| `npm run test:links`   | Every internal link and asset in `out/` resolves (after `build`)                                                       |
+| `npm run test:e2e`     | Playwright: every sitemap page renders, axe scan, key interactions, no idle animation loops (after `build`; see below) |
+| `npm run test:visual`  | Screenshot comparison of one page per template, desktop + mobile (after `build`; needs Docker)                         |
+| `npm run format`       | Prettier                                                                                                               |
 
-CI (`.github/workflows/ci.yml`) runs all of these on every pull request, plus Lighthouse. Deploys to GitHub Pages only happen from `main`, after the same checks pass.
+CI (`.github/workflows/ci.yml`) runs all of these on every pull request, plus Lighthouse. `main` is protected by a ruleset (PR required, branch must be up to date, all checks green), so the deploy workflow does not run CI again — it only builds and publishes to GitHub Pages. Before the first `test:e2e` run: `npx playwright install chromium`.
+
+The e2e suite also contains two regression guards worth knowing:
+
+- **`interactions.spec.ts`** — blog citations, "more sources", file tree and table of contents, glossary search, cookie settings.
+- **`idle.spec.ts`** — loads the animated pages, waits until entrance animations are done and fails if the DOM keeps being rewritten. An infinite `framer-motion` loop must therefore stop when its element is off screen or hidden: `repeat: isInView ? Infinity : 0`.
 
 ### Visual regression tests
 
@@ -123,7 +129,18 @@ Screenshots live in `tests/visual/__screenshots__/` and are always recorded insi
 - **A PR fails on "Visual regression"?** Download the `visual-diffs` artifact from the CI run; it contains expected, actual and diff images per page.
 - **The change was intended?** Run `npm run build && npm run test:visual:update` and commit the updated PNGs together with the change. Reviewers then see the before/after images directly in the PR diff.
 
+### Components: server first
+
+Sections are server components by default; only interactive parts are client components ("islands").
+
+- **Scroll reveal:** wrap server markup in `<Reveal>` (`components/reveal.tsx`). For a staggered group, use `<Reveal className="reveal-group">` with `.reveal-fade-up` children (CSS in `app/globals.css`) instead of one client component per item.
+- **In-view hooks:** `useRevealOnScroll` (once) and `useActiveInView` (while visible) return `[ref, flag]` and share `hooks/observe-in-view.ts`, which treats hidden (`display: none`) elements as not in view — so the mobile/desktop variant that is not shown never animates.
+
+### SEO files
+
+`sitemap.xml`, `robots.txt` and `llms.txt` are generated at build time (`app/sitemap.ts`, `app/robots.ts`, `app/llms.txt/route.ts`) from the same content as the pages, so new entries appear automatically. `lastmod` is only emitted where content has a real date. Pages that must not be indexed use a `noindex` meta tag, not a robots.txt `Disallow` (crawlers must be able to fetch a page to see its `noindex`).
+
 ### Adding content
 
-- **Blog post / glossary term / case study:** add `content/<type>/<slug>.ts` and register it in that folder's `index.ts`. Routes, sitemap and JSON-LD pick it up automatically; `npm run test:content` validates it.
+- **Blog post / glossary term / case study:** add `content/<type>/<slug>.ts` and register it in that folder's `index.ts`. Routes, sitemap, `llms.txt` and JSON-LD pick it up automatically; `npm run test:content` validates it.
 - **UI text:** `lib/dictionary.ts`. German is the source of truth; the English dictionary must have exactly the same shape (enforced by TypeScript).

@@ -22,7 +22,7 @@ export async function generateMetadata({ params }: { params: Promise<{ lang: Loc
       de: "Das smiit Glossar erklärt zentrale Fachbegriffe rund um Power BI, Data Warehouse, SaaS, Cloud, Automatisierung und IT-Sicherheit – fundiert und praxisnah.",
       en: "The smiit glossary explains key terms around Power BI, data warehouses, SaaS, cloud, automation and IT security — grounded and practical.",
     },
-    ogImage: { url: "/og/glossary.png", width: 1200, height: 630, alt: "smiit GmbH – Glossar" },
+    ogImage: { url: "/og/glossary.png", width: 1920, height: 986, alt: "smiit GmbH – Glossar" },
   })
 }
 
