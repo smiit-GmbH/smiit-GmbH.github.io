@@ -193,10 +193,13 @@ export function DesktopServices({ items }: { items: Array<{ title: string; text:
       }
     })
 
+    // Idle pulses only while the section is on screen (hover implies it is).
     if (hovered === null) {
-      scheduleIdle(0)
-      scheduleIdle(1)
-      scheduleIdle(2)
+      if (isInView) {
+        scheduleIdle(0)
+        scheduleIdle(1)
+        scheduleIdle(2)
+      }
     } else {
       scheduleHover(hovered)
     }
@@ -204,7 +207,7 @@ export function DesktopServices({ items }: { items: Array<{ title: string; text:
     return () => {
       cancelled = true
     }
-  }, [hovered, prefersReducedMotion, triggerPulse])
+  }, [hovered, isInView, prefersReducedMotion, triggerPulse])
 
   const [left, rightTop, bottom] = items
 

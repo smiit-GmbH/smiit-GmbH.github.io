@@ -369,7 +369,7 @@ function ProcessFlowVisual({ isRevealed, labels }: { isRevealed: boolean; labels
             transition={{
               duration: 4.4,
               delay: 2.2,
-              repeat: Infinity,
+              repeat: isRevealed && inView ? Infinity : 0,
               repeatDelay: 1.4,
               ease: "easeInOut",
               times: [0, 0.05, 0.22, 0.42, 0.55, 0.72, 0.95, 1],
@@ -499,7 +499,7 @@ function CloudTopologyVisual({ isRevealed }: { isRevealed: boolean; labels?: Vis
                 transition={{
                   duration: 1.4,
                   delay: 1.6 + i * 0.25,
-                  repeat: Infinity,
+                  repeat: isRevealed && inView ? Infinity : 0,
                   repeatDelay: 2.6,
                   ease: "easeInOut",
                   times: [0, 0.15, 0.85, 1],
@@ -559,7 +559,7 @@ function SecurityRingsVisual({ isRevealed, labels }: { isRevealed: boolean; labe
         <div className="flex items-center gap-1">
           <motion.span
             animate={inView ? { opacity: [1, 0.4, 1] } : { opacity: 1 }}
-            transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+            transition={{ duration: 1.6, repeat: inView ? Infinity : 0, ease: "easeInOut" }}
             className="h-1.5 w-1.5 rounded-full bg-emerald-500"
           />
           <span className="text-[0.55rem] font-mono font-semibold uppercase tracking-[0.18em] text-emerald-600">
@@ -616,7 +616,7 @@ function SecurityRingsVisual({ isRevealed, labels }: { isRevealed: boolean; labe
               {event.isNew && (
                 <motion.span
                   animate={inView ? { opacity: [1, 0.3, 1], scale: [1, 1.3, 1] } : { opacity: 1, scale: 1 }}
-                  transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+                  transition={{ duration: 1.6, repeat: inView ? Infinity : 0, ease: "easeInOut" }}
                   className="h-1 w-1 shrink-0 rounded-full bg-emerald-500"
                 />
               )}

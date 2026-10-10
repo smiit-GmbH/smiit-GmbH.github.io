@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { observeInView } from "./observe-in-view"
 
 /**
  * Custom hook that uses a native IntersectionObserver to detect when an element
@@ -19,24 +20,15 @@ export function useRevealOnScroll(options?: { margin?: string; threshold?: numbe
   const [isRevealed, setIsRevealed] = useState(false)
 
   useEffect(() => {
-    if (!node) return
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsRevealed(true)
-          observer.disconnect() // once: true
-        }
-      },
-      {
-        rootMargin: options?.margin ?? "-80px",
-        threshold: options?.threshold ?? 0,
+    if (!node || isRevealed) return
+    return observeInView(
+      node,
+      { rootMargin: options?.margin ?? "-80px", threshold: options?.threshold ?? 0 },
+      (inView) => {
+        if (inView) setIsRevealed(true) // once: the effect cleans up on the next render
       },
     )
-
-    observer.observe(node)
-    return () => observer.disconnect()
-  }, [node, options?.margin, options?.threshold])
+  }, [node, isRevealed, options?.margin, options?.threshold])
 
   return [setNode as (node: HTMLElement | null) => void, isRevealed] as const
 }

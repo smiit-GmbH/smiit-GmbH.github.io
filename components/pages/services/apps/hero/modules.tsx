@@ -158,7 +158,7 @@ export function AiModule({
           <div className="flex items-center gap-1">
             <motion.span
               animate={inView ? { opacity: [1, 0.4, 1] } : { opacity: 1 }}
-              transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+              transition={{ duration: 1.6, repeat: inView ? Infinity : 0, ease: "easeInOut" }}
               className="h-1.5 w-1.5 rounded-full bg-emerald-500"
             />
             <span className="text-[0.5rem] font-mono font-semibold uppercase tracking-[0.18em] text-emerald-600">

@@ -249,7 +249,7 @@ function MobileReviewsCarousel({
               aria-hidden
               initial={{ opacity: 0, x: -4 }}
               animate={inView ? { opacity: [0.0, 1, 1, 0.4], x: [0, 6, 6, 0] } : { opacity: 0.0, x: 0 }}
-              transition={{ duration: 2.4, repeat: Infinity, repeatDelay: 1.2, ease: "easeInOut" }}
+              transition={{ duration: 2.4, repeat: inView ? Infinity : 0, repeatDelay: 1.2, ease: "easeInOut" }}
               className="text-[0.65rem] font-medium uppercase tracking-[0.18em] text-black/40"
             >
               {swipeHint}

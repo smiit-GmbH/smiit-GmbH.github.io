@@ -110,7 +110,7 @@ function BIVisual({ isRevealed, labels }: { isRevealed: boolean; labels?: Visual
         >
           <motion.span
             animate={inView ? { opacity: [1, 0.4, 1] } : { opacity: 1 }}
-            transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+            transition={{ duration: 1.6, repeat: inView ? Infinity : 0, ease: "easeInOut" }}
             className="h-1 w-1 shrink-0 rounded-full bg-emerald-500"
           />
           <span className="truncate text-[0.5rem] text-black/55">
@@ -129,7 +129,12 @@ function BIVisual({ isRevealed, labels }: { isRevealed: boolean; labels?: Visual
               key={i}
               initial={{ opacity: 0.3 }}
               animate={isRevealed ? { opacity: inView ? [0.3, 1, 0.3] : 0.3 } : { opacity: 0.3 }}
-              transition={{ duration: 1.6, delay: 0.6 + i * 0.2, repeat: Infinity, ease: "easeInOut" }}
+              transition={{
+                duration: 1.6,
+                delay: 0.6 + i * 0.2,
+                repeat: isRevealed && inView ? Infinity : 0,
+                ease: "easeInOut",
+              }}
               className="h-1.5 w-1.5 rounded-full bg-emerald-400"
             />
           ))}
