@@ -2,6 +2,8 @@ import dynamic from "next/dynamic"
 import type { Locale, Dictionary } from "@/lib/dictionary"
 
 import HeroSection, { LogoStrip } from "@/components/pages/services/website/hero-section"
+import { BeforeWebsite } from "@/components/pages/services/website/hero/before-website"
+import { AfterWebsite } from "@/components/pages/services/website/hero/after-website"
 
 const WebsiteCTA = dynamic(() => import("@/components/pages/services/website/cta"))
 const ProblemSection = dynamic(() => import("@/components/pages/services/website/problem-section"))
@@ -15,7 +17,7 @@ export default function WebsitePage({ lang, dict }: { lang: Locale; dict: Dictio
   const logoStrip = dict.servicesWebsite.logoStrip
   return (
     <main data-page="website">
-      <HeroSection lang={lang} dict={dict} />
+      <HeroSection lang={lang} dict={dict} mockups={{ before: <BeforeWebsite />, after: <AfterWebsite /> }} />
       <WebsiteCTA lang={lang} dict={dict} />
       <LogoStrip label={logoStrip.label} names={logoStrip.names} />
       <ProblemSection dict={dict} />

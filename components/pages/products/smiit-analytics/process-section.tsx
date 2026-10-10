@@ -1,7 +1,5 @@
-"use client"
-
 import { ArrowRight } from "lucide-react"
-import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
+import { Reveal } from "@/components/reveal"
 import type { Dictionary } from "@/lib/dictionary"
 
 interface ProcessSectionProps {
@@ -10,29 +8,23 @@ interface ProcessSectionProps {
 
 export function ProcessSection({ dict }: ProcessSectionProps) {
   const { process, cta } = dict.smiitAnalytics
-  const [headingRef, headingRevealed] = useRevealOnScroll()
-  const [stepsRef, stepsRevealed] = useRevealOnScroll()
-  const [ctaSectionRef, ctaSectionRevealed] = useRevealOnScroll()
 
   return (
     <section className="relative py-20 md:py-28">
       <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div
-          ref={headingRef}
-          className={`text-center mb-12 md:mb-16 reveal-fade-up ${headingRevealed ? "revealed" : ""}`}
-        >
+        <Reveal as="div" className="text-center mb-12 md:mb-16 reveal-fade-up">
           <h2 className="font-serif text-[2rem] sm:text-[2.8rem] md:text-[3.4rem] leading-[1.1] tracking-tight text-black">
             {process.title}
           </h2>
-        </div>
+        </Reveal>
 
         {/* Steps grid */}
-        <div ref={stepsRef} className="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <Reveal as="div" className="grid grid-cols-1 md:grid-cols-2 gap-5 reveal-group">
           {process.steps.map((step: { number: string; title: string; text: string }, idx: number) => (
             <div
               key={idx}
-              className={`p-8 md:p-10 bg-white rounded-[1.75rem] shadow-[0_10px_30px_rgba(0,0,0,0.06)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.1)] transition-all duration-300 hover:scale-[1.02] hover:-translate-y-0.5 reveal-fade-up reveal-delay-${idx + 1} ${stepsRevealed ? "revealed" : ""}`}
+              className={`p-8 md:p-10 bg-white rounded-[1.75rem] shadow-[0_10px_30px_rgba(0,0,0,0.06)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.1)] transition-all duration-300 hover:scale-[1.02] hover:-translate-y-0.5 reveal-fade-up reveal-delay-${idx + 1}`}
             >
               <span className="text-[2.5rem] md:text-[3rem] font-serif leading-none text-[#F703EB]/40">
                 {step.number}
@@ -41,12 +33,9 @@ export function ProcessSection({ dict }: ProcessSectionProps) {
               <p className="mt-3 text-sm leading-relaxed text-black/55">{step.text}</p>
             </div>
           ))}
-        </div>
+        </Reveal>
 
-        <div
-          ref={ctaSectionRef}
-          className={`mt-18 md:mt-26 text-center reveal-fade-up ${ctaSectionRevealed ? "revealed" : ""}`}
-        >
+        <Reveal as="div" className="mt-18 md:mt-26 text-center reveal-fade-up">
           <h2 className="font-serif text-[2rem] sm:text-[2.8rem] md:text-[3.4rem] leading-[1.1] tracking-tight text-black whitespace-pre-line max-w-[22ch] mx-auto">
             {cta.title}
           </h2>
@@ -59,7 +48,7 @@ export function ProcessSection({ dict }: ProcessSectionProps) {
               </button>
             </a>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   )

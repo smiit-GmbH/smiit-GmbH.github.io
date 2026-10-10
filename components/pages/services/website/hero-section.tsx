@@ -11,6 +11,7 @@ import { cx, MagneticCta } from "@/components/pages/services/shared/hero-kit"
 interface HeroSectionProps {
   lang: Locale
   dict: Dictionary
+  mockups: { before: React.ReactNode; after: React.ReactNode }
 }
 
 // ---------- Hero Packages (pill chips) ----------
@@ -98,7 +99,7 @@ const frameChildVariants = {
   visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] } },
 }
 
-export default function HeroSection({ dict }: HeroSectionProps) {
+export default function HeroSection({ dict, mockups }: HeroSectionProps) {
   const containerRef = useRef<HTMLElement>(null)
   const shouldReduceMotion = useReducedMotion()
 
@@ -219,6 +220,7 @@ export default function HeroSection({ dict }: HeroSectionProps) {
                   beforeLabel={hero.beforeLabel}
                   afterLabel={hero.afterLabel}
                   sliderHint={hero.sliderHint}
+                  mockups={mockups}
                 />
               </motion.div>
             </motion.div>
@@ -286,6 +288,7 @@ export default function HeroSection({ dict }: HeroSectionProps) {
                 beforeLabel={hero.beforeLabel}
                 afterLabel={hero.afterLabel}
                 sliderHint={hero.sliderHint}
+                mockups={mockups}
                 fill
               />
             </motion.div>

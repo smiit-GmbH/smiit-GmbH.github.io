@@ -1,5 +1,3 @@
-"use client"
-
 // ---------- Old (before) website — intentionally not mobile-optimised ----------
 
 export function BeforeWebsite() {

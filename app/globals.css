@@ -227,6 +227,14 @@
   transform: translateY(0);
 }
 
+/* Group reveal: a <Reveal className="reveal-group"> container reveals all .reveal-fade-up
+   descendants at once (their reveal-delay-* stagger still applies). Lets the
+   descendants stay server-rendered markup. */
+.reveal-group.revealed .reveal-fade-up {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 /* Same motion as .reveal-fade-up, but CSS-driven so it starts at first paint instead
    of after hydration. For content that is visible on load (page heroes) — keeps it
    from waiting on JavaScript before it can be seen (Largest Contentful Paint). */

@@ -1,5 +1,3 @@
-"use client"
-
 import type { Locale, Dictionary } from "@/lib/dictionary"
 import { HeroSection } from "@/components/pages/products/smiit-analytics/hero-section"
 import { FeaturesSection } from "@/components/pages/products/smiit-analytics/features-section"
