@@ -265,7 +265,7 @@ function MLVisual({ isRevealed }: { isRevealed: boolean; labels?: VisualLabels }
                 pathLength: { duration: 0.7, delay: 0.2 + (i % 6) * 0.05, ease: "easeOut" },
                 opacity: {
                   duration: 2.4,
-                  repeat: Infinity,
+                  repeat: isRevealed && inView ? Infinity : 0,
                   repeatType: "loop",
                   delay: 1 + ((i * 0.13) % 1.6),
                   ease: "easeInOut",

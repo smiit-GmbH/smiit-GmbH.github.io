@@ -1,11 +1,9 @@
-"use client"
-
 import Link from "next/link"
 import Image from "next/image"
 import { ArrowRight } from "lucide-react"
 import type { Locale } from "@/lib/dictionary"
 import { getCaseStudiesUi, type CaseStudyServiceArea, type CaseStudySummary } from "@/lib/case-studies-meta"
-import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
+import { Reveal } from "@/components/reveal"
 
 function cx(...classes: Array<string | false | null | undefined>) {
   return classes.filter(Boolean).join(" ")
@@ -19,7 +17,6 @@ const AREA: Record<CaseStudyServiceArea, { label: { de: string; en: string }; co
 
 function CaseStudyRow({ study, index, lang }: { study: CaseStudySummary; index: number; lang: Locale }) {
   const ui = getCaseStudiesUi(lang)
-  const [revealRef, revealed] = useRevealOnScroll({ margin: "-80px" })
   const area = AREA[study.serviceArea]
   const flipped = index % 2 === 1
   const number = String(index + 1).padStart(2, "0")
@@ -28,10 +25,11 @@ function CaseStudyRow({ study, index, lang }: { study: CaseStudySummary; index: 
   const href = `/${lang}/case-studies/${study.slug}`
 
   return (
-    <article
-      ref={revealRef}
+    <Reveal
+      as="article"
+      margin="-80px"
       style={{ ["--area" as string]: area.color }}
-      className={cx("group grid items-center gap-10 lg:grid-cols-2 lg:gap-16 reveal-fade-up", revealed && "revealed")}
+      className="group grid items-center gap-10 lg:grid-cols-2 lg:gap-16 reveal-fade-up"
     >
       {/* Visual */}
       <Link href={href} className={cx("relative block", flipped && "lg:order-2")}>
@@ -111,13 +109,12 @@ function CaseStudyRow({ study, index, lang }: { study: CaseStudySummary; index: 
           </span>
         </Link>
       </div>
-    </article>
+    </Reveal>
   )
 }
 
 export default function CaseStudiesIndexPage({ lang, studies }: { lang: Locale; studies: CaseStudySummary[] }) {
   const ui = getCaseStudiesUi(lang)
-  const [ctaRef, ctaRevealed] = useRevealOnScroll({ margin: "-60px" })
   const base = `/${lang}`
 
   return (
@@ -150,13 +147,11 @@ export default function CaseStudiesIndexPage({ lang, studies }: { lang: Locale; 
 
       {/* CTA */}
       <section className="max-w-[1400px] mx-auto px-4 pb-18 pt-24 sm:px-6 sm:pb-28 sm:pt-32 lg:px-8">
-        <div
-          ref={ctaRef}
+        <Reveal
+          as="div"
+          margin="-60px"
           data-header-tone="dark"
-          className={cx(
-            "overflow-hidden rounded-[28px] bg-[#0B162D] px-7 py-12 sm:px-12 sm:py-16 reveal-fade-up",
-            ctaRevealed && "revealed",
-          )}
+          className="overflow-hidden rounded-[28px] bg-[#0B162D] px-7 py-12 sm:px-12 sm:py-16 reveal-fade-up"
         >
           <div className="flex flex-col items-center gap-6 text-center lg:flex-row lg:items-center lg:justify-between lg:text-left">
             <div>
@@ -175,7 +170,7 @@ export default function CaseStudiesIndexPage({ lang, studies }: { lang: Locale; 
               <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
             </Link>
           </div>
-        </div>
+        </Reveal>
       </section>
     </main>
   )

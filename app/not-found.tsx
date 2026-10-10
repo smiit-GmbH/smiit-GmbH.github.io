@@ -4,7 +4,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Home } from "lucide-react"
-import Footer from "@/components/footer"
+import FooterAutoLang from "@/components/footer-auto-lang"
 import Header from "@/components/header"
 import { Geist, Geist_Mono, Playfair_Display } from "next/font/google"
 import "./globals.css"
@@ -84,7 +84,7 @@ export default function NotFound() {
               </div>
             </div>
           </section>
-          <Footer />
+          <FooterAutoLang />
         </main>
       </body>
     </html>

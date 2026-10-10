@@ -157,7 +157,7 @@ function MobileProcessFlowVisual({
             transition={{
               duration: 3.6,
               delay: 1.4,
-              repeat: Infinity,
+              repeat: isRevealed && inView ? Infinity : 0,
               repeatDelay: 1.0,
               ease: "easeInOut",
               times: [0, 0.05, 0.22, 0.42, 0.55, 0.72, 0.95, 1],
@@ -282,7 +282,7 @@ function MobileCloudTopologyVisual({
                 transition={{
                   duration: 1.3,
                   delay: 1.2 + i * 0.2,
-                  repeat: Infinity,
+                  repeat: isRevealed && inView ? Infinity : 0,
                   repeatDelay: 2.4,
                   ease: "easeInOut",
                   times: [0, 0.15, 0.85, 1],
@@ -368,7 +368,7 @@ function MobileSecurityRingsVisual({
         >
           <motion.span
             animate={inView ? { opacity: [1, 0.4, 1] } : { opacity: 1 }}
-            transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+            transition={{ duration: 1.6, repeat: inView ? Infinity : 0, ease: "easeInOut" }}
             className="h-1 w-1 rounded-full bg-emerald-500"
           />
           <span className="text-[0.55rem] font-mono font-semibold tracking-[0.18em] text-emerald-700">live</span>
@@ -423,7 +423,7 @@ function MobileSecurityRingsVisual({
               {event.isNew && (
                 <motion.span
                   animate={inView ? { opacity: [1, 0.3, 1], scale: [1, 1.3, 1] } : { opacity: 1, scale: 1 }}
-                  transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+                  transition={{ duration: 1.6, repeat: inView ? Infinity : 0, ease: "easeInOut" }}
                   className="h-1 w-1 shrink-0 rounded-full bg-emerald-500"
                 />
               )}

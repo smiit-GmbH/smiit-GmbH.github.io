@@ -1,5 +1,3 @@
-"use client"
-
 import type { Locale, Dictionary } from "@/lib/dictionary"
 import { HeroSection } from "@/components/pages/about/hero-section"
 import { MissionSection } from "@/components/pages/about/mission"

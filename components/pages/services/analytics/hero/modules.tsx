@@ -307,7 +307,13 @@ export function ProfitModule({
               <motion.div
                 initial={{ opacity: 0, scale: 1 }}
                 animate={inView ? { opacity: [0, 0.7, 0], scale: [1, 4.5, 4.5] } : { opacity: 0, scale: 1 }}
-                transition={{ duration: 2.4, delay: 2.0, repeat: Infinity, repeatDelay: 1.4, ease: "easeOut" }}
+                transition={{
+                  duration: 2.4,
+                  delay: 2.0,
+                  repeat: inView ? Infinity : 0,
+                  repeatDelay: 1.4,
+                  ease: "easeOut",
+                }}
                 className="pointer-events-none absolute h-2 w-2 -translate-x-1/2 -translate-y-1/2 rounded-full border-[1.5px] border-[#21569c]/50"
                 style={{ left: `${(lastActual.x / 510) * 100}%`, top: `${(lastActual.y / 150) * 100}%` }}
               />
@@ -386,7 +392,7 @@ export function AiModule({
                   transition={{
                     duration: 8,
                     delay: 1.4 + i * 0.05,
-                    repeat: Infinity,
+                    repeat: inView ? Infinity : 0,
                     repeatType: "reverse",
                     ease: "easeInOut",
                   }}

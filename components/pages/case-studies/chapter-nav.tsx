@@ -1,19 +1,12 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import { CHAPTERS_WRAPPER_ID } from "./chapters"
 import { useLenis } from "@/components/smooth-scroll-provider"
 
 function cx(...classes: Array<string | false | null | undefined>) {
   return classes.filter(Boolean).join(" ")
 }
-
-/** Anchor id of the n-th (1-based) narrative chapter. */
-export function chapterId(index: number) {
-  return `chapter-${index + 1}`
-}
-
-/** Id of the wrapper that holds all narrative chapters (used for visibility). */
-export const CHAPTERS_WRAPPER_ID = "case-study-chapters"
 
 export type ChapterNavItem = { id: string; label: string }
 

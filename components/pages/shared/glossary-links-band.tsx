@@ -1,5 +1,3 @@
-"use client"
-
 import type { CSSProperties } from "react"
 import { ArrowRight } from "lucide-react"
 import LocalizedLink from "@/components/localized-link"

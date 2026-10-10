@@ -30,7 +30,7 @@ export function BookCircleButton({
         className={`absolute inset-0 rounded-full border ${theme.accentBorder40}`}
         initial={{ scale: 1, opacity: 0.6 }}
         animate={inView ? { scale: [1, 1.18, 1], opacity: [0.6, 0, 0.6] } : { scale: 1, opacity: 0.6 }}
-        transition={{ duration: 2.6, repeat: Infinity, ease: "easeOut" }}
+        transition={{ duration: 2.6, repeat: inView ? Infinity : 0, ease: "easeOut" }}
       />
       <CalendarCheck className={`${iconSize} transition-transform duration-300 group-hover:scale-110`} />
       <span className="sr-only">{label}</span>

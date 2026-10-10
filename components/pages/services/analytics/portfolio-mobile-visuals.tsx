@@ -202,7 +202,7 @@ function MobileMLVisual({ isRevealed, accent }: { isRevealed: boolean; accent: s
             className="h-1.5 w-1.5 rounded-full"
             style={{ backgroundColor: accent, boxShadow: `0 0 6px ${accent}` }}
             animate={inView ? { opacity: [1, 0.4, 1] } : { opacity: 1 }}
-            transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+            transition={{ duration: 1.6, repeat: inView ? Infinity : 0, ease: "easeInOut" }}
           />
           <span className="text-[0.55rem] font-mono font-semibold tracking-[0.18em] text-black/55">LIVE</span>
         </motion.div>
@@ -230,7 +230,7 @@ function MobileMLVisual({ isRevealed, accent }: { isRevealed: boolean; accent: s
                 pathLength: { duration: 0.6, delay: 0.1 + (i % 4) * 0.05, ease: "easeOut" },
                 opacity: {
                   duration: 2.4,
-                  repeat: Infinity,
+                  repeat: isRevealed && inView ? Infinity : 0,
                   delay: 0.8 + ((i * 0.13) % 1.6),
                   ease: "easeInOut",
                 },

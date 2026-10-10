@@ -371,7 +371,7 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
                       <Bell className="h-3.5 w-3.5" />
                       <motion.span
                         animate={desktopInView ? { opacity: [1, 0.4, 1] } : { opacity: 1 }}
-                        transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+                        transition={{ duration: 1.6, repeat: desktopInView ? Infinity : 0, ease: "easeInOut" }}
                         className="absolute right-0.5 top-0.5 h-1.5 w-1.5 rounded-full bg-[#F703EB] ring-2 ring-white"
                       />
                     </button>

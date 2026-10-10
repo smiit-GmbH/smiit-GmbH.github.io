@@ -1,8 +1,6 @@
-"use client"
-
 import Image from "next/image"
 import { Database, BarChart3, Cpu, ExternalLink } from "lucide-react"
-import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
+import { Reveal } from "@/components/reveal"
 import type { Dictionary } from "@/lib/dictionary"
 
 const POWER_BI_URL =
@@ -16,17 +14,11 @@ const icons = [Database, BarChart3, Cpu]
 
 export function FeaturesSection({ dict }: FeaturesSectionProps) {
   const { features } = dict.smiitAnalytics
-  const [headingRef, headingRevealed] = useRevealOnScroll()
-  const [cardsRef, cardsRevealed] = useRevealOnScroll()
-  const [embedRef, embedRevealed] = useRevealOnScroll()
 
   return (
     <section id="features" className="relative py-14 md:py-18">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div
-          ref={headingRef}
-          className={`text-center mb-12 md:mb-16 reveal-fade-up ${headingRevealed ? "revealed" : ""}`}
-        >
+        <Reveal as="div" className="text-center mb-12 md:mb-16 reveal-fade-up">
           <h2 className="font-serif text-[2rem] sm:text-[2.8rem] md:text-[3.4rem] leading-[1.1] tracking-tight text-black">
             {features.title} <span className="text-[#21569c]">{features.titleHighlight}</span>
           </h2>
@@ -34,18 +26,18 @@ export function FeaturesSection({ dict }: FeaturesSectionProps) {
           <p className="mt-4 md:mt-5 text-sm md:text-base leading-relaxed text-black/55 max-w-[55ch] mx-auto">
             {features.subtitle}
           </p>
-        </div>
+        </Reveal>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
           {/* Feature cards */}
-          <div ref={cardsRef}>
+          <Reveal as="div" className="reveal-group">
             <div className="space-y-4">
               {features.items.map((item: { title: string; text: string }, idx: number) => {
                 const Icon = icons[idx]
                 return (
                   <div
                     key={idx}
-                    className={`flex gap-4 p-5 rounded-[1.75rem] bg-white border-1 border-gray-100 shadow-[0_10px_30px_rgba(0,0,0,0.03)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.1)] transition-all duration-300 hover:scale-[1.02] hover:-translate-y-0.5 reveal-fade-up reveal-delay-${idx + 1} ${cardsRevealed ? "revealed" : ""}`}
+                    className={`flex gap-4 p-5 rounded-[1.75rem] bg-white border-1 border-gray-100 shadow-[0_10px_30px_rgba(0,0,0,0.03)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.1)] transition-all duration-300 hover:scale-[1.02] hover:-translate-y-0.5 reveal-fade-up reveal-delay-${idx + 1}`}
                   >
                     <div className="flex-shrink-0 w-11 h-11 rounded-xl bg-[#21569c]/10 flex items-center justify-center">
                       <Icon className="h-5 w-5 text-[#21569c]" />
@@ -58,10 +50,10 @@ export function FeaturesSection({ dict }: FeaturesSectionProps) {
                 )
               })}
             </div>
-          </div>
+          </Reveal>
 
           {/* Power BI Report preview */}
-          <div ref={embedRef} className={`reveal-fade-up reveal-delay-2 ${embedRevealed ? "revealed" : ""}`}>
+          <Reveal as="div" className="reveal-fade-up reveal-delay-2">
             <a
               href={POWER_BI_URL}
               target="_blank"
@@ -85,7 +77,7 @@ export function FeaturesSection({ dict }: FeaturesSectionProps) {
                 </span>
               </div>
             </a>
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>

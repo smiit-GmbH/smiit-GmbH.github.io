@@ -1,8 +1,6 @@
-"use client"
-
 import Image from "next/image"
 import { ArrowRight, CheckCircle2 } from "lucide-react"
-import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
+import { Reveal } from "@/components/reveal"
 import type { Dictionary } from "@/lib/dictionary"
 
 interface PricingSectionProps {
@@ -11,14 +9,13 @@ interface PricingSectionProps {
 
 export function PricingSection({ dict }: PricingSectionProps) {
   const { pricing } = dict.smiitAnalytics
-  const [sectionRef, sectionRevealed] = useRevealOnScroll()
 
   return (
-    <section
-      ref={sectionRef}
+    <Reveal
+      as="section"
       data-header-tone="dark"
       id="pricing"
-      className="relative py-20 md:py-28"
+      className="relative py-20 md:py-28 reveal-group"
       style={{ backgroundColor: "rgb(15 23 42)" }}
     >
       {/* Grain texture */}
@@ -34,9 +31,7 @@ export function PricingSection({ dict }: PricingSectionProps) {
 
       <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div
-          className={`text-center mb-12 md:mb-16 max-w-3xl mx-auto reveal-fade-up ${sectionRevealed ? "revealed" : ""}`}
-        >
+        <div className={`text-center mb-12 md:mb-16 max-w-3xl mx-auto reveal-fade-up`}>
           <h2 className="font-serif text-[2rem] sm:text-[2.8rem] md:text-[3.4rem] leading-[1.1] tracking-tight text-white whitespace-pre-line mb-6">
             {pricing.title}
           </h2>
@@ -45,7 +40,7 @@ export function PricingSection({ dict }: PricingSectionProps) {
 
         {/* Product card */}
         <div
-          className={`max-w-[1200px] mx-auto rounded-[1.75rem] bg-white overflow-hidden shadow-[0_0_40px_rgba(33,86,156,0.15)] border border-[#21569c]/10 reveal-fade-up reveal-delay-2 ${sectionRevealed ? "revealed" : ""}`}
+          className={`max-w-[1200px] mx-auto rounded-[1.75rem] bg-white overflow-hidden shadow-[0_0_40px_rgba(33,86,156,0.15)] border border-[#21569c]/10 reveal-fade-up reveal-delay-2`}
         >
           <div className="grid grid-cols-1 md:grid-cols-12">
             {/* Left: Product info */}
@@ -126,6 +121,6 @@ export function PricingSection({ dict }: PricingSectionProps) {
           </div>
         </div>
       </div>
-    </section>
+    </Reveal>
   )
 }

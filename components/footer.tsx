@@ -1,15 +1,11 @@
-"use client"
-
 import Link from "next/link"
 import Image from "next/image"
-import { usePathname } from "next/navigation"
 import { Mail, MapPin, Phone } from "lucide-react"
-import { openCookieSettings } from "@/lib/gtag"
+import { CookieSettingsButton } from "@/components/cookie-settings-button"
 
+/** Server component. Pages outside [lang] (404) use FooterAutoLang instead. */
 export default function Footer({ forceLang }: { forceLang?: string }) {
-  const pathname = usePathname() || "/"
-  const detectedLang = pathname.startsWith("/en") ? "en" : "de"
-  const lang = forceLang || detectedLang
+  const lang = forceLang || "de"
   const base = `/${lang}`
 
   const L =
@@ -193,13 +189,10 @@ export default function Footer({ forceLang }: { forceLang?: string }) {
             <Link href={privacyHref} className="text-sm text-gray-700 hover:text-black transition-colors">
               {L.privacy}
             </Link>
-            <button
-              type="button"
-              onClick={openCookieSettings}
+            <CookieSettingsButton
+              label={L.cookieSettings}
               className="text-sm text-gray-700 hover:text-black transition-colors"
-            >
-              {L.cookieSettings}
-            </button>
+            />
           </div>
         </div>
       </div>

@@ -1,6 +1,4 @@
-"use client"
-
-import React, { useMemo } from "react"
+import type React from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { ArrowRight, Quote } from "lucide-react"
@@ -12,16 +10,13 @@ import {
   type CaseStudySection,
   type CaseStudyServiceArea,
 } from "@/lib/case-studies-meta"
-import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
 import type { GlossaryCatalogEntry, GlossaryLinkIndex } from "@/lib/glossary-meta"
 import { autolinkGlossary } from "@/lib/glossary-autolink"
 import Breadcrumb from "@/components/pages/case-studies/breadcrumb"
-import ChapterNav, { CHAPTERS_WRAPPER_ID, chapterId } from "@/components/pages/case-studies/chapter-nav"
+import ChapterNav from "@/components/pages/case-studies/chapter-nav"
+import { CHAPTERS_WRAPPER_ID, chapterId } from "@/components/pages/case-studies/chapters"
+import { Reveal } from "@/components/reveal"
 import GlossaryLinksBand from "@/components/pages/shared/glossary-links-band"
-
-function cx(...classes: Array<string | false | null | undefined>) {
-  return classes.filter(Boolean).join(" ")
-}
 
 const AREA: Record<CaseStudyServiceArea, { label: { de: string; en: string }; color: string }> = {
   apps: { label: { de: "Apps & Workflows", en: "Apps & workflows" }, color: "#F703EB" },
@@ -38,13 +33,8 @@ function NarrativeSection({
   index: number
   paragraphs: React.ReactNode[]
 }) {
-  const [revealRef, revealed] = useRevealOnScroll({ margin: "-60px" })
   return (
-    <section
-      id={chapterId(index)}
-      ref={revealRef}
-      className={cx("scroll-mt-28", "reveal-fade-up", revealed && "revealed")}
-    >
+    <Reveal as="section" margin="-60px" id={chapterId(index)} className="scroll-mt-28 reveal-fade-up">
       <div className="grid gap-y-4 lg:grid-cols-[minmax(0,0.4fr)_minmax(0,1.6fr)] lg:gap-x-20 xl:gap-x-28 2xl:gap-x-36">
         {/* Heading rail */}
         <div className="lg:pt-1">
@@ -75,7 +65,7 @@ function NarrativeSection({
           )}
         </div>
       </div>
-    </section>
+    </Reveal>
   )
 }
 
@@ -95,17 +85,14 @@ export default function CaseStudyDetailPage({
   const ui = getCaseStudiesUi(lang)
   const base = `/${lang}`
   const area = AREA[study.serviceArea]
-  const [metricsRef, metricsRevealed] = useRevealOnScroll({ margin: "-60px" })
-  const [techRef, techRevealed] = useRevealOnScroll({ margin: "-60px" })
-  const [moreRef, moreRevealed] = useRevealOnScroll({ margin: "-60px" })
   const serviceLabel = area.label[lang]
   // Auto-link the first mention of each glossary term across the narrative body.
-  const linkedSectionParagraphs = useMemo(() => {
+  const linkedSectionParagraphs = (() => {
     const used = new Set<string>()
     return study.sections.map((section) =>
       section.paragraphs.map((p) => autolinkGlossary(p, { lang, index: glossaryIndex, used })),
     )
-  }, [study, lang, glossaryIndex])
+  })()
   const publishedDate = new Intl.DateTimeFormat(lang === "de" ? "de-DE" : "en-US", {
     day: "numeric",
     month: "long",
@@ -221,12 +208,10 @@ export default function CaseStudyDetailPage({
       </div>
 
       {/* ── Kennzahlen ── */}
-      <section
-        ref={metricsRef}
-        className={cx(
-          "max-w-[1400px] mx-auto mt-24 px-4 sm:mt-28 sm:px-6 lg:px-8 reveal-fade-up",
-          metricsRevealed && "revealed",
-        )}
+      <Reveal
+        as="section"
+        margin="-60px"
+        className="max-w-[1400px] mx-auto mt-24 px-4 sm:mt-28 sm:px-6 lg:px-8 reveal-fade-up"
       >
         <h2 className="font-serif text-[1.8rem] sm:text-[2.2rem] leading-[1.1] tracking-tight text-[#0B162D]">
           {ui.metricsHeading}
@@ -239,16 +224,14 @@ export default function CaseStudyDetailPage({
             </div>
           ))}
         </div>
-      </section>
+      </Reveal>
 
       {/* ── Technik & Architektur ── */}
       {study.techStack.length > 0 && (
-        <section
-          ref={techRef}
-          className={cx(
-            "max-w-[1400px] mx-auto mt-20 px-4 sm:mt-24 sm:px-6 lg:px-8 reveal-fade-up",
-            techRevealed && "revealed",
-          )}
+        <Reveal
+          as="section"
+          margin="-60px"
+          className="max-w-[1400px] mx-auto mt-20 px-4 sm:mt-24 sm:px-6 lg:px-8 reveal-fade-up"
         >
           <h2 className="font-serif text-[1.8rem] sm:text-[2.2rem] leading-[1.1] tracking-tight text-[#0B162D]">
             {ui.techHeading}
@@ -266,7 +249,7 @@ export default function CaseStudyDetailPage({
               ))}
             </ul>
           </div>
-        </section>
+        </Reveal>
       )}
 
       {/* ── Fachbegriffe aus dem Glossar ── */}
@@ -308,12 +291,10 @@ export default function CaseStudyDetailPage({
 
       {/* ── Weitere Case Studies ── */}
       {others.length > 0 && (
-        <section
-          ref={moreRef}
-          className={cx(
-            "max-w-[1400px] mx-auto mt-24 px-4 sm:mt-28 sm:px-6 lg:px-8 reveal-fade-up",
-            moreRevealed && "revealed",
-          )}
+        <Reveal
+          as="section"
+          margin="-60px"
+          className="max-w-[1400px] mx-auto mt-24 px-4 sm:mt-28 sm:px-6 lg:px-8 reveal-fade-up"
         >
           <h2 className="font-serif text-[1.8rem] sm:text-[2.2rem] leading-[1.1] tracking-tight text-[#0B162D]">
             {ui.moreCaseStudies}
@@ -357,7 +338,7 @@ export default function CaseStudyDetailPage({
               )
             })}
           </div>
-        </section>
+        </Reveal>
       )}
 
       {/* ── CTA ── */}

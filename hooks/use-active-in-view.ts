@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { observeInView } from "./observe-in-view"
 
 /**
  * Tracks whether an element is *currently* in the viewport, toggling true/false
@@ -16,14 +17,7 @@ export function useActiveInView(options?: { margin?: string; threshold?: number 
 
   useEffect(() => {
     if (!node) return
-
-    const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), {
-      rootMargin: options?.margin ?? "0px",
-      threshold: options?.threshold ?? 0,
-    })
-
-    observer.observe(node)
-    return () => observer.disconnect()
+    return observeInView(node, { rootMargin: options?.margin ?? "0px", threshold: options?.threshold ?? 0 }, setInView)
   }, [node, options?.margin, options?.threshold])
 
   return [setNode as (node: HTMLElement | null) => void, inView] as const

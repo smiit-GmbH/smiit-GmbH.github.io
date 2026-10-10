@@ -1,5 +1,3 @@
-"use client"
-
 // ---------- New (after) website — mobile-first redesign ----------
 
 export function AfterWebsite() {

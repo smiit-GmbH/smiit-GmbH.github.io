@@ -2,8 +2,6 @@
 
 import { useCallback, useEffect, useRef, useState } from "react"
 import { useInView, useReducedMotion } from "framer-motion"
-import { BeforeWebsite } from "./before-website"
-import { AfterWebsite } from "./after-website"
 import { cx } from "@/components/pages/services/shared/hero-kit"
 
 // ---------- Before/After Slider ----------
@@ -13,11 +11,14 @@ export function BeforeAfterSlider({
   afterLabel,
   sliderHint,
   fill = false,
+  mockups,
 }: {
   beforeLabel: string
   afterLabel: string
   sliderHint: string
   fill?: boolean
+  /** Server-rendered website mockups (static markup, no hydration needed). */
+  mockups: { before: React.ReactNode; after: React.ReactNode }
 }) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [pos, setPos] = useState(50)
@@ -158,7 +159,7 @@ export function BeforeAfterSlider({
       >
         {/* BEFORE layer */}
         <div className="absolute inset-0 overflow-hidden z-[1]">
-          <BeforeWebsite />
+          {mockups.before}
           <span
             aria-hidden
             className="pointer-events-none absolute z-[4] font-black text-[clamp(0.75rem,4.5cqw,2.1rem)] tracking-[0.16em] uppercase leading-none"
@@ -176,7 +177,7 @@ export function BeforeAfterSlider({
 
         {/* AFTER layer */}
         <div className="absolute inset-0 overflow-hidden z-[2]" style={{ clipPath: `inset(0 0 0 ${pos}%)` }}>
-          <AfterWebsite />
+          {mockups.after}
           <span
             aria-hidden
             className="pointer-events-none absolute z-[4] font-black text-[clamp(0.75rem,4.5cqw,2.1rem)] tracking-[0.16em] uppercase leading-none"
