@@ -99,7 +99,7 @@ npm run dev       # dev server on http://localhost:3000
 npm run build     # static export into out/
 ```
 
-Copy `.env.example` to `.env` for the contact form and Calendly integration.
+Copy `.env.example` to `.env` for the Calendly integration.
 
 ### Quality checks
 

@@ -1,15 +1,9 @@
 "use client"
 
-import { useCallback, useEffect, useRef, useState } from "react"
-import Script from "next/script"
+import { useCallback, useEffect, useRef } from "react"
+import { buildCalendlyUrl, loadCalendly } from "@/lib/calendly"
 
 declare global {
-  interface Window {
-    Calendly?: {
-      initPopupWidget: (options: { url: string }) => void
-    }
-  }
-
   interface HTMLElementEventMap {
     "open-calendly": CustomEvent
   }
@@ -24,12 +18,9 @@ type Props = {
 // trigger, the "open-calendly" event, or a "#book" link). This keeps visitor
 // data from reaching Calendly on a plain page view (see privacy policy).
 export function CalendlyHandler({ url }: Props) {
-  const pendingOpenRef = useRef(false)
-  const scriptLoadedRef = useRef(false)
   const warmupDoneRef = useRef(false)
-  const [loadAssets, setLoadAssets] = useState(false)
 
-  const getLang = useCallback((): string => {
+  const getLang = useCallback((): "de" | "en" => {
     try {
       const htmlLang = typeof document !== "undefined" ? document.documentElement.lang : ""
       if (htmlLang?.toLowerCase().startsWith("en")) return "en"
@@ -40,44 +31,37 @@ export function CalendlyHandler({ url }: Props) {
     return "de"
   }, [])
 
-  const buildCalendlyUrl = useCallback((): string => {
+  const getUrl = useCallback((): string => {
     const lang = getLang()
-    const baseEN = (process.env.NEXT_PUBLIC_CALENDLY_URL_EN ?? "").trim()
-    const baseDE = (process.env.NEXT_PUBLIC_CALENDLY_URL_DE ?? "").trim()
-    const fallback = (process.env.NEXT_PUBLIC_CALENDLY_URL ?? "").trim()
-    const base = (url ?? (lang === "en" ? baseEN || fallback : baseDE || fallback)).trim()
-
-    if (!base) return ""
+    if (!url) return buildCalendlyUrl(lang)
 
     try {
-      const u = new URL(base)
+      const u = new URL(url)
       u.searchParams.set("locale", lang)
       return u.toString()
     } catch {
-      const sep = base.includes("?") ? "&" : "?"
-      return `${base}${sep}locale=${lang}`
+      const sep = url.includes("?") ? "&" : "?"
+      return `${url}${sep}locale=${lang}`
     }
   }, [url, getLang])
 
   const open = useCallback(() => {
-    const finalUrl = buildCalendlyUrl()
+    const finalUrl = getUrl()
     if (!finalUrl) {
       return
     }
 
-    if (window.Calendly?.initPopupWidget) {
-      window.Calendly.initPopupWidget({ url: finalUrl })
-    } else {
-      pendingOpenRef.current = true
-      setLoadAssets(true)
-    }
-  }, [buildCalendlyUrl])
+    loadCalendly()
+      .then((calendly) => calendly.initPopupWidget({ url: finalUrl }))
+      .catch(() => {
+        /* blocked or offline – the trigger simply does nothing */
+      })
+  }, [getUrl])
 
   const warmup = useCallback(() => {
     if (warmupDoneRef.current) return
 
     warmupDoneRef.current = true
-    setLoadAssets(true)
 
     const appendLink = (rel: string, href: string, crossOrigin?: boolean) => {
       if (!href || typeof document === "undefined") return
@@ -93,7 +77,7 @@ export function CalendlyHandler({ url }: Props) {
     appendLink("preconnect", "https://assets.calendly.com", true)
     appendLink("dns-prefetch", "https://assets.calendly.com")
 
-    const finalUrl = buildCalendlyUrl()
+    const finalUrl = getUrl()
     if (!finalUrl) return
 
     try {
@@ -103,7 +87,7 @@ export function CalendlyHandler({ url }: Props) {
     } catch {
       /* ignore malformed url */
     }
-  }, [buildCalendlyUrl])
+  }, [getUrl])
 
   const cleanHash = useCallback(() => {
     try {
@@ -178,25 +162,5 @@ export function CalendlyHandler({ url }: Props) {
     return () => document.removeEventListener("click", onClick, true)
   }, [open, cleanHash, warmup])
 
-  if (!loadAssets) return null
-
-  return (
-    <>
-      <link rel="stylesheet" href="https://assets.calendly.com/assets/external/widget.css" />
-
-      <Script
-        src="https://assets.calendly.com/assets/external/widget.js"
-        strategy="afterInteractive"
-        onLoad={() => {
-          scriptLoadedRef.current = true
-
-          if (pendingOpenRef.current || window.location.hash === "#book") {
-            open()
-            pendingOpenRef.current = false
-            cleanHash()
-          }
-        }}
-      />
-    </>
-  )
+  return null
 }

@@ -1,5 +1,4 @@
 import Image from "next/image"
-import Link from "next/link"
 import { Mail, ExternalLink } from "lucide-react"
 import type { Dictionary } from "@/lib/dictionary"
 
@@ -34,14 +33,17 @@ export default function ContactInfo({ dict }: ContactInfoProps) {
           </a>
         </div>
 
-        <div className="space-y-0.5 sm:space-y-1 pt-2 lg:pt-3">
-          <p className="text-xs sm:text-sm text-black/60">{info.bookText}</p>
-          <Link
-            href="#book"
-            className="inline-block font-bold text-sm sm:text-base text-black underline underline-offset-4 hover:text-[#F703EB] transition-colors"
+        <div className="space-y-0.5 sm:space-y-1">
+          <p className="text-xs sm:text-sm text-black/60">{info.linkedinLabel}</p>
+          <a
+            href={info.linkedinHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 font-bold text-base sm:text-lg text-black hover:text-[#F703EB] transition-colors"
           >
-            {info.bookLink}
-          </Link>
+            {info.linkedin}
+            <ExternalLink className="w-4 h-4" />
+          </a>
         </div>
       </div>
 

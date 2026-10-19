@@ -112,3 +112,13 @@ export function fireConversion(name: ConversionName): void {
   if (getStoredConsent() !== "granted") return
   window.gtag("event", "conversion", { send_to: CONVERSIONS[name] })
 }
+
+/**
+ * Send a GA4 event – only when the visitor has consented. Mark it as a key
+ * event in GA4 to import it into Google Ads as a conversion.
+ */
+export function trackEvent(name: string, params: Record<string, string> = {}): void {
+  if (typeof window === "undefined" || typeof window.gtag !== "function") return
+  if (getStoredConsent() !== "granted") return
+  window.gtag("event", name, { ...params, send_to: GA4_ID })
+}
