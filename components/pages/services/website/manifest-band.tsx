@@ -1,7 +1,7 @@
 "use client"
 
 import { useRef } from "react"
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion"
+import { m as motion, useReducedMotion, useScroll, useTransform } from "framer-motion"
 import type { Dictionary } from "@/lib/dictionary"
 
 export default function ManifestBand({ dict }: { dict: Dictionary }) {

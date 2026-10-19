@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useRef } from "react"
-import { motion, useReducedMotion, useScroll } from "framer-motion"
+import { m as motion, useReducedMotion, useScroll } from "framer-motion"
 import LocalizedLink from "../../../localized-link"
 import { Button } from "@/components/ui/button"
 import { ChevronRight } from "lucide-react"

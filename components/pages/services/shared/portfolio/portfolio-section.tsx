@@ -1,7 +1,7 @@
 "use client"
 
 import { useRef, useState } from "react"
-import { AnimatePresence, motion } from "framer-motion"
+import { AnimatePresence, m as motion } from "framer-motion"
 import { ChevronDown } from "lucide-react"
 import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
 import { serviceThemes, type ServiceKey, type ServiceTheme } from "../service-theme"

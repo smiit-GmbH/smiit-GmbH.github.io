@@ -1,6 +1,6 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { m as motion } from "framer-motion"
 import { ArrowRight, ChevronDown } from "lucide-react"
 import type { Dictionary } from "@/lib/dictionary"
 

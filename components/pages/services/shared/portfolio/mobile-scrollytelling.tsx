@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react"
 import {
   AnimatePresence,
-  motion,
+  m as motion,
   useMotionValueEvent,
   useReducedMotion,
   useScroll,

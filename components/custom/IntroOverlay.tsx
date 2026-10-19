@@ -3,7 +3,8 @@
 import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
 import { usePathname } from "next/navigation"
-import { motion, useReducedMotion } from "framer-motion"
+import { m as motion, useReducedMotion } from "framer-motion"
+import { INTRO_SEEN_KEY } from "@/lib/first-paint"
 
 type Phase = "initial" | "zoom" | "text" | "exit"
 
@@ -40,6 +41,20 @@ export function IntroOverlay({ onDone, videoReady = false }: { onDone: () => voi
   }, [onDone])
 
   useEffect(() => {
+    // Only once per tab session; for repeat views globals.css already hides
+    // the overlay before hydration (see lib/first-paint.ts).
+    let seen = false
+    try {
+      seen = sessionStorage.getItem(INTRO_SEEN_KEY) !== null
+      sessionStorage.setItem(INTRO_SEEN_KEY, "1")
+    } catch {
+      /* storage unavailable – show the intro */
+    }
+    if (seen) {
+      onDoneRef.current()
+      return
+    }
+
     const prevOverflow = document.body.style.overflow
     document.body.style.overflow = "hidden"
     mountTimeRef.current = Date.now()
@@ -97,6 +112,7 @@ export function IntroOverlay({ onDone, videoReady = false }: { onDone: () => voi
 
   return (
     <motion.div
+      data-intro-overlay
       className={[
         "fixed inset-0 z-[9999] flex flex-col items-center justify-center",
         "px-6 sm:px-8",

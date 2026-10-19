@@ -3,7 +3,7 @@
 import { useRef, useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
-import { cubicBezier, motion, useReducedMotion, useScroll, useTransform } from "framer-motion"
+import { cubicBezier, m as motion, useReducedMotion, useScroll, useTransform } from "framer-motion"
 import { ArrowRight, ChevronDown, Filter, Layers3, Zap } from "lucide-react"
 import type { Locale, Dictionary } from "@/lib/dictionary"
 import { PeriodKey, DATASETS } from "./hero/data"
@@ -100,11 +100,11 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
         {/* Background glows */}
         <div
           aria-hidden
-          className="pointer-events-none absolute -z-10 right-[-12%] top-[8%] h-[420px] w-[560px] rounded-full bg-[radial-gradient(ellipse_at_center,_rgba(33,86,156,0.12),_transparent_62%)] blur-3xl"
+          className="pointer-events-none absolute -z-10 right-[-12%] top-24 h-[420px] w-[560px] rounded-full bg-[radial-gradient(ellipse_at_center,_rgba(33,86,156,0.12),_transparent_62%)] blur-3xl"
         />
         <div
           aria-hidden
-          className="pointer-events-none absolute -z-10 left-[-18%] top-[55%] h-[380px] w-[520px] rounded-full bg-[radial-gradient(ellipse_at_center,_rgba(125,187,255,0.10),_transparent_62%)] blur-3xl"
+          className="pointer-events-none absolute -z-10 left-[-18%] top-[656px] h-[380px] w-[520px] rounded-full bg-[radial-gradient(ellipse_at_center,_rgba(125,187,255,0.10),_transparent_62%)] blur-3xl"
         />
 
         <div className="mx-auto max-w-[760px] px-5 pt-16 pb-12 sm:px-6 sm:pt-20 sm:pb-16 md:max-w-[920px] md:px-8 md:pt-24 md:pb-20">

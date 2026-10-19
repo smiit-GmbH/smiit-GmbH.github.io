@@ -3,7 +3,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { memo, useState } from "react"
-import { motion } from "framer-motion"
+import { m as motion } from "framer-motion"
 import { Mail, ExternalLink, ArrowRight, Linkedin, GraduationCap } from "lucide-react"
 import type { Locale, Dictionary } from "@/lib/dictionary"
 

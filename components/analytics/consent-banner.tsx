@@ -23,14 +23,20 @@ const COPY = {
 } as const
 
 export function ConsentBanner({ lang }: { lang: Locale }) {
-  const [visible, setVisible] = useState(false)
+  // Rendered into the static HTML so it paints with the page instead of after
+  // hydration; for visitors who already decided, the FIRST_PAINT_SCRIPT flag
+  // hides it via CSS until this effect unmounts it.
+  const [visible, setVisible] = useState(true)
   const t = COPY[lang === "en" ? "en" : "de"]
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- stored consent lives in localStorage; reading it after hydration keeps the static HTML banner-free
-    if (!getStoredConsent()) setVisible(true)
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- stored consent lives in localStorage, unknown at build time
+    if (getStoredConsent()) setVisible(false)
 
-    const reopen = () => setVisible(true)
+    const reopen = () => {
+      document.documentElement.removeAttribute("data-consent")
+      setVisible(true)
+    }
     window.addEventListener(COOKIE_SETTINGS_EVENT, reopen)
     return () => window.removeEventListener(COOKIE_SETTINGS_EVENT, reopen)
   }, [])
@@ -47,6 +53,7 @@ export function ConsentBanner({ lang }: { lang: Locale }) {
     <div
       role="dialog"
       aria-label={t.aria}
+      data-consent-banner
       className="fixed bottom-3 right-3 z-[100] max-w-[17rem] motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-4 motion-safe:duration-500 sm:right-4 sm:bottom-4 sm:max-w-sm"
     >
       <div className="rounded-2xl border border-white/10 bg-[#0B162D]/80 p-3.5 text-white shadow-2xl ring-1 ring-white/5 backdrop-blur-xl sm:p-5">

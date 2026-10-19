@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button"
 import { ChevronRight } from "lucide-react"
-import { motion, useInView, useReducedMotion, useSpring, useTransform } from "framer-motion"
+import { m as motion, useInView, useReducedMotion, useSpring, useTransform } from "framer-motion"
 import { useEffect, useRef, useState } from "react"
 import type { Locale, Dictionary } from "@/lib/dictionary"
 

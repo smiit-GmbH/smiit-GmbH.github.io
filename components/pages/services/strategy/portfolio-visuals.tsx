@@ -1,6 +1,6 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { m as motion } from "framer-motion"
 import { Cloud } from "lucide-react"
 import { useActiveInView } from "@/hooks/use-active-in-view"
 import type { Dictionary } from "@/lib/dictionary"

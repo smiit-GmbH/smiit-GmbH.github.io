@@ -1,6 +1,6 @@
 "use client"
 
-import { motion, useReducedMotion } from "framer-motion"
+import { m as motion, useReducedMotion } from "framer-motion"
 import { ArrowRight, CalendarDays, Mail } from "lucide-react"
 import type { Locale, Dictionary } from "@/lib/dictionary"
 

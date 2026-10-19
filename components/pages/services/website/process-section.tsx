@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import Image from "next/image"
-import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion"
+import { m as motion, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion"
 import { Search, Palette, Code2, Rocket } from "lucide-react"
 import type { LucideIcon } from "lucide-react"
 import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"

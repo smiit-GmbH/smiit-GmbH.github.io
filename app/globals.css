@@ -721,3 +721,10 @@
     animation: none;
   }
 }
+
+/* Flags set before first paint by lib/first-paint.ts: hide the statically
+   rendered consent banner / intro overlay for visitors who don't need them. */
+html[data-consent] [data-consent-banner],
+html[data-intro-seen] [data-intro-overlay] {
+  display: none;
+}

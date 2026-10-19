@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
-import { animate, motion, useInView, useMotionValue, useReducedMotion } from "framer-motion"
+import { animate, m as motion, useInView, useMotionValue, useReducedMotion } from "framer-motion"
 import type { Dictionary } from "@/lib/dictionary"
 
 // ---------------------------------------------------------------------------

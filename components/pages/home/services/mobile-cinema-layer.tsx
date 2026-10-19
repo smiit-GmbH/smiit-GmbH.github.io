@@ -1,6 +1,6 @@
 "use client"
 
-import { motion, useTransform, type MotionValue } from "framer-motion"
+import { m as motion, useTransform, type MotionValue } from "framer-motion"
 import LocalizedLink from "../../../localized-link"
 import { TagPill } from "./service-card"
 import { getAccent, getLink } from "./service-meta"

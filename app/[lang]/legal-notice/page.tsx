@@ -32,6 +32,9 @@ export default async function LegalNoticePage({ params }: { params: Promise<{ la
         title: "Impressum",
         subtitle: "Angaben gemäß § 5 DDG",
         contact: "Kontakt",
+        phone: "Telefon",
+        mail: "E-Mail",
+        country: "Deutschland",
         representedBy: "Vertreten durch",
         register: "Handelsregister",
         vatId: "Umsatzsteuer-ID",
@@ -39,11 +42,16 @@ export default async function LegalNoticePage({ params }: { params: Promise<{ la
         dispute: "Streitschlichtung",
         consumerDispute:
           "Wir sind nicht verpflichtet, an einem Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen und nehmen daran nicht teil.",
+        imageCredits: "Bildnachweise",
+        imageCreditsText: "Ein Teil der Bilder und Videos auf dieser Website wurde mithilfe von KI erstellt.",
       }
     : {
         title: "Legal notice",
         subtitle: "Information pursuant to Section 5 German Digital Services Act (DDG)",
         contact: "Contact",
+        phone: "Phone",
+        mail: "Email",
+        country: "Germany",
         representedBy: "Represented by",
         register: "Commercial register",
         vatId: "VAT ID",
@@ -51,6 +59,8 @@ export default async function LegalNoticePage({ params }: { params: Promise<{ la
         dispute: "Dispute resolution",
         consumerDispute:
           "We are not obliged to participate in dispute resolution proceedings before a consumer arbitration board and do not participate.",
+        imageCredits: "Image credits",
+        imageCreditsText: "Some of the images and videos on this website were created with the help of AI.",
       }
 
   return (
@@ -108,9 +118,9 @@ export default async function LegalNoticePage({ params }: { params: Promise<{ la
                 <address className="not-italic text-sm mt-4 text-black/80 leading-relaxed">
                   Reiherweg 96
                   <br />
-                  89584 Ehingen
+                  89584 Ehingen (Donau)
                   <br />
-                  Deutschland
+                  {L.country}
                 </address>
               </div>
 
@@ -118,13 +128,13 @@ export default async function LegalNoticePage({ params }: { params: Promise<{ la
                 <h3 className="text-sm font-semibold tracking-wide uppercase text-black/70">{L.contact}</h3>
                 <address className="not-italic text-sm mt-4 space-y-2 text-black/80 block">
                   <p>
-                    Telefon:{" "}
+                    {L.phone}:{" "}
                     <a className="underline" href="tel:+491604073198">
                       +49 160 4073198
                     </a>
                   </p>
                   <p>
-                    Mail:{" "}
+                    {L.mail}:{" "}
                     <a className="underline" href="mailto:kontakt@smiit.de">
                       kontakt@smiit.de
                     </a>
@@ -162,17 +172,24 @@ export default async function LegalNoticePage({ params }: { params: Promise<{ la
                     <br />
                     Reiherweg 96
                     <br />
-                    89584 Ehingen
+                    89584 Ehingen (Donau)
                     <br />
-                    Deutschland
+                    {L.country}
                   </address>
                 </div>
               </div>
 
-              <div>
-                <h3 className="text-sm font-semibold tracking-wide uppercase text-black/70">{L.dispute}</h3>
-                <div className="text-sm mt-4 space-y-3 text-black/80 leading-relaxed">
-                  <p>{L.consumerDispute}</p>
+              <div className="space-y-8">
+                <div>
+                  <h3 className="text-sm font-semibold tracking-wide uppercase text-black/70">{L.dispute}</h3>
+                  <div className="text-sm mt-4 space-y-3 text-black/80 leading-relaxed">
+                    <p>{L.consumerDispute}</p>
+                  </div>
+                </div>
+
+                <div>
+                  <h3 className="text-sm font-semibold tracking-wide uppercase text-black/70">{L.imageCredits}</h3>
+                  <p className="text-sm mt-4 text-black/80 leading-relaxed">{L.imageCreditsText}</p>
                 </div>
               </div>
             </div>

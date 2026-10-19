@@ -1,7 +1,7 @@
 "use client"
 
 import { useRef } from "react"
-import { motion, useMotionValue, useSpring, useReducedMotion } from "framer-motion"
+import { m as motion, useMotionValue, useSpring, useReducedMotion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { ChevronRight, Mail } from "lucide-react"
 import LocalizedLink from "@/components/localized-link"

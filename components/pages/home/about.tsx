@@ -3,7 +3,7 @@
 import Image from "next/image"
 import dynamic from "next/dynamic"
 import { useEffect, useRef, useState } from "react"
-import { motion, useScroll, useTransform } from "framer-motion"
+import { m as motion, useScroll, useTransform } from "framer-motion"
 import type { Dictionary } from "@/lib/dictionary"
 
 const DotLottieReact = dynamic(() => import("@lottiefiles/dotlottie-react").then((m) => m.DotLottieReact), {

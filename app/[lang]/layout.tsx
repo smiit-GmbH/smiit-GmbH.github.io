@@ -9,6 +9,7 @@ import { CalendlyHandler } from "@/components/calendly-handler"
 import { SmoothScrollProvider } from "@/components/smooth-scroll-provider"
 import { Analytics } from "@/components/analytics"
 import { SITE_NAME, SITE_URL, buildPageMetadata } from "@/lib/seo"
+import { FIRST_PAINT_SCRIPT } from "@/lib/first-paint"
 
 const geist = Geist({
   subsets: ["latin"],
@@ -128,7 +129,11 @@ export default async function RootLayout({
 }>) {
   const { lang } = await params
   return (
-    <html lang={lang}>
+    // suppressHydrationWarning: FIRST_PAINT_SCRIPT sets data-* attributes on <html> before hydration
+    <html lang={lang} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: FIRST_PAINT_SCRIPT }} />
+      </head>
       <body className={`${geist.variable} ${geistMono.variable} ${playfair.variable} font-sans antialiased`}>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessJsonLd) }} />
