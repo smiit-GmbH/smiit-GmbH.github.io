@@ -113,12 +113,12 @@ export default function BlogPostPage({
 
             <h1
               lang={lang}
-              className="mt-5 font-serif text-[2.3rem] sm:text-[2.9rem] md:text-[3.2rem] leading-[1.05] tracking-tight text-[#0B162D] hyphens-auto break-words"
+              className="mt-5 font-serif text-h1 tracking-tight text-[#0B162D] hyphens-auto break-words"
             >
               {post.title}
             </h1>
 
-            <p className="mt-6 max-w-[84ch] text-[0.98rem] sm:text-[1.1rem] leading-relaxed text-[#0B162D]/80">
+            <p className="mt-6 max-w-[84ch] text-lead text-[#0B162D]/80">
               {post.excerpt}
             </p>
 
@@ -159,7 +159,7 @@ export default function BlogPostPage({
             {/* FAQ */}
             {post.faq && post.faq.length > 0 && (
               <section className="mt-20 sm:mt-24">
-                <h2 className="font-serif text-[1.8rem] sm:text-[2.2rem] leading-[1.1] tracking-tight text-[#0B162D]">
+                <h2 className="font-serif text-h3 tracking-tight text-[#0B162D]">
                   {ui.faqHeading}
                 </h2>
                 <div className="mt-8 space-y-4">
@@ -217,7 +217,7 @@ export default function BlogPostPage({
             {/* Sources */}
             {post.sources && post.sources.length > 0 && (
               <section className="mt-20 sm:mt-24">
-                <h2 className="font-serif text-[1.8rem] sm:text-[2.2rem] leading-[1.1] tracking-tight text-[#0B162D]">
+                <h2 className="font-serif text-h3 tracking-tight text-[#0B162D]">
                   {ui.sourcesHeading}
                 </h2>
                 <SourcesList sources={post.sources} moreLabel={ui.sourcesMore} />
@@ -228,7 +228,7 @@ export default function BlogPostPage({
             <section className="mb-12 mt-16 sm:mb-20 lg:mb-24">
               <div className="flex flex-col items-start gap-6 border-t border-black/10 pt-12 sm:flex-row sm:items-center sm:justify-between">
                 <div className="sm:max-w-[45%]">
-                  <h2 className="font-serif text-[1.6rem] sm:text-[2rem] leading-[1.15] tracking-tight text-[#0B162D]">
+                  <h2 className="font-serif text-h4 tracking-tight text-[#0B162D]">
                     {ui.ctaHeading}
                   </h2>
                   <p className="mt-3 text-[0.9rem] leading-relaxed text-[#0B162D]/60">{ui.ctaSubtitle}</p>

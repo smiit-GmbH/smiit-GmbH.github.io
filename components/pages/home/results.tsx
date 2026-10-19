@@ -192,7 +192,7 @@ export default function Results({ dict, locale }: ResultsProps) {
           transition={{ duration: 0.6 }}
           className="text-center mb-12 md:mb-20"
         >
-          <h2 className="font-serif text-[2.6rem] sm:text-[3.15rem] md:text-[3.6rem] leading-tight text-black max-w-4xl mx-auto">
+          <h2 className="font-serif text-h2 text-black max-w-4xl mx-auto">
             {dict.results.titlePrefix}
             <span className="text-[#F703EB] inline-block relative isolate z-0">
               {dict.results.titleHighlight}

@@ -78,15 +78,13 @@ function CaseStudyRow({ study, index, lang }: { study: CaseStudySummary; index: 
           <span className="text-[0.74rem] font-medium uppercase tracking-wider text-[#0B162D]/45">{study.client}</span>
         </div>
 
-        <h2 className="relative mt-5 max-w-[20ch] font-serif text-[2rem] leading-[1.08] tracking-tight text-[#0B162D] sm:text-[2.4rem] md:text-[2.7rem]">
+        <h2 className="relative mt-5 max-w-[20ch] font-serif text-h3 tracking-tight text-[#0B162D]">
           <Link href={href} className="transition-colors duration-300 hover:text-[var(--area)]">
             {study.title}
           </Link>
         </h2>
 
-        <p className="relative mt-5 max-w-[52ch] text-[1rem] leading-relaxed text-[#0B162D]/65 sm:text-[1.05rem]">
-          {study.summary}
-        </p>
+        <p className="relative mt-5 max-w-[52ch] text-body text-[#0B162D]/65">{study.summary}</p>
 
         {secondaryMetrics.length > 0 && (
           <div className="relative mt-7 flex flex-wrap gap-x-10 gap-y-4">
@@ -124,16 +122,14 @@ export default function CaseStudiesIndexPage({ lang, studies }: { lang: Locale; 
           {/* Section header */}
           <div className="mx-auto max-w-[60ch] text-center hero-fade-up">
             <span className="section-eyebrow">{ui.eyebrow}</span>
-            <h1 className="mx-auto max-w-[18ch] font-serif text-[2.8rem] sm:text-[3.4rem] md:text-[4rem] leading-[1.02] tracking-tight text-[#0B162D]">
+            <h1 className="mx-auto max-w-[18ch] font-serif text-display tracking-tight text-[#0B162D]">
               {ui.indexTitleLead} <span className="section-highlight">{ui.indexTitleHighlight}</span>
             </h1>
             <div
               aria-hidden
               className="mx-auto mt-8 h-px w-24 bg-gradient-to-r from-transparent via-[#F703EB]/45 to-transparent"
             />
-            <p className="mx-auto mt-8 max-w-[52ch] text-[1.05rem] sm:text-[1.15rem] leading-relaxed text-[#0B162D]/65">
-              {ui.indexSubtitle}
-            </p>
+            <p className="mx-auto mt-8 max-w-[52ch] text-lead text-[#0B162D]/65">{ui.indexSubtitle}</p>
           </div>
 
           {/* Editorial rows */}
@@ -155,12 +151,10 @@ export default function CaseStudiesIndexPage({ lang, studies }: { lang: Locale; 
         >
           <div className="flex flex-col items-center gap-6 text-center lg:flex-row lg:items-center lg:justify-between lg:text-left">
             <div>
-              <h2 className="mx-auto max-w-[24ch] font-serif text-[1.8rem] sm:text-[2.4rem] leading-[1.1] tracking-tight text-white lg:mx-0">
+              <h2 className="mx-auto max-w-[24ch] font-serif text-h3 tracking-tight text-white lg:mx-0">
                 {ui.ctaHeading}
               </h2>
-              <p className="mx-auto mt-4 max-w-[52ch] text-[0.85rem] sm:text-[0.92rem] leading-relaxed text-white/65 lg:mx-0">
-                {ui.ctaSubtitle}
-              </p>
+              <p className="mx-auto mt-4 max-w-[52ch] text-body text-white/65 lg:mx-0">{ui.ctaSubtitle}</p>
             </div>
             <Link
               href={`${base}/contact`}

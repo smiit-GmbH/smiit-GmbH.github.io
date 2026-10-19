@@ -44,9 +44,7 @@ export default function GlossaryLinksBand({
       <div className="mx-auto max-w-[1280px] px-4 sm:px-6 lg:px-8 mb-10">
         <div className="border-y border-black/10 py-6 sm:py-8" style={accentStyle}>
           <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-2">
-            <h2 className="font-serif text-[1.4rem] sm:text-[1.7rem] leading-tight tracking-tight text-[#0B162D]">
-              {t.heading}
-            </h2>
+            <h2 className="font-serif text-h4 tracking-tight text-[#0B162D]">{t.heading}</h2>
             <LocalizedLink
               href="/glossary"
               className="group inline-flex items-center gap-1.5 text-sm font-medium text-[color:var(--accent)] hover:text-[color:var(--accent-hover)] transition-colors whitespace-nowrap"

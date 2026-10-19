@@ -65,7 +65,7 @@ export default function PricingSection({ dict }: { dict: Dictionary }) {
               <span className="w-[34px] h-[2px] bg-current rounded" />
               {eyebrow}
             </span>
-            <h2 className="mt-[20px] font-serif text-[2.2rem] sm:text-[2.4rem] md:text-[3rem] leading-[1.1] tracking-tight text-[#ece9e2]">
+            <h2 className="mt-[20px] font-serif text-h2 tracking-tight text-[#ece9e2]">
               {pricing.title}{" "}
               <em className="not-italic italic bg-gradient-to-r from-[#b81fa8] via-[#F703EB] to-[#ff45ba] bg-clip-text text-transparent">
                 {pricing.titleHighlight}

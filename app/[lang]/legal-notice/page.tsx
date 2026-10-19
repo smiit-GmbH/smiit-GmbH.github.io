@@ -99,12 +99,8 @@ export default async function LegalNoticePage({ params }: { params: Promise<{ la
 
         <div className="relative z-20 h-full flex items-end">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 w-full pb-12 sm:pb-14 md:pb-16 lg:pb-20">
-            <h1 className="font-serif text-[2.35rem] sm:text-[2.8rem] md:text-[3.25rem] leading-[1.06] text-black tracking-tight">
-              {L.title}
-            </h1>
-            <p className="mt-3 text-sm sm:text-base md:text-lg text-black/75 max-w-[60ch] leading-relaxed">
-              {L.subtitle}
-            </p>
+            <h1 className="font-serif text-h1 text-black tracking-tight">{L.title}</h1>
+            <p className="mt-3 text-lead text-black/75 max-w-[60ch]">{L.subtitle}</p>
           </div>
         </div>
       </section>
@@ -114,7 +110,7 @@ export default async function LegalNoticePage({ params }: { params: Promise<{ la
           <div className="relative z-30 -mt-6 sm:-mt-8 md:-mt-10 lg:-mt-12 rounded-[1.75rem] border border-black/10 bg-white shadow-xl ring-1 ring-black/5 p-6 sm:p-8 md:p-10">
             <div className="grid gap-10 md:grid-cols-2">
               <div>
-                <h2 className="font-serif text-xl md:text-3xl text-black tracking-tight">smiit GmbH</h2>
+                <h2 className="font-serif text-h4 text-black tracking-tight">smiit GmbH</h2>
                 <address className="not-italic text-sm mt-4 text-black/80 leading-relaxed">
                   Reiherweg 96
                   <br />

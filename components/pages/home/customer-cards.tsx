@@ -480,10 +480,10 @@ export default function CustomerCards({ dict }: CustomerCardsProps) {
                 >
                   <div className="p-5 md:p-8 flex flex-col h-full justify-between">
                     <div>
-                      <CardTitle className="font-serif text-[1.45rem] md:text-[1.75rem] font-normal text-black tracking-tight leading-[1.1]">
+                      <CardTitle className="font-serif text-h4 font-normal text-black tracking-tight">
                         {customer.name}
                       </CardTitle>
-                      <p className="text-sm md:text-base text-black/90 mt-2 md:mt-4 leading-snug font-normal max-w-[95%] md:max-w-[70%] line-clamp-2">
+                      <p className="text-body leading-snug text-black/90 mt-2 md:mt-4 font-normal max-w-[95%] md:max-w-[70%] line-clamp-2">
                         {customer.subtitle}
                       </p>
                     </div>

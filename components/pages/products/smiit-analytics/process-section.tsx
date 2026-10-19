@@ -14,9 +14,7 @@ export function ProcessSection({ dict }: ProcessSectionProps) {
       <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <Reveal as="div" className="text-center mb-12 md:mb-16 reveal-fade-up">
-          <h2 className="font-serif text-[2rem] sm:text-[2.8rem] md:text-[3.4rem] leading-[1.1] tracking-tight text-black">
-            {process.title}
-          </h2>
+          <h2 className="font-serif text-h2 tracking-tight text-black">{process.title}</h2>
         </Reveal>
 
         {/* Steps grid */}
@@ -36,7 +34,7 @@ export function ProcessSection({ dict }: ProcessSectionProps) {
         </Reveal>
 
         <Reveal as="div" className="mt-18 md:mt-26 text-center reveal-fade-up">
-          <h2 className="font-serif text-[2rem] sm:text-[2.8rem] md:text-[3.4rem] leading-[1.1] tracking-tight text-black whitespace-pre-line max-w-[22ch] mx-auto">
+          <h2 className="font-serif text-h2 tracking-tight text-black whitespace-pre-line max-w-[22ch] mx-auto">
             {cta.title}
           </h2>
 

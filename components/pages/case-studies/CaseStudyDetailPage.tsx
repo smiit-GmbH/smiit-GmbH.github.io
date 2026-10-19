@@ -41,14 +41,12 @@ function NarrativeSection({
           <span className="font-mono text-[0.8rem] font-semibold tracking-[0.2em] text-[var(--area)]">
             {String(index + 1).padStart(2, "0")}
           </span>
-          <h2 className="mt-3 font-serif text-[1.55rem] sm:text-[1.9rem] leading-[1.12] tracking-tight text-[#0B162D]">
-            {section.heading}
-          </h2>
+          <h2 className="mt-3 font-serif text-h4 tracking-tight text-[#0B162D]">{section.heading}</h2>
         </div>
 
         {/* Body */}
         <div>
-          <div className="space-y-4 text-[0.9rem] sm:text-[1.05rem] leading-[1.75] text-[#0B162D]/75 max-w-[68ch]">
+          <div className="space-y-4 text-prose text-[#0B162D]/75 max-w-[68ch]">
             {paragraphs.map((p, i) => (
               <p key={i}>{p}</p>
             ))}
@@ -58,7 +56,7 @@ function NarrativeSection({
               {section.bullets.map((b, i) => (
                 <li key={i} className="flex items-start gap-3">
                   <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--area)]" />
-                  <span className="text-[0.9rem] sm:text-[1.05rem] leading-[1.75] text-[#0B162D]/80">{b}</span>
+                  <span className="text-prose text-[#0B162D]/80">{b}</span>
                 </li>
               ))}
             </ul>
@@ -131,13 +129,11 @@ export default function CaseStudyDetailPage({
 
               <h1
                 lang={lang}
-                className="mt-5 font-serif text-[2.3rem] sm:text-[2.9rem] md:text-[3.2rem] leading-[1.05] tracking-tight text-[#0B162D] hyphens-auto break-words"
+                className="mt-5 font-serif text-h1 tracking-tight text-[#0B162D] hyphens-auto break-words"
               >
                 {study.title}
               </h1>
-              <p className="mt-5 max-w-[58ch] text-[0.95rem] sm:text-[1.02rem] leading-relaxed text-[#0B162D]/70">
-                {study.summary}
-              </p>
+              <p className="mt-5 max-w-[58ch] text-lead text-[#0B162D]/70">{study.summary}</p>
               <p className="mt-5 text-[0.78rem] text-[#0B162D]/45">
                 {ui.publishedLabel}{" "}
                 <time dateTime={study.datePublished} className="font-medium text-[#0B162D]/60">
@@ -213,9 +209,7 @@ export default function CaseStudyDetailPage({
         margin="-60px"
         className="max-w-[1400px] mx-auto mt-24 px-4 sm:mt-28 sm:px-6 lg:px-8 reveal-fade-up"
       >
-        <h2 className="font-serif text-[1.8rem] sm:text-[2.2rem] leading-[1.1] tracking-tight text-[#0B162D]">
-          {ui.metricsHeading}
-        </h2>
+        <h2 className="font-serif text-h3 tracking-tight text-[#0B162D]">{ui.metricsHeading}</h2>
         <div className="mt-8 grid grid-cols-2 gap-5 lg:grid-cols-4">
           {study.metrics.map((metric, i) => (
             <div key={i} className="rounded-[20px] border border-black/10 bg-white/60 p-6">
@@ -233,9 +227,7 @@ export default function CaseStudyDetailPage({
           margin="-60px"
           className="max-w-[1400px] mx-auto mt-20 px-4 sm:mt-24 sm:px-6 lg:px-8 reveal-fade-up"
         >
-          <h2 className="font-serif text-[1.8rem] sm:text-[2.2rem] leading-[1.1] tracking-tight text-[#0B162D]">
-            {ui.techHeading}
-          </h2>
+          <h2 className="font-serif text-h3 tracking-tight text-[#0B162D]">{ui.techHeading}</h2>
           <div className="mt-8 rounded-[24px] border border-black/10 bg-[#0B162D]/[0.02] p-7 sm:p-9">
             <ul className="grid grid-cols-1 gap-x-10 gap-y-5 sm:grid-cols-2 lg:grid-cols-3">
               {study.techStack.map((item) => (
@@ -296,9 +288,7 @@ export default function CaseStudyDetailPage({
           margin="-60px"
           className="max-w-[1400px] mx-auto mt-24 px-4 sm:mt-28 sm:px-6 lg:px-8 reveal-fade-up"
         >
-          <h2 className="font-serif text-[1.8rem] sm:text-[2.2rem] leading-[1.1] tracking-tight text-[#0B162D]">
-            {ui.moreCaseStudies}
-          </h2>
+          <h2 className="font-serif text-h3 tracking-tight text-[#0B162D]">{ui.moreCaseStudies}</h2>
           <div className="mt-8 grid grid-cols-1 gap-6 sm:grid-cols-2">
             {others.map((other) => {
               const otherArea = AREA[other.serviceArea]
@@ -345,9 +335,7 @@ export default function CaseStudyDetailPage({
       <section className="max-w-[1400px] mx-auto mt-12 px-4 pb-24 sm:px-6 sm:pb-32 lg:px-8">
         <div className="flex flex-col items-start gap-6 border-t border-black/10 pt-12 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h2 className="max-w-[28ch] font-serif text-[1.6rem] sm:text-[2rem] leading-[1.15] tracking-tight text-[#0B162D]">
-              {ui.ctaHeading}
-            </h2>
+            <h2 className="max-w-[28ch] font-serif text-h4 tracking-tight text-[#0B162D]">{ui.ctaHeading}</h2>
             <Link
               href={`${base}/${study.relatedServicePath}`}
               className="group/svc mt-3 inline-flex items-center gap-1.5 text-[0.88rem] font-medium text-[var(--area)]"

@@ -49,7 +49,7 @@ export function HeroSection({ dict }: HeroSectionProps) {
           </p>
 
           <p
-            className="enter-up mt-6 md:mt-8 text-base md:text-lg leading-relaxed text-white/60 max-w-[60ch] mx-auto"
+            className="enter-up mt-6 md:mt-8 text-lead text-white/60 max-w-[60ch] mx-auto"
             style={{ "--enter-y": "30px", "--enter-duration": "0.6s", "--enter-delay": "0.3s" } as React.CSSProperties}
           >
             {hero.description}

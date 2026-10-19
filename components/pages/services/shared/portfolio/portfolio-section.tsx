@@ -45,9 +45,7 @@ function RowText<L>({
         </span>
       </div>
 
-      <h3 className="font-serif text-2xl sm:text-3xl lg:text-[2rem] leading-tight tracking-tight text-black">
-        {item.title}
-      </h3>
+      <h3 className="font-serif text-h3 tracking-tight text-black">{item.title}</h3>
 
       <p
         className={`mt-4 text-[0.95rem] sm:text-base leading-relaxed text-black/65 max-w-[52ch] lg:max-w-[44ch] ${
@@ -69,7 +67,7 @@ function RowText<L>({
           >
             <div className="mt-4 space-y-3 max-w-[52ch] lg:max-w-[44ch]">
               {item.details.split("\n\n").map((paragraph: string, i: number) => (
-                <p key={i} className="text-sm sm:text-[0.95rem] leading-relaxed text-black/55">
+                <p key={i} className="text-body text-black/55">
                   {paragraph}
                 </p>
               ))}
@@ -133,12 +131,10 @@ export function PortfolioSection<L>({
           className={`text-center mb-10 sm:mb-12 md:mb-16 reveal-fade-up ${headingRevealed ? "revealed" : ""}`}
         >
           <span className="section-eyebrow justify-center">{eyebrow}</span>
-          <h2 className="font-serif text-[2.2rem] sm:text-[2.4rem] md:text-[3rem] leading-[1.1] tracking-tight text-black">
+          <h2 className="font-serif text-h2 tracking-tight text-black">
             {copy.title} <span className={theme.accentText}>{copy.titleHighlight}</span>
           </h2>
-          <p className="mt-3 sm:mt-4 md:mt-6 text-[0.9rem] sm:text-base md:text-lg leading-relaxed text-black/60 max-w-[60ch] mx-auto">
-            {copy.subtitle}
-          </p>
+          <p className="mt-3 sm:mt-4 md:mt-6 text-lead text-black/60 max-w-[60ch] mx-auto">{copy.subtitle}</p>
         </div>
       </div>
 

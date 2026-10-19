@@ -139,7 +139,7 @@ export default function ServiceManifestBand({ dict, service }: ManifestBandProps
       <div className="sticky top-0 flex min-h-[58vh] items-center justify-center px-5 py-16 sm:px-8 sm:py-20 lg:min-h-[80dvh] lg:py-24">
         <div className="relative z-10 mx-auto max-w-[1200px] text-center">
           <div className="lg:hidden">
-            <h2 className="font-serif text-[2rem] leading-[1.05] tracking-tight text-white/85 sm:text-[2.6rem] md:text-[3.2rem]">
+            <h2 className="font-serif text-h2 tracking-tight text-white/85">
               <KineticLine
                 text={manifest?.lead ?? ""}
                 scrollYProgress={scrollYProgress}
@@ -148,9 +148,7 @@ export default function ServiceManifestBand({ dict, service }: ManifestBandProps
                 reduceMotion={reduceMotion}
               />
             </h2>
-            <h2
-              className={`mt-2 font-serif italic text-[2rem] leading-[1.05] tracking-tight ${theme.accentLightText} sm:text-[2.6rem] md:text-[3.2rem]`}
-            >
+            <h2 className={`mt-2 font-serif italic text-h2 tracking-tight ${theme.accentLightText}`}>
               <KineticLine
                 text={manifest?.emphasis ?? ""}
                 scrollYProgress={scrollYProgress}

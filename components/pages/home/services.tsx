@@ -26,12 +26,10 @@ export default function Services({ dict, lang }: ServicesProps) {
 
   const sectionHeader = (
     <div className="text-center">
-      <h2 className="font-serif text-[2.6rem] sm:text-[3.15rem] md:text-[3.6rem] leading-[1.05] tracking-tight text-black dark:text-white whitespace-pre-line text-balance">
+      <h2 className="font-serif text-h2 tracking-tight text-black dark:text-white whitespace-pre-line text-balance">
         {firstPart} <span className="text-[#21569c]">{lastWord}</span>
       </h2>
-      <p className="mt-4 text-sm sm:text-base leading-relaxed text-black/75 dark:text-white/75 max-w-[54ch] mx-auto">
-        {dict.services.subtitle}
-      </p>
+      <p className="mt-4 text-body text-black/75 dark:text-white/75 max-w-[54ch] mx-auto">{dict.services.subtitle}</p>
     </div>
   )
 

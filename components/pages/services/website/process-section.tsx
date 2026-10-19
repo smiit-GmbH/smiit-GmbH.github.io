@@ -63,13 +63,11 @@ export default function ProcessSection({ dict }: { dict: Dictionary }) {
         <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8">
           <div ref={headingRef} className={`text-center reveal-fade-up ${headingRevealed ? "revealed" : ""}`}>
             <span className="section-eyebrow justify-center">{eyebrowLabel}</span>
-            <h2 className="mx-auto max-w-[22ch] font-serif text-[2.2rem] sm:text-[2.4rem] md:text-[3rem] leading-[1.1] tracking-tight text-black">
+            <h2 className="mx-auto max-w-[22ch] font-serif text-h2 tracking-tight text-black">
               {process?.title} <span className="text-[#F703EB]">{process?.titleHighlight}</span>
             </h2>
             {process?.subtitle && (
-              <p className="mx-auto mt-4 max-w-[58ch] text-[0.9rem] sm:text-base leading-relaxed text-black/60">
-                {process.subtitle}
-              </p>
+              <p className="mx-auto mt-4 max-w-[58ch] text-body text-black/60">{process.subtitle}</p>
             )}
           </div>
 
@@ -93,7 +91,7 @@ export default function ProcessSection({ dict }: { dict: Dictionary }) {
                       <Icon className="h-4 w-4 md:h-5 md:w-5" />
                     </div>
                   </div>
-                  <h3 className="mt-5 font-serif text-lg md:text-xl font-semibold text-black">{step.title}</h3>
+                  <h3 className="mt-5 font-serif text-h5 font-semibold text-black">{step.title}</h3>
                   <p className="mt-2.5 text-sm leading-relaxed text-black/60">{step.text}</p>
                 </div>
               )
@@ -109,7 +107,7 @@ export default function ProcessSection({ dict }: { dict: Dictionary }) {
       <div className="mx-auto max-w-[1400px] px-4 sm:px-6 lg:px-8 pb-0 pt-2">
         <div>
           <span className="section-eyebrow">{eyebrowLabel}</span>
-          <h2 className="mt-1 max-w-[26ch] font-serif text-[2rem] leading-[1.05] tracking-tight text-black sm:text-[2.4rem] md:text-[3rem]">
+          <h2 className="mt-1 max-w-[26ch] font-serif text-h2 tracking-tight text-black">
             {process?.title} <span className="text-[#F703EB]">{process?.titleHighlight}</span>
           </h2>
           {process?.subtitle && (

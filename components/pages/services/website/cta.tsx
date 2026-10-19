@@ -37,10 +37,7 @@ export default function WebsiteCTA({ lang, dict }: { lang: Locale; dict: Diction
             <motion.span variants={fadeUpVariants} className="section-eyebrow">
               {eyebrow}
             </motion.span>
-            <motion.h2
-              variants={fadeUpVariants}
-              className="mt-[22px] font-serif text-[2.2rem] sm:text-[2.4rem] md:text-[3rem] leading-[1.1] tracking-tight text-[#15151a]"
-            >
+            <motion.h2 variants={fadeUpVariants} className="mt-[22px] font-serif text-h2 tracking-tight text-[#15151a]">
               {cta.title} <em className="not-italic text-[#F703EB]">{cta.titleHighlight}</em>
             </motion.h2>
             <motion.p

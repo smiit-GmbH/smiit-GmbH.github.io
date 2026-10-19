@@ -32,10 +32,8 @@ export function PricingSection({ dict }: PricingSectionProps) {
       <div className="relative z-10 max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className={`text-center mb-12 md:mb-16 max-w-3xl mx-auto reveal-fade-up`}>
-          <h2 className="font-serif text-[2rem] sm:text-[2.8rem] md:text-[3.4rem] leading-[1.1] tracking-tight text-white whitespace-pre-line mb-6">
-            {pricing.title}
-          </h2>
-          {pricing.subtitle && <p className="text-base md:text-lg text-white/70 leading-relaxed">{pricing.subtitle}</p>}
+          <h2 className="font-serif text-h2 tracking-tight text-white whitespace-pre-line mb-6">{pricing.title}</h2>
+          {pricing.subtitle && <p className="text-lead text-white/70">{pricing.subtitle}</p>}
         </div>
 
         {/* Product card */}
@@ -45,9 +43,7 @@ export function PricingSection({ dict }: PricingSectionProps) {
           <div className="grid grid-cols-1 md:grid-cols-12">
             {/* Left: Product info */}
             <div className="p-6 md:p-8 lg:p-9 md:col-span-5 flex flex-col">
-              <h3 className="font-serif text-[1.5rem] md:text-[1.8rem] leading-[1.2] tracking-tight text-black">
-                {pricing.productTitle}
-              </h3>
+              <h3 className="font-serif text-h4 tracking-tight text-black">{pricing.productTitle}</h3>
 
               <p className="mt-4 text-sm leading-relaxed text-black/55">{pricing.productDescription}</p>
 

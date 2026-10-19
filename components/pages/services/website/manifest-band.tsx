@@ -53,12 +53,8 @@ export default function ManifestBand({ dict }: { dict: Dictionary }) {
         <div className="relative z-10 mx-auto max-w-[1200px] text-center">
           {/* Mobile */}
           <div className="lg:hidden">
-            <h2 className="font-serif text-[2rem] leading-[1.05] tracking-tight text-white/85 sm:text-[2.6rem] md:text-[3.2rem]">
-              {manifest?.lead}
-            </h2>
-            <h2 className="mt-2 font-serif italic text-[2rem] leading-[1.05] tracking-tight text-[#FA85F4] sm:text-[2.6rem] md:text-[3.2rem]">
-              {manifest?.emphasis}
-            </h2>
+            <h2 className="font-serif text-h2 tracking-tight text-white/85">{manifest?.lead}</h2>
+            <h2 className="mt-2 font-serif italic text-h2 tracking-tight text-[#FA85F4]">{manifest?.emphasis}</h2>
             <p className="mt-6 text-[0.95rem] leading-relaxed text-white/55 max-w-[52ch] mx-auto">
               {manifest?.subtitle}
             </p>

@@ -67,7 +67,7 @@ export default function ProblemSection({ dict }: { dict: Dictionary }) {
           </motion.span>
           <motion.h2
             variants={headingItem}
-            className="mt-[22px] font-serif text-[2.2rem] sm:text-[2.4rem] md:text-[3rem] leading-[1.1] tracking-tight max-w-[22ch] mx-auto md:mx-0 text-[#15151a]"
+            className="mt-[22px] font-serif text-h2 tracking-tight max-w-[22ch] mx-auto md:mx-0 text-[#15151a]"
           >
             {problem.title} <em className="not-italic text-[#F703EB]">{problem.titleHighlight}</em>
           </motion.h2>

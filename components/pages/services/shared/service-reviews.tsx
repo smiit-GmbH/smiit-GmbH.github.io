@@ -310,7 +310,7 @@ export default function ServiceReviews({
         >
           <div className="max-w-[34rem]">
             <span className="section-eyebrow">{serviceDict.eyebrows.reviews}</span>
-            <h2 className="font-serif text-[2rem] sm:text-[2.4rem] md:text-[3rem] leading-[1.1] tracking-tight text-black">
+            <h2 className="font-serif text-h2 tracking-tight text-black">
               {serviceDict.reviewsHeading.lead}{" "}
               <span className={theme.accentText}>{serviceDict.reviewsHeading.highlight}</span>
             </h2>
