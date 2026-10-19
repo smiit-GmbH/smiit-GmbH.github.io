@@ -1,7 +1,8 @@
 "use client"
 
 import { useEffect } from "react"
-import { fireConversion } from "@/lib/gtag"
+import { isCalendlyBooking } from "@/lib/calendly"
+import { fireConversion, trackEvent } from "@/lib/gtag"
 
 // Fires Google Ads click-conversions on the actual interaction (not on page
 // load). Uses a single capture-phase document listener – mirroring the
@@ -12,8 +13,9 @@ export function ConversionTracker() {
       const target = e.target as HTMLElement | null
       if (!target) return
 
-      // Calendly: same trigger selector the CalendlyHandler listens for.
-      if (target.closest('a[href*="#book"], [data-open-calendly="true"]')) {
+      // Calendly: the CalendlyHandler's popup triggers plus the inline
+      // booking card on the contact page.
+      if (target.closest('a[href*="#book"], [data-open-calendly="true"], [data-calendly-inline]')) {
         fireConversion("calendly")
         return
       }
@@ -31,8 +33,17 @@ export function ConversionTracker() {
       }
     }
 
+    // A completed booking (popup or inline) – the strongest lead signal.
+    const onMessage = (e: MessageEvent) => {
+      if (isCalendlyBooking(e)) trackEvent("generate_lead", { method: "calendly" })
+    }
+
     document.addEventListener("click", onClick, true)
-    return () => document.removeEventListener("click", onClick, true)
+    window.addEventListener("message", onMessage)
+    return () => {
+      document.removeEventListener("click", onClick, true)
+      window.removeEventListener("message", onMessage)
+    }
   }, [])
 
   return null

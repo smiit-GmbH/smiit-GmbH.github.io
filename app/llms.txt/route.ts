@@ -35,7 +35,7 @@ function build(): string {
     "",
     pair("Home", "", "Overview of smiit GmbH and our value proposition for SMEs."),
     pair("About", "about", "Who we are, our mission and values, and the founders."),
-    pair("Contact", "contact", "Email, phone, contact form and online appointment booking."),
+    pair("Contact", "contact", "Email, phone and online appointment booking."),
     "",
     "## Services",
     "",
