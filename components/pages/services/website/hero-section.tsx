@@ -169,13 +169,13 @@ export default function HeroSection({ dict, mockups }: HeroSectionProps) {
               {eyebrow}
             </span>
             <h1
-              className="enter-blur mx-auto mt-3 max-w-[20ch] font-serif text-[2.05rem] leading-[1.05] tracking-tight text-[#15151a] sm:text-[2.5rem] md:text-[3rem]"
+              className="enter-blur mx-auto mt-3 max-w-[20ch] font-serif text-h1 tracking-tight text-[#15151a]"
               style={{ "--enter-delay": "0.17s" } as React.CSSProperties}
             >
               {hero.title} <em className="not-italic text-[#F703EB]">{hero.titleHighlight}</em>
             </h1>
             <p
-              className="enter-blur mx-auto mt-4 max-w-[58ch] text-[0.95rem] leading-relaxed text-[#50505c] sm:text-[1rem] md:mt-5 md:text-[1.05rem]"
+              className="enter-blur mx-auto mt-4 max-w-[58ch] text-lead text-[#50505c] md:mt-5"
               style={{ "--enter-delay": "0.29s" } as React.CSSProperties}
             >
               {hero.description}

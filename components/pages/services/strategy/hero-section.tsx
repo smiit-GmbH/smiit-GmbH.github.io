@@ -109,12 +109,10 @@ export default function HeroSection({ lang, dict }: HeroSectionProps) {
           {/* Hero text */}
           <div className="text-center hero-rise">
             <span className="section-eyebrow">{eyebrowLabel}</span>
-            <h1 className="mx-auto mt-3 max-w-[18ch] font-serif text-[2.05rem] leading-[1.05] tracking-tight text-[#0B162D] sm:text-[2.5rem] md:text-[3rem]">
+            <h1 className="mx-auto mt-3 max-w-[18ch] font-serif text-h1 tracking-tight text-[#0B162D]">
               {hero?.title}
             </h1>
-            <p className="mx-auto mt-4 max-w-[58ch] text-[0.95rem] leading-relaxed text-[#0B162D]/70 sm:text-[1rem] md:mt-5 md:text-[1.05rem]">
-              {hero?.description}
-            </p>
+            <p className="mx-auto mt-4 max-w-[58ch] text-lead text-[#0B162D]/70 md:mt-5">{hero?.description}</p>
             <HeroPackages service="strategy" hero={hero} align="center" />
             <div className="mt-6 sm:mt-7">
               <Link

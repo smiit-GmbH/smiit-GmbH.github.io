@@ -24,9 +24,7 @@ export function AdvantagesSection({ dict }: AdvantagesSectionProps) {
     <section className="relative py-20 md:py-28">
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div ref={headingRef} className={`mb-12 md:mb-16 reveal-fade-up ${headingRevealed ? "revealed" : ""}`}>
-          <h2 className="font-serif text-[2rem] sm:text-[2.8rem] md:text-[3.4rem] leading-[1.1] tracking-tight text-black whitespace-pre-line">
-            {advantages.title}
-          </h2>
+          <h2 className="font-serif text-h2 tracking-tight text-black whitespace-pre-line">{advantages.title}</h2>
         </div>
 
         <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-3 gap-5">
@@ -41,9 +39,7 @@ export function AdvantagesSection({ dict }: AdvantagesSectionProps) {
                 >
                   <p className="text-xs font-medium tracking-wide mb-4 text-black/40">{item.label}</p>
 
-                  <h3 className="font-serif text-[1.4rem] md:text-[1.6rem] leading-[1.2] tracking-tight mb-4 text-[#21569c]">
-                    {item.title}
-                  </h3>
+                  <h3 className="font-serif text-h4 tracking-tight mb-4 text-[#21569c]">{item.title}</h3>
 
                   <p className="text-sm leading-relaxed text-black/60">{item.text}</p>
 

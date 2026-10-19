@@ -88,15 +88,12 @@ export default function GlossaryTermPage({
 
               <h1
                 lang={lang}
-                className="mt-5 font-serif text-[2.3rem] sm:text-[2.9rem] md:text-[3.2rem] leading-[1.05] tracking-tight text-[#0B162D] hyphens-auto break-words"
+                className="mt-5 font-serif text-h1 tracking-tight text-[#0B162D] hyphens-auto break-words"
               >
                 {term.title}
               </h1>
 
-              <p
-                className="mt-6 border-l-2 pl-5 text-[0.92rem] sm:text-[1.18rem] leading-relaxed text-[#0B162D]/85"
-                style={{ borderColor: color }}
-              >
+              <p className="mt-6 border-l-2 pl-5 text-lead text-[#0B162D]/85" style={{ borderColor: color }}>
                 {term.shortDefinition}
               </p>
 
@@ -132,7 +129,7 @@ export default function GlossaryTermPage({
       {term.misconceptions && term.misconceptions.length > 0 && (
         <section className="max-w-[1400px] mx-auto mt-20 px-4 sm:mt-24 sm:px-6 lg:px-8">
           <div className="rounded-[24px] border border-black/10 bg-[#0B162D]/[0.02] p-7 sm:p-9">
-            <h2 className="flex items-center gap-2.5 font-serif text-[1.55rem] sm:text-[1.9rem] leading-[1.12] tracking-tight text-[#0B162D]">
+            <h2 className="flex items-center gap-2.5 font-serif text-h4 tracking-tight text-[#0B162D]">
               <AlertTriangle className="h-5 w-5 shrink-0 text-[var(--area)]" aria-hidden />
               {ui.misconceptionsHeading}
             </h2>
@@ -140,9 +137,7 @@ export default function GlossaryTermPage({
               {term.misconceptions.map((item, i) => (
                 <li key={i} className="flex items-start gap-3">
                   <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--area)]" />
-                  <span className="text-[0.9rem] sm:text-[1.05rem] leading-[1.75] text-[#0B162D]/80 max-w-[72ch]">
-                    {item}
-                  </span>
+                  <span className="text-prose text-[#0B162D]/80 max-w-[72ch]">{item}</span>
                 </li>
               ))}
             </ul>
@@ -153,9 +148,7 @@ export default function GlossaryTermPage({
       {/* ── FAQ ── */}
       {term.faq.length > 0 && (
         <section className="max-w-[1400px] mx-auto mt-20 px-4 sm:mt-24 sm:px-6 lg:px-8">
-          <h2 className="font-serif text-[1.8rem] sm:text-[2.2rem] leading-[1.1] tracking-tight text-[#0B162D]">
-            {ui.faqHeading}
-          </h2>
+          <h2 className="font-serif text-h3 tracking-tight text-[#0B162D]">{ui.faqHeading}</h2>
           <div className="mt-8 space-y-4">
             {term.faq.map((item) => (
               <details
@@ -214,9 +207,7 @@ export default function GlossaryTermPage({
       {/* ── Related terms ── */}
       {related.length > 0 && (
         <section className="max-w-[1400px] mx-auto mt-20 px-4 sm:mt-24 sm:px-6 lg:px-8">
-          <h2 className="font-serif text-[1.8rem] sm:text-[2.2rem] leading-[1.1] tracking-tight text-[#0B162D]">
-            {ui.relatedTermsHeading}
-          </h2>
+          <h2 className="font-serif text-h3 tracking-tight text-[#0B162D]">{ui.relatedTermsHeading}</h2>
           <div className="mt-7 flex flex-wrap gap-1.5 sm:gap-2">
             {related.map((entry) =>
               entry.hasPage ? (
@@ -243,9 +234,7 @@ export default function GlossaryTermPage({
       {/* ── Quellen & weiterführende Links ── */}
       {term.sources && term.sources.length > 0 && (
         <section className="max-w-[1400px] mx-auto mt-20 px-4 sm:mt-24 sm:px-6 lg:px-8">
-          <h2 className="font-serif text-[1.8rem] sm:text-[2.2rem] leading-[1.1] tracking-tight text-[#0B162D]">
-            {ui.sourcesHeading}
-          </h2>
+          <h2 className="font-serif text-h3 tracking-tight text-[#0B162D]">{ui.sourcesHeading}</h2>
           <ul className="mt-7 space-y-3">
             {term.sources.map((source) => (
               <li key={source.url}>
@@ -273,9 +262,7 @@ export default function GlossaryTermPage({
       <section className="max-w-[1400px] mx-auto mt-16 px-4 pb-12 sm:px-6 sm:pb-24 lg:px-8">
         <div className="flex flex-col items-start gap-6 border-t border-black/10 pt-12 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h2 className="max-w-[28ch] font-serif text-[1.6rem] sm:text-[2rem] leading-[1.15] tracking-tight text-[#0B162D]">
-              {ui.ctaHeading}
-            </h2>
+            <h2 className="max-w-[28ch] font-serif text-h4 tracking-tight text-[#0B162D]">{ui.ctaHeading}</h2>
             <p className="mt-3 text-[0.78rem] text-[#0B162D]/45">
               {ui.updatedLabel}{" "}
               <time dateTime={term.dateModified} className="font-medium text-[#0B162D]/60">
@@ -318,12 +305,10 @@ function GlossarySectionBlock({
           <span className="font-mono text-[0.8rem] font-semibold tracking-[0.2em] text-[var(--area)]">
             {String(index + 1).padStart(2, "0")}
           </span>
-          <h2 className="mt-3 font-serif text-[1.55rem] sm:text-[1.9rem] leading-[1.12] tracking-tight text-[#0B162D]">
-            {heading}
-          </h2>
+          <h2 className="mt-3 font-serif text-h4 tracking-tight text-[#0B162D]">{heading}</h2>
         </div>
         <div>
-          <div className="space-y-4 text-[0.9rem] sm:text-[1.05rem] leading-[1.75] text-[#0B162D]/75 max-w-[68ch]">
+          <div className="space-y-4 text-prose text-[#0B162D]/75 max-w-[68ch]">
             {paragraphs.map((p, i) => (
               <p key={i}>{p}</p>
             ))}
@@ -333,7 +318,7 @@ function GlossarySectionBlock({
               {bullets.map((b, i) => (
                 <li key={i} className="flex items-start gap-3">
                   <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--area)]" />
-                  <span className="text-[0.9rem] sm:text-[1.05rem] leading-[1.75] text-[#0B162D]/80">{b}</span>
+                  <span className="text-prose text-[#0B162D]/80">{b}</span>
                 </li>
               ))}
             </ul>

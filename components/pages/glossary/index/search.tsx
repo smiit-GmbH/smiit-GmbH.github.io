@@ -88,9 +88,7 @@ export function GlossarySearchBody({
   return (
     <section aria-live="polite">
       <div className="flex items-baseline gap-3">
-        <h2 className="font-serif text-[1.6rem] sm:text-[2rem] leading-tight tracking-tight text-[#0B162D]">
-          {copy.results(results.length)}
-        </h2>
+        <h2 className="font-serif text-h4 tracking-tight text-[#0B162D]">{copy.results(results.length)}</h2>
         <button
           type="button"
           onClick={() => setQuery("")}

@@ -162,7 +162,7 @@ export default function ServiceCTA({ dict, service }: { dict: Dictionary; servic
           <DarkBackdrop glow={theme.glow} />
 
           <motion.h2
-            className="relative z-10 font-serif text-[1.8rem] sm:text-[2.2rem] leading-[1.15] tracking-tight text-white whitespace-pre-line"
+            className="relative z-10 font-serif text-h3 tracking-tight text-white whitespace-pre-line"
             variants={fadeUpVariants}
             transition={{ duration: 0.6, ease: "easeOut" }}
           >
@@ -175,7 +175,7 @@ export default function ServiceCTA({ dict, service }: { dict: Dictionary; servic
             )}
           </motion.h2>
           <motion.p
-            className="relative z-10 mt-3 sm:mt-4 text-[0.9rem] sm:text-base leading-relaxed text-white/70 max-w-[44ch]"
+            className="relative z-10 mt-3 sm:mt-4 text-body text-white/70 max-w-[44ch]"
             variants={fadeUpVariants}
             transition={{ duration: 0.5, ease: "easeOut" }}
           >

@@ -39,12 +39,8 @@ export function MissionSection({ dict }: { dict: Dictionary }) {
           variants={fadeUpVariants}
           transition={{ duration: 0.45, ease: "easeOut" }}
         >
-          <h2 className="font-serif text-[2.6rem] sm:text-[3.15rem] md:text-[3.6rem] leading-[1.05] tracking-tight text-black whitespace-pre-line text-balance">
-            {m.title}
-          </h2>
-          <p className="mt-4 text-sm sm:text-base leading-relaxed text-black/75 max-w-[54ch] mx-auto whitespace-pre-line">
-            {m.subtitle}
-          </p>
+          <h2 className="font-serif text-h2 tracking-tight text-black whitespace-pre-line text-balance">{m.title}</h2>
+          <p className="mt-4 text-body text-black/75 max-w-[54ch] mx-auto whitespace-pre-line">{m.subtitle}</p>
         </motion.div>
 
         {/* Mobile Layout */}
@@ -71,10 +67,8 @@ export function MissionSection({ dict }: { dict: Dictionary }) {
                 />
               </div>
               <div className="text-center max-w-[50ch]">
-                <h2 className="font-serif text-2xl sm:text-3xl leading-tight tracking-tight text-black">
-                  {value.title}
-                </h2>
-                <p className="mt-3 text-sm sm:text-base leading-relaxed text-black/75">{value.text}</p>
+                <h2 className="font-serif text-h3 tracking-tight text-black">{value.title}</h2>
+                <p className="mt-3 text-body text-black/75">{value.text}</p>
               </div>
             </motion.div>
           ))}
@@ -110,10 +104,8 @@ export function MissionSection({ dict }: { dict: Dictionary }) {
             variants={fadeUpVariants}
             transition={{ duration: 0.4, ease: "easeOut" }}
           >
-            <h2 className="font-serif text-2xl xl:text-[1.75rem] leading-tight tracking-tight text-black">
-              {m.values[1].title}
-            </h2>
-            <p className="mt-3 text-sm xl:text-base leading-relaxed text-black/75">{m.values[1].text}</p>
+            <h2 className="font-serif text-h4 tracking-tight text-black">{m.values[1].title}</h2>
+            <p className="mt-3 text-body text-black/75">{m.values[1].text}</p>
           </motion.div>
           <motion.div
             className="flex items-center justify-center"
@@ -138,10 +130,8 @@ export function MissionSection({ dict }: { dict: Dictionary }) {
             variants={fadeUpVariants}
             transition={{ duration: 0.4, ease: "easeOut" }}
           >
-            <h2 className="font-serif text-2xl xl:text-[1.75rem] leading-tight tracking-tight text-black">
-              {m.values[0].title}
-            </h2>
-            <p className="mt-3 text-sm xl:text-base leading-relaxed text-black/75">{m.values[0].text}</p>
+            <h2 className="font-serif text-h4 tracking-tight text-black">{m.values[0].title}</h2>
+            <p className="mt-3 text-body text-black/75">{m.values[0].text}</p>
           </motion.div>
           <motion.div
             className="flex items-center justify-center"
@@ -165,10 +155,8 @@ export function MissionSection({ dict }: { dict: Dictionary }) {
             variants={fadeUpVariants}
             transition={{ duration: 0.4, ease: "easeOut" }}
           >
-            <h2 className="font-serif text-2xl xl:text-[1.75rem] leading-tight tracking-tight text-black">
-              {m.values[2].title}
-            </h2>
-            <p className="mt-3 text-sm xl:text-base leading-relaxed text-black/75">{m.values[2].text}</p>
+            <h2 className="font-serif text-h4 tracking-tight text-black">{m.values[2].title}</h2>
+            <p className="mt-3 text-body text-black/75">{m.values[2].text}</p>
           </motion.div>
         </motion.div>
       </div>

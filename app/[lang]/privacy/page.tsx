@@ -363,7 +363,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ lang: 
 
         <div className="relative z-20 h-full flex items-end">
           <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 w-full pb-12 sm:pb-14 md:pb-16 lg:pb-20">
-            <h1 className="font-serif text-[2.35rem] sm:text-[2.8rem] md:text-[3.25rem] leading-[1.06] text-black tracking-tight">
+            <h1 className="font-serif text-h1 text-black tracking-tight">
               {isDe ? (
                 <>
                   <span className="sm:hidden">
@@ -387,7 +387,7 @@ export default async function PrivacyPage({ params }: { params: Promise<{ lang: 
             <div className="space-y-10">
               {L.sections.map((section) => (
                 <section key={section.title}>
-                  <h2 className="font-serif text-xl md:text-3xl text-black tracking-tight">{section.title}</h2>
+                  <h2 className="font-serif text-h4 text-black tracking-tight">{section.title}</h2>
 
                   <div className="text-sm mt-4 space-y-3 text-black/80 leading-relaxed">
                     {section.paragraphs?.map((text) => {

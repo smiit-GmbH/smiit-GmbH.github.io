@@ -108,7 +108,7 @@ function TimelineEntry({
               </span>
             </div>
 
-            <h2 className="mt-4 max-w-[26ch] font-serif text-[1.7rem] leading-[1.1] tracking-tight text-[#0B162D] transition-colors duration-300 group-hover:text-[var(--area)] sm:text-[2.05rem]">
+            <h2 className="mt-4 max-w-[26ch] font-serif text-h3 tracking-tight text-[#0B162D] transition-colors duration-300 group-hover:text-[var(--area)]">
               {post.title}
             </h2>
 
@@ -154,10 +154,10 @@ export default function BlogIndexPage({ lang, posts }: { lang: Locale; posts: Bl
             className="max-w-[88ch] hero-fade-up"
           >
             <span className="section-eyebrow">{ui.eyebrow}</span>
-            <h1 className="mt-4 max-w-[28ch] font-serif text-[2.8rem] sm:text-[3.4rem] md:text-[4rem] leading-[1.02] tracking-tight text-[#0B162D]">
+            <h1 className="mt-4 max-w-[28ch] font-serif text-display tracking-tight text-[#0B162D]">
               {ui.indexTitleLead} <span className="section-highlight">{ui.indexTitleHighlight}</span>
             </h1>
-            <p className="mt-6 max-w-[74ch] text-[1.05rem] sm:text-[1.15rem] leading-relaxed text-[#0B162D]/65">
+            <p className="mt-6 max-w-[74ch] text-lead text-[#0B162D]/65">
               {ui.indexSubtitle}
             </p>
             {posts.length > 0 && (

@@ -196,7 +196,7 @@ export default function ReferencesSection({ dict }: { dict: Dictionary }) {
           className="text-center mb-12 md:mb-20"
         >
           <span className="section-eyebrow justify-center">{eyebrow}</span>
-          <h2 className="font-serif text-[2.2rem] sm:text-[2.4rem] md:text-[3rem] leading-tight tracking-tight text-black max-w-4xl mx-auto">
+          <h2 className="font-serif text-h2 tracking-tight text-black max-w-4xl mx-auto">
             {refs.title}{" "}
             <span className="text-[#F703EB] inline-block relative isolate z-0">
               {refs.titleHighlight}

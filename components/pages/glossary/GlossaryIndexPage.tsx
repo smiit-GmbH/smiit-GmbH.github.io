@@ -34,9 +34,7 @@ function ClusterSection({
     >
       <div className="flex items-center gap-3">
         <span aria-hidden className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: meta.color }} />
-        <h2 className="font-serif text-[1.7rem] sm:text-[2.1rem] leading-[1.1] tracking-tight text-[#0B162D]">
-          {meta.label[lang]}
-        </h2>
+        <h2 className="font-serif text-h3 tracking-tight text-[#0B162D]">{meta.label[lang]}</h2>
       </div>
       <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {entries.map((entry) => (
@@ -73,12 +71,10 @@ export default function GlossaryIndexPage({
               {/* Left: heading (~72%) */}
               <div>
                 <span className="section-eyebrow">{ui.eyebrow}</span>
-                <h1 className="mt-2 font-serif text-[2.4rem] sm:text-[3.1rem] md:text-[3.6rem] leading-[1.03] tracking-tight text-[#0B162D]">
+                <h1 className="mt-2 font-serif text-display tracking-tight text-[#0B162D]">
                   {ui.indexTitleLead} <span className="section-highlight">{ui.indexTitleHighlight}</span>
                 </h1>
-                <p className="mt-5 text-[0.95rem] sm:text-[1.1rem] leading-relaxed text-[#0B162D]/65">
-                  {ui.indexSubtitle}
-                </p>
+                <p className="mt-5 text-lead text-[#0B162D]/65">{ui.indexSubtitle}</p>
 
                 <div className="mt-7 flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[0.78rem] font-medium text-[#0B162D]/45">
                   <span className="font-semibold text-[#0B162D]/70">{allEntries.length}</span>
@@ -122,12 +118,10 @@ export default function GlossaryIndexPage({
           >
             <div className="flex flex-col items-center gap-6 text-center lg:flex-row lg:items-center lg:justify-between lg:text-left">
               <div>
-                <h2 className="mx-auto max-w-[26ch] font-serif text-[1.8rem] sm:text-[2.4rem] leading-[1.1] tracking-tight text-white lg:mx-0">
+                <h2 className="mx-auto max-w-[26ch] font-serif text-h3 tracking-tight text-white lg:mx-0">
                   {ui.ctaHeading}
                 </h2>
-                <p className="mx-auto mt-4 max-w-[52ch] text-[0.85rem] sm:text-[0.92rem] leading-relaxed text-white/65 lg:mx-0">
-                  {ui.ctaSubtitle}
-                </p>
+                <p className="mx-auto mt-4 max-w-[52ch] text-body text-white/65 lg:mx-0">{ui.ctaSubtitle}</p>
               </div>
               <Link
                 href={`/${lang}/contact`}

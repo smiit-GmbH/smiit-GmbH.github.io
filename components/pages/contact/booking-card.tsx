@@ -43,7 +43,7 @@ export default function BookingCard({ dict, lang }: BookingCardProps) {
   if (status === "error") {
     return (
       <div className="flex flex-col items-center justify-center py-12 text-center">
-        <h2 className="font-serif text-xl md:text-2xl text-black mb-2">{b.errorTitle}</h2>
+        <h2 className="font-serif text-h4 text-black mb-2">{b.errorTitle}</h2>
         <p className="text-sm text-black/70 max-w-[40ch] leading-relaxed">
           {b.errorText}{" "}
           <a
@@ -59,7 +59,7 @@ export default function BookingCard({ dict, lang }: BookingCardProps) {
 
   const header = (
     <div>
-      <h2 className="font-serif text-2xl sm:text-[1.75rem] leading-tight text-black">{b.title}</h2>
+      <h2 className="font-serif text-h4 text-black">{b.title}</h2>
       <ul className="mt-3 flex flex-wrap gap-2">
         {b.facts.map((fact) => (
           <li
@@ -97,7 +97,7 @@ export default function BookingCard({ dict, lang }: BookingCardProps) {
 
       <ol className="space-y-3">
         {b.steps.map((step, i) => (
-          <li key={step} className="flex items-center gap-3 text-sm sm:text-base text-black">
+          <li key={step} className="flex items-center gap-3 text-body text-black">
             <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#F703EB]/10 text-[13px] font-semibold text-[#F703EB]">
               {i + 1}
             </span>

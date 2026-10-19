@@ -25,7 +25,7 @@ export default function FaqSection({
         <div className="grid grid-cols-1 gap-10 lg:grid-cols-[minmax(0,0.85fr)_minmax(0,1.4fr)] lg:gap-16 xl:gap-24">
           <Reveal as="div" className="lg:sticky lg:top-28 lg:self-start reveal-fade-up">
             {!compact && <span className="section-eyebrow">{dict.eyebrow}</span>}
-            <h2 className="font-serif text-[2.2rem] sm:text-[2.6rem] md:text-[3rem] leading-[1.05] tracking-tight text-black">
+            <h2 className="font-serif text-h2 tracking-tight text-black">
               {dict.heading.lead} <span className="section-highlight">{dict.heading.highlight}</span>
             </h2>
           </Reveal>
@@ -34,10 +34,10 @@ export default function FaqSection({
             <Accordion type="single" collapsible className="w-full">
               {dict.items.map((item, idx) => (
                 <AccordionItem key={idx} value={`faq-${idx}`} className="border-b border-slate-200/70">
-                  <AccordionTrigger className="text-left font-serif text-[1.2rem] sm:text-[1.4rem] md:text-[1.5rem] leading-[1.3] tracking-tight text-[#0B162D] py-6 sm:py-7 hover:no-underline cursor-pointer [&>svg]:size-5 [&>svg]:translate-y-1.5">
+                  <AccordionTrigger className="text-left font-serif text-h5 tracking-tight text-[#0B162D] py-6 sm:py-7 hover:no-underline cursor-pointer [&>svg]:size-5 [&>svg]:translate-y-1.5">
                     {item.question}
                   </AccordionTrigger>
-                  <AccordionContent className="text-base sm:text-[1.05rem] leading-[1.65] text-black/70 pb-7 pr-2 max-w-[78ch]">
+                  <AccordionContent className="text-body text-black/70 pb-7 pr-2 max-w-[78ch]">
                     {item.answer}
                   </AccordionContent>
                 </AccordionItem>

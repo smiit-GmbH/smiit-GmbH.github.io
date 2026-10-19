@@ -100,7 +100,7 @@ export function ReviewsSection({ dict, lang }: { dict: Dictionary; lang: Locale 
           ref={headingRef}
           className={`text-center mb-12 md:mb-16 reveal-fade-up ${headingRevealed ? "revealed" : ""}`}
         >
-          <h2 className="font-serif text-[2rem] sm:text-[2.8rem] md:text-[3.4rem] leading-[1.1] tracking-tight text-black">
+          <h2 className="font-serif text-h2 tracking-tight text-black">
             {reviews.heading.lead} <span className="text-[#21569c]">{reviews.heading.highlight}</span>
           </h2>
           <div className="mt-5 flex flex-col items-center gap-2">

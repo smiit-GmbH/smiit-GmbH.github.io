@@ -31,7 +31,7 @@ export function BlogBlockRenderer({
           </span>
           <h2
             id={id}
-            className="mt-3 scroll-mt-28 font-serif text-[1.55rem] sm:text-[1.9rem] leading-[1.12] tracking-tight text-[#0B162D]"
+            className="mt-3 scroll-mt-28 font-serif text-h4 tracking-tight text-[#0B162D]"
           >
             {block.text}
           </h2>
@@ -39,13 +39,13 @@ export function BlogBlockRenderer({
       )
     case "subheading":
       return (
-        <h3 className="mt-10 mb-4 scroll-mt-28 font-serif text-[1.25rem] sm:text-[1.5rem] leading-[1.2] tracking-tight text-[#0B162D]">
+        <h3 className="mt-10 mb-4 scroll-mt-28 font-serif text-h5 tracking-tight text-[#0B162D]">
           {block.text}
         </h3>
       )
     case "paragraph":
       return (
-        <p className="mb-5 text-[0.9rem] sm:text-[1.05rem] leading-[1.75] text-[#0B162D]/80">
+        <p className="mb-5 text-prose text-[#0B162D]/80">
           {linked ?? block.text}
           <Citations refs={block.refs} />
         </p>
@@ -56,7 +56,7 @@ export function BlogBlockRenderer({
           {block.items.map((item, i) => (
             <li key={i} className="flex items-start gap-3">
               <span className="mt-2.5 h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--area)]" />
-              <span className="text-[0.9rem] sm:text-[1.05rem] leading-[1.75] text-[#0B162D]/80">
+              <span className="text-prose text-[#0B162D]/80">
                 {Array.isArray(linked) ? linked[i] : item}
                 <Citations refs={block.itemRefs?.[i]} />
               </span>

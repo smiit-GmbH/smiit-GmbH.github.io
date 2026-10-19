@@ -128,7 +128,7 @@ export function HeroSection({ lang, dict }: { lang: Locale; dict: Dictionary }) 
             {/* Left Column: Text Content */}
             <div className="min-w-0 flex flex-col space-y-6 lg:space-y-10 z-10">
               <div className="flex flex-col items-start w-full">
-                <h1 className="font-serif text-[2rem] sm:text-[3.15rem] lg:text-[3rem] xl:text-[3.4rem] leading-tight text-black">
+                <h1 className="font-serif text-h1 text-black">
                   {a.titlePrefix}
                   <span className="text-[#21569c] inline-block relative isolate z-0 mx-1.5 sm:mx-2">
                     {a.titleHighlight}
@@ -149,9 +149,7 @@ export function HeroSection({ lang, dict }: { lang: Locale; dict: Dictionary }) 
                   {a.titleSuffix}
                 </h1>
 
-                <p className="mt-4 lg:mt-6 text-sm sm:text-base lg:text-lg text-black/75 max-w-[50ch] leading-relaxed">
-                  {a.description}
-                </p>
+                <p className="mt-4 lg:mt-6 text-lead text-black/75 max-w-[50ch]">{a.description}</p>
               </div>
 
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 pt-2">

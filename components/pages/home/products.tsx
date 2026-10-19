@@ -48,9 +48,7 @@ function ProductCard({
 
       {/* Text overlay */}
       <div className="relative z-10 p-6 md:p-7">
-        <h3 className="font-serif text-[1.55rem] md:text-[1.7rem] leading-[1.15] tracking-tight text-white whitespace-pre-line">
-          {item.title}
-        </h3>
+        <h3 className="font-serif text-h4 tracking-tight text-white whitespace-pre-line">{item.title}</h3>
         <p className="mt-3 text-[0.88rem] md:text-[0.9rem] leading-[1.7] text-white/85 max-w-[38ch]">{item.text}</p>
       </div>
     </>
@@ -117,10 +115,8 @@ export default function Products({ dict }: ProductsProps) {
           variants={fadeUpVariants}
           transition={{ duration: 0.7, ease: "easeOut" }}
         >
-          <h2 className="font-serif text-[2.1rem] sm:text-[2.8rem] md:text-[3.4rem] leading-[1.12] tracking-tight text-black whitespace-pre-line">
-            {products.title}
-          </h2>
-          <p className="mt-4 md:mt-5 text-sm md:text-[0.94rem] leading-relaxed text-black/65 max-w-[58ch] mx-auto whitespace-pre-line">
+          <h2 className="font-serif text-h2 tracking-tight text-black whitespace-pre-line">{products.title}</h2>
+          <p className="mt-4 md:mt-5 text-body text-black/65 max-w-[58ch] mx-auto whitespace-pre-line">
             {products.subtitle}
           </p>
         </motion.div>
