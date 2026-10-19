@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
-import { animate, motion, useMotionValue, useReducedMotion, useSpring } from "framer-motion"
+import { animate, m as motion, useMotionValue, useReducedMotion, useSpring } from "framer-motion"
 import type { Locale } from "@/lib/dictionary"
 import { serviceThemes, type ServiceKey } from "./service-theme"
 

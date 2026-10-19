@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { getDictionary, Locale } from "@/lib/dictionary"
 import HomePage from "@/components/pages/HomePage"
+import { MotionProvider } from "@/components/motion-provider"
 import { buildPageMetadata } from "@/lib/seo"
 
 export async function generateStaticParams() {
@@ -26,5 +27,9 @@ export default async function Page({ params }: { params: Promise<{ lang: Locale 
   const { lang } = await params
   const dict = getDictionary(lang)
 
-  return <HomePage lang={lang} dict={dict} />
+  return (
+    <MotionProvider>
+      <HomePage lang={lang} dict={dict} />
+    </MotionProvider>
+  )
 }

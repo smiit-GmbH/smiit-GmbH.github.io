@@ -3,7 +3,7 @@
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { ChevronRight } from "lucide-react"
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion"
+import { m as motion, useReducedMotion, useScroll, useTransform } from "framer-motion"
 import { useRef } from "react"
 import LocalizedLink from "@/components/localized-link"
 import type { Dictionary } from "@/lib/dictionary"

@@ -1,7 +1,7 @@
 "use client"
 
 import { useRef } from "react"
-import { motion, type MotionValue, useReducedMotion, useScroll, useTransform } from "framer-motion"
+import { m as motion, type MotionValue, useReducedMotion, useScroll, useTransform } from "framer-motion"
 import type { Dictionary } from "@/lib/dictionary"
 import { getServiceDict, serviceThemes, type ServiceKey } from "./service-theme"
 

@@ -1,6 +1,6 @@
 "use client"
 
-import { motion, type MotionStyle } from "framer-motion"
+import { m as motion, type MotionStyle } from "framer-motion"
 import { Minus, TrendingDown, TrendingUp } from "lucide-react"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import type { Locale } from "@/lib/dictionary"

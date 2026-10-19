@@ -1,6 +1,6 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { m as motion } from "framer-motion"
 import { ArrowUpRight, ShieldCheck } from "lucide-react"
 import { useActiveInView } from "@/hooks/use-active-in-view"
 import { CountUp, MobileVisualShell } from "@/components/pages/services/shared/portfolio/visual-kit"

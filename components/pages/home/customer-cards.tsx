@@ -3,7 +3,7 @@
 import { Card, CardTitle } from "@/components/ui/card"
 import Image from "next/image"
 import { useEffect, useRef } from "react"
-import { motion } from "framer-motion"
+import { m as motion } from "framer-motion"
 import { useLenis } from "@/components/smooth-scroll-provider"
 import type { Dictionary } from "@/lib/dictionary"
 

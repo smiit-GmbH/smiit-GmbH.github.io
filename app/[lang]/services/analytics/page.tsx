@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import { getDictionary, Locale } from "@/lib/dictionary"
 import AnalyticsPage from "@/components/pages/services/AnalyticsPage"
+import { MotionProvider } from "@/components/motion-provider"
 import { buildBreadcrumbJsonLd, buildPageMetadata, buildServiceJsonLd } from "@/lib/seo"
 import { JsonLd } from "@/components/seo/json-ld"
 
@@ -57,7 +58,9 @@ export default async function Page({ params }: { params: Promise<{ lang: Locale 
     <>
       <JsonLd data={serviceJsonLd} />
       <JsonLd data={breadcrumbJsonLd} />
-      <AnalyticsPage lang={lang} dict={dict} />
+      <MotionProvider>
+        <AnalyticsPage lang={lang} dict={dict} />
+      </MotionProvider>
     </>
   )
 }

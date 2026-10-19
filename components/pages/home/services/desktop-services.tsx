@@ -1,7 +1,7 @@
 "use client"
 
 import { useCallback, useEffect, useRef, useState } from "react"
-import { motion, useInView, useReducedMotion } from "framer-motion"
+import { m as motion, useInView, useReducedMotion } from "framer-motion"
 import dynamic from "next/dynamic"
 import { DirectionalWaves } from "./directional-waves"
 import { ServiceCard } from "./service-card"

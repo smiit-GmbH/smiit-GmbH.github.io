@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useId, useRef, useState } from "react"
-import { motion, useInView, type MotionStyle } from "framer-motion"
+import { m as motion, useInView, type MotionStyle } from "framer-motion"
 import { TrendingUp } from "lucide-react"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { useActiveInView } from "@/hooks/use-active-in-view"

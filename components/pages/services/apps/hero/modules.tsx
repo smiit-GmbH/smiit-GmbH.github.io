@@ -1,6 +1,6 @@
 "use client"
 
-import { motion, type MotionStyle } from "framer-motion"
+import { m as motion, type MotionStyle } from "framer-motion"
 import { useActiveInView } from "@/hooks/use-active-in-view"
 import type { Locale } from "@/lib/dictionary"
 import { Priority, Dataset } from "./data"

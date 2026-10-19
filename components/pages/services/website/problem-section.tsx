@@ -1,6 +1,6 @@
 "use client"
 
-import { motion, useReducedMotion } from "framer-motion"
+import { m as motion, useReducedMotion } from "framer-motion"
 import { X, Check } from "lucide-react"
 import type { Dictionary } from "@/lib/dictionary"
 

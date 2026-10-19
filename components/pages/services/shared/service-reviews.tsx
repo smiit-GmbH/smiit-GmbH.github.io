@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import { useCallback, useEffect, useMemo, useRef, useState } from "react"
-import { animate, motion, useMotionValue, useReducedMotion } from "framer-motion"
+import { animate, m as motion, useMotionValue, useReducedMotion } from "framer-motion"
 import { Carousel, CarouselContent, CarouselItem, type CarouselApi } from "@/components/ui/carousel"
 import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
 import { useActiveInView } from "@/hooks/use-active-in-view"

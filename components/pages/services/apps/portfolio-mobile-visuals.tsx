@@ -1,6 +1,6 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { m as motion } from "framer-motion"
 import { CountUp, MobileVisualShell } from "@/components/pages/services/shared/portfolio/visual-kit"
 import type { VisualLabels } from "./portfolio-visuals"
 

@@ -1,6 +1,6 @@
 "use client"
 
-import { motion, useReducedMotion } from "framer-motion"
+import { m as motion, useReducedMotion } from "framer-motion"
 import { CheckCircle2 } from "lucide-react"
 import { useRevealOnScroll } from "@/hooks/use-reveal-on-scroll"
 import type { Dictionary } from "@/lib/dictionary"
