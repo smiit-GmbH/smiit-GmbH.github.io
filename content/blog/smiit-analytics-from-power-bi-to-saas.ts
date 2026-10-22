@@ -19,10 +19,10 @@ const smiitAnalyticsSaas: LocalizedBlogPost = {
     excerpt:
       "Was als Reihe individueller Power-BI-Projekte für bexio-Kunden begann, ist heute eine eigene Analytics-Plattform. Ein Erfahrungsbericht über ein Geschäftsmodell, das nicht funktionierte, die Architekturentscheidungen danach und das, was wir bei der Entwicklung mit KI-Agents gelernt haben.",
     coverImage: {
-      url: `${SA}/ai-report-editing.webp`,
-      width: 1950,
-      height: 1054,
-      alt: "Berichte bearbeiten mit KI in smiit Analytics: Anweisung im Chat, Editor passt den Bericht an, KI erklärt die Änderungen",
+      url: `${SA}/screenshot-standard-report.webp`,
+      width: 1916,
+      height: 941,
+      alt: "Standardbericht in smiit Analytics, Seite „Übersicht“ mit Kennzahlen, Umsatzverlauf, Top-Kunden und offenen Forderungen",
     },
 
     blocks: [
@@ -631,10 +631,10 @@ const smiitAnalyticsSaas: LocalizedBlogPost = {
     excerpt:
       "What started as a series of individual Power BI projects for bexio customers is now an analytics platform of its own. A first-hand account of a business model that didn't work, the architecture decisions that followed and what we learned building it with AI agents.",
     coverImage: {
-      url: `${SA}/ai-report-editing-en.webp`,
-      width: 1950,
-      height: 1050,
-      alt: "Editing reports with AI in smiit Analytics: instruction in the chat, the editor updates the report, the AI explains the changes",
+      url: `${SA}/screenshot-standard-report.webp`,
+      width: 1916,
+      height: 941,
+      alt: "Standard report in smiit Analytics, “Overview” page with KPIs, revenue trend, top customers and open receivables",
     },
 
     blocks: [
