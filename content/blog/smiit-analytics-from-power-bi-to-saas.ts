@@ -109,8 +109,8 @@ const smiitAnalyticsSaas: LocalizedBlogPost = {
       {
         type: "image",
         src: `${SA}/business-model.webp`,
-        width: 3600,
-        height: 1560,
+        width: 3509,
+        height: 1496,
         maxWidth: 1040,
         alt: "Vergleich der Betriebsmodelle: Bisher wurde Power BI in jeder Kundenumgebung einzeln eingerichtet und angepasst, abgerechnet per Einmalpreis und Aufwand. Heute bedient eine zentral betriebene SaaS-Plattform viele bexio-Firmen per Abo, mit Standard und KI-Selfservice.",
         caption: "Vom Projekt mit Produktetikett zur echten SaaS: Erst der zentrale Betrieb macht ein faires Abo und Updates für alle möglich.",
@@ -721,8 +721,8 @@ const smiitAnalyticsSaas: LocalizedBlogPost = {
       {
         type: "image",
         src: `${SA}/business-model-en.webp`,
-        width: 3600,
-        height: 1560,
+        width: 3840,
+        height: 1432,
         maxWidth: 1040,
         alt: "Comparison of operating models: previously, Power BI was set up and customised in each customer environment, billed via a one-off price and effort. Today, a centrally operated SaaS platform serves many bexio companies on subscription, with standard reports and AI self-service.",
         caption: "From a project with a product label to real SaaS: only central operation makes a fair subscription and updates for everyone possible.",
