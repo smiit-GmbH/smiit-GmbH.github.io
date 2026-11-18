@@ -15,7 +15,8 @@ export const products: Dictionary["products"] = {
       title: "smiit Analytics\nfor bexio",
       text: "Our bexio analysis dashboard for Swiss users automates your evaluations and consolidates all KPIs from bexio in clear reporting.",
       image: "/assets/home/smiit_analytics.webp",
-      href: "/products/smiit-analytics",
+      href: "https://www.smiit-analytics.de/en/",
+      external: true,
     },
     {
       title: "Azai\nElevate",

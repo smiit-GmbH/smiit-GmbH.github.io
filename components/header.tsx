@@ -99,7 +99,7 @@ export default function Header({ forceLang, darkHero: darkHeroProp }: { forceLan
   const webappsWorkflowsHref = `${base}/services/apps`
   const analyticsHref = `${base}/services/analytics`
   const consultingHref = `${base}/services/strategy`
-  const smiitAnalyticsHref = `${base}/products/smiit-analytics`
+  const smiitAnalyticsHref = `https://www.smiit-analytics.de/${lang}/`
   const aboutHref = `${base}/about`
   const contactHref = `${base}/contact`
   const caseStudiesHref = `${base}/case-studies`
@@ -113,7 +113,7 @@ export default function Header({ forceLang, darkHero: darkHeroProp }: { forceLan
   const productLinks: Array<
     { type: "internal"; href: string; label: string } | { type: "external"; href: string; label: string }
   > = [
-    { type: "internal", href: smiitAnalyticsHref, label: L.smiitAnalytics },
+    { type: "external", href: smiitAnalyticsHref, label: L.smiitAnalytics },
     { type: "external", href: "https://www.azai.ch", label: L.azaiElevate },
   ]
 
