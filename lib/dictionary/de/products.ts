@@ -14,7 +14,7 @@ export const products = {
       title: "smiit Analytics\nfür bexio",
       text: "Unser bexio Analysedashboard für Schweizer Nutzer automatisiert Ihre Auswertungen und konsolidiert alle KPIs aus bexio in übersichtlichen Reports.",
       image: "/assets/home/smiit_analytics.webp",
-      href: "https://www.smiit-analytics.de/de/",
+      href: "https://www.smiit-analytics.com/de/",
       external: true,
     },
     {

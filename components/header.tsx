@@ -99,7 +99,7 @@ export default function Header({ forceLang, darkHero: darkHeroProp }: { forceLan
   const webappsWorkflowsHref = `${base}/services/apps`
   const analyticsHref = `${base}/services/analytics`
   const consultingHref = `${base}/services/strategy`
-  const smiitAnalyticsHref = `https://www.smiit-analytics.de/${lang}/`
+  const smiitAnalyticsHref = `https://www.smiit-analytics.com/${lang}/`
   const aboutHref = `${base}/about`
   const contactHref = `${base}/contact`
   const caseStudiesHref = `${base}/case-studies`
